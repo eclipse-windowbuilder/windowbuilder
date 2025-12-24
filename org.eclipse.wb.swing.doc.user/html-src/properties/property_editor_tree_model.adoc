@@ -1,0 +1,12 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties/
+endif::[]
+
+= Tree Model Editor
+
+image:images/property_editor_tree_model1.gif[image]
+
+Click the image:images/ellipses.gif[image] button to access the *Tree Model Editor* and enter multiple tree items. Each
+line is treated as a separate tree item. Indenting an item makes it a child of the item above it.
+
+image:images/property_editor_tree_model2.gif[image]

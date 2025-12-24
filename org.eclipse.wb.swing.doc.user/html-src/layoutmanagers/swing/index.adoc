@@ -1,0 +1,40 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= Swing Designer Layout Managers
+
+*Swing Designer* supports the following layout managers.
+
+[cols="^25%,^25%,^25%,^25%"]
+|===
+a| xref:absolutelayout.adoc[*Absolute Layout*]
+a| xref:flowlayout.adoc[*FlowLayout*]
+a| xref:borderlayout.adoc[*BorderLayout*]
+a| xref:gridlayout.adoc[*GridLayout*]
+
+a| image:images/al_small.gif[image]
+a| image:images/fl_small.gif[image]
+a| image:images/bl_small.gif[image]
+a| image:images/gl_small.gif[image]
+
+a| xref:gridbaglayout.adoc[*GridBagLayout*]
+a| xref:cardlayout.adoc[*CardLayout*]
+a| xref:springlayout.adoc[*SpringLayout*]
+a| xref:grouplayout.adoc[*GroupLayout*]
+
+a| image:images/gbl_small.gif[image]
+a| image:images/cl_small.gif[image]
+a| image:images/sl_small.gif[image]
+a| image:images/group_small.gif[image]
+
+a| xref:boxlayout.adoc[*BoxLayout]
+a| xref:jgoodies_formlayout.adoc[*JGoodies FormLayout*]
+a| xref:miglayout.adoc[*MiGLayout*]
+a|
+
+a| image:images/boxl_small.gif[image]
+a| image:images/jgfl_small.gif[image]
+a| image:images/mig_small.gif[image]
+a|
+|===

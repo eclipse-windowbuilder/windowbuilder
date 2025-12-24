@@ -1,0 +1,74 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= Swing SpringLayout
+
+SpringLayout class that implements an constraint-based layout manager.
+With constraint-based layout, you have independent control over the
+sizing behavior of each of the four sides of a widget. The top, bottom,
+left, and right sides can be independently attached to the sides of the
+parent container or the sides of any sibling widget within the same
+container using either fixed or relative offsets. This proves to be
+surprisingly powerful and can be used to emulate almost any of the other
+layout managers. The SpringLayout class is very simple and only
+specifies the margins of the container.
+
+- xref:#MainFeatures[*Main Features*]
+- xref:#GraphicalFeedback[*Graphical Feedback*]
+
+[#MainFeatures]
+== Main Features
+
+- Select *SpringLayout* from the *Layouts* palette and drop it on a JFrame or JPanel
++
+image:images/sl_design_view.gif[image]
+
+- Graphical feedback is provided for all widget size and position operations
++
+image:images/sl_indent1.gif[image] image:images/sl_margins3.gif[image]
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+- Position and size widgets using SpringLayout constraints
++
+image:images/sl_position1.gif[image]
+image:images/sl_size1.gif[image]
+
+- Align widgets horizontally and vertically
++
+image:images/sl_alignment7.gif[image]
+image:images/sl_alignment8.gif[image]
+
+- Indent widgets intelligently
++
+image:images/sl_indent1.gif[image]
+image:images/sl_indent2.gif[image]
+
+- Align widgets to margins
++
+image:images/sl_margins1.gif[image]
+image:images/sl_margins2.gif[image]
+image:images/sl_margins3.gif[image]
+
+- Anchor widgets to the left, right or both sides
++
+image:images/sl_alignment1.gif[image]
+image:images/sl_alignment2.gif[image]
+image:images/sl_alignment3.gif[image]
+
+- Anchor widgets to the top, bottom or both sides
++
+image:images/sl_alignment4.gif[image]
+image:images/sl_alignment5.gif[image]
+image:images/sl_alignment6.gif[image]
+
+- Set anchors via popup context menus
++
+image:images/sl_alignment_menu1.gif[image]
+image:images/sl_alignment_menu2.gif[image]
+
+- Align and center widgets using toolbar
++
+image:images/align_toolbar.gif[image]

@@ -1,0 +1,55 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swing/
+endif::[]
+
+= Preferences - Swing
+
+image:images/preferences_swing.gif[image]
+
+Here is the list of *Swing Designer* preference pages:
+
+* xref:preferences_code_generation.adoc[*Code Generation*]
+** xref:preferences_event_handlers.adoc[*Event Handlers*]
+** xref:preferences_nls.adoc[*NLS*]
+** xref:preferences_variables.adoc[*Variables*]
+* xref:preferences_layouts.adoc[*Layouts*]
+** xref:preferences_absolute.adoc[*Absolute*]
+** xref:preferences_gridbaglayout.adoc[*GridBagLayout*]
+** xref:preferences_jgoodies_formlayout.adoc[*JGoodies FormLayout*]
+** xref:preferences_miglayout.adoc[*MiGLayout*]
+* xref:preferences_lookandfeel.adoc[*LookAndFeel*]
+
+== Default form width & height
+
+These preferences control the default form size used for any window or dialog created by *Swing Designer*.
+
+== Highlight containers without borders
+
+This preference determines whether *Swing Designer* draws a dotted rectangle around borderless JPanels.
+
+image:images/show_borders.gif[image]
+
+== Show text in components tree
+
+This preference determines whether the text label of a widget (like a button, label, etc.) is shown next to the widget's
+name in the *Component Tree*.
+
+--
+image:images/tree_text_on.gif[image]
+image:images/tree_text_off.gif[image]
+--
+
+== Show important properties dialog on component adding
+
+This preference controls whether the important properties dialog is shown whenever a new widget is created. The
+important properties dialog provides access to the widget's name, text and icon properties and style settings.
+
+image:images/important_properties.gif[image]
+
+== Automatically activate direct edit on component adding
+
+This preference controls whether *direct edit* mode is automatically invoked when a new component is added to the
+window. When this option is enabled, it makes it easy to immediately set the text label on a widget as soon as it is
+created.
+
+image:images/direct_edit.gif[image,width=230]

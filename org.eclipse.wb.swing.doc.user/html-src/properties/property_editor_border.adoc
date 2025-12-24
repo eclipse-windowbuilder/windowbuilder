@@ -1,0 +1,171 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties/
+endif::[]
+
+= Border Editor
+
+image:images/property_editor_border1.gif[image,width=237,height=18]
+
+Click the image:images/ellipses.gif[image] button to access the *Border Editor* and configure a border. Select the
+border type from the drop down list and then choose options unique to that border types. Three previews of what the
+border will look like are shown at the bottom of the dialog.
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_default.gif[image]
+a|
+The following border types are supported:
+
+- xref:#BevelBorder[*BevelBorder*]
+- xref:#CompoundBorder[*CompoundBorder*]
+- xref:#EmptyBorder[*EmptyBorder*]
+- xref:#EtchedBorder[*EtchedBorder*]
+- xref:#LineBorder[*LineBorder*]
+- xref:#MatteBorder[*MatteBorder*]
+- xref:#SoftBevelBorder[*SoftBevelBorder*]
+- xref:#TitledBorder[*TitledBorder*]
+- xref:#Swing[*Swing*]
+|===
+
+[#BevelBorder]
+== BevelBorder
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_bevel.gif[image]
+a|
+- Select a bevel type: *raised* or *lowered*
+- Select a *highlight outer color*
+- Select a *highlight inner color*
+- Select a *shadow outer color*
+- Select a *shadow inner color*
+- Choose a color using the *Select Color* button +
+  image:images/select_color.gif[image]
+- Reset to the default color using the *Clear Color* button +
+  image:images/clear_color.gif[image]
+|===
+
+[#CompoundBorder]
+== CompoundBorder
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_compound.gif[image]
+a|
+- Create an *outside border* by clicking the *Edit* button
+- Create an *inside border* by clicking the *Edit* button
+- Swap the two borders using the *Swap* button
+|===
+
+[#EmptyBorder]
+== EmptyBorder
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_empty.gif[image]
+a|
+- Specify the *top*, *left*, *bottom* and *right* insets
+|===
+
+[#EtchedBorder]
+== EtchedBorder
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_etched.gif[image]
+a|
+- Select an etch type: *raised* or *lowered*
+- Select a *highlight color*
+- Select a *shadow color*
+- Choose a color using the *Select Color* button +
+  image:images/select_color.gif[image]
+- Reset to the default color using the *Clear Color* button +
+  image:images/clear_color.gif[image]
+|===
+
+[#LineBorder]
+== LineBorder
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_line.gif[image]
+a|
+- Select a *color*
+- Specify the *thickness*
+- Select a corner type: *square* or *rounded*
+- Choose a color using the *Select Color* button +
+  image:images/select_color.gif[image]
+- Reset to the default color using the *Clear Color* button +
+  image:images/clear_color.gif[image]
+|===
+
+[#MatteBorder]
+== MatteBorder
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_matte.gif[image]
+a|
+- Select a *color*
+- Specify the *top*, *left*, *bottom* and *right* insets
+- Choose a color using the *Select Color* button +
+  image:images/select_color.gif[image]
+- Reset to the default color using the *Clear Color* button +
+  image:images/clear_color.gif[image]
+|===
+
+[#SoftBevelBorder]
+== SoftBevelBorder
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_softbevel.gif[image]
+a|
+- Select a bevel type: *raised* or *lowered*
+- Select a *highlight outer color*
+- Select a *highlight inner color*
+- Select a *shadow outer color*
+- Select a *shadow inner color*
+- Choose a color using the *Select Color* button +
+  image:images/select_color.gif[image]
+- Reset to the default color using the *Clear Color* button +
+  image:images/clear_color.gif[image]
+|===
+
+[#TitledBorder]
+== TitledBorder
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_titled.gif[image]
+a|
+- Enter a *title*
+- Select a *title justification*
+- Select a *title position*
+- Select a *title color*
+- Create an *border* by clicking the *Edit* button
+- Choose a color using the *Select Color* button +
+  image:images/select_color.gif[image]
+- Reset to the default color using the *Clear Color* button +
+  image:images/clear_color.gif[image]
+|===
+
+[#Swing]
+== Swing
+
+[cols="10%,90%"]
+|===
+a|
+image:images/property_editor_border_swing.gif[image]
+a|
+- Choose a built-in Swing border style
+|===

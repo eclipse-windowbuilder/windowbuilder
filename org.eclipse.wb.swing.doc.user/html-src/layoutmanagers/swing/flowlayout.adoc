@@ -1,0 +1,44 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= Swing FlowLayout
+
+A *FlowLayout* arranges components in a directional flow, much like lines of text in a paragraph. *FlowLayouts* are
+typically used to arrange buttons in a panel. It arranges buttons horizontally until no more buttons fit on the same
+line. The line alignment is determined by the align property.
+
+- xref:#MainFeatures[Main Features]
+- xref:#GraphicalFeedback[Graphical Feedback]
+
+[#MainFeatures]
+== Main Features
+
+- Select *FlowLayout* from the *Layouts* palette and drop it on a JFrame or JPanel
++
+image:images/fl_design_view.gif[image]
+
+- Graphical feedback is provided for all drop and move interactions
++
+image:images/fl_drop1.gif[image]
+image:images/fl_move1.gif[image]
+
+- Horizontal and vertical gaps can be specified using the *Property Pane*
++
+image:images/fl_properties1.gif[image] image:images/fl_gaps.gif[image]
+
+- Horizontal alignment can be specified using the *Property Pane*
++
+image:images/fl_properties2.gif[image]
+image:images/fl_align_right.gif[image]
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+- When moving a widget or adding a new widget, the current drop point is highlighted in red
++
+image:images/fl_drop1.gif[image]
+image:images/fl_drop2.gif[image]
++
+image:images/fl_move1.gif[image]
+image:images/fl_move2.gif[image]

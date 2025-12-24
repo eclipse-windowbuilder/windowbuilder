@@ -1,0 +1,29 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swing/
+endif::[]
+
+= NLS
+
+image:images/preferences_nls.gif[image]
+
+This page is used to control various *SWT > Code Generation > NLS* options.
+
+== Automatically externalize string properties, if class contains externalized properties
+
+This preference determines whether Designer will automatically externalize the string properties for new widgets as they
+are added. This preference only applies to classes that have already had their strings externalized.
+
+== Use qualified name in keys
+
+This preference determines whether qualified names are used to create keys.
+
+== Key as value prefix
+
+This preference determines what prefix should be used for NLS keys directly entered into the property pane.
+
+image:images/nls_key_as_value.gif[image]
+
+== Always visible locales
+
+This preference determines what locales should always be listed. This should be a comma separated list such as "en, de,
+ru".

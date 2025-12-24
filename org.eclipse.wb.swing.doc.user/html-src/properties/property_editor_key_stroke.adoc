@@ -1,0 +1,12 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties/
+endif::[]
+
+= Key Stroke Editor
+
+image:images/property_editor_key_stroke1.gif[image]
+
+Click the image:images/ellipses.gif[image] button to access the *Key Stroke Editor* and enter a key stroke combination.
+Any combination of modifiers can be selected as well as a single key code.
+
+image:images/property_editor_key_stroke2.gif[image]

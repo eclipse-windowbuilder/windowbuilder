@@ -1,0 +1,217 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= MiGLayout
+
+*MiGLayout* is the most versatile and flexible Swing and SWT Layout Manager for Java, yet it is very easy to learn and
+use. It is using String _or_ API type-checked constraints to format the layout. *MiGLayout* can produce flowing, grid
+based, absolute (with links), grouped and docking layouts. You will never have to switch to another layout manager ever
+again! *MiGLayout* is created to be to manually coded layouts what Matisse/GroupLayout is to IDE supported visual
+layouts.
+
+This layout also requires the use of the *MiGLayout* jar file (miglayout-3.6.jar or higher).
+
+- xref:#MainFeatures[Main Features]
+- xref:#PopupHeaderMenu[Popup Header Menu]
+- xref:#GraphicalFeedback[Graphical Feedback]
+- xref:#ColumnRowEditing[Column&#44; Row & Cell Editing]
+- xref:#Preferences[Preferences]
+- xref:#SourceCodeGenerationParsing[Source Code Generation & Parsing]
+
+____
+This feature is based on technology from MiG InfoCom AB. +
+http://www.miglayout.com/ +
+Copyright © 2006-2007 MiG InfoCom AB
+____
+
+[#MainFeatures]
+== Main Features
+
+- Select *MiGLayout* from the *Layouts* palette and drop it on a JFrame or JPanel
++
+image:images/mig_design_view.gif[image]
+
+- The *MiGLayout* jar file (miglayout-3.6.jar) will automatically be added to your project and the classpath adjusted
+- Graphical feedback is provided for all column, row and cell interactions
+- Column and row properties may be changed via a popup menu or property dialog
+- Convert existing layouts (null, *GridBagLayout*, etc.) to *MiGLayout* with intelligent column and row creation
++
+image:images/null_convert.gif[image]
+image:images/mig_convert.gif[image]
+
+[#PopupHeaderMenu]
+== Popup Header Menu
+
+- Right-click on the header area to access the popup header menu
++
+image:images/mig_menu_row.gif[image] 
+image:images/mig_menu_column.gif[image]
+
+- Insert new columns or rows before the current column or row
+- Add a new column or row at the end of the current list
+- Delete entire columns or rows or just their widget contents
+- Set the column alignment to left, right, center or fill
+- Specify that the column or row should grow to fill the available space
+- Set columns and rows to default or preferred sizes
+- Edit the properties of the current column or row
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+- When moving a widget or adding a new widget, open cells are highlighted green while populated cells are highlighted
+red and insertion points are highlighted in yellow
++
+image:images/mig_add1.gif[image]
+image:images/mig_add2.gif[image]
++
+image:images/mig_add3.gif[image]
+
+- Phantom drop point to the right and below the current cells will create new columns and rows as needed
++
+image:images/mig_move1.gif[image] image:images/mig_move2.gif[image]
+
+- The currently selected cell shows its column and row spanning handles and alignment handles
++
+image:images/mig_alignment_one.gif[image]
+
+- Set the alignment of a cell using its popup alignment menu or the toolbar
++
+image:images/mig_toolbar.gif[image]
++
+image:images/mig_cell_align1.gif[image]
+image:images/mig_cell_align2.gif[image]
+
+- Right-click on a column to set its grow property
++
+image:images/mig_grow1.gif[image] image:images/mig_grow2.gif[image]
+
+- Column and row sizing handles make it easy to set the size of a column or row
++
+image:images/mig_resize_column1.gif[image]
+image:images/mig_resize_column2.gif[image]
++
+image:images/mig_resize_row1.gif[image]
+image:images/mig_resize_row2.gif[image]
+
+- Reorder columns and rows by dragging them
++
+image:images/mig_reorder_row1.gif[image]
+image:images/mig_reorder_row2.gif[image]
++
+image:images/mig_reorder_row3.gif[image]
+
+- Column and rows borders are indicated with gray lines
++
+image:images/mig_gray_lines.gif[image]
+
+- Interactive column and row spanning feedback is provided
++
+image:images/mig_span1.gif[image] image:images/mig_span2.gif[image]
+
+- Split cells horizontally or vertically
++
+image:images/mig_cell_split1.gif[image]
+image:images/mig_cell_split2.gif[image]
+
+- Full keyboard support for quickly changing alignment values
++
+[cols="50%,50%", options="header"]
+|===
+2+|
+Cells
+|
+D
+|
+default horizontal
+|
+Shift+D
+|
+default vertical
+|
+F
+|
+fill horizontal
+|
+Shift+F
+|
+fill vertical
+|
+L, C, R
+|
+left/center/right for horizontal
+|
+T, M, B
+|
+top/middle/bottom for vertical
+|===
+
+[#ColumnRowEditing]
+== Column, Row & Cell Editing
+
+- Double click on a column or row to access its property dialog
+- Switch between columns and rows using the arrow buttons
++
+image:images/mig_column_properties1.gif[image]
+image:images/mig_row_properties1.gif[image]
+
+- Enter arbitrary specifications into the Specification field
+- Set the column or row alignment
+- Specify the resize behavior and the relative weights of each column or row
+- Set the minimum, maximum and preferred size of the column or row
++
+image:images/mig_column_properties2.gif[image]
+image:images/mig_row_properties2.gif[image]
+
+- Floating layout assistant for cell constraints image:images/assistant.gif[image]
++
+image:images/mig_layout_assistant_cell.gif[image]
+
+- Edit individual constraint properties for each widget in the *Property Pane* or the right-click context menu of the
+widget.
++
+image:images/mig_properties.gif[image]
+image:images/mig_cell_menu.gif[image]
+
+- Click the "..." button to specify an arbitrary cell constraint specification (such as docking)
++
+image:images/mig_cell_specifications.gif[image]
+image:images/mig_cell_docking.gif[image]
+
+- Specify arbitrary layout, column & row constraints (such as panel insets)
++
+image:images/mig_property_layout_constraints.gif[image]
+image:images/mig_property_col_constraints.gif[image]
++
+image:images/mig_panel_insets.gif[image]
+
+- Open the Columns or Rows editing dialog from the *Property Pane* or the right-click context menu of the panel.
++
+image:images/mig_property_col_specs.gif[image]
+image:images/jgfl_panel_menu.gif[image]
+
+- Insert or add new columns and rows
+- Open the property dialog for an individual column or row
+- Rearrange the order of the columns or rows
++
+image:images/mig_column_specifications.gif[image]
+
+== xref:../../preferences/swing/preferences_miglayout.adoc[Preferences]
+
+- Control whether automatic grab is used for text widgets, comboboxes, tables, etc.
++
+image:images/mig_auto_grab1.gif[image]
+image:images/mig_auto_grab2.gif[image]
+
+- Control whether labels are automatically right-aligned when next to a text widget
++
+image:images/mig_auto_right_label1.gif[image]
+image:images/mig_auto_right_label2.gif[image]
+
+[#SourceCodeGenerationParsing]
+== Source Code Generation & Parsing
+
+- Intelligently convert existing layouts (null, *GridBagLayout*, etc.) to *MiGLayout* with column and row creation
+- Generated code will use string-based constants
++
+image:images/mig_source1.gif[image]

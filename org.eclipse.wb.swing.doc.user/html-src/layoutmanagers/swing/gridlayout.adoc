@@ -1,0 +1,49 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= Swing GridLayout
+
+The *GridLayout* class is a layout manager that lays out a container's components in a rectangular grid. The container
+is divided into equal-sized rectangles, and one component is placed in each rectangle. When both the number of rows and
+the number of columns have been set to non-zero values, either by a constructor or by the *setRows* and *setColumns*
+methods, the number of columns specified is ignored. Instead, the number of columns is determined from the specified
+number of rows and the total number of components in the layout. So, for example, if three rows and two columns have
+been specified and nine components are added to the layout, they will be displayed as three rows of three columns.
+Specifying the number of columns affects the layout only when the number of rows is set to zero.
+
+- xref:#MainFeatures[Main Features]
+- xref:#GraphicalFeedback[Graphical Feedback]
+
+[#MainFeatures]
+== Main Features
+
+- Select *GridLayout* from the *Layouts* palette and drop it on a JFrame or JPanel
++
+image:images/gl_design_view.gif[image]
+
+- Graphical feedback is provided for all drop and move interactions
++
+image:images/gl_drop1.gif[image]
+image:images/gl_move1.gif[image]
+
+- Horizontal and vertical gaps can be specified using the *Property Pane*
++
+image:images/gl_properties1.gif[image]
+image:images/gl_gaps.gif[image]
+
+- The number of columns and rows can be specified using the *Property Pane*
++
+image:images/gl_properties2.gif[image]
+image:images/gl_columns.gif[image]
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+- When moving a widget or adding a new widget, the current drop point is highlighted in red
++
+image:images/gl_drop1.gif[image]
+image:images/gl_drop2.gif[image]
++
+image:images/gl_move1.gif[image]
+image:images/gl_move2.gif[image]
