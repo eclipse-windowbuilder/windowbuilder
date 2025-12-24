@@ -1,0 +1,91 @@
+ifdef::env-github[]
+:imagesdir: ../../../../html/features/swing/data_binding
+endif::[]
+
+= Swing Data Binding
+
+NOTE: _In order to use Swing Data Binding (JSR 295), you must first add the Swing Data Binding jar
+(e.g., beansbinding-1.2.1.jar) to your classpath._
+
+The tool can create new *Data Bindings* in several different ways:
+
+- Click the xref:#DataBindingTab[*Bindings*] tab in the editor to created and edit the bindings.
+- Right-clicking on a widget and selecting the xref:#DataBindingMenu[*Data Binding*] menu.
+- Expanding the xref:#BindingsProperty[*bindings*] property in the property pane.
+- Use the xref:#AutomaticWizard[*Swing Automatic Data Binding*] wizard to create a complete user interface from a domain
+  (bean) class.
+
+The tool will generate or update any necessary data binding code which may then be seen in the xref:#Source[*Source*]
+view.
+
+Detailed link:example.html[data binding example] code is available link:SwingBindingsTest.zip[here].
+
+[#DataBindingTab]
+== Data Binding Tab
+
+Click the *Bindings* tab in the editor to created and edit data bindings.
+
+image:../../../wizards/swing/images/data_binding_tab.gif[image]
+
+image:../../../wizards/swing/images/automatic_data_binding8.gif[image]
+
+The *Bindings* tab supports the creation xref:swing_bindings.adoc[*JSR 295 Swing data bindings*].
+
+[#DataBindingMenu]
+== Data Binding Menu
+
+The *Data Bindings* menu provides the ability to quickly create or edit data bindings for a widget. If the widget does
+not have any data bindings, the menu immediately cascades out to show the available properties of the widget that can be
+bound to a model property. If the widget has existing data bindings, those are shown at the top of the cascaded menu
+followed by a separator and a list of widget properties. Clicking on an unbound property will open the
+xref:create_data_binding_wizard.adoc[*Create Data Binding*] wizard while clicking a bound property will open the
+xref:edit_data_binding_dialog.adoc[*Edit Data Binding*] dialog.
+
+image:images/data_binding_menu.gif[image].
+
+[#BindingsProperty]
+== Bindings Property
+
+The *bindings property* in the property pane opens up to show a list of all bindable properties of the widget. Clicking
+the image:images/dot-dot-dot-button.gif[image] button next to an unbound property will open the 
+xref:create_data_binding_wizard.adoc[*Create Data Binding*] wizard while clicking the
+image:images/dot-dot-dot-button.gif[image] button next to a bound property will open the 
+xref:edit_data_binding_dialog.adoc[*Edit Data Binding*] dialog.
+
+image:images/data_binding_property_pane2.gif[image].
+
+[#AutomaticWizard]
+== Automatic Data Binding Wizard
+
+The xref:../../../wizards/swing/automatic_databinding.adoc[*Swing Automatic Data Binding*] wizard can be used to create
+new user interface classes (Composites, Dialogs or Windows) complete with widgets, layouts and data bindings from
+arbitrary domain model (bean) classes.
+
+--
+image:../../../wizards/swing/images/automatic_data_binding2.gif[image]
+image:../../../wizards/swing/images/automatic_data_binding5.gif[image]
+--
+
+[#IconDecorator]
+== Icon Decorator
+
+Any widget with a data binding assigned to will show up in the component tree with an icon decorator:
+image:images/icon_decorator2.gif[image]
+image:images/icon_decorator3.gif[image]
+
+image:images/icon_decorator.gif[image]
+
+[#Source]
+== Source
+
+*The tool* will generate or update any necessary data binding code which may then be seen in the *Source* view. An
+*initDataBindings()* method is created, if it does not already exist and a call to that method is added to the end of
+the widget creation process.
+
+Within the *initDataBindings()* method, any needed bean properties are created followed by the creation of each binding.
+
+image:images/data_binding_source.gif[image]
+
+WARNING: _do not edit the *initDataBinding()* method by hand (without carefully matching the code generation pattern
+used by the tool) as it will be regenerated in its entirety any time the tool needs to add, remove or update a data
+binding._

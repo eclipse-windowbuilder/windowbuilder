@@ -1,0 +1,12 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties/
+endif::[]
+
+= Label For Editor
+
+image:images/property_editor_label_for1.gif[image]
+
+Click the image:images/ellipses.gif[image] button to access the *Label For Editor* and select an widget to associate the
+label with.
+
+image:images/property_editor_label_for2.gif[image]

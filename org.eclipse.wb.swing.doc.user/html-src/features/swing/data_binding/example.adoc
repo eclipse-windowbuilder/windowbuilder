@@ -1,0 +1,103 @@
+ifdef::env-github[]
+:imagesdir: ../../../../html/features/swing/data_binding
+endif::[]
+
+= Swing Data Binding Example
+
+As an example of how the the data binding tools can be used, consider the following *Phone Book* example. The phone book
+manages a set of phone groups. Each phone group in turn holds onto one or more persons. For each person, various e-mail
+and phone contact information is maintained. Editing a person's description should update the same data shown in the
+list. The final code for the *Phone Book* project is available link:SwingBindingsTest.zip[here].
+
+1. Use Designer to create the skeleton of the *JPhoneBook.java* class
++
+image:images/example1.gif[image]
+
+2. Create the following model classes:
+- Class *Person* with properties: *name*, *email*, *phone*, *mobilePhone1*, *mobilePhone2*
+- Class *PhoneGroup* with properties: *name*, *persons*
+- Class *PhoneGroups* with properties: *groups*
+
+3. Add the following to the *JPhoneBook* class:
++
+[source,java]
+----
+private PhoneGroups m_groups = new PhoneGroups();
+----
+And add some initial data:
++
+[source,java]
+----
+PhoneGroup group1 = new PhoneGroup("Developer Team");
+m_groups.addGroup(group1);
+group1.addPerson(new Person("Konstantin Scheglov", "kosta@nospam.com", "1234567890", "", ""));
+group1.addPerson(new Person("Alexander Mitin", "mitin@nospam.com", "", "0987654321", ""));
+group1.addPerson(new Person("Alexander Lobas", "lobas@nospam.com", "", "", "111-222-333-00"));
+----
+
+4. Set the content for the group viewer. Click the *Bindings* tab in the editor. Select *m_groupList* in the
+*Targets (Widgets)* list, *<Self Object>* in the *Target Properties* list, select *m_groups* in the 
+image:images/data_binding_beans_button.gif[image] *Model (Beans)* list, and *groups* in the *Model Properties* list.
++
+image:../../../wizards/swing/images/data_binding_tab.gif[image]
++
+image:images/example2.gif[image]
+
+5. Click the image:images/binding_button.gif[image] *Bind* button to open the *Create Data Binding* dialog.
+*m_groups.group* contains elements of type *PhoneGroup*, so select the type *PhoneGroup* and its *<EL Expression>*
+property. In the EL Expression field, type "$\{name} (\{$personCount})". Note that selecting the *name* property would
+result in just the name of the group being displayed. You can use EL Expressions to create more complex results. In this
+case, we can show the name plus the number of people in the group.
++
+image:images/example3.gif[image]image:images/example4.gif[image]
+
+6. Click *OK* to see *m_groups.groups* bound to *m_groupsList* in the table. You can also see that the detail binding
+between *m_groupsList* and the *EL Expression* has also been created.
++
+image:images/example5.gif[image]
+
+7. Run the application to see that the list of phone groups is populated and that each group shows its person count.
++
+image:images/example6.gif[image] +
+
+8. Next we would like selecting a group to show all of its contained persons. Switch back to the *Bindings* tab. Select
+the *<Self Object>* of the *m_personTable* in the *Target Widget* list and *m_groupList* and *selectedElement/persons*
+in the *Model Widget* list and click the image:images/binding_button.gif[image] *Bind* button to open the
+*Create Data Binding* dialog.
++
+image:images/example7.gif[image] image:images/example8.gif[image]
+
+9. We need to show the properties of a *Person* object in *m_personTable*, so click the *Add* button to add a table
+column binding for each property (*name*, *email*, *phone*, *mobilePhone1* and *mobilePhone2*). You can order the
+*Person* properties using the *<<* and *>>* buttons.
++
+image:images/example9.gif[image]image:images/example10.gif[image]
+
+10. Click *OK* twice and run the application. See that selecting a group now updates the *Persons* list.
++
+image:images/example11.gif[image]
+
+11. Switch back to the *Bindings* tab. Next we need to bind *selectedElement* of the *m_personTable* (a Person object)
+into the various text editors.
++
+image:images/example12.gif[image]
+
+12. Select the first *Text* widget (*m_nameTextField*) and its *text* property and the *m_personTable* and its
+*selectedElement/name* property. Click the image:images/binding_button.gif[image] *Bind* button to open the
+*Create Data Binding* dialog. Leave everything set to the defaults and click the *OK* button.
++
+image:images/example13.gif[image]
+
+13. Bind each *selectedElement* property to its associated *Text* field.
++
+image:images/example14.gif[image]
+
+14. Run the application. See that selecting a group updates the *Persons* list and selecting a *Person* now updates each
+of the *Text* fields.
++
+image:images/example15.gif[image]
+
+15. Also note that changing any of the data in the text fields immediately updates the data in the table.
+*The magic of data binding!*
++
+image:images/example16.gif[image]

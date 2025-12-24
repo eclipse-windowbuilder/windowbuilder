@@ -1,0 +1,33 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= Swing CardLayout
+
+A *CardLayout* object is a layout manager for a container. It treats each component in the container as a card. Only one
+card is visible at a time, and the container acts as a stack of cards. The first component added to a *CardLayout*
+object is the visible component when the container is first displayed. The ordering of cards is determined by the
+container's own internal ordering of its component objects. *CardLayout* defines a set of methods that allow an
+application to flip through these cards sequentially, or to show a specified card.
+
+[#MainFeatures]
+== Main Features
+
+- Select *CardLayout* from the *Layouts* palette and drop it on a JFrame or JPanel
++
+image:images/cl_design_view.gif[image]
+
+- When adding a new widget, the current drop point is highlighted in green
++
+image:images/cl_drop1.gif[image]
+image:images/cl_drop2.gif[image]
+
+- Switch between cards using the up/down arrows in the upper right corner
++
+image:images/cl_switch1.gif[image]
+image:images/cl_switch2.gif[image]
+
+- Horizontal and vertical margins can be specified using the *Property Pane*
++
+image:images/cl_properties.gif[image]
+image:images/cl_gaps.gif[image]

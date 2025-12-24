@@ -1,0 +1,13 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties/
+endif::[]
+
+= Table Model Editor
+
+image:images/property_editor_table_model1.gif[image]
+
+Click the image:images/ellipses.gif[image] button to access the *Table Model Editor* and specify the number of columns
+and rows. For each column, the title, type, width, editable and resizable properties can be set. Individual cell values
+can also be set in the editable table in the editor.
+
+image:images/property_editor_table_model2.gif[image]

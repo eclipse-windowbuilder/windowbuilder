@@ -1,0 +1,60 @@
+ifdef::env-github[]
+:imagesdir: ../../../../html/features/swing/data_binding
+endif::[]
+
+= Edit Data Binding Dialog
+
+The tool provides two ways to quickly edit existing Data Bindings: the *Data Bindings* menu and the *bindings property*
+in the property pane.
+
+[cols="50%,50%", options="header"]
+|===
+| Data Binding Menu
+| Bindings Property
+a|
+The *Data Bindings* menu provides the ability to quickly edit a data binding for a widget. If the widget has existing
+data bindings, those are shown at the top of the cascaded menu and a list of widget properties is shown in a submenu.
+Clicking on a bound property will open the *Edit Data Binding* dialog.
+a|
+The *bindings property* in the property pane opens up to show a list of all bindable properties of the widget. Clicking
+the image:images/dot-dot-dot-button.gif[image] button next to a bound property will open the *Edit Data Binding* dialog.
+|
+image:images/data_binding_menu2.gif[image]
+|
+image:images/data_binding_property_pane2.gif[image]
+
+|
+image:images/edit_data_binding1.gif[image]
+a|
+The *Edit Data Binding* dialog is used to customize the properties of the data binding itself. When editing a binding,
+the update strategy from *target to model* and *model to target* may be specified as well as any strategy-specific
+properties (validators and converters).
+
+When the Target or Model is a Text widget and the text property is selected, the triggering event may be specified as
+*Swing.Modify*, *Swing.FocusOut* or *Swing.NONE*.
+
+image:images/text_events.gif[image]
+|
+image:images/edit_data_binding2.gif[image]
+a|
+Predefined update value strategies - *READ_ONCE*, *READ* and *READ_WRITE* - may be selected.
+
+image:images/update_value_strategy.gif[image]
+|===
+
+When binding to a *<EL Expression>*, a text field is provided where the expression may be entered.
+
+image:images/bind_properties_swing2.gif[image]
+
+== Source
+
+Clicking the *Finish* button will generate the necessary data binding code which may then be seen in the *Source* view.
+An *initDataBindings()* method is created, if it does not already exist and a call the that method is added to the end
+of the widget creation process. Within the *initDataBindings()* method, any needed bean properties are created followed
+by the creation of each binding.
+
+image:images/data_binding_source2.gif[image]
+
+WARNING: _do not edit the *initDataBinding()* method by hand (without carefully matching the code generation pattern
+used by the tool) as it will be regenerated in its entirety any time the tool needs to add, remove or update a data
+binding._

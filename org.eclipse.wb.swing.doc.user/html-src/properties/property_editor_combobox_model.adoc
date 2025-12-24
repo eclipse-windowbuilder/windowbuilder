@@ -1,0 +1,12 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties/
+endif::[]
+
+= ComboBox Model Editor
+
+image:images/property_editor_combobox_model1.gif[image]
+
+Click the image:images/ellipses.gif[image] button to access the *ComboBox Model Editor* and enter multiple items. Each
+line is treated as a separate list item.
+
+image:images/property_editor_combobox_model2.gif[image]

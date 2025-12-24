@@ -1,0 +1,19 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties/
+endif::[]
+
+= Spinner Model Editor
+
+image:images/property_editor_spinner_model1.gif[image]
+
+Click the image:images/ellipses.gif[image] button to access the *Spinner Model Editor* and specify either a list model,
+number or date model. For a list model, you can enter multiple items. Each line is treated as a separate list item. For
+a number model, you can specify the number type, an initial value, a minimum value, a maximum value, and a step size.
+For a date model, you can specify an initial date, start date, a stop date, and a date type. For each model, you can
+test the spinner model using a preview spinner at the bottom of the editor.
+
+--
+image:images/property_editor_spinner_model2.gif[image]
+image:images/property_editor_spinner_model3.gif[image]
+image:images/property_editor_spinner_model4.gif[image]
+--

@@ -1,0 +1,12 @@
+ifdef::env-github[]
+:imagesdir: ../../html/properties/
+endif::[]
+
+= List Model Editor
+
+image:images/property_editor_list_model1.gif[image]
+
+Click the image:images/ellipses.gif[image] button to access the *List Model Editor* and enter multiple items. Each line
+is treated as a separate list item.
+
+image:images/property_editor_list_model2.gif[image]

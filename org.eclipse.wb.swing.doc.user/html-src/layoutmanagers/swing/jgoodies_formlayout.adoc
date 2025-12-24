@@ -1,0 +1,260 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= JGoodies FormLayout
+
+*JGoodies FormLayout* is a powerful, flexible and precise general purpose layout manager. It aligns components
+vertically and horizontally in a dynamic rectangular grid of cells, with each component occupying one or more cells. A
+whitepaper about the *FormLayout* available http://www.jgoodies.com/articles/forms.pdf[online]. To use *FormLayout* you
+first define the grid by specifying the columns and rows. In a second step you add components to the grid. You can
+specify columns and rows via human-readable String descriptions or via arrays of *ColumnSpec* and *RowSpec* instances.
+Each component managed by a *FormLayout* is associated with an instance of *CellConstraints*. The constraints object
+specifies where a component should be located on the form's grid and how the component should be positioned. In addition
+to its constraints object the *FormLayout* also considers each component's minimum and preferred sizes in order to
+determine a component's size.
+
+This layout also requires the use of the *JGoodies FormLayout* jar file (forms-1.0.6.jar or higher).
+
+- xref:#MainFeatures[Main Features]
+- xref:#PopupHeaderMenu[Popup Header Menu]
+- xref:#GraphicalFeedback[Graphical Feedback]
+- xref:#ColumnRowEditing[Column & Row Editing]
+- xref:#Preferences[Preferences]
+- xref:#SourceCodeGenerationParsing[Source Code Generation & Parsing]
+
+____
+This feature is based on technology from the JGoodies Forms. +
+http://www.jgoodies.com/freeware/forms/ +
+Copyright © 2002-2009 JGoodies Karsten Lentzsch
+____
+
+[#MainFeatures]
+== Main Features
+
+- Select *JGoodies FormLayout* from the *Layouts* palette and drop it on a JFrame or JPanel
++
+image:images/jgfl_design_view.gif[image]
+
+- The *JGoodies FormLayout* jar file (forms-1.1.0.jar) will automatically be added to your project and the classpath
+adjusted
+
+- Graphical feedback is provided for all column, row and cell interactions
+
+- Column and row properties may be changed via a popup menu or property dialog
+
+- Convert existing layouts (null, *GridBagLayout*, etc.) to *JGoodies FormLayout* with intelligent column, row and gap
+creation
++
+image:images/null_convert.gif[image]
+image:images/jgfl_convert.gif[image]
+
+- Automatically add gaps when adding new columns or rows
+
+[#PopupHeaderMenu]
+== Popup Header Menu
+
+- Right-click on the header area to access the popup header menu
++
+image:images/jgfl_menu_row.gif[image] 
+image:images/jgfl_menu_column.gif[image]
+
+- Insert new columns or rows before the current column or row
+- Add a new column or row at the end of the current list
+- Delete entire columns or rows or just their widget contents
+- Set the column alignment to left, right, center or fill
+- Specify that the column or row should grow to fill the available space
+- Group or ungroup columns or rows
+- Set the sizing spec that should be used for the column or row (various column, row and gap types are available)
+- Edit the properties of the current column or row
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+- When moving a widget or adding a new widget, open cells are highlighted green while populated cells are highlighted
+red and insertion points are highlighted in yellow
++
+image:images/jgfl_add1.gif[image]
+image:images/jgfl_add2.gif[image]
++
+image:images/jgfl_add3.gif[image]
+
+- Phantom drop point to the right and below the current cells will create new columns, rows and gaps as needed
++
+image:images/jgfl_move1.gif[image]
+image:images/jgfl_move2.gif[image]
+
+- The currently selected cell shows its column and row spanning handles and alignment handles
++
+image:images/jgfl_alignment_one.gif[image]
+
+- Set the alignment of a cell using its popup alignment menu or the toolbar
++
+image:images/jgfl_toolbar.gif[image]
++
+image:images/jgfl_cell_align1.gif[image]
+image:images/jgfl_cell_align2.gif[image]
+
+- Right-click on a column to set its grow property
++
+image:images/jgfl_grow1.gif[image] image:images/jgfl_grow2.gif[image]
+
+- Grouped columns and rows are color highlighted to indicate which are in the same group
++
+image:images/jgfl_group1.gif[image] 
+image:images/jgfl_group2.gif[image]
++
+image:images/jgfl_group3.gif[image]
+
+- Column and row sizing handles make it easy to set the size of a column or row
++
+image:images/jgfl_resize_column1.gif[image]
+image:images/jgfl_resize_column2.gif[image]
++
+image:images/jgfl_resize_row1.gif[image]
+image:images/jgfl_resize_row2.gif[image]
+
+- Reorder columns and rows by dragging them (with their associated gap columns or rows)
++
+image:images/jgfl_reorder_row1.gif[image]
+image:images/jgfl_reorder_row2.gif[image]
++
+image:images/jgfl_reorder_row3.gif[image]
+
+- Column and rows borders are indicated with gray lines
++
+image:images/jgfl_group3.gif[image]
+
+- Interactive column and row spanning feedback is provided
++
+image:images/jgfl_span1.gif[image] image:images/jgfl_span2.gif[image]
+
+- Full keyboard support for quickly changing alignment values
++
+[cols="50%,50%", options="header"]
+|===
+2+a|
+Cell
+|
+D
+|
+default horizontal
+|
+Shift+D
+|
+default vertical
+|
+F
+|
+fill horizontal
+|
+Shift+F
+|
+fill vertical
+|
+L, C, R
+|
+left/center/right for horizontal
+|
+T, M, B
+|
+top/middle/bottom for vertical
+|===
+
+[#ColumnRowEditing]
+== Column & Row Editing
+
+- Double click on a column or row to access its property dialog
+- Switch between columns and rows using the arrow buttons
++
+image:images/jgfl_column_properties1.gif[image]
+image:images/jgfl_row_properties1.gif[image]
+
+- Select from any of the predefined column or gap templates
++
+image:images/jgfl_column_properties2.gif[image]
+image:images/jgfl_row_properties2.gif[image]
+
+- Set the column or row alignment
+- Specify the resize behavior and the relative weights of each column or row
+- Set the size of the column or row
++
+image:images/jgfl_column_properties3.gif[image]
+image:images/jgfl_row_properties3.gif[image]
+
+* Specify a constant size in a variety of units
+* Specify minimum and maximum sizes +
+
+- Floating layout assistant for constraints image:images/assistant.gif[image]
++
+image:images/jgfl_layout_assistant_cell.gif[image]
+
+- Open the Columns or Rows editing dialog from the *Property Pane* or the right-click context menu of the panel.
++
+image:images/jgfl_panel_properties.gif[image]
+image:images/jgfl_panel_menu.gif[image]
+
+- Insert or add new columns and rows
+- Open the property dialog for an individual column or row
+- Group and ungroup columns or rows
+- Rearrange the order of the columns or rows
++
+image:images/jgfl_edit_columns.gif[image]
++
+image:images/jgfl_edit_rows.gif[image]
+
+== xref:../../preferences/swing/preferences_jgoodies_formlayout.adoc[Preferences]
+
+- Control whether automatic grab is used for text widgets, comboboxes, tables, etc.
++
+image:images/jgfl_auto_grab1.gif[image]
+image:images/jgfl_auto_grab2.gif[image]
+
+- Control whether labels are automatically right-aligned when next to a text widget
++
+image:images/jgfl_auto_right_label1.gif[image]
+image:images/jgfl_auto_right_label2.gif[image]
+
+[#SourceCodeGenerationParsing]
+== Source Code Generation & Parsing
+
+- Intelligently convert existing layouts (null, *GridBagLayout*, etc.) to *JGoodies FormLayout* with column, row and gap
+creation
+- Generated code will use predefined FormFactory constants as necessary
+- Parser can understand reused CellConstraint objects
+- Parser supports all CellConstraint styles
+* Creation methods intended for use by humans
++
+[source,java]
+----
+CellConstraints cc = new CellConstraints();
+cc.xy(2, 1); // second col, first row
+cc.xy(2, 1, "right, bottom"); // aligned to right and bottom
+cc.xy(2, 1, "r, b"); // abbreviated alignment
+cc.xywh(2, 1, 4, 3); // spans 4 cols, 3 rows
+cc.xywh(2, 1, 4, 3, "right, bottom");
+cc.xywh(2, 1, 4, 3, "r, b");
+----
+
+* Constructors intended for builders
++
+[source,java]
+----
+new CellConstraints(); // first col, first row
+new CellConstraints(2, 1);
+new CellConstraints(2, 1, 4, 3);
+new CellConstraints(2, 1, CellConstraints.RIGHT, CellConstraints.BOTTOM);
+----
+
+* Constructors intended for building UIs from XML
++
+[source,java]
+----
+CellConstraints cc = new CellConstraints();
+new CellConstraints("2, 1");
+new CellConstraints("2, 1, r, b");
+new CellConstraints("2, 1, 4, 3");
+new CellConstraints("2, 1, 4, 3, r, b");
+----
++
+image:images/jgfl_source1.gif[image]

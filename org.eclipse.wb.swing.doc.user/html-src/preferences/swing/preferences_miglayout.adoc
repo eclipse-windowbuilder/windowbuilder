@@ -1,0 +1,30 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swing/
+endif::[]
+
+= MiGLayout
+
+image:images/preferences_miglayout.gif[image]
+
+This page is used to control various *Swing > Layouts > MiGLayout* options.
+
+== Use automatic horizontal/vertical grab
+
+This preference controls whether new text-oriented widgets (*JText*, *JComboBox*, etc.) are set to grab horizontally
+when they are added to the window and whether new *JTable* and *JTree* widgets are set to grab horizontally and
+vertically when they are added to the window.
+
+--
+image:../../layoutmanagers/swing/images/mig_auto_grab1.gif[image]
+image:../../layoutmanagers/swing/images/mig_auto_grab2.gif[image]
+--
+
+== Automatically align right Label-like components before Text components
+
+This preference controls whether *JLabels* should be right aligned when they are to the left of a *JText* or *JComboBox*
+widget.
+
+--
+image:../../layoutmanagers/swing/images/mig_auto_right_label1.gif[image]
+image:../../layoutmanagers/swing/images/mig_auto_right_label2.gif[image]
+--

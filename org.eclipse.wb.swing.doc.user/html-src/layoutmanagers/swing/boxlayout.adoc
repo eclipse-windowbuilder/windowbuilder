@@ -1,0 +1,90 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/layoutmanagers/swing/
+endif::[]
+
+= Swing BoxLayout
+
+*BoxLayout* allows multiple components to be laid out either vertically or horizontally. The components will not wrap
+so, for example, a vertical arrangement of components will stay vertically arranged when the frame is resized. Nesting
+multiple panels with different combinations of horizontal and vertical gives an effect similar to *GridBagLayout*,
+without the complexity. The *BoxLayout* manager is constructed with an axis parameter that specifies the type of layout
+that will be done. For all directions, components are arranged in the same order as they were added to the container.
+
+*BoxLayout* attempts to arrange components at their preferred widths (for horizontal layout) or heights (for vertical
+layout). For a horizontal layout, if not all the components are the same height, *BoxLayout* attempts to make all the
+components as high as the highest component. If that's not possible for a particular component, then *BoxLayout* aligns
+that component vertically, according to the component's Y alignment. By default, a component has a Y alignment of 0.5,
+which means that the vertical center of the component should have the same Y coordinate as the vertical centers of other
+components with 0.5 Y alignment. Similarly, for a vertical layout, *BoxLayout* attempts to make all components in the
+column as wide as the widest component. If that fails, it aligns them horizontally according to their X alignments.
+
+- xref:#MainFeatures[Main Features]
+- xref:#GraphicalFeedback[Graphical Feedback]
+
+[#MainFeatures]
+== Main Features
+
+- Select *BoxLayout* from the *Layouts* palette and drop it on a JFrame or JPanel
++
+image:images/boxl_design_view.gif[image]
+
+- Graphical feedback is provided for all drop and move interactions
++
+image:images/boxl_drop1.gif[image] image:images/boxl_move1.gif[image]
+
+- xref:../../palettes/swing_palette.adoc[*Struts & Springs* palette] gives easy access to struts, springs (glue), rigid
+areas and boxes
++
+image:../../palettes/images/palette_swing_struts_springs.gif[image]
+
+- Graphically show area occupied by struts and springs (glue)
++
+image:images/boxl_struts_springs.gif[image]
+
+- Graphically resize struts and rigid areas via dragging
++
+image:images/boxl_strut_size1.gif[image]
+image:images/boxl_strut_size2.gif[image]
+
+- Direct-edit (hit space bar) struts and rigid areas to resize them
++
+image:images/boxl_strut_direct_edit.gif[image]
+image:images/boxl_strut_direct_edit2.gif[image]
+
+- Resize struts and rigid areas using the *Property Pane*
++
+image:images/boxl_properties2.gif[image]
+image:images/boxl_strut_size2.gif[image]
+
+- Orientation can be specified using the *Property Pane*
++
+image:images/boxl_properties.gif[image]
+image:images/boxl_axis.gif[image]
+
+- Widget alignment within the *BoxLayout* can be set using the *Property Pane*
++
+image:images/boxl_properties3.gif[image]
+
+- Note that struts and rigid areas can be used as invisible spacer objects in other layouts as well
++
+image:images/fl_strut.gif[image]
+image:images/gl_strut.gif[image]
++
+image:images/bl_strut.gif[image]
+image:images/jgfl_strut.gif[image]
+
+[#GraphicalFeedback]
+== Graphical Feedback
+
+- When moving a widget or adding a new widget, the current drop point is highlighted in red
++
+image:images/boxl_drop1.gif[image]
+image:images/boxl_drop2.gif[image]
++
+image:images/boxl_move1.gif[image]
+image:images/boxl_move2.gif[image]
+
+- Resize struts and rigid areas by dragging or direct edit
++
+image:images/boxl_strut_size1.gif[image]
+image:images/boxl_strut_direct_edit.gif[image]

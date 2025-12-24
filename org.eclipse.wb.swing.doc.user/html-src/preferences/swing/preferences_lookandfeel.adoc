@@ -1,0 +1,55 @@
+ifdef::env-github[]
+:imagesdir: ../../../html/preferences/swing/
+endif::[]
+
+= LookAndFeel
+
+image:images/preferences_lookandfeel.gif[image]
+
+This page is used to control various *Swing > LookAndFeel* options.
+
+Any look and feel types listed on this page will show up in Designer's toolbar in the look and feel drop down list.
+
+--
+image:images/look_and_feel_drop_down.gif[image]
+image:images/look_and_feel_drop_down2.gif[image]
+--
+
+[cols="50%,50%"]
+|===
+a|
+*Windows*
+
+image:images/look_and_feel_windows.gif[image]
+a|
+*Motif*
+
+image:images/look_and_feel_motif.gif[image]
+a|
+*Metal*
+
+image:images/look_and_feel_metal.gif[image]
+a|
+*Liquid*
+
+image:images/look_and_feel_liquid.gif[image]
+|===
+
+You can add more looks by clicking on the *Add* button and specifying the look you want to add in the *Add LookAndFeel*
+dialog that appears. To edit a look, select it and click on *Edit*. To remove a look, select it click on *Remove*. To
+set a look as the default look used in Designer, select the look and click on the *Set Default* button.
+
+image:images/add_look_and_feel.gif[image]
+
+== Apply chosen LookAndFeel in main() method
+
+This preference determines whether Designer adds code to set the selected Look and Feel in the main() method. For
+example:
+
+[source,java]
+----
+try {
+	UIManager.setLookAndFeel("com.jgoodies.looks.windows.WindowsLookAndFeel");
+} catch (Throwable e) {
+}
+----
