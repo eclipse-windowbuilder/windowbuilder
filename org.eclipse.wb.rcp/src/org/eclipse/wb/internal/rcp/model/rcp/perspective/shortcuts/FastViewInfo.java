@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,12 +26,15 @@ import org.eclipse.ui.IPageLayout;
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
+@Deprecated(since = "1.9.1400", forRemoval = true)
 public final class FastViewInfo extends AbstractShortcutInfo {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
+	@SuppressWarnings("removal")
 	public FastViewInfo(PageLayoutInfo page,
 			FastViewContainerInfo container,
 			MethodInvocation invocation) throws Exception {
@@ -44,11 +47,13 @@ public final class FastViewInfo extends AbstractShortcutInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	@Deprecated
 	protected ImageDescriptor getPresentationIcon() {
 		return getViewInfo().getIcon();
 	}
 
 	@Override
+	@Deprecated
 	protected String getPresentationText() {
 		return "\"" + getViewInfo().getName() + "\" - " + getId();
 	}

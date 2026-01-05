@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -273,6 +273,7 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 	}
 
 	@Override
+	@SuppressWarnings({ "removal", "deprecation" })
 	public JavaInfo create(AstEditor editor,
 			MethodInvocation invocation,
 			IMethodBinding methodBinding,

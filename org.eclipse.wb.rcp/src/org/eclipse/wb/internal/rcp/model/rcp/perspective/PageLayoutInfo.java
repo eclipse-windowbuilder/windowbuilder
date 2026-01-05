@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -93,6 +93,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 			new ViewShortcutContainerInfo(this);
 	private final PerspectiveShortcutContainerInfo m_perspectiveShortcutContainer =
 			new PerspectiveShortcutContainerInfo(this);
+	@SuppressWarnings({ "removal", "deprecation" })
 	private final FastViewContainerInfo m_fastViewContainer = new FastViewContainerInfo(this);
 
 	////////////////////////////////////////////////////////////////////////////
@@ -238,6 +239,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 		return m_editorArea;
 	}
 
+	@SuppressWarnings("removal")
 	public FastViewContainerInfo getFastViewContainer() {
 		return m_fastViewContainer;
 	}

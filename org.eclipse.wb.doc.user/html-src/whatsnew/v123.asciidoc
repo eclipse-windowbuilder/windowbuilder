@@ -4,4 +4,8 @@ endif::[]
 
 = What's New - v1.23.0
 
+== SWT/RCP
+
+The support for _IPageLayout.addView()_ method has been deprecated and will be removed after the 2027-03 release.
+
 What's new - xref:v122.adoc[*v1.22.0*]

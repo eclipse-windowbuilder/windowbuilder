@@ -43,6 +43,13 @@
 			<parameter type="java.lang.String" name="refId"/>
 		</method>
 		<!-- shortcuts -->
+		<method name="addFastView">
+			<parameter type="java.lang.String" name="viewId"/>
+		</method>
+		<method name="addFastView">
+			<parameter type="java.lang.String" name="viewId"/>
+			<parameter type="float" name="ratio"/>
+		</method>
 		<method name="addShowViewShortcut">
 			<parameter type="java.lang.String" name="viewId"/>
 		</method>
