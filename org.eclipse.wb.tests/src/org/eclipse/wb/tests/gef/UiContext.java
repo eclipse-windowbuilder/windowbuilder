@@ -69,6 +69,15 @@ public class UiContext {
 				Shell activeShell = UIThreadRunnable.syncExec(m_display::getActiveShell);
 				checkRunnable.accept(new SWTBot(activeShell));
 			} catch (Throwable e) {
+				// For debugging: Show all active shells
+				UIThreadRunnable.syncExec(() -> {
+					System.err.println("Active Shell:");
+					System.err.println(Display.getCurrent().getActiveShell());
+					System.err.println("Shells:");
+					for (Shell shell : Display.getCurrent().getShells()) {
+						System.err.println(shell);
+					}
+				});
 				e.printStackTrace();
 				checkException[0] = e;
 			} finally {
