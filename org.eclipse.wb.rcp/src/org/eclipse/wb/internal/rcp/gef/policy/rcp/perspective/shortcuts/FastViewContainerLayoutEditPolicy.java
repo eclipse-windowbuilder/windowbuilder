@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -33,10 +33,13 @@ import org.eclipse.gef.commands.Command;
  * @author scheglov_ke
  * @coverage rcp.gef.policy
  */
+@Deprecated(since = "1.9.1400", forRemoval = true)
 public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
+	@SuppressWarnings("removal")
 	private static final ILayoutRequestValidator VALIDATOR =
 			LayoutRequestValidators.modelType(FastViewInfo.class);
 	private final PageLayoutInfo m_page;
+	@SuppressWarnings("removal")
 	private final FastViewContainerInfo m_container;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -44,6 +47,8 @@ public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutE
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
+	@SuppressWarnings("removal")
 	public FastViewContainerLayoutEditPolicy(FastViewContainerInfo container) {
 		m_container = container;
 		m_page = container.getPage();
@@ -55,16 +60,20 @@ public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutE
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	@Deprecated
+	@SuppressWarnings("removal")
 	protected boolean isGoodReferenceChild(Request request, EditPart editPart) {
 		return editPart.getModel() instanceof FastViewInfo;
 	}
 
 	@Override
+	@Deprecated
 	protected boolean isRequestCondition(Request request) {
 		return super.isRequestCondition(request) || request instanceof ViewDropRequest;
 	}
 
 	@Override
+	@Deprecated
 	protected ILayoutRequestValidator getRequestValidator() {
 		return VALIDATOR;
 	}
@@ -75,6 +84,7 @@ public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutE
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	@Deprecated
 	protected boolean isHorizontal(Request request) {
 		return true;
 	}
@@ -85,6 +95,8 @@ public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutE
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	@Deprecated
+	@SuppressWarnings("removal")
 	protected Command getCommand(Request request, Object referenceObject) {
 		if (request instanceof final ViewDropRequest viewDrop_Request) {
 			final ViewInfo viewInfo = viewDrop_Request.getView();
@@ -101,6 +113,8 @@ public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutE
 	}
 
 	@Override
+	@Deprecated
+	@SuppressWarnings("removal")
 	protected Command getMoveCommand(Object moveObject, Object referenceObject) {
 		final FastViewInfo item = (FastViewInfo) moveObject;
 		final FastViewInfo nextItem = (FastViewInfo) referenceObject;

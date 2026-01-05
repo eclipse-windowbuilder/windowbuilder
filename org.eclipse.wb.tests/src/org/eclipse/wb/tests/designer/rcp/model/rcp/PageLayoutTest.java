@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -51,8 +51,11 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
+import org.eclipse.swt.SWT;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
+
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -730,7 +733,9 @@ public class PageLayoutTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Test
+	@SuppressWarnings("removal")
 	public void test_shortcuts_0() throws Exception {
+		assumeTrue(SWT.getVersion() < 4972);
 		PageLayoutInfo page =
 				parsePerspective(
 						"public class Test implements IPerspectiveFactory {",
@@ -810,7 +815,9 @@ public class PageLayoutTest extends RcpModelTest {
 	 * Before existing {@link FastViewInfo}.
 	 */
 	@Test
+	@SuppressWarnings({ "removal", "deprecation" })
 	public void test_fastView_CREATE_1() throws Exception {
+		assumeTrue(SWT.getVersion() < 4972);
 		PageLayoutInfo page =
 				parsePerspective(
 						"public class Test implements IPerspectiveFactory {",
@@ -866,7 +873,9 @@ public class PageLayoutTest extends RcpModelTest {
 	 * No <code>addFastViews</code> method, create it.
 	 */
 	@Test
+	@SuppressWarnings({ "removal", "deprecation" })
 	public void test_fastView_CREATE_2() throws Exception {
+		assumeTrue(SWT.getVersion() < 4972);
 		PageLayoutInfo page =
 				parsePerspective(
 						"public class Test implements IPerspectiveFactory {",
@@ -913,7 +922,9 @@ public class PageLayoutTest extends RcpModelTest {
 	 * Before existing {@link FastViewInfo}.
 	 */
 	@Test
+	@SuppressWarnings({ "removal", "deprecation" })
 	public void test_fastView_MOVE_1() throws Exception {
+		assumeTrue(SWT.getVersion() < 4972);
 		PageLayoutInfo page =
 				parsePerspective(
 						"public class Test implements IPerspectiveFactory {",
@@ -960,7 +971,9 @@ public class PageLayoutTest extends RcpModelTest {
 	 * Move to last item.
 	 */
 	@Test
+	@SuppressWarnings({ "removal", "deprecation" })
 	public void test_fastView_MOVE_2() throws Exception {
+		assumeTrue(SWT.getVersion() < 4972);
 		PageLayoutInfo page =
 				parsePerspective(
 						"public class Test implements IPerspectiveFactory {",

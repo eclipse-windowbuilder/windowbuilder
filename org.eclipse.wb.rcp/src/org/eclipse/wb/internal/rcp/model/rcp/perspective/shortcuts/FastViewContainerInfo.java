@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,12 +23,14 @@ import org.eclipse.ui.IPageLayout;
  * @author scheglov_ke
  * @coverage rcp.model.rcp
  */
+@Deprecated(since = "1.9.1400", forRemoval = true)
 public final class FastViewContainerInfo extends AbstractShortcutContainerInfo {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	public FastViewContainerInfo(PageLayoutInfo page) throws Exception {
 		super(page, SWT.HORIZONTAL);
 	}
@@ -39,6 +41,7 @@ public final class FastViewContainerInfo extends AbstractShortcutContainerInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	@Deprecated
 	protected String getPresentationText() {
 		return "(fast views)";
 	}
@@ -53,6 +56,8 @@ public final class FastViewContainerInfo extends AbstractShortcutContainerInfo {
 	 *
 	 * @return the created {@link FastViewInfo}.
 	 */
+	@Deprecated
+	@SuppressWarnings("removal")
 	public FastViewInfo command_CREATE(String viewId, FastViewInfo nextItem) throws Exception {
 		return command_CREATE(viewId, FastViewInfo.class, nextItem, "addFastViews", "addFastView");
 	}
@@ -60,6 +65,8 @@ public final class FastViewContainerInfo extends AbstractShortcutContainerInfo {
 	/**
 	 * Moves existing {@link FastViewInfo}.
 	 */
+	@Deprecated
+	@SuppressWarnings("removal")
 	public void command_MOVE(FastViewInfo item, FastViewInfo nextItem) throws Exception {
 		command_MOVE(item, nextItem, "addFastViews");
 	}

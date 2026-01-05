@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,6 +37,7 @@ import org.eclipse.gef.commands.Command;
  * @coverage rcp.gef.policy
  */
 public final class PageLayoutCreateFolderLayoutEditPolicy extends AbstractFlowLayoutEditPolicy {
+	@SuppressWarnings("removal")
 	private static final ILayoutRequestValidator VALIDATOR = LayoutRequestValidators.or(
 			LayoutRequestValidators.modelType(FolderViewInfo.class),
 			LayoutRequestValidators.modelType(PageLayoutAddViewInfo.class),
@@ -117,6 +118,7 @@ public final class PageLayoutCreateFolderLayoutEditPolicy extends AbstractFlowLa
 	}
 
 	@Override
+	@SuppressWarnings("removal")
 	protected Command getAddCommand(Object addObject, Object referenceObject) {
 		if (addObject instanceof PageLayoutAddViewInfo oldView) {
 			return getAddCommand(oldView, oldView.getId(), referenceObject);

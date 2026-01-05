@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,7 +22,9 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewConta
  * @author scheglov_ke
  * @coverage rcp.gefTree.part
  */
+@Deprecated(since = "1.9.1400", forRemoval = true)
 public final class FastViewContainerEditPart extends AbstractShortcutContainerEditPart {
+	@SuppressWarnings("removal")
 	private final FastViewContainerInfo m_container;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -30,6 +32,8 @@ public final class FastViewContainerEditPart extends AbstractShortcutContainerEd
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
+	@SuppressWarnings("removal")
 	public FastViewContainerEditPart(FastViewContainerInfo container) {
 		super(container);
 		m_container = container;
@@ -41,6 +45,8 @@ public final class FastViewContainerEditPart extends AbstractShortcutContainerEd
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	@Deprecated
+	@SuppressWarnings("removal")
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(new FastViewContainerLayoutEditPolicy(m_container));
