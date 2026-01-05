@@ -73,35 +73,6 @@
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-surefire-plugin</artifactId>
 				<version>${tycho.version}</version>
-				<executions>
-					<execution>
-						<!-- Overwrites default goal! -->
-						<id>default-test</id>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<includes>
-								<include>**/org.eclipse.wb.tests.designer.WindowBuilderTests.java</include>
-							</includes>
-							<useUIHarness>true</useUIHarness>
-							<useUIThread>true</useUIThread>
-						</configuration>
-					</execution>
-					<execution>
-						<id>swtbot-test</id>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<includes>
-								<include>**/org.eclipse.wb.tests.swtbot.designer.WindowBuilderTests.java</include>
-							</includes>
-							<useUIHarness>true</useUIHarness>
-							<useUIThread>false</useUIThread>
-						</configuration>
-					</execution>
-				</executions>
 				<configuration>
 					<argLine>${ui.test.vmargs}</argLine>
 					<appArgLine>-nl de -clearPersistedState -consoleLog</appArgLine>
@@ -114,6 +85,11 @@
 							<version>0.0.0</version>
 						</dependency>
 					</dependencies>
+					<includes>
+						<include>**/org.eclipse.wb.tests.designer.WindowBuilderTests.java</include>
+					</includes>
+					<useUIHarness>true</useUIHarness>
+					<useUIThread>true</useUIThread>
 				</configuration>
 			</plugin>
 		</plugins>

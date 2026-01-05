@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.tests.designer.rcp.model.ModelTests;
 import org.eclipse.wb.tests.designer.rcp.nebula.NebulaTests;
 import org.eclipse.wb.tests.designer.rcp.resource.ResourceTests;
 import org.eclipse.wb.tests.designer.rcp.swing2swt.Swing2SwtTests;
+import org.eclipse.wb.tests.designer.rcp.wizard.WizardTests;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -36,7 +37,8 @@ import org.junit.platform.suite.api.Suite;
 	NebulaTests.class,
 	Swing2SwtTests.class,
 	GefTests.class,
-	BindingTests.class
+	BindingTests.class,
+	WizardTests.class
 })
 public class RcpTests {
 }
