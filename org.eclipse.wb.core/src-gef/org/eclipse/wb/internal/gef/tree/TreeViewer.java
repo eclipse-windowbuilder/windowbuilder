@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -190,7 +189,8 @@ public class TreeViewer extends AbstractEditPartViewer {
 	 */
 	@Override
 	public EditPart findObjectAtExcluding(Point location,
-			Collection<IFigure> exclude,
+			// TODO Draw2D - Typify once lower bound is 3.22
+			@SuppressWarnings("rawtypes") Collection exclude,
 			Conditional conditional) {
 		// simple check location
 		Rectangle clientArea = m_tree.getClientArea();
@@ -217,7 +217,8 @@ public class TreeViewer extends AbstractEditPartViewer {
 
 	@Override
 	public EditPart findObjectAtExcluding(Point location,
-			Collection<IFigure> exclude,
+			// TODO Draw2D - Typify once lower bound is 3.22
+			@SuppressWarnings("rawtypes") Collection exclude,
 			Conditional conditional,
 			String layer) {
 		return null;
