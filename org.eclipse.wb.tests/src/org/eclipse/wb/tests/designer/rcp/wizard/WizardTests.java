@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2024 Patrick Ziegler and others.
+ * Copyright (c) 2023, 2024 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -10,18 +10,20 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.tests.swtbot.designer.rcp;
-
-import org.eclipse.wb.tests.swtbot.designer.rcp.wizard.WizardTests;
+package org.eclipse.wb.tests.designer.rcp.wizard;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
 
 /**
- * A collection of all SWTBot-based RCP tests.
+ * A collection of all SWTBot-based RCP Wizard tests.
  */
 @Suite
-@SelectClasses(WizardTests.class)
-public class RcpTests {
-
+@SelectClasses({
+		Eclipse4WizardTest.class,
+		JFaceWizardTest.class,
+		RcpWizardTest.class,
+		SwtWizardTest.class
+})
+public class WizardTests {
 }
