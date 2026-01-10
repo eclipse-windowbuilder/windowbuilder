@@ -1,9 +1,23 @@
+/*******************************************************************************
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0.
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *    Google, Inc. - initial API and implementation
+ *******************************************************************************/
 package jphonebook;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -12,13 +26,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
-import org.jdesktop.swingbinding.JComboBoxBinding;
-import org.jdesktop.swingbinding.SwingBindings;
+
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Bindings;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import org.jdesktop.swingbinding.JComboBoxBinding;
+import org.jdesktop.swingbinding.SwingBindings;
 
 import jphonebook.model.PhoneGroup;
 
@@ -32,7 +45,7 @@ public class JPhoneGroupDialog extends JDialog {
 	private final List<String> m_names;
 	private JPanel m_contentPane;
 	private JButton m_buttonOk;
-	private JComboBox m_comboBox;
+	private JComboBox<String> m_comboBox;
 
 	public JPhoneGroupDialog(List<String> names, jphonebook.model.PhoneGroup phoneGroup) {
 		m_names = names;
@@ -62,7 +75,7 @@ public class JPhoneGroupDialog extends JDialog {
 			m_contentPane.add(lblName, gbc);
 		}
 		{
-			m_comboBox = new JComboBox();
+			m_comboBox = new JComboBox<>();
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.insets = new Insets(0, 0, 5, 0);
 			gbc.fill = GridBagConstraints.BOTH;
@@ -86,12 +99,13 @@ public class JPhoneGroupDialog extends JDialog {
 		initDataBindings();
 	}
 	protected void initDataBindings() {
+		@SuppressWarnings("rawtypes")
 		JComboBoxBinding<String, List<String>, JComboBox> jComboBinding = SwingBindings.createJComboBoxBinding(AutoBinding.UpdateStrategy.READ, m_names, m_comboBox);
 		jComboBinding.bind();
 		//
 		BeanProperty<PhoneGroup, String> phoneGroupBeanProperty = BeanProperty.create("name");
-		BeanProperty<JComboBox, String> jComboBoxBeanProperty = BeanProperty.create("selectedItem");
-		AutoBinding<PhoneGroup, String, JComboBox, String> autoBinding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, m_phoneGroup, phoneGroupBeanProperty, m_comboBox, jComboBoxBeanProperty);
+		BeanProperty<JComboBox<String>, String> jComboBoxBeanProperty = BeanProperty.create("selectedItem");
+		AutoBinding<PhoneGroup, String, JComboBox<String>, String> autoBinding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, m_phoneGroup, phoneGroupBeanProperty, m_comboBox, jComboBoxBeanProperty);
 		autoBinding.bind();
 	}
 }
