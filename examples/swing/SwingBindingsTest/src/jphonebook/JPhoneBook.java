@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License 2.0 which is available at
+ * https://www.eclipse.org/legal/epl-2.0.
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *    Google, Inc. - initial API and implementation
+ *******************************************************************************/
 package jphonebook;
 
 import java.awt.Color;
@@ -24,10 +36,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
-import jphonebook.model.Person;
-import jphonebook.model.PhoneGroup;
-import jphonebook.model.PhoneGroups;
-
 import org.jdesktop.beansbinding.AutoBinding;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Bindings;
@@ -35,6 +43,10 @@ import org.jdesktop.beansbinding.ELProperty;
 import org.jdesktop.swingbinding.JListBinding;
 import org.jdesktop.swingbinding.JTableBinding;
 import org.jdesktop.swingbinding.SwingBindings;
+
+import jphonebook.model.Person;
+import jphonebook.model.PhoneGroup;
+import jphonebook.model.PhoneGroups;
 
 
 /**
@@ -46,7 +58,7 @@ public class JPhoneBook extends JFrame {
 	private PhoneGroups m_groups = new PhoneGroups();
 	private List<String> m_names = new ArrayList<String>();
 	private JSplitPane m_contentPane;
-	private JList m_groupList;
+	private JList<PhoneGroup> m_groupList;
 	private JPanel groupToolbar;
 	private JButton m_newGroupButton;
 	private JButton m_editGroupButton;
@@ -174,7 +186,7 @@ public class JPhoneBook extends JFrame {
 				}
 			}
 			{
-				m_groupList = new JList();
+				m_groupList = new JList<>();
 				m_groupList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				GridBagConstraints gbc = new GridBagConstraints();
 				gbc.fill = GridBagConstraints.BOTH;
@@ -355,6 +367,7 @@ public class JPhoneBook extends JFrame {
 	}
 	protected void initDataBindings() {
 		BeanProperty<PhoneGroups, List<PhoneGroup>> phoneGroupsBeanProperty = BeanProperty.create("groups");
+		@SuppressWarnings("rawtypes")
 		JListBinding<PhoneGroup, PhoneGroups, JList> jListBinding = SwingBindings.createJListBinding(AutoBinding.UpdateStrategy.READ, m_groups, phoneGroupsBeanProperty, m_groupList);
 		//
 		ELProperty<PhoneGroup, Object> phoneGroupEvalutionProperty = ELProperty.create("${name} (${personCount})");
@@ -362,8 +375,8 @@ public class JPhoneBook extends JFrame {
 		//
 		jListBinding.bind();
 		//
-		BeanProperty<JList, List<Person>> jListPersonsBeanProperty = BeanProperty.create("selectedElement.persons");
-		JTableBinding<Person, JList, JTable> jTableBinding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, m_groupList, jListPersonsBeanProperty, m_personTable);
+		BeanProperty<JList<PhoneGroup>, List<Person>> jListPersonsBeanProperty = BeanProperty.create("selectedElement.persons");
+		JTableBinding<Person, JList<PhoneGroup>, JTable> jTableBinding = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ, m_groupList, jListPersonsBeanProperty, m_personTable);
 		//
 		BeanProperty<Person, String> personBeanProperty = BeanProperty.create("name");
 		jTableBinding.addColumnBinding(personBeanProperty).setColumnName("Name");
@@ -408,14 +421,14 @@ public class JPhoneBook extends JFrame {
 		AutoBinding<JTable, String, JTextField, String> autoBinding_5 = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, m_personTable, jTableBeanProperty_4, m_mobilePhone2TextField, jTextFieldBeanProperty_4);
 		autoBinding_5.bind();
 		//
-		ELProperty<JList, Object> jListEvalutionProperty = ELProperty.create("${ selectedElement != null }");
+		ELProperty<JList<PhoneGroup>, Object> jListEvalutionProperty = ELProperty.create("${ selectedElement != null }");
 		BeanProperty<JButton, Boolean> jButtonBeanProperty = BeanProperty.create("enabled");
-		AutoBinding<JList, Object, JButton, Boolean> autoBinding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, m_groupList, jListEvalutionProperty, m_editGroupButton, jButtonBeanProperty);
+		AutoBinding<JList<PhoneGroup>, Object, JButton, Boolean> autoBinding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, m_groupList, jListEvalutionProperty, m_editGroupButton, jButtonBeanProperty);
 		autoBinding.bind();
 		//
-		ELProperty<JList, Object> jListEvalutionProperty_1 = ELProperty.create("${ selectedElement != null }");
+		ELProperty<JList<PhoneGroup>, Object> jListEvalutionProperty_1 = ELProperty.create("${ selectedElement != null }");
 		BeanProperty<JButton, Boolean> jButtonBeanProperty_1 = BeanProperty.create("enabled");
-		AutoBinding<JList, Object, JButton, Boolean> autoBinding_6 = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, m_groupList, jListEvalutionProperty_1, m_deleteGroupButton, jButtonBeanProperty_1);
+		AutoBinding<JList<PhoneGroup>, Object, JButton, Boolean> autoBinding_6 = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ, m_groupList, jListEvalutionProperty_1, m_deleteGroupButton, jButtonBeanProperty_1);
 		autoBinding_6.bind();
 		//
 		ELProperty<JTable, Object> jTableEvalutionProperty = ELProperty.create("${ selectedElement != null }");
