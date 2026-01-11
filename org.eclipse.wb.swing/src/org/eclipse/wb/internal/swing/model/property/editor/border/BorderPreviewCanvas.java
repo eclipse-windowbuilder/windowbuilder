@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,7 +28,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import swingintegration.example.EmbeddedSwingComposite2;
+import swingintegration.example.EmbeddedSwingComposite;
 
 /**
  * {@link Composite} for displaying {@link Border}.
@@ -36,7 +36,7 @@ import swingintegration.example.EmbeddedSwingComposite2;
  * @author scheglov_ke
  * @coverage swing.property.editor
  */
-public final class BorderPreviewCanvas extends EmbeddedSwingComposite2 {
+public final class BorderPreviewCanvas extends EmbeddedSwingComposite {
 	private JPanel m_awtRoot;
 	private JPanel m_emptyPanel;
 	private JPanel m_filledPanel_1;
