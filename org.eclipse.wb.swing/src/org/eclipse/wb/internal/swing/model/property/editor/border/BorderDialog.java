@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -61,8 +61,6 @@ import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
 import javax.swing.border.Border;
-
-import swingintegration.example.EmbeddedSwingComposite2;
 
 /**
  * Dialog for {@link Border} editing.
@@ -193,11 +191,8 @@ public final class BorderDialog extends ResizableDialog {
 			GridDataFactory.create(previewGroup).spanH(2).grabH().fillH();
 			GridLayoutFactory.create(previewGroup);
 			previewGroup.setText(ModelMessages.BorderDialog_preview);
-			//
-			if (EmbeddedSwingComposite2.canUseAwt()) {
-				m_previewCanvas = new BorderPreviewCanvas(previewGroup, SWT.NONE);
-				GridDataFactory.create(m_previewCanvas).grab().fill().hintV(100);
-			}
+			m_previewCanvas = new BorderPreviewCanvas(previewGroup, SWT.NONE);
+			GridDataFactory.create(m_previewCanvas).grab().fill().hintV(100);
 		}
 		//
 		updateGUI();
