@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout.gbl.ui;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -39,6 +38,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 
 import java.text.MessageFormat;
@@ -102,11 +102,11 @@ ResizableDialog {
 	// alignment
 	private List<Button> m_alignmentButtons;
 	// size
-	private CSpinner m_sizeSpinner;
+	private Spinner m_sizeSpinner;
 	// grow
 	private Button m_noGrowButton;
 	private Button m_growButton;
-	private CSpinner m_growSpinner;
+	private Spinner m_growSpinner;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -307,7 +307,7 @@ ResizableDialog {
 				label.setText(ModelMessages.DimensionEditDialog_minimum);
 			}
 			{
-				m_sizeSpinner = new CSpinner(composite, SWT.BORDER);
+				m_sizeSpinner = new Spinner(composite, SWT.BORDER);
 				GridDataFactory.create(m_sizeSpinner).hintHC(15);
 				m_sizeSpinner.setMinimum(0);
 				m_sizeSpinner.setMaximum(Integer.MAX_VALUE);
@@ -355,7 +355,7 @@ ResizableDialog {
 				}
 			});
 			//
-			m_growSpinner = new CSpinner(composite, SWT.BORDER);
+			m_growSpinner = new Spinner(composite, SWT.BORDER);
 			GridDataFactory.create(m_growSpinner).hintHC(15);
 			m_growSpinner.addListener(SWT.Selection, new Listener() {
 				@Override

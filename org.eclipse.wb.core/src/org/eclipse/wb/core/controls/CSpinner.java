@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,7 +39,10 @@ import java.text.ParseException;
  *
  * @author scheglov_ke
  * @coverage core.control
+ * @Deprecated Use the native {@link Spinner} directly. This class will be
+ *             removed after the 2028-03 release.
  */
+@Deprecated(since = "2026-03", forRemoval = true)
 public class CSpinner extends Composite {
 	private static final Color COLOR_VALID = Display.getCurrent().getSystemColor(
 			SWT.COLOR_LIST_BACKGROUND);
@@ -66,6 +69,7 @@ public class CSpinner extends Composite {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	public CSpinner(Composite parent, int style) {
 		super(parent, style);
 		m_button = new Button(this, SWT.ARROW | SWT.DOWN);
@@ -165,6 +169,7 @@ public class CSpinner extends Composite {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	@Override
 	public void setEnabled(boolean enabled) {
 		super.setEnabled(enabled);
@@ -177,6 +182,7 @@ public class CSpinner extends Composite {
 	 * <p>
 	 * See {@link Spinner#setDigits(int)}.
 	 */
+	@Deprecated
 	public void setDigits(int digits) {
 		m_formatPattern = "0.";
 		m_multiplier = 1;
@@ -191,6 +197,7 @@ public class CSpinner extends Composite {
 	/**
 	 * Sets minimum and maximum using single invocation.
 	 */
+	@Deprecated
 	public void setRange(int minimum, int maximum) {
 		setMinimum(minimum);
 		setMaximum(maximum);
@@ -199,6 +206,7 @@ public class CSpinner extends Composite {
 	/**
 	 * @return the minimum value that the receiver will allow.
 	 */
+	@Deprecated
 	public int getMinimum() {
 		return m_minimum;
 	}
@@ -206,6 +214,7 @@ public class CSpinner extends Composite {
 	/**
 	 * Sets the minimum value that the receiver will allow.
 	 */
+	@Deprecated
 	public void setMinimum(int minimum) {
 		m_minimum = minimum;
 		setSelection(Math.max(m_value, m_minimum));
@@ -214,6 +223,7 @@ public class CSpinner extends Composite {
 	/**
 	 * Sets the maximum value that the receiver will allow.
 	 */
+	@Deprecated
 	public void setMaximum(int maximum) {
 		m_maximum = maximum;
 		setSelection(Math.min(m_value, m_maximum));
@@ -223,6 +233,7 @@ public class CSpinner extends Composite {
 	 * Sets the amount that the receiver's value will be modified by when the up/down arrows are
 	 * pressed to the argument, which must be at least one.
 	 */
+	@Deprecated
 	public void setIncrement(int increment) {
 		m_increment = increment;
 	}
@@ -232,6 +243,7 @@ public class CSpinner extends Composite {
 	 * not within the range specified by minimum and maximum, it will be adjusted to fall within this
 	 * range.
 	 */
+	@Deprecated
 	public void setSelection(int newValue) {
 		newValue = Math.min(Math.max(m_minimum, newValue), m_maximum);
 		if (newValue != m_value || m_text.getText().length() == 0) {
@@ -251,6 +263,7 @@ public class CSpinner extends Composite {
 	/**
 	 * @return the <em>selection</em>, which is the receiver's position.
 	 */
+	@Deprecated
 	public int getSelection() {
 		return m_value;
 	}
