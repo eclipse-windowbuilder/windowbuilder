@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,6 +43,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
+import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoTest.JavaInfoExtension;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.compiler.IProblem;
@@ -57,15 +58,42 @@ import org.assertj.core.api.Assertions;
 import org.assertj.core.description.Description;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.InvocationInterceptor;
+import org.junit.jupiter.api.extension.ReflectiveInvocationContext;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
+@ExtendWith(JavaInfoExtension.class)
 public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * Custom extension that print additional metadata of the currently tested Java
+	 * model in case of a failure.
+	 */
+	public static class JavaInfoExtension implements InvocationInterceptor {
+		@Override
+		public void interceptTestMethod(Invocation<Void> invocation, ReflectiveInvocationContext<Method> invocationContext, ExtensionContext extensionContext) throws Throwable {
+			try {
+				InvocationInterceptor.super.interceptTestMethod(invocation, invocationContext, extensionContext);
+			} catch (Throwable e) {
+				JavaInfo javaInfo = EditorState.getActiveJavaInfo();
+				if (javaInfo != null) {
+					System.err.println(javaInfo.getEditor().getSource());
+					System.err.println(printHierarchy(javaInfo));
+				}
+				throw e;
+			}
+		}
+	}
+
 	@Override
 	@BeforeEach
 	public void setUp() throws Exception {
