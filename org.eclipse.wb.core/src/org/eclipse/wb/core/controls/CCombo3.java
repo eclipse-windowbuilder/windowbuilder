@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,6 +27,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -40,7 +41,10 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author scheglov_ke
  * @coverage core.control
+ * @deprecated Use the native SWT {@link Spinner} instead. This class will be
+ *             removed after the 2028-03 release.
  */
+@Deprecated(since = "2026-03", forRemoval = true)
 public class CCombo3 extends Composite {
 	private final long m_createTime = System.currentTimeMillis();
 	private final Text m_text;
@@ -54,6 +58,7 @@ public class CCombo3 extends Composite {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	public CCombo3(Composite parent, int style) {
 		super(parent, style);
 		addEvents(this, m_comboListener, new int[]{SWT.Dispose, SWT.Move, SWT.Resize});
@@ -303,6 +308,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * Adds the listener to receive events.
 	 */
+	@Deprecated
 	public void addSelectionListener(SelectionListener listener) {
 		checkWidget();
 		if (listener == null) {
@@ -319,6 +325,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * Sets drop state of combo.
 	 */
+	@Deprecated
 	public void doDropDown(boolean drop) {
 		// check, may be we already in this drop state
 		if (drop == isDropped()) {
@@ -375,6 +382,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * Initiates "press-hold-drag" sequence.
 	 */
+	@Deprecated
 	public void startDrag() {
 		m_text.setCapture(true);
 	}
@@ -384,18 +392,22 @@ public class CCombo3 extends Composite {
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	public void setFullDropdownTableWidth(boolean freeTableSize) {
 		m_fullDropdownTableSize = freeTableSize;
 	}
 
+	@Deprecated
 	public boolean isFullDropdownTableWidth() {
 		return m_fullDropdownTableSize;
 	}
 
+	@Deprecated
 	public boolean isDropped() {
 		return m_popup.isVisible();
 	}
 
+	@Deprecated
 	public void setQuickSearch(boolean value) {
 		// TODO
 	}
@@ -408,6 +420,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * Removes all items.
 	 */
+	@Deprecated
 	public void removeAll() {
 		TableItem[] items = m_table.getItems();
 		for (int index = 0; index < items.length; index++) {
@@ -419,6 +432,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * Adds new item with given text.
 	 */
+	@Deprecated
 	public void add(String text) {
 		checkWidget();
 		TableItem item = new TableItem(m_table, SWT.NONE);
@@ -428,6 +442,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * @return an item at given index
 	 */
+	@Deprecated
 	public String getItem(int index) {
 		checkWidget();
 		return m_table.getItem(index).getText();
@@ -436,6 +451,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * @return the number of items
 	 */
+	@Deprecated
 	public int getItemCount() {
 		checkWidget();
 		return m_table.getItemCount();
@@ -444,6 +460,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * @return the index of the selected item
 	 */
+	@Deprecated
 	public int getSelectionIndex() {
 		checkWidget();
 		return m_table.getSelectionIndex();
@@ -452,6 +469,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * Selects an item with given index.
 	 */
+	@Deprecated
 	public void select(int index) {
 		checkWidget();
 		if (index == -1) {
@@ -473,6 +491,7 @@ public class CCombo3 extends Composite {
 	/**
 	 * Selects item with given text.
 	 */
+	@Deprecated
 	public void setText(String text) {
 		// try to find item with given text
 		TableItem[] items = m_table.getItems();
@@ -493,6 +512,7 @@ public class CCombo3 extends Composite {
 	// TODO: computeSize
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated
 	protected void doResize() {
 		Rectangle clientArea = getClientArea();
 		int areaWidth = clientArea.width;
