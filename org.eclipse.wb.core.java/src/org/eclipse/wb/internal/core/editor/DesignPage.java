@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,7 +56,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 
@@ -452,7 +451,6 @@ public final class DesignPage implements IDesignPage {
 	}
 
 	private void internal_refreshGEF_withProgress() throws Exception {
-		final Display display = Display.getCurrent();
 		IRunnableWithProgress runnable = new IRunnableWithProgress() {
 			@Override
 			@SuppressWarnings("removal")
@@ -462,16 +460,7 @@ public final class DesignPage implements IDesignPage {
 				//
 				try {
 					DesignPageSite.setProgressMonitor(monitor);
-					display.syncExec(new Runnable() {
-						@Override
-						public void run() {
-							try {
-								internal_refreshGEF(monitor);
-							} catch (Throwable e) {
-								ReflectionUtils.propagate(e);
-							}
-						}
-					});
+					internal_refreshGEF(monitor);
 				} catch (Throwable e) {
 					ReflectionUtils.propagate(e);
 				} finally {
