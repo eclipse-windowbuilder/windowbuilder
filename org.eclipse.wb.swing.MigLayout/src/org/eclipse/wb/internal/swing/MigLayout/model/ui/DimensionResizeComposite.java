@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -24,6 +23,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Spinner;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -43,10 +43,10 @@ public final class DimensionResizeComposite extends Composite {
 	// UI
 	private final Button m_defaultWeightButton;
 	private final Button m_customWeightButton;
-	private final CSpinner m_weightSpinner;
+	private final Spinner m_weightSpinner;
 	private final Button m_defaultPriorityButton;
 	private final Button m_customPriorityButton;
-	private final CSpinner m_prioritySpinner;
+	private final Spinner m_prioritySpinner;
 	// listener
 	private boolean m_updatingDimension;
 
@@ -100,9 +100,10 @@ public final class DimensionResizeComposite extends Composite {
 					}
 				});
 				//
-				m_weightSpinner = new CSpinner(weightComposite, SWT.BORDER);
+				m_weightSpinner = new Spinner(weightComposite, SWT.BORDER);
 				GridDataFactory.create(m_weightSpinner).hintHC(10).grabH().fill();
-				m_weightSpinner.setRange(0, Integer.MAX_VALUE);
+				m_weightSpinner.setMinimum(0);
+				m_weightSpinner.setMaximum(Integer.MAX_VALUE);
 				m_weightSpinner.addListener(SWT.Selection, new Listener() {
 					@Override
 					public void handleEvent(Event event) {
@@ -143,9 +144,10 @@ public final class DimensionResizeComposite extends Composite {
 					}
 				});
 				//
-				m_prioritySpinner = new CSpinner(priorityComposite, SWT.BORDER);
+				m_prioritySpinner = new Spinner(priorityComposite, SWT.BORDER);
 				GridDataFactory.create(m_prioritySpinner).hintHC(10).grabH().fill();
-				m_prioritySpinner.setRange(0, Integer.MAX_VALUE);
+				m_prioritySpinner.setMinimum(0);
+				m_prioritySpinner.setMaximum(Integer.MAX_VALUE);
 				m_prioritySpinner.addListener(SWT.Selection, new Listener() {
 					@Override
 					public void handleEvent(Event event) {

@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.table;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -29,6 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -89,13 +89,13 @@ public final class TableModelDialog extends ResizableDialog {
 	private TitledComposite m_columnPropertiesComposite;
 	private TableModelPreviewCanvas m_swingComposite;
 	// columns
-	private CSpinner m_columnCountSpinner;
+	private Spinner m_columnCountSpinner;
 	private Button m_insertColumnButton;
 	private Button m_deleteColumnButton;
 	private Button m_moveColumnLeftButton;
 	private Button m_moveColumnRightButton;
 	// rows
-	private CSpinner m_rowCountSpinner;
+	private Spinner m_rowCountSpinner;
 	private Button m_insertRowButton;
 	private Button m_deleteRowButton;
 	private Button m_moveRowUpButton;
@@ -109,9 +109,9 @@ public final class TableModelDialog extends ResizableDialog {
 	private Label m_columnPropertyValuesLabel;
 	private Text m_columnPropertyValues;
 	private Button m_columnPropertyValuesEdit;
-	private CSpinner m_columnPropertyPrefWidth;
-	private CSpinner m_columnPropertyMinWidth;
-	private CSpinner m_columnPropertyMaxWidth;
+	private Spinner m_columnPropertyPrefWidth;
+	private Spinner m_columnPropertyMinWidth;
+	private Spinner m_columnPropertyMaxWidth;
 
 	@Override
 	protected Control createDialogArea(Composite parent) {
@@ -161,7 +161,7 @@ public final class TableModelDialog extends ResizableDialog {
 		// Count
 		{
 			new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_columnsCount);
-			m_columnCountSpinner = new CSpinner(container, SWT.BORDER);
+			m_columnCountSpinner = new Spinner(container, SWT.BORDER);
 			GridDataFactory.create(m_columnCountSpinner).grabH().fillH().hintHC(5);
 			m_swingComposite.addJTableOperationSelectionListener(m_columnCountSpinner, new TableOperationRunnable() {
 				@Override
@@ -253,7 +253,7 @@ public final class TableModelDialog extends ResizableDialog {
 		// Count
 		{
 			new Label(container, SWT.NONE).setText(ModelMessages.TableModelDialog_rowsCount);
-			m_rowCountSpinner = new CSpinner(container, SWT.BORDER);
+			m_rowCountSpinner = new Spinner(container, SWT.BORDER);
 			GridDataFactory.create(m_rowCountSpinner).grabH().fillH().hintHC(5);
 			m_swingComposite.addJTableOperationSelectionListener(m_rowCountSpinner, new TableOperationRunnable() {
 				@Override
@@ -368,9 +368,10 @@ public final class TableModelDialog extends ResizableDialog {
 		{
 			new Label(container, SWT.NONE).setText(
 					ModelMessages.TableModelDialog_columnPropertiesPrefWidth);
-			m_columnPropertyPrefWidth = new CSpinner(container, SWT.BORDER);
+			m_columnPropertyPrefWidth = new Spinner(container, SWT.BORDER);
 			GridDataFactory.create(m_columnPropertyPrefWidth).hintHC(15);
-			m_columnPropertyPrefWidth.setRange(0, Integer.MAX_VALUE);
+			m_columnPropertyPrefWidth.setMinimum(0);
+			m_columnPropertyPrefWidth.setMaximum(Integer.MAX_VALUE);
 			m_swingComposite.addJTableOperationSelectionListener(m_columnPropertyPrefWidth, new TableOperationRunnable() {
 				@Override
 				public void run(int row, int column) {
@@ -429,9 +430,10 @@ public final class TableModelDialog extends ResizableDialog {
 		{
 			new Label(container, SWT.NONE).setText(
 					ModelMessages.TableModelDialog_columnPropertiesMinWidth);
-			m_columnPropertyMinWidth = new CSpinner(container, SWT.BORDER);
+			m_columnPropertyMinWidth = new Spinner(container, SWT.BORDER);
 			GridDataFactory.create(m_columnPropertyMinWidth).hintHC(15);
-			m_columnPropertyMinWidth.setRange(0, Integer.MAX_VALUE);
+			m_columnPropertyMinWidth.setMinimum(0);
+			m_columnPropertyMinWidth.setMaximum(Integer.MAX_VALUE);
 			m_swingComposite.addJTableOperationSelectionListener(m_columnPropertyMinWidth, new TableOperationRunnable() {
 				@Override
 				public void run(int row, int column) {
@@ -479,9 +481,10 @@ public final class TableModelDialog extends ResizableDialog {
 		{
 			new Label(container, SWT.NONE).setText(
 					ModelMessages.TableModelDialog_columnPropertiesMaxWidth);
-			m_columnPropertyMaxWidth = new CSpinner(container, SWT.BORDER);
+			m_columnPropertyMaxWidth = new Spinner(container, SWT.BORDER);
 			GridDataFactory.create(m_columnPropertyMaxWidth).hintHC(15);
-			m_columnPropertyMaxWidth.setRange(0, Integer.MAX_VALUE);
+			m_columnPropertyMaxWidth.setMinimum(0);
+			m_columnPropertyMaxWidth.setMaximum(Integer.MAX_VALUE);
 			m_swingComposite.addJTableOperationSelectionListener(m_columnPropertyMaxWidth, new TableOperationRunnable() {
 				@Override
 				public void run(int row, int column) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.font;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
@@ -28,6 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Spinner;
 
 import java.awt.Component;
 import java.awt.Font;
@@ -50,8 +50,8 @@ public final class DerivedFontPage extends AbstractFontPage {
 	private final Button m_italicClear;
 	private final Button m_relativeButton;
 	private final Button m_absoluteButton;
-	private final CSpinner m_relativeSpinner;
-	private final CSpinner m_absoluteSpinner;
+	private final Spinner m_relativeSpinner;
+	private final Spinner m_absoluteSpinner;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -160,10 +160,11 @@ public final class DerivedFontPage extends AbstractFontPage {
 					GridDataFactory.create(m_relativeButton).indentHC(2).hintHC(15);
 				}
 				{
-					m_relativeSpinner = new CSpinner(composite, SWT.BORDER);
+					m_relativeSpinner = new Spinner(composite, SWT.BORDER);
 					GridDataFactory.create(m_relativeSpinner).hintHC(15);
 					m_relativeSpinner.addListener(SWT.Selection, listener);
-					m_relativeSpinner.setRange(Integer.MIN_VALUE, Integer.MAX_VALUE);
+					m_relativeSpinner.setMinimum(Integer.MIN_VALUE);
+					m_relativeSpinner.setMaximum(Integer.MAX_VALUE);
 				}
 			}
 			// absolute
@@ -174,10 +175,11 @@ public final class DerivedFontPage extends AbstractFontPage {
 					GridDataFactory.create(m_absoluteButton).indentHC(2).hintHC(15);
 				}
 				{
-					m_absoluteSpinner = new CSpinner(composite, SWT.BORDER);
+					m_absoluteSpinner = new Spinner(composite, SWT.BORDER);
 					GridDataFactory.create(m_absoluteSpinner).hintHC(15);
 					m_absoluteSpinner.addListener(SWT.Selection, listener);
-					m_absoluteSpinner.setRange(0, Integer.MAX_VALUE);
+					m_relativeSpinner.setMinimum(0);
+					m_relativeSpinner.setMaximum(Integer.MAX_VALUE);
 				}
 			}
 		}
