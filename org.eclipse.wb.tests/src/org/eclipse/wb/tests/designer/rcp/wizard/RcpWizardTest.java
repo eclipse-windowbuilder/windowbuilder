@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023, 2024 Patrick Ziegler and others.
+ * Copyright (c) 2023, 2025 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -10,13 +10,11 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.tests.swtbot.designer.rcp.wizard;
+package org.eclipse.wb.tests.designer.rcp.wizard;
 
-import org.eclipse.wb.tests.swtbot.designer.AbstractWizardTest;
+import org.eclipse.wb.tests.designer.rcp.AbstractWizardTest;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WithText.withText;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 

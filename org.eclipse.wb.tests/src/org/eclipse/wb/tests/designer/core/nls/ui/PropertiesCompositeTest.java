@@ -16,9 +16,9 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.core.nls.ui.NewSourceDialog;
 import org.eclipse.wb.internal.core.nls.ui.PropertiesComposite;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.gef.UiContext;
-import org.eclipse.wb.tests.swtbot.designer.bot.UIUtil;
 import org.eclipse.wb.tests.utils.SWTBotEditableSource;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetOfType.widgetOfType;
@@ -302,8 +302,8 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 	 */
 	private static SWTBotEditableSource getEditableSource(SWTBot shell) throws Exception {
 		PropertiesComposite composite = shell.getFinder().findControls(widgetOfType(PropertiesComposite.class)).get(0);
-		IEditableSource editableSource = (IEditableSource) UIUtil
-				.syncCall(() -> ReflectionUtils.invokeMethod(composite, "getSelectedSource()"));
+		IEditableSource editableSource = (IEditableSource) UIThreadRunnable.syncExec(
+				() -> ExecutionUtils.runObject(() -> ReflectionUtils.invokeMethod(composite, "getSelectedSource()")));
 		return new SWTBotEditableSource(editableSource);
 	}
 }
