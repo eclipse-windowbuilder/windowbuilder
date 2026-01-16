@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,10 +34,14 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author scheglov_ke
  * @coverage core.test
+ * @deprecated Obsolete. This class will be removed after the 2028-03 release.
  */
+@Deprecated(since = "2026-03", forRemoval = true)
 public class CSpinnerTest {
+	@Deprecated
 	protected Shell shell;
 
+	@Deprecated
 	public static void main(String[] args) {
 		try {
 			CSpinnerTest window = new CSpinnerTest();
@@ -47,6 +51,7 @@ public class CSpinnerTest {
 		}
 	}
 
+	@Deprecated
 	public void open() {
 		final Display display = Display.getDefault();
 		createContents();
@@ -59,6 +64,8 @@ public class CSpinnerTest {
 		}
 	}
 
+	@Deprecated
+	@SuppressWarnings("removal")
 	protected void createContents() {
 		shell = new Shell();
 		shell.setSize(500, 375);

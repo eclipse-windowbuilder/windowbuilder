@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor.geometry;
 
-import org.eclipse.wb.core.controls.CSpinner;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -28,6 +27,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Spinner;
 
 import java.lang.reflect.Field;
 
@@ -113,7 +113,7 @@ public abstract class AbstractGeometryDialog extends Dialog {
 		}
 		// spinner
 		{
-			final CSpinner spinner = new CSpinner(m_area, SWT.BORDER);
+			final Spinner spinner = new Spinner(m_area, SWT.BORDER);
 			GridDataFactory.create(spinner).hintHC(8).grabH().fillH();
 			spinner.setMinimum(0);
 			spinner.setMaximum(Integer.MAX_VALUE);

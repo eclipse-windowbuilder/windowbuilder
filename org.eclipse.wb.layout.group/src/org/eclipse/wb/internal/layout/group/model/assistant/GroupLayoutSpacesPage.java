@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,8 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model.assistant;
 
-import org.eclipse.wb.core.controls.CSpinner;
-import org.eclipse.wb.core.controls.CSpinnerDeferredNotifier;
+import org.eclipse.wb.core.controls.SpinnerDeferredNotifier;
 import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
@@ -41,6 +40,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
@@ -125,15 +125,15 @@ LayoutConstants {
 	// UI creation helpers
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private CSpinner createSpinner(Composite componentComposite) {
-		CSpinner spinner = new CSpinner(componentComposite, SWT.BORDER);
+	private Spinner createSpinner(Composite componentComposite) {
+		Spinner spinner = new Spinner(componentComposite, SWT.BORDER);
 		GridDataFactory.create(spinner).hintHC(7);
 		spinner.setMaximum(Short.MAX_VALUE);
 		return spinner;
 	}
 
-	private void createSpinnerNotifier(CSpinner spinner, Listener listener) {
-		new CSpinnerDeferredNotifier(spinner, 500, listener);
+	private void createSpinnerNotifier(Spinner spinner, Listener listener) {
+		new SpinnerDeferredNotifier(spinner, 500, listener);
 	}
 
 	/**
@@ -178,8 +178,8 @@ LayoutConstants {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final class ComponentComposite extends Composite {
-		private CSpinner m_widthSpinner;
-		private CSpinner m_heightSpinner;
+		private Spinner m_widthSpinner;
+		private Spinner m_heightSpinner;
 		private ToolBarManager m_verticalAnchorsManager;
 		private ToolBarManager m_horizontalAnchorsManager;
 
@@ -254,7 +254,7 @@ LayoutConstants {
 		@Override
 		public void handleEvent(Event event) {
 			if (event.type == SWT.Selection && event.doit) {
-				CSpinner spinner = (CSpinner) event.widget;
+				Spinner spinner = (Spinner) event.widget;
 				final int value = spinner.getSelection();
 				if (value > 0) {
 					setComponentSize(m_dimension, value);
@@ -268,7 +268,7 @@ LayoutConstants {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private final class SpaceComposite extends Composite {
-		private final CSpinner m_spinner;
+		private final Spinner m_spinner;
 		private final Button m_button;
 		private final int m_direction;
 		private final int m_dimension;
@@ -307,15 +307,15 @@ LayoutConstants {
 			createSpinnerNotifier(m_spinner, new Listener() {
 				@Override
 				public void handleEvent(Event event) {
-					if (event.type == SWT.Selection && event.doit) {
-						int gapValue = m_spinner.getSelection();
-						int defaultGapSize =
-								m_anchorsSupport.getDefaultGapSize(m_javaInfo, m_dimension, m_direction).intValue();
-						if (gapValue < 1 || gapValue == defaultGapSize) {
-							gapValue = NOT_EXPLICITLY_DEFINED;
-						}
-						setGapValue(gapValue);
+				if (event.type == SWT.Selection && event.doit) {
+					int gapValue = m_spinner.getSelection();
+					int defaultGapSize =
+							m_anchorsSupport.getDefaultGapSize(m_javaInfo, m_dimension, m_direction).intValue();
+					if (gapValue < 1 || gapValue == defaultGapSize) {
+						gapValue = NOT_EXPLICITLY_DEFINED;
 					}
+					setGapValue(gapValue);
+				}
 				}
 			});
 		}
@@ -352,9 +352,9 @@ LayoutConstants {
 				@Override
 				public void run() throws Exception {
 					m_anchorsSupport.action_setEmptySpaceProperties(
-							m_javaInfo,
-							m_dimension,
-							m_direction,
+					m_javaInfo,
+					m_dimension,
+					m_direction,
 							gapValue);
 				}
 			});

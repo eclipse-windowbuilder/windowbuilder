@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,8 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.editor.actions.assistant;
 
-import org.eclipse.wb.core.controls.CSpinner;
-import org.eclipse.wb.core.controls.CSpinnerDeferredNotifier;
+import org.eclipse.wb.core.controls.SpinnerDeferredNotifier;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -35,6 +34,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.swt.widgets.Text;
 
 import org.apache.commons.lang3.StringUtils;
@@ -735,7 +735,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 	 * Adapter for <code>int</code> property.
 	 */
 	private final class IntegerPropertyInfo extends PropertyInfo {
-		private final CSpinner m_spinner;
+		private final Spinner m_spinner;
 		private final Listener m_listener = new Listener() {
 			@Override
 			public void handleEvent(Event event) {
@@ -750,10 +750,10 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public IntegerPropertyInfo(String property, CSpinner spinner) {
+		public IntegerPropertyInfo(String property, Spinner spinner) {
 			super(property);
 			m_spinner = spinner;
-			new CSpinnerDeferredNotifier(m_spinner, 500, m_listener);
+			new SpinnerDeferredNotifier(m_spinner, 500, m_listener);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -787,7 +787,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 			int maxValue) {
 		new Label(parent, SWT.NONE).setText(title);
 		//
-		CSpinner spinner = new CSpinner(parent, SWT.BORDER);
+		Spinner spinner = new Spinner(parent, SWT.BORDER);
 		GridDataFactory.create(spinner).hintHC(10);
 		spinner.setMinimum(minValue);
 		spinner.setMaximum(maxValue);
@@ -873,7 +873,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 	 * Adapter for <code>double</code> property.
 	 */
 	private final class DoublePropertyInfo extends PropertyInfo {
-		private final CSpinner m_spinner;
+		private final Spinner m_spinner;
 		private final double m_multiplier;
 		private final Listener m_listener = new Listener() {
 			@Override
@@ -889,11 +889,11 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public DoublePropertyInfo(String property, CSpinner spinner, double multiplier) {
+		public DoublePropertyInfo(String property, Spinner spinner, double multiplier) {
 			super(property);
 			m_spinner = spinner;
 			m_multiplier = multiplier;
-			new CSpinnerDeferredNotifier(m_spinner, 500, m_listener);
+			new SpinnerDeferredNotifier(m_spinner, 500, m_listener);
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -929,7 +929,7 @@ public abstract class AbstractAssistantPage extends Composite implements ILayout
 		int multiplier = (int) Math.pow(10, digits);
 		new Label(parent, SWT.NONE).setText(title);
 		//
-		CSpinner spinner = new CSpinner(parent, SWT.BORDER);
+		Spinner spinner = new Spinner(parent, SWT.BORDER);
 		GridDataFactory.create(spinner).hintHC(10);
 		spinner.setMinimum((int) (minValue * multiplier));
 		spinner.setMaximum((int) (maxValue * multiplier));
