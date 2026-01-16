@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2025 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,9 +25,6 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.RectValue;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 
 import org.eclipse.draw2d.geometry.Interval;
@@ -42,10 +39,11 @@ import net.miginfocom.layout.LC;
 import net.miginfocom.swing.MigLayout;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import java.awt.Toolkit;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 
@@ -234,7 +232,6 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
-	@Disabled
 	@Test
 	public void test_IGridInfo() throws Exception {
 		ContainerInfo panel =
@@ -258,21 +255,17 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			assertEquals(3, gridInfo.getColumnCount());
 			Interval[] columnIntervals = gridInfo.getColumnIntervals();
 			Assertions.assertThat(columnIntervals).hasSize(3);
-			assertEquals("Interval(7, 100)", columnIntervals[0].toString());
-			assertEquals("Interval(111, 150)", columnIntervals[1].toString());
-			assertEquals("Interval(265, 50)", columnIntervals[2].toString());
+			assertEquals("Interval[begin=7, length=100]", columnIntervals[0].toString());
+			assertEquals("Interval[begin=114, length=150]", columnIntervals[1].toString());
+			assertEquals("Interval[begin=271, length=50]", columnIntervals[2].toString());
 		}
 		// rows
 		{
 			assertEquals(2, gridInfo.getRowCount());
 			Interval[] rowIntervals = gridInfo.getRowIntervals();
 			Assertions.assertThat(rowIntervals).hasSize(2);
-			assertEquals("Interval(7, 40)", rowIntervals[0].toString());
-			assertEquals(
-					Expectations.get("Interval(51, 23)", new StrValue[]{
-							new StrValue("kosta-home", "Interval(51, 25)"),
-							new StrValue("scheglov-win", "Interval(51, 23)")}),
-					rowIntervals[1].toString());
+			assertEquals("Interval[begin=7, length=40]", rowIntervals[0].toString());
+			assertEquals("Interval[begin=54, length=27]", rowIntervals[1].toString());
 		}
 		// cells
 		{
@@ -287,23 +280,12 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			}
 			{
 				Rectangle cells = new Rectangle(2, 0, 1, 1);
-				Rectangle expected = new Rectangle(265, 7, 50 + 1, 40 + 1);
+				Rectangle expected = new Rectangle(271, 7, 50 + 1, 40 + 1);
 				assertEquals(expected, gridInfo.getCellsRectangle(cells));
 			}
 			{
 				Rectangle cells = new Rectangle(0, 0, 2, 2);
-				Rectangle expected =
-						Expectations.get(
-								new Rectangle(7, 7, 100 + 4 + 150 + 1, 40 + 4 + 23 + 1),
-								new RectValue[]{
-										new RectValue("kosta-home", new Rectangle(7,
-												7,
-												100 + 4 + 150 + 1,
-												40 + 4 + 25 + 1)),
-										new RectValue("scheglov-win", new Rectangle(7,
-												7,
-												100 + 4 + 150 + 1,
-												40 + 4 + 23 + 1))});
+				Rectangle expected = new Rectangle(7, 7, 100 + 150 + 7 + 1, 40 + 7 + 27 + 1);
 				assertEquals(expected, gridInfo.getCellsRectangle(cells));
 			}
 		}
@@ -1341,7 +1323,6 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigDimensionInfo#toUnitString(int, String)}.
 	 */
-	@Disabled
 	@Test
 	public void test_dimensionSize_toUnitString() throws Exception {
 		ContainerInfo panel =
@@ -1353,37 +1334,24 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 						"}");
 		panel.refresh();
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
+		int dpi = Toolkit.getDefaultToolkit().getScreenResolution();
 		{
 			MigColumnInfo column = layout.getColumns().get(0);
-			assertEquals("2.65cm", column.toUnitString(100, "cm"));
+			assertEquals(String.format(Locale.ENGLISH, "%.2fcm", 2.54 * 100 / dpi), column.toUnitString(100, "cm"));
 			assertEquals("22.22%", column.toUnitString(100, "%"));
 			// check "sp" unit
-			String expected_sp;
-			int displayWidth = Display.getDefault().getBounds().width;
-			if (displayWidth == 1920) {
-				expected_sp = "5.21sp";
-			} else if (displayWidth == 1680) {
-				expected_sp = "5.95sp";
-			} else {
-				throw new AssertionError("Unknown display width: " + displayWidth);
-			}
-			assertEquals(expected_sp, column.toUnitString(100, "sp"));
+			int monitorWidth = Display.getCurrent().getPrimaryMonitor().getBounds().width;
+			assertEquals(String.format(Locale.ENGLISH, "%.2fsp", 100.0 * (100.0 / monitorWidth)),
+					column.toUnitString(100, "sp"));
 		}
 		{
 			MigRowInfo row = layout.getRows().get(0);
-			assertEquals("2.65cm", row.toUnitString(100, "cm"));
+			assertEquals(String.format(Locale.ENGLISH, "%.2fcm", 2.54 * 100 / dpi), row.toUnitString(100, "cm"));
 			assertEquals("33.33%", row.toUnitString(100, "%"));
 			// check "sp" unit
-			int displayHeight = Display.getDefault().getBounds().height;
-			String expected_sp;
-			if (displayHeight == 1200) {
-				expected_sp = "8.33sp";
-			} else if (displayHeight == 1050) {
-				expected_sp = "9.52sp";
-			} else {
-				throw new AssertionError("Unknown display width: " + displayHeight);
-			}
-			assertEquals(expected_sp, row.toUnitString(100, "sp"));
+			int monitorHeight = Display.getCurrent().getPrimaryMonitor().getBounds().height;
+			assertEquals(String.format(Locale.ENGLISH, "%.2fsp", 100.0 * (100.0 / monitorHeight)),
+					row.toUnitString(100, "sp"));
 		}
 	}
 
