@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2024 Patrick Ziegler and others.
+ * Copyright (c) 2024, 2026 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -10,9 +10,7 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.tests.swtbot.designer.swing;
-
-import org.eclipse.wb.tests.swtbot.designer.swing.wizard.SwingNewWizardTest;
+package org.eclipse.wb.tests.designer.swing.wizard;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -22,6 +20,6 @@ import org.junit.platform.suite.api.Suite;
  */
 @Suite
 @SelectClasses(SwingNewWizardTest.class)
-public class SwingTests {
+public class WizardTests {
 
 }

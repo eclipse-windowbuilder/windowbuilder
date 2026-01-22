@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,6 +15,7 @@ package org.eclipse.wb.tests.designer.swing;
 import org.eclipse.wb.tests.designer.swing.laf.LookAndFeelTest;
 import org.eclipse.wb.tests.designer.swing.model.ModelTests;
 import org.eclipse.wb.tests.designer.swing.swingx.SwingXTests;
+import org.eclipse.wb.tests.designer.swing.wizard.WizardTests;
 
 import org.junit.platform.suite.api.SelectClasses;
 import org.junit.platform.suite.api.Suite;
@@ -29,6 +30,7 @@ import org.junit.platform.suite.api.Suite;
 	CustomizeTest.class,
 	ModelTests.class,
 	SwingXTests.class,
+	WizardTests.class
 	//  WaitForMemoryProfilerTest.class,
 })
 public class SwingTests {
