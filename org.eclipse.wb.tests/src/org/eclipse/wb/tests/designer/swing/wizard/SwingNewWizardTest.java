@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2023, 2024 Patrick Ziegler and others.
+ * Copyright (c) 2023, 2026 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -10,11 +10,9 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.tests.swtbot.designer.swing.wizard;
+package org.eclipse.wb.tests.designer.swing.wizard;
 
-import org.eclipse.wb.tests.swtbot.designer.AbstractWizardTest;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import org.eclipse.wb.tests.designer.rcp.AbstractWizardTest;
 
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +35,7 @@ public class SwingNewWizardTest extends AbstractWizardTest {
 
 	@Test
 	public void testCreateNewJApplet() throws Exception {
-		testTemplateViaProjectExplorer("WindowBuilder", "Swing Designer", "JApplet");
+		testTemplateViaProjectExplorer("WindowBuilder", "Swing Designer", "(Deprecated) JApplet");
 	}
 
 	@Test
@@ -52,13 +50,13 @@ public class SwingNewWizardTest extends AbstractWizardTest {
 
 	@Test
 	public void testCreateWithJavaModules() throws Exception {
-		bot.setFileContent("module-info.java", """
+		setFileContentSrc("module-info.java", """
 				module test {
 				}""");
 		//
 		testTemplateViaProjectExplorer("WindowBuilder", "Swing Designer", "JFrame");
 		// We can't use code blocks as they don't consider carriage-returns
-		assertArrayEquals(bot.getFileContent("module-info.java").split(System.lineSeparator()),
+		assertArrayEquals(getFileContentSrc("module-info.java").split(System.lineSeparator()),
 				new String[] {
 						"module test {",
 						"	requires java.desktop;",
@@ -83,7 +81,7 @@ public class SwingNewWizardTest extends AbstractWizardTest {
 
 	@Test
 	public void testCreateNewJAppletNoSelection() throws Exception {
-		testTemplateViaMenu("WindowBuilder", "Swing Designer", "JApplet");
+		testTemplateViaMenu("WindowBuilder", "Swing Designer", "(Deprecated) JApplet");
 	}
 
 	@Test
@@ -98,13 +96,13 @@ public class SwingNewWizardTest extends AbstractWizardTest {
 
 	@Test
 	public void testCreateWithJavaModulesNoSelection() throws Exception {
-		bot.setFileContent("module-info.java", """
+		setFileContentSrc("module-info.java", """
 				module test {
 				}""");
 		//
 		testTemplateViaMenu("WindowBuilder", "Swing Designer", "JFrame");
 		// We can't use code blocks as they don't consider carriage-returns
-		assertArrayEquals(bot.getFileContent("module-info.java").split(System.lineSeparator()),
+		assertArrayEquals(getFileContentSrc("module-info.java").split(System.lineSeparator()),
 				new String[] {
 						"module test {",
 						"	requires java.desktop;",
