@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,14 +53,13 @@ public class MigLayoutConstraintsPropertiesTest extends AbstractMigLayoutTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[][][]', '[][][][]'));",
-						"    add(new JButton(C_1), 'cell 1 2');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout("", "[][][]", "[][][][]"));
+						add(new JButton(C_1), "cell 1 2");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		m_constraints = MigLayoutInfo.getConstraints(button);
