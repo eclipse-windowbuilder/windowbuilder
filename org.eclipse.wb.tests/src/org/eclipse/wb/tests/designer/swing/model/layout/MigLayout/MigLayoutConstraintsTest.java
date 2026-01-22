@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -67,14 +67,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_newConstraints() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 1 2 3 4');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 1 2 3 4");
+					}
+				}""");
 		panel.refresh();
 		//
 		ComponentInfo newButton = createJButton();
@@ -95,14 +94,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 
 	@Test
 	public void test_parseString_getBounds() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 1 2 3 4');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 1 2 3 4");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check constraints
@@ -111,14 +109,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 
 	@Test
 	public void test_parseCC_getBounds() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), new CC().cell(1,2,3,4));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), new CC().cell(1,2,3,4));
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check constraints
@@ -130,15 +127,14 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_parseString_noCell() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[][]'));",
-						"    add(new JButton(C_1), 'wrap');",
-						"    add(new JButton(C_2), 'skip');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout("", "[][]"));
+						add(new JButton(C_1), "wrap");
+						add(new JButton(C_2), "skip");
+					}
+				}""");
 		panel.refresh();
 		{
 			ComponentInfo button_1 = panel.getChildrenComponents().get(0);
@@ -155,16 +151,15 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_parseString_span() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[]'));",
-						"    add(new JButton(C_1), 'span');",
-						"    add(new JButton(C_2), 'cell 0 1');",
-						"    add(new JButton(C_3), 'cell 1 1');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout("", "[]"));
+						add(new JButton(C_1), "span");
+						add(new JButton(C_2), "cell 0 1");
+						add(new JButton(C_3), "cell 1 1");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		assertCellBounds(button_1, 0, 0, 2, 1);
@@ -177,29 +172,27 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	public void test_parse_hidemode3() throws Exception {
 		// we don't execute java.awt.Component.setVisible(), so use other method
 		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton() {",
-						"  }",
-						"  public void setVisible2(boolean b) {",
-						"    setVisible(b);",
-						"  }",
-						"}"));
+				"test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton() {
+					}
+					public void setVisible2(boolean b) {
+						setVisible(b);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('hidemode 3', '[][]'));",
-						"    {",
-						"      MyButton button = new MyButton();",
-						"      button.setVisible2(false);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout("hidemode 3", "[][]"));
+						{
+							MyButton button = new MyButton();
+							button.setVisible2(false);
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		{
 			ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -212,32 +205,32 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_write_hidemode() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, 'hidemode 0,cell 0 0');",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton button = new JButton();
+							add(button, "hidemode 0,cell 0 0");
+						}
+					}
+				}""");
 		refresh();
 		ComponentInfo button = getJavaInfoByName("button");
 		// update constraints
 		CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(button);
 		constraints.setX(1);
 		constraints.write();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button, 'hidemode 0,cell 1 0');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JButton button = new JButton();
+							add(button, "hidemode 0,cell 1 0");
+						}
+					}
+				}""");
 		refresh();
 	}
 
@@ -246,14 +239,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_setBounds_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 1 2 3 4');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 1 2 3 4");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// update constraints
@@ -263,13 +255,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		constraints.setWidth(4);
 		constraints.setHeight(5);
 		constraints.write();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 2 3 4 5');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 2 3 4 5");
+					}
+				}""");
 	}
 
 	/**
@@ -277,14 +269,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_setBounds_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1));
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// update constraints
@@ -294,13 +285,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		constraints.setWidth(4);
 		constraints.setHeight(5);
 		constraints.write();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 2 3 4 5');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 2 3 4 5");
+					}
+				}""");
 	}
 
 	/**
@@ -308,14 +299,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_updateBounds() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 1 2 3 4');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 1 2 3 4");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// update constraints
@@ -325,13 +315,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		constraints.updateWidth(1);
 		constraints.updateHeight(1);
 		constraints.write();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 2 3 4 5');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 2 3 4 5");
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -345,14 +335,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_setString() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(), '');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(), "");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(button);
@@ -401,94 +390,94 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_cleanUpSource_gapleft() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'gap 1');",
-				"    add(new JButton(C_2), 'gap 2,wrap');",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "gap 1");
+						add(new JButton(C_2), "gap 2,wrap");
+					}
+				}""");
 		refresh();
 		// write
 		rewriteConstraints();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'gapx 1');",
-				"    add(new JButton(C_2), 'gapx 2,wrap');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "gapx 1");
+						add(new JButton(C_2), "gapx 2,wrap");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_cleanUpSource_gapright() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'gapright 1');",
-				"    add(new JButton(C_2), 'gapright 2,wrap');",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "gapright 1");
+						add(new JButton(C_2), "gapright 2,wrap");
+					}
+				}""");
 		refresh();
 		// write
 		rewriteConstraints();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'gapright 1');",
-				"    add(new JButton(C_2), 'gapright 2,wrap');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "gapright 1");
+						add(new JButton(C_2), "gapright 2,wrap");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_cleanUpSource_gaptop() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'gaptop 1');",
-				"    add(new JButton(C_2), 'gaptop 2,wrap');",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "gaptop 1");
+						add(new JButton(C_2), "gaptop 2,wrap");
+					}
+				}""");
 		refresh();
 		// write
 		rewriteConstraints();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'gapy 1');",
-				"    add(new JButton(C_2), 'gapy 2,wrap');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "gapy 1");
+						add(new JButton(C_2), "gapy 2,wrap");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_cleanUpSource_gapbottom() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'gapbottom 1');",
-				"    add(new JButton(C_2), 'gapbottom 2,wrap');",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "gapbottom 1");
+						add(new JButton(C_2), "gapbottom 2,wrap");
+					}
+				}""");
 		refresh();
 		// write
 		rewriteConstraints();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'gapbottom 1');",
-				"    add(new JButton(C_2), 'gapbottom 2,wrap');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "gapbottom 1");
+						add(new JButton(C_2), "gapbottom 2,wrap");
+					}
+				}""");
 	}
 
 	private static void rewriteConstraints() throws Exception {
@@ -507,170 +496,163 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_makeExplicitCell_flow() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), '');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "");
+					}
+				}""");
 		panel.refresh();
 		// convert to explicit cells
 		makeExplicitCell(panel);
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 0 0');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_makeExplicitCell_wrap() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'wrap');",
-						"    add(new JButton(C_2), '');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "wrap");
+						add(new JButton(C_2), "");
+					}
+				}""");
 		panel.refresh();
 		// convert to explicit cells
 		makeExplicitCell(panel);
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 0 0');",
-				"    add(new JButton(C_2), 'cell 0 1');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+						add(new JButton(C_2), "cell 0 1");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_makeExplicitCell_newline() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), '');",
-						"    add(new JButton(C_2), 'newline');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "");
+						add(new JButton(C_2), "newline");
+					}
+				}""");
 		panel.refresh();
 		// convert to explicit cells
 		makeExplicitCell(panel);
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 0 0');",
-				"    add(new JButton(C_2), 'cell 0 1');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+						add(new JButton(C_2), "cell 0 1");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_makeExplicitCell_skip() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), '');",
-						"    add(new JButton(C_2), 'skip');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "");
+						add(new JButton(C_2), "skip");
+					}
+				}""");
 		panel.refresh();
 		// convert to explicit cells
 		makeExplicitCell(panel);
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 0 0');",
-				"    add(new JButton(C_2), 'cell 2 0');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+						add(new JButton(C_2), "cell 2 0");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_makeExplicitCell_wrap_skip() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'wrap');",
-						"    add(new JButton(C_2), 'skip');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "wrap");
+						add(new JButton(C_2), "skip");
+					}
+				}""");
 		panel.refresh();
 		// convert to explicit cells
 		makeExplicitCell(panel);
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 0 0');",
-				"    add(new JButton(C_2), 'cell 1 1');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+						add(new JButton(C_2), "cell 1 1");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_makeExplicitCell_hasDock() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'north');",
-						"    add(new JButton(C_2), 'skip');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "north");
+						add(new JButton(C_2), "skip");
+					}
+				}""");
 		panel.refresh();
 		// convert to explicit cells
 		makeExplicitCell(panel);
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'north');",
-				"    add(new JButton(C_2), 'cell 1 0');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "north");
+						add(new JButton(C_2), "cell 1 0");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_makeExplicitCell_split_span_wrap() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'split, span');",
-						"    add(new JButton(C_2), 'wrap');",
-						"    add(new JButton(C_3), '');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "split, span");
+						add(new JButton(C_2), "wrap");
+						add(new JButton(C_3), "");
+					}
+				}""");
 		panel.refresh();
 		// convert to explicit cells
 		makeExplicitCell(panel);
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 0 0');",
-				"    add(new JButton(C_2), 'cell 0 0');",
-				"    add(new JButton(C_3), 'cell 0 1');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+						add(new JButton(C_2), "cell 0 0");
+						add(new JButton(C_3), "cell 0 1");
+					}
+				}""");
 	}
 
 	/**
@@ -692,14 +674,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_alignment_UNKNOWN() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(button);
@@ -711,78 +692,77 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 			constraints.setHorizontalAlignment(MigColumnInfo.Alignment.CENTER);
 			constraints.setVerticalAlignment(MigRowInfo.Alignment.BOTTOM);
 			constraints.write();
-			assertEditor(
-					"public class Test extends JPanel implements IConstants {",
-					"  public Test() {",
-					"    setLayout(new MigLayout());",
-					"    add(new JButton(C_1), 'cell 0 0,alignx center,aligny bottom');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel implements IConstants {
+						public Test() {
+							setLayout(new MigLayout());
+							add(new JButton(C_1), "cell 0 0,alignx center,aligny bottom");
+						}
+					}""");
 		}
 		// new alignments: 2
 		{
 			constraints.setHorizontalAlignment(MigColumnInfo.Alignment.FILL);
 			constraints.setVerticalAlignment(MigRowInfo.Alignment.FILL);
 			constraints.write();
-			assertEditor(
-					"public class Test extends JPanel implements IConstants {",
-					"  public Test() {",
-					"    setLayout(new MigLayout());",
-					"    add(new JButton(C_1), 'cell 0 0,grow');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel implements IConstants {
+						public Test() {
+							setLayout(new MigLayout());
+							add(new JButton(C_1), "cell 0 0,grow");
+						}
+					}""");
 		}
 		// new alignments: 3
 		{
 			constraints.setHorizontalAlignment(MigColumnInfo.Alignment.LEFT);
 			constraints.setVerticalAlignment(MigRowInfo.Alignment.FILL);
 			constraints.write();
-			assertEditor(
-					"public class Test extends JPanel implements IConstants {",
-					"  public Test() {",
-					"    setLayout(new MigLayout());",
-					"    add(new JButton(C_1), 'cell 0 0,alignx left,growy');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel implements IConstants {
+						public Test() {
+							setLayout(new MigLayout());
+							add(new JButton(C_1), "cell 0 0,alignx left,growy");
+						}
+					}""");
 		}
 		// new alignments: 3
 		{
 			constraints.setHorizontalAlignment(MigColumnInfo.Alignment.LEADING);
 			constraints.setVerticalAlignment(MigRowInfo.Alignment.BASELINE);
 			constraints.write();
-			assertEditor(
-					"public class Test extends JPanel implements IConstants {",
-					"  public Test() {",
-					"    setLayout(new MigLayout());",
-					"    add(new JButton(C_1), 'cell 0 0,alignx leading,aligny baseline');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel implements IConstants {
+						public Test() {
+							setLayout(new MigLayout());
+							add(new JButton(C_1), "cell 0 0,alignx leading,aligny baseline");
+						}
+					}""");
 		}
 		// new alignments: 4
 		{
 			constraints.setHorizontalAlignment(MigColumnInfo.Alignment.DEFAULT);
 			constraints.setVerticalAlignment(MigRowInfo.Alignment.DEFAULT);
 			constraints.write();
-			assertEditor(
-					"public class Test extends JPanel implements IConstants {",
-					"  public Test() {",
-					"    setLayout(new MigLayout());",
-					"    add(new JButton(C_1), 'cell 0 0');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel implements IConstants {
+						public Test() {
+							setLayout(new MigLayout());
+							add(new JButton(C_1), "cell 0 0");
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_setAlignment_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0, grow');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0, grow");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(button);
@@ -793,25 +773,25 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		{
 			constraints.setHorizontalAlignment(MigColumnInfo.Alignment.DEFAULT);
 			constraints.write();
-			assertEditor(
-					"public class Test extends JPanel implements IConstants {",
-					"  public Test() {",
-					"    setLayout(new MigLayout());",
-					"    add(new JButton(C_1), 'cell 0 0,growy');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel implements IConstants {
+						public Test() {
+							setLayout(new MigLayout());
+							add(new JButton(C_1), "cell 0 0,growy");
+						}
+					}""");
 		}
 		// new alignments: 2
 		{
 			constraints.setVerticalAlignment(MigRowInfo.Alignment.DEFAULT);
 			constraints.write();
-			assertEditor(
-					"public class Test extends JPanel implements IConstants {",
-					"  public Test() {",
-					"    setLayout(new MigLayout());",
-					"    add(new JButton(C_1), 'cell 0 0');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel implements IConstants {
+						public Test() {
+							setLayout(new MigLayout());
+							add(new JButton(C_1), "cell 0 0");
+						}
+					}""");
 		}
 	}
 
@@ -857,14 +837,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 
 	private void check_alignmentImageHorizontal(MigColumnInfo.Alignment alignment, ImageDescriptor descriptor)
 			throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check constraints
@@ -912,14 +891,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 
 	private void check_alignmentImageVertical(MigRowInfo.Alignment alignment, ImageDescriptor descriptor)
 			throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check constraints
@@ -941,14 +919,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_contextMenu_ConstraintsAction() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(), '');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(), "");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		final CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(button);
@@ -984,13 +961,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 			// changes of "constraints" rolled back
 			assertEquals("", constraints.getString());
 			// editor also not changed
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    setLayout(new MigLayout());",
-					"    add(new JButton(), '');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							setLayout(new MigLayout());
+							add(new JButton(), "");
+						}
+					}""");
 		}
 		waitEventLoop(5);
 		// open dialog, commit changes
@@ -1010,13 +987,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 				shell.button("OK").click();
 			}
 		});
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(), 'width 100px');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(), "width 100px");
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1115,14 +1092,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 			MigColumnInfo.Alignment expectedHorizontalAlignment,
 			MigRowInfo.Alignment expectedVerticalAlignment,
 			String expectedConstraintsSource) throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare alignment manager
@@ -1142,13 +1118,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(button);
 		assertSame(expectedHorizontalAlignment, constraints.getHorizontalAlignment());
 		assertSame(expectedVerticalAlignment, constraints.getVerticalAlignment());
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 0 0," + expectedConstraintsSource + "');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0,%s');
+					}
+				}""".formatted(expectedConstraintsSource));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1158,18 +1134,17 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_dock_getDockSide() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'north');",
-						"    add(new JButton(C_2), 'west');",
-						"    add(new JButton(C_3), 'south');",
-						"    add(new JButton(C_4), 'east');",
-						"    add(new JButton(C_5), '');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "north");
+						add(new JButton(C_2), "west");
+						add(new JButton(C_3), "south");
+						add(new JButton(C_4), "east");
+						add(new JButton(C_5), "");
+					}
+				}""");
 		panel.refresh();
 		{
 			ComponentInfo button_1 = panel.getChildrenComponents().get(0);
@@ -1200,14 +1175,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 
 	@Test
 	public void test_dock_setDockSide() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), '');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(button);
@@ -1225,13 +1199,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		constraints.setDockSide(sideToSet);
 		assertSame(sideToSet, constraints.getDockSide());
 		constraints.write();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), '" + expectedConstraints + "');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "%s");
+					}
+				}""".formatted(expectedConstraints));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1246,15 +1220,14 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_isHorizontalSplit_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0,flowx');",
-						"    add(new JButton(C_2), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0,flowx");
+						add(new JButton(C_2), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		//
@@ -1268,15 +1241,14 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_isHorizontalSplit_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0,flowy');",
-						"    add(new JButton(C_2), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0,flowy");
+						add(new JButton(C_2), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		//
@@ -1290,15 +1262,14 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_isHorizontalSplit_3() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0');",
-						"    add(new JButton(C_2), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+						add(new JButton(C_2), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		//
@@ -1312,15 +1283,14 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_isHorizontalSplit_4() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout(new LC().flowY()));",
-						"    add(new JButton(C_1), 'cell 0 0');",
-						"    add(new JButton(C_2), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout(new LC().flowY()));
+						add(new JButton(C_1), "cell 0 0");
+						add(new JButton(C_2), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		//
@@ -1337,14 +1307,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_setHorizontalSplit_setExplicitTrue() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		//
@@ -1352,13 +1321,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		constraints.setHorizontalSplit(Boolean.TRUE);
 		assertTrue(constraints.isHorizontalSplit());
 		constraints.write();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'flowx,cell 0 0');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "flowx,cell 0 0");
+					}
+				}""");
 	}
 
 	/**
@@ -1366,14 +1335,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_setHorizontalSplit_setExplicitFalse() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		//
@@ -1381,13 +1349,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		constraints.setHorizontalSplit(Boolean.FALSE);
 		assertFalse(constraints.isHorizontalSplit());
 		constraints.write();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'flowy,cell 0 0');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "flowy,cell 0 0");
+					}
+				}""");
 	}
 
 	/**
@@ -1395,14 +1363,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_setHorizontalSplit_removeExplicit() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(C_1), 'flowy,cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "flowy,cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		//
@@ -1411,12 +1378,12 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		constraints.setHorizontalSplit(null);
 		assertTrue(constraints.isHorizontalSplit());
 		constraints.write();
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(C_1), 'cell 0 0');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(C_1), "cell 0 0");
+					}
+				}""");
 	}
 }

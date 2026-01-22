@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -66,13 +66,12 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_Text() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		panel.refresh();
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		// create
@@ -81,17 +80,17 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 			layout.command_CREATE(newComponent, 0, false, 0, false);
 		}
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[grow]', '[]'));",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, 'cell 0 0,growx');",
-				"      textField.setColumns(10);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[grow]", "[]"));
+						{
+							JTextField textField = new JTextField();
+							add(textField, 'cell 0 0,growx');
+							textField.setColumns(10);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -99,13 +98,12 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_Text_disabled() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		panel.refresh();
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		// create
@@ -115,17 +113,17 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 			layout.command_CREATE(newComponent, 0, false, 0, false);
 		}
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, 'cell 0 0');",
-				"      textField.setColumns(10);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JTextField textField = new JTextField();
+							add(textField, "cell 0 0");
+							textField.setColumns(10);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -133,13 +131,12 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_Table() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		panel.refresh();
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		// create
@@ -148,16 +145,16 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 			layout.command_CREATE(newComponent, 0, false, 0, false);
 		}
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[grow]', '[grow]'));",
-				"    {",
-				"      JTable table = new JTable();",
-				"      add(table, 'cell 0 0,grow');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[grow]", "[grow]"));
+						{
+							JTable table = new JTable();
+							add(table, "cell 0 0,grow");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -166,17 +163,16 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_LabelBeforeText() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[][]', '[]'));",
-						"    {",
-						"      JTextField textField = new JTextField();",
-						"      add(textField, 'cell 1 0, growx');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JTextField textField = new JTextField();
+							add(textField, "cell 1 0, growx");
+						}
+					}
+				}""");
 		panel.refresh();
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		// create
@@ -185,20 +181,20 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 			layout.command_CREATE(newComponent, 0, false, 0, false);
 		}
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][]', '[]'));",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label, 'cell 0 0,alignx trailing');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, 'cell 1 0, growx');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "cell 0 0,alignx trailing");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "cell 1 0, growx");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -206,17 +202,16 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_LabelBeforeText_disabled() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[][]', '[]'));",
-						"    {",
-						"      JTextField textField = new JTextField();",
-						"      add(textField, 'cell 1 0, growx');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JTextField textField = new JTextField();
+							add(textField, "cell 1 0, growx");
+						}
+					}
+				}""");
 		panel.refresh();
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		// create
@@ -228,20 +223,20 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 			layout.command_CREATE(newComponent, 0, false, 0, false);
 		}
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][]', '[]'));",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label, 'cell 0 0');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, 'cell 1 0, growx');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "cell 0 0");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "cell 1 0, growx");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -250,17 +245,16 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_TextAfterLabel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[][]', '[]'));",
-						"    {",
-						"      JLabel label = new JLabel('New label');",
-						"      add(label, 'cell 0 0');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "cell 0 0");
+						}
+					}
+				}""");
 		panel.refresh();
 		MigLayoutInfo layout = (MigLayoutInfo) panel.getLayout();
 		// create
@@ -269,20 +263,20 @@ public class MigLayoutAutoAlignmentTest extends AbstractMigLayoutTest {
 			layout.command_CREATE(newComponent, 1, false, 0, false);
 		}
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[][grow]', '[]'));",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label, 'cell 0 0,alignx trailing');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, 'cell 1 0,growx');",
-				"      textField.setColumns(10);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][grow]", "[]"));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "cell 0 0,alignx trailing");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "cell 1 0,growx");
+							textField.setColumns(10);
+						}
+					}
+				}""");
 	}
 }

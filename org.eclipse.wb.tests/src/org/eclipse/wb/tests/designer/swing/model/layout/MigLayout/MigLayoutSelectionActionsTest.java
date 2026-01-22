@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,14 +48,13 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_selectionActions_ALL() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(), 'cell 0 0');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(), "cell 0 0");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare actions
@@ -77,13 +76,12 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 
 	@Test
 	public void test_selectionActions_noSelection() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		panel.refresh();
 		// prepare actions
 		List<Object> actions = new ArrayList<>();
@@ -94,13 +92,12 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 
 	@Test
 	public void test_selectionActions_invalidSelection() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+					}
+				}""");
 		panel.refresh();
 		// prepare actions
 		List<Object> actions = new ArrayList<>();
@@ -112,14 +109,13 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 
 	@Test
 	public void test_horizontalAlignment() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(), 'cell 0 0,alignx leading');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(), "cell 0 0,alignx leading");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare actions
@@ -136,25 +132,24 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 			rightAction.setChecked(true);
 			rightAction.run();
 		}
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(), 'cell 0 0,alignx right');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(), "cell 0 0,alignx right");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_verticalAlignment() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel implements IConstants {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    add(new JButton(), 'cell 0 0,aligny top');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(), "cell 0 0,aligny top");
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare actions
@@ -171,12 +166,12 @@ public class MigLayoutSelectionActionsTest extends AbstractMigLayoutTest {
 			bottomAction.setChecked(true);
 			bottomAction.run();
 		}
-		assertEditor(
-				"public class Test extends JPanel implements IConstants {",
-				"  public Test() {",
-				"    setLayout(new MigLayout());",
-				"    add(new JButton(), 'cell 0 0,aligny bottom');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel implements IConstants {
+					public Test() {
+						setLayout(new MigLayout());
+						add(new JButton(), "cell 0 0,aligny bottom");
+					}
+				}""");
 	}
 }

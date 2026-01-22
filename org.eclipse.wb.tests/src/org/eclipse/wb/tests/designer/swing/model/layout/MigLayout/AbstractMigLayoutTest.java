@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -50,18 +50,18 @@ public abstract class AbstractMigLayoutTest extends AbstractLayoutTest {
 		// create IConstants with C_* constants
 		setFileContentSrc(
 				"test/IConstants.java",
-				getSourceDQ(
-						"package test;",
-						"public interface IConstants {",
-						"  String C_1 = '1';",
-						"  String C_2 = '2';",
-						"  String C_3 = '3';",
-						"  String C_4 = '4';",
-						"  String C_5 = '5';",
-						"  String C_6 = '6';",
-						"  String C_7 = '7';",
-						"  String C_8 = '8';",
-						"}"));
+				"""
+				package test;
+				public interface IConstants {
+					String C_1 = "1";
+					String C_2 = "2";
+					String C_3 = "3";
+					String C_4 = "4";
+					String C_5 = "5";
+					String C_6 = "6";
+					String C_7 = "7";
+					String C_8 = "8";
+				}""");
 		waitForAutoBuild();
 	}
 

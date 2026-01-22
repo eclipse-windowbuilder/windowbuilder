@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -58,25 +58,24 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_0() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    {",
-						"      JButton button_00 = new JButton();",
-						"      add(button_00, 'cell 0 0');",
-						"    }",
-						"    {",
-						"      JButton button_BAD = new JButton();",
-						"      add(button_BAD, 'cell 0 1');",
-						"    }",
-						"    {",
-						"      JButton button_11 = new JButton();",
-						"      add(button_11, 'cell 1 1');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+						public class Test extends JPanel {
+							public Test() {
+								setLayout(new MigLayout());
+								{
+									JButton button_00 = new JButton();
+							add(button_00, "cell 0 0");
+								}
+								{
+									JButton button_BAD = new JButton();
+							add(button_BAD, "cell 0 1");
+								}
+								{
+									JButton button_11 = new JButton();
+							add(button_11, "cell 1 1");
+								}
+							}
+				}""");
 		panel.refresh();
 		ComponentInfo button_00 = getButtons(panel).get(0);
 		ComponentInfo button_11 = getButtons(panel).get(2);
@@ -89,35 +88,34 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout());",
-						"    {",
-						"      JTable table = new JTable();",
-						"      add(table, 'cell 0 0');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout());
+						{
+							JTable table = new JTable();
+							add(table, "cell 0 0");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo table = panel.getChildrenComponents().get(0);
 		// run action
 		runSurround("javax.swing.JScrollPane", table);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[]'));",
-				"    {",
-				"      JScrollPane scrollPane = new JScrollPane();",
-				"      add(scrollPane, 'cell 0 0,grow');",
-				"      {",
-				"        JTable table = new JTable();",
-				"        scrollPane.setViewportView(table);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[]"));
+						{
+							JScrollPane scrollPane = new JScrollPane();
+							add(scrollPane, "cell 0 0,grow");
+							{
+								JTable table = new JTable();
+								scrollPane.setViewportView(table);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -125,45 +123,44 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[][]', '[]'));",
-						"    {",
-						"      JButton button_00 = new JButton();",
-						"      add(button_00, 'cell 0 0');",
-						"    }",
-						"    {",
-						"      JButton button_10 = new JButton();",
-						"      add(button_10, 'cell 1 0');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[]"));
+						{
+							JButton button_00 = new JButton();
+							add(button_00, "cell 0 0");
+						}
+						{
+							JButton button_10 = new JButton();
+							add(button_10, "cell 1 0");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_00 = getButtons(panel).get(0);
 		ComponentInfo button_10 = getButtons(panel).get(1);
 		// run action
 		runSurround_Composite(button_00, button_10);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[]'));",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      add(panel, 'cell 0 0,grow');",
-				"      panel.setLayout(new MigLayout('', '[][]', '[]'));",
-				"      {",
-				"        JButton button_00 = new JButton();",
-				"        panel.add(button_00, 'cell 0 0');",
-				"      }",
-				"      {",
-				"        JButton button_10 = new JButton();",
-				"        panel.add(button_10, 'cell 1 0');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[]"));
+						{
+							JPanel panel = new JPanel();
+							add(panel, "cell 0 0,grow");
+							panel.setLayout(new MigLayout("", "[][]", "[]"));
+							{
+								JButton button_00 = new JButton();
+								panel.add(button_00, "cell 0 0");
+							}
+							{
+								JButton button_10 = new JButton();
+								panel.add(button_10, "cell 1 0");
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -171,45 +168,44 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_3() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[][]', '[][]'));",
-						"    {",
-						"      JButton button_00 = new JButton();",
-						"      add(button_00, 'cell 0 0');",
-						"    }",
-						"    {",
-						"      JButton button_11 = new JButton();",
-						"      add(button_11, 'cell 1 1');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[][]"));
+						{
+							JButton button_00 = new JButton();
+							add(button_00, "cell 0 0");
+						}
+						{
+							JButton button_11 = new JButton();
+							add(button_11, "cell 1 1");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_00 = getButtons(panel).get(0);
 		ComponentInfo button_11 = getButtons(panel).get(1);
 		// run action
 		runSurround_Composite(button_00, button_11);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[]'));",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      add(panel, 'cell 0 0,grow');",
-				"      panel.setLayout(new MigLayout('', '[][]', '[][]'));",
-				"      {",
-				"        JButton button_00 = new JButton();",
-				"        panel.add(button_00, 'cell 0 0');",
-				"      }",
-				"      {",
-				"        JButton button_11 = new JButton();",
-				"        panel.add(button_11, 'cell 1 1');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[]"));
+						{
+							JPanel panel = new JPanel();
+							add(panel, "cell 0 0,grow");
+							panel.setLayout(new MigLayout("", "[][]", "[][]"));
+							{
+								JButton button_00 = new JButton();
+								panel.add(button_00, "cell 0 0");
+							}
+							{
+								JButton button_11 = new JButton();
+								panel.add(button_11, "cell 1 1");
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -217,54 +213,53 @@ public class MigLayoutSurroundSupportTest extends AbstractMigLayoutTest {
 	 */
 	@Test
 	public void test_4() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new MigLayout('', '[][]', '[][]'));",
-						"    {",
-						"      JButton button_00 = new JButton();",
-						"      add(button_00, 'cell 0 0');",
-						"    }",
-						"    {",
-						"      JButton button_10 = new JButton();",
-						"      add(button_10, 'cell 1 0');",
-						"    }",
-						"    {",
-						"      JButton button_01 = new JButton();",
-						"      add(button_01, 'cell 0 1 2 1,growx,aligny bottom');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[][]", "[][]"));
+						{
+							JButton button_00 = new JButton();
+							add(button_00, "cell 0 0");
+						}
+						{
+							JButton button_10 = new JButton();
+							add(button_10, "cell 1 0");
+						}
+						{
+							JButton button_01 = new JButton();
+							add(button_01, "cell 0 1 2 1,growx,aligny bottom");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_00 = getButtons(panel).get(0);
 		ComponentInfo button_10 = getButtons(panel).get(1);
 		ComponentInfo button_01 = getButtons(panel).get(2);
 		// run action
 		runSurround_Composite(button_00, button_10, button_01);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new MigLayout('', '[]', '[]'));",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      add(panel, 'cell 0 0,grow');",
-				"      panel.setLayout(new MigLayout('', '[][]', '[][]'));",
-				"      {",
-				"        JButton button_00 = new JButton();",
-				"        panel.add(button_00, 'cell 0 0');",
-				"      }",
-				"      {",
-				"        JButton button_10 = new JButton();",
-				"        panel.add(button_10, 'cell 1 0');",
-				"      }",
-				"      {",
-				"        JButton button_01 = new JButton();",
-				"        panel.add(button_01, 'cell 0 1 2 1,growx,aligny bottom');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new MigLayout("", "[]", "[]"));
+						{
+							JPanel panel = new JPanel();
+							add(panel, "cell 0 0,grow");
+							panel.setLayout(new MigLayout("", "[][]", "[][]"));
+							{
+								JButton button_00 = new JButton();
+								panel.add(button_00, "cell 0 0");
+							}
+							{
+								JButton button_10 = new JButton();
+								panel.add(button_10, "cell 1 0");
+							}
+							{
+								JButton button_01 = new JButton();
+								panel.add(button_01, "cell 0 1 2 1,growx,aligny bottom");
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
