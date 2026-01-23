@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -77,26 +77,25 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_selectDeepItemInTree() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu popup = new Menu(this);",
-						"    setMenu(popup);",
-						"    {",
-						"      MenuItem item_1 = new MenuItem(popup, SWT.CASCADE);",
-						"      item_1.setText('Item 1');",
-						"      {",
-						"        Menu menu_1 = new Menu(item_1);",
-						"        item_1.setMenu(menu_1);",
-						"        {",
-						"          MenuItem item_2 = new MenuItem(menu_1, SWT.NONE);",
-						"          item_2.setText('Item 2');",
-						"        }",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						{
+							MenuItem item_1 = new MenuItem(popup, SWT.CASCADE);
+							item_1.setText("Item 1");
+							{
+								Menu menu_1 = new Menu(item_1);
+								item_1.setMenu(menu_1);
+								{
+									MenuItem item_2 = new MenuItem(menu_1, SWT.NONE);
+									item_2.setText("Item 2");
+								}
+							}
+						}
+					}
+				}""");
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item_1 = popupInfo.getChildrenItems().get(0);
 		MenuInfo menu_1 = item_1.getChildren(MenuInfo.class).get(0);
@@ -134,22 +133,21 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_selectSubMenu() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item = new MenuItem(bar, SWT.CASCADE);",
-						"      item.setText('Item');",
-						"      {",
-						"        Menu menu = new Menu(item);",
-						"        item.setMenu(menu);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item = new MenuItem(bar, SWT.CASCADE);
+							item.setText("Item");
+							{
+								Menu menu = new Menu(item);
+								item.setMenu(menu);
+							}
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item = barInfo.getChildrenItems().get(0);
 		MenuInfo menu = item.getChildren(MenuInfo.class).get(0);
@@ -166,22 +164,21 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_barSubMenuLocation() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item = new MenuItem(bar, SWT.CASCADE);",
-						"      item.setText('Item');",
-						"      {",
-						"        Menu menu = new Menu(item);",
-						"        item.setMenu(menu);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item = new MenuItem(bar, SWT.CASCADE);
+							item.setText("Item");
+							{
+								Menu menu = new Menu(item);
+								item.setMenu(menu);
+							}
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo itemInfo = barInfo.getChildrenItems().get(0);
 		MenuInfo menuInfo = itemInfo.getChildren(MenuInfo.class).get(0);
@@ -198,22 +195,21 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_popupSubMenuLocation() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu popup = new Menu(this);",
-						"    setMenu(bar);",
-						"    {",
-						"      MenuItem item = new MenuItem(popup, SWT.CASCADE);",
-						"      item.setText('Item');",
-						"      {",
-						"        Menu menu = new Menu(item);",
-						"        item.setMenu(menu);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(bar);
+						{
+							MenuItem item = new MenuItem(popup, SWT.CASCADE);
+							item.setText("Item");
+							{
+								Menu menu = new Menu(item);
+								item.setMenu(menu);
+							}
+						}
+					}
+				}""");
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo itemInfo = popupInfo.getChildrenItems().get(0);
 		MenuInfo menuInfo = itemInfo.getChildren(MenuInfo.class).get(0);
@@ -231,28 +227,27 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_twoPopupMenus() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('Button 1');",
-						"      {",
-						"        Menu popup_1 = new Menu(button_1);",
-						"        button_1.setMenu(popup_1);",
-						"      }",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setText('Button 2');",
-						"      {",
-						"        Menu popup_2 = new Menu(button_2);",
-						"        button_2.setMenu(popup_2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+							{
+								Menu popup_1 = new Menu(button_1);
+								button_1.setMenu(popup_1);
+							}
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+							{
+								Menu popup_2 = new Menu(button_2);
+								button_2.setMenu(popup_2);
+							}
+						}
+					}
+				}""");
 		ControlInfo button_1 = shellInfo.getChildrenControls().get(0);
 		ControlInfo button_2 = shellInfo.getChildrenControls().get(1);
 		MenuInfo popup_1 = button_1.getChildren(MenuInfo.class).get(0);
@@ -287,17 +282,16 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_deleteUp() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu popup = new Menu(this);",
-						"    setMenu(popup);",
-						"    new MenuItem(popup, SWT.NONE).setText('Item 1');",
-						"    new MenuItem(popup, SWT.NONE).setText('Item 2');",
-						"    new MenuItem(popup, SWT.NONE).setText('Item 3');",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						new MenuItem(popup, SWT.NONE).setText("Item 1");
+						new MenuItem(popup, SWT.NONE).setText("Item 2");
+						new MenuItem(popup, SWT.NONE).setText("Item 3");
+					}
+				}""");
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item_1 = popupInfo.getChildrenItems().get(0);
 		MenuItemInfo item_2 = popupInfo.getChildrenItems().get(1);
@@ -333,17 +327,16 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_deleteFirst() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu popup = new Menu(this);",
-						"    setMenu(popup);",
-						"    new MenuItem(popup, SWT.NONE).setText('Item 1');",
-						"    new MenuItem(popup, SWT.NONE).setText('Item 2');",
-						"    new MenuItem(popup, SWT.NONE).setText('Item 3');",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						new MenuItem(popup, SWT.NONE).setText("Item 1");
+						new MenuItem(popup, SWT.NONE).setText("Item 2");
+						new MenuItem(popup, SWT.NONE).setText("Item 3");
+					}
+				}""");
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item_1 = popupInfo.getChildrenItems().get(0);
 		MenuItemInfo item_2 = popupInfo.getChildrenItems().get(1);
@@ -379,15 +372,14 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_deleteSole() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu popup = new Menu(this);",
-						"    setMenu(popup);",
-						"    new MenuItem(popup, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						new MenuItem(popup, SWT.NONE);
+					}
+				}""");
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item = popupInfo.getChildrenItems().get(0);
 		EditPart popupPart = canvas.getEditPart(popupInfo);
@@ -417,26 +409,25 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_deleteItemWithSubmenu() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item_1 = new MenuItem(bar, SWT.NONE);",
-						"      item_1.setText('Item 1');",
-						"    }",
-						"    {",
-						"      MenuItem item_2 = new MenuItem(bar, SWT.CASCADE);",
-						"      item_2.setText('Item 2');",
-						"      {",
-						"        Menu menu_2 = new Menu(item_2);",
-						"        item_2.setMenu(menu_2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.NONE);
+							item_1.setText("Item 1");
+						}
+						{
+							MenuItem item_2 = new MenuItem(bar, SWT.CASCADE);
+							item_2.setText("Item 2");
+							{
+								Menu menu_2 = new Menu(item_2);
+								item_2.setMenu(menu_2);
+							}
+						}
+					}
+				}""");
 
 		assertJavaInfo("bar");
 		assertJavaInfo("item_1");
@@ -455,17 +446,17 @@ public class MenuComplexTest extends RcpGefTest {
 		}
 		// delete "item_2": selection should be moved on "item_1"
 		item_2.delete();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu bar = new Menu(this, SWT.BAR);",
-				"    setMenuBar(bar);",
-				"    {",
-				"      MenuItem item_1 = new MenuItem(bar, SWT.NONE);",
-				"      item_1.setText('Item 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.NONE);
+							item_1.setText("Item 1");
+						}
+					}
+				}""");
 		canvas.assertPrimarySelected(item_1);
 		assertSelectionModels(item_1);
 	}
@@ -475,32 +466,31 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_deleteBarWithSubmenu() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item = new MenuItem(bar, SWT.CASCADE);",
-						"      item.setText('Item');",
-						"      {",
-						"        Menu menu = new Menu(item);",
-						"        item.setMenu(menu);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item = new MenuItem(bar, SWT.CASCADE);
+							item.setText("Item");
+							{
+								Menu menu = new Menu(item);
+								item.setMenu(menu);
+							}
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		// delete "bar": no any problems expected
 		barInfo.delete();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -513,26 +503,25 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE_popup_newItem_deep() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu popup = new Menu(this);",
-						"    setMenu(popup);",
-						"    {",
-						"      MenuItem item_1 = new MenuItem(popup, SWT.CASCADE);",
-						"      item_1.setText('Item 1');",
-						"      {",
-						"        Menu menu_1 = new Menu(item_1);",
-						"        item_1.setMenu(menu_1);",
-						"        {",
-						"          MenuItem item_2 = new MenuItem(menu_1, SWT.NONE);",
-						"          item_2.setText('Item 2');",
-						"        }",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						{
+							MenuItem item_1 = new MenuItem(popup, SWT.CASCADE);
+							item_1.setText("Item 1");
+							{
+								Menu menu_1 = new Menu(item_1);
+								item_1.setMenu(menu_1);
+								{
+									MenuItem item_2 = new MenuItem(menu_1, SWT.NONE);
+									item_2.setText("Item 2");
+								}
+							}
+						}
+					}
+				}""");
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item_1 = popupInfo.getChildrenItems().get(0);
 		MenuInfo menu_1 = item_1.getChildren(MenuInfo.class).get(0);
@@ -579,18 +568,17 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE_bar_newItem_before() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item_1 = new MenuItem(bar, SWT.NONE);",
-						"      item_1.setText('Item 1');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.NONE);
+							item_1.setText("Item 1");
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item = barInfo.getChildrenItems().get(0);
 		// begin creating MenuItem
@@ -602,21 +590,21 @@ public class MenuComplexTest extends RcpGefTest {
 		}
 		// do click
 		canvas.click();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu bar = new Menu(this, SWT.BAR);",
-				"    setMenuBar(bar);",
-				"    {",
-				"      MenuItem menuItem = new MenuItem(bar, SWT.NONE);",
-				"      menuItem.setText('New Item');",
-				"    }",
-				"    {",
-				"      MenuItem item_1 = new MenuItem(bar, SWT.NONE);",
-				"      item_1.setText('Item 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem menuItem = new MenuItem(bar, SWT.NONE);
+							menuItem.setText("New Item");
+						}
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.NONE);
+							item_1.setText("Item 1");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -624,18 +612,17 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE_bar_newItem_after() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item_1 = new MenuItem(bar, SWT.NONE);",
-						"      item_1.setText('Item 1');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.NONE);
+							item_1.setText("Item 1");
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item = barInfo.getChildrenItems().get(0);
 		// prepare EditPart's
@@ -649,21 +636,21 @@ public class MenuComplexTest extends RcpGefTest {
 		}
 		// do click
 		canvas.click();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu bar = new Menu(this, SWT.BAR);",
-				"    setMenuBar(bar);",
-				"    {",
-				"      MenuItem item_1 = new MenuItem(bar, SWT.NONE);",
-				"      item_1.setText('Item 1');",
-				"    }",
-				"    {",
-				"      MenuItem menuItem = new MenuItem(bar, SWT.NONE);",
-				"      menuItem.setText('New Item');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.NONE);
+							item_1.setText("Item 1");
+						}
+						{
+							MenuItem menuItem = new MenuItem(bar, SWT.NONE);
+							menuItem.setText("New Item");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -671,22 +658,21 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE_bar_submenu() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item = new MenuItem(bar, SWT.CASCADE);",
-						"      item.setText('Item');",
-						"      {",
-						"        Menu menu = new Menu(item);",
-						"        item.setMenu(menu);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item = new MenuItem(bar, SWT.CASCADE);
+							item.setText("Item");
+							{
+								Menu menu = new Menu(item);
+								item.setMenu(menu);
+							}
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo itemInfo = barInfo.getChildrenItems().get(0);
 		MenuInfo menuInfo = itemInfo.getChildren(MenuInfo.class).get(0);
@@ -716,25 +702,25 @@ public class MenuComplexTest extends RcpGefTest {
 		}
 		// do click
 		canvas.click();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu bar = new Menu(this, SWT.BAR);",
-				"    setMenuBar(bar);",
-				"    {",
-				"      MenuItem item = new MenuItem(bar, SWT.CASCADE);",
-				"      item.setText('Item');",
-				"      {",
-				"        Menu menu = new Menu(item);",
-				"        item.setMenu(menu);",
-				"        {",
-				"          MenuItem menuItem = new MenuItem(menu, SWT.NONE);",
-				"          menuItem.setText('New Item');",
-				"        }",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item = new MenuItem(bar, SWT.CASCADE);
+							item.setText("Item");
+							{
+								Menu menu = new Menu(item);
+								item.setMenu(menu);
+								{
+									MenuItem menuItem = new MenuItem(menu, SWT.NONE);
+									menuItem.setText("New Item");
+								}
+							}
+						}
+					}
+				}""");
 		// "menu" still visible and "newItem" has EditPart and selected
 		{
 			assertSame(menuPart, canvas.getEditPart(menuInfo));
@@ -749,18 +735,17 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE_bar_notItem() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item_1 = new MenuItem(bar, SWT.NONE);",
-						"      item_1.setText('Item 1');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.NONE);
+							item_1.setText("Item 1");
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		// prepare EditPart's
 		EditPart barPart = canvas.getEditPart(barInfo);
@@ -776,18 +761,17 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_PASTE_item() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item = new MenuItem(bar, SWT.NONE);",
-						"      item.setText('item');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item = new MenuItem(bar, SWT.NONE);
+							item.setText("item");
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo itemInfo = barInfo.getChildrenItems().get(0);
 		// prepare parts
@@ -805,21 +789,21 @@ public class MenuComplexTest extends RcpGefTest {
 		}
 		// do click
 		canvas.click();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu bar = new Menu(this, SWT.BAR);",
-				"    setMenuBar(bar);",
-				"    {",
-				"      MenuItem item = new MenuItem(bar, SWT.NONE);",
-				"      item.setText('item');",
-				"    }",
-				"    {",
-				"      MenuItem item = new MenuItem(bar, SWT.NONE);",
-				"      item.setText('item');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item = new MenuItem(bar, SWT.NONE);
+							item.setText("item");
+						}
+						{
+							MenuItem item = new MenuItem(bar, SWT.NONE);
+							item.setText("item");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -827,16 +811,15 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_PASTE_notItem() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		ControlInfo buttonInfo = shellInfo.getChildrenControls().get(0);
 		// prepare parts
@@ -855,18 +838,18 @@ public class MenuComplexTest extends RcpGefTest {
 		// do click
 		canvas.click();
 		// "paste" ignored by menu, so passed to "shell" and handled by RowLayout
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu bar = new Menu(this, SWT.BAR);",
-				"    setMenuBar(bar);",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"    Button button = new Button(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 	}
 
 	/**
@@ -874,16 +857,15 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_PASTE_notItem2() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu popup = new Menu(this);",
-						"    setMenu(popup);",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		ControlInfo buttonInfo = shellInfo.getChildrenControls().get(0);
 		// prepare parts
@@ -905,18 +887,18 @@ public class MenuComplexTest extends RcpGefTest {
 		// do click
 		canvas.click();
 		// "paste" ignored by "popup", so passed to "shell" and handled by RowLayout
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu popup = new Menu(this);",
-				"    setMenu(popup);",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"    Button button = new Button(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -929,22 +911,21 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_MOVE_item() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem menuItem = new MenuItem(bar, SWT.NONE);",
-						"      menuItem.setText('Item 1');",
-						"    }",
-						"    {",
-						"      MenuItem menuItem = new MenuItem(bar, SWT.NONE);",
-						"      menuItem.setText('Item 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem menuItem = new MenuItem(bar, SWT.NONE);
+							menuItem.setText("Item 1");
+						}
+						{
+							MenuItem menuItem = new MenuItem(bar, SWT.NONE);
+							menuItem.setText("Item 2");
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item_1 = barInfo.getChildrenItems().get(0);
 		MenuItemInfo item_2 = barInfo.getChildrenItems().get(1);
@@ -960,21 +941,21 @@ public class MenuComplexTest extends RcpGefTest {
 			menuTester.assertFeedback_selection(itemPart_2);
 		}
 		// check result
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu bar = new Menu(this, SWT.BAR);",
-				"    setMenuBar(bar);",
-				"    {",
-				"      MenuItem menuItem = new MenuItem(bar, SWT.NONE);",
-				"      menuItem.setText('Item 2');",
-				"    }",
-				"    {",
-				"      MenuItem menuItem = new MenuItem(bar, SWT.NONE);",
-				"      menuItem.setText('Item 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem menuItem = new MenuItem(bar, SWT.NONE);
+							menuItem.setText("Item 2");
+						}
+						{
+							MenuItem menuItem = new MenuItem(bar, SWT.NONE);
+							menuItem.setText("Item 1");
+						}
+					}
+				}""");
 		// "item_2" still same and selected
 		{
 			assertSame(itemPart_2, canvas.getEditPart(item_2));
@@ -987,26 +968,25 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_ADD_item() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item_1 = new MenuItem(bar, SWT.CASCADE);",
-						"      item_1.setText('Item 1');",
-						"      {",
-						"        Menu menu_1 = new Menu(item_1);",
-						"        item_1.setMenu(menu_1);",
-						"        {",
-						"          MenuItem item_2 = new MenuItem(menu_1, SWT.NONE);",
-						"          item_2.setText('Item 2');",
-						"        }",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.CASCADE);
+							item_1.setText("Item 1");
+							{
+								Menu menu_1 = new Menu(item_1);
+								item_1.setMenu(menu_1);
+								{
+									MenuItem item_2 = new MenuItem(menu_1, SWT.NONE);
+									item_2.setText("Item 2");
+								}
+							}
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item_1 = barInfo.getChildrenItems().get(0);
 		MenuInfo menu_1 = item_1.getChildren(MenuInfo.class).get(0);
@@ -1030,25 +1010,25 @@ public class MenuComplexTest extends RcpGefTest {
 			menuTester.assertFeedback_selection(itemPart_2);
 		}
 		// check result
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu bar = new Menu(this, SWT.BAR);",
-				"    setMenuBar(bar);",
-				"    {",
-				"      MenuItem item_2 = new MenuItem(bar, SWT.NONE);",
-				"      item_2.setText('Item 2');",
-				"    }",
-				"    {",
-				"      MenuItem item_1 = new MenuItem(bar, SWT.CASCADE);",
-				"      item_1.setText('Item 1');",
-				"      {",
-				"        Menu menu_1 = new Menu(item_1);",
-				"        item_1.setMenu(menu_1);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_2 = new MenuItem(bar, SWT.NONE);
+							item_2.setText("Item 2");
+						}
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.CASCADE);
+							item_1.setText("Item 1");
+							{
+								Menu menu_1 = new Menu(item_1);
+								item_1.setMenu(menu_1);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1056,22 +1036,21 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_ADD_badOnOwnMenu() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item = new MenuItem(bar, SWT.CASCADE);",
-						"      item.setText('Item');",
-						"      {",
-						"        Menu menu = new Menu(item);",
-						"        item.setMenu(menu);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item = new MenuItem(bar, SWT.CASCADE);
+							item.setText("Item");
+							{
+								Menu menu = new Menu(item);
+								item.setMenu(menu);
+							}
+						}
+					}
+				}""");
 		String source = m_lastEditor.getSource();
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo item = barInfo.getChildrenItems().get(0);
@@ -1096,16 +1075,15 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_ADD_badNotMenu() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		String source = m_lastEditor.getSource();
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		ControlInfo buttonInfo = shellInfo.getChildrenControls().get(0);
@@ -1126,33 +1104,32 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_ADD_fromPopup_onBar() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Menu bar = new Menu(this, SWT.BAR);",
-						"      setMenuBar(bar);",
-						"      new MenuItem(bar, SWT.NONE).setText('Long item to shift next one');",
-						"      {",
-						"        MenuItem item = new MenuItem(bar, SWT.CASCADE);",
-						"        item.setText('Item');",
-						"        {",
-						"          Menu menu = new Menu(item);",
-						"          item.setMenu(menu);",
-						"        }",
-						"      }",
-						"    }",
-						"    {",
-						"      Menu popup = new Menu(this);",
-						"      setMenu(popup);",
-						"      {",
-						"        MenuItem item_2 = new MenuItem(popup, SWT.NONE);",
-						"        item_2.setText('Item 2');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Menu bar = new Menu(this, SWT.BAR);
+							setMenuBar(bar);
+							new MenuItem(bar, SWT.NONE).setText("Long item to shift next one");
+							{
+								MenuItem item = new MenuItem(bar, SWT.CASCADE);
+								item.setText("Item");
+								{
+									Menu menu = new Menu(item);
+									item.setMenu(menu);
+								}
+							}
+						}
+						{
+							Menu popup = new Menu(this);
+							setMenu(popup);
+							{
+								MenuItem item_2 = new MenuItem(popup, SWT.NONE);
+								item_2.setText("Item 2");
+							}
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(1);
 		MenuItemInfo itemInfo = barInfo.getChildrenItems().get(1);
@@ -1195,32 +1172,32 @@ public class MenuComplexTest extends RcpGefTest {
 			canvas.endDrag();
 		}
 		// check source
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Menu bar = new Menu(this, SWT.BAR);",
-				"      setMenuBar(bar);",
-				"      new MenuItem(bar, SWT.NONE).setText(\"Long item to shift next one\");",
-				"      {",
-				"        MenuItem item = new MenuItem(bar, SWT.CASCADE);",
-				"        item.setText(\"Item\");",
-				"        {",
-				"          Menu menu = new Menu(item);",
-				"          item.setMenu(menu);",
-				"          {",
-				"            MenuItem item_2 = new MenuItem(menu, SWT.NONE);",
-				"            item_2.setText(\"Item 2\");",
-				"          }",
-				"        }",
-				"      }",
-				"    }",
-				"    {",
-				"      Menu popup = new Menu(this);",
-				"      setMenu(popup);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Menu bar = new Menu(this, SWT.BAR);
+							setMenuBar(bar);
+							new MenuItem(bar, SWT.NONE).setText("Long item to shift next one");
+							{
+								MenuItem item = new MenuItem(bar, SWT.CASCADE);
+								item.setText("Item");
+								{
+									Menu menu = new Menu(item);
+									item.setMenu(menu);
+									{
+										MenuItem item_2 = new MenuItem(menu, SWT.NONE);
+										item_2.setText("Item 2");
+									}
+								}
+							}
+						}
+						{
+							Menu popup = new Menu(this);
+							setMenu(popup);
+						}
+					}
+				}""");
 		{
 			// "menu" still visible
 			assertSame(menuPart, canvas.getEditPart(menuInfo));
@@ -1240,26 +1217,25 @@ public class MenuComplexTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_showOnlyOneDropDownOnCanvas() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu bar = new Menu(this, SWT.BAR);",
-						"    setMenuBar(bar);",
-						"    {",
-						"      MenuItem item_1 = new MenuItem(bar, SWT.CASCADE);",
-						"      item_1.setText('Item 1');",
-						"      {",
-						"        Menu menu_1 = new Menu(item_1);",
-						"        item_1.setMenu(menu_1);",
-						"      }",
-						"    }",
-						"    {",
-						"      MenuItem item_2 = new MenuItem(bar, SWT.CASCADE);",
-						"      item_2.setText('Item 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu bar = new Menu(this, SWT.BAR);
+						setMenuBar(bar);
+						{
+							MenuItem item_1 = new MenuItem(bar, SWT.CASCADE);
+							item_1.setText("Item 1");
+							{
+								Menu menu_1 = new Menu(item_1);
+								item_1.setMenu(menu_1);
+							}
+						}
+						{
+							MenuItem item_2 = new MenuItem(bar, SWT.CASCADE);
+							item_2.setText("Item 2");
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo itemInfo_1 = barInfo.getChildrenItems().get(0);
 		MenuItemInfo itemInfo_2 = barInfo.getChildrenItems().get(1);

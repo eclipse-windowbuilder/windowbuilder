@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,18 +59,17 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		// open editor
-		shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu popup = new Menu(this);",
-						"    setMenu(popup);",
-						"    {",
-						"      MenuItem menuItem = new MenuItem(popup, SWT.NONE);",
-						"      menuItem.setText('Item 1');",
-						"    }",
-						"  }",
-						"}");
+		shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						{
+							MenuItem menuItem = new MenuItem(popup, SWT.NONE);
+							menuItem.setText("Item 1");
+						}
+					}
+				}""");
 		popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		itemInfo = popupInfo.getChildrenItems().get(0);
 		// prepare EditPart's
@@ -372,21 +371,21 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 		}
 		// do click
 		canvas.click();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu popup = new Menu(this);",
-				"    setMenu(popup);",
-				"    {",
-				"      MenuItem menuItem = new MenuItem(popup, SWT.NONE);",
-				"      menuItem.setText('New Item');",
-				"    }",
-				"    {",
-				"      MenuItem menuItem = new MenuItem(popup, SWT.NONE);",
-				"      menuItem.setText('Item 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						{
+							MenuItem menuItem = new MenuItem(popup, SWT.NONE);
+							menuItem.setText("New Item");
+						}
+						{
+							MenuItem menuItem = new MenuItem(popup, SWT.NONE);
+							menuItem.setText("Item 1");
+						}
+					}
+				}""");
 		// EditPart for "newItem" exists and selected
 		{
 			GraphicalEditPart newItemPart = canvas.getEditPart(newItemInfo);
@@ -418,21 +417,21 @@ public class MenuPopupSimpleTest extends RcpGefTest {
 		}
 		// do click
 		canvas.click();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Menu popup = new Menu(this);",
-				"    setMenu(popup);",
-				"    {",
-				"      MenuItem menuItem = new MenuItem(popup, SWT.NONE);",
-				"      menuItem.setText('Item 1');",
-				"    }",
-				"    {",
-				"      MenuItem menuItem = new MenuItem(popup, SWT.NONE);",
-				"      menuItem.setText('New Item');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Menu popup = new Menu(this);
+						setMenu(popup);
+						{
+							MenuItem menuItem = new MenuItem(popup, SWT.NONE);
+							menuItem.setText("Item 1");
+						}
+						{
+							MenuItem menuItem = new MenuItem(popup, SWT.NONE);
+							menuItem.setText("New Item");
+						}
+					}
+				}""");
 		// EditPart for "newItem" exists and selected
 		{
 			GraphicalEditPart newItemPart = canvas.getEditPart(newItemInfo);

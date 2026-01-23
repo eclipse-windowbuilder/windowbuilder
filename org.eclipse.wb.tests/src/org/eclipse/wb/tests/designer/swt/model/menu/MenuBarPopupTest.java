@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -49,13 +49,12 @@ public class MenuBarPopupTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_popupCreate() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// begin creating "popup" Menu
 		MenuInfo popupInfo = loadCreationTool("org.eclipse.swt.widgets.Menu");
 		// initially no feedbacks
@@ -66,16 +65,16 @@ public class MenuBarPopupTest extends RcpGefTest {
 		// click, so drop "popup"
 		canvas.click();
 		canvas.assertNoFeedbacks();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Menu menu = new Menu(this);",
-				"      setMenu(menu);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						{
+							Menu menu = new Menu(this);
+							setMenu(menu);
+						}
+					}
+				}""");
 		// "popup" is selected and drop-down visible
 		{
 			GraphicalEditPart popupPart = canvas.getEditPart(popupInfo);
@@ -89,13 +88,12 @@ public class MenuBarPopupTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_popupCreate_alreadyExists() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setMenu(new Menu(this));",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setMenu(new Menu(this));
+					}
+				}""");
 		String source = m_lastEditor.getSource();
 		// begin creating "popup" Menu
 		loadCreationTool("org.eclipse.swt.widgets.Menu");
@@ -113,25 +111,24 @@ public class MenuBarPopupTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_popupMove_otherControl() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('Button 1');",
-						"      {",
-						"        Menu menu = new Menu(button_1);",
-						"        button_1.setMenu(menu);",
-						"      }",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setText('Button 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+							{
+								Menu menu = new Menu(button_1);
+								button_1.setMenu(menu);
+							}
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+						}
+					}
+				}""");
 		ControlInfo buttonInfo_1 = shellInfo.getChildrenControls().get(0);
 		ControlInfo buttonInfo_2 = shellInfo.getChildrenControls().get(1);
 		MenuInfo popupInfo = buttonInfo_1.getChildren(MenuInfo.class).get(0);
@@ -145,24 +142,24 @@ public class MenuBarPopupTest extends RcpGefTest {
 			canvas.endDrag();
 			canvas.assertNoFeedbacks();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button 1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button 2');",
-				"      {",
-				"        Menu menu = new Menu(button_2);",
-				"        button_2.setMenu(menu);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+							{
+								Menu menu = new Menu(button_2);
+								button_2.setMenu(menu);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -170,14 +167,13 @@ public class MenuBarPopupTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_popupMove_sameControl() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Menu menu = new Menu(this);",
-						"    setMenu(menu);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Menu menu = new Menu(this);
+						setMenu(menu);
+					}
+				}""");
 		String source = m_lastEditor.getSource();
 		MenuInfo popupInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		// prepare EditPart's
@@ -200,29 +196,28 @@ public class MenuBarPopupTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_popupPaste() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('Button 1');",
-						"      {",
-						"        Menu menu = new Menu(button_1);",
-						"        button_1.setMenu(menu);",
-						"        {",
-						"          MenuItem item = new MenuItem(menu, SWT.NONE);",
-						"          item.setText('My item');",
-						"        }",
-						"      }",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setText('Button 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+							{
+								Menu menu = new Menu(button_1);
+								button_1.setMenu(menu);
+								{
+									MenuItem item = new MenuItem(menu, SWT.NONE);
+									item.setText("My item");
+								}
+							}
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+						}
+					}
+				}""");
 		ControlInfo buttonInfo_1 = shellInfo.getChildrenControls().get(0);
 		ControlInfo buttonInfo_2 = shellInfo.getChildrenControls().get(1);
 		MenuInfo popupInfo = buttonInfo_1.getChildren(MenuInfo.class).get(0);
@@ -239,36 +234,36 @@ public class MenuBarPopupTest extends RcpGefTest {
 		}
 		// do click
 		canvas.click();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button 1');",
-				"      {",
-				"        Menu menu = new Menu(button_1);",
-				"        button_1.setMenu(menu);",
-				"        {",
-				"          MenuItem item = new MenuItem(menu, SWT.NONE);",
-				"          item.setText('My item');",
-				"        }",
-				"      }",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button 2');",
-				"      {",
-				"        Menu menu = new Menu(button_2);",
-				"        button_2.setMenu(menu);",
-				"        {",
-				"          MenuItem item = new MenuItem(menu, SWT.NONE);",
-				"          item.setText('My item');",
-				"        }",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+							{
+								Menu menu = new Menu(button_1);
+								button_1.setMenu(menu);
+								{
+									MenuItem item = new MenuItem(menu, SWT.NONE);
+									item.setText("My item");
+								}
+							}
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+							{
+								Menu menu = new Menu(button_2);
+								button_2.setMenu(menu);
+								{
+									MenuItem item = new MenuItem(menu, SWT.NONE);
+									item.setText("My item");
+								}
+							}
+						}
+					}
+				}""");
 		// new pasted "popup" should be selected
 		{
 			MenuInfo newPopup = buttonInfo_2.getChildren(MenuInfo.class).get(0);
@@ -286,13 +281,12 @@ public class MenuBarPopupTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_barCreate() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// begin creating "bar" Menu
 		MenuInfo barInfo = (MenuInfo) loadCreationTool("org.eclipse.swt.widgets.Menu", "bar");
 		// initially no feedbacks
@@ -303,16 +297,16 @@ public class MenuBarPopupTest extends RcpGefTest {
 		// click, so drop "bar"
 		canvas.click();
 		canvas.assertNoFeedbacks();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Menu menu = new Menu(this, SWT.BAR);",
-				"      setMenuBar(menu);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						{
+							Menu menu = new Menu(this, SWT.BAR);
+							setMenuBar(menu);
+						}
+					}
+				}""");
 		canvas.assertPrimarySelected(barInfo);
 	}
 
@@ -321,13 +315,12 @@ public class MenuBarPopupTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_barCreate_alreadyExists() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setMenuBar(new Menu(this, SWT.BAR));",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setMenuBar(new Menu(this, SWT.BAR));
+					}
+				}""");
 		String source = m_lastEditor.getSource();
 		// begin creating "bar" Menu
 		loadCreationTool("org.eclipse.swt.widgets.Menu", "bar");
