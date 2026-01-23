@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -50,33 +50,31 @@ public class MenuProblemsTest extends RcpGefTest {
 	@Test
 	public void test_AsyncMessagesSupport_andMenuGEF() throws Exception {
 		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource2(
-						"public class MyButton extends Button {",
-						"  public MyButton(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+				"test/MyButton.java", getTestSource2("""
+				public class MyButton extends Button {
+					public MyButton(Composite parent, int style) {
+						super(parent, style);
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		setFileContentSrc(
 				"test/MyButton.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='SWT.runAsyncMessages'>true</parameter>",
-						"  </parameters>",
-						"</component>"));
+				"""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="SWT.runAsyncMessages">true</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// open editor
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new MyButton(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new MyButton(this, SWT.NONE);
+					}
+				}""");
 		// prepare models
 		GraphicalEditPart shellPart = canvas.getEditPart(shellInfo);
 		// drop new "bar"
@@ -85,16 +83,16 @@ public class MenuProblemsTest extends RcpGefTest {
 			MenuInfo barInfo = (MenuInfo) loadCreationTool("org.eclipse.swt.widgets.Menu", "bar");
 			canvas.moveTo(shellPart);
 			canvas.click();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    new MyButton(this, SWT.NONE);",
-					"    {",
-					"      Menu menu = new Menu(this, SWT.BAR);",
-					"      setMenuBar(menu);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							new MyButton(this, SWT.NONE);
+							{
+								Menu menu = new Menu(this, SWT.BAR);
+								setMenuBar(menu);
+							}
+						}
+					}""");
 			barPart = canvas.getEditPart(barInfo);
 		}
 		// drop new "item"
@@ -102,20 +100,20 @@ public class MenuProblemsTest extends RcpGefTest {
 			loadCreationTool("org.eclipse.swt.widgets.MenuItem");
 			canvas.moveTo(barPart);
 			canvas.click();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    new MyButton(this, SWT.NONE);",
-					"    {",
-					"      Menu menu = new Menu(this, SWT.BAR);",
-					"      setMenuBar(menu);",
-					"      {",
-					"        MenuItem menuItem = new MenuItem(menu, SWT.NONE);",
-					"        menuItem.setText('New Item');",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							new MyButton(this, SWT.NONE);
+							{
+								Menu menu = new Menu(this, SWT.BAR);
+								setMenuBar(menu);
+								{
+									MenuItem menuItem = new MenuItem(menu, SWT.NONE);
+									menuItem.setText("New Item");
+								}
+							}
+						}
+					}""");
 		}
 	}
 
@@ -126,16 +124,15 @@ public class MenuProblemsTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_cascadeSubMenu_andRCP() throws Exception {
-		CompositeInfo shellInfo =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Menu menu = new Menu(this, SWT.BAR);",
-						"      setMenuBar(menu);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Menu menu = new Menu(this, SWT.BAR);
+							setMenuBar(menu);
+						}
+					}
+				}""");
 		MenuInfo barInfo = shellInfo.getChildren(MenuInfo.class).get(0);
 		GraphicalEditPart barPart = canvas.getEditPart(barInfo);
 		// drop new "cascade" item
@@ -143,23 +140,23 @@ public class MenuProblemsTest extends RcpGefTest {
 			loadCreationTool("org.eclipse.swt.widgets.MenuItem", "cascade");
 			canvas.moveTo(barPart);
 			canvas.click();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    {",
-					"      Menu menu = new Menu(this, SWT.BAR);",
-					"      setMenuBar(menu);",
-					"      {",
-					"        MenuItem menuItem = new MenuItem(menu, SWT.CASCADE);",
-					"        menuItem.setText('New SubMenu');",
-					"        {",
-					"          Menu menu_1 = new Menu(menuItem);",
-					"          menuItem.setMenu(menu_1);",
-					"        }",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							{
+								Menu menu = new Menu(this, SWT.BAR);
+								setMenuBar(menu);
+								{
+									MenuItem menuItem = new MenuItem(menu, SWT.CASCADE);
+									menuItem.setText("New SubMenu");
+									{
+										Menu menu_1 = new Menu(menuItem);
+										menuItem.setMenu(menu_1);
+									}
+								}
+							}
+						}
+					}""");
 		}
 	}
 
@@ -174,24 +171,24 @@ public class MenuProblemsTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_TableColumn_PopupMenu_menuFirst() throws Exception {
-		check_TableColumn_PopupMenu(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Table table = new Table(this, SWT.BORDER);",
-				"      table.setHeaderVisible(true);",
-				"      {",
-				"        Menu popup = new Menu(table);",
-				"        table.setMenu(popup);",
-				"      }",
-				"      {",
-				"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-				"        tableColumn.setWidth(100);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		check_TableColumn_PopupMenu("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							table.setHeaderVisible(true);
+							{
+								Menu popup = new Menu(table);
+								table.setMenu(popup);
+							}
+							{
+								TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+								tableColumn.setWidth(100);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -200,24 +197,24 @@ public class MenuProblemsTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_TableColumn_PopupMenu_menuSecond() throws Exception {
-		check_TableColumn_PopupMenu(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Table table = new Table(this, SWT.BORDER);",
-				"      table.setHeaderVisible(true);",
-				"      {",
-				"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-				"        tableColumn.setWidth(100);",
-				"      }",
-				"      {",
-				"        Menu popup = new Menu(table);",
-				"        table.setMenu(popup);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		check_TableColumn_PopupMenu("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							table.setHeaderVisible(true);
+							{
+								TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+								tableColumn.setWidth(100);
+							}
+							{
+								Menu popup = new Menu(table);
+								table.setMenu(popup);
+							}
+						}
+					}
+				}""");
 	}
 
 	private void check_TableColumn_PopupMenu(String... lines) throws Exception {
