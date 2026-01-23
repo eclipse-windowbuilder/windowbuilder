@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -61,6 +61,10 @@ public abstract class RcpGefTest extends DesignerEditorTestCase {
 	protected final <T extends JavaInfo> T openJavaInfo(String... lines) throws Exception {
 		String source = getTestSource2(lines);
 		ICompilationUnit unit = createModelCompilationUnit("test", "Test.java", source);
+		// wait for build
+		if (m_waitForAutoBuild) {
+			waitForAutoBuild();
+		}
 		openDesign(unit);
 		return (T) m_contentJavaInfo;
 	}
