@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -142,16 +142,14 @@ public abstract class DesignerTestCase extends Assertions {
 	}
 
 	/**
-	 * Ensures that Eclipse main window is in top-right corner of screen.
+	 * Ensures that Eclipse main window is in top-left corner of screen.
 	 */
 	private void configureEclipseWindowLocation() {
-		int x = 450;
-		int y = 0;
 		Shell shell = Activator.getShell();
 		Point shellLocation = shell.getLocation();
-		if (shellLocation.x != x || shellLocation.y != y) {
-			Rectangle clientArea = Display.getDefault().getClientArea();
-			shell.setBounds(x, y, clientArea.width - x, clientArea.height - 300);
+		if (shellLocation.x != 0 || shellLocation.y != 0) {
+			Rectangle clientArea = Display.getDefault().getPrimaryMonitor().getClientArea();
+			shell.setBounds(0, 0, clientArea.width, clientArea.height - 300);
 			waitEventLoop(100, 10);
 		}
 	}
