@@ -265,8 +265,11 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 			String unitName,
 			String code) throws Exception {
 		IPackageFragment pkg = m_testProject.getPackage(packageName);
+		// discard cached unit
+		ICompilationUnit compilationUnit = pkg.getCompilationUnit(unitName);
+		compilationUnit.discardWorkingCopy();
 		// create unit
-		ICompilationUnit compilationUnit = m_testProject.createUnit(pkg, unitName, code);
+		compilationUnit = m_testProject.createUnit(pkg, unitName, code);
 		IFile resource = (IFile) compilationUnit.getUnderlyingResource();
 		m_createdResources.add(resource);
 		// OK, return unit
