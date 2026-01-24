@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,14 +59,13 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_defaultProperties() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		// check default property values
@@ -79,14 +78,13 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_childrenNo() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		// no "real" Control's
@@ -101,18 +99,17 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_children() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(viewForm, SWT.NONE);",
-						"      viewForm.setContent(button);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(viewForm, SWT.NONE);
+							viewForm.setContent(button);
+						}
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = viewForm.getChildrenControls().get(0);
@@ -145,18 +142,17 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_presentation_decorateText() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(viewForm, SWT.NONE);",
-						"      viewForm.setContent(button);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(viewForm, SWT.NONE);
+							viewForm.setContent(button);
+						}
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = viewForm.getChildrenControls().get(0);
@@ -169,14 +165,13 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_AbstractPositionInfo_getChildrenTree_placeholders() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		// add new Button on "topLeft"
@@ -199,17 +194,17 @@ public class ViewFormTest extends RcpModelTest {
 			ControlInfo button = BTestUtils.createButton();
 			positionTopLeft.command_CREATE(button);
 			assertSame(button, positionTopLeft.getControl());
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new FillLayout());",
-					"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-					"    {",
-					"      Button button = new Button(viewForm, SWT.NONE);",
-					"      viewForm.setTopLeft(button);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new FillLayout());
+							ViewForm viewForm = new ViewForm(this, SWT.NONE);
+							{
+								Button button = new Button(viewForm, SWT.NONE);
+								viewForm.setTopLeft(button);
+							}
+						}
+					}""");
 		}
 		// move Button from "topLeft" to "content"
 		{
@@ -224,17 +219,17 @@ public class ViewFormTest extends RcpModelTest {
 			//
 			ControlInfo button = viewForm.getControl("setTopLeft");
 			positionContent.command_MOVE(button);
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new FillLayout());",
-					"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-					"    {",
-					"      Button button = new Button(viewForm, SWT.NONE);",
-					"      viewForm.setContent(button);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new FillLayout());
+							ViewForm viewForm = new ViewForm(this, SWT.NONE);
+							{
+								Button button = new Button(viewForm, SWT.NONE);
+								viewForm.setContent(button);
+							}
+						}
+					}""");
 		}
 	}
 
@@ -244,18 +239,17 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_AbstractPositionInfo_getChildrenTree_sortChildren() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(viewForm, SWT.NONE);",
-						"      viewForm.setTopCenter(button);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(viewForm, SWT.NONE);
+							viewForm.setTopCenter(button);
+						}
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = viewForm.getChildrenControls().get(0);
@@ -286,17 +280,16 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_AbstractPositionInfo_getChildrenTree_sortChildren_dups() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"    Button button = new Button(viewForm, SWT.NONE);",
-						"    viewForm.setTopLeft(button);",
-						"    viewForm.setTopCenter(button);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						Button button = new Button(viewForm, SWT.NONE);
+						viewForm.setTopLeft(button);
+						viewForm.setTopCenter(button);
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = viewForm.getChildrenControls().get(0);
@@ -317,31 +310,30 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		//
 		ControlInfo button = BTestUtils.createButton();
 		viewForm.command_CREATE(button, "setContent");
 		assertSame(button, viewForm.getControl("setContent"));
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(viewForm, SWT.NONE);",
-				"      viewForm.setContent(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(viewForm, SWT.NONE);
+							viewForm.setContent(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -350,18 +342,17 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(viewForm, SWT.NONE);",
-						"      viewForm.setContent(button);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(viewForm, SWT.NONE);
+							viewForm.setContent(button);
+						}
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = viewForm.getChildrenControls().get(0);
@@ -372,17 +363,17 @@ public class ViewFormTest extends RcpModelTest {
 		// now "button" is in "topLeft"
 		assertNull(viewForm.getControl("setContent"));
 		assertSame(button, viewForm.getControl("setTopLeft"));
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(viewForm, SWT.NONE);",
-				"      viewForm.setTopLeft(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(viewForm, SWT.NONE);
+							viewForm.setTopLeft(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -391,33 +382,32 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = shell.getChildrenControls().get(1);
 		//
 		viewForm.command_MOVE(button, "setTopLeft");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(viewForm, SWT.NONE);",
-				"      viewForm.setTopLeft(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(viewForm, SWT.NONE);
+							viewForm.setTopLeft(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -426,33 +416,32 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_3() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(viewForm, SWT.NONE);",
-						"      viewForm.setTopLeft(button);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(viewForm, SWT.NONE);
+							viewForm.setTopLeft(button);
+						}
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = viewForm.getChildrenControls().get(0);
 		//
 		shell.getLayout().command_MOVE(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -462,41 +451,40 @@ public class ViewFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_4() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-						"    {",
-						"      Button button_1 = new Button(viewForm, SWT.NONE);",
-						"      viewForm.setTopCenter(button_1);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(viewForm, SWT.NONE);",
-						"      viewForm.setTopRight(button_2);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(viewForm, SWT.NONE);
+							viewForm.setTopCenter(button_1);
+						}
+						{
+							Button button_2 = new Button(viewForm, SWT.NONE);
+							viewForm.setTopRight(button_2);
+						}
+					}
+				}""");
 		shell.refresh();
 		ViewFormInfo viewForm = (ViewFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button_2 = viewForm.getChildrenControls().get(1);
 		//
 		viewForm.command_MOVE(button_2, "setTopLeft");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ViewForm viewForm = new ViewForm(this, SWT.NONE);",
-				"    {",
-				"      Button button_2 = new Button(viewForm, SWT.NONE);",
-				"      viewForm.setTopLeft(button_2);",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(viewForm, SWT.NONE);",
-				"      viewForm.setTopCenter(button_1);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ViewForm viewForm = new ViewForm(this, SWT.NONE);
+						{
+							Button button_2 = new Button(viewForm, SWT.NONE);
+							viewForm.setTopLeft(button_2);
+						}
+						{
+							Button button_1 = new Button(viewForm, SWT.NONE);
+							viewForm.setTopCenter(button_1);
+						}
+					}
+				}""");
 	}
 }

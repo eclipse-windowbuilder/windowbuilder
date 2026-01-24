@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -49,23 +49,22 @@ public class MorphingSupportTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_keepChildren() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Composite composite = new Composite(this, SWT.NONE);",
-						"    Button button = new Button(composite, SWT.NONE);",
-						"    button.setBounds(10, 10, 100, 50);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Composite composite = new Composite(this, SWT.NONE);
+						Button button = new Button(composite, SWT.NONE);
+						button.setBounds(10, 10, 100, 50);
+					}
+				}""");
 		shell.refresh();
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Composite(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Composite} {local-unique: composite} {/new Composite(this, SWT.NONE)/ /new Button(composite, SWT.NONE)/}",
-				"    {implicit-layout: absolute} {implicit-layout} {}",
-				"    {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(composite, SWT.NONE)/ /button.setBounds(10, 10, 100, 50)/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Composite(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.swt.widgets.Composite} {local-unique: composite} {/new Composite(this, SWT.NONE)/ /new Button(composite, SWT.NONE)/}
+						{implicit-layout: absolute} {implicit-layout} {}
+						{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(composite, SWT.NONE)/ /button.setBounds(10, 10, 100, 50)/}""");
 		// do morphing
 		{
 			CompositeInfo myPanel = (CompositeInfo) shell.getChildrenControls().get(0);
@@ -73,21 +72,21 @@ public class MorphingSupportTest extends RcpModelTest {
 			morph(myPanel, morphingTarget);
 		}
 		// check result
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    Group composite = new Group(this, SWT.NONE);",
-				"    Button button = new Button(composite, SWT.NONE);",
-				"    button.setBounds(10, 10, 100, 50);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Group} {local-unique: composite} {/new Button(composite, SWT.NONE)/ /new Group(this, SWT.NONE)/}",
-				"    {implicit-layout: absolute} {implicit-layout} {}",
-				"    {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(composite, SWT.NONE)/ /button.setBounds(10, 10, 100, 50)/}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Group composite = new Group(this, SWT.NONE);
+						Button button = new Button(composite, SWT.NONE);
+						button.setBounds(10, 10, 100, 50);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.swt.widgets.Group} {local-unique: composite} {/new Button(composite, SWT.NONE)/ /new Group(this, SWT.NONE)/}
+						{implicit-layout: absolute} {implicit-layout} {}
+						{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(composite, SWT.NONE)/ /button.setBounds(10, 10, 100, 50)/}""");
 		// refresh() should work
 		shell.refresh();
 		assertNoErrors(shell);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -58,23 +58,22 @@ public class TreeTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_TreeColumn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Tree tree = new Tree(this, SWT.BORDER);",
-						"    tree.setHeaderVisible(true);",
-						"    {",
-						"      TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);",
-						"      treeColumn_1.setWidth(50);",
-						"    }",
-						"    {",
-						"      TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.NONE);",
-						"      treeColumn_2.setWidth(100);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Tree tree = new Tree(this, SWT.BORDER);
+						tree.setHeaderVisible(true);
+						{
+							TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);
+							treeColumn_1.setWidth(50);
+						}
+						{
+							TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.NONE);
+							treeColumn_2.setWidth(100);
+						}
+					}
+				}""");
 		shell.refresh();
 		TreeInfo tree = (TreeInfo) shell.getChildrenControls().get(0);
 		// prepare columns
@@ -112,25 +111,24 @@ public class TreeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_TreeColumn_copyPaste() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Tree tree = new Tree(this, SWT.BORDER);",
-						"      tree.setHeaderVisible(true);",
-						"      {",
-						"        TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);",
-						"        treeColumn_1.setWidth(50);",
-						"      }",
-						"      {",
-						"        TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.RIGHT);",
-						"        treeColumn_2.setWidth(100);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Tree tree = new Tree(this, SWT.BORDER);
+							tree.setHeaderVisible(true);
+							{
+								TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);
+								treeColumn_1.setWidth(50);
+							}
+							{
+								TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.RIGHT);
+								treeColumn_2.setWidth(100);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
 		// prepare memento
@@ -145,50 +143,50 @@ public class TreeTest extends RcpModelTest {
 			fillLayout.command_CREATE(newTree, null);
 			memento.apply();
 		}
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Tree tree = new Tree(this, SWT.BORDER);",
-				"      tree.setHeaderVisible(true);",
-				"      {",
-				"        TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);",
-				"        treeColumn_1.setWidth(50);",
-				"      }",
-				"      {",
-				"        TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.RIGHT);",
-				"        treeColumn_2.setWidth(100);",
-				"      }",
-				"    }",
-				"    {",
-				"      Tree tree = new Tree(this, SWT.BORDER);",
-				"      tree.setHeaderVisible(true);",
-				"      {",
-				"        TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);",
-				"        treeColumn_1.setWidth(50);",
-				"      }",
-				"      {",
-				"        TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.RIGHT);",
-				"        treeColumn_2.setWidth(100);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Tree tree = new Tree(this, SWT.BORDER);
+							tree.setHeaderVisible(true);
+							{
+								TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);
+								treeColumn_1.setWidth(50);
+							}
+							{
+								TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.RIGHT);
+								treeColumn_2.setWidth(100);
+							}
+						}
+						{
+							Tree tree = new Tree(this, SWT.BORDER);
+							tree.setHeaderVisible(true);
+							{
+								TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);
+								treeColumn_1.setWidth(50);
+							}
+							{
+								TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.RIGHT);
+								treeColumn_2.setWidth(100);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_TreeColumn_setWidth() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeColumn treeColumn = new TreeColumn(tree, SWT.NONE);",
-				"      treeColumn.setWidth(100);",
-				"    }",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn = new TreeColumn(tree, SWT.NONE);
+							treeColumn.setWidth(100);
+						}
+					}
+				}""");
 		refresh();
 		TreeInfo tree = getJavaInfoByName("tree");
 		//
@@ -199,26 +197,26 @@ public class TreeTest extends RcpModelTest {
 		// set new width
 		column.setWidth(120);
 		assertEquals(120, widthProperty.getValue());
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeColumn treeColumn = new TreeColumn(tree, SWT.NONE);",
-				"      treeColumn.setWidth(120);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn = new TreeColumn(tree, SWT.NONE);
+							treeColumn.setWidth(120);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_add_TreeColumn() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+					}
+				}""");
 		TreeInfo tree = getJavaInfoByName("tree");
 		// no columns initially
 		assertTrue(tree.getColumns().isEmpty());
@@ -229,35 +227,35 @@ public class TreeTest extends RcpModelTest {
 		List<TreeColumnInfo> columns = tree.getColumns();
 		Assertions.assertThat(columns).hasSize(1);
 		assertTrue(columns.contains(newColumn));
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeColumn treeColumn = new TreeColumn(tree, SWT.NONE);",
-				"      treeColumn.setWidth(100);",
-				"      treeColumn.setText('New Column');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn = new TreeColumn(tree, SWT.NONE);
+							treeColumn.setWidth(100);
+							treeColumn.setText("New Column");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_move_TreeColumn() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);",
-				"      treeColumn_1.setText('Column 1');",
-				"    }",
-				"    {",
-				"      TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.NONE);",
-				"      treeColumn_2.setText('Column 2');",
-				"    }",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);
+							treeColumn_1.setText("Column 1");
+						}
+						{
+							TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.NONE);
+							treeColumn_2.setText("Column 2");
+						}
+					}
+				}""");
 		TreeInfo tree = getJavaInfoByName("tree");
 		// prepare columns
 		List<TreeColumnInfo> columns = tree.getColumns();
@@ -269,42 +267,42 @@ public class TreeTest extends RcpModelTest {
 		// check result
 		assertSame(column_2, tree.getColumns().get(0));
 		assertSame(column_1, tree.getColumns().get(1));
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.NONE);",
-				"      treeColumn_2.setText('Column 2');",
-				"    }",
-				"    {",
-				"      TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);",
-				"      treeColumn_1.setText('Column 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn_2 = new TreeColumn(tree, SWT.NONE);
+							treeColumn_2.setText("Column 2");
+						}
+						{
+							TreeColumn treeColumn_1 = new TreeColumn(tree, SWT.NONE);
+							treeColumn_1.setText("Column 1");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_reparent_TreeColumn() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    //",
-				"    Tree tree_1 = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeColumn treeColumn_1 = new TreeColumn(tree_1, SWT.NONE);",
-				"      treeColumn_1.setText('Column 1');",
-				"    }",
-				"    //",
-				"    Tree tree_2 = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeColumn treeColumn_2 = new TreeColumn(tree_2, SWT.NONE);",
-				"      treeColumn_2.setText('Column 2');",
-				"    }",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						//
+						Tree tree_1 = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn_1 = new TreeColumn(tree_1, SWT.NONE);
+							treeColumn_1.setText("Column 1");
+						}
+						//
+						Tree tree_2 = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn_2 = new TreeColumn(tree_2, SWT.NONE);
+							treeColumn_2.setText("Column 2");
+						}
+					}
+				}""");
 		// prepare tree_1
 		TreeInfo tree_1 = getJavaInfoByName("tree_1");
 		TreeColumnInfo column_1 = tree_1.getColumns().get(0);
@@ -320,117 +318,115 @@ public class TreeTest extends RcpModelTest {
 			assertSame(column_1, columns.get(0));
 			assertSame(column_2, columns.get(1));
 		}
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    //",
-				"    Tree tree_1 = new Tree(this, SWT.BORDER);",
-				"    //",
-				"    Tree tree_2 = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeColumn treeColumn_1 = new TreeColumn(tree_2, SWT.NONE);",
-				"      treeColumn_1.setText('Column 1');",
-				"    }",
-				"    {",
-				"      TreeColumn treeColumn_2 = new TreeColumn(tree_2, SWT.NONE);",
-				"      treeColumn_2.setText('Column 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						//
+						Tree tree_1 = new Tree(this, SWT.BORDER);
+						//
+						Tree tree_2 = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn_1 = new TreeColumn(tree_2, SWT.NONE);
+							treeColumn_1.setText("Column 1");
+						}
+						{
+							TreeColumn treeColumn_2 = new TreeColumn(tree_2, SWT.NONE);
+							treeColumn_2.setText("Column 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_column_exposed() throws Exception {
 		setFileContentSrc(
-				"test/ExposedComposite.java",
-				getTestSource(
-						"public class ExposedComposite extends Composite {",
-						"  private TreeColumn m_treeColumn;",
-						"  private Tree m_tree;",
-						"  //",
-						"  public ExposedComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(2, false));",
-						"    m_tree = new Tree(this, SWT.BORDER);",
-						"    {",
-						"      m_treeColumn = new TreeColumn(m_tree, SWT.NONE);",
-						"      m_treeColumn.setWidth(100);",
-						"      m_treeColumn.setText('New Column');",
-						"    }",
-						"  }",
-						"  public TreeColumn getColumn() {",
-						"    return m_treeColumn;",
-						"  }",
-						"  public Tree getTree() {",
-						"    return m_tree;",
-						"  }",
-						"}"));
+				"test/ExposedComposite.java", getTestSource("""
+				public class ExposedComposite extends Composite {
+					private TreeColumn m_treeColumn;
+					private Tree m_tree;
+					//
+					public ExposedComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						m_tree = new Tree(this, SWT.BORDER);
+						{
+							m_treeColumn = new TreeColumn(m_tree, SWT.NONE);
+							m_treeColumn.setWidth(100);
+							m_treeColumn.setText("New Column");
+						}
+					}
+					public TreeColumn getColumn() {
+						return m_treeColumn;
+					}
+					public Tree getTree() {
+						return m_tree;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ExposedComposite composite = new ExposedComposite(this, SWT.NONE);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new ExposedComposite(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: test.ExposedComposite} {local-unique: composite} {/new ExposedComposite(this, SWT.NONE)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"    {method: public org.eclipse.swt.widgets.Tree test.ExposedComposite.getTree()} {property} {}",
-				"      {method: public org.eclipse.swt.widgets.TreeColumn test.ExposedComposite.getColumn()} {property} {}",
-				"      {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExposedComposite composite = new ExposedComposite(this, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new ExposedComposite(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: test.ExposedComposite} {local-unique: composite} {/new ExposedComposite(this, SWT.NONE)/}
+						{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+						{method: public org.eclipse.swt.widgets.Tree test.ExposedComposite.getTree()} {property} {}
+							{method: public org.eclipse.swt.widgets.TreeColumn test.ExposedComposite.getColumn()} {property} {}
+							{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 	}
 
 	@Test
 	public void test_item_exposed() throws Exception {
 		setFileContentSrc(
-				"test/ExposedComposite.java",
-				getTestSource(
-						"public class ExposedComposite extends Composite {",
-						"  private TreeItem m_treeItem;",
-						"  private Tree m_tree;",
-						"  //",
-						"  public ExposedComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(2, false));",
-						"    m_tree = new Tree(this, SWT.BORDER);",
-						"    {",
-						"      TreeColumn treeColumn = new TreeColumn(m_tree, SWT.NONE);",
-						"      treeColumn.setWidth(100);",
-						"      treeColumn.setText('New Column');",
-						"    }",
-						"    {",
-						"      m_treeItem = new TreeItem(m_tree, SWT.NONE);",
-						"      m_treeItem.setText('New Item');",
-						"    }",
-						"  }",
-						"  public TreeItem getItem() {",
-						"    return m_treeItem;",
-						"  }",
-						"  public Tree getTree() {",
-						"    return m_tree;",
-						"  }",
-						"}"));
+				"test/ExposedComposite.java", getTestSource("""
+				public class ExposedComposite extends Composite {
+					private TreeItem m_treeItem;
+					private Tree m_tree;
+					//
+					public ExposedComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						m_tree = new Tree(this, SWT.BORDER);
+						{
+							TreeColumn treeColumn = new TreeColumn(m_tree, SWT.NONE);
+							treeColumn.setWidth(100);
+							treeColumn.setText("New Column");
+						}
+						{
+							m_treeItem = new TreeItem(m_tree, SWT.NONE);
+							m_treeItem.setText("New Item");
+						}
+					}
+					public TreeItem getItem() {
+						return m_treeItem;
+					}
+					public Tree getTree() {
+						return m_tree;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ExposedComposite composite = new ExposedComposite(this, SWT.NONE);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new ExposedComposite(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: test.ExposedComposite} {local-unique: composite} {/new ExposedComposite(this, SWT.NONE)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"    {method: public org.eclipse.swt.widgets.Tree test.ExposedComposite.getTree()} {property} {}",
-				"      {method: public org.eclipse.swt.widgets.TreeItem test.ExposedComposite.getItem()} {property} {}",
-				"      {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExposedComposite composite = new ExposedComposite(this, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new ExposedComposite(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: test.ExposedComposite} {local-unique: composite} {/new ExposedComposite(this, SWT.NONE)/}
+						{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+						{method: public org.eclipse.swt.widgets.Tree test.ExposedComposite.getTree()} {property} {}
+							{method: public org.eclipse.swt.widgets.TreeItem test.ExposedComposite.getItem()} {property} {}
+							{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 	}
 }

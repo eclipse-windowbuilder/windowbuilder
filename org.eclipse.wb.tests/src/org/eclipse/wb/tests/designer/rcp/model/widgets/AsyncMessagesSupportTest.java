@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -50,15 +50,14 @@ public class AsyncMessagesSupportTest extends RcpModelTest {
 		prepareButtonWithAsync();
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(450, 300);",
-						"    MyButton button = new MyButton(this, SWT.NONE);",
-						"    button.setValue(5);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(450, 300);
+						MyButton button = new MyButton(this, SWT.NONE);
+						button.setValue(5);
+					}
+				}""");
 		shell.refresh();
 		ButtonInfo button = (ButtonInfo) shell.getChildrenControls().get(0);
 		assertEquals(0, ReflectionUtils.invokeMethod(button.getObject(), "getValue()"));
@@ -71,25 +70,23 @@ public class AsyncMessagesSupportTest extends RcpModelTest {
 	public void test_hasAsync_hasMessagesRequest() throws Exception {
 		prepareButtonWithAsync();
 		setFileContentSrc(
-				"test/MyButton.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='SWT.runAsyncMessages'>true</parameter>",
-						"  </parameters>",
-						"</component>"));
+				"test/MyButton.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="SWT.runAsyncMessages">true</parameter>
+					</parameters>
+						</component>""");
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(450, 300);",
-						"    MyButton button = new MyButton(this, SWT.NONE);",
-						"    button.setValue(5);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(450, 300);
+						MyButton button = new MyButton(this, SWT.NONE);
+						button.setValue(5);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertEquals(5, ReflectionUtils.invokeMethod(button.getObject(), "getValue()"));
@@ -97,25 +94,24 @@ public class AsyncMessagesSupportTest extends RcpModelTest {
 
 	private void prepareButtonWithAsync() throws Exception {
 		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends Button {",
-						"  private int m_value;",
-						"  public MyButton(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public void setValue(final int value) {",
-						"    getDisplay().asyncExec(new Runnable() {",
-						"      public void run() {",
-						"        m_value = value;",
-						"      }",
-						"    });",
-						"  }",
-						"  public int getValue() {",
-						"    return m_value;",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+				"test/MyButton.java", getTestSource("""
+				public class MyButton extends Button {
+					private int m_value;
+					public MyButton(Composite parent, int style) {
+						super(parent, style);
+					}
+					public void setValue(final int value) {
+						getDisplay().asyncExec(new Runnable() {
+							public void run() {
+								m_value = value;
+							}
+						});
+					}
+					public int getValue() {
+						return m_value;
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 	}
 }

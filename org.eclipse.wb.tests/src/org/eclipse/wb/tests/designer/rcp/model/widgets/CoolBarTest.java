@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,15 +56,14 @@ public class CoolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_isHorizontal() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    CoolBar toolBar_1 = new CoolBar(this, SWT.NONE);",
-						"    CoolBar toolBar_2 = new CoolBar(this, SWT.VERTICAL);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar toolBar_1 = new CoolBar(this, SWT.NONE);
+						CoolBar toolBar_2 = new CoolBar(this, SWT.VERTICAL);
+					}
+				}""");
 		shell.refresh();
 		{
 			CoolBarInfo toolBar_1 = shell.getChildren(CoolBarInfo.class).get(0);
@@ -83,24 +82,23 @@ public class CoolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_parseItems() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"      {",
-						"        CoolItem item = new CoolItem(coolBar, SWT.NONE);",
-						"        item.setText('000');",
-						"      }",
-						"      {",
-						"        CoolItem item = new CoolItem(coolBar, SWT.NONE);",
-						"        item.setText('111');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+							{
+								CoolItem item = new CoolItem(coolBar, SWT.NONE);
+								item.setText("000");
+							}
+							{
+								CoolItem item = new CoolItem(coolBar, SWT.NONE);
+								item.setText("111");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		CoolBarInfo coolBar = (CoolBarInfo) shell.getChildrenControls().get(0);
 		// check items
@@ -132,22 +130,21 @@ public class CoolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_get() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"    {",
-						"      CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);",
-						"      {",
-						"        Button button = new Button(coolBar, SWT.NONE);",
-						"        item.setControl(button);",
-						"        button.setText('My Button');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);
+							{
+								Button button = new Button(coolBar, SWT.NONE);
+								item.setControl(button);
+								button.setText("My Button");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CoolBarInfo coolBar = (CoolBarInfo) shell.getChildrenControls().get(0);
@@ -175,17 +172,16 @@ public class CoolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"    {",
-						"      CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CoolBarInfo coolBar = (CoolBarInfo) shell.getChildrenControls().get(0);
@@ -199,20 +195,20 @@ public class CoolBarTest extends RcpModelTest {
 		// check result
 		assertSame(button, item.getControl());
 		Assertions.assertThat(item.getSimpleContainerChildren()).containsExactly(button);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-				"    {",
-				"      CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);",
-				"      {",
-				"        Button button = new Button(coolBar, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);
+							{
+								Button button = new Button(coolBar, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -220,20 +216,19 @@ public class CoolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_ADD() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"    {",
-						"      CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CoolBarInfo coolBar = (CoolBarInfo) shell.getChildrenControls().get(0);
@@ -245,20 +240,20 @@ public class CoolBarTest extends RcpModelTest {
 		simpleContainer_ADD(item, button);
 		// check result
 		assertSame(button, item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-				"    {",
-				"      CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);",
-				"      {",
-				"        Button button = new Button(coolBar, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);
+							{
+								Button button = new Button(coolBar, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -266,24 +261,23 @@ public class CoolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_MOVE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"    {",
-						"      CoolItem item_1 = new CoolItem(coolBar, SWT.SEPARATOR);",
-						"    }",
-						"    {",
-						"      CoolItem item_2 = new CoolItem(coolBar, SWT.SEPARATOR);",
-						"      {",
-						"        Button button = new Button(coolBar, SWT.NONE);",
-						"        item_2.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item_1 = new CoolItem(coolBar, SWT.SEPARATOR);
+						}
+						{
+							CoolItem item_2 = new CoolItem(coolBar, SWT.SEPARATOR);
+							{
+								Button button = new Button(coolBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CoolBarInfo coolBar = (CoolBarInfo) shell.getChildrenControls().get(0);
@@ -298,23 +292,23 @@ public class CoolBarTest extends RcpModelTest {
 		simpleContainer_ADD(item_1, button);
 		assertNull(item_2.getControl());
 		assertSame(button, item_1.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-				"    {",
-				"      CoolItem item_1 = new CoolItem(coolBar, SWT.SEPARATOR);",
-				"      {",
-				"        Button button = new Button(coolBar, SWT.NONE);",
-				"        item_1.setControl(button);",
-				"      }",
-				"    }",
-				"    {",
-				"      CoolItem item_2 = new CoolItem(coolBar, SWT.SEPARATOR);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item_1 = new CoolItem(coolBar, SWT.SEPARATOR);
+							{
+								Button button = new Button(coolBar, SWT.NONE);
+								item_1.setControl(button);
+							}
+						}
+						{
+							CoolItem item_2 = new CoolItem(coolBar, SWT.SEPARATOR);
+						}
+					}
+				}""");
 		// now "button" is after "item_1"
 		assertEquals(
 				coolBar.getChildrenJava().indexOf(item_1) + 1,
@@ -326,24 +320,23 @@ public class CoolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_MOVEItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"    {",
-						"      CoolItem item_1 = new CoolItem(coolBar, SWT.NONE);",
-						"    }",
-						"    {",
-						"      CoolItem item_2 = new CoolItem(coolBar, SWT.SEPARATOR);",
-						"      {",
-						"        Button button = new Button(coolBar, SWT.NONE);",
-						"        item_2.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item_1 = new CoolItem(coolBar, SWT.NONE);
+						}
+						{
+							CoolItem item_2 = new CoolItem(coolBar, SWT.SEPARATOR);
+							{
+								Button button = new Button(coolBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CoolBarInfo coolBar = (CoolBarInfo) shell.getChildrenControls().get(0);
@@ -357,23 +350,23 @@ public class CoolBarTest extends RcpModelTest {
 		// move "item_2" before "item_1"
 		flowContainer_MOVE(coolBar, item_2, item_1);
 		assertSame(button, item_2.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-				"    {",
-				"      CoolItem item_2 = new CoolItem(coolBar, SWT.SEPARATOR);",
-				"      {",
-				"        Button button = new Button(coolBar, SWT.NONE);",
-				"        item_2.setControl(button);",
-				"      }",
-				"    }",
-				"    {",
-				"      CoolItem item_1 = new CoolItem(coolBar, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item_2 = new CoolItem(coolBar, SWT.SEPARATOR);
+							{
+								Button button = new Button(coolBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+						{
+							CoolItem item_1 = new CoolItem(coolBar, SWT.NONE);
+						}
+					}
+				}""");
 		// "button" is still after "item_2"
 		assertEquals(
 				coolBar.getChildrenJava().indexOf(item_2) + 1,
@@ -386,21 +379,20 @@ public class CoolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_moveOut() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"    {",
-						"      CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);",
-						"      {",
-						"        Button button = new Button(coolBar, SWT.NONE);",
-						"        item.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);
+							{
+								Button button = new Button(coolBar, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
@@ -410,19 +402,19 @@ public class CoolBarTest extends RcpModelTest {
 		// move "button" on "shell"
 		flowContainer_MOVE(rowLayout, button, null);
 		assertNull(item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-				"    {",
-				"      CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						{
+							CoolItem item = new CoolItem(coolBar, SWT.SEPARATOR);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -432,16 +424,15 @@ public class CoolBarTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+						}
+					}
+				}""");
 		shell.refresh();
 		CoolBarInfo coolBar = (CoolBarInfo) shell.getChildrenControls().get(0);
 		// add item
@@ -449,40 +440,39 @@ public class CoolBarTest extends RcpModelTest {
 			CoolItemInfo coolItem = createJavaInfo("org.eclipse.swt.widgets.CoolItem", null);
 			flowContainer_CREATE(coolBar, coolItem, null);
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-				"      {",
-				"        CoolItem coolItem = new CoolItem(coolBar, SWT.NONE);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+							{
+								CoolItem coolItem = new CoolItem(coolBar, SWT.NONE);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_MOVE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-						"      {",
-						"        CoolItem item = new CoolItem(coolBar, SWT.NONE);",
-						"        item.setText('000');",
-						"      }",
-						"      {",
-						"        CoolItem item = new CoolItem(coolBar, SWT.NONE);",
-						"        item.setText('111');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+							{
+								CoolItem item = new CoolItem(coolBar, SWT.NONE);
+								item.setText("000");
+							}
+							{
+								CoolItem item = new CoolItem(coolBar, SWT.NONE);
+								item.setText("111");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		CoolBarInfo coolBar = (CoolBarInfo) shell.getChildrenControls().get(0);
 		// move item
@@ -490,23 +480,23 @@ public class CoolBarTest extends RcpModelTest {
 		CoolItemInfo item_2 = items.get(1);
 		CoolItemInfo item_1 = items.get(0);
 		flowContainer_MOVE(coolBar, item_2, item_1);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      CoolBar coolBar = new CoolBar(this, SWT.FLAT);",
-				"      {",
-				"        CoolItem item = new CoolItem(coolBar, SWT.NONE);",
-				"        item.setText('111');",
-				"      }",
-				"      {",
-				"        CoolItem item = new CoolItem(coolBar, SWT.NONE);",
-				"        item.setText('000');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							CoolBar coolBar = new CoolBar(this, SWT.FLAT);
+							{
+								CoolItem item = new CoolItem(coolBar, SWT.NONE);
+								item.setText("111");
+							}
+							{
+								CoolItem item = new CoolItem(coolBar, SWT.NONE);
+								item.setText("000");
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

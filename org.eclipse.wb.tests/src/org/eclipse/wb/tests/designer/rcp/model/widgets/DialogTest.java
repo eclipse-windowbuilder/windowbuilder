@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
-import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.rcp.IExceptionConstants;
 import org.eclipse.wb.internal.rcp.model.widgets.DialogInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -52,37 +51,36 @@ public class DialogTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"public class Test extends Dialog {",
-						"  protected Object result;",
-						"  protected Shell shell;",
-						"  public Test(Shell parent) {",
-						"    super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);",
-						"    setText('SWT Dialog');",
-						"  }",
-						"  public Object open() {",
-						"    createContents();",
-						"    shell.open();",
-						"    shell.layout();",
-						"    Display display = getParent().getDisplay();",
-						"    while (!shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"    return result;",
-						"  }",
-						"  private void createContents() {",
-						"    shell = new Shell(getParent(), getStyle());",
-						"    shell.setSize(450, 300);",
-						"    shell.setText(getText());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Dialog_} {this} {/setText('SWT Dialog')/ /new Shell(getParent(), getStyle())/ /new Shell(getParent(), getStyle())/ /shell.setText(getText())/}",
-				"  {new: org.eclipse.swt.widgets.Shell} {field-unique: shell} {/new Shell(getParent(), getStyle())/ /shell.setSize(450, 300)/ /shell.setText(getText())/ /shell.open()/ /shell.layout()/}",
-				"    {implicit-layout: absolute} {implicit-layout} {}");
+		DialogInfo dialog = parseJavaInfo("""
+				public class Test extends Dialog {
+					protected Object result;
+					protected Shell shell;
+					public Test(Shell parent) {
+						super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+						setText("SWT Dialog");
+					}
+					public Object open() {
+						createContents();
+						shell.open();
+						shell.layout();
+						Display display = getParent().getDisplay();
+						while (!shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+						return result;
+					}
+					private void createContents() {
+						shell = new Shell(getParent(), getStyle());
+						shell.setSize(450, 300);
+						shell.setText(getText());
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Dialog_} {this} {/setText("SWT Dialog")/ /new Shell(getParent(), getStyle())/ /new Shell(getParent(), getStyle())/ /shell.setText(getText())/}
+					{new: org.eclipse.swt.widgets.Shell} {field-unique: shell} {/new Shell(getParent(), getStyle())/ /shell.setSize(450, 300)/ /shell.setText(getText())/ /shell.open()/ /shell.layout()/}
+						{implicit-layout: absolute} {implicit-layout} {}""");
 		// we implement "org.eclipse.swt.widgets.Dialog" as non-abstract "org.eclipse.swt.widgets.Dialog_"
 		// that should not be cached, else it will hold project/composite ClassLoader in memory
 		assertFalse(dialog.getDescription().isCached());
@@ -106,27 +104,26 @@ public class DialogTest extends RcpModelTest {
 
 	@Test
 	public void test_parse_RightToLeft() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"public class Test extends Dialog {",
-						"  protected Shell shell;",
-						"  public Test(Shell parent) {",
-						"    super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RIGHT_TO_LEFT);",
-						"    setText('SWT Dialog');",
-						"  }",
-						"  public Object open() {",
-						"    createContents();",
-						"    return null;",
-						"  }",
-						"  private void createContents() {",
-						"    shell = new Shell(getParent(), getStyle());",
-						"    shell.setSize(450, 300);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Dialog_} {this} {/setText('SWT Dialog')/ /new Shell(getParent(), getStyle())/ /new Shell(getParent(), getStyle())/}",
-				"  {new: org.eclipse.swt.widgets.Shell} {field-unique: shell} {/new Shell(getParent(), getStyle())/ /shell.setSize(450, 300)/}",
-				"    {implicit-layout: absolute} {implicit-layout} {}");
+		DialogInfo dialog = parseJavaInfo("""
+				public class Test extends Dialog {
+					protected Shell shell;
+					public Test(Shell parent) {
+						super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL | SWT.RIGHT_TO_LEFT);
+						setText("SWT Dialog");
+					}
+					public Object open() {
+						createContents();
+						return null;
+					}
+					private void createContents() {
+						shell = new Shell(getParent(), getStyle());
+						shell.setSize(450, 300);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Dialog_} {this} {/setText("SWT Dialog")/ /new Shell(getParent(), getStyle())/ /new Shell(getParent(), getStyle())/}
+					{new: org.eclipse.swt.widgets.Shell} {field-unique: shell} {/new Shell(getParent(), getStyle())/ /shell.setSize(450, 300)/}
+						{implicit-layout: absolute} {implicit-layout} {}""");
 		dialog.refresh();
 		// bounds
 		{
@@ -145,23 +142,22 @@ public class DialogTest extends RcpModelTest {
 
 	@Test
 	public void test_constructorWithStyle() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"public class Test extends Dialog {",
-						"  protected Object result;",
-						"  protected Shell shell;",
-						"  public Test(Shell parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public Object open() {",
-						"    shell = new Shell(getParent(), getStyle());",
-						"    return result;",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Dialog_} {this} {/new Shell(getParent(), getStyle())/ /new Shell(getParent(), getStyle())/}",
-				"  {new: org.eclipse.swt.widgets.Shell} {field-unique: shell} {/new Shell(getParent(), getStyle())/}",
-				"    {implicit-layout: absolute} {implicit-layout} {}");
+		DialogInfo dialog = parseJavaInfo("""
+				public class Test extends Dialog {
+					protected Object result;
+					protected Shell shell;
+					public Test(Shell parent, int style) {
+						super(parent, style);
+					}
+					public Object open() {
+						shell = new Shell(getParent(), getStyle());
+						return result;
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Dialog_} {this} {/new Shell(getParent(), getStyle())/ /new Shell(getParent(), getStyle())/}
+					{new: org.eclipse.swt.widgets.Shell} {field-unique: shell} {/new Shell(getParent(), getStyle())/}
+						{implicit-layout: absolute} {implicit-layout} {}""");
 		// refresh()
 		dialog.refresh();
 		assertNotNull(dialog.getImage());
@@ -174,40 +170,36 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_severalConstructors() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"public class Test extends Dialog {",
-						"  protected Shell shell;",
-						"  public Test(Shell parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public Test(Shell parent) {",
-						"    this(parent, SWT.NONE);",
-						"  }",
-						"  public Object open() {",
-						"    shell = new Shell(getParent(), getStyle());",
-						"    return null;",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				public class Test extends Dialog {
+					protected Shell shell;
+					public Test(Shell parent, int style) {
+						super(parent, style);
+					}
+					public Test(Shell parent) {
+						this(parent, SWT.NONE);
+					}
+					public Object open() {
+						shell = new Shell(getParent(), getStyle());
+						return null;
+					}
+				}""");
 		dialog.refresh();
 		assertNoErrors(dialog);
 	}
 
 	@Test
 	public void test_noOpenMethod() throws Exception {
-		try {
-			parseJavaInfo(
-					"public class Test extends Dialog {",
-					"  protected Shell shell;",
-					"  public Test(Shell parent, int style) {",
-					"    super(parent, style);",
-					"  }",
-					"}");
-			fail();
-		} catch (Throwable e) {
-			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
-			assertEquals(IExceptionConstants.SWT_DIALOG_NO_OPEN_METHOD, de.getCode());
-		}
+		DesignerException de = assertThrows(DesignerException.class, () -> {
+			parseJavaInfo("""
+					public class Test extends Dialog {
+						protected Shell shell;
+						public Test(Shell parent, int style) {
+							super(parent, style);
+						}
+					}""");
+		});
+		assertEquals(IExceptionConstants.SWT_DIALOG_NO_OPEN_METHOD, de.getCode());
 	}
 
 	/**
@@ -215,18 +207,17 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_openMethodWithParameters() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"public class Test extends Dialog {",
-						"  protected Shell shell;",
-						"  public Test(Shell parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public Object open(String msg) {",
-						"    shell = new Shell(getParent(), getStyle());",
-						"    return null;",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				public class Test extends Dialog {
+					protected Shell shell;
+					public Test(Shell parent, int style) {
+						super(parent, style);
+					}
+					public Object open(String msg) {
+						shell = new Shell(getParent(), getStyle());
+						return null;
+					}
+				}""");
 		dialog.refresh();
 		assertNoErrors(dialog);
 	}
@@ -238,17 +229,16 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ignoreNewInstance() throws Exception {
-		CompositeInfo shell =
-				parseJavaInfo(
-						"public class Test {",
-						"  public static void main (String[] args) {",
-						"    Shell shell = new Shell();",
-						"    FileDialog dialog = new FileDialog (shell, SWT.SAVE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{new: org.eclipse.swt.widgets.Shell} {local-unique: shell} {/new Shell()/ /new FileDialog (shell, SWT.SAVE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}");
+		CompositeInfo shell = parseJavaInfo("""
+				public class Test {
+					public static void main (String[] args) {
+						Shell shell = new Shell();
+						FileDialog dialog = new FileDialog (shell, SWT.SAVE);
+					}
+				}""");
+		assertHierarchy("""
+				{new: org.eclipse.swt.widgets.Shell} {local-unique: shell} {/new Shell()/ /new FileDialog (shell, SWT.SAVE)/}
+					{implicit-layout: absolute} {implicit-layout} {}""");
 		// refresh()
 		shell.refresh();
 		assertNoErrors(shell);
@@ -262,39 +252,36 @@ public class DialogTest extends RcpModelTest {
 	@Test
 	public void test_betterStyleParameterDetection() throws Exception {
 		setFileContentSrc(
-				"test/MyData.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyData {",
-						"  // filler filler filler",
-						"}"));
+				"test/MyData.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyData {
+					// filler filler filler
+				}"""));
 		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, MyData data, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
+				"test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, MyData data, int style) {
+						super(parent, style);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
 		useStrictEvaluationMode(false);
-		DialogInfo dialog =
-				parseJavaInfo(
-						"public class Test extends Dialog {",
-						"  protected MyData m_data;",
-						"  protected Shell shell;",
-						"  public Test(Shell parent, MyData data, int style) {",
-						"    super(parent, style);",
-						"    m_data = data;",
-						"  }",
-						"  public Object open() {",
-						"    shell = new Shell(getParent(), getStyle());",
-						"    new MyComposite(shell, m_data, SWT.NONE);",
-						"    return null;",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				public class Test extends Dialog {
+					protected MyData m_data;
+					protected Shell shell;
+					public Test(Shell parent, MyData data, int style) {
+						super(parent, style);
+						m_data = data;
+					}
+					public Object open() {
+						shell = new Shell(getParent(), getStyle());
+						new MyComposite(shell, m_data, SWT.NONE);
+						return null;
+					}
+				}""");
 		dialog.refresh();
 		assertNoErrors(dialog);
 	}
@@ -304,25 +291,22 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noMainShell() throws Exception {
-		try {
-			parseJavaInfo(
-					"public class Test extends Dialog {",
-					"  protected Object result;",
-					"  protected Shell shell;",
-					"  public Test(Shell parent) {",
-					"    super(parent, 0);",
-					"  }",
-					"  public Object open() {",
-					"    shell.open();",
-					"    shell.layout();",
-					"    return result;",
-					"  }",
-					"}");
-			fail();
-		} catch (Throwable e) {
-			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
-			assertEquals(IExceptionConstants.SWT_DIALOG_NO_MAIN_SHELL, de.getCode());
-		}
+		DesignerException de = assertThrows(DesignerException.class, () -> {
+			parseJavaInfo("""
+					public class Test extends Dialog {
+						protected Object result;
+						protected Shell shell;
+						public Test(Shell parent) {
+							super(parent, 0);
+						}
+						public Object open() {
+							shell.open();
+							shell.layout();
+							return result;
+						}
+					}""");
+		});
+		assertEquals(IExceptionConstants.SWT_DIALOG_NO_MAIN_SHELL, de.getCode());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -332,22 +316,22 @@ public class DialogTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_contextMenu_setMinimalSize() throws Exception {
-		parseJavaInfo(
-				"public class Test extends Dialog {",
-				"  protected Shell shell;",
-				"  public Test(Shell parent) {",
-				"    super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);",
-				"    setText('SWT Dialog');",
-				"  }",
-				"  public Object open() {",
-				"    createContents();",
-				"    return null;",
-				"  }",
-				"  private void createContents() {",
-				"    shell = new Shell(getParent(), getStyle());",
-				"    shell.setSize(450, 300);",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				public class Test extends Dialog {
+					protected Shell shell;
+					public Test(Shell parent) {
+						super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+						setText("SWT Dialog");
+					}
+					public Object open() {
+						createContents();
+						return null;
+					}
+					private void createContents() {
+						shell = new Shell(getParent(), getStyle());
+						shell.setSize(450, 300);
+					}
+				}""");
 		refresh();
 		CompositeInfo shell = getJavaInfoByName("shell");
 		Dimension preferredSize = shell.getPreferredSize().getCopy();
@@ -358,42 +342,42 @@ public class DialogTest extends RcpModelTest {
 			assertNotNull(action);
 			action.run();
 		}
-		assertEditor(
-				"public class Test extends Dialog {",
-				"  protected Shell shell;",
-				"  public Test(Shell parent) {",
-				"    super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);",
-				"    setText('SWT Dialog');",
-				"  }",
-				"  public Object open() {",
-				"    createContents();",
-				"    return null;",
-				"  }",
-				"  private void createContents() {",
-				"    shell = new Shell(getParent(), getStyle());",
-				"    shell.setSize(" + preferredSize.width + ", " + preferredSize.height + ");",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Dialog {
+					protected Shell shell;
+					public Test(Shell parent) {
+						super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+						setText("SWT Dialog");
+					}
+					public Object open() {
+						createContents();
+						return null;
+					}
+					private void createContents() {
+						shell = new Shell(getParent(), getStyle());
+						shell.setSize(%d, %d);
+					}
+				}""".formatted(preferredSize.width, preferredSize.height));
 	}
 
 	@Test
 	public void test_contextMenu_removeSize() throws Exception {
-		parseJavaInfo(
-				"public class Test extends Dialog {",
-				"  protected Shell shell;",
-				"  public Test(Shell parent) {",
-				"    super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);",
-				"    setText('SWT Dialog');",
-				"  }",
-				"  public Object open() {",
-				"    createContents();",
-				"    return null;",
-				"  }",
-				"  private void createContents() {",
-				"    shell = new Shell(getParent(), getStyle());",
-				"    shell.setSize(450, 300);",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				public class Test extends Dialog {
+					protected Shell shell;
+					public Test(Shell parent) {
+						super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+						setText("SWT Dialog");
+					}
+					public Object open() {
+						createContents();
+						return null;
+					}
+					private void createContents() {
+						shell = new Shell(getParent(), getStyle());
+						shell.setSize(450, 300);
+					}
+				}""");
 		refresh();
 		CompositeInfo shell = getJavaInfoByName("shell");
 		// run "Set minimal size" action
@@ -403,20 +387,20 @@ public class DialogTest extends RcpModelTest {
 			assertNotNull(action);
 			action.run();
 		}
-		assertEditor(
-				"public class Test extends Dialog {",
-				"  protected Shell shell;",
-				"  public Test(Shell parent) {",
-				"    super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);",
-				"    setText('SWT Dialog');",
-				"  }",
-				"  public Object open() {",
-				"    createContents();",
-				"    return null;",
-				"  }",
-				"  private void createContents() {",
-				"    shell = new Shell(getParent(), getStyle());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Dialog {
+					protected Shell shell;
+					public Test(Shell parent) {
+						super(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+						setText("SWT Dialog");
+					}
+					public Object open() {
+						createContents();
+						return null;
+					}
+					private void createContents() {
+						shell = new Shell(getParent(), getStyle());
+					}
+				}""");
 	}
 }

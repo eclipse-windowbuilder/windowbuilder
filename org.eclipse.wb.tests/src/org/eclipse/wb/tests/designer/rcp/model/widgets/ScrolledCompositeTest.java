@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -45,14 +45,13 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_noContent() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
 		// no "setContent()"
@@ -63,19 +62,18 @@ public class ScrolledCompositeTest extends RcpModelTest {
 
 	@Test
 	public void test_withContent() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Button button;",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-						"    {",
-						"      button = new Button(composite, SWT.NONE);",
-						"    }",
-						"    composite.setContent(button);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Button button;
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							button = new Button(composite, SWT.NONE);
+						}
+						composite.setContent(button);
+					}
+				}""");
 		shell.refresh();
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = composite.getChildrenControls().get(0);
@@ -87,18 +85,17 @@ public class ScrolledCompositeTest extends RcpModelTest {
 
 	@Test
 	public void test_hasChildControl_withContent() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Button button;",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-						"    {",
-						"      button = new Button(composite, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Button button;
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							button = new Button(composite, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
 		Assertions.assertThat(composite.getChildrenControls()).hasSize(1);
@@ -118,32 +115,31 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
 		//
 		ControlInfo button = BTestUtils.createButton();
 		composite.command_CREATE(button);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private Button button;",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-				"    {",
-				"      button = new Button(composite, SWT.NONE);",
-				"    }",
-				"    composite.setContent(button);",
-				"    composite.setMinSize(button.computeSize(SWT.DEFAULT, SWT.DEFAULT));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Button button;
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							button = new Button(composite, SWT.NONE);
+						}
+						composite.setContent(button);
+						composite.setMinSize(button.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+					}
+				}""");
 	}
 
 	/**
@@ -153,44 +149,43 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Group group;",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-						"    {",
-						"      group = new Group(composite, SWT.NONE);",
-						"      group.setLayout(new RowLayout());",
-						"    }",
-						"    composite.setContent(group);",
-						"    composite.setMinSize(group.computeSize(SWT.DEFAULT, SWT.DEFAULT));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Group group;
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							group = new Group(composite, SWT.NONE);
+							group.setLayout(new RowLayout());
+						}
+						composite.setContent(group);
+						composite.setMinSize(group.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+					}
+				}""");
 		shell.refresh();
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
 		CompositeInfo group = (CompositeInfo) composite.getContent();
 		//
 		ControlInfo button = BTestUtils.createButton();
 		group.getLayout().command_CREATE(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private Group group;",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-				"    {",
-				"      group = new Group(composite, SWT.NONE);",
-				"      group.setLayout(new RowLayout());",
-				"      {",
-				"        Button button = new Button(group, SWT.NONE);",
-				"      }",
-				"    }",
-				"    composite.setContent(group);",
-				"    composite.setMinSize(group.computeSize(SWT.DEFAULT, SWT.DEFAULT));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Group group;
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							group = new Group(composite, SWT.NONE);
+							group.setLayout(new RowLayout());
+							{
+								Button button = new Button(group, SWT.NONE);
+							}
+						}
+						composite.setContent(group);
+						composite.setMinSize(group.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+					}
+				}""");
 	}
 
 	/**
@@ -198,35 +193,34 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ADD() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = shell.getChildrenControls().get(1);
 		//
 		composite.command_ADD(button);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private Button button;",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-				"    {",
-				"      button = new Button(composite, SWT.NONE);",
-				"    }",
-				"    composite.setContent(button);",
-				"    composite.setMinSize(button.computeSize(SWT.DEFAULT, SWT.DEFAULT));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Button button;
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							button = new Button(composite, SWT.NONE);
+						}
+						composite.setContent(button);
+						composite.setMinSize(button.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+					}
+				}""");
 	}
 
 	/**
@@ -235,35 +229,34 @@ public class ScrolledCompositeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_out() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Button button;",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-						"    {",
-						"      button = new Button(composite, SWT.NONE);",
-						"    }",
-						"    composite.setContent(button);",
-						"    composite.setMinSize(button.computeSize(SWT.DEFAULT, SWT.DEFAULT));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Button button;
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							button = new Button(composite, SWT.NONE);
+						}
+						composite.setContent(button);
+						composite.setMinSize(button.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+					}
+				}""");
 		shell.refresh();
 		ScrolledCompositeInfo composite = (ScrolledCompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = composite.getContent();
 		//
 		shell.getLayout().command_MOVE(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private Button button;",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);",
-				"    {",
-				"      button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Button button;
+					public Test() {
+						setLayout(new FillLayout());
+						ScrolledComposite composite = new ScrolledComposite(this, SWT.NONE);
+						{
+							button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 }

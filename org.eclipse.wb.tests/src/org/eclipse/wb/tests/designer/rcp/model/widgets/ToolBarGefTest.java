@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,41 +40,40 @@ public class ToolBarGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_canvas_CREATE_item() throws Exception {
-		ToolBarInfo toolBar =
-				openJavaInfo(
-						"public class Test extends ToolBar {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		ToolBarInfo toolBar = openJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		//
 		loadCreationTool("org.eclipse.swt.widgets.ToolItem");
 		canvas.moveTo(toolBar, 5, 5);
 		canvas.click();
-		assertEditor(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem toolItem = new ToolItem(this, SWT.NONE);",
-				"      toolItem.setText('New Item');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem toolItem = new ToolItem(this, SWT.NONE);
+							toolItem.setText("New Item");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_canvas_CREATE_control_good() throws Exception {
-		openJavaInfo(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem item = new ToolItem(this, SWT.SEPARATOR);",
-				"      item.setWidth(100);",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem item = new ToolItem(this, SWT.SEPARATOR);
+							item.setWidth(100);
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();
@@ -82,33 +81,33 @@ public class ToolBarGefTest extends RcpGefTest {
 		canvas.assertFeedbacks(canvas.getTargetPredicate(item));
 		canvas.assertCommandNotNull();
 		canvas.click();
-		assertEditor(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem item = new ToolItem(this, SWT.SEPARATOR);",
-				"      item.setWidth(100);",
-				"      {",
-				"        Button button = new Button(this, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem item = new ToolItem(this, SWT.SEPARATOR);
+							item.setWidth(100);
+							{
+								Button button = new Button(this, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_canvas_CREATE_control_notSeparator() throws Exception {
-		openJavaInfo(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem item = new ToolItem(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem item = new ToolItem(this, SWT.NONE);
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();
@@ -119,20 +118,20 @@ public class ToolBarGefTest extends RcpGefTest {
 
 	@Test
 	public void test_canvas_CREATE_control_alreadyHasControl() throws Exception {
-		openJavaInfo(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem item = new ToolItem(this, SWT.SEPARATOR);",
-				"      item.setWidth(100);",
-				"      {",
-				"        Button existing = new Button(this, SWT.NONE);",
-				"        item.setControl(existing);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem item = new ToolItem(this, SWT.SEPARATOR);
+							item.setWidth(100);
+							{
+								Button existing = new Button(this, SWT.NONE);
+								item.setControl(existing);
+							}
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();
@@ -148,41 +147,40 @@ public class ToolBarGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_tree_CREATE_item() throws Exception {
-		ToolBarInfo toolBar =
-				openJavaInfo(
-						"public class Test extends ToolBar {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		ToolBarInfo toolBar = openJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		//
 		loadCreationTool("org.eclipse.swt.widgets.ToolItem");
 		tree.moveOn(toolBar);
 		tree.click();
-		assertEditor(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem toolItem = new ToolItem(this, SWT.NONE);",
-				"      toolItem.setText('New Item');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem toolItem = new ToolItem(this, SWT.NONE);
+							toolItem.setText("New Item");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_tree_CREATE_control_good() throws Exception {
-		openJavaInfo(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem item = new ToolItem(this, SWT.SEPARATOR);",
-				"      item.setWidth(100);",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem item = new ToolItem(this, SWT.SEPARATOR);
+							item.setWidth(100);
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();
@@ -190,33 +188,33 @@ public class ToolBarGefTest extends RcpGefTest {
 		tree.assertFeedback_on(item);
 		tree.assertCommandNotNull();
 		tree.click();
-		assertEditor(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem item = new ToolItem(this, SWT.SEPARATOR);",
-				"      item.setWidth(100);",
-				"      {",
-				"        Button button = new Button(this, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem item = new ToolItem(this, SWT.SEPARATOR);
+							item.setWidth(100);
+							{
+								Button button = new Button(this, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_tree_CREATE_control_notSeparator() throws Exception {
-		openJavaInfo(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem item = new ToolItem(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem item = new ToolItem(this, SWT.NONE);
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();
@@ -226,20 +224,20 @@ public class ToolBarGefTest extends RcpGefTest {
 
 	@Test
 	public void test_tree_CREATE_control_alreadyHasControl() throws Exception {
-		openJavaInfo(
-				"public class Test extends ToolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      ToolItem item = new ToolItem(this, SWT.SEPARATOR);",
-				"      item.setWidth(100);",
-				"      {",
-				"        Button existing = new Button(this, SWT.NONE);",
-				"        item.setControl(existing);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							ToolItem item = new ToolItem(this, SWT.SEPARATOR);
+							item.setWidth(100);
+							{
+								Button existing = new Button(this, SWT.NONE);
+								item.setControl(existing);
+							}
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();

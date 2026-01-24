@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,15 +56,14 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_isHorizontal() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ToolBar toolBar_1 = new ToolBar(this, SWT.NONE);",
-						"    ToolBar toolBar_2 = new ToolBar(this, SWT.VERTICAL);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar_1 = new ToolBar(this, SWT.NONE);
+						ToolBar toolBar_2 = new ToolBar(this, SWT.VERTICAL);
+					}
+				}""");
 		shell.refresh();
 		{
 			ToolBarInfo toolBar_1 = shell.getChildren(ToolBarInfo.class).get(0);
@@ -83,24 +82,23 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_parseItems() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"      {",
-						"        ToolItem item = new ToolItem(toolBar, SWT.NONE);",
-						"        item.setText('000');",
-						"      }",
-						"      {",
-						"        ToolItem item = new ToolItem(toolBar, SWT.NONE);",
-						"        item.setText('111');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+							{
+								ToolItem item = new ToolItem(toolBar, SWT.NONE);
+								item.setText("000");
+							}
+							{
+								ToolItem item = new ToolItem(toolBar, SWT.NONE);
+								item.setText("111");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ToolBarInfo toolBar = (ToolBarInfo) shell.getChildrenControls().get(0);
 		// check items
@@ -128,19 +126,18 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ToolItem_presentation() throws Exception {
-		ToolBarInfo toolBar =
-				parseJavaInfo(
-						"public class Test extends ToolBar {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    new ToolItem(this, SWT.NONE);",
-						"    new ToolItem(this, SWT.PUSH);",
-						"    new ToolItem(this, SWT.CHECK);",
-						"    new ToolItem(this, SWT.RADIO);",
-						"    new ToolItem(this, SWT.DROP_DOWN);",
-						"    new ToolItem(this, SWT.SEPARATOR);",
-						"  }",
-						"}");
+		ToolBarInfo toolBar = parseJavaInfo("""
+				public class Test extends ToolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						new ToolItem(this, SWT.NONE);
+						new ToolItem(this, SWT.PUSH);
+						new ToolItem(this, SWT.CHECK);
+						new ToolItem(this, SWT.RADIO);
+						new ToolItem(this, SWT.DROP_DOWN);
+						new ToolItem(this, SWT.SEPARATOR);
+					}
+				}""");
 		toolBar.refresh();
 		// prepare items
 		ToolItemInfo itemDefault = toolBar.getItems().get(0);
@@ -168,22 +165,21 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_get() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"    {",
-						"      ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);",
-						"      item.setWidth(200);",
-						"      {",
-						"        Button button = new Button(toolBar, SWT.NONE);",
-						"        item.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);
+							item.setWidth(200);
+							{
+								Button button = new Button(toolBar, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ToolBarInfo toolBar = (ToolBarInfo) shell.getChildrenControls().get(0);
@@ -212,18 +208,17 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"    {",
-						"      ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);",
-						"      item.setWidth(200);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);
+							item.setWidth(200);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ToolBarInfo toolBar = (ToolBarInfo) shell.getChildrenControls().get(0);
@@ -237,21 +232,21 @@ public class ToolBarTest extends RcpModelTest {
 		// check result
 		assertSame(button, item.getControl());
 		Assertions.assertThat(item.getSimpleContainerChildren()).containsExactly(button);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-				"    {",
-				"      ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);",
-				"      item.setWidth(200);",
-				"      {",
-				"        Button button = new Button(toolBar, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);
+							item.setWidth(200);
+							{
+								Button button = new Button(toolBar, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -259,21 +254,20 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_ADD() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"    {",
-						"      ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);",
-						"      item.setWidth(200);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);
+							item.setWidth(200);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ToolBarInfo toolBar = (ToolBarInfo) shell.getChildrenControls().get(0);
@@ -285,21 +279,21 @@ public class ToolBarTest extends RcpModelTest {
 		simpleContainer_ADD(item, button);
 		// check result
 		assertSame(button, item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-				"    {",
-				"      ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);",
-				"      item.setWidth(200);",
-				"      {",
-				"        Button button = new Button(toolBar, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);
+							item.setWidth(200);
+							{
+								Button button = new Button(toolBar, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -307,26 +301,25 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_MOVE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"    {",
-						"      ToolItem item_1 = new ToolItem(toolBar, SWT.SEPARATOR);",
-						"      item_1.setWidth(200);",
-						"    }",
-						"    {",
-						"      ToolItem item_2 = new ToolItem(toolBar, SWT.SEPARATOR);",
-						"      item_2.setWidth(200);",
-						"      {",
-						"        Button button = new Button(toolBar, SWT.NONE);",
-						"        item_2.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item_1 = new ToolItem(toolBar, SWT.SEPARATOR);
+							item_1.setWidth(200);
+						}
+						{
+							ToolItem item_2 = new ToolItem(toolBar, SWT.SEPARATOR);
+							item_2.setWidth(200);
+							{
+								Button button = new Button(toolBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ToolBarInfo toolBar = (ToolBarInfo) shell.getChildrenControls().get(0);
@@ -341,25 +334,25 @@ public class ToolBarTest extends RcpModelTest {
 		simpleContainer_ADD(item_1, button);
 		assertNull(item_2.getControl());
 		assertSame(button, item_1.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-				"    {",
-				"      ToolItem item_1 = new ToolItem(toolBar, SWT.SEPARATOR);",
-				"      item_1.setWidth(200);",
-				"      {",
-				"        Button button = new Button(toolBar, SWT.NONE);",
-				"        item_1.setControl(button);",
-				"      }",
-				"    }",
-				"    {",
-				"      ToolItem item_2 = new ToolItem(toolBar, SWT.SEPARATOR);",
-				"      item_2.setWidth(200);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item_1 = new ToolItem(toolBar, SWT.SEPARATOR);
+							item_1.setWidth(200);
+							{
+								Button button = new Button(toolBar, SWT.NONE);
+								item_1.setControl(button);
+							}
+						}
+						{
+							ToolItem item_2 = new ToolItem(toolBar, SWT.SEPARATOR);
+							item_2.setWidth(200);
+						}
+					}
+				}""");
 		// now "button" is after "item_1"
 		assertEquals(
 				toolBar.getChildrenJava().indexOf(item_1) + 1,
@@ -371,26 +364,25 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_MOVEItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"    {",
-						"      ToolItem item_1 = new ToolItem(toolBar, SWT.NONE);",
-						"      item_1.setWidth(200);",
-						"    }",
-						"    {",
-						"      ToolItem item_2 = new ToolItem(toolBar, SWT.SEPARATOR);",
-						"      item_2.setWidth(200);",
-						"      {",
-						"        Button button = new Button(toolBar, SWT.NONE);",
-						"        item_2.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item_1 = new ToolItem(toolBar, SWT.NONE);
+							item_1.setWidth(200);
+						}
+						{
+							ToolItem item_2 = new ToolItem(toolBar, SWT.SEPARATOR);
+							item_2.setWidth(200);
+							{
+								Button button = new Button(toolBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ToolBarInfo toolBar = (ToolBarInfo) shell.getChildrenControls().get(0);
@@ -404,25 +396,25 @@ public class ToolBarTest extends RcpModelTest {
 		// move "item_2" before "item_1"
 		flowContainer_MOVE(toolBar, item_2, item_1);
 		assertSame(button, item_2.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-				"    {",
-				"      ToolItem item_2 = new ToolItem(toolBar, SWT.SEPARATOR);",
-				"      item_2.setWidth(200);",
-				"      {",
-				"        Button button = new Button(toolBar, SWT.NONE);",
-				"        item_2.setControl(button);",
-				"      }",
-				"    }",
-				"    {",
-				"      ToolItem item_1 = new ToolItem(toolBar, SWT.NONE);",
-				"      item_1.setWidth(200);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item_2 = new ToolItem(toolBar, SWT.SEPARATOR);
+							item_2.setWidth(200);
+							{
+								Button button = new Button(toolBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+						{
+							ToolItem item_1 = new ToolItem(toolBar, SWT.NONE);
+							item_1.setWidth(200);
+						}
+					}
+				}""");
 		// "button" is still after "item_2"
 		assertEquals(
 				toolBar.getChildrenJava().indexOf(item_2) + 1,
@@ -435,22 +427,21 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_moveOut() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"    {",
-						"      ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);",
-						"      item.setWidth(200);",
-						"      {",
-						"        Button button = new Button(toolBar, SWT.NONE);",
-						"        item.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);
+							item.setWidth(200);
+							{
+								Button button = new Button(toolBar, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
@@ -460,20 +451,20 @@ public class ToolBarTest extends RcpModelTest {
 		// move "button" on "shell"
 		flowContainer_MOVE(rowLayout, button, null);
 		assertNull(item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-				"    {",
-				"      ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);",
-				"      item.setWidth(200);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						{
+							ToolItem item = new ToolItem(toolBar, SWT.SEPARATOR);
+							item.setWidth(200);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -486,16 +477,15 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+						}
+					}
+				}""");
 		shell.refresh();
 		ToolBarInfo toolBar = (ToolBarInfo) shell.getChildrenControls().get(0);
 		// add items
@@ -519,34 +509,34 @@ public class ToolBarTest extends RcpModelTest {
 			ToolItemInfo toolItem = createJavaInfo("org.eclipse.swt.widgets.ToolItem", "separator");
 			flowContainer_CREATE(toolBar, toolItem, null);
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-				"      {",
-				"        ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);",
-				"        toolItem.setText('New Item');",
-				"      }",
-				"      {",
-				"        ToolItem toolItem = new ToolItem(toolBar, SWT.CHECK);",
-				"        toolItem.setText('Check Item');",
-				"      }",
-				"      {",
-				"        ToolItem toolItem = new ToolItem(toolBar, SWT.RADIO);",
-				"        toolItem.setText('Radio Item');",
-				"      }",
-				"      {",
-				"        ToolItem toolItem = new ToolItem(toolBar, SWT.DROP_DOWN);",
-				"        toolItem.setText('DropDown Item');",
-				"      }",
-				"      {",
-				"        ToolItem toolItem = new ToolItem(toolBar, SWT.SEPARATOR);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+							{
+								ToolItem toolItem = new ToolItem(toolBar, SWT.NONE);
+								toolItem.setText("New Item");
+							}
+							{
+								ToolItem toolItem = new ToolItem(toolBar, SWT.CHECK);
+								toolItem.setText("Check Item");
+							}
+							{
+								ToolItem toolItem = new ToolItem(toolBar, SWT.RADIO);
+								toolItem.setText("Radio Item");
+							}
+							{
+								ToolItem toolItem = new ToolItem(toolBar, SWT.DROP_DOWN);
+								toolItem.setText("DropDown Item");
+							}
+							{
+								ToolItem toolItem = new ToolItem(toolBar, SWT.SEPARATOR);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -554,46 +544,45 @@ public class ToolBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-						"      {",
-						"        ToolItem item = new ToolItem(toolBar, SWT.NONE);",
-						"        item.setText('000');",
-						"      }",
-						"      {",
-						"        ToolItem item = new ToolItem(toolBar, SWT.NONE);",
-						"        item.setText('111');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+							{
+								ToolItem item = new ToolItem(toolBar, SWT.NONE);
+								item.setText("000");
+							}
+							{
+								ToolItem item = new ToolItem(toolBar, SWT.NONE);
+								item.setText("111");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ToolBarInfo toolBar = (ToolBarInfo) shell.getChildrenControls().get(0);
 		// move item
 		List<ToolItemInfo> items = toolBar.getItems();
 		flowContainer_MOVE(toolBar, items.get(1), items.get(0));
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      ToolBar toolBar = new ToolBar(this, SWT.FLAT);",
-				"      {",
-				"        ToolItem item = new ToolItem(toolBar, SWT.NONE);",
-				"        item.setText('111');",
-				"      }",
-				"      {",
-				"        ToolItem item = new ToolItem(toolBar, SWT.NONE);",
-				"        item.setText('000');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							ToolBar toolBar = new ToolBar(this, SWT.FLAT);
+							{
+								ToolItem item = new ToolItem(toolBar, SWT.NONE);
+								item.setText("111");
+							}
+							{
+								ToolItem item = new ToolItem(toolBar, SWT.NONE);
+								item.setText("000");
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
