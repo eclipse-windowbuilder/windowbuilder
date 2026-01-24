@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -46,16 +46,16 @@ public class ViewFormGefTest extends RcpGefTest {
 		// use canvas
 		canvas.target(composite).in(0.1, 0.1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      setTopLeft(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopLeft(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -64,16 +64,16 @@ public class ViewFormGefTest extends RcpGefTest {
 		// use canvas
 		canvas.target(composite).in(0.6, 0.1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      setTopCenter(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopCenter(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -82,16 +82,16 @@ public class ViewFormGefTest extends RcpGefTest {
 		// use canvas
 		canvas.target(composite).in(-0.1, 0.1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      setTopRight(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopRight(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -100,16 +100,16 @@ public class ViewFormGefTest extends RcpGefTest {
 		// use canvas
 		canvas.target(composite).in(0.3, 0.3).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      setContent(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setContent(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -121,16 +121,16 @@ public class ViewFormGefTest extends RcpGefTest {
 		canvas.create(0, 0);
 		canvas.target(composite).in(0.3, 0.3).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Menu menu = new Menu(this);",
-				"      setMenu(menu);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Menu menu = new Menu(this);
+							setMenu(menu);
+						}
+					}
+				}""");
 	}
 
 	private ViewFormInfo prepare_canvas_CREATE() throws Exception {
@@ -144,12 +144,12 @@ public class ViewFormGefTest extends RcpGefTest {
 
 	private ViewFormInfo prepare_canvas_CREATE0() throws Exception {
 		prepareComponent();
-		return (ViewFormInfo) openJavaInfo(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"  }",
-				"}");
+		return (ViewFormInfo) openJavaInfo("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -159,131 +159,128 @@ public class ViewFormGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_canvas_PASTE() throws Exception {
-		ViewFormInfo composite =
-				(ViewFormInfo) openJavaInfo(
-						"public class Test extends ViewForm {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      Button buttonA = new Button(this, SWT.NONE);",
-						"      buttonA.setEnabled(false);",
-						"      setTopLeft(buttonA);",
-						"    }",
-						"  }",
-						"}");
+		ViewFormInfo composite = (ViewFormInfo) openJavaInfo("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button buttonA = new Button(this, SWT.NONE);
+							buttonA.setEnabled(false);
+							setTopLeft(buttonA);
+						}
+					}
+				}""");
 		ControlInfo buttonA = composite.getChildrenControls().get(0);
 		// operation
 		doCopyPaste(buttonA);
 		canvas.create();
 		canvas.target(composite).in(-0.1, 0.1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button buttonA = new Button(this, SWT.NONE);",
-				"      buttonA.setEnabled(false);",
-				"      setTopLeft(buttonA);",
-				"    }",
-				"    {",
-				"      Button buttonA = new Button(this, SWT.NONE);",
-				"      buttonA.setEnabled(false);",
-				"      setTopRight(buttonA);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button buttonA = new Button(this, SWT.NONE);
+							buttonA.setEnabled(false);
+							setTopLeft(buttonA);
+						}
+						{
+							Button buttonA = new Button(this, SWT.NONE);
+							buttonA.setEnabled(false);
+							setTopRight(buttonA);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_canvas_MOVE() throws Exception {
-		ViewFormInfo composite =
-				(ViewFormInfo) openJavaInfo(
-						"public class Test extends ViewForm {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      setTopLeft(button);",
-						"    }",
-						"  }",
-						"}");
+		ViewFormInfo composite = (ViewFormInfo) openJavaInfo("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopLeft(button);
+						}
+					}
+				}""");
 		ControlInfo button = composite.getChildrenControls().get(0);
 		// move: topRight
 		canvas.beginMove(button);
 		canvas.target(composite).in(-0.1, 0.1).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      setTopRight(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopRight(button);
+						}
+					}
+				}""");
 		// move: content
 		canvas.beginMove(button);
 		canvas.target(composite).in(0.3, 0.3).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      setContent(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setContent(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_canvas_ADD() throws Exception {
-		ViewFormInfo composite =
-				(ViewFormInfo) openJavaInfo(
-						"public class Test extends ViewForm {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      setTopLeft(button);",
-						"    }",
-						"    {",
-						"      Button centerButton = new Button(this, SWT.NONE);",
-						"      setTopCenter(centerButton);",
-						"    }",
-						"    {",
-						"      ViewForm inner = new ViewForm(this, SWT.NONE);",
-						"      setContent(inner);",
-						"    }",
-						"  }",
-						"}");
+		ViewFormInfo composite = (ViewFormInfo) openJavaInfo("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopLeft(button);
+						}
+						{
+							Button centerButton = new Button(this, SWT.NONE);
+							setTopCenter(centerButton);
+						}
+						{
+							ViewForm inner = new ViewForm(this, SWT.NONE);
+							setContent(inner);
+						}
+					}
+				}""");
 		ControlInfo button = composite.getChildrenControls().get(0);
 		ViewFormInfo inner = (ViewFormInfo) composite.getChildrenControls().get(2);
 		// move
 		canvas.beginMove(button);
 		canvas.target(inner).in(-0.1, 0.1).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button centerButton = new Button(this, SWT.NONE);",
-				"      setTopCenter(centerButton);",
-				"    }",
-				"    {",
-				"      ViewForm inner = new ViewForm(this, SWT.NONE);",
-				"      setContent(inner);",
-				"      {",
-				"        Button button = new Button(inner, SWT.NONE);",
-				"        inner.setTopRight(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button centerButton = new Button(this, SWT.NONE);
+							setTopCenter(centerButton);
+						}
+						{
+							ViewForm inner = new ViewForm(this, SWT.NONE);
+							setContent(inner);
+							{
+								Button button = new Button(inner, SWT.NONE);
+								inner.setTopRight(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -293,57 +290,55 @@ public class ViewFormGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_tree_CREATE_empty() throws Exception {
-		ViewFormInfo composite =
-				openJavaInfo(
-						"public class Test extends ViewForm {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		ViewFormInfo composite = openJavaInfo("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		EditPart topLeftPart = tree.getEditPart(composite).getChildren().get(0);
 		// use tree
 		loadButton();
 		tree.moveOn(topLeftPart);
 		tree.assertCommandNotNull();
 		tree.click();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      setTopLeft(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopLeft(button);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_tree_MOVE() throws Exception {
-		ViewFormInfo composite =
-				openJavaInfo(
-						"public class Test extends ViewForm {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      setTopLeft(button);",
-						"    }",
-						"  }",
-						"}");
+		ViewFormInfo composite = openJavaInfo("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopLeft(button);
+						}
+					}
+				}""");
 		ControlInfo button = getJavaInfoByName("button");
 		EditPart topLeftPart = tree.getEditPart(composite).getChildren().get(2);
 		// move: topRight
 		tree.startDrag(button).dragOn(topLeftPart).endDrag();
-		assertEditor(
-				"public class Test extends ViewForm {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      setTopRight(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ViewForm {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							setTopRight(button);
+						}
+					}
+				}""");
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,24 +64,23 @@ public class SwtAwtTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_parse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import java.awt.Frame;",
-						"import org.eclipse.swt.awt.SWT_AWT;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Composite composite = new Composite(this, SWT.EMBEDDED);",
-						"    SWT_AWT.new_Frame(composite);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Composite(this, SWT.EMBEDDED)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Composite} {local-unique: composite} {/new Composite(this, SWT.EMBEDDED)/ /SWT_AWT.new_Frame(composite)/}",
-				"    {implicit-layout: absolute} {implicit-layout} {}",
-				"    {static factory: org.eclipse.swt.awt.SWT_AWT new_Frame(org.eclipse.swt.widgets.Composite)} {empty} {/SWT_AWT.new_Frame(composite)/}",
-				"      {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		CompositeInfo shell = parseComposite("""
+				import java.awt.Frame;
+				import org.eclipse.swt.awt.SWT_AWT;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Composite composite = new Composite(this, SWT.EMBEDDED);
+						SWT_AWT.new_Frame(composite);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Composite(this, SWT.EMBEDDED)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.swt.widgets.Composite} {local-unique: composite} {/new Composite(this, SWT.EMBEDDED)/ /SWT_AWT.new_Frame(composite)/}
+						{implicit-layout: absolute} {implicit-layout} {}
+						{static factory: org.eclipse.swt.awt.SWT_AWT new_Frame(org.eclipse.swt.widgets.Composite)} {empty} {/SWT_AWT.new_Frame(composite)/}
+							{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ComponentInfo frame = composite.getChildren(ComponentInfo.class).get(0);
 		// refresh
@@ -106,17 +105,16 @@ public class SwtAwtTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_parseWithBorder() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import java.awt.Frame;",
-						"import org.eclipse.swt.awt.SWT_AWT;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Composite composite = new Composite(this, SWT.BORDER | SWT.EMBEDDED);",
-						"    SWT_AWT.new_Frame(composite);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import java.awt.Frame;
+				import org.eclipse.swt.awt.SWT_AWT;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Composite composite = new Composite(this, SWT.BORDER | SWT.EMBEDDED);
+						SWT_AWT.new_Frame(composite);
+					}
+				}""");
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ComponentInfo frame = composite.getChildren(ComponentInfo.class).get(0);
 		// refresh
@@ -139,18 +137,17 @@ public class SwtAwtTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_parseWhenZeroSize() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import java.awt.Frame;",
-						"import org.eclipse.swt.awt.SWT_AWT;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Composite composite = new Composite(this, SWT.EMBEDDED);",
-						"    composite.setLayoutData(new RowData(0,0));",
-						"    Frame frame = SWT_AWT.new_Frame(composite);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import java.awt.Frame;
+				import org.eclipse.swt.awt.SWT_AWT;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Composite composite = new Composite(this, SWT.EMBEDDED);
+						composite.setLayoutData(new RowData(0,0));
+						Frame frame = SWT_AWT.new_Frame(composite);
+					}
+				}""");
 		ComponentInfo frame = getJavaInfoByName("frame");
 		// refresh
 		shell.refresh();
@@ -172,15 +169,14 @@ public class SwtAwtTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_SwingComposite() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import java.awt.Frame;",
-						"import org.eclipse.swt.awt.SWT_AWT;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import java.awt.Frame;
+				import org.eclipse.swt.awt.SWT_AWT;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+					}
+				}""");
 		shell.refresh();
 		// prepare entry
 		ToolEntryInfo entry = new SwingCompositeEntryInfo();
@@ -200,31 +196,31 @@ public class SwtAwtTest extends RcpModelTest {
 			fillLayout.command_CREATE(composite, null);
 		}
 		// verify
-		assertEditor(
-				"import java.awt.Frame;",
-				"import org.eclipse.swt.awt.SWT_AWT;",
-				"import java.awt.Panel;",
-				"import java.awt.BorderLayout;",
-				"import javax.swing.JRootPane;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.EMBEDDED);",
-				"      {",
-				"        Frame frame = SWT_AWT.new_Frame(composite);",
-				"        {",
-				"          Panel panel = new Panel();",
-				"          frame.add(panel);",
-				"          panel.setLayout(new BorderLayout(0, 0));",
-				"          {",
-				"            JRootPane rootPane = new JRootPane();",
-				"            panel.add(rootPane);",
-				"          }",
-				"        }",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import java.awt.Frame;
+				import org.eclipse.swt.awt.SWT_AWT;
+				import java.awt.Panel;
+				import java.awt.BorderLayout;
+				import javax.swing.JRootPane;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(this, SWT.EMBEDDED);
+							{
+								Frame frame = SWT_AWT.new_Frame(composite);
+								{
+									Panel panel = new Panel();
+									frame.add(panel);
+									panel.setLayout(new BorderLayout(0, 0));
+									{
+										JRootPane rootPane = new JRootPane();
+										panel.add(rootPane);
+									}
+								}
+							}
+						}
+					}
+				}""");
 	}
 }

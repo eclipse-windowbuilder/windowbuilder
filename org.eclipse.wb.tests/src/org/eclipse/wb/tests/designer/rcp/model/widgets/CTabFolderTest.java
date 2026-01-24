@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -55,28 +55,27 @@ public class CTabFolderTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_unselectedTab_setRedraw() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button_1 = new Button(tabFolder, SWT.NONE);",
-						"        item_1.setControl(button_1);",
-						"      }",
-						"    }",
-						"    {",
-						"      CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button_2 = new Button(tabFolder, SWT.NONE);",
-						"        item_2.setControl(button_2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button_1 = new Button(tabFolder, SWT.NONE);
+								item_1.setControl(button_1);
+							}
+						}
+						{
+							CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button_2 = new Button(tabFolder, SWT.NONE);
+								item_2.setControl(button_2);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		CTabItemInfo item_2 = tabFolder.getItems2().get(1);
@@ -99,14 +98,13 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getSelectedItem_0() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		assertNull(tabFolder.getSelectedItem());
@@ -120,16 +118,15 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getSelectedItem_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-						"    CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+						CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		final CTabItemInfo item_1 = tabFolder.getItems2().get(0);
@@ -151,16 +148,15 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_doSelect() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-						"    CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+						CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		CTabItemInfo item_1 = tabFolder.getItems2().get(0);
@@ -190,31 +186,30 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_selecting() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button_1 = new Button(tabFolder, SWT.NONE);",
-						"        item_1.setControl(button_1);",
-						"      }",
-						"    }",
-						"    {",
-						"      CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button_2 = new Button(tabFolder, SWT.NONE);",
-						"        item_2.setControl(button_2);",
-						"      }",
-						"    }",
-						"    {",
-						"      Button button_3 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button_1 = new Button(tabFolder, SWT.NONE);
+								item_1.setControl(button_1);
+							}
+						}
+						{
+							CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button_2 = new Button(tabFolder, SWT.NONE);
+								item_2.setControl(button_2);
+							}
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		CTabItemInfo item_1 = tabFolder.getItems2().get(0);
@@ -259,15 +254,15 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_deleteSelectedTabItem() throws Exception {
-		CompositeInfo shell = parseComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"    CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-				"    CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-				"  }",
-				"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+						CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		CTabItemInfo item_1 = tabFolder.getItems2().get(0);
@@ -285,28 +280,27 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_presentation_getChildren() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button_1 = new Button(tabFolder, SWT.NONE);",
-						"        item_1.setControl(button_1);",
-						"      }",
-						"    }",
-						"    {",
-						"      CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button_2 = new Button(tabFolder, SWT.NONE);",
-						"        item_2.setControl(button_2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button_1 = new Button(tabFolder, SWT.NONE);
+								item_1.setControl(button_1);
+							}
+						}
+						{
+							CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button_2 = new Button(tabFolder, SWT.NONE);
+								item_2.setControl(button_2);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		CTabItemInfo item_1 = tabFolder.getItems2().get(0);
@@ -342,25 +336,24 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_parseItems() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 350);",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"      {",
-						"        CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"        item.setText('000');",
-						"      }",
-						"      {",
-						"        CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"        item.setText('111');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 350);
+						setLayout(new FillLayout());
+						{
+							CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+							{
+								CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+								item.setText("000");
+							}
+							{
+								CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+								item.setText("111");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		// check items
@@ -398,22 +391,21 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_get() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 350);",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(tabFolder, SWT.NONE);",
-						"        item.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 350);
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
@@ -438,17 +430,16 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_control_onItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
@@ -460,20 +451,20 @@ public class CTabFolderTest extends RcpModelTest {
 		item.command_CREATE(button);
 		// check result
 		assertSame(button, item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"    {",
-				"      CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(tabFolder, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -481,34 +472,33 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_control_onFolder() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = getJavaInfoByName("tabFolder");
 		// create Button
 		ControlInfo button = BTestUtils.createButton();
 		tabFolder.command_CREATE(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"    {",
-				"      CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);",
-				"      tabItem.setText('New Item');",
-				"      {",
-				"        Button button = new Button(tabFolder, SWT.NONE);",
-				"        tabItem.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
+							tabItem.setText("New Item");
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								tabItem.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -516,20 +506,19 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ADD_control_onItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
@@ -541,20 +530,20 @@ public class CTabFolderTest extends RcpModelTest {
 		item.command_ADD(button);
 		// check result
 		assertSame(button, item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"    {",
-				"      CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(tabFolder, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -562,37 +551,36 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ADD_control_onFolder() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = getJavaInfoByName("tabFolder");
 		ControlInfo button = getJavaInfoByName("button");
 		// move "button"
 		tabFolder.command_MOVE(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"    {",
-				"      CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);",
-				"      tabItem.setText('New Item');",
-				"      {",
-				"        Button button = new Button(tabFolder, SWT.NONE);",
-				"        tabItem.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
+							tabItem.setText("New Item");
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								tabItem.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -600,24 +588,23 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_control_toOtherItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-						"    }",
-						"    {",
-						"      CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(tabFolder, SWT.NONE);",
-						"        item_2.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+						}
+						{
+							CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
@@ -632,23 +619,23 @@ public class CTabFolderTest extends RcpModelTest {
 		item_1.command_ADD(button);
 		assertNull(item_2.getControl());
 		assertSame(button, item_1.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"    {",
-				"      CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(tabFolder, SWT.NONE);",
-				"        item_1.setControl(button);",
-				"      }",
-				"    }",
-				"    {",
-				"      CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item_1.setControl(button);
+							}
+						}
+						{
+							CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+						}
+					}
+				}""");
 		// now "button" is after "item_1"
 		assertEquals(
 				tabFolder.getChildrenJava().indexOf(item_1) + 1,
@@ -661,34 +648,33 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_DELETE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(tabFolder, SWT.NONE);",
-						"        item.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		CTabItemInfo item = tabFolder.getItems2().get(0);
 		// delete "item"
 		item.delete();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+					}
+				}""");
 	}
 
 	/**
@@ -697,21 +683,20 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_moveOut() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(tabFolder, SWT.NONE);",
-						"        item.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
@@ -721,19 +706,19 @@ public class CTabFolderTest extends RcpModelTest {
 		// move "button" on "shell"
 		fillLayout.command_MOVE(button, null);
 		assertNull(item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"    {",
-				"      CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -746,16 +731,15 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_item() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		// add items
@@ -763,19 +747,19 @@ public class CTabFolderTest extends RcpModelTest {
 			CTabItemInfo newItem = createJavaInfo("org.eclipse.swt.custom.CTabItem");
 			tabFolder.command_CREATE(newItem, null);
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"      {",
-				"        CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);",
-				"        tabItem.setText('New Item');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+							{
+								CTabItem tabItem = new CTabItem(tabFolder, SWT.NONE);
+								tabItem.setText("New Item");
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -783,46 +767,45 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_item_empty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"      {",
-						"        CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"        item.setText('000');",
-						"      }",
-						"      {",
-						"        CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-						"        item.setText('111');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+							{
+								CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+								item.setText("000");
+							}
+							{
+								CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+								item.setText("111");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
 		// move item
 		List<CTabItemInfo> items = tabFolder.getItems2();
 		tabFolder.command_MOVE(items.get(1), items.get(0));
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"      {",
-				"        CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-				"        item.setText('111');",
-				"      }",
-				"      {",
-				"        CTabItem item = new CTabItem(tabFolder, SWT.NONE);",
-				"        item.setText('000');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+							{
+								CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+								item.setText("111");
+							}
+							{
+								CTabItem item = new CTabItem(tabFolder, SWT.NONE);
+								item.setText("000");
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -830,24 +813,23 @@ public class CTabFolderTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_item_withControl() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-						"    {",
-						"      CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-						"    }",
-						"    {",
-						"      CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(tabFolder, SWT.NONE);",
-						"        item_2.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+						}
+						{
+							CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		CTabFolderInfo tabFolder = (CTabFolderInfo) shell.getChildrenControls().get(0);
@@ -861,23 +843,23 @@ public class CTabFolderTest extends RcpModelTest {
 		// move "item_2" before "item_1"
 		tabFolder.command_MOVE(item_2, item_1);
 		assertSame(button, item_2.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);",
-				"    {",
-				"      CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(tabFolder, SWT.NONE);",
-				"        item_2.setControl(button);",
-				"      }",
-				"    }",
-				"    {",
-				"      CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CTabFolder tabFolder = new CTabFolder(this, SWT.NONE);
+						{
+							CTabItem item_2 = new CTabItem(tabFolder, SWT.NONE);
+							{
+								Button button = new Button(tabFolder, SWT.NONE);
+								item_2.setControl(button);
+							}
+						}
+						{
+							CTabItem item_1 = new CTabItem(tabFolder, SWT.NONE);
+						}
+					}
+				}""");
 		// "button" is still after "item_2"
 		assertEquals(
 				tabFolder.getChildrenJava().indexOf(item_2) + 1,

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,19 +41,18 @@ public class DragSourceTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.swt.dnd.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new DragSource(this, DND.DROP_MOVE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+						import org.eclipse.swt.dnd.*;
+						public class Test extends Shell {
+							public Test() {
+								new DragSource(this, DND.DROP_MOVE);
+							}
+						}""");
 		shell.refresh();
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new DragSource(this, DND.DROP_MOVE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: org.eclipse.swt.dnd.DragSource} {empty} {/new DragSource(this, DND.DROP_MOVE)/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new DragSource(this, DND.DROP_MOVE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: org.eclipse.swt.dnd.DragSource} {empty} {/new DragSource(this, DND.DROP_MOVE)/}""");
 		Assertions.assertThat(shell.getChildren(DragSourceInfo.class)).hasSize(1);
 	}
 }

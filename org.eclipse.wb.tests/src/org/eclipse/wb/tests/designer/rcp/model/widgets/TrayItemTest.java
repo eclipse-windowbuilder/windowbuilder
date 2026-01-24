@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,22 +43,21 @@ public class TrayItemTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_disposeWithHierarchy() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  /**",
-						"  * @wbp.nonvisual location=150,400",
-						"  */",
-						"  private final TrayItem trayItem = new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE);",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					/**
+					* @wbp.nonvisual location=150,400
+					*/
+					private final TrayItem trayItem = new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE);
+					public Test() {
+					}
+				}""");
 		shell.refresh();
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {NonVisualBeans}",
-				"    {new: org.eclipse.swt.widgets.TrayItem} {field-initializer: trayItem} {/new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE)/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{NonVisualBeans}
+						{new: org.eclipse.swt.widgets.TrayItem} {field-initializer: trayItem} {/new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE)/}""");
 		// prepare TrayItem
 		TrayItemInfo item = getTrayItem(shell);
 		TrayItem itemObject = item.getWidget();
@@ -71,32 +70,31 @@ public class TrayItemTest extends RcpModelTest {
 
 	@Test
 	public void test_targetForProperty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  /**",
-						"  * @wbp.nonvisual location=150,400",
-						"  */",
-						"  private final TrayItem trayItem = new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE);",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Composite {
+					/**
+					* @wbp.nonvisual location=150,400
+					*/
+					private final TrayItem trayItem = new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE);
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		shell.refresh();
 		TrayItemInfo item = getTrayItem(shell);
 		//
 		item.getPropertyByTitle("text").setValue("abc");
-		assertEditor(
-				"public class Test extends Composite {",
-				"  /**",
-				"  * @wbp.nonvisual location=150,400",
-				"  */",
-				"  private final TrayItem trayItem = new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE);",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    trayItem.setText('abc');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					/**
+					* @wbp.nonvisual location=150,400
+					*/
+					private final TrayItem trayItem = new TrayItem(Display.getDefault().getSystemTray(), SWT.NONE);
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						trayItem.setText("abc");
+					}
+				}""");
 	}
 
 	private static TrayItemInfo getTrayItem(CompositeInfo shell) {

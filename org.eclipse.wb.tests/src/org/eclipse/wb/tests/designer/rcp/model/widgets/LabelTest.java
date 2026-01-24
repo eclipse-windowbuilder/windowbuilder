@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -45,26 +45,25 @@ public class LabelTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setText() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Label label = new Label(this, SWT.NONE);",
-						"    label.setText('New label');",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Label label = new Label(this, SWT.NONE);
+						label.setText("New label");
+					}
+				}""");
 		shell.refresh();
 		ControlInfo label = shell.getChildrenControls().get(0);
 		// set "text" property
 		Property textProperty = label.getPropertyByTitle("text");
 		textProperty.setValue("New text");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Label label = new Label(this, SWT.NONE);",
-				"    label.setText('New text');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						Label label = new Label(this, SWT.NONE);
+						label.setText("New text");
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -78,18 +77,17 @@ public class LabelTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ButtonStylePresentation() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);",
-						"    new Label(this, SWT.SEPARATOR | SWT.VERTICAL);",
-						"    new Label(this, SWT.SEPARATOR);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.SEPARATOR | SWT.HORIZONTAL);
+						new Label(this, SWT.SEPARATOR | SWT.VERTICAL);
+						new Label(this, SWT.SEPARATOR);
+					}
+				}""");
 		shell.refresh();
-		// prepare Label's
+		// prepare Label"s
 		LabelInfo labelDefault = (LabelInfo) shell.getChildrenControls().get(0);
 		LabelInfo labelSeparatorHorizontal = (LabelInfo) shell.getChildrenControls().get(1);
 		LabelInfo labelSeparatorVertical = (LabelInfo) shell.getChildrenControls().get(2);

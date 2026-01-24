@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,39 +40,38 @@ public class CoolBarGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_canvas_CREATE_item() throws Exception {
-		CoolBarInfo coolBar =
-				openJavaInfo(
-						"public class Test extends CoolBar {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CoolBarInfo coolBar = openJavaInfo("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		//
 		loadCreationTool("org.eclipse.swt.widgets.CoolItem");
 		canvas.moveTo(coolBar, 5, 5);
 		canvas.click();
-		assertEditor(
-				"public class Test extends CoolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      CoolItem coolItem = new CoolItem(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							CoolItem coolItem = new CoolItem(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_canvas_CREATE_control_good() throws Exception {
-		openJavaInfo(
-				"public class Test extends CoolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      CoolItem item = new CoolItem(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							CoolItem item = new CoolItem(this, SWT.NONE);
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();
@@ -80,36 +79,36 @@ public class CoolBarGefTest extends RcpGefTest {
 		canvas.assertFeedbacks(canvas.getTargetPredicate(item));
 		canvas.assertCommandNotNull();
 		canvas.click();
-		assertEditor(
-				"public class Test extends CoolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      CoolItem item = new CoolItem(this, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(this, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							CoolItem item = new CoolItem(this, SWT.NONE);
+							{
+								Button button = new Button(this, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_canvas_CREATE_control_alreadyHasControl() throws Exception {
-		openJavaInfo(
-				"public class Test extends CoolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      CoolItem item = new CoolItem(this, SWT.NONE);",
-				"      {",
-				"        Button existing = new Button(this, SWT.NONE);",
-				"        item.setControl(existing);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							CoolItem item = new CoolItem(this, SWT.NONE);
+							{
+								Button existing = new Button(this, SWT.NONE);
+								item.setControl(existing);
+							}
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();
@@ -125,39 +124,38 @@ public class CoolBarGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_tree_CREATE_item() throws Exception {
-		CoolBarInfo coolBar =
-				openJavaInfo(
-						"public class Test extends CoolBar {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CoolBarInfo coolBar = openJavaInfo("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		//
 		loadCreationTool("org.eclipse.swt.widgets.CoolItem");
 		tree.moveOn(coolBar);
 		tree.click();
-		assertEditor(
-				"public class Test extends CoolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      CoolItem coolItem = new CoolItem(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							CoolItem coolItem = new CoolItem(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_tree_CREATE_control_good() throws Exception {
-		openJavaInfo(
-				"public class Test extends CoolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      CoolItem item = new CoolItem(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							CoolItem item = new CoolItem(this, SWT.NONE);
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();
@@ -165,36 +163,36 @@ public class CoolBarGefTest extends RcpGefTest {
 		tree.assertFeedback_on(item);
 		tree.assertCommandNotNull();
 		tree.click();
-		assertEditor(
-				"public class Test extends CoolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      CoolItem item = new CoolItem(this, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(this, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							CoolItem item = new CoolItem(this, SWT.NONE);
+							{
+								Button button = new Button(this, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_tree_CREATE_control_alreadyHasControl() throws Exception {
-		openJavaInfo(
-				"public class Test extends CoolBar {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      CoolItem item = new CoolItem(this, SWT.NONE);",
-				"      {",
-				"        Button existing = new Button(this, SWT.NONE);",
-				"        item.setControl(existing);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test extends CoolBar {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							CoolItem item = new CoolItem(this, SWT.NONE);
+							{
+								Button existing = new Button(this, SWT.NONE);
+								item.setControl(existing);
+							}
+						}
+					}
+				}""");
 		JavaInfo item = getJavaInfoByName("item");
 		//
 		loadButton();

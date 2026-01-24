@@ -49,20 +49,19 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_parseWith_setLayout() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"    sashForm.setLayout(new FillLayout());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setSize(500, 300)/ /setLayout(new FillLayout())/ /new SashForm(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.swt.custom.SashForm} {local-unique: sashForm} {/new SashForm(this, SWT.NONE)/ /sashForm.setLayout(new FillLayout())/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						sashForm.setLayout(new FillLayout());
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setSize(500, 300)/ /setLayout(new FillLayout())/ /new SashForm(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.swt.custom.SashForm} {local-unique: sashForm} {/new SashForm(this, SWT.NONE)/ /sashForm.setLayout(new FillLayout())/}""");
 		//
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		assertFalse(sashForm.hasLayout());
@@ -73,19 +72,18 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_parseWithout_setLayout() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setSize(500, 300)/ /setLayout(new FillLayout())/ /new SashForm(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.swt.custom.SashForm} {local-unique: sashForm} {/new SashForm(this, SWT.NONE)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setSize(500, 300)/ /setLayout(new FillLayout())/ /new SashForm(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.swt.custom.SashForm} {local-unique: sashForm} {/new SashForm(this, SWT.NONE)/}""");
 		//
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		assertFalse(sashForm.hasLayout());
@@ -101,15 +99,14 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_isHorizontal_true() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		assertTrue(sashForm.isHorizontal());
@@ -120,15 +117,14 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_isHorizontal_false() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.VERTICAL);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.VERTICAL);
+					}
+				}""");
 		shell.refresh();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		assertFalse(sashForm.isHorizontal());
@@ -145,32 +141,31 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_0() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		//
 		ControlInfo button = BTestUtils.createButton();
 		sashForm.command_CREATE(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setSize(500, 300);",
-				"    setLayout(new FillLayout());",
-				"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    sashForm.setWeights(new int[] {1});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {1});
+					}
+				}""");
 	}
 
 	/**
@@ -179,45 +174,44 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"    {",
-						"      Button button_1 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    sashForm.setWeights(new int[] {2, 4});",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {2, 4});
+					}
+				}""");
 		shell.refresh();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		//
 		ControlInfo button = BTestUtils.createButton();
 		sashForm.command_CREATE(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setSize(500, 300);",
-				"    setLayout(new FillLayout());",
-				"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-				"    {",
-				"      Button button_1 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    sashForm.setWeights(new int[] {2, 4, 3});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {2, 4, 3});
+					}
+				}""");
 	}
 
 	/**
@@ -226,43 +220,42 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_inner() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"    {",
-						"      Button button_1 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    sashForm.setWeights(new int[] {2, 4});",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {2, 4});
+					}
+				}""");
 		shell.refresh();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button_1 = sashForm.getChildrenControls().get(0);
 		ControlInfo button_2 = sashForm.getChildrenControls().get(1);
 		//
 		sashForm.command_MOVE(button_2, button_1);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setSize(500, 300);",
-				"    setLayout(new FillLayout());",
-				"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-				"    {",
-				"      Button button_2 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    sashForm.setWeights(new int[] {4, 2});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {4, 2});
+					}
+				}""");
 	}
 
 	/**
@@ -271,41 +264,40 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_in() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"    {",
-						"      Button button_1 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button_2 = shell.getChildrenControls().get(1);
 		//
 		sashForm.command_MOVE(button_2, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setSize(500, 300);",
-				"    setLayout(new FillLayout());",
-				"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-				"    {",
-				"      Button button_1 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    sashForm.setWeights(new int[] {1, 1});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {1, 1});
+					}
+				}""");
 	}
 
 	/**
@@ -314,43 +306,42 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_out() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"    {",
-						"      Button button_1 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    sashForm.setWeights(new int[] {2, 3});",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {2, 3});
+					}
+				}""");
 		shell.refresh();
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button_2 = sashForm.getChildrenControls().get(1);
 		//
 		fillLayout.command_MOVE(button_2, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setSize(500, 300);",
-				"    setLayout(new FillLayout());",
-				"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-				"    {",
-				"      Button button_1 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    sashForm.setWeights(new int[] {2});",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {2});
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -359,39 +350,38 @@ public class SashFormTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_DELETE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"    {",
-						"      Button button_1 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    sashForm.setWeights(new int[] {1, 2});",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {1, 2});
+					}
+				}""");
 		shell.refresh();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button_2 = sashForm.getChildrenControls().get(1);
 		//
 		button_2.delete();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setSize(500, 300);",
-				"    setLayout(new FillLayout());",
-				"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-				"    {",
-				"      Button button_1 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    sashForm.setWeights(new int[] {1});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {1});
+					}
+				}""");
 	}
 
 	/**
@@ -400,41 +390,40 @@ public class SashFormTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_RESIZE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 300);",
-						"    setLayout(new FillLayout());",
-						"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-						"    {",
-						"      Button button_1 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(sashForm, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		SashFormInfo sashForm = (SashFormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button_1 = sashForm.getChildrenControls().get(0);
 		//
 		sashForm.command_RESIZE(button_1, 150);
 		int expectedRightWeight = 331;
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setSize(500, 300);",
-				"    setLayout(new FillLayout());",
-				"    SashForm sashForm = new SashForm(this, SWT.NONE);",
-				"    {",
-				"      Button button_1 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(sashForm, SWT.NONE);",
-				"    }",
-				"    sashForm.setWeights(new int[] {150, " + expectedRightWeight + "});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 300);
+						setLayout(new FillLayout());
+						SashForm sashForm = new SashForm(this, SWT.NONE);
+						{
+							Button button_1 = new Button(sashForm, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(sashForm, SWT.NONE);
+						}
+						sashForm.setWeights(new int[] {150, %d});
+					}
+				}""".formatted(expectedRightWeight));
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,27 +56,26 @@ public class ExpandBarTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_parseItems() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(500, 350);",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"      {",
-						"        ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"        item.setText('000');",
-						"      }",
-						"      {",
-						"        ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"        item.setText('111');",
-						"        item.setHeight(200);",
-						"        item.setExpanded(true);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(500, 350);
+						setLayout(new FillLayout());
+						{
+							ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+							{
+								ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+								item.setText("000");
+							}
+							{
+								ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+								item.setText("111");
+								item.setHeight(200);
+								item.setExpanded(true);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
 		// check items
@@ -110,30 +109,29 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_presentationChildrenGraphical() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    {",
-						"      ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);",
-						"      item_1.setExpanded(true);",
-						"      {",
-						"        Button button_1 = new Button(expandBar, SWT.NONE);",
-						"        item_1.setControl(button_1);",
-						"      }",
-						"    }",
-						"    {",
-						"      ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);",
-						"      item_2.setExpanded(false);",
-						"      {",
-						"        Button button_2 = new Button(expandBar, SWT.NONE);",
-						"        item_2.setControl(button_2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);
+							item_1.setExpanded(true);
+							{
+								Button button_1 = new Button(expandBar, SWT.NONE);
+								item_1.setControl(button_1);
+							}
+						}
+						{
+							ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);
+							item_2.setExpanded(false);
+							{
+								Button button_2 = new Button(expandBar, SWT.NONE);
+								item_2.setControl(button_2);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ExpandBarInfo expandBar = getJavaInfoByName("expandBar");
 		ExpandItemInfo item_1 = getJavaInfoByName("item_1");
@@ -163,23 +161,22 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_get() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    {",
-						"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"      item.setExpanded(true);",
-						"      item.setHeight(200);",
-						"      {",
-						"        Button button = new Button(expandBar, SWT.NONE);",
-						"        item.setControl(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+							item.setExpanded(true);
+							item.setHeight(200);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item.setControl(button);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
@@ -208,18 +205,17 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    {",
-						"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"      item.setHeight(200);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+							item.setHeight(200);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
@@ -231,22 +227,22 @@ public class ExpandBarTest extends RcpModelTest {
 		simpleContainer_CREATE(item, button);
 		// check result
 		assertSame(button, item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-				"    {",
-				"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-				"      item.setExpanded(true);",
-				"      {",
-				"        Button button = new Button(expandBar, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"      item.setHeight(200);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+							item.setExpanded(true);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item.setControl(button);
+							}
+							item.setHeight(200);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -255,17 +251,16 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_CREATE2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    {",
-						"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
@@ -277,22 +272,22 @@ public class ExpandBarTest extends RcpModelTest {
 		simpleContainer_CREATE(item, button);
 		// check result
 		assertSame(button, item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-				"    {",
-				"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-				"      item.setExpanded(true);",
-				"      {",
-				"        Button button = new Button(expandBar, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"      item.setHeight(item.getControl().computeSize(SWT.DEFAULT, SWT.DEFAULT).y);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+							item.setExpanded(true);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item.setControl(button);
+							}
+							item.setHeight(item.getControl().computeSize(SWT.DEFAULT, SWT.DEFAULT).y);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -300,21 +295,20 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_ADD() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    {",
-						"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"      item.setHeight(200);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+							item.setHeight(200);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
@@ -326,22 +320,22 @@ public class ExpandBarTest extends RcpModelTest {
 		simpleContainer_ADD(item, button);
 		// check result
 		assertSame(button, item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-				"    {",
-				"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-				"      item.setExpanded(true);",
-				"      {",
-				"        Button button = new Button(expandBar, SWT.NONE);",
-				"        item.setControl(button);",
-				"      }",
-				"      item.setHeight(200);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+							item.setExpanded(true);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item.setControl(button);
+							}
+							item.setHeight(200);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -349,26 +343,25 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_MOVE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    {",
-						"      ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);",
-						"      item_1.setHeight(200);",
-						"    }",
-						"    {",
-						"      ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(expandBar, SWT.NONE);",
-						"        item_2.setControl(button);",
-						"      }",
-						"      item_2.setHeight(200);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);
+							item_1.setHeight(200);
+						}
+						{
+							ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+							item_2.setHeight(200);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
@@ -381,25 +374,25 @@ public class ExpandBarTest extends RcpModelTest {
 		simpleContainer_ADD(item_1, button);
 		assertNull(item_2.getControl());
 		assertSame(button, item_1.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-				"    {",
-				"      ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);",
-				"      item_1.setExpanded(true);",
-				"      {",
-				"        Button button = new Button(expandBar, SWT.NONE);",
-				"        item_1.setControl(button);",
-				"      }",
-				"      item_1.setHeight(200);",
-				"    }",
-				"    {",
-				"      ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);
+							item_1.setExpanded(true);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item_1.setControl(button);
+							}
+							item_1.setHeight(200);
+						}
+						{
+							ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);
+						}
+					}
+				}""");
 		// now "button" is after "item_1"
 		assertEquals(
 				expandBar.getChildrenJava().indexOf(item_1) + 1,
@@ -411,26 +404,25 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_MOVEItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    {",
-						"      ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);",
-						"      item_1.setHeight(200);",
-						"    }",
-						"    {",
-						"      ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(expandBar, SWT.NONE);",
-						"        item_2.setControl(button);",
-						"      }",
-						"      item_2.setHeight(200);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);
+							item_1.setHeight(200);
+						}
+						{
+							ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+							item_2.setHeight(200);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
@@ -444,25 +436,25 @@ public class ExpandBarTest extends RcpModelTest {
 		// move "item_2" before "item_1"
 		flowContainer_MOVE(expandBar, item_2, item_1);
 		assertSame(button, item_2.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-				"    {",
-				"      ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(expandBar, SWT.NONE);",
-				"        item_2.setControl(button);",
-				"      }",
-				"      item_2.setHeight(200);",
-				"    }",
-				"    {",
-				"      ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);",
-				"      item_1.setHeight(200);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item_2 = new ExpandItem(expandBar, SWT.NONE);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item_2.setControl(button);
+							}
+							item_2.setHeight(200);
+						}
+						{
+							ExpandItem item_1 = new ExpandItem(expandBar, SWT.NONE);
+							item_1.setHeight(200);
+						}
+					}
+				}""");
 		// "button" is still after "item_2"
 		assertEquals(
 				expandBar.getChildrenJava().indexOf(item_2) + 1,
@@ -475,22 +467,21 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setControl_moveOut() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    {",
-						"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(expandBar, SWT.NONE);",
-						"        item.setControl(button);",
-						"      }",
-						"      item.setHeight(200);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+							{
+								Button button = new Button(expandBar, SWT.NONE);
+								item.setControl(button);
+							}
+							item.setHeight(200);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare components
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
@@ -499,19 +490,19 @@ public class ExpandBarTest extends RcpModelTest {
 		// move "button" on "shell"
 		flowContainer_MOVE(shell.getLayout(), button, null);
 		assertNull(item.getControl());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-				"    {",
-				"      ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						{
+							ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -524,16 +515,15 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
 		// add items
@@ -541,19 +531,19 @@ public class ExpandBarTest extends RcpModelTest {
 			ExpandItemInfo newItem = createJavaInfo("org.eclipse.swt.widgets.ExpandItem");
 			flowContainer_CREATE(expandBar, newItem, null);
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-				"      {",
-				"        ExpandItem expandItem = new ExpandItem(expandBar, SWT.NONE);",
-				"        expandItem.setText('New ExpandItem');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+							{
+								ExpandItem expandItem = new ExpandItem(expandBar, SWT.NONE);
+								expandItem.setText("New ExpandItem");
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -561,24 +551,23 @@ public class ExpandBarTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-						"      {",
-						"        ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"        item.setText('000');",
-						"      }",
-						"      {",
-						"        ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-						"        item.setText('111');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+							{
+								ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+								item.setText("000");
+							}
+							{
+								ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+								item.setText("111");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ExpandBarInfo expandBar = (ExpandBarInfo) shell.getChildrenControls().get(0);
 		// move item
@@ -586,22 +575,22 @@ public class ExpandBarTest extends RcpModelTest {
 		ExpandItemInfo item_1 = items.get(1);
 		ExpandItemInfo item_0 = items.get(0);
 		flowContainer_MOVE(expandBar, item_1, item_0);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      ExpandBar expandBar = new ExpandBar(this, SWT.NONE);",
-				"      {",
-				"        ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-				"        item.setText('111');",
-				"      }",
-				"      {",
-				"        ExpandItem item = new ExpandItem(expandBar, SWT.NONE);",
-				"        item.setText('000');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							ExpandBar expandBar = new ExpandBar(this, SWT.NONE);
+							{
+								ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+								item.setText("111");
+							}
+							{
+								ExpandItem item = new ExpandItem(expandBar, SWT.NONE);
+								item.setText("000");
+							}
+						}
+					}
+				}""");
 	}
 }
