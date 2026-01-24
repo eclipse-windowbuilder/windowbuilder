@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,8 +30,6 @@ import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuAssociation;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuSeparatorCreationSupport;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuSeparatorInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -223,8 +221,7 @@ public class JPopupMenuTest extends SwingModelTest {
 				Rectangle bounds = itemObject.getBounds();
 				Assertions.assertThat(bounds.x).isGreaterThanOrEqualTo(0).isLessThan(5);
 				Assertions.assertThat(bounds.width).isGreaterThan(50);
-				Assertions.assertThat(bounds.height).isGreaterThan(0).isLessThanOrEqualTo(
-						Expectations.get(5, new IntValue[]{new IntValue("mitin-aa", 12)}));
+				Assertions.assertThat(bounds.height).isGreaterThan(0).isLessThanOrEqualTo(5);
 			}
 		}
 	}

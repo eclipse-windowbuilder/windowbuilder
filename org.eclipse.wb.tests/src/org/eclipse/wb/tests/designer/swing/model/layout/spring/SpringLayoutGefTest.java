@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,8 +16,6 @@ import org.eclipse.wb.internal.core.model.layout.absolute.IPreferenceConstants;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.eclipse.draw2d.PositionConstants;
@@ -491,14 +489,8 @@ public class SpringLayoutGefTest extends SwingGefTest {
 			canvas.create(100, 50).sideMode();
 		}
 		canvas.target(panel).inX(80).inY(80).move().click();
-		int expectedNorth =
-				Expectations.get(60, new IntValue[]{
-						new IntValue("sablin-aa", 60),
-						new IntValue("flanker-windows", 60)});
-		int expectedWest =
-				Expectations.get(50, new IntValue[]{
-						new IntValue("sablin-aa", 50),
-						new IntValue("flanker-windows", 50)});
+		int expectedNorth = 60;
+		int expectedWest = 50;
 		assertEditor("""
 				public class Test extends JPanel {
 					public Test() {

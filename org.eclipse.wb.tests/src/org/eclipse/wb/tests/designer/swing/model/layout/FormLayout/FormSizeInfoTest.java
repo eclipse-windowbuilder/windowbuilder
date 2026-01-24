@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,9 +15,6 @@ package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeConstantInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeInfo;
 import org.eclipse.wb.internal.swing.laf.LafSupport;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.DblValue;
-import org.eclipse.wb.tests.designer.Expectations.IntValue;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.ConstantSize;
@@ -110,12 +107,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 			assertEquals(40, size.getValue(), 0.001);
 			// to millimeters
 			size.setUnit(ConstantSize.MILLIMETER);
-			assertEquals(
-					Expectations.get(10.7, new DblValue[]{
-							new DblValue("kosta-home", 8.5),
-							new DblValue("scheglov-win", 10.7)}),
-					size.getValue(),
-					0.001);
+			assertEquals(10.7, size.getValue(), 0.001);
 		}
 	}
 
@@ -147,45 +139,27 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 			check_convertFromPixels(50, ConstantSize.PIXEL, expected);
 		}
 		{
-			double expected =
-					Expectations.get(39.0, new DblValue[]{
-							new DblValue("kosta-home", 31.0),
-							new DblValue("scheglov-win", 38.0)});
+			double expected = 39.0;
 			check_convertFromPixels(50, ConstantSize.POINT, expected);
 		}
 		{
-			double expected =
-					Expectations.get(34.0, new DblValue[]{
-							new DblValue("kosta-home", 26.0),
-							new DblValue("scheglov-win", 34.0)});
+			double expected = 34.0;
 			check_convertFromPixels(50, ConstantSize.DIALOG_UNITS_X, expected);
 		}
 		{
-			double expected =
-					Expectations.get(34.0, new DblValue[]{
-							new DblValue("kosta-home", 32.0),
-							new DblValue("scheglov-win", 34.0)});
+			double expected = 34.0;
 			check_convertFromPixels(50, ConstantSize.DIALOG_UNITS_Y, expected);
 		}
 		{
-			double expected =
-					Expectations.get(13.4, new DblValue[]{
-							new DblValue("kosta-home", 10.7),
-							new DblValue("scheglov-win", 13.4)});
+			double expected = 13.4;
 			check_convertFromPixels(50, ConstantSize.MILLIMETER, expected);
 		}
 		{
-			double expected =
-					Expectations.get(1.3, new DblValue[]{
-							new DblValue("kosta-home", 1.1),
-							new DblValue("scheglov-win", 1.3)});
+			double expected = 1.3;
 			check_convertFromPixels(50, ConstantSize.CENTIMETER, expected);
 		}
 		{
-			double expected =
-					Expectations.get(0.5, new DblValue[]{
-							new DblValue("kosta-home", 0.4),
-							new DblValue("scheglov-win", 0.5)});
+			double expected = 0.5;
 			check_convertFromPixels(50, ConstantSize.INCH, expected);
 		}
 	}
@@ -205,45 +179,27 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 			check_convertToPixels(10.0, ConstantSize.PIXEL, expected);
 		}
 		{
-			int expected =
-					Expectations.get(13, new IntValue[]{
-							new IntValue("kosta-home", 16),
-							new IntValue("scheglov-win", 13)});
+			int expected = 13;
 			check_convertToPixels(10.0, ConstantSize.POINT, expected);
 		}
 		{
-			int expected =
-					Expectations.get(15, new IntValue[]{
-							new IntValue("kosta-home", 20),
-							new IntValue("scheglov-win", 15)});
+			int expected = 15;
 			check_convertToPixels(10.0, ConstantSize.DIALOG_UNITS_X, expected);
 		}
 		{
-			int expected =
-					Expectations.get(15, new IntValue[]{
-							new IntValue("kosta-home", 16),
-							new IntValue("scheglov-win", 15)});
+			int expected = 15;
 			check_convertToPixels(10.0, ConstantSize.DIALOG_UNITS_Y, expected);
 		}
 		{
-			int expected =
-					Expectations.get(38, new IntValue[]{
-							new IntValue("kosta-home", 47),
-							new IntValue("scheglov-win", 38)});
+			int expected = 38;
 			check_convertToPixels(10.0, ConstantSize.MILLIMETER, expected);
 		}
 		{
-			int expected =
-					Expectations.get(378, new IntValue[]{
-							new IntValue("kosta-home", 472),
-							new IntValue("scheglov-win", 378)});
+			int expected = 378;
 			check_convertToPixels(10.0, ConstantSize.CENTIMETER, expected);
 		}
 		{
-			int expected =
-					Expectations.get(960, new IntValue[]{
-							new IntValue("kosta-home", 1200),
-							new IntValue("scheglov-win", 960)});
+			int expected = 960;
 			check_convertToPixels(10.0, ConstantSize.INCH, expected);
 		}
 	}

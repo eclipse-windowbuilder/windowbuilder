@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -32,9 +32,6 @@ import org.eclipse.wb.internal.rcp.palette.DialogButtonEntryInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDataInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.InsValue;
-import org.eclipse.wb.tests.designer.Expectations.RectValue;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -117,24 +114,15 @@ public class DialogTest extends RcpModelTest {
 		{
 			assertFalse(dialogAreaParent.hasLayout());
 			{
-				Insets expected =
-						Expectations.get(new Insets(25, 3, 3, 3), new InsValue[]{
-								new InsValue("flanker-windows", new Insets(25, 3, 3, 3)),
-								new InsValue("scheglov-win", new Insets(25, 3, 3, 3))});
+				Insets expected = new Insets(25, 3, 3, 3);
 				assertEquals(expected, dialog.getClientAreaInsets());
 			}
 			{
-				Rectangle expected =
-						Expectations.get(new Rectangle(0, 0, 444, 272), new RectValue[]{
-								new RectValue("flanker-windows", new Rectangle(0, 0, 444, 272)),
-								new RectValue("scheglov-win", new Rectangle(0, 0, 444, 272))});
+				Rectangle expected = new Rectangle(0, 0, 444, 272);
 				assertEquals(expected, dialogAreaParent.getModelBounds());
 			}
 			{
-				Rectangle expected =
-						Expectations.get(new Rectangle(3, 25, 444, 272), new RectValue[]{
-								new RectValue("flanker-windows", new Rectangle(3, 25, 444, 272)),
-								new RectValue("scheglov-win", new Rectangle(3, 25, 444, 272))});
+				Rectangle expected = new Rectangle(3, 25, 444, 272);
 				assertEquals(expected, dialogAreaParent.getBounds());
 			}
 		}

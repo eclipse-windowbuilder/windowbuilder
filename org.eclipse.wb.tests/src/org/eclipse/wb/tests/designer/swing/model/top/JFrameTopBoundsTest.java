@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,8 +14,6 @@ package org.eclipse.wb.tests.designer.swing.model.top;
 
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.top.WindowTopBoundsSupport;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.DimValue;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
@@ -165,10 +163,7 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 	@Disabled
 	@Test
 	public void test_resize_pack() throws Exception {
-		Dimension packSize =
-				Expectations.get(new Dimension(132, 89), new DimValue[]{
-						new DimValue("flanker-windows", new Dimension(132, 83)),
-						new DimValue("scheglov-win", new Dimension(132, 83)),});
+		Dimension packSize = new Dimension(132, 89);
 		Dimension resizeSize = new Dimension(450, 300);
 		ICompilationUnit unit =
 				check_resize("// no size", "pack();", packSize, resizeSize, packSize, "// no size");

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,8 +16,6 @@ import org.eclipse.wb.internal.rcp.model.widgets.SashFormInfo;
 import org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
@@ -422,11 +420,7 @@ public class SashFormTest extends RcpModelTest {
 		ControlInfo button_1 = sashForm.getChildrenControls().get(0);
 		//
 		sashForm.command_RESIZE(button_1, 150);
-		int expectedRightWeight =
-				Expectations.get(331, new IntValue[]{
-						new IntValue("flanker-win", 339),
-						new IntValue("kosta-home", 339),
-						new IntValue("scheglov-win", 331)});
+		int expectedRightWeight = 331;
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",

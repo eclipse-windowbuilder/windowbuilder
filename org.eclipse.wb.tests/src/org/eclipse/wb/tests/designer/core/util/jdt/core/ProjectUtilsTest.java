@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,8 +15,6 @@ package org.eclipse.wb.tests.designer.core.util.jdt.core;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ProjectClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
 import org.eclipse.wb.tests.designer.core.PdeProjectConversionUtils;
@@ -728,15 +726,11 @@ public class ProjectUtilsTest extends AbstractJavaTest {
 		String pathEnds = null;
 		if ("org.eclipse.pde.junit.runtime.uitestapplication".equals(System.getProperty("eclipse.application"))) {
 			// Run via the Eclipse IDE
-			pathEnds = Expectations.get("junit-workspace/" + expectedLocation, new StrValue[] {
-					new StrValue("scheglov-macpro", "/" + expectedLocation),
-					new StrValue("sablin-aa", ".wbp-tt/Core/" + expectedLocation),
-					new StrValue("flanker-windows", "-Core.TWS/" + expectedLocation),
-					new StrValue("flanker-desktop", ".wbp-tt/Core/" + expectedLocation) });
+			pathEnds = "junit-workspace/" + expectedLocation;
 		} else {
 			// Run via Tycho
 			// (System property is 'org.eclipse.tycho.surefire.osgibooter.uitest')
-			pathEnds = Expectations.get("target/work/data/" + expectedLocation, new StrValue[] {});
+			pathEnds = "target/work/data/" + expectedLocation;
 		}
 		Assertions.assertThat(osLocation).endsWith(pathEnds);
 	}

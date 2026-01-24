@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,8 +29,6 @@ import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.util.surround.SwtSurroundSupport;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -297,14 +295,8 @@ public class SurroundSupportTest extends RcpModelTest {
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// run action
 		runSurround("org.eclipse.swt.widgets.Group", button);
-		String expected1 =
-				Expectations.get("(7, 5, 106, 68)", new StrValue[]{
-						new StrValue("flanker-win", "(7, 7, 106, 66)"),
-						new StrValue("scheglov-win", "(7, 5, 106, 68)")});
-		String expected2 =
-				Expectations.get("(3, 15, 100, 50)", new StrValue[]{
-						new StrValue("flanker-win", "(3, 13, 100, 50)"),
-						new StrValue("scheglov-kwin", "(3, 15, 100, 50)")});
+		String expected1 = "(7, 5, 106, 68)";
+		String expected2 = "(3, 15, 100, 50)";
 		assertEditor(
 				"public class Test extends Shell {",
 				"  public Test() {",

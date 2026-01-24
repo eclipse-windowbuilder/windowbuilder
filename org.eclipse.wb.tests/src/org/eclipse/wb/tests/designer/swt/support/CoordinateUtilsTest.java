@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,8 +17,6 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ShellInfo;
 import org.eclipse.wb.internal.swt.support.CoordinateUtils;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.InsValue;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.draw2d.geometry.Insets;
@@ -114,10 +112,7 @@ public class CoordinateUtilsTest extends RcpModelTest {
 		shell.refresh();
 		CompositeInfo group = (CompositeInfo) shell.getChildrenControls().get(0);
 		//
-		Insets insets =
-				Expectations.get(new Insets(15, 3, 3, 3), new InsValue[]{
-						new InsValue("flanker-windows", new Insets(15, 3, 3, 3)),
-						new InsValue("scheglov-win", new Insets(15, 3, 3, 3))});
+		Insets insets = new Insets(15, 3, 3, 3);
 		assertEquals(insets, CoordinateUtils.getClientAreaInsets2(group.getWidget()));
 	}
 }

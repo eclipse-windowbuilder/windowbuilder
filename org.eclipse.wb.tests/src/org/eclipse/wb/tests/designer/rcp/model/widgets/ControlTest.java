@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,9 +25,6 @@ import org.eclipse.wb.internal.rcp.model.widgets.TabItemInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.InsValue;
-import org.eclipse.wb.tests.designer.Expectations.IntValue;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
@@ -353,10 +350,7 @@ public class ControlTest extends RcpModelTest {
 		shell.refresh();
 		// "shell" insets
 		{
-			Insets expected =
-					Expectations.get(new Insets(30, 8, 8, 8), new InsValue[]{
-							new InsValue("flanker-windows", new Insets(30, 8, 8, 8)),
-							new InsValue("scheglov-win", new Insets(30, 8, 8, 8))});
+			Insets expected = new Insets(30, 8, 8, 8);
 			assertEquals(expected, shell.getClientAreaInsets());
 			assertEquals(new Insets(0, 0, 0, 0), shell.getClientAreaInsets2());
 		}
@@ -364,10 +358,7 @@ public class ControlTest extends RcpModelTest {
 		{
 			CompositeInfo group = (CompositeInfo) shell.getChildrenControls().get(0);
 			assertEquals(new Insets(0, 0, 0, 0), group.getClientAreaInsets());
-			Insets expected =
-					Expectations.get(new Insets(15, 3, 3, 3), new InsValue[]{
-							new InsValue("flanker-windows", new Insets(15, 3, 3, 3)),
-							new InsValue("scheglov-win", new Insets(15, 3, 3, 3))});
+			Insets expected = new Insets(15, 3, 3, 3);
 			assertEquals(expected, group.getClientAreaInsets2());
 		}
 	}
@@ -719,11 +710,7 @@ public class ControlTest extends RcpModelTest {
 		int m = 3;
 		int s = 3;
 		int w = 12;
-		int h =
-				Expectations.get(25, new IntValue[]{
-						new IntValue("scheglov-win", 25),
-						new IntValue("Flanker-Windows", 25),
-						new IntValue("sablin-aa", 25),});
+		int h = 25;
 		{
 			ControlInfo button_1 = getJavaInfoByName("button_1");
 			assertEquals(new Rectangle(m, m, w, h), button_1.getModelBounds());
@@ -777,11 +764,7 @@ public class ControlTest extends RcpModelTest {
 		// "button"
 		int m = 3;
 		int w = 12;
-		int h =
-				Expectations.get(25, new IntValue[]{
-						new IntValue("scheglov_win", 25),
-						new IntValue("Flanker-Windows", 25),
-						new IntValue("sablin-aa", 25)});
+		int h = 25;
 		{
 			ControlInfo button = getJavaInfoByName("button");
 			assertEquals(new Rectangle(m, m, w, h), button.getModelBounds());
