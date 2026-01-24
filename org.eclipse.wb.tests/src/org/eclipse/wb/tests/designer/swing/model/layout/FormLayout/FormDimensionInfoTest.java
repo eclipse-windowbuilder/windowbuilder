@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,8 +16,6 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormColumnInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionTemplate;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormRowInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpec.DefaultAlignment;
@@ -273,10 +271,7 @@ public class FormDimensionInfoTest extends AbstractFormLayoutTest {
 		check_convertToNearestGap_column("3px", 0, null);
 		check_convertToNearestGap_column("5px", 1, "LABEL_COMPONENT_GAP_COLSPEC");
 		{
-			String desc =
-					Expectations.get("8px", new StrValue[]{
-							new StrValue("kosta-home", "10px"),
-							new StrValue("scheglov-win", "8px")});
+			String desc = "8px";
 			check_convertToNearestGap_column(desc, 10, "RELATED_GAP_COLSPEC");
 		}
 		check_convertToNearestGap_column("12px", 10, "UNRELATED_GAP_COLSPEC");

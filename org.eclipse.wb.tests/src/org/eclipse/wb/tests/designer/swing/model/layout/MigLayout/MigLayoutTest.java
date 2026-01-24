@@ -25,9 +25,6 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.RectValue;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 
 import org.eclipse.draw2d.geometry.Interval;
@@ -264,11 +261,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			Interval[] rowIntervals = gridInfo.getRowIntervals();
 			Assertions.assertThat(rowIntervals).hasSize(2);
 			assertEquals("Interval(7, 40)", rowIntervals[0].toString());
-			assertEquals(
-					Expectations.get("Interval(51, 23)", new StrValue[]{
-							new StrValue("kosta-home", "Interval(51, 25)"),
-							new StrValue("scheglov-win", "Interval(51, 23)")}),
-					rowIntervals[1].toString());
+			assertEquals("Interval(51, 23)", rowIntervals[1].toString());
 		}
 		// cells
 		{
@@ -288,18 +281,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			}
 			{
 				Rectangle cells = new Rectangle(0, 0, 2, 2);
-				Rectangle expected =
-						Expectations.get(
-								new Rectangle(7, 7, 100 + 4 + 150 + 1, 40 + 4 + 23 + 1),
-								new RectValue[]{
-										new RectValue("kosta-home", new Rectangle(7,
-												7,
-												100 + 4 + 150 + 1,
-												40 + 4 + 25 + 1)),
-										new RectValue("scheglov-win", new Rectangle(7,
-												7,
-												100 + 4 + 150 + 1,
-												40 + 4 + 23 + 1))});
+				Rectangle expected = new Rectangle(7, 7, 100 + 4 + 150 + 1, 40 + 4 + 23 + 1);
 				assertEquals(expected, gridInfo.getCellsRectangle(cells));
 			}
 		}

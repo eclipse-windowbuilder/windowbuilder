@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,15 +18,11 @@ import org.eclipse.wb.internal.swing.model.property.converter.DimensionConverter
 import org.eclipse.wb.internal.swing.model.property.converter.InsetsConverter;
 import org.eclipse.wb.internal.swing.model.property.converter.PointConverter;
 import org.eclipse.wb.internal.swing.model.property.converter.RectangleConverter;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.KeyValue;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.junit.jupiter.api.Test;
 
 import java.awt.EventQueue;
-import java.awt.SystemColor;
 
 import javax.swing.UIManager;
 
@@ -81,20 +77,9 @@ public class ConvertersTest extends DesignerTestCase {
 				"new java.awt.Color(1, 2, 3, 4)",
 				converter.toJavaSource(null, new java.awt.Color(1, 2, 3, 4)));
 		//
-		class SystemColorValue extends KeyValue<SystemColor> {
-			public SystemColorValue(String _key, SystemColor _value) {
-				super(_key, _value);
-			}
-		}
 		assertEquals(
-				Expectations.get("java.awt.SystemColor.textHighlight", new StrValue[]{
-						new StrValue("kosta-home", "java.awt.SystemColor.textInactiveText"),
-						new StrValue("scheglov-win", "java.awt.SystemColor.textHighlight")}),
-				converter.toJavaSource(
-						null,
-						Expectations.get(java.awt.SystemColor.textHighlight, new SystemColorValue[]{
-								new SystemColorValue("kosta-home", java.awt.SystemColor.textInactiveText),
-								new SystemColorValue("scheglov-win", java.awt.SystemColor.textHighlight)})));
+				"java.awt.SystemColor.textHighlight", 
+				converter.toJavaSource(null, java.awt.SystemColor.textHighlight));
 		//
 		EventQueue.invokeAndWait(new Runnable() {
 			@Override

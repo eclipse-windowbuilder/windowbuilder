@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,8 +21,6 @@ import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swing.model.util.surround.SwingSurroundSupport;
-import org.eclipse.wb.tests.designer.Expectations;
-import org.eclipse.wb.tests.designer.Expectations.StrValue;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.eclipse.jface.action.IAction;
@@ -346,14 +344,8 @@ public class SurroundSupportTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// run action
 		runSurround("javax.swing.JPanel (border)", button);
-		String expectedPanelBounds =
-				Expectations.get("44, 28, 112, 79", new StrValue[]{
-						new StrValue("flanker-windows", "44, 30, 112, 77"),
-						new StrValue("scheglov-win", "44, 30, 112, 77")});
-		String expectedButtonBounds =
-				Expectations.get("6, 22, 100, 50", new StrValue[]{
-						new StrValue("flanker-windows", "6, 20, 100, 50"),
-						new StrValue("scheglov-win", "6, 20, 100, 50")});
+		String expectedPanelBounds = "44, 28, 112, 79";
+		String expectedButtonBounds = "6, 22, 100, 50";
 		assertEditor(
 				"public class Test extends JPanel {",
 				"  public Test() {",
