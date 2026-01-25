@@ -349,8 +349,13 @@ public abstract class OSSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return <code>true</code> if pointer is over {@link TreeItem} plus/minus sign.
+	 * @return <code>true</code> if pointer is over {@link TreeItem} plus/minus
+	 *         sign.
+	 *
+	 * @deprecated This method is only implemented on Windows and should not be
+	 *             used. Will be removed after the 2028-03 release.
 	 */
+	@Deprecated(forRemoval = true, since = "2026-03")
 	public abstract boolean isPlusMinusTreeClick(Tree tree, int x, int y);
 
 	////////////////////////////////////////////////////////////////////////////
