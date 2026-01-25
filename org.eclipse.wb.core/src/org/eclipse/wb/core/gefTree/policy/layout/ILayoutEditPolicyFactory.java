@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,8 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gefTree.policy.layout;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * Factory for creating {@link LayoutEditPolicy}'s for layout models.
