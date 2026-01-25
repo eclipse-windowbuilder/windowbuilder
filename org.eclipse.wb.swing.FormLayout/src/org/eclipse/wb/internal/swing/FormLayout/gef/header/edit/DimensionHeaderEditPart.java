@@ -17,7 +17,7 @@ import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.SetTemplateAction;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
@@ -43,7 +43,7 @@ import org.eclipse.swt.graphics.Font;
  */
 public abstract class DimensionHeaderEditPart<T extends FormDimensionInfo>
 extends
-GraphicalEditPart implements IHeaderMenuProvider {
+DesignEditPart implements IHeaderMenuProvider {
 	protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;
 	protected static final Color COLOR_GAP = DrawUtils.getShiftedColor(COLOR_NORMAL, -32);
 	protected static final Font DEFAULT_FONT = new Font(null, "Arial", 7, SWT.NONE);

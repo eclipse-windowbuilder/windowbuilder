@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.gef.tree;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.tree.DesignTreeEditPart;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 
 import org.eclipse.gef.EditPart;
@@ -26,7 +27,7 @@ import org.eclipse.swt.widgets.TreeItem;
  * @author lobas_av
  * @coverage gef.tree
  */
-public class RootEditPart extends TreeEditPart implements org.eclipse.gef.RootEditPart {
+public class RootEditPart extends DesignTreeEditPart implements org.eclipse.gef.RootEditPart {
 	private IEditPartViewer m_viewer;
 	private TreeEditPart m_contentEditPart;
 

@@ -14,7 +14,7 @@ package org.eclipse.wb.internal.swing.gef.part;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneInfo;
 import org.eclipse.wb.internal.swing.model.component.JTabbedPaneTabInfo;
 
@@ -31,7 +31,7 @@ import org.eclipse.gef.RequestConstants;
  * @author scheglov_ke
  * @coverage swing.gef.part
  */
-public final class JTabbedPaneTabEditPart extends GraphicalEditPart {
+public final class JTabbedPaneTabEditPart extends DesignEditPart {
 	private JTabbedPaneTabInfo m_component;
 
 	////////////////////////////////////////////////////////////////////////////

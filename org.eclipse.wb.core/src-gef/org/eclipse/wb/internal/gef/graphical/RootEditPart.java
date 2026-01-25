@@ -15,7 +15,7 @@ package org.eclipse.wb.internal.gef.graphical;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 
@@ -35,7 +35,7 @@ import org.eclipse.gef.editparts.LayerManager;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.RootEditPart, LayerManager {
+public class RootEditPart extends DesignEditPart implements org.eclipse.gef.RootEditPart, LayerManager {
 	private IEditPartViewer m_viewer;
 	private final IRootFigure m_rootFigure;
 	private EditPart m_contentEditPart;

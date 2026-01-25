@@ -14,7 +14,7 @@ package org.eclipse.wb.internal.core.gef.part.nonvisual;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 
 import org.eclipse.draw2d.IFigure;
@@ -26,7 +26,7 @@ import org.eclipse.gef.EditPolicy;
  * @author sablin_aa
  * @coverage gef.graphical
  */
-public final class ArrayObjectEditPart extends GraphicalEditPart {
+public final class ArrayObjectEditPart extends DesignEditPart {
 	private final AbstractArrayObjectInfo m_arrayInfo;
 
 	////////////////////////////////////////////////////////////////////////////

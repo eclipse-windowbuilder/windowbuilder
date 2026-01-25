@@ -14,7 +14,7 @@ package org.eclipse.wb.internal.rcp.gef.part.rcp.perspective.shortcuts;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.AbstractShortcutContainerInfo;
 
@@ -32,7 +32,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */
-abstract class AbstractShortcutContainerEditPart extends GraphicalEditPart {
+abstract class AbstractShortcutContainerEditPart extends DesignEditPart {
 	private final AbstractShortcutContainerInfo m_container;
 
 	////////////////////////////////////////////////////////////////////////////

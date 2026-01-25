@@ -17,7 +17,7 @@ import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
@@ -36,7 +36,7 @@ import org.eclipse.swt.graphics.Font;
  * @author scheglov_ke
  * @coverage swing.gef.policy
  */
-public abstract class DimensionHeaderEditPart<T extends DimensionInfo> extends GraphicalEditPart
+public abstract class DimensionHeaderEditPart<T extends DimensionInfo> extends DesignEditPart
 implements
 IHeaderMenuProvider {
 	protected static final Font DEFAULT_FONT = new Font(null, "Arial", 7, SWT.NONE);

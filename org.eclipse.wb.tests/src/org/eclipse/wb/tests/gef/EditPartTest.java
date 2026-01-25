@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,6 +15,7 @@ package org.eclipse.wb.tests.gef;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -85,7 +86,7 @@ public class EditPartTest extends GefTestCase {
 	@Test
 	public void test_Figure() throws Exception {
 		final Figure figure = new Figure();
-		GraphicalEditPart testEditPart = new GraphicalEditPart() {
+		GraphicalEditPart testEditPart = new DesignEditPart() {
 			@Override
 			protected Figure createFigure() {
 				return figure;
@@ -838,7 +839,7 @@ public class EditPartTest extends GefTestCase {
 	// EditPart implementation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static class TestEditPart extends GraphicalEditPart {
+	private static class TestEditPart extends DesignEditPart {
 		private final IEditPartViewer m_viewer;
 
 		private TestEditPart() {

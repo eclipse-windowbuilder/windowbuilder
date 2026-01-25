@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.MarginBorder;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.NonVisualBeanEditPart;
 import org.eclipse.wb.internal.core.gef.policy.nonvisual.NonVisualLayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.DesignRootObject;
@@ -42,7 +42,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage core.gef
  */
-public final class DesignRootEditPart extends GraphicalEditPart {
+public final class DesignRootEditPart extends DesignEditPart {
 	/**
 	 * Counterpart to {@link AbstractComponentEditPart#TOP_LOCATION} which describes
 	 * the margin at the bottom right of the design viewer. This is necessary if the

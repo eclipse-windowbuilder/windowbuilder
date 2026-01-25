@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
+import org.eclipse.wb.gef.tree.DesignTreeEditPart;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -166,7 +167,7 @@ public abstract class TreeToolTest extends GefTestCase {
 	// EditPart implementation
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final class RequestTreeEditPart extends TreeEditPart {
+	private static final class RequestTreeEditPart extends DesignTreeEditPart {
 		private final String m_name;
 		private final RequestsLogger m_logger;
 		private final ILayoutEditPolicy m_ipolicy;

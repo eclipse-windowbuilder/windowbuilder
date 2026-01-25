@@ -16,7 +16,7 @@ import org.eclipse.wb.core.gef.part.menu.IMenuObjectEditPart;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectListener;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
@@ -38,7 +38,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.gef.menu
  */
-public abstract class MenuObjectEditPart extends GraphicalEditPart implements IMenuObjectEditPart {
+public abstract class MenuObjectEditPart extends DesignEditPart implements IMenuObjectEditPart {
 	private final IMenuObjectInfo m_object;
 
 	////////////////////////////////////////////////////////////////////////////
