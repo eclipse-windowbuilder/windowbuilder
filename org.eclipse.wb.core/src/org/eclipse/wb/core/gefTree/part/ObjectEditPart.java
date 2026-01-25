@@ -16,6 +16,7 @@ package org.eclipse.wb.core.gefTree.part;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
+import org.eclipse.wb.gef.tree.DesignTreeEditPart;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -43,7 +44,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.gefTree
  */
-public class ObjectEditPart extends TreeEditPart {
+public class ObjectEditPart extends DesignTreeEditPart {
 	private final ObjectInfo m_object;
 
 	////////////////////////////////////////////////////////////////////////////

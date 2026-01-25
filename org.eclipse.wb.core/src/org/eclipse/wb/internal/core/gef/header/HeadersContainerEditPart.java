@@ -16,6 +16,7 @@ import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
 import org.eclipse.wb.core.gef.header.IHeadersProvider;
 import org.eclipse.wb.core.gef.policy.selection.EmptySelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
@@ -43,7 +44,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.gef.header
  */
-public final class HeadersContainerEditPart extends GraphicalEditPart
+public final class HeadersContainerEditPart extends DesignEditPart
 implements
 IHeaderMenuProvider {
 	private final GraphicalViewer m_viewer;

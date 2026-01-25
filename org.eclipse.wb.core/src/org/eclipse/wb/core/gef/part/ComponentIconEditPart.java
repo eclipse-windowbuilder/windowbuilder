@@ -14,7 +14,7 @@ package org.eclipse.wb.core.gef.part;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
@@ -33,7 +33,7 @@ import org.eclipse.swt.graphics.ImageData;
  * @author scheglov_ke
  * @coverage core.gef
  */
-public abstract class ComponentIconEditPart extends GraphicalEditPart {
+public abstract class ComponentIconEditPart extends DesignEditPart {
 	private final Object m_component;
 
 	////////////////////////////////////////////////////////////////////////////

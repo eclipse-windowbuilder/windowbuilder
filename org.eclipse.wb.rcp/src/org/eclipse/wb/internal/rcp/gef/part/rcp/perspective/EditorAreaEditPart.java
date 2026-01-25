@@ -14,7 +14,7 @@ package org.eclipse.wb.internal.rcp.gef.part.rcp.perspective;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective.PageLayoutSidesLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.EditorAreaInfo;
 
@@ -29,7 +29,7 @@ import org.eclipse.gef.EditPolicy;
  * @author scheglov_ke
  * @coverage rcp.gef.part
  */
-public final class EditorAreaEditPart extends GraphicalEditPart {
+public final class EditorAreaEditPart extends DesignEditPart {
 	private final EditorAreaInfo m_editorArea;
 
 	////////////////////////////////////////////////////////////////////////////

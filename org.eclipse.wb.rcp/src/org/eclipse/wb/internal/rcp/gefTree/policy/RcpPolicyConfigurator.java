@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.rcp.gefTree.policy;
 
 import org.eclipse.wb.core.gef.IEditPartConfigurator;
+import org.eclipse.wb.gef.tree.DesignTreeEditPart;
 import org.eclipse.wb.internal.rcp.gef.policy.jface.action.ActionDropRequestProcessor;
 import org.eclipse.wb.internal.rcp.gefTree.policy.jface.ControlDecorationDropLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
@@ -31,7 +32,7 @@ public final class RcpPolicyConfigurator implements IEditPartConfigurator {
 	public void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
 		// allow drop Action on MenuManager
 		if (editPart.getModel() instanceof MenuManagerInfo) {
-			editPart.addRequestProcessor(ActionDropRequestProcessor.INSTANCE);
+			((DesignTreeEditPart) editPart).addRequestProcessor(ActionDropRequestProcessor.INSTANCE);
 		}
 		// allow drop ControlDecoration on ControlInfo
 		if (editPart.getModel() instanceof ControlInfo) {

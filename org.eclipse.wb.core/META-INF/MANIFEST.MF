@@ -141,7 +141,7 @@ Export-Package: org.eclipse.wb.core.branding,
    org.eclipse.wb.swing.MigLayout,
    org.eclipse.wb.swt,
    org.eclipse.wb.layout.group",
- org.eclipse.wb.gef.tree;x-friends:="org.eclipse.wb.tests,org.eclipse.wb.core.java",
+ org.eclipse.wb.gef.tree;x-friends:="org.eclipse.wb.tests,org.eclipse.wb.core.java,org.eclipse.wb.rcp",
  org.eclipse.wb.gef.tree.policies;
   x-friends:="org.eclipse.wb.rcp,
    org.eclipse.wb.swing,

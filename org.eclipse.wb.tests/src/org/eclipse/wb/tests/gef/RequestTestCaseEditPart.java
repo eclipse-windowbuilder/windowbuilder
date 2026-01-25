@@ -13,7 +13,7 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
@@ -25,7 +25,7 @@ import org.eclipse.gef.commands.Command;
  *
  * @author lobas_av
  */
-public class RequestTestCaseEditPart extends GraphicalEditPart {
+public class RequestTestCaseEditPart extends DesignEditPart {
 	private final String m_name;
 	private final RequestsLogger m_logger;
 

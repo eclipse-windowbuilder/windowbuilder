@@ -15,6 +15,7 @@ package org.eclipse.wb.tests.gef;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
@@ -135,7 +136,7 @@ public abstract class GefCursorTestCase extends GefTestCase {
 			int height,
 			final Command acceptCreateCommand,
 			final Command acceptResizeCommand) throws Exception {
-		GraphicalEditPart editPart = new GraphicalEditPart() {
+		GraphicalEditPart editPart = new DesignEditPart() {
 			@Override
 			protected void createEditPolicies() {
 				installEditPolicy(EditPolicy.LAYOUT_ROLE, new LayoutEditPolicy() {

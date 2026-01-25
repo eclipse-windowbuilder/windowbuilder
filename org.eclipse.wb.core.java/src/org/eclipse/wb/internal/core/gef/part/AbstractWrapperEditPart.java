@@ -16,6 +16,7 @@ import org.eclipse.wb.core.gef.policy.selection.LineSelectionEditPolicy;
 import org.eclipse.wb.core.model.IWrapper;
 import org.eclipse.wb.core.model.IWrapperInfo;
 import org.eclipse.wb.draw2d.Figure;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -36,7 +37,7 @@ import org.eclipse.swt.widgets.Display;
  * @author scheglov_ke
  * @coverage core.gef
  */
-public class AbstractWrapperEditPart extends GraphicalEditPart {
+public class AbstractWrapperEditPart extends DesignEditPart {
 	private final IWrapper m_wrapper;
 
 	////////////////////////////////////////////////////////////////////////////

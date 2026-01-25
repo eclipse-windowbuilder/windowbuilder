@@ -17,7 +17,7 @@ import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDimensionInfo;
@@ -40,7 +40,7 @@ import org.eclipse.swt.graphics.Font;
  * @author scheglov_ke
  * @coverage swt.gef.GridLayout
  */
-public abstract class DimensionHeaderEditPart<C extends IControlInfo> extends GraphicalEditPart
+public abstract class DimensionHeaderEditPart<C extends IControlInfo> extends DesignEditPart
 implements
 IHeaderMenuProvider {
 	protected static final Color COLOR_NORMAL = Headers.COLOR_HEADER;

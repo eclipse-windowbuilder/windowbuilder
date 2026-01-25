@@ -15,7 +15,7 @@ package org.eclipse.wb.internal.core.gef.part.nonvisual;
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 
 import org.eclipse.draw2d.IFigure;
@@ -29,7 +29,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
  * @author lobas_av
  * @coverage core.gef.nonvisual
  */
-public final class NonVisualBeanEditPart extends GraphicalEditPart {
+public final class NonVisualBeanEditPart extends DesignEditPart {
 	private final NonVisualBeanInfo m_beanInfo;
 
 	////////////////////////////////////////////////////////////////////////////

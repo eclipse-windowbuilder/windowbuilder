@@ -17,6 +17,7 @@ import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.PositionConstants;
@@ -70,13 +71,13 @@ public class RequestsTest extends Assertions {
 		assertNull(request.getEditParts());
 		//
 		request = new GroupRequest("zzz");
-		GraphicalEditPart editPart1 = new GraphicalEditPart() {
+		GraphicalEditPart editPart1 = new DesignEditPart() {
 			@Override
 			protected Figure createFigure() {
 				return null;
 			}
 		};
-		GraphicalEditPart editPart2 = new GraphicalEditPart() {
+		GraphicalEditPart editPart2 = new DesignEditPart() {
 			@Override
 			protected Figure createFigure() {
 				return null;
@@ -108,7 +109,7 @@ public class RequestsTest extends Assertions {
 		assertEquals(new Dimension(), request.getSizeDelta());
 		assertEquals(0, request.getResizeDirection());
 		//
-		GraphicalEditPart editPart = new GraphicalEditPart() {
+		GraphicalEditPart editPart = new DesignEditPart() {
 			@Override
 			protected Figure createFigure() {
 				return null;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -269,42 +269,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Request processors
-	//
-	////////////////////////////////////////////////////////////////////////////
-	private final List<RequestProcessor> m_requestProcessors = new ArrayList<>();
-
-	/**
-	 * Adds the {@link RequestProcessor}, if not added yet.
-	 */
-	public final void addRequestProcessor(RequestProcessor processor) {
-		if (!m_requestProcessors.contains(processor)) {
-			m_requestProcessors.add(processor);
-		}
-	}
-
-	/**
-	 * Removes the {@link RequestProcessor}.
-	 */
-	public final void removeRequestProcessor(RequestProcessor processor) {
-		m_requestProcessors.remove(processor);
-	}
-
-	/**
-	 * @return the {@link Request} processed with registered {@link RequestProcessor}'s.
-	 */
-	protected final Request processRequestProcessors(Request request) {
-		try {
-			for (RequestProcessor processor : m_requestProcessors) {
-				request = processor.process(this, request);
-			}
-		} catch (Throwable e) {
-		}
-		return request;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Request/Command
 	//
 	////////////////////////////////////////////////////////////////////////////
@@ -312,7 +276,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * Returns the {@link Command} to perform the specified {@link Request} or <code>null</code>.
 	 */
 	public Command getCommand(Request request) {
-		request = processRequestProcessors(request);
 		for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
 			Command command = editPolicy.getCommand(request);
 			if (command != null) {
@@ -330,7 +293,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * the call to its parent.
 	 */
 	public org.eclipse.gef.EditPart getTargetEditPart(Request request) {
-		request = processRequestProcessors(request);
 		org.eclipse.gef.EditPart target = null;
 		// update target using any understanding EditPolicy
 		for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
@@ -349,7 +311,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * implementation forward request to all EditPolicies.
 	 */
 	public void performRequest(Request request) {
-		request = processRequestProcessors(request);
 		for (EditPolicy editPolicy : getEditPolicyIterable()) {
 			((org.eclipse.wb.gef.core.policies.EditPolicy) editPolicy).performRequest(request);
 		}
@@ -366,7 +327,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * location changing.
 	 */
 	public void showSourceFeedback(Request request) {
-		request = processRequestProcessors(request);
 		if (isActive()) {
 			for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
 				editPolicy.showSourceFeedback(request);
@@ -381,7 +341,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * {@link #showSourceFeedback(Request)}.
 	 */
 	public void eraseSourceFeedback(Request request) {
-		request = processRequestProcessors(request);
 		if (isActive()) {
 			for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
 				editPolicy.eraseSourceFeedback(request);
@@ -400,7 +359,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * location changing.
 	 */
 	public void showTargetFeedback(Request request) {
-		request = processRequestProcessors(request);
 		if (isActive()) {
 			for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
 				editPolicy.showTargetFeedback(request);
@@ -415,7 +373,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * {@link #showTargetFeedback(Request)}.
 	 */
 	public void eraseTargetFeedback(Request request) {
-		request = processRequestProcessors(request);
 		if (isActive()) {
 			for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
 				editPolicy.eraseTargetFeedback(request);

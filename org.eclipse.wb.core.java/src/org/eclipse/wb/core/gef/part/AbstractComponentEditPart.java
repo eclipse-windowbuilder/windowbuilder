@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
+import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -52,7 +53,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.gef
  */
-public abstract class AbstractComponentEditPart extends GraphicalEditPart implements IObjectInfoEditPart {
+public abstract class AbstractComponentEditPart extends DesignEditPart implements IObjectInfoEditPart {
 	/**
 	 * Counterpart to {@link DesignRootEditPart#BOTTOM_MARGIN} which describes the
 	 * margin at the top left of the design viewer.
