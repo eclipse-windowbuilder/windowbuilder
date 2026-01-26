@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,6 +36,7 @@ import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
 
 import java.lang.reflect.Method;
@@ -69,7 +70,7 @@ public abstract class PolicyUtils {
 	 * Shows border around given {@link GraphicalEditPart} figure.
 	 */
 	public static void showBorderTargetFeedback(GraphicalEditPart part) {
-		Layer feedbackLayer = (Layer) LayerManager.Helper.find(part.getViewer()).getLayer(IEditPartViewer.FEEDBACK_LAYER);
+		Layer feedbackLayer = (Layer) LayerManager.Helper.find(part.getViewer()).getLayer(LayerConstants.FEEDBACK_LAYER);
 		showBorderTargetFeedback(feedbackLayer, part);
 	}
 
@@ -169,7 +170,7 @@ public abstract class PolicyUtils {
 	////////////////////////////////////////////////////////////////////////////
 	public static void translateAbsoluteToFeedback(GraphicalEditPolicy policy, Translatable t) {
 		try {
-			IFigure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
+			IFigure layer = getLayer(policy, LayerConstants.FEEDBACK_LAYER);
 			FigureUtils.translateAbsoluteToFigure(layer, t);
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);
@@ -241,7 +242,7 @@ public abstract class PolicyUtils {
 			// translate to layer
 			{
 				IFigure hostFigure = containerEditPart.getFigure();
-				IFigure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
+				IFigure layer = getLayer(policy, LayerConstants.FEEDBACK_LAYER);
 				FigureUtils.translateFigureToFigure2(hostFigure, layer, t);
 			}
 		} catch (Throwable e) {
@@ -261,7 +262,7 @@ public abstract class PolicyUtils {
 			// translate to layer
 			{
 				IFigure hostFigure = containerEditPart.getFigure();
-				IFigure layer = getLayer(policy, IEditPartViewer.FEEDBACK_LAYER);
+				IFigure layer = getLayer(policy, LayerConstants.FEEDBACK_LAYER);
 				FigureUtils.translateFigureToFigure2(hostFigure, layer, t);
 			}
 		} catch (Throwable e) {

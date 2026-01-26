@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
 
 /**
@@ -66,7 +67,7 @@ public class GraphicalEditPolicy extends EditPolicy {
 				name = IEditPartViewer.MENU_HANDLE_LAYER;
 			} else if (name == IEditPartViewer.HANDLE_LAYER_STATIC) {
 				name = IEditPartViewer.MENU_HANDLE_LAYER_STATIC;
-			} else if (name == IEditPartViewer.FEEDBACK_LAYER) {
+			} else if (name == LayerConstants.FEEDBACK_LAYER) {
 				name = IEditPartViewer.MENU_FEEDBACK_LAYER;
 			}
 		}
@@ -77,7 +78,7 @@ public class GraphicalEditPolicy extends EditPolicy {
 	 * @return the {@link Layer} for {@link IEditPartViewer#FEEDBACK_LAYER}.
 	 */
 	protected Layer getFeedbackLayer() {
-		return getLayer(IEditPartViewer.FEEDBACK_LAYER);
+		return getLayer(LayerConstants.FEEDBACK_LAYER);
 	}
 
 	/**

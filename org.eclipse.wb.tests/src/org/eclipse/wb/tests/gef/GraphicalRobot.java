@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,6 +41,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -913,7 +914,7 @@ public final class GraphicalRobot {
 	 * @return the list of {@link IFigure}'s on feedback {@link Layer}.
 	 */
 	public List<? extends IFigure> getFeedbackFigures() {
-		return LayerManager.Helper.find(m_viewer).getLayer(IEditPartViewer.FEEDBACK_LAYER).getChildren();
+		return LayerManager.Helper.find(m_viewer).getLayer(LayerConstants.FEEDBACK_LAYER).getChildren();
 	}
 
 	/**
@@ -1005,7 +1006,7 @@ public final class GraphicalRobot {
 	 * Asserts that there are no any feedback on {@link IEditPartViewer#FEEDBACK_LAYER}.
 	 */
 	public void assertNoFeedbacks() {
-		assertFigures(IEditPartViewer.FEEDBACK_LAYER);
+		assertFigures(LayerConstants.FEEDBACK_LAYER);
 	}
 
 	/**
@@ -1031,7 +1032,7 @@ public final class GraphicalRobot {
 	 * to given {@link Predicate}'s.
 	 */
 	private void assertFeedbacks0(Predicate<IFigure>... predicates) {
-		assertFigures(IEditPartViewer.FEEDBACK_LAYER, predicates);
+		assertFigures(LayerConstants.FEEDBACK_LAYER, predicates);
 	}
 
 	/**
