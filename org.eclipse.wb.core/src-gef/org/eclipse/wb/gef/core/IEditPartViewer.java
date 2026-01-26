@@ -45,11 +45,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 */
 	String HANDLE_LAYER_SUB_2 = "Handle Layer Sub 2";
 	/**
-	 * Identifies the layer containing handles, which are typically editing decorations that appear on
-	 * top of any model representations.
-	 */
-	String HANDLE_LAYER = "Handle Layer";
-	/**
 	 * The layer directly below {@link #HANDLE_LAYER}.
 	 */
 	String HANDLE_LAYER_STATIC = "Handle Layer Static";

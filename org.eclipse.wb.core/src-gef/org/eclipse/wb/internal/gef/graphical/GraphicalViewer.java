@@ -25,6 +25,7 @@ import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Handle;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Composite;
@@ -218,7 +219,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 		if ((target = findTargetHandle(HANDLE_LAYER_STATIC, p)) != null) {
 			return target;
 		}
-		if ((target = findTargetHandle(HANDLE_LAYER, p)) != null) {
+		if ((target = findTargetHandle(LayerConstants.HANDLE_LAYER, p)) != null) {
 			return target;
 		}
 		return null;

@@ -63,7 +63,7 @@ public class GraphicalEditPolicy extends EditPolicy {
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "ES_COMPARING_PARAMETER_STRING_WITH_EQ")
 	protected final Layer getLayer(String name) {
 		if (isOnMenuLayer()) {
-			if (name == IEditPartViewer.HANDLE_LAYER) {
+			if (name == LayerConstants.HANDLE_LAYER) {
 				name = IEditPartViewer.MENU_HANDLE_LAYER;
 			} else if (name == IEditPartViewer.HANDLE_LAYER_STATIC) {
 				name = IEditPartViewer.MENU_HANDLE_LAYER_STATIC;
