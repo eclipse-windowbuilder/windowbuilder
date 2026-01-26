@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,7 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
@@ -34,7 +35,7 @@ import java.util.List;
  * @coverage gef.core
  */
 public final class EditPartsSelectionProvider implements ISelectionProvider {
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 	private final EventListenerList m_eventTable = new EventListenerList();
 	private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
 		@Override
@@ -48,7 +49,7 @@ public final class EditPartsSelectionProvider implements ISelectionProvider {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public EditPartsSelectionProvider(IEditPartViewer viewer) {
+	public EditPartsSelectionProvider(EditPartViewer viewer) {
 		m_viewer = viewer;
 	}
 
