@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,13 +13,14 @@
 package org.eclipse.wb.tests.designer.editor.validator;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
+
+import org.eclipse.gef.EditPart;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

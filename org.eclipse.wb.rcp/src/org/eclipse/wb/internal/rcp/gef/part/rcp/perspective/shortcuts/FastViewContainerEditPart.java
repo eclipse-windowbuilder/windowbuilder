@@ -12,9 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.part.rcp.perspective.shortcuts;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective.shortcuts.FastViewContainerLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewContainerInfo;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * {@link EditPart} for {@link FastViewContainerInfo}.

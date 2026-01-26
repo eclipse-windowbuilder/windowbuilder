@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.rcp.model.rcp.PdeUtils.PerspectiveInfo;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 
@@ -54,7 +54,7 @@ public final class PerspectiveDropTool extends AbstractCreationTool {
 		Object component = request.getComponent();
 		if (component != null) {
 			EditPartViewer viewer = getCurrentViewer();
-			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
+			EditPart editPart = viewer.getEditPartRegistry().get(component);
 			if (editPart != null) {
 				viewer.select(editPart);
 			}

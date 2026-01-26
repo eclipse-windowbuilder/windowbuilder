@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.core.gef.policy;
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.policies.DirectTextEditPolicy;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -101,7 +101,7 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
 				Property property = PropertyUtils.getByPath(component, propertyPath);
 				if (property != null) {
 					EditPolicy policy = new DirectTextPropertyEditPolicy(component, property);
-					editPart.installEditPolicy(policy);
+					editPart.installEditPolicy(policy.getClass(), policy);
 					return;
 				}
 			}

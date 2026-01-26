@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gefTree.part.forms;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.rcp.gefTree.policy.forms.FormHeadLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.forms.FormInfo;
 import org.eclipse.wb.internal.swt.gefTree.part.CompositeEditPart;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * {@link EditPart} for {@link FormInfo#getHead()}.
