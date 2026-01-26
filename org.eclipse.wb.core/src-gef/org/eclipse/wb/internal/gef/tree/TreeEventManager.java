@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.gef.tree.dnd.TreeDropListener;
 import org.eclipse.wb.internal.gef.tree.dnd.TreeTransfer;
 
 import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;
@@ -40,7 +40,7 @@ MouseListener,
 MouseMoveListener,
 MouseTrackListener {
 	private final Tree m_tree;
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 	private EditDomain m_domain;
 	final TreeDropListener m_dropListener;
 
@@ -49,7 +49,7 @@ MouseTrackListener {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public TreeEventManager(Tree tree, IEditPartViewer viewer) {
+	public TreeEventManager(Tree tree, EditPartViewer viewer) {
 		m_tree = tree;
 		m_viewer = viewer;
 		// add listeners

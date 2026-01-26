@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.core.gef.policy.layout.generic;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -23,6 +22,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -45,7 +45,7 @@ public abstract class AbstractPopupFigure extends Figure {
 	private static final Color COLOR_FOREGROUND = DrawUtils.getShiftedColor(
 			ColorConstants.white,
 			-64);
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -60,7 +60,7 @@ public abstract class AbstractPopupFigure extends Figure {
 	 * @param height
 	 *          the height of the image.
 	 */
-	public AbstractPopupFigure(IEditPartViewer viewer, int width, int height) {
+	public AbstractPopupFigure(EditPartViewer viewer, int width, int height) {
 		m_viewer = viewer;
 		// configure figure
 		setSize(width + MARGIN, height + MARGIN);

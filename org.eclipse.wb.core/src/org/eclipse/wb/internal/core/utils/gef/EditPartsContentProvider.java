@@ -12,8 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.gef;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
-
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Implementation of {@link ITreeContentProvider} for GEF {@link IEditPartViewer}.
+ * Implementation of {@link ITreeContentProvider} for GEF {@link EditPartViewer}.
  *
  * @author scheglov_ke
  * @coverage gef.core

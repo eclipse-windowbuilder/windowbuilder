@@ -19,7 +19,6 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -308,7 +307,7 @@ public abstract class PolicyUtils {
 	 * Schedules selection of {@link EditPart} with given model.
 	 *
 	 * @param host
-	 *          the {@link EditPolicy} to get {@link IEditPartViewer} to select in.
+	 *          the {@link EditPolicy} to get {@link EditPartViewer} to select in.
 	 */
 	public static void scheduleSelection(EditPolicy policy, Object model) {
 		scheduleSelection(policy.getHost(), model);
@@ -318,7 +317,7 @@ public abstract class PolicyUtils {
 	 * Schedules selection of {@link EditPart} with given model.
 	 *
 	 * @param host
-	 *          the {@link EditPart} to get {@link IEditPartViewer} to select in.
+	 *          the {@link EditPart} to get {@link EditPartViewer} to select in.
 	 */
 	public static void scheduleSelection(EditPart host, Object model) {
 		scheduleSelection(host.getViewer(), model);

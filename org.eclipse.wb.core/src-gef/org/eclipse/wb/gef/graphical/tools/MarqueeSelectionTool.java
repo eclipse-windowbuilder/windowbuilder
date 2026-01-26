@@ -14,7 +14,6 @@ package org.eclipse.wb.gef.graphical.tools;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
@@ -24,6 +23,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -164,7 +164,7 @@ public class MarqueeSelectionTool extends Tool {
 	 * the selection and select the new group
 	 */
 	private void performMarqueeSelect() {
-		IEditPartViewer viewer = getCurrentViewer();
+		EditPartViewer viewer = getCurrentViewer();
 		List<EditPart> newSelections = calculateNewSelection();
 		//
 		if (m_selectionMode == APPEND_MODE) {

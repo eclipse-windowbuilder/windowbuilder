@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.editor.actions;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.actions.assistant.LayoutAssistantAction;
 import org.eclipse.wb.internal.core.editor.actions.errors.ErrorsAction;
@@ -60,7 +59,7 @@ public final class DesignPageActions {
 	 * Initializes new {@link DesignPageActions}.
 	 *
 	 * @param viewer
-	 *          the {@link IEditPartViewer} of {@link DesignPage}.
+	 *          the {@link EditPartViewer} of {@link DesignPage}.
 	 * @param actionBars
 	 *          the editor site {@link IActionBars}.
 	 */

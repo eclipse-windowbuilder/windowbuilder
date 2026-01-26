@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
-
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,7 +30,7 @@ public class ToolUtilities {
 	 * Returns a list containing the top level selected {@link EditPart}'s based on the viewer's
 	 * selection. If selection parents of edit parts is differed returns empty list.
 	 */
-	public static List<EditPart> getSelectionWithoutDependants(IEditPartViewer viewer) {
+	public static List<EditPart> getSelectionWithoutDependants(EditPartViewer viewer) {
 		List<EditPart> operationSet = new ArrayList<>();
 		// add selected EditPart's only if their parent is not added yet
 		{

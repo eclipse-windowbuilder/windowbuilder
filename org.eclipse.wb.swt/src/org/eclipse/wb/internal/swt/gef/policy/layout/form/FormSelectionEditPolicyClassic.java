@@ -21,7 +21,6 @@ import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.gef.graphical.handles.Handle;
@@ -56,6 +55,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -1035,7 +1035,7 @@ SelectionEditPolicy {
 			IFormAttachmentInfo<C> attachment,
 			boolean vertical) {
 		C alignControl = attachment.getControl();
-		IEditPartViewer viewer = getHost().getViewer();
+		EditPartViewer viewer = getHost().getViewer();
 		GraphicalEditPart bindPart = (GraphicalEditPart) viewer.getEditPartRegistry().get(alignControl);
 		if (bindPart == null) {
 			return;

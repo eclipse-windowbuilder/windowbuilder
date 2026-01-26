@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,11 +14,11 @@ package org.eclipse.wb.internal.core.editor;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
@@ -45,7 +45,7 @@ import java.util.List;
  */
 public class DesignToolbarHelper {
 	protected final ToolBarManager m_toolBarManager;
-	private IEditPartViewer m_viewer;
+	private EditPartViewer m_viewer;
 	private ObjectInfo m_rootObject;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -77,9 +77,9 @@ public class DesignToolbarHelper {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Initializes {@link IEditPartViewer}.
+	 * Initializes {@link EditPartViewer}.
 	 */
-	protected void initialize(IEditPartViewer viewer) {
+	protected void initialize(EditPartViewer viewer) {
 		m_viewer = viewer;
 	}
 

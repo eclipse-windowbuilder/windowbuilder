@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.tools;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.tools.TargetingTool;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -56,7 +55,7 @@ public class SelectionTool extends TargetingTool {
 	 * Sets the drag tracker {@link Tool} for this {@link SelectionTool}. If the current drag tracker
 	 * is not <code>null</code>, this method deactivates it. If the new drag tracker is not
 	 * <code>null</code>, this method will activate it and set the {@link EditDomain} and
-	 * {@link IEditPartViewer}.
+	 * {@link EditPartViewer}.
 	 */
 	public void setDragTracker(DragTracker dragTracker) {
 		if (m_dragTracker != dragTracker) {

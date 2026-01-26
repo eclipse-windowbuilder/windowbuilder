@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
-
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.swt.SWT;
@@ -133,7 +132,7 @@ public class SelectEditPartTracker extends TargetingTool {
 	private void performSelection() {
 		if (!m_isSelected) {
 			m_isSelected = true;
-			IEditPartViewer viewer = getCurrentViewer();
+			EditPartViewer viewer = getCurrentViewer();
 			//
 			if ((m_stateMask & SWT.CONTROL) != 0) {
 				if (viewer.getSelectedEditParts().contains(m_sourceEditPart)) {

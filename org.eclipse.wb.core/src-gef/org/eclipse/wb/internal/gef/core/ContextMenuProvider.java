@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,8 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
-
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -26,14 +25,14 @@ import org.eclipse.swt.widgets.MenuItem;
  * @coverage gef.core
  */
 public abstract class ContextMenuProvider extends MenuManager {
-	protected final IEditPartViewer m_viewer;
+	protected final EditPartViewer m_viewer;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public ContextMenuProvider(IEditPartViewer viewer) {
+	public ContextMenuProvider(EditPartViewer viewer) {
 		m_viewer = viewer;
 		setRemoveAllWhenShown(true);
 		addMenuListener(new IMenuListener() {

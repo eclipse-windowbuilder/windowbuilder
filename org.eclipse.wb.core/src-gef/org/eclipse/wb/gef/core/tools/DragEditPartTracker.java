@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.gef.core.SharedCursors;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -255,7 +255,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 */
 	private void restoreSelectionFromModels(List<Object> models) {
 		if (models != null) {
-			IEditPartViewer viewer = getCurrentViewer();
+			EditPartViewer viewer = getCurrentViewer();
 			// prepare new EditPart's
 			List<EditPart> newEditParts = new ArrayList<>();
 			for (Object model : models) {
