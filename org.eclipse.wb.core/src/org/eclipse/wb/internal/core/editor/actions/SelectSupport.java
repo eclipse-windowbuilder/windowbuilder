@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.editor.actions;
 import org.eclipse.wb.core.editor.IContextMenuConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IDescriptionHelper;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -48,8 +48,8 @@ import java.util.Set;
  */
 public final class SelectSupport {
 	private final ObjectInfo m_rootObject;
-	private final IEditPartViewer m_graphicalViewer;
-	private final IEditPartViewer m_treeViewer;
+	private final EditPartViewer m_graphicalViewer;
+	private final EditPartViewer m_treeViewer;
 	private final Set<ObjectInfo> m_selectedObjects = new HashSet<>();
 	private final Set<ObjectInfo> m_selectingSet = new LinkedHashSet<>();
 
@@ -59,8 +59,8 @@ public final class SelectSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public SelectSupport(ObjectInfo rootObject,
-			IEditPartViewer graphicalViewer,
-			IEditPartViewer treeViewer) {
+			EditPartViewer graphicalViewer,
+			EditPartViewer treeViewer) {
 		m_rootObject = rootObject;
 		m_graphicalViewer = graphicalViewer;
 		m_treeViewer = treeViewer;
@@ -106,7 +106,7 @@ public final class SelectSupport {
 	/**
 	 * Adds {@link SWT#KeyDown} listener for {@link Control} of viewer.
 	 */
-	private void addKeyDownListener(IEditPartViewer viewer) {
+	private void addKeyDownListener(EditPartViewer viewer) {
 		Control control = viewer.getControl();
 		control.addListener(SWT.KeyDown, m_keyListener);
 	}
@@ -114,7 +114,7 @@ public final class SelectSupport {
 	/**
 	 * Removes {@link SWT#KeyDown} listener from {@link Control} of viewer.
 	 */
-	private void removeKeyDownListener(IEditPartViewer viewer) {
+	private void removeKeyDownListener(EditPartViewer viewer) {
 		Control control = viewer.getControl();
 		if (!control.isDisposed()) {
 			control.removeListener(SWT.KeyDown, m_keyListener);

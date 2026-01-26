@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,13 +13,13 @@
 package org.eclipse.wb.internal.core.editor.actions;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMementoTransfer;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -39,14 +39,14 @@ import java.util.List;
  * @coverage core.editor.action
  */
 public class CopyAction extends Action {
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public CopyAction(IEditPartViewer viewer) {
+	public CopyAction(EditPartViewer viewer) {
 		m_viewer = viewer;
 		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override

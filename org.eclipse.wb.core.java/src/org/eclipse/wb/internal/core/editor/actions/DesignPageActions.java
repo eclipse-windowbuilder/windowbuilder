@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.actions.assistant.LayoutAssistantAction;
 import org.eclipse.wb.internal.core.editor.actions.errors.ErrorsAction;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IEditorPart;
@@ -34,7 +35,7 @@ import java.util.TreeMap;
  * @coverage core.editor.action
  */
 public final class DesignPageActions {
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 	private final IActionBars m_actionBars;
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -63,7 +64,7 @@ public final class DesignPageActions {
 	 * @param actionBars
 	 *          the editor site {@link IActionBars}.
 	 */
-	public DesignPageActions(IEditorPart editor, IEditPartViewer viewer) {
+	public DesignPageActions(IEditorPart editor, EditPartViewer viewer) {
 		m_viewer = viewer;
 		m_actionBars = editor.getEditorSite().getActionBars();
 		//

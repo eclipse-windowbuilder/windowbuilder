@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.PasteTool;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMementoTransfer;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.widgets.Control;
@@ -33,14 +33,14 @@ import java.util.List;
  * @coverage core.editor.action
  */
 public class PasteAction extends Action {
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public PasteAction(IEditPartViewer viewer) {
+	public PasteAction(EditPartViewer viewer) {
 		m_viewer = viewer;
 		// copy presentation
 		ActionUtils.copyPresentation(this, ActionFactory.PASTE);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.controls.flyout.FlyoutControlComposite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.ICommandExceptionHandler;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.editor.actions.SelectSupport;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.model.DesignRootObject;
 import org.eclipse.wb.internal.core.utils.Debug;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -62,7 +62,7 @@ public final class JavaDesignComposite extends DesignComposite {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void createDesignActions() {
-		IEditPartViewer treeViewer = m_componentsComposite.getTreeViewer();
+		EditPartViewer treeViewer = m_componentsComposite.getTreeViewer();
 		m_pageActions = new DesignPageActions(m_editorPart, treeViewer);
 		m_viewer.setContextMenu(new DesignContextMenuProvider(m_viewer, m_pageActions));
 		// install dispose listener

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,11 +14,11 @@ package org.eclipse.wb.internal.core.editor.actions.assistant;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -42,7 +42,7 @@ import java.util.List;
  */
 public final class LayoutAssistantAction extends Action {
 	private final IEditorPart m_editor;
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 	private LayoutAssistantWindow m_assistantWindow;
 	private final IWorkbenchWindow m_workbenchWindow;
 	////////////////////////////////////////////////////////////////////////////
@@ -50,7 +50,7 @@ public final class LayoutAssistantAction extends Action {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public LayoutAssistantAction(IEditorPart editor, IEditPartViewer viewer) {
+	public LayoutAssistantAction(IEditorPart editor, EditPartViewer viewer) {
 		super(Messages.LayoutAssistantAction_text, IAction.AS_CHECK_BOX);
 		setToolTipText(Messages.LayoutAssistantAction_toolTip);
 		setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/assistant/assistant.png"));
