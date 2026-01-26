@@ -33,10 +33,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 */
 	String PRIMARY_LAYER_SUB_1 = "Primary Layer Sub 1";
 	/**
-	 * Identifies the layer containing the primary pieces of the application.
-	 */
-	String PRIMARY_LAYER = "Primary Layer";
-	/**
 	 * The layer directly below {@link #HANDLE_LAYER}.
 	 */
 	String HANDLE_LAYER_SUB_1 = "Handle Layer Sub 1";

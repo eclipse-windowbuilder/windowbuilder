@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,12 +15,12 @@ package org.eclipse.wb.internal.core.gef.part.menu;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
 
 /**
@@ -67,7 +67,7 @@ public final class MacMenuEditPart extends MenuEditPart {
 	@Override
 	protected boolean addSelfVisual(int index) {
 		if (!isSubMenu()) {
-			LayerManager.Helper.find(getViewer()).getLayer(IEditPartViewer.PRIMARY_LAYER).add(getFigure());
+			LayerManager.Helper.find(getViewer()).getLayer(LayerConstants.PRIMARY_LAYER).add(getFigure());
 			m_addedSelf = true;
 			// add invisible fake figure to the content pane to keep index right
 			GraphicalEditPart parent = (GraphicalEditPart) getParent();
@@ -79,7 +79,7 @@ public final class MacMenuEditPart extends MenuEditPart {
 	@Override
 	protected boolean removeSelfVisual() {
 		if (m_addedSelf) {
-			LayerManager.Helper.find(getViewer()).getLayer(IEditPartViewer.PRIMARY_LAYER).remove(getFigure());
+			LayerManager.Helper.find(getViewer()).getLayer(LayerConstants.PRIMARY_LAYER).remove(getFigure());
 			FigureUtils.removeFigure(getFakeFigure());
 			m_addedSelf = false;
 			return true;

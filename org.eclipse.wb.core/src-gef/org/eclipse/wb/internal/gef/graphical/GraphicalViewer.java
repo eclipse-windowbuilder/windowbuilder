@@ -156,7 +156,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 			final Conditional conditional) {
 		EditPart editPart = findObjectAtExcluding(location, exclude, conditional, MENU_PRIMARY_LAYER);
 		if (editPart == null) {
-			editPart = findObjectAtExcluding(location, exclude, conditional, PRIMARY_LAYER);
+			editPart = findObjectAtExcluding(location, exclude, conditional, LayerConstants.PRIMARY_LAYER);
 		}
 		return editPart;
 	}

@@ -57,7 +57,7 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 	////////////////////////////////////////////////////////////////////////////
 	private void createLayers() {
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER_SUB_1));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER));
+		m_rootFigure.addLayer(new Layer(LayerConstants.PRIMARY_LAYER));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_1));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_2));
 		m_rootFigure.addLayer(new Layer(LayerConstants.HANDLE_LAYER));
@@ -106,7 +106,7 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 	 */
 	@Override
 	public IFigure getContentPane() {
-		return m_rootFigure.getLayer(IEditPartViewer.PRIMARY_LAYER);
+		return m_rootFigure.getLayer(LayerConstants.PRIMARY_LAYER);
 	}
 
 	/**
