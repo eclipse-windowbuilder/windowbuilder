@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
@@ -20,6 +19,7 @@ import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.requests.SelectionRequest;
@@ -231,7 +231,7 @@ public class SelectionToolTest extends RequestTestCase {
 				addEditPart(editPart, "ChildEditPart", actualLogger, 50, 50, 70, 50);
 		//
 		MoveHandle handle = new MoveHandle(childEditPart);
-		LayerManager.Helper.find(m_viewer).getLayer(IEditPartViewer.HANDLE_LAYER).add(handle);
+		LayerManager.Helper.find(m_viewer).getLayer(LayerConstants.HANDLE_LAYER).add(handle);
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		//

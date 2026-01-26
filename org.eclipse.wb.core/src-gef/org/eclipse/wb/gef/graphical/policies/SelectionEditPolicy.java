@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.gef.graphical.handles.Handle;
 
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
@@ -122,7 +123,7 @@ public abstract class SelectionEditPolicy extends GraphicalEditPolicy {
 	 */
 	protected void showSelection() {
 		hideSelection();
-		Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER);
+		Layer layer = getLayer(LayerConstants.HANDLE_LAYER);
 		m_handles = createSelectionHandles();
 		for (Handle handle : m_handles) {
 			layer.add(handle);

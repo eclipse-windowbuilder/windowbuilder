@@ -60,7 +60,7 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_1));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_2));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER));
+		m_rootFigure.addLayer(new Layer(LayerConstants.HANDLE_LAYER));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_STATIC));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_1));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_2));
