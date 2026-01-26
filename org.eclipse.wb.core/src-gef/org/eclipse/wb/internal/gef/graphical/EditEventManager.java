@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.graphical;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 
 import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
@@ -30,7 +30,7 @@ import org.eclipse.swt.graphics.Cursor;
  */
 public class EditEventManager extends EventManager {
 	private final EditDomain m_domain;
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 	private boolean m_eventCapture;
 	private Cursor m_overrideCursor;
 	private MouseEvent m_currentMouseEvent;
@@ -40,7 +40,7 @@ public class EditEventManager extends EventManager {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public EditEventManager(FigureCanvas canvas, EditDomain domain, IEditPartViewer viewer) {
+	public EditEventManager(FigureCanvas canvas, EditDomain domain, EditPartViewer viewer) {
 		super(canvas);
 		m_domain = domain;
 		m_viewer = viewer;

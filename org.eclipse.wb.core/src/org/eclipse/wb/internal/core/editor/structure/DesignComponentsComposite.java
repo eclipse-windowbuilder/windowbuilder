@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,13 +14,13 @@ package org.eclipse.wb.internal.core.editor.structure;
 
 import org.eclipse.wb.core.controls.SelfOrientingSashForm;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage;
 import org.eclipse.wb.internal.core.editor.structure.property.ComponentsPropertiesPage;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -88,7 +88,7 @@ public final class DesignComponentsComposite extends Composite {
 	/**
 	 * Sets information about editor.
 	 */
-	public void setInput(IEditPartViewer editPartViewer, ObjectInfo rootObject) {
+	public void setInput(EditPartViewer editPartViewer, ObjectInfo rootObject) {
 		m_treePage.setInput(editPartViewer, rootObject);
 	}
 }

@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
@@ -27,6 +26,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
@@ -119,7 +119,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	 * Sets show previous component relative of current.
 	 */
 	public void showPrevComponent() {
-		IEditPartViewer viewer = getHost().getViewer();
+		EditPartViewer viewer = getHost().getViewer();
 		// show previous component
 		ComponentInfo component = m_layout.getPrevComponent();
 		m_layout.show(component);
@@ -132,7 +132,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	 * Sets show next component relative of current.
 	 */
 	public void showNextComponent() {
-		IEditPartViewer viewer = getHost().getViewer();
+		EditPartViewer viewer = getHost().getViewer();
 		// show next component
 		ComponentInfo component = m_layout.getNextComponent();
 		m_layout.show(component);

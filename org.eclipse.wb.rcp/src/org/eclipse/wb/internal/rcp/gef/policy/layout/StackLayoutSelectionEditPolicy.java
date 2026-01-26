@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.rcp.gef.policy.layout;
 
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
@@ -27,6 +26,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +120,7 @@ SelectionEditPolicy {
 	 * Sets show previous component relative of current.
 	 */
 	void showPrevComponent() {
-		IEditPartViewer viewer = getHost().getViewer();
+		EditPartViewer viewer = getHost().getViewer();
 		// show previous component
 		C component = m_layout.getPrevControl();
 		m_layout.show(component);
@@ -133,7 +133,7 @@ SelectionEditPolicy {
 	 * Sets show next component relative of current.
 	 */
 	void showNextComponent() {
-		IEditPartViewer viewer = getHost().getViewer();
+		EditPartViewer viewer = getHost().getViewer();
 		// show next component
 		C component = m_layout.getNextControl();
 		m_layout.show(component);

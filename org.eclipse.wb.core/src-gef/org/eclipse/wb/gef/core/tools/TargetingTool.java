@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -27,7 +26,7 @@ import java.util.Collections;
  * The base implementation for tools which perform targeting of editparts. Targeting tools may
  * operate using either mouse drags or just mouse moves. Targeting tools work with a <i>target</i>
  * request. This request is used along with the mouse location to obtain an active target from the
- * current {@link IEditPartViewer}. This target is then asked for the <code>{@link Command}</code>
+ * current {@link EditPartViewer}. This target is then asked for the <code>{@link Command}</code>
  * that performs the given request. The target is also asked to show target feedback.
  *
  * @author lobas_av

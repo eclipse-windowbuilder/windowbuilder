@@ -12,8 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.gef;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
-
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
@@ -29,7 +27,7 @@ import java.util.List;
 
 /**
  * Implementation of {@link ISelectionProvider} for models of {@link EditPart}'s in GEF
- * {@link IEditPartViewer}.
+ * {@link EditPartViewer}.
  *
  * @author scheglov_ke
  * @coverage gef.core

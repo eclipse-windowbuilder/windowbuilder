@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,10 +14,10 @@ package org.eclipse.wb.internal.core.editor;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.nls.ExternalizeStringsContributionItem;
 
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.widgets.ToolBar;
@@ -48,9 +48,9 @@ public final class JavaDesignToolbarHelper extends DesignToolbarHelper {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Initializes with {@link DesignPageActions} and {@link IEditPartViewer}.
+	 * Initializes with {@link DesignPageActions} and {@link EditPartViewer}.
 	 */
-	public void initialize(DesignPageActions pageActions, IEditPartViewer viewer) {
+	public void initialize(DesignPageActions pageActions, EditPartViewer viewer) {
 		super.initialize(viewer);
 		m_pageActions = pageActions;
 	}

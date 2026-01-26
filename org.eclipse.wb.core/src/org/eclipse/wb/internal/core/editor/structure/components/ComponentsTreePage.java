@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.editor.structure.components;
 import org.eclipse.wb.core.editor.IDesignPageSite;
 import org.eclipse.wb.core.model.HasSourcePosition;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.editor.Messages;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IToolBarManager;
@@ -51,7 +51,7 @@ import java.util.List;
  */
 public final class ComponentsTreePage implements IPage {
 	private TreeViewer m_viewer;
-	private IEditPartViewer m_graphicalViewer;
+	private EditPartViewer m_graphicalViewer;
 	private ObjectInfo m_rootObject;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -182,18 +182,18 @@ public final class ComponentsTreePage implements IPage {
 	}
 
 	/**
-	 * Sets selection in given {@link IEditPartViewer} using {@link List} of selected {@link EditPart}
+	 * Sets selection in given {@link EditPartViewer} using {@link List} of selected {@link EditPart}
 	 * 's.
 	 *
 	 * @param targetViewer
-	 *          the {@link IEditPartViewer} to set selection.
+	 *          the {@link EditPartViewer} to set selection.
 	 * @param selectionListener
 	 *          the {@link ISelectionChangedListener} that should be temporary removed from
-	 *          {@link IEditPartViewer} to avoid recursive selection even handling.
+	 *          {@link EditPartViewer} to avoid recursive selection even handling.
 	 * @param sourceEditParts
 	 *          the selected {@link EditPart}'s for which corresponding selection should be set.
 	 */
-	private static void setSelection(IEditPartViewer targetViewer,
+	private static void setSelection(EditPartViewer targetViewer,
 			ISelectionChangedListener selectionListener,
 			List<? extends EditPart> sourceEditParts) {
 		// prepare EditPart's in target viewer
@@ -249,10 +249,10 @@ public final class ComponentsTreePage implements IPage {
 	}
 
 	/**
-	 * Sets the {@link IEditPartViewer} and root {@link ObjectInfo} that should be bound to components
+	 * Sets the {@link EditPartViewer} and root {@link ObjectInfo} that should be bound to components
 	 * tree.
 	 */
-	public void setInput(IEditPartViewer editPartViewer, ObjectInfo rootObject) {
+	public void setInput(EditPartViewer editPartViewer, ObjectInfo rootObject) {
 		// set root
 		m_rootObject = rootObject;
 		// set EditPart viewer

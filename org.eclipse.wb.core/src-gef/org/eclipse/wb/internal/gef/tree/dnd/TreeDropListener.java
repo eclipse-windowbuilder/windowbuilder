@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree.dnd;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -40,7 +40,7 @@ import java.util.Set;
  * @coverage gef.tree
  */
 public class TreeDropListener implements DropTargetListener {
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 	private DropTargetEvent m_currentEvent;
 	private EditPart m_target;
 
@@ -49,7 +49,7 @@ public class TreeDropListener implements DropTargetListener {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public TreeDropListener(IEditPartViewer viewer) {
+	public TreeDropListener(EditPartViewer viewer) {
 		m_viewer = viewer;
 		// add DND listener
 		DropTarget target = new DropTarget(m_viewer.getControl(), DND.DROP_MOVE);

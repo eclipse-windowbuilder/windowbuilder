@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.jface.viewers.StructuredSelection;
 
@@ -68,7 +68,7 @@ public class PasteTool extends AbstractCreationTool {
 
 	@Override
 	protected void selectAddedObjects() {
-		final IEditPartViewer viewer = getCurrentViewer();
+		final EditPartViewer viewer = getCurrentViewer();
 		// prepare pasted EditPart's
 		List<EditPart> editParts = new ArrayList<>();
 		{

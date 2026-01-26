@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,11 +13,11 @@
 package org.eclipse.wb.internal.core.gef.header;
 
 import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.gef.core.ContextMenuProvider;
 import org.eclipse.wb.internal.gef.core.MultiSelectionContextMenuProvider;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IMenuManager;
 
 /**
@@ -32,7 +32,7 @@ public final class HeadersContextMenuProvider extends MultiSelectionContextMenuP
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public HeadersContextMenuProvider(IEditPartViewer viewer) {
+	public HeadersContextMenuProvider(EditPartViewer viewer) {
 		super(viewer);
 	}
 

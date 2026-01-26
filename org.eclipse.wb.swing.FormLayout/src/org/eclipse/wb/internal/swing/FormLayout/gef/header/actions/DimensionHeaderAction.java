@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.gef.header.actions;
 
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.edit.DimensionHeaderEditPart;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ import java.util.List;
  * @coverage swing.FormLayout.header
  */
 public abstract class DimensionHeaderAction<T extends FormDimensionInfo> extends ObjectInfoAction {
-	private final IEditPartViewer m_viewer;
+	private final EditPartViewer m_viewer;
 	private final FormLayoutInfo m_layout;
 
 	////////////////////////////////////////////////////////////////////////////
