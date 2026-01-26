@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swt.gef;
 
 import org.eclipse.wb.core.gef.policy.layout.ILayoutEditPolicyFactory;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swt.gef.policy.layout.AbsoluteLayoutEditPolicy;
 import org.eclipse.wb.internal.swt.gef.policy.layout.form.FormLayoutEditPolicy;
@@ -23,6 +22,8 @@ import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for SWT.

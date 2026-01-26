@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,13 +13,13 @@
 package org.eclipse.wb.internal.swing.java6.gef;
 
 import org.eclipse.wb.core.gef.policy.layout.ILayoutEditPolicyFactory;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.creation.IImplicitCreationSupport;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 import org.eclipse.wb.internal.swing.java6.model.GroupLayoutInfo2;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gef.EditPart;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for Java6 Swing. "2" is for developers to not

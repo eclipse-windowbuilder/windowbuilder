@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,10 +13,11 @@
 package org.eclipse.wb.internal.swing.FormLayout.gef;
 
 import org.eclipse.wb.core.gef.policy.layout.ILayoutEditPolicyFactory;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for JGoodies.

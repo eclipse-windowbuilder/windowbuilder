@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.jface.viewers.StructuredSelection;
 
@@ -74,7 +74,7 @@ public class PasteTool extends AbstractCreationTool {
 		{
 			PasteRequest request = (PasteRequest) getTargetRequest();
 			for (Object model : request.getObjects()) {
-				editParts.add((EditPart) viewer.getEditPartRegistry().get(model));
+				editParts.add(viewer.getEditPartRegistry().get(model));
 			}
 		}
 		// select EditPart's

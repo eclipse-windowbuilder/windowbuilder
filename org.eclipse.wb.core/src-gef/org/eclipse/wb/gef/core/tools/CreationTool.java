@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 
 /**
@@ -87,7 +87,7 @@ public class CreationTool extends AbstractCreationTool {
 		if (model != null) {
 			IEditPartViewer viewer = getCurrentViewer();
 			if (viewer != null) {
-				EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(model);
+				EditPart editPart = viewer.getEditPartRegistry().get(model);
 				if (editPart != null) {
 					viewer.select(editPart);
 				}
