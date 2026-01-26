@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -208,7 +208,7 @@ public abstract class MenuObjectEditPart extends GraphicalEditPart implements IM
 						MenuObjectInfoUtils.m_selectingObject = m_object;
 						((org.eclipse.wb.gef.core.EditPart)getViewer().getRootEditPart()).accept(new EditPartVisitor() {
 							@Override
-							public boolean visit(org.eclipse.wb.gef.core.EditPart editPart) {
+							public boolean visit(EditPart editPart) {
 								if (editPart instanceof MenuObjectEditPart) {
 									editPart.refresh();
 									return false;

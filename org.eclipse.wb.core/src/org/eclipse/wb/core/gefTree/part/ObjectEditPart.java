@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ package org.eclipse.wb.core.gefTree.part;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -130,7 +130,7 @@ public class ObjectEditPart extends TreeEditPart {
 					}
 					List<EditPart> editParts = new ArrayList<>();
 					for (ObjectInfo object : objects) {
-						EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(object);
+						EditPart editPart = viewer.getEditPartRegistry().get(object);
 						if (editPart == null) {
 							return null;
 						}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
 import org.eclipse.wb.core.gef.policy.layout.ILayoutEditPolicyFactory;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.GridBagLayoutEditPolicy;
 import org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo;
@@ -24,6 +23,8 @@ import org.eclipse.wb.internal.swing.model.layout.GridLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbstractAbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.spring.SpringLayoutInfo;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * Implementation of {@link ILayoutEditPolicyFactory} for Swing.
