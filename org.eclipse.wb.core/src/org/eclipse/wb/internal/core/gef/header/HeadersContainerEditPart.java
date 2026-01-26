@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
 import org.eclipse.wb.core.gef.header.IHeadersProvider;
 import org.eclipse.wb.core.gef.policy.selection.EmptySelectionEditPolicy;
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
@@ -25,6 +24,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.LayerManager;
@@ -105,7 +105,7 @@ IHeaderMenuProvider {
 			// prepare viewer size
 			org.eclipse.swt.graphics.Point size = viewer.getControl().getSize();
 			// prepare main viewer size
-			Dimension mainSize = LayerManager.Helper.find(m_viewer).getLayer(IEditPartViewer.PRIMARY_LAYER).getSize();
+			Dimension mainSize = LayerManager.Helper.find(m_viewer).getLayer(LayerConstants.PRIMARY_LAYER).getSize();
 			// set bounds
 			if (m_horizontal) {
 				getFigure().setBounds(new Rectangle(0, 0, mainSize.width, size.y));
