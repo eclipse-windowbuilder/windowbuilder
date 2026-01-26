@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2025 Patrick Ziegler and others.
+ * Copyright (c) 2025, 2026 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.utils;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.EditPart;
 
 /**
  * Subclass of the selection tool that also supports figures outside the visible

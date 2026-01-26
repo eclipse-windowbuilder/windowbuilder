@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.editor;
 
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage;
@@ -26,6 +25,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.IAction;
 

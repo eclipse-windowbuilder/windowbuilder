@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.rcp.gef.policy.jface;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.RequestProcessor;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.rcp.model.jface.FieldEditorInfo;
 import org.eclipse.wb.internal.rcp.model.jface.FieldLayoutPreferencePageInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 
 /**

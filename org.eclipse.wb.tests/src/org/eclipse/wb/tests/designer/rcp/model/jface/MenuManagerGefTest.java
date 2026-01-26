@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
@@ -26,6 +25,8 @@ import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 import org.eclipse.wb.tests.designer.swt.model.menu.MenuFeedbackTester;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
+
+import org.eclipse.gef.EditPart;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;

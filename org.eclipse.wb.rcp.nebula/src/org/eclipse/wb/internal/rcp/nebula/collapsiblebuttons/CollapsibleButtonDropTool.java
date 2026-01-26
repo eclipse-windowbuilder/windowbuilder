@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.nebula.collapsiblebuttons;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 
@@ -43,7 +43,7 @@ public final class CollapsibleButtonDropTool extends AbstractCreationTool {
 		ControlInfo button = request.getButton();
 		if (button != null) {
 			EditPartViewer viewer = getCurrentViewer();
-			EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(button);
+			EditPart editPart = viewer.getEditPartRegistry().get(button);
 			if (editPart != null) {
 				viewer.select(editPart);
 			}

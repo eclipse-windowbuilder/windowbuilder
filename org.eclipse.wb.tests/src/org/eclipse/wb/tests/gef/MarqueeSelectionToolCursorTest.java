@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.gef.EditPart;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

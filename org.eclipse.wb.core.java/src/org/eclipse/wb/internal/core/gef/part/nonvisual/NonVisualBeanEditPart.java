@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,11 +15,11 @@ package org.eclipse.wb.internal.core.gef.part.nonvisual;
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.jface.resource.ImageDescriptor;
 

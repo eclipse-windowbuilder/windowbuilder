@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.part.widgets;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.TerminatorLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.GefMessages;
 import org.eclipse.wb.internal.rcp.gef.policy.widgets.ScrolledCompositeLayoutEditPolicy;
@@ -24,6 +23,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.gef.EditPart;
 
 /**
  * {@link EditPart} for {@link ScrolledCompositeInfo}.

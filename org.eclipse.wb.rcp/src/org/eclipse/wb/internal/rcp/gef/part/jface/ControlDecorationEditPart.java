@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.rcp.gef.part.jface;
 
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.rcp.model.jface.ControlDecorationInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 
 /**
  * {@link EditPart} for {@link ControlDecorationInfo}.
@@ -91,7 +91,7 @@ public final class ControlDecorationEditPart extends AbstractComponentEditPart {
 	 * @return the {@link IFigure} of decorated {@link ControlInfo}.
 	 */
 	private IFigure getControlFigure() {
-		EditPart controlEditPart = (EditPart) getViewer().getEditPartRegistry().get(m_decoration.getControl());
+		EditPart controlEditPart = getViewer().getEditPartRegistry().get(m_decoration.getControl());
 		return ((GraphicalEditPart) controlEditPart).getFigure();
 	}
 }

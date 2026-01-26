@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,12 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.gef.part.jface;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.graphical.policies.TerminatorLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.gef.policy.jface.DialogButtonBarLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.jface.DialogInfo;
 import org.eclipse.wb.internal.swt.gef.part.CompositeEditPart;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
+
+import org.eclipse.gef.EditPart;
 
 /**
  * {@link EditPart} for "buttonBar" part of {@link DialogInfo}.

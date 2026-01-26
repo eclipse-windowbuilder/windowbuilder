@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
@@ -27,6 +26,7 @@ import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 
@@ -124,7 +124,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 		ComponentInfo component = m_layout.getPrevComponent();
 		m_layout.show(component);
 		// select EditPart
-		EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
+		EditPart editPart = viewer.getEditPartRegistry().get(component);
 		viewer.select(editPart);
 	}
 
@@ -137,7 +137,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 		ComponentInfo component = m_layout.getNextComponent();
 		m_layout.show(component);
 		// select EditPart
-		EditPart editPart = (EditPart) viewer.getEditPartRegistry().get(component);
+		EditPart editPart = viewer.getEditPartRegistry().get(component);
 		viewer.select(editPart);
 	}
 
@@ -150,7 +150,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	public EditPart getTargetEditPart(Request request) {
 		if (RequestConstants.REQ_SELECTION.equals(request.getType())) {
 			ComponentInfo component = m_layout.getCurrentComponent();
-			return (EditPart) getHost().getViewer().getEditPartRegistry().get(component);
+			return getHost().getViewer().getEditPartRegistry().get(component);
 		}
 		return null;
 	}
