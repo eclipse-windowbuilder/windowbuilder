@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -65,11 +65,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	 * The layer directly below {@link #FEEDBACK_LAYER}.
 	 */
 	String FEEDBACK_LAYER_SUB_2 = "Feedback Layer Sub 2";
-	/**
-	 * The layer containing feedback, which generally temporary visuals that appear on top of all
-	 * other visuals.
-	 */
-	String FEEDBACK_LAYER = "Feedback Layer";
 	/**
 	 * The layer containing feedback figures that can accept clicks.
 	 */

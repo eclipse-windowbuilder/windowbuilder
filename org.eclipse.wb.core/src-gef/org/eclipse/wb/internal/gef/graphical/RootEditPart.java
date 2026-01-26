@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.draw2d.IRootFigure;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.LayerManager;
 
@@ -63,7 +64,7 @@ public class RootEditPart extends GraphicalEditPart implements org.eclipse.gef.R
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_STATIC));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_1));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_2));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER));
+		m_rootFigure.addLayer(new Layer(LayerConstants.FEEDBACK_LAYER));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_ABV_1));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.CLICKABLE_LAYER));
 		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_PRIMARY_LAYER));
