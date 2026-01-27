@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.core;
 
-import org.eclipse.wb.gef.core.IEditPartFactory;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 
 import org.eclipse.core.runtime.Assert;
@@ -39,8 +38,6 @@ import java.util.List;
  * @coverage gef.core
  */
 public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.AbstractEditPartViewer implements IEditPartViewer {
-	private EditDomain m_domain;
-	private IEditPartFactory m_factory;
 	private MenuManager m_contextMenu;
 	private List<EditPart> m_selectionList = new ArrayList<>();
 	private EventListenerList m_eventTable;
@@ -56,34 +53,11 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Get factory for creating new EditParts.
-	 */
-	@Override
-	public IEditPartFactory getEditPartFactory() {
-		return m_factory;
-	}
-
-	/**
-	 * Set factory for creating new EditParts.
-	 */
-	public void setEditPartFactory(IEditPartFactory factory) {
-		m_factory = factory;
-	}
-
-	/**
 	 * Returns the {@link EditDomain EditDomain} to which this viewer belongs.
 	 */
 	@Override
 	public EditDomain getEditDomain() {
-		return m_domain;
-	}
-
-	/**
-	 * Sets the <code>{@link EditDomain}</code> for this viewer. The Viewer will route all mouse and
-	 * keyboard events to the {@link EditDomain}.
-	 */
-	public void setEditDomain(EditDomain domain) {
-		m_domain = domain;
+		return (EditDomain) super.getEditDomain();
 	}
 
 	/**
@@ -91,7 +65,7 @@ public abstract class AbstractEditPartViewer extends org.eclipse.gef.ui.parts.Ab
 	 */
 	public void setInput(Object model) {
 		RootEditPart rootEditPart = getRootEditPart();
-		EditPart contentEditPart = m_factory.createEditPart(rootEditPart, model);
+		EditPart contentEditPart = getEditPartFactory().createEditPart(rootEditPart, model);
 		rootEditPart.setContents(contentEditPart);
 	}
 
