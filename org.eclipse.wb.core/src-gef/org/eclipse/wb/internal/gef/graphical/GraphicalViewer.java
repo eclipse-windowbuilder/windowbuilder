@@ -17,12 +17,12 @@ import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
-import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.ExclusionSearch;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.LayerConstants;

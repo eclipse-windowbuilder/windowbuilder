@@ -13,10 +13,10 @@
 package org.eclipse.wb.internal.gef.tree;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.tree.dnd.TreeDropListener;
 import org.eclipse.wb.internal.gef.tree.dnd.TreeTransfer;
 
+import org.eclipse.gef.EditDomain;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DragSource;

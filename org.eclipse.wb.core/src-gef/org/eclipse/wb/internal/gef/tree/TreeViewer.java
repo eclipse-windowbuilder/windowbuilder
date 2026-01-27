@@ -14,9 +14,9 @@ package org.eclipse.wb.internal.gef.tree;
 
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
-import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
