@@ -20,7 +20,6 @@ import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectListener;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
-import org.eclipse.wb.internal.gef.core.EditPartVisitor;
 import org.eclipse.wb.internal.gef.core.IActiveToolListener;
 
 import org.eclipse.gef.EditPart;
@@ -206,16 +205,11 @@ public abstract class MenuObjectEditPart extends DesignEditPart implements IMenu
 				public void run() {
 					try {
 						MenuObjectInfoUtils.m_selectingObject = m_object;
-						((org.eclipse.wb.gef.core.EditPart)getViewer().getRootEditPart()).accept(new EditPartVisitor() {
-							@Override
-							public boolean visit(EditPart editPart) {
-								if (editPart instanceof MenuObjectEditPart) {
-									editPart.refresh();
-									return false;
-								}
-								return true;
+						for (EditPart editPart : getViewer().getEditPartRegistry().values()) {
+							if (editPart instanceof MenuObjectEditPart) {
+								editPart.refresh();
 							}
-						});
+						}
 					} finally {
 						MenuObjectInfoUtils.m_selectingObject = null;
 					}
