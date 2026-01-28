@@ -175,31 +175,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	}
 
 	/**
-	 * Removes a child <code>{@link EditPart}</code>. This method is called from
-	 * {@link #refreshChildren()}. The following events occur in the order listed:
-	 * <OL>
-	 * <LI><code>deactivate()</code> is called if the child is active
-	 * <LI>{@link EditPart#removeNotify()} is called on the child.
-	 * <LI>The child's parent is set to <code>null</code>
-	 * </OL>
-	 * <P>
-	 */
-	protected final void removeChild(EditPart childPart) {
-		int index = getChildren().indexOf(childPart);
-		if (index == -1) {
-			return;
-		}
-		fireRemovingChild(childPart, index);
-		if (isActive()) {
-			childPart.deactivate();
-		}
-		childPart.removeNotify();
-		removeChildVisual(childPart);
-		getChildren().remove(childPart);
-		childPart.setParent(null);
-	}
-
-	/**
 	 * Convenience method for returning the <code>{@link IEditPartViewer}</code> for this part.
 	 */
 	@Override
