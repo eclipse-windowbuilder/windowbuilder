@@ -32,7 +32,6 @@ import org.eclipse.gef.RequestConstants;
  * @coverage swing.gef.part
  */
 public final class JTabbedPaneTabEditPart extends DesignEditPart {
-	private JTabbedPaneTabInfo m_component;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -40,8 +39,7 @@ public final class JTabbedPaneTabEditPart extends DesignEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public JTabbedPaneTabEditPart(JTabbedPaneTabInfo component) {
-		m_component = component;
-		setModel(m_component);
+		setModel(component);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -50,8 +48,8 @@ public final class JTabbedPaneTabEditPart extends DesignEditPart {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void updateModel() {
-		m_component = (JTabbedPaneTabInfo) getModel();
+	public JTabbedPaneTabInfo getModel() {
+		return (JTabbedPaneTabInfo) super.getModel();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -66,7 +64,7 @@ public final class JTabbedPaneTabEditPart extends DesignEditPart {
 
 	@Override
 	protected void refreshVisuals() {
-		Rectangle bounds = m_component.getBounds();
+		Rectangle bounds = getModel().getBounds();
 		getFigure().setBounds(bounds);
 	}
 
@@ -83,7 +81,7 @@ public final class JTabbedPaneTabEditPart extends DesignEditPart {
 	@Override
 	public void performRequest(Request request) {
 		if (request.getType() == RequestConstants.REQ_OPEN) {
-			m_component.getPane().setActiveComponent(m_component.getComponent());
+			getModel().getPane().setActiveComponent(getModel().getComponent());
 		}
 	}
 }

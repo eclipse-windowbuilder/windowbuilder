@@ -57,12 +57,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * When existing {@link EditPart} reused for new model, this method will be invoked.
-	 */
-	protected void updateModel() {
-	}
-
-	/**
 	 * Returns a <code>List</code> containing the children model objects. If this {@link EditPart}'s
 	 * model is a container, this method should be overridden to returns its children. This is what
 	 * causes children EditParts to be created.
@@ -153,7 +147,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 					childPart.unregister();
 					childPart.setModel(model);
 					childPart.register();
-					childPart.updateModel();
 				}
 				// reorder child EditPart
 				removeChildVisual(childPart);
