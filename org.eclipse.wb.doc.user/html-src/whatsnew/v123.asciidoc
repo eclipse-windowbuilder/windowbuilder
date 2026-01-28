@@ -4,6 +4,12 @@ endif::[]
 
 = What's New - v1.23.0
 
+== General
+
+- [Linux] FFMA when using Java 24 or higher
+
+The Linux-specific fragment will use the Foreign Function and Memory API when used with Java 24 or higher.
+
 == SWT/RCP
 
 The support for _IPageLayout.addView()_ method has been deprecated and will be removed after the 2027-03 release.
