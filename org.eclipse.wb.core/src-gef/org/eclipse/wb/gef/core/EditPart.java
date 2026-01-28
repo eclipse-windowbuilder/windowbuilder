@@ -12,8 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
-import org.eclipse.wb.internal.gef.core.EditPartVisitor;
-
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -66,23 +64,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	@Override
 	protected List<?> getModelChildren() {
 		return Collections.EMPTY_LIST;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Visiting
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Visits this {@link EditPart} and its children using given {@link EditPartVisitor}.
-	 */
-	public final void accept(EditPartVisitor visitor) {
-		if (visitor.visit(this)) {
-			for (EditPart childPart : (List<EditPart>) getChildren()) {
-				childPart.accept(visitor);
-			}
-			visitor.endVisit(this);
-		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
