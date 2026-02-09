@@ -8,7 +8,7 @@ jobs:
   call-license-check:
     permissions:
       pull-requests: write
-    uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@ade01c63e5f8c32699afd23d608209cf5864dc1f # 1.1.0
+    uses: eclipse-dash/dash-licenses/.github/workflows/mavenLicenseCheck.yml@268cabe5d46d65efd64ff5eee0b9cb2b0e36f89e # 1.1.0
     with:
       projectId: tools.windowbuilder
     secrets:
