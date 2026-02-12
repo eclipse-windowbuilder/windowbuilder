@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.rcp.IExceptionConstants;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -43,6 +44,7 @@ import org.eclipse.swt.widgets.Shell;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Objects;
 
@@ -196,11 +198,14 @@ IThisMethodParameterEvaluator {
 		try {
 			return classLoader.loadClass("org.eclipse.swt.widgets.Dialog_");
 		} catch (ClassNotFoundException e) {
+			Class<?> clazz = classLoader.loadClass("org.eclipse.swt.widgets.Dialog");
+			MethodHandles.Lookup lookup = ExecutionUtils
+					.runObject(() -> MethodHandles.privateLookupIn(clazz, MethodHandles.lookup()));
 			return new ByteBuddy()
 					.subclass(classLoader.loadClass("org.eclipse.swt.widgets.Dialog")) //
 					.name("org.eclipse.swt.widgets.Dialog_") //
 					.make() // We have to use injection to load the class in the CreationSupport
-					.load(classLoader, ClassLoadingStrategy.Default.INJECTION) //
+					.load(classLoader, ClassLoadingStrategy.UsingLookup.of(lookup)) //
 					.getLoaded();
 		}
 	}
