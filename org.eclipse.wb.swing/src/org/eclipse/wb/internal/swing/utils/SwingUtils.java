@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -322,17 +322,8 @@ public final class SwingUtils {
 	 */
 	public static Point getRelativeLocation(final Component parentComponent, final Component childComponent)
 			throws Exception {
-		try {
-			return runObjectLaterAndWait(() -> {
-				Point parentLocation = parentComponent.getLocationOnScreen();
-				Point childLocation = childComponent.getLocationOnScreen();
-				int relX = childLocation.x - parentLocation.x;
-				int relY = childLocation.y - parentLocation.y;
-				return new Point(relX, relY);
-			});
-		} catch (IllegalComponentStateException e) {
-			return new Point();
-		}
+		return runObjectLaterAndWait(() -> SwingUtilities.convertPoint(childComponent.getParent(),
+				childComponent.getLocation(), parentComponent));
 	}
 
 	/**
