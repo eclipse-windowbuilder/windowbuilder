@@ -44,7 +44,7 @@ IClipboardSourceProvider {
 			return element.toString();
 		}
 		// unknown value
-		return null;
+		return "";
 	}
 
 	@Override
