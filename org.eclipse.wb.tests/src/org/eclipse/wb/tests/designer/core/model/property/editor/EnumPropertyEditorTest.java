@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -96,7 +96,7 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("foo");
 		EnumPropertyEditor editor = (EnumPropertyEditor) property.getEditor();
 		// text
-		assertNull(editor.getText(property));
+		assertEquals("", editor.getText(property));
 		assertNull(editor.getClipboardSource(property));
 	}
 
