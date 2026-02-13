@@ -792,9 +792,9 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		}
 
 		/**
-		 * Expands this property.
+		 * Expands this property but without refreshing the input.
 		 */
-		public void expand() throws Exception {
+		private void internalExpand() throws Exception {
 			Assert.isTrue(m_stateComplex);
 			Assert.isTrue(!m_stateExpanded);
 			//
@@ -804,7 +804,14 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			//
 			int index = m_properties.indexOf(this);
 			addChildren(index + 1);
-			setContents(m_properties);
+		}
+
+		/**
+		 * Expands this property.
+		 */
+		public void expand() throws Exception {
+			internalExpand();
+			setInput0();
 		}
 
 		/**
@@ -820,7 +827,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			//
 			int index = m_properties.indexOf(this);
 			removeChildren(index + 1);
-			setContents(m_properties);
+			setInput0();
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -908,9 +915,9 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		 * @return <code>true</code> if this {@link PropertyInfo} was expanded from
 		 *         history.
 		 */
-		public boolean expandFromHistory() throws Exception {
+		private boolean expandFromHistory() throws Exception {
 			if (isComplex() && !isExpanded() && m_expandedIds.contains(m_id)) {
-				expand();
+				internalExpand();
 				return true;
 			}
 			return false;
