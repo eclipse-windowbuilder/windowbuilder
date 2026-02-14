@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.model.property.table;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategoryProvider;
@@ -24,7 +23,6 @@ import org.eclipse.wb.internal.core.model.property.table.editparts.PropertyEditP
 import org.eclipse.wb.internal.core.model.property.table.editparts.PropertyEditPartFactory;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.eclipse.core.runtime.Status;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.draw2d.FigureUtilities;
@@ -32,20 +30,15 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditDomain;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.widgets.Composite;
 
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,8 +138,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	// Editor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private PropertyInfo m_activePropertyInfo;
-	private String m_activePropertyId;
 	private PropertyEditor m_activeEditor;
 
 	/**
@@ -182,8 +173,9 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		if (m_activeEditor != null) {
 			PropertyEditor activeEditor = m_activeEditor;
 			m_activeEditor = null;
-			if (m_activePropertyInfo != null && m_activePropertyInfo.m_property != null) {
-				activeEditor.deactivate(this, m_activePropertyInfo.m_property, save);
+			PropertyInfo activePropertyInfo = getFocusPropertyInfo();
+			if (activePropertyInfo != null && activePropertyInfo.m_property != null) {
+				activeEditor.deactivate(this, activePropertyInfo.m_property, save);
 			}
 		}
 	}
@@ -194,7 +186,8 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 */
 	private void setActiveEditorBounds() {
 		if (m_activeEditor != null) {
-			int index = m_properties.indexOf(m_activePropertyInfo);
+			PropertyInfo activePropertyInfo = getFocusPropertyInfo();
+			int index = m_properties.indexOf(activePropertyInfo);
 			if (index == -1) {
 				// it is possible that active property was hidden because its parent was
 				// collapsed
@@ -203,7 +196,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				// prepare bounds for editor
 				org.eclipse.swt.graphics.Rectangle bounds;
 				{
-					PropertyEditPart editPart = getEditPartForModel(m_activePropertyInfo);
+					PropertyEditPart editPart = getEditPartForModel(activePropertyInfo);
 					Rectangle figureBounds = getAbsoluteBounds(editPart);
 					int x = getSplitter() + 1;
 					int y = figureBounds.top();
@@ -328,6 +321,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	}
 
 	private void setInput0() {
+		PropertyInfo activePropertyInfo = getFocusPropertyInfo();
 		// set new properties
 		if (m_rawProperties == null || m_rawProperties.length == 0) {
 			deactivateEditor(false);
@@ -361,19 +355,23 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		setContents(m_properties);
 		getControl().getViewport().validate();
 		// update active property
-		if (m_activePropertyId != null) {
+		if (activePropertyInfo != null) {
 			PropertyInfo newActivePropertyInfo = null;
 			// try to find corresponding PropertyInfo
 			if (m_properties != null) {
 				for (PropertyInfo propertyInfo : m_properties) {
-					if (propertyInfo.m_id.equals(m_activePropertyId)) {
+					if (propertyInfo.m_id.equals(activePropertyInfo.m_id)) {
 						newActivePropertyInfo = propertyInfo;
 						break;
 					}
 				}
 			}
 			// set new PropertyInfo
-			setActivePropertyInfo(newActivePropertyInfo);
+			if (newActivePropertyInfo == null) {
+				deselectAll();
+			} else {
+				select(getEditPartForModel(newActivePropertyInfo));
+			}
 		}
 	}
 
@@ -405,7 +403,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	public void setActiveProperty(Property property) {
 		for (PropertyInfo propertyInfo : m_properties) {
 			if (propertyInfo.m_property == property) {
-				setActivePropertyInfo(propertyInfo);
+				select(getEditPartForModel(propertyInfo));
 				break;
 			}
 		}
@@ -428,44 +426,11 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	@Override
-	public void setSelection(ISelection selection) {
-		throw new NotImplementedException(PropertyTable.class.getName());
-	}
-
-	/**
-	 * Sets the new active {@link PropertyInfo} and sends event to
-	 * {@link ISelectionChangedListener} 's.
-	 */
-	private void setActivePropertyInfo(PropertyInfo activePropertyInfo) {
-		if (activePropertyInfo == null) {
-			m_activePropertyInfo = null;
-			return;
+	private PropertyInfo getFocusPropertyInfo() {
+		if (getFocusEditPart() instanceof PropertyEditPart editPart) {
+			return editPart.getModel();
 		}
-		PropertyEditPart editPart = getEditPartForModel(activePropertyInfo);
-		if (editPart == null) {
-			String msg = NLS.bind(ModelMessages.PropertyTable_unknownEditPart, activePropertyInfo);
-			DesignerPlugin.log(Status.warning(msg));
-			return;
-		}
-		select(editPart);
-	}
-
-	@Override
-	public final void select(EditPart editPart) {
-		m_activePropertyInfo = ((PropertyEditPart) editPart).getModel();
-		// update m_activePropertyId only when really select property,
-		// not just remove selection because there are no corresponding property for old
-		// active
-		// so, later for some other component, if we don't select other property, old
-		// active will be selected
-		if (m_activePropertyInfo != null) {
-			m_activePropertyId = m_activePropertyInfo.m_id;
-		}
-		// make sure that active property is visible
-		reveal(editPart);
-		// send events
-		super.select(editPart);
+		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -536,7 +501,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			if (!m_splitterResizing && findObjectAt(new Point(event.x, event.y)) instanceof PropertyEditPart editPart) {
 				// prepare property
 				select(editPart);
-				Property property = m_activePropertyInfo.getProperty();
+				Property property = editPart.getProperty();
 				// de-activate current editor
 				deactivateEditor(true);
 				getControl().redraw();
@@ -561,6 +526,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				}
 				// update
 				if (findObjectAt(new Point(event.x, event.y)) instanceof PropertyEditPart editPart) {
+					reveal(editPart);
 					PropertyInfo propertyInfo = editPart.getModel();
 					// check for expand/collapse
 					if (editPart.isLocationState(event.x)) {
@@ -580,11 +546,12 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			if (System.currentTimeMillis() - m_lastExpandCollapseTime > getControl().getDisplay()
 					.getDoubleClickTime()) {
 				try {
-					if (m_activePropertyInfo != null) {
-						if (m_activePropertyInfo.isShowComplex()) {
-							m_activePropertyInfo.flip();
+					PropertyInfo activePropertyInfo = getFocusPropertyInfo();
+					if (activePropertyInfo != null) {
+						if (activePropertyInfo.isShowComplex()) {
+							activePropertyInfo.flip();
 						} else {
-							Property property = m_activePropertyInfo.getProperty();
+							Property property = activePropertyInfo.getProperty();
 							property.getEditor().doubleClick(property);
 						}
 					}
@@ -628,18 +595,19 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 
 		@Override
 		public void keyDown(KeyEvent e, EditPartViewer viewer) {
-			if (m_activePropertyInfo != null) {
+			PropertyInfo activePropertyInfo = getFocusPropertyInfo();
+			if (activePropertyInfo != null) {
 				try {
-					Property property = m_activePropertyInfo.getProperty();
+					Property property = activePropertyInfo.getProperty();
 					// expand/collapse
-					if (m_activePropertyInfo.isComplex()) {
-						if (!m_activePropertyInfo.isExpanded()
+					if (activePropertyInfo.isComplex()) {
+						if (!activePropertyInfo.isExpanded()
 								&& (e.character == '+' || e.keyCode == SWT.ARROW_RIGHT)) {
-							m_activePropertyInfo.expand();
+							activePropertyInfo.expand();
 							return;
 						}
-						if (m_activePropertyInfo.isExpanded() && (e.character == '-' || e.keyCode == SWT.ARROW_LEFT)) {
-							m_activePropertyInfo.collapse();
+						if (activePropertyInfo.isExpanded() && (e.character == '-' || e.keyCode == SWT.ARROW_LEFT)) {
+							activePropertyInfo.collapse();
 							return;
 						}
 					}
@@ -671,7 +639,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		 *         new {@link PropertyInfo} was selected.
 		 */
 		public boolean navigate(KeyEvent e) {
-			int index = m_properties.indexOf(m_activePropertyInfo);
+			int index = m_properties.indexOf(getFocusPropertyInfo());
 			int page = getControl().getClientArea().height / m_rowHeight;
 			//
 			int newIndex = index;
@@ -690,7 +658,9 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 			}
 			// activate new property
 			if (newIndex != index && newIndex < m_properties.size()) {
-				setActivePropertyInfo(m_properties.get(newIndex));
+				PropertyEditPart editPart = getEditPartForModel(m_properties.get(newIndex));
+				select(editPart);
+				reveal(editPart);
 				return true;
 			}
 			// no navigation change
