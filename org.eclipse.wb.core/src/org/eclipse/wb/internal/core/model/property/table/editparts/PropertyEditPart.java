@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2025 Patrick Ziegler and others.
+ * Copyright (c) 2025, 2026 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,7 +37,11 @@ import org.eclipse.draw2d.SeparatorBorder;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.swt.SWT;
@@ -152,6 +156,30 @@ public final class PropertyEditPart extends AbstractPropertyEditPart {
 	@Override
 	public PropertyInfo getModel() {
 		return (PropertyInfo) super.getModel();
+	}
+
+	@Override
+	public DragTracker getDragTracker(Request request) {
+		return new PropertyEditPartTracker(this);
+	}
+
+	@Override
+	public void performRequest(Request request) {
+		if (RequestConstants.REQ_SELECTION == request.getType()) {
+			performSelection((SelectionRequest) request);
+		}
+	}
+
+	private void performSelection(SelectionRequest request) {
+		// de-activate current editor
+		getViewer().deactivateEditor(true);
+		getViewer().getControl().redraw();
+		// activate editor
+		Point mouseLocation = request.getLocation().getCopy();
+		getFigure().translateToRelative(mouseLocation);
+		if (valueFigure.containsPoint(mouseLocation)) {
+			getViewer().activateEditor(getProperty(), mouseLocation);
+		}
 	}
 
 	@Override

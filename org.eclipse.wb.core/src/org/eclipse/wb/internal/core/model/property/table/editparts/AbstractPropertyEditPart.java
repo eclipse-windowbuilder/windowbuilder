@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2025 Patrick Ziegler and others.
+ * Copyright (c) 2025, 2026 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.gef.DragTracker;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -71,5 +73,10 @@ public abstract class AbstractPropertyEditPart extends AbstractGraphicalEditPart
 	@Override
 	public PropertyTable getViewer() {
 		return (PropertyTable) super.getViewer();
+	}
+
+	@Override
+	public DragTracker getDragTracker(Request request) {
+		return null;
 	}
 }
