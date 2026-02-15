@@ -34,7 +34,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -204,10 +203,10 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 				org.eclipse.swt.graphics.Rectangle bounds;
 				{
 					PropertyEditPart editPart = getEditPartForModel(m_activePropertyInfo);
-					Rectangle figureBounds = getAbsoluteBounds(editPart);
-					int x = getSplitter() + 1;
+					Rectangle figureBounds = getEditorBounds(editPart);
+					int x = figureBounds.left();
 					int y = figureBounds.top();
-					int width = getControl().getClientArea().width - x - MARGIN_RIGHT;
+					int width = figureBounds.width() - MARGIN_RIGHT;
 					int height = figureBounds.height() - MARGIN_BOTTOM;
 					bounds = new org.eclipse.swt.graphics.Rectangle(x, y, width, height);
 				}
@@ -246,11 +245,11 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * @return the bounds of the given edit part relative to the top right corner of
-	 *         the viewport.
+	 * @return the bounds of editor for the given edit part, relative to the top
+	 *         right corner of the viewport.
 	 */
-	private static Rectangle getAbsoluteBounds(GraphicalEditPart editPart) {
-		IFigure figure = editPart.getFigure();
+	private static Rectangle getEditorBounds(PropertyEditPart editPart) {
+		IFigure figure = editPart.getFigure().getChildren().get(1);
 		Rectangle bounds = figure.getBounds().getCopy();
 		figure.translateToAbsolute(bounds);
 		return bounds;
@@ -278,25 +277,6 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 	 */
 	private boolean isLocationSplitter(int x) {
 		return Math.abs(getSplitter() - x) < 2;
-	}
-
-	/**
-	 * @return <code>true</code> if given <code>x</code> is on value part of
-	 *         property.
-	 */
-	private boolean isLocationValue(int x) {
-		return x > getSplitter() + 2;
-	}
-
-	/**
-	 * @param x the {@link PropertyTable} relative coordinate.
-	 * @param y the {@link PropertyTable} relative coordinate.
-	 *
-	 * @return the location relative to the value part of property.
-	 */
-	private Point getValueRelativeLocation(int x, int y) {
-		GraphicalEditPart editPart = (GraphicalEditPart) findObjectAt(new Point(x, y));
-		return new Point(x - (getSplitter() + 2), getAbsoluteBounds(editPart).top());
 	}
 
 	/**
@@ -532,19 +512,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 		@Override
 		public void mouseDown(MouseEvent event, EditPartViewer viewer) {
 			m_splitterResizing = event.button == 1 && m_properties != null && isLocationSplitter(event.x);
-			// click in property
-			if (!m_splitterResizing && findObjectAt(new Point(event.x, event.y)) instanceof PropertyEditPart editPart) {
-				// prepare property
-				select(editPart);
-				Property property = m_activePropertyInfo.getProperty();
-				// de-activate current editor
-				deactivateEditor(true);
-				getControl().redraw();
-				// activate editor
-				if (isLocationValue(event.x)) {
-					activateEditor(property, getValueRelativeLocation(event.x, event.y));
-				}
-			}
+			super.mouseDown(event, viewer);
 		}
 
 		@Override
@@ -573,6 +541,7 @@ public class PropertyTable extends ScrollingGraphicalViewer {
 					}
 				}
 			}
+			super.mouseUp(event, viewer);
 		}
 
 		@Override
