@@ -53,6 +53,24 @@
 					<type>jar</type>
 				</dependency>
 				<dependency>
+					<groupId>net.bytebuddy</groupId>
+					<artifactId>byte-buddy-agent</artifactId>
+					<version>1.18.1</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>net.bytebuddy</groupId>
+					<artifactId>byte-buddy</artifactId>
+					<version>1.18.1</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-lang3</artifactId>
+					<version>3.20.0</version>
+					<type>jar</type>
+				</dependency>
+				<dependency>
 					<groupId>org.apache.commons</groupId>
 					<artifactId>commons-text</artifactId>
 					<version>1.14.0</version>
