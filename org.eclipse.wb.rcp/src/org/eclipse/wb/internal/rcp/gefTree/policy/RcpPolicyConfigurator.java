@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 /**
  * Configures RCP related {@link EditPart}'s.
@@ -29,15 +30,15 @@ import org.eclipse.gef.EditPart;
  */
 public final class RcpPolicyConfigurator implements IEditPartConfigurator {
 	@Override
-	public void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
+	public void configure(EditPart context, EditPart editPart) {
 		// allow drop Action on MenuManager
 		if (editPart.getModel() instanceof MenuManagerInfo) {
 			((DesignTreeEditPart) editPart).addRequestProcessor(ActionDropRequestProcessor.INSTANCE);
 		}
 		// allow drop ControlDecoration on ControlInfo
-		if (editPart.getModel() instanceof ControlInfo) {
-			ControlInfo control = (ControlInfo) editPart.getModel();
-			editPart.installEditPolicy(new ControlDecorationDropLayoutEditPolicy(control));
+		if (editPart.getModel() instanceof ControlInfo control) {
+			EditPolicy editPolicy = new ControlDecorationDropLayoutEditPolicy(control);
+			editPart.installEditPolicy(editPolicy.getClass(), editPolicy);
 		}
 	}
 }
