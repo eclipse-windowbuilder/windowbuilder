@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -32,7 +32,7 @@ import javax.swing.JInternalFrame;
  */
 public final class MenuDropPolicyConfigurator implements IEditPartConfigurator {
 	@Override
-	public void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
+	public void configure(EditPart context, EditPart editPart) {
 		// drop JMenuBar on JFrame, JDialog and JApply
 		if (editPart.getModel() instanceof ContainerInfo) {
 			ContainerInfo container = (ContainerInfo) editPart.getModel();
@@ -41,13 +41,15 @@ public final class MenuDropPolicyConfigurator implements IEditPartConfigurator {
 					|| JInternalFrame.class.isAssignableFrom(componentClass)
 					|| JDialog.class.isAssignableFrom(componentClass)
 					|| Activator.isAssignableFromJApplet(componentClass)) {
-				editPart.installEditPolicy(new MenuBarDropLayoutEditPolicy(container));
+				EditPolicy editPolicy = new MenuBarDropLayoutEditPolicy(container);
+				editPart.installEditPolicy(editPolicy.getClass(), editPolicy);
 			}
 		}
 		// drop JPopupMenu on any java.awt.Component
 		if (editPart.getModel() instanceof ComponentInfo) {
 			ComponentInfo component = (ComponentInfo) editPart.getModel();
-			editPart.installEditPolicy(new MenuPopupDropLayoutEditPolicy(component));
+			EditPolicy editPolicy = new MenuPopupDropLayoutEditPolicy(component);
+			editPart.installEditPolicy(editPolicy.getClass(), editPolicy);
 		}
 	}
 }
