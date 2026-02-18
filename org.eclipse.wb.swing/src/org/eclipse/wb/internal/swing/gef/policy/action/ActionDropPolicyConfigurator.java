@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,12 +29,13 @@ import javax.swing.AbstractButton;
  */
 public final class ActionDropPolicyConfigurator implements IEditPartConfigurator {
 	@Override
-	public void configure(EditPart context, org.eclipse.wb.gef.core.EditPart editPart) {
+	public void configure(EditPart context, EditPart editPart) {
 		// drop ActionInfo on javax.swing.AbstractButton
 		if (editPart.getModel() instanceof ComponentInfo) {
 			ComponentInfo component = (ComponentInfo) editPart.getModel();
 			if (AbstractButton.class.isAssignableFrom(component.getDescription().getComponentClass())) {
-				editPart.installEditPolicy(new ActionDropButtonLayoutEditPolicy(component));
+				EditPolicy editPolicy = new ActionDropButtonLayoutEditPolicy(component);
+				editPart.installEditPolicy(editPolicy.getClass(), editPolicy);
 			}
 		}
 	}
