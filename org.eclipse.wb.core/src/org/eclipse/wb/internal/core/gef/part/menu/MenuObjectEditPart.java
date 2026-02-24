@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.gef.part.menu;
 import org.eclipse.wb.core.gef.part.menu.IMenuObjectEditPart;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuObjectListener;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.gef.core.IActiveToolListener;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.Tool;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 
