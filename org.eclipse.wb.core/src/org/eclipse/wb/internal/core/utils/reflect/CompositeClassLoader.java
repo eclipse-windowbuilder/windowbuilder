@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -163,6 +163,10 @@ public class CompositeClassLoader extends ClassLoader {
 
 	@Override
 	protected Class<?> findClass(String name) throws ClassNotFoundException {
+		// enhanced classes only exist in the project class-loader and can never be loaded
+		if (ReflectionUtils.isEnchancedClass(name)) {
+			throw new ClassNotFoundException(name);
+		}
 		for (int i = 0; i < m_classLoaders.size(); i++) {
 			ClassLoader classLoader = m_classLoaders.get(i);
 			// check namespace
