@@ -185,9 +185,9 @@ AbstractHeaderSelectionEditPolicy {
 			}
 			// set feedback bounds
 			{
-				Point mouseLocation = changeBoundsRequest.getLocation().getCopy();
+				Point mouseLocation = changeBoundsRequest.getRelativeLocation().getCopy();
 				Point feedbackLocation = getTextFeedbackLocation(mouseLocation);
-				FigureUtils.translateAbsoluteToFigure(feedbackLayer, feedbackLocation);
+				feedbackLayer.translateToRelative(feedbackLocation);
 				m_feedback.setLocation(feedbackLocation);
 			}
 			// set text
