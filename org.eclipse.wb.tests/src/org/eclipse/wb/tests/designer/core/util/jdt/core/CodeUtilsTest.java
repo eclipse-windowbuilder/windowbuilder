@@ -154,7 +154,7 @@ public class CodeUtilsTest extends AbstractJavaTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Test for {@link CodeUtils#generateUniqueName(String, com.google.common.base.Predicate)}.
+	 * Test for {@link CodeUtils#generateUniqueName(String, Predicate)}.
 	 */
 	@Test
 	public void test_generateUniqueName() throws Exception {
