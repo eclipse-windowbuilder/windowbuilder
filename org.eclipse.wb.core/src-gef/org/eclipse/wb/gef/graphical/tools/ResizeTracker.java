@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -229,6 +229,7 @@ public class ResizeTracker extends Tool {
 	 * Updates the request with the current {@link Tool#getOperationSet() operation set}, move delta,
 	 * size delta and location.
 	 */
+	@SuppressWarnings("deprecation")
 	private void updateRequest() {
 		// create request
 		if (getRequest() == null) {
@@ -261,6 +262,7 @@ public class ResizeTracker extends Tool {
 		getRequest().setMoveDelta(corner);
 		getRequest().setSizeDelta(resize);
 		getRequest().setLocation(getAbsoluteLocation());
+		getRequest().setRelativeLocation(getLocation());
 	}
 
 	/**
