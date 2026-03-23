@@ -204,12 +204,14 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	 * location and type.
 	 */
 	@Override
+	@SuppressWarnings("deprecation")
 	protected void updateTargetRequest() {
 		super.updateTargetRequest();
 		ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
 		request.setEditParts(getOperationSet());
 		request.setMoveDelta(new Point(getDragMoveDelta()));
 		request.setLocation(getAbsoluteLocation());
+		request.setRelativeLocation(getLocation());
 	}
 
 	@Override

@@ -27,6 +27,7 @@ import org.eclipse.gef.requests.GroupRequest;
  */
 public class ChangeBoundsRequest extends GroupRequest implements DropRequest {
 	private static final int SNAP_TO = 16;
+	private Point m_mouseAbsoluteLocation;
 	private Point m_mouseLocation;
 	private Point m_moveDelta = new Point();
 	private Dimension m_resizeDelta = new Dimension();
@@ -57,17 +58,37 @@ public class ChangeBoundsRequest extends GroupRequest implements DropRequest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Returns the location of the mouse pointer.
+	 * Returns the <b>absolute<b> location of the mouse pointer.
+	 *
+	 * @deprecated Use {@link #getRelativeLocation()} instead.
 	 */
 	@Override
+	@Deprecated
 	public Point getLocation() {
+		return m_mouseAbsoluteLocation;
+	}
+
+	/**
+	 * Sets the <b>absolute<b> location of the mouse pointer.
+	 *
+	 * @deprecated Use {@link #setRelativeLocation(Point)} instead.
+	 */
+	@Deprecated
+	public void setLocation(Point absoluteLocation) {
+		m_mouseAbsoluteLocation = absoluteLocation;
+	}
+
+	/**
+	 * Returns the location of the mouse pointer.
+	 */
+	public Point getRelativeLocation() {
 		return m_mouseLocation;
 	}
 
 	/**
 	 * Sets the location of the mouse pointer.
 	 */
-	public void setLocation(Point location) {
+	public void setRelativeLocation(Point location) {
 		m_mouseLocation = location;
 	}
 
