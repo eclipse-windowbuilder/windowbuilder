@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -416,6 +416,18 @@ public class DesignerPlugin extends AbstractUIPlugin {
 			isSvgSupported = false;
 		}
 		return isSvgSupported;
+	}
+
+	/**
+	 * If {@code fileName} ends with {@code .svg}, the extension is changed to
+	 * {@code .png} if not yet supported by SWT.
+	 */
+	public static String getEffectiveFileName(String fileName) {
+		// If the SWT version doesn't yet support SVGs, fall back to PNG
+		if (!isSvgSupported() && fileName.endsWith(".svg")) { //$NON-NLS-1$
+			return fileName.replaceFirst("\\.svg$", ".png"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		return fileName;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
