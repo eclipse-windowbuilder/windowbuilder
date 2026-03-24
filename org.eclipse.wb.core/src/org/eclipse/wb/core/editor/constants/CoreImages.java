@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2024, 2025 Patrick Ziegler and others.
+ * Copyright (c) 2024, 2026 Patrick Ziegler and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -145,14 +145,8 @@ public abstract class CoreImages {
 	 * method, using the bundle of containing the class as reference.
 	 */
 	protected static ImageDescriptor of(Bundle bundle, String fileName) {
-		String effectiveFileName;
-		if (!DesignerPlugin.isSvgSupported() && fileName.endsWith(".svg")) { //$NON-NLS-1$
-			effectiveFileName = fileName.replaceFirst("\\.svg$", ".png"); //$NON-NLS-1$ //$NON-NLS-2$
-		} else {
-			effectiveFileName = fileName;
-		}
 		return ExecutionUtils.runObjectLog(() -> {
-			URI uri = URI.create("platform:/plugin/" + bundle.getSymbolicName() + "/icons/" + effectiveFileName);
+			URI uri = URI.create("platform:/plugin/" + bundle.getSymbolicName() + "/icons/" + DesignerPlugin.getEffectiveFileName(fileName));
 			URL url = uri.toURL();
 			return ImageDescriptor.createFromURL(url);
 		}, ImageDescriptor.getMissingImageDescriptor());
