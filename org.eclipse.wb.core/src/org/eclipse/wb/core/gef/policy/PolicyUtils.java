@@ -37,6 +37,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
+import org.eclipse.gef.requests.DropRequest;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -169,6 +170,17 @@ public abstract class PolicyUtils {
 		Rectangle bounds = figure.getBounds().getCopy();
 		FigureUtils.translateFigureToAbsolute(figure, bounds);
 		return bounds;
+	}
+
+	/**
+	 * @return absolute mouse coordinates of given {@link DropRequest}.
+	 * @since 1.24
+	 */
+	public static Point getAbsoluteLocation(GraphicalEditPart editPart, DropRequest request) {
+		GraphicalEditPart contents = (GraphicalEditPart) editPart.getViewer().getContents();
+		Point location = request.getLocation().getCopy();
+		contents.getFigure().translateToRelative(location);
+		return location;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

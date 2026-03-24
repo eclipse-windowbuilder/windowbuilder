@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.core.gef.policy.nonvisual;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -162,7 +163,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	private void showCreationFeedback(CreateRequest request) {
 		JavaInfo newInfo = (JavaInfo) request.getNewObject();
-		Point location = request.getLocation();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		showFeedback(GefMessages.NonVisualLayoutEditPolicy_newFeedback, newInfo, location);
 	}
 
@@ -171,7 +172,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 		try {
 			List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
 			JavaInfo newInfo = mementos.get(0).create(m_rootInfo);
-			Point location = request.getLocation();
+			Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 			showFeedback(GefMessages.NonVisualLayoutEditPolicy_copyFeedback, newInfo, location);
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);
@@ -210,7 +211,7 @@ public final class NonVisualLayoutEditPolicy extends LayoutEditPolicy {
 				final JavaInfo info = part.getNonVisualInfo().getJavaInfo();
 				BeanFigure figure = new BeanFigure(info.getDescription().getIcon());
 				String text = ExecutionUtils.runObjectLog(() -> info.getVariableSupport().getTitle(), null);
-				figure.update(text, request.getLocation());
+				figure.update(text, PolicyUtils.getAbsoluteLocation(getHost(), request));
 				//
 				m_moveFeedbackFigures[i] = figure;
 				addFeedback(figure);

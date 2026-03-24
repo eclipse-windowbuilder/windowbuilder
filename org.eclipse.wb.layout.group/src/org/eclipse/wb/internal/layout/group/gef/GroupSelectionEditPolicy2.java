@@ -208,7 +208,7 @@ LayoutConstants {
 		hideAlignmentFigures();
 		// prepare
 		int direction = request.getResizeDirection();
-		Point location = request.getLocation().getCopy();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		PolicyUtils.translateAbsoluteToModel(this, location);
 		LayoutDesigner layoutDesigner = m_layout.getLayoutDesigner();
 		AbstractComponentInfo hostModel = (AbstractComponentInfo) getHostModel();

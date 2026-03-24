@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.rcp.gef.policy.widgets;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -154,7 +155,7 @@ public final class TreeTreeColumnSelectionEditPolicy extends SelectionEditPolicy
 		m_resizeFeedback.setBounds(bounds);
 		// update text feedback
 		m_textFeedback.setText(Integer.toString(bounds.width - 2));
-		m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
+		m_textFeedback.setLocation(PolicyUtils.getAbsoluteLocation(getHost(), request).translate(10, 10));
 	}
 
 	private void eraseResizeFeedback(ChangeBoundsRequest request) {

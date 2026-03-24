@@ -192,7 +192,7 @@ AbstractHeaderSelectionEditPolicy {
 			}
 			// set feedback bounds
 			{
-				Point mouseLocation = changeBoundsRequest.getRelativeLocation().getCopy();
+				Point mouseLocation = changeBoundsRequest.getLocation().getCopy();
 				Point feedbackLocation = getTextFeedbackLocation(mouseLocation);
 				feedbackLayer.translateToRelative(feedbackLocation);
 				m_feedback.setLocation(feedbackLocation);

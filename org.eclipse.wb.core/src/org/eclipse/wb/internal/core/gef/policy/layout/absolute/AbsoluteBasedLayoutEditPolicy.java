@@ -436,7 +436,7 @@ IPreferenceConstants {
 		}
 		addFeedback(m_moveFeedback);
 		// Case 42313
-		Point moveLocation = isKeyboardMoving() ? moveDelta : request.getLocation();
+		Point moveLocation = isKeyboardMoving() ? moveDelta : PolicyUtils.getAbsoluteLocation(getHost(), request);
 		// do drag
 		placementsSupport.drag(
 				moveLocation,
@@ -535,7 +535,7 @@ IPreferenceConstants {
 		// do drag
 		Dimension sizeDelta = request.getSizeDelta();
 		Point moveLocation =
-				isKeyboardMoving ? new Point(sizeDelta.width, sizeDelta.height) : request.getLocation();
+				isKeyboardMoving ? new Point(sizeDelta.width, sizeDelta.height) : PolicyUtils.getAbsoluteLocation(getHost(), request);
 		// do drag
 		getPlacementsSupport().drag(
 				moveLocation,
@@ -565,7 +565,7 @@ IPreferenceConstants {
 		// update text feedback
 		if (m_textFeedback != null) {
 			m_textFeedback.setText(getSizeHintString(getHost(), widgetBounds.width, widgetBounds.height));
-			m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
+			m_textFeedback.setLocation(PolicyUtils.getAbsoluteLocation(getHost(), request).translate(10, 10));
 		}
 	}
 
@@ -614,7 +614,7 @@ IPreferenceConstants {
 			removeFeedback(m_createFeedback);
 			m_createFeedback = null;
 		}
-		Point location = request.getLocation().getCopy();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		translateAbsoluteToModel(location);
 		IAbstractComponentInfo newWidget = (IAbstractComponentInfo) request.getNewObject();
 		Image image = newWidget.getImage();
@@ -723,7 +723,7 @@ IPreferenceConstants {
 				m_createFeedback = null;
 			}
 			//
-			Point location = request.getLocation().getCopy();
+			Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 			translateAbsoluteToModel(location);
 			//
 			Rectangle widgetBounds;
@@ -783,7 +783,7 @@ IPreferenceConstants {
 				}
 			}
 			placementsSupport.drag(
-					request.getLocation(),
+					PolicyUtils.getAbsoluteLocation(getHost(), request),
 					List.copyOf(pastedModels),
 					widgetBounds,
 					List.of(relativeBounds));

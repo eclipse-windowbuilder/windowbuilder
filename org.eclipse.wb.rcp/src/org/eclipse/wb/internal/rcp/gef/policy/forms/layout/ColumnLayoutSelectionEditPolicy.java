@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -162,7 +162,7 @@ SelectionEditPolicy {
 		m_resizeFeedback.setBounds(bounds);
 		// update text feedback
 		m_textFeedback.setText(Integer.toString(bounds.width) + " x " + Integer.toString(bounds.height));
-		m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
+		m_textFeedback.setLocation(PolicyUtils.getAbsoluteLocation(getHost(), request).translate(10, 10));
 	}
 
 	private void eraseResizeFeedback(ChangeBoundsRequest request) {

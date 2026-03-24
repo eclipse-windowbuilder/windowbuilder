@@ -218,7 +218,7 @@ SelectionEditPolicy {
 		Rectangle bounds = getControlModelBounds(control);
 		bounds.performTranslate(request.getMoveDelta());
 		bounds.resize(request.getSizeDelta());
-		Point requestLocation = request.getLocation();
+		Point requestLocation = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		Point location =
 				requestLocation == null
 				? getControlModelBounds(control).getLocation()
@@ -622,7 +622,7 @@ SelectionEditPolicy {
 		Rectangle bounds = getControlModelBounds(control);
 		bounds.performTranslate(request.getMoveDelta());
 		bounds.resize(request.getSizeDelta());
-		Point requestLocation = request.getLocation();
+		Point requestLocation = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		Point location =
 				requestLocation == null
 				? getControlModelBounds(control).getLocation()

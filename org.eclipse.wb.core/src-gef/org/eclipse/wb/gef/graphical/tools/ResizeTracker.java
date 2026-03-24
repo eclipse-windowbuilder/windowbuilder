@@ -261,8 +261,7 @@ public class ResizeTracker extends Tool {
 		// set request data
 		getRequest().setMoveDelta(corner);
 		getRequest().setSizeDelta(resize);
-		getRequest().setLocation(getAbsoluteLocation());
-		getRequest().setRelativeLocation(getLocation());
+		getRequest().setLocation(getLocation());
 	}
 
 	/**
