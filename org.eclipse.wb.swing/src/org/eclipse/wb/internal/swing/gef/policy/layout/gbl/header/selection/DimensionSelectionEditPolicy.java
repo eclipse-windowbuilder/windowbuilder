@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection;
 
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -172,7 +173,7 @@ AbstractHeaderSelectionEditPolicy {
 			}
 			// set feedback bounds
 			{
-				Point mouseLocation = changeBoundsRequest.getLocation().getCopy();
+				Point mouseLocation = PolicyUtils.getAbsoluteLocation(getHost(), changeBoundsRequest);
 				Point feedbackLocation = getTextFeedbackLocation(mouseLocation);
 				FigureUtils.translateAbsoluteToFigure(feedbackLayer, feedbackLocation);
 				m_feedback.setLocation(feedbackLocation);

@@ -166,7 +166,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 		}
 		m_feedbacksDrawer.removeFeedbacks();
 		// prepare
-		Point location = request.getLocation().getCopy();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		translateAbsoluteToModel(location);
 		AbstractComponentInfo newWidget = (AbstractComponentInfo) request.getNewObject();
 		Image image = newWidget.getImage();
@@ -247,12 +247,12 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 			layoutComponents[j++] = m_layout.createLayoutComponent(model);
 		}
 		// the position of the mouse inside the dragging rectangle
-		Point hotSpot = request.getLocation().getCopy();
+		Point hotSpot = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		PolicyUtils.translateAbsoluteToModel((GraphicalEditPart) firstEditPart.getParent(), hotSpot);
 		hotSpot.performTranslate(request.getMoveDelta().getNegated());
 		hotSpot.performTranslate(-offsetX, -offsetY);
 		// current mouse position in model coordinates
-		Point topLeft = request.getLocation().getCopy();
+		Point topLeft = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		translateAbsoluteToModel(topLeft);
 		{
 			// start re-parenting
@@ -305,7 +305,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 			return;
 		}
 		// prepare
-		Point location = request.getLocation().getCopy();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		m_feedbacksDrawer.removeFeedbacks();
 		LayoutDesigner layoutDesigner = m_layout.getLayoutDesigner();
 		// start dragging
@@ -383,7 +383,7 @@ public abstract class GroupLayoutEditPolicy2 extends LayoutEditPolicy implements
 		List<AbstractComponentInfo> pastedModels = new ArrayList<>(mementos.size());
 		// prepare
 		request.setObjects(pastedModels);
-		Point location = request.getLocation().getCopy();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		LayoutDesigner layoutDesigner = m_layout.getLayoutDesigner();
 		translateAbsoluteToModel(location);
 		try {

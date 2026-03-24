@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,8 +15,6 @@ package org.eclipse.wb.gef.core.tools;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
 import org.eclipse.wb.internal.gef.core.SharedCursors;
 
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.swt.SWT;
@@ -43,13 +41,11 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	@SuppressWarnings("deprecation")
 	protected boolean handleButtonDown(int button) {
 		if (button == 1) {
 			if (m_state == STATE_INITIAL) {
 				m_state = STATE_DRAG;
-				((AbstractCreateRequest) getTargetRequest()).setRelativeLocation(getLocation());
-				((AbstractCreateRequest) getTargetRequest()).setLocation(getAbsoluteLocation());
+				((AbstractCreateRequest) getTargetRequest()).setLocation(getLocation());
 				lockTargetEditPart(getTargetEditPart());
 			}
 		} else {
@@ -115,20 +111,15 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	 * Sets the location (and size if the user is performing size-on-drop) of the request.
 	 */
 	@Override
-	@SuppressWarnings("deprecation")
 	protected void updateTargetRequest() {
 		super.updateTargetRequest();
 		AbstractCreateRequest request = (AbstractCreateRequest) getTargetRequest();
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
-			Point start = getAbsoluteStartLocation();
-			Rectangle bounds = new Rectangle(start, getDragMoveDelta());
-			request.setRelativeLocation(getStartLocation());
-			request.setLocation(bounds.getLocation());
-			request.setSize(bounds.getSize());
+			request.setLocation(getStartLocation());
+			request.setSize(getDragMoveDelta());
 		} else {
 			request.setSize(null);
-			request.setRelativeLocation(getLocation());
-			request.setLocation(getAbsoluteLocation());
+			request.setLocation(getLocation());
 		}
 	}
 

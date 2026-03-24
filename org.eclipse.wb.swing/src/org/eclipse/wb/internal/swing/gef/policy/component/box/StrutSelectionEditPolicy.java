@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.swing.gef.policy.component.box;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -159,7 +160,7 @@ abstract class StrutSelectionEditPolicy extends SelectionEditPolicy {
 		{
 			String tooltip = getTooltip(bounds.width - 2, bounds.height - 2);
 			m_textFeedback.setText(tooltip);
-			m_textFeedback.setLocation(request.getLocation().getTranslated(10, 10));
+			m_textFeedback.setLocation(PolicyUtils.getAbsoluteLocation(getHost(), request).translate(10, 10));
 		}
 	}
 

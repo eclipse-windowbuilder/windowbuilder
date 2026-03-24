@@ -310,7 +310,7 @@ IHeadersProvider {
 		}
 		addFeedback(m_moveFeedback);
 		// Case 42313
-		Point moveLocation = isKeyboardMoving() ? moveDelta : request.getLocation();
+		Point moveLocation = isKeyboardMoving() ? moveDelta : PolicyUtils.getAbsoluteLocation(getHost(), request);
 		// do drag
 		m_snapPoints.processBounds(moveLocation, modelList, widgetBounds, 0);
 		// update move feedback: translate bounds back into feedback coordinates, apply bounds for feedback figure

@@ -355,7 +355,7 @@ implements IHeadersProvider {
 		TextFeedback locationFeedbackX = getTextFeedback(xTextFeedbacks, host, true);
 		TextFeedback locationFeedbackY = getTextFeedback(yTextFeedbacks, host, false);
 		// location and parent dimensions
-		Point loc = request.getLocation().getCopy();
+		Point loc = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		ICompositeInfo composite = layout.getComposite();
 		Dimension parentSize = composite.getClientArea().getSize();
 		translateAbsoluteToModel(loc);
@@ -483,7 +483,7 @@ implements IHeadersProvider {
 		TextFeedback locationFeedbackX = getTextFeedback(xTextFeedbacks, host, true);
 		TextFeedback locationFeedbackY = getTextFeedback(yTextFeedbacks, host, false);
 		//
-		Point loc = request.getLocation().getCopy();
+		Point loc = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		translateAbsoluteToModel(loc);
 		//
 		IFigure moveFeedback = moveFeedbacks.get(getHost());

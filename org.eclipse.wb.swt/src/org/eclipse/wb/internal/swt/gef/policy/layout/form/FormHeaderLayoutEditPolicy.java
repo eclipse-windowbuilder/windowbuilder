@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.AbstractHeaderLayoutEditPolicy;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
@@ -146,7 +147,7 @@ AbstractHeaderLayoutEditPolicy {
 					layer.add(feedback);
 				}
 				int figureSize = t.t(getHostFigure().getSize()).height;
-				Point location = t.t(((ChangeBoundsRequest) request).getLocation().getCopy());
+				Point location = t.t(PolicyUtils.getAbsoluteLocation(getHost(), (ChangeBoundsRequest) request));
 				Point position = t.t(new Point(location.x - figureSize / 2, 0));
 				feedback.setLocation(position);
 				feedback.setSize(figureSize, figureSize);
@@ -200,7 +201,7 @@ AbstractHeaderLayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private int calcPercent(ChangeBoundsRequest request) {
-		Point location = request.getLocation().getCopy();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		return calcPercent(location);
 	}
 
