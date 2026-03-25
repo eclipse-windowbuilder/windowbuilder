@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.grid;
 
+import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
@@ -67,7 +68,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 		m_component = component;
 		m_object = m_component.getUnderlyingModel();
 		// add listeners
-		new BroadcastListenerHelper(m_object, this, new ObjectEventListener() {
+		new BroadcastListenerHelper(m_object, (IDesignEditPolicy) this, new ObjectEventListener() {
 			@Override
 			public void refreshed() throws Exception {
 				boolean activePolicy = isActive();

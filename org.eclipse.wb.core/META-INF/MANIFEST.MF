@@ -69,7 +69,6 @@ Export-Package: org.eclipse.wb.core.branding,
    org.eclipse.wb.tests,
    org.eclipse.wb.rcp.swing2swt,
    org.eclipse.wb.swing.java6",
- org.eclipse.wb.gef.core.events;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.gef.core.policies;
   x-friends:="org.eclipse.wb.swt,
    org.eclipse.wb.swing,

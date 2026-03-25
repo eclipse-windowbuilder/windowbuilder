@@ -12,6 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
+import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
+
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -261,7 +263,9 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 */
 	public void performRequest(Request request) {
 		for (EditPolicy editPolicy : getEditPolicyIterable()) {
-			((org.eclipse.wb.gef.core.policies.EditPolicy) editPolicy).performRequest(request);
+			if (editPolicy instanceof IRequestEditPolicy requestPolicy) {
+				requestPolicy.performRequest(request);
+			}
 		}
 	}
 

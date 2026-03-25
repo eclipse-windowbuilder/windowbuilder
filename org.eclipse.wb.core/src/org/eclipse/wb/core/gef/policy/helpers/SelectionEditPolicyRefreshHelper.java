@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.helpers;
 
+import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -36,7 +37,7 @@ public class SelectionEditPolicyRefreshHelper {
 	public SelectionEditPolicyRefreshHelper(SelectionEditPolicy policy) {
 		m_policy = policy;
 		ObjectInfo hierarchyObject = GlobalState.getActiveObject();
-		new BroadcastListenerHelper(hierarchyObject, policy, new ObjectEventListener() {
+		new BroadcastListenerHelper(hierarchyObject, (IDesignEditPolicy) policy, new ObjectEventListener() {
 			@Override
 			public void refreshed() throws Exception {
 				boolean isActivePolicy = m_policy.isActive();

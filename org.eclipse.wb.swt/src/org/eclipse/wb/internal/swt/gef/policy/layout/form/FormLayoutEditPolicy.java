@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 import org.eclipse.wb.core.editor.actions.assistant.ILayoutAssistantPage;
 import org.eclipse.wb.core.editor.actions.assistant.LayoutAssistantListener;
 import org.eclipse.wb.core.gef.command.EditCommand;
+import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -65,7 +66,7 @@ AbsoluteBasedLayoutEditPolicySWT<C> {
 		super(layout_);
 		this.layout = layout_;
 		createPlacementsSupport((IAbsoluteLayoutCommands) layout.getImpl());
-		new BroadcastListenerHelper(layout.getUnderlyingModel(), this, new LayoutAssistantListener() {
+		new BroadcastListenerHelper(layout.getUnderlyingModel(), (IDesignEditPolicy) this, new LayoutAssistantListener() {
 			@Override
 			public void createAssistantPages(List<ObjectInfo> objects,
 					TabFolder folder,

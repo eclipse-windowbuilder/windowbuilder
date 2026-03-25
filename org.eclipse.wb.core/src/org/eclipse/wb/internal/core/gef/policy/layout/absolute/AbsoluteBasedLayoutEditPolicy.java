@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,7 @@ import org.eclipse.wb.core.gef.command.CompoundEditCommand;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.OutlineImageFigure;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
+import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
@@ -91,7 +92,7 @@ IPreferenceConstants {
 	////////////////////////////////////////////////////////////////////////////
 	public AbsoluteBasedLayoutEditPolicy(ObjectInfo layout) {
 		m_layout = layout;
-		new BroadcastListenerHelper(layout, this, new ObjectInfoDelete() {
+		new BroadcastListenerHelper(layout, (IDesignEditPolicy) this, new ObjectInfoDelete() {
 			@Override
 			public void before(ObjectInfo parent, ObjectInfo child) throws Exception {
 				if (parent instanceof IAbstractComponentInfo) {
@@ -108,7 +109,7 @@ IPreferenceConstants {
 				return getHostModel() == parent && parent != null && parent.getChildren().contains(child);
 			}
 		});
-		new BroadcastListenerHelper(layout, this, new ObjectEventListener() {
+		new BroadcastListenerHelper(layout, (IDesignEditPolicy) this, new ObjectEventListener() {
 			@Override
 			public void refreshed() throws Exception {
 				showSelectionFeedbacks();

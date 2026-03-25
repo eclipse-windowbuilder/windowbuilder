@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,12 +13,14 @@
 package org.eclipse.wb.internal.core.gef.policy;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
+import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
 import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 
 /**
  * {@link EditPolicy} that runs given MVEL script on double click.
@@ -26,7 +28,7 @@ import org.eclipse.gef.RequestConstants;
  * @author scheglov_ke
  * @coverage core.gef.policy
  */
-public final class DblClickRunScriptEditPolicy extends EditPolicy {
+public final class DblClickRunScriptEditPolicy extends AbstractEditPolicy implements IRequestEditPolicy {
 	private final ObjectInfo m_component;
 	private final String m_script;
 
@@ -47,7 +49,6 @@ public final class DblClickRunScriptEditPolicy extends EditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void performRequest(Request request) {
-		super.performRequest(request);
 		if (RequestConstants.REQ_OPEN.equals(request.getType())) {
 			ExecutionUtils.run(m_component, () -> ScriptUtils.evaluate(m_script, m_component));
 		}

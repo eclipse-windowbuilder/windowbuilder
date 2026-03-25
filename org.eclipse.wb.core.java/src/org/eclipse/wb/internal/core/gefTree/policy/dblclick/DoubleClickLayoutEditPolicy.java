@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,14 +14,16 @@ package org.eclipse.wb.internal.core.gefTree.policy.dblclick;
 
 import org.eclipse.wb.core.gefTree.part.JavaEditPart;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
+import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 
 /**
  * An abstract descendant of {@link LayoutEditPolicy} for double-click handling in widgets tree.
@@ -29,9 +31,7 @@ import org.eclipse.gef.RequestConstants;
  * @author mitin_aa
  * @coverage core.gefTree.policy
  */
-public abstract class DoubleClickLayoutEditPolicy extends EditPolicy
-implements
-IPreferenceConstants {
+public abstract class DoubleClickLayoutEditPolicy extends AbstractEditPolicy implements IPreferenceConstants, IRequestEditPolicy {
 	protected final JavaInfo m_javaInfo;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -81,7 +81,6 @@ IPreferenceConstants {
 		if (RequestConstants.REQ_OPEN.equals(request.getType())) {
 			performDoubleClick();
 		}
-		super.performRequest(request);
 	}
 
 	/**

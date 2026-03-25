@@ -13,15 +13,17 @@
 package org.eclipse.wb.internal.core.gef.policy;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
+import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.property.event.EventsProperty;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -40,7 +42,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author mitin_aa
  * @coverage core.gef.policy
  */
-public final class OpenListenerEditPolicy extends EditPolicy {
+public final class OpenListenerEditPolicy extends AbstractEditPolicy implements IRequestEditPolicy {
 	private static final String DOUBLE_CLICK_LISTENER = "double-click.listener";
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -76,6 +78,5 @@ public final class OpenListenerEditPolicy extends EditPolicy {
 				}
 			});
 		}
-		super.performRequest(request);
 	}
 }

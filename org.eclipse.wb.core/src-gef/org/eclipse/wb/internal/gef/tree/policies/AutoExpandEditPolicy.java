@@ -12,15 +12,16 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree.policies;
 
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
@@ -33,7 +34,7 @@ import org.eclipse.swt.widgets.TreeItem;
  * @author scheglov_ke
  * @coverage gef.tree
  */
-public final class AutoExpandEditPolicy extends EditPolicy {
+public final class AutoExpandEditPolicy extends AbstractEditPolicy {
 	@Override
 	public boolean understandsRequest(Request request) {
 		return request.getType() == RequestConstants.REQ_CREATE || request.getType() == PasteRequest.REQ_PASTE;

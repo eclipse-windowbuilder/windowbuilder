@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.wb.core" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter comment="Restructuring of internal IEditPolicyListener" id="923795461">
+            <message_arguments>
+                <message_argument value="1.24.0"/>
+                <message_argument value="1.23.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/policy/helpers/BroadcastListenerHelper.java" type="org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper">
+        <filter comment="Method marked for removal" id="643846161">
+            <message_arguments>
+                <message_argument value="EditPolicy"/>
+                <message_argument value="BroadcastListenerHelper"/>
+                <message_argument value="activatePolicy(EditPolicy)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Method marked for removal" id="643846161">
+            <message_arguments>
+                <message_argument value="EditPolicy"/>
+                <message_argument value="BroadcastListenerHelper"/>
+                <message_argument value="deactivatePolicy(EditPolicy)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Constructor marked for removal" id="643850349">
+            <message_arguments>
+                <message_argument value="EditPolicy"/>
+                <message_argument value="BroadcastListenerHelper"/>
+                <message_argument value="BroadcastListenerHelper(ObjectInfo, EditPolicy, Object)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/policy/helpers/SelectionListenerHelper.java" type="org.eclipse.wb.core.gef.policy.helpers.SelectionListenerHelper">
+        <filter comment="Method marked for removal" id="643846161">
+            <message_arguments>
+                <message_argument value="EditPolicy"/>
+                <message_argument value="SelectionListenerHelper"/>
+                <message_argument value="activatePolicy(EditPolicy)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Method marked for removal" id="643846161">
+            <message_arguments>
+                <message_argument value="EditPolicy"/>
+                <message_argument value="SelectionListenerHelper"/>
+                <message_argument value="deactivatePolicy(EditPolicy)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Constructor marked for removal" id="643850349">
+            <message_arguments>
+                <message_argument value="EditPolicy"/>
+                <message_argument value="SelectionListenerHelper"/>
+                <message_argument value="SelectionListenerHelper(EditPolicy, EditPartListener)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
