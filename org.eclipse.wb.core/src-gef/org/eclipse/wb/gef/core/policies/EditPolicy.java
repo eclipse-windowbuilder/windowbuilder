@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.gef.core.events.IEditPolicyListener;
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.Command;
 
 import java.util.Iterator;
 
@@ -76,36 +75,6 @@ public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEd
 	// Request/Command
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the <code>{@link Command}</code> contribution for the given
-	 * <code>{@link Request}</code>, or <code>null</code>. <code>null</code> is treated as a no-op by
-	 * the caller, or an empty contribution.
-	 */
-	public Command getCommand(Request request) {
-		return null;
-	}
-
-	/**
-	 * Returns <code>null</code> or the appropriate <code>{@link EditPart}</code> for the specified
-	 * <code>{@link Request}</code>. In general, this {@link EditPolicy} will return its <i>host</i>
-	 * {@link EditPart} if it understands the {@link Request}. Otherwise, it will return
-	 * <code>null</code>.
-	 * <P>
-	 * This method is declared on {@link EditPart#getTargetEditPart(Request) EditPart}, and is
-	 * redeclared here so that {@link EditPart} can delegate its implementation to each of its
-	 * EditPolicies. The first non- <code>null</code> result returned by an {@link EditPolicy} is
-	 * returned by the {@link EditPart}.
-	 */
-	public EditPart getTargetEditPart(Request request) {
-		return null;
-	}
-
-	/**
-	 * Returns <code>true</code> if this {@link EditPolicy} understand the specified request.
-	 */
-	public boolean understandsRequest(Request request) {
-		return false;
-	}
 
 	/**
 	 * Performs the specified Request. This method can be used to send a generic message to an
@@ -113,65 +82,6 @@ public abstract class EditPolicy extends org.eclipse.gef.editpolicies.AbstractEd
 	 * implementation does not handle any requests.
 	 */
 	public void performRequest(Request request) {
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Source Feedback
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Shows or updates <i>source feedback</i> for the specified <code>{@link Request}</code>. This
-	 * method may be called repeatedly for the purpose of updating feedback based on changes to the
-	 * {@link Request}.
-	 * <P>
-	 * Does nothing if the EditPolicy does not recognize the given {@link Request}.
-	 * <P>
-	 * This method is declared on {@link EditPart#showSourceFeedback(Request) EditPart}, and is
-	 * redeclared here so that EditPart can delegate its implementation to each of its EditPolicies.
-	 */
-	public void showSourceFeedback(Request request) {
-	}
-
-	/**
-	 * Erases source feedback based on the given <code>{@link Request}</code>. Does nothing if the
-	 * {@link EditPolicy} does not apply to the given {@link Request}.
-	 * <P>
-	 * This method is declared on {@link EditPart#eraseSourceFeedback(Request) EditPart}, and is
-	 * redeclared here so that {@link EditPart} can delegate its implementation to each of its
-	 * EditPolicies.
-	 */
-	public void eraseSourceFeedback(Request request) {
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Target Feedback
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Shows or updates <i>target feedback</i> for the specified <code>{@link Request}</code>. This
-	 * method may be called repeatedly for the purpose of updating feedback based on changes to the
-	 * {@link Request}.
-	 * <P>
-	 * Does nothing if the EditPolicy does not recognize the given request.
-	 * <P>
-	 * This method is declared on {@link EditPart#showTargetFeedback(Request) EditPart}, and is
-	 * redeclared here so that {@link EditPart} can delegate its implementation to each of its
-	 * EditPolicies.
-	 */
-	public void showTargetFeedback(Request request) {
-	}
-
-	/**
-	 * Erases target feedback based on the given <code>{@link Request}</code>. Does nothing if the
-	 * {@link EditPolicy} does not apply to the given {@link Request}.
-	 * <P>
-	 * This method is declared on {@link EditPart#eraseTargetFeedback(Request) EditPart}, and is
-	 * redeclared here so that {@link EditPart} can delegate its implementation to each of its
-	 * EditPolicies.
-	 */
-	public void eraseTargetFeedback(Request request) {
 	}
 
 	////////////////////////////////////////////////////////////////////////////
