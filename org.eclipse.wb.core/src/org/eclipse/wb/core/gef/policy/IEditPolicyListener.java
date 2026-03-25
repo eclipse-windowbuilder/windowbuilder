@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -10,24 +10,24 @@
  * Contributors:
  *    Google, Inc. - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.gef.core.events;
-
-import org.eclipse.wb.gef.core.policies.EditPolicy;
+package org.eclipse.wb.core.gef.policy;
 
 /**
- * The listener interface for receiving basic events from an {@link EditPolicy}.
+ * The listener interface for receiving basic events from an
+ * {@link IDesignEditPolicy}.
  *
  * @author lobas_av
  * @coverage gef.core
+ * @since 1.24
  */
 public interface IEditPolicyListener {
 	/**
-	 * Called when given {@link EditPolicy} has activate.
+	 * Called when given {@link IDesignEditPolicy} has activate.
 	 */
-	void activatePolicy(EditPolicy policy);
+	void activatePolicy(IDesignEditPolicy policy);
 
 	/**
-	 * Called when given {@link EditPolicy} has deactivate.
+	 * Called when given {@link IDesignEditPolicy} has deactivate.
 	 */
-	void deactivatePolicy(EditPolicy policy);
+	void deactivatePolicy(IDesignEditPolicy policy);
 }

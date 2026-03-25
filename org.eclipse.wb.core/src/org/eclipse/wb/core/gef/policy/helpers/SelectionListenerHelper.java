@@ -12,7 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.helpers;
 
-import org.eclipse.wb.gef.core.events.IEditPolicyListener;
+import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
+import org.eclipse.wb.core.gef.policy.IEditPolicyListener;
 import org.eclipse.wb.gef.core.policies.EditPolicy;
 
 import org.eclipse.gef.EditPart;
@@ -26,7 +27,7 @@ import org.eclipse.gef.EditPartListener;
  * @coverage core.gef.policy
  */
 public final class SelectionListenerHelper implements IEditPolicyListener {
-	private final EditPolicy m_editPolicy;
+	private final IDesignEditPolicy m_editPolicy;
 	private final EditPartListener m_listener;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -34,7 +35,20 @@ public final class SelectionListenerHelper implements IEditPolicyListener {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public SelectionListenerHelper(EditPolicy editPolicy, EditPartListener listener) {
+	/**
+	 * @deprecated Use
+	 *             {@link #SelectionListenerHelper(IDesignEditPolicy, EditPartListener)}
+	 *             instead.
+	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
+	public SelectionListenerHelper(@SuppressWarnings("removal") EditPolicy editPolicy, EditPartListener listener) {
+		this((IDesignEditPolicy) editPolicy, listener);
+	}
+
+	/**
+	 * @since 1.24
+	 */
+	public SelectionListenerHelper(IDesignEditPolicy editPolicy, EditPartListener listener) {
 		m_editPolicy = editPolicy;
 		m_listener = listener;
 		m_editPolicy.addEditPolicyListener(this);
@@ -46,13 +60,29 @@ public final class SelectionListenerHelper implements IEditPolicyListener {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void activatePolicy(EditPolicy policy) {
+	public void activatePolicy(IDesignEditPolicy policy) {
 		m_editPolicy.getHost().addEditPartListener(m_listener);
 	}
 
 	@Override
-	public void deactivatePolicy(EditPolicy policy) {
+	public void deactivatePolicy(IDesignEditPolicy policy) {
 		m_editPolicy.getHost().removeEditPartListener(m_listener);
 		m_editPolicy.removeEditPolicyListener(this);
+	}
+
+	/**
+	 * @deprecated Use {@link #activatePolicy(IDesignEditPolicy)} instead.
+	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
+	public void activatePolicy(@SuppressWarnings("removal") org.eclipse.wb.gef.core.policies.EditPolicy policy) {
+		activatePolicy((IDesignEditPolicy) policy);
+	}
+
+	/**
+	 * @deprecated Use {@link #deactivatePolicy(IDesignEditPolicy)} instead.
+	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
+	public void deactivatePolicy(@SuppressWarnings("removal") org.eclipse.wb.gef.core.policies.EditPolicy policy) {
+		deactivatePolicy((IDesignEditPolicy) policy);
 	}
 }

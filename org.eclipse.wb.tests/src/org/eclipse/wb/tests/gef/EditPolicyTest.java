@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,8 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.events.IEditPolicyListener;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
+import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
+import org.eclipse.wb.core.gef.policy.IEditPolicyListener;
+import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
 
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
@@ -33,18 +34,17 @@ public class EditPolicyTest extends GefTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_Add_Remove_EditPolicyListener() throws Exception {
-		EditPolicy testPolicy = new EditPolicy() {
-		};
+		DesignEditPolicy testPolicy = new DesignEditPolicy();
 		// check init state of listener for new EditPolicy
 		assertNull(testPolicy.getListeners(IEditPolicyListener.class));
 		//
 		IEditPolicyListener listener1 = new IEditPolicyListener() {
 			@Override
-			public void activatePolicy(EditPolicy policy) {
+			public void activatePolicy(IDesignEditPolicy policy) {
 			}
 
 			@Override
-			public void deactivatePolicy(EditPolicy policy) {
+			public void deactivatePolicy(IDesignEditPolicy policy) {
 			}
 		};
 		testPolicy.addEditPolicyListener(listener1);
@@ -56,11 +56,11 @@ public class EditPolicyTest extends GefTestCase {
 		//
 		IEditPolicyListener listener2 = new IEditPolicyListener() {
 			@Override
-			public void activatePolicy(EditPolicy policy) {
+			public void activatePolicy(IDesignEditPolicy policy) {
 			}
 
 			@Override
-			public void deactivatePolicy(EditPolicy policy) {
+			public void deactivatePolicy(IDesignEditPolicy policy) {
 			}
 		};
 		testPolicy.addEditPolicyListener(listener2);
@@ -89,17 +89,16 @@ public class EditPolicyTest extends GefTestCase {
 		TestLogger expectedLogger = new TestLogger();
 		IEditPolicyListener listener = new IEditPolicyListener() {
 			@Override
-			public void activatePolicy(EditPolicy policy) {
+			public void activatePolicy(IDesignEditPolicy policy) {
 				actualLogger.log("activate = " + policy);
 			}
 
 			@Override
-			public void deactivatePolicy(EditPolicy policy) {
+			public void deactivatePolicy(IDesignEditPolicy policy) {
 				actualLogger.log("deactivate = " + policy);
 			}
 		};
-		EditPolicy testPolicy = new EditPolicy() {
-		};
+		DesignEditPolicy testPolicy = new DesignEditPolicy();
 		//
 		testPolicy.addEditPolicyListener(listener);
 		actualLogger.assertEmpty();

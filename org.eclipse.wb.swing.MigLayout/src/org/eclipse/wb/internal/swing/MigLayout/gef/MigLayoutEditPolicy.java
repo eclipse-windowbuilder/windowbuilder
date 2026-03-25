@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.swing.MigLayout.gef;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
+import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils2;
@@ -70,7 +71,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 		m_gridTargetHelper = new MigGridHelper(this, true);
 		m_gridSelectionHelper = new MigGridHelper(this, false);
 		// add listeners
-		new BroadcastListenerHelper(layout, this, new ObjectEventListener() {
+		new BroadcastListenerHelper(layout, (IDesignEditPolicy) this, new ObjectEventListener() {
 			@Override
 			public void refreshed() throws Exception {
 				decorateChildren();

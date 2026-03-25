@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.policies;
 
+import org.eclipse.gef.EditPolicy;
+
 /**
  * Optional interface for {@link EditPolicy} that may be used to notify {@link EditPolicy} that
  * something was changed, and even if it is still active, some changes may be should be performed.
@@ -21,6 +23,6 @@ package org.eclipse.wb.gef.core.policies;
  * @author scheglov_ke
  * @coverage gef.core
  */
-public interface IRefreshableEditPolicy {
+public interface IRefreshableEditPolicy extends EditPolicy {
 	void refreshEditPolicy();
 }

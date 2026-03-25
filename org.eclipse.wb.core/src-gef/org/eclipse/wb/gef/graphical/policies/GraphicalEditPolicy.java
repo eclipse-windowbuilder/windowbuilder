@@ -14,7 +14,7 @@ package org.eclipse.wb.gef.graphical.policies;
 
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
+import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.IFigure;
@@ -26,7 +26,7 @@ import org.eclipse.gef.editparts.LayerManager;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class GraphicalEditPolicy extends EditPolicy {
+public class GraphicalEditPolicy extends DesignEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access
@@ -50,6 +50,13 @@ public class GraphicalEditPolicy extends EditPolicy {
 	 */
 	protected final IFigure getHostFigure() {
 		return getHost().getFigure();
+	}
+
+	/**
+	 * Convenience method to return the host's model.
+	 */
+	protected final Object getHostModel() {
+		return getHost().getModel();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

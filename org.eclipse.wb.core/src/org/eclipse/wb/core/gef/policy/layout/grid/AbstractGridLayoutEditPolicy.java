@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.core.gef.policy.layout.grid;
 
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.IHeadersProvider;
+import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.gef.policy.helpers.SelectionListenerHelper;
@@ -57,13 +58,13 @@ IHeadersProvider {
 	////////////////////////////////////////////////////////////////////////////
 	public AbstractGridLayoutEditPolicy(ObjectInfo layout) {
 		// add listeners
-		new BroadcastListenerHelper(layout, this, new ObjectEventListener() {
+		new BroadcastListenerHelper(layout, (IDesignEditPolicy) this, new ObjectEventListener() {
 			@Override
 			public void refreshed2() throws Exception {
 				refreshSelectionGrid();
 			}
 		});
-		new SelectionListenerHelper(this, new EditPartListener.Stub() {
+		new SelectionListenerHelper((IDesignEditPolicy) this, new EditPartListener.Stub() {
 			@Override
 			public void selectedStateChanged(EditPart editPart) {
 				refreshSelectionGrid();

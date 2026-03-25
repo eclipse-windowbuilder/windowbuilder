@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.gef.policy;
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.actions.errors.ErrorsAction;
@@ -28,6 +27,8 @@ import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -37,7 +38,7 @@ import org.eclipse.swt.graphics.Image;
  * @author scheglov_ke
  * @coverage core.gef.policy
  */
-public final class OpenErrorLogEditPolicy extends EditPolicy {
+public final class OpenErrorLogEditPolicy extends AbstractEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Install and access
