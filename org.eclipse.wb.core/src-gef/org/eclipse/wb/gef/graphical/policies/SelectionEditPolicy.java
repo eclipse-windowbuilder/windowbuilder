@@ -15,6 +15,7 @@ package org.eclipse.wb.gef.graphical.policies;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 
 import org.eclipse.gef.EditPart;
@@ -38,7 +39,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public abstract class SelectionEditPolicy extends GraphicalEditPolicy {
+public abstract class SelectionEditPolicy extends DesignEditPolicy {
 	private final EditPartListener listener = new EditPartListener.Stub() {
 		@Override
 		public void selectedStateChanged(org.eclipse.gef.EditPart part) {
