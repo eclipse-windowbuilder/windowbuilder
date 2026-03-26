@@ -74,3 +74,4 @@ Java
 # Eclipse
 */src-gen
 **/html/**/*.html
+**/bin
