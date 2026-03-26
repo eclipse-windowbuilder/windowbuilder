@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,8 +19,8 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
-import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.tools.TabOrderContainerRequest;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -41,7 +41,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage core.gef.policy
  */
-public final class TabOrderContainerEditPolicy extends GraphicalEditPolicy {
+public final class TabOrderContainerEditPolicy extends DesignEditPolicy {
 	public static final Request TAB_ORDER_REQUEST = new Request("tab order");
 	public static final String TAB_CONTAINER_ROLE = "tab container role";
 	public static final String REQ_CONTAINER_TAB_ORDER = "container tab order";

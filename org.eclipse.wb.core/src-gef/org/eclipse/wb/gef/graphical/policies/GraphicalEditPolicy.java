@@ -12,21 +12,18 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
-import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
+import org.eclipse.wb.gef.core.policies.EditPolicy;
 import org.eclipse.wb.gef.graphical.GraphicalEditPart;
-
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.LayerConstants;
-import org.eclipse.gef.editparts.LayerManager;
 
 /**
  * @author lobas_av
  * @coverage gef.graphical
+ * @deprecated Extend {@link org.eclipse.gef.editpolicies.GraphicalEditPolicy
+ *             GraphicalEditPolicy} directly.
  */
-public class GraphicalEditPolicy extends DesignEditPolicy {
+@SuppressWarnings("removal")
+@Deprecated(since = "2026-06", forRemoval = true)
+public class GraphicalEditPolicy extends EditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Access
@@ -35,86 +32,9 @@ public class GraphicalEditPolicy extends DesignEditPolicy {
 	/**
 	 * @return the <i>host</i> {@link GraphicalEditPart} on which this policy is installed.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	@Override
 	public GraphicalEditPart getHost() {
 		return (GraphicalEditPart) super.getHost();
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Figure
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Convenience method to return the host's {@link IFigure}.
-	 */
-	protected final IFigure getHostFigure() {
-		return getHost().getFigure();
-	}
-
-	/**
-	 * Convenience method to return the host's model.
-	 */
-	protected final Object getHostModel() {
-		return getHost().getModel();
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Layer's
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Obtains the specified layer.
-	 */
-	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "ES_COMPARING_PARAMETER_STRING_WITH_EQ")
-	protected final Layer getLayer(String name) {
-		if (isOnMenuLayer()) {
-			if (name == LayerConstants.HANDLE_LAYER) {
-				name = IEditPartViewer.MENU_HANDLE_LAYER;
-			} else if (name == IEditPartViewer.HANDLE_LAYER_STATIC) {
-				name = IEditPartViewer.MENU_HANDLE_LAYER_STATIC;
-			} else if (name == LayerConstants.FEEDBACK_LAYER) {
-				name = IEditPartViewer.MENU_FEEDBACK_LAYER;
-			}
-		}
-		return (Layer) LayerManager.Helper.find(getHost()).getLayer(name);
-	}
-
-	/**
-	 * @return the {@link Layer} for {@link IEditPartViewer#FEEDBACK_LAYER}.
-	 */
-	protected Layer getFeedbackLayer() {
-		return getLayer(LayerConstants.FEEDBACK_LAYER);
-	}
-
-	/**
-	 * Adds the specified <code>{@link IFigure}</code> to the {@link IEditPartViewer#FEEDBACK_LAYER}.
-	 */
-	protected final void addFeedback(IFigure figure) {
-		getFeedbackLayer().add(figure);
-	}
-
-	/**
-	 * Removes the specified <code>{@link IFigure}</code> to the {@link IEditPartViewer#FEEDBACK_LAYER}
-	 * .
-	 */
-	protected final void removeFeedback(IFigure figure) {
-		getFeedbackLayer().remove(figure);
-	}
-
-	/**
-	 * @return <code>true</code> if host {@link EditPart} is located on
-	 *         {@link IEditPartViewer#MENU_PRIMARY_LAYER}.
-	 */
-	private boolean isOnMenuLayer() {
-		Layer menuPrimaryLayer = (Layer) LayerManager.Helper.find(getHost()).getLayer(IEditPartViewer.MENU_PRIMARY_LAYER);
-		for (IFigure figure = getHostFigure(); figure != null; figure = figure.getParent()) {
-			if (figure == menuPrimaryLayer) {
-				return true;
-			}
-		}
-		// no, probably normal PRIMARY_LAYER
-		return false;
 	}
 }

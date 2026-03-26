@@ -19,8 +19,6 @@ import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.CompoundBorder;
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
-import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -35,8 +33,10 @@ import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.editparts.LayerManager;
+import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -57,6 +57,8 @@ public abstract class PolicyUtils {
 
 	/**
 	 * Shows border around given {@link EditPolicy} host figure.
+	 *
+	 * @since 1.24
 	 */
 	public static void showBorderTargetFeedback(final GraphicalEditPolicy policy) {
 		ExecutionUtils.runLog(() -> {
@@ -67,6 +69,8 @@ public abstract class PolicyUtils {
 
 	/**
 	 * Shows border around given {@link GraphicalEditPart} figure.
+	 *
+	 * @since 1.24
 	 */
 	public static void showBorderTargetFeedback(GraphicalEditPart part) {
 		Layer feedbackLayer = (Layer) LayerManager.Helper.find(part.getViewer()).getLayer(LayerConstants.FEEDBACK_LAYER);
@@ -99,6 +103,8 @@ public abstract class PolicyUtils {
 
 	/**
 	 * Erases border feedback.
+	 *
+	 * @since 1.24
 	 */
 	public static void eraseBorderTargetFeedback(GraphicalEditPolicy policy) {
 		GraphicalEditPart part = policy.getHost();
@@ -107,6 +113,8 @@ public abstract class PolicyUtils {
 
 	/**
 	 * Erases border feedback.
+	 *
+	 * @since 1.24
 	 */
 	public static void eraseBorderTargetFeedback(GraphicalEditPart part) {
 		IFigure borderFeedback = (IFigure) part.getViewer().getControl().getData(BORDER_FEEDBACK_KEY);
@@ -132,11 +140,11 @@ public abstract class PolicyUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Invokes {@link EditPolicy#getLayer(java.lang.String)}.
+	 * Invokes {@link GraphicalEditPolicy#getLayer(java.lang.Object)}.
 	 */
-	private static Layer getLayer(GraphicalEditPolicy policy, String name) throws Exception {
-		Method method = findPolicyMethod(policy, "getLayer(java.lang.String)");
-		return (Layer) ReflectionUtils.invokeMethod(method, policy, name);
+	private static Layer getLayer(GraphicalEditPolicy policy, Object layer) throws Exception {
+		Method method = findPolicyMethod(policy, "getLayer(java.lang.Object)");
+		return (Layer) ReflectionUtils.invokeMethod(method, policy, layer);
 	}
 
 	/**
@@ -154,6 +162,7 @@ public abstract class PolicyUtils {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return absolute bounds of given {@link EditPart}'s {@link IFigure}.
+	 * @since 1.24
 	 */
 	public static Rectangle getAbsoluteBounds(GraphicalEditPart editPart) {
 		IFigure figure = editPart.getFigure();
@@ -167,6 +176,9 @@ public abstract class PolicyUtils {
 	// Geometry utilities
 	//
 	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @since 1.24
+	 */
 	public static void translateAbsoluteToFeedback(GraphicalEditPolicy policy, Translatable t) {
 		try {
 			IFigure layer = getLayer(policy, LayerConstants.FEEDBACK_LAYER);
@@ -195,8 +207,10 @@ public abstract class PolicyUtils {
 	}
 
 	/**
-	 * Converts 'absolute' coordinates into coordinates by <code>toContainer</code> {@link EditPart}.
-	 * Useful during reparenting.
+	 * Converts 'absolute' coordinates into coordinates by <code>toContainer</code>
+	 * {@link EditPart}. Useful during reparenting.
+	 *
+	 * @since 1.24
 	 */
 	public static void translateAbsoluteToModel(GraphicalEditPart toContainer, Translatable t) {
 		try {
@@ -217,7 +231,10 @@ public abstract class PolicyUtils {
 	}
 
 	/**
-	 * Translates given {@link Translatable} from model coordinates into feedback layer coordinates.
+	 * Translates given {@link Translatable} from model coordinates into feedback
+	 * layer coordinates.
+	 *
+	 * @since 1.24
 	 */
 	public static void translateModelToFeedback(GraphicalEditPolicy policy, Translatable t) {
 		if (policy instanceof LayoutEditPolicy) {

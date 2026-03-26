@@ -12,14 +12,14 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.policies;
 
-import org.eclipse.gef.editpolicies.AbstractEditPolicy;
+import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
 /**
  * @author lobas_av
  * @coverage gef.core
- * @deprecated Extend {@link AbstractEditPolicy} directly.
+ * @deprecated Extend {@link GraphicalEditPolicy} directly.
  */
 @Deprecated(since = "2026-06", forRemoval = true)
-public abstract class EditPolicy extends AbstractEditPolicy {
+public abstract class EditPolicy extends GraphicalEditPolicy {
 	// Empty
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,19 +12,26 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical;
 
-import org.eclipse.wb.gef.core.EditPart;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 import org.eclipse.wb.gef.core.tools.Tool;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.NodeListener;
 import org.eclipse.gef.Request;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author lobas_av
  * @coverage gef.graphical
  */
-public abstract class GraphicalEditPart extends EditPart {
+public abstract class GraphicalEditPart extends org.eclipse.wb.gef.core.EditPart implements org.eclipse.gef.GraphicalEditPart {
 	private IFigure m_figure;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -106,6 +113,41 @@ public abstract class GraphicalEditPart extends EditPart {
 	 */
 	protected boolean removeSelfVisual() {
 		return false;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<? extends GraphicalEditPart> getChildren() {
+		return (List<? extends GraphicalEditPart>) super.getChildren();
+	}
+
+	@Override
+	public void addNodeListener(NodeListener listener) {
+		getEventListenerList().addListener(NodeListener.class, listener);
+	}
+
+	@Override
+	public void removeNodeListener(NodeListener listener) {
+		getEventListenerList().removeListener(NodeListener.class, listener);
+	}
+
+	private EventListenerList getEventListenerList() {
+		return (EventListenerList) ReflectionUtils.getFieldObject(this, "eventListeners");
+	}
+
+	@Override
+	public List<? extends ConnectionEditPart> getSourceConnections() {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public List<? extends ConnectionEditPart> getTargetConnections() {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public void setLayoutConstraint(EditPart child, IFigure figure, Object constraint) {
+		figure.getParent().setConstraint(figure, constraint);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

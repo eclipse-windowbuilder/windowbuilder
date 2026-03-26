@@ -20,8 +20,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
-import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -36,7 +34,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.LayerManager;
+import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 import org.eclipse.swt.graphics.Color;
 
 import java.lang.reflect.Field;
@@ -75,6 +75,19 @@ public abstract class AbstractGridHelper {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * @deprecated Use @link #AbstractGridHelper(GraphicalEditPolicy, boolean)}
+	 *             instead.
+	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
+	public AbstractGridHelper(@SuppressWarnings("removal") org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy editPolicy, boolean forTarget) {
+		this((GraphicalEditPolicy) editPolicy, forTarget);
+	}
+
+	/**
+	 * @since 1.24
+	 */
 	public AbstractGridHelper(GraphicalEditPolicy editPolicy, boolean forTarget) {
 		m_editPolicy = editPolicy;
 		// colors
@@ -323,6 +336,7 @@ public abstract class AbstractGridHelper {
 
 	/**
 	 * @return the host {@link EditPart}.
+	 * @since 1.24
 	 */
 	protected GraphicalEditPart getHost() {
 		if (m_editPolicy instanceof LayoutEditPolicy) {

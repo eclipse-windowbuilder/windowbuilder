@@ -14,16 +14,22 @@ package org.eclipse.wb.gef.core.policies;
 
 import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.gef.policy.IEditPolicyListener;
+import org.eclipse.wb.draw2d.Layer;
+import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 
 import org.eclipse.draw2d.EventListenerList;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.editparts.LayerManager;
 
 import java.util.Iterator;
 
 @SuppressWarnings("removal")
-public class DesignEditPolicy extends org.eclipse.wb.gef.core.policies.EditPolicy implements IDesignEditPolicy, IRequestEditPolicy {
+public class DesignEditPolicy extends GraphicalEditPolicy implements IDesignEditPolicy, IRequestEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Instance fields
@@ -142,5 +148,62 @@ public class DesignEditPolicy extends org.eclipse.wb.gef.core.policies.EditPolic
 		if (listeners != null) {
 			listeners.forEachRemaining(listener -> listener.deactivatePolicy(this));
 		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Model Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Convenience method to return the host's model.
+	 */
+	protected final Object getHostModel() {
+		return getHost().getModel();
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Layer's
+	//
+	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * Obtains the specified layer.
+	 */
+	@Override
+	protected final Layer getLayer(Object layer) {
+		if (isOnMenuLayer()) {
+			if (LayerConstants.HANDLE_LAYER.equals(layer)) {
+				layer = IEditPartViewer.MENU_HANDLE_LAYER;
+			} else if (IEditPartViewer.HANDLE_LAYER_STATIC.equals(layer)) {
+				layer = IEditPartViewer.MENU_HANDLE_LAYER_STATIC;
+			} else if (LayerConstants.FEEDBACK_LAYER.equals(layer)) {
+				layer = IEditPartViewer.MENU_FEEDBACK_LAYER;
+			}
+		}
+		return (Layer) super.getLayer(layer);
+	}
+
+	/**
+	 * @return the {@link Layer} for {@link IEditPartViewer#FEEDBACK_LAYER}.
+	 */
+	@Override
+	protected Layer getFeedbackLayer() {
+		return getLayer(LayerConstants.FEEDBACK_LAYER);
+	}
+
+	/**
+	 * @return <code>true</code> if host {@link EditPart} is located on
+	 *         {@link IEditPartViewer#MENU_PRIMARY_LAYER}.
+	 */
+	private boolean isOnMenuLayer() {
+		Layer menuPrimaryLayer = (Layer) LayerManager.Helper.find(getHost()).getLayer(IEditPartViewer.MENU_PRIMARY_LAYER);
+		for (IFigure figure = getHostFigure(); figure != null; figure = figure.getParent()) {
+			if (figure == menuPrimaryLayer) {
+				return true;
+			}
+		}
+		// no, probably normal PRIMARY_LAYER
+		return false;
 	}
 }

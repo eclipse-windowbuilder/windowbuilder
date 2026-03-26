@@ -8,6 +8,56 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/wb/core/gef/policy/PolicyUtils.java" type="org.eclipse.wb.core.gef.policy.PolicyUtils">
+        <filter comment="Restructuring of internal GraphicalEditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="eraseBorderTargetFeedback(GraphicalEditPart)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GraphicalEditPolicy" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="eraseBorderTargetFeedback(GraphicalEditPolicy)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GraphicalEditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="getAbsoluteBounds(GraphicalEditPart)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GraphicalEditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="showBorderTargetFeedback(GraphicalEditPart)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GraphicalEditPolicy" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="showBorderTargetFeedback(GraphicalEditPolicy)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GraphicalEditPolicy" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="translateAbsoluteToFeedback(GraphicalEditPolicy, Translatable)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GraphicalEditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="translateAbsoluteToModel(GraphicalEditPart, Translatable)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GraphicalEditPolicy" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="translateModelToFeedback(GraphicalEditPolicy, Translatable)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/wb/core/gef/policy/helpers/BroadcastListenerHelper.java" type="org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper">
         <filter comment="Method marked for removal" id="643846161">
             <message_arguments>
@@ -51,6 +101,21 @@
                 <message_argument value="EditPolicy"/>
                 <message_argument value="SelectionListenerHelper"/>
                 <message_argument value="SelectionListenerHelper(EditPolicy, EditPartListener)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/policy/layout/grid/AbstractGridHelper.java" type="org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridHelper">
+        <filter comment="Restructuring of internal GraphicalEditPolicy" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridHelper"/>
+                <message_argument value="getHost()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Constructor marked for removal" id="643850349">
+            <message_arguments>
+                <message_argument value="GraphicalEditPolicy"/>
+                <message_argument value="AbstractGridHelper"/>
+                <message_argument value="AbstractGridHelper(GraphicalEditPolicy, boolean)"/>
             </message_arguments>
         </filter>
     </resource>

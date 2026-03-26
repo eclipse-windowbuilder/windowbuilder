@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
+import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
 import org.eclipse.wb.gef.core.policies.IEditPartDecorationListener;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -31,7 +32,7 @@ import java.util.Iterator;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public abstract class LayoutEditPolicy extends GraphicalEditPolicy {
+public abstract class LayoutEditPolicy extends DesignEditPolicy {
 	private final EditPartListener m_listener = new EditPartListener.Stub() {
 		@Override
 		public void childAdded(EditPart child, int index) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,9 +14,10 @@ package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid;
 
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridHelper;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
+
+import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
 /**
  * Helper for displaying grid for {@link ITableWrapLayoutInfo}.
