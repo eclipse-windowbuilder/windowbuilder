@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -96,7 +96,10 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public Command getCommand(Request request) {
-		return getResizeCommand((ChangeBoundsRequest) request);
+		if (REQ_RESIZE.equals(request.getType())) {
+			return getResizeCommand((ChangeBoundsRequest) request);
+		}
+		return null;
 	}
 
 	@Override

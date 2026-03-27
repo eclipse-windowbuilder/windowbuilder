@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -89,17 +89,21 @@ public final class DialogButtonBarLayoutEditPolicy extends AbstractFlowLayoutEdi
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof final DialogButtonDropRequest buttonRequest) {
-			final ControlInfo reference = (ControlInfo) referenceObject;
-			return new EditCommand(m_composite) {
-				@Override
-				protected void executeEdit() throws Exception {
-					ControlInfo newButton = DialogInfo.createButtonOnButtonBar(m_composite, reference);
-					buttonRequest.setButton(newButton);
-				}
-			};
+		if (DialogButtonDropRequest.TYPE.equals(request.getType())) {
+			return getDropCommand((DialogButtonDropRequest) request, referenceObject);
 		}
 		return super.getCommand(request, referenceObject);
+	}
+
+	private Command getDropCommand(DialogButtonDropRequest buttonRequest, Object referenceObject) {
+		final ControlInfo reference = (ControlInfo) referenceObject;
+		return new EditCommand(m_composite) {
+			@Override
+			protected void executeEdit() throws Exception {
+				ControlInfo newButton = DialogInfo.createButtonOnButtonBar(m_composite, reference);
+				buttonRequest.setButton(newButton);
+			}
+		};
 	}
 
 	@Override

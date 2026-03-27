@@ -163,13 +163,13 @@ public abstract class GefCursorTestCase extends GefTestCase {
 
 					private Handle createResizeHandle(int direction) {
 						ResizeHandle handle = new ResizeHandle(getHost(), direction);
-						handle.setDragTracker(new ResizeTracker(direction, "REQ_RESIZE"));
+						handle.setDragTracker(new ResizeTracker(direction, REQ_RESIZE));
 						return handle;
 					}
 
 					@Override
 					public boolean understandsRequest(Request request) {
-						return super.understandsRequest(request) || "REQ_RESIZE".equals(request.getType());
+						return super.understandsRequest(request) || REQ_RESIZE.equals(request.getType());
 					}
 
 					@Override
@@ -182,7 +182,7 @@ public abstract class GefCursorTestCase extends GefTestCase {
 
 					@Override
 					public Command getCommand(Request request) {
-						if (understandsRequest(request)) {
+						if (REQ_RESIZE.equals(request.getType())) {
 							return acceptResizeCommand;
 						}
 						return null;

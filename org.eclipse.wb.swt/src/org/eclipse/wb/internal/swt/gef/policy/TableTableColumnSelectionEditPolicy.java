@@ -97,7 +97,10 @@ public final class TableTableColumnSelectionEditPolicy extends SelectionEditPoli
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public Command getCommand(Request request) {
-		return getResizeCommand((ChangeBoundsRequest) request);
+		if (REQ_RESIZE == request.getType()) {
+			return getResizeCommand((ChangeBoundsRequest) request);
+		}
+		return null;
 	}
 
 	@Override

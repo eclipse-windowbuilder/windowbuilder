@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -124,24 +124,28 @@ public final class PageLayoutSidesLayoutEditPolicy extends AbstractPositionLayou
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object data) {
-		if (request instanceof final ViewDropRequest viewDrop_Request) {
-			final ViewInfo viewInfo = viewDrop_Request.getView();
-			final int relationship = (Integer) data;
-			return new EditCommand(m_page) {
-				@Override
-				protected void executeEdit() throws Exception {
-					Object newView;
-					if (relationship == FOLDER_RELATIONSHIP) {
-						PageLayoutCreateFolderInfo folder = convertIntoFolder();
-						newView = folder.command_CREATE(viewInfo.getId(), null);
-					} else {
-						newView = m_page.command_CREATE(viewInfo.getId(), relationship, 0.5f, m_part);
-					}
-					viewDrop_Request.setComponent(newView);
-				}
-			};
+		if (ViewDropRequest.TYPE.equals(request.getType())) {
+			return getDropCommand((ViewDropRequest) request, data);
 		}
 		return super.getCommand(request, data);
+	}
+
+	private Command getDropCommand(ViewDropRequest viewDrop_Request, Object data) {
+		final ViewInfo viewInfo = viewDrop_Request.getView();
+		final int relationship = (Integer) data;
+		return new EditCommand(m_page) {
+			@Override
+			protected void executeEdit() throws Exception {
+				Object newView;
+				if (relationship == FOLDER_RELATIONSHIP) {
+					PageLayoutCreateFolderInfo folder = convertIntoFolder();
+					newView = folder.command_CREATE(viewInfo.getId(), null);
+				} else {
+					newView = m_page.command_CREATE(viewInfo.getId(), relationship, 0.5f, m_part);
+				}
+				viewDrop_Request.setComponent(newView);
+			}
+		};
 	}
 
 	@Override

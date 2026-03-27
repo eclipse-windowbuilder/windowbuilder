@@ -328,7 +328,6 @@ public class EditPartTest extends GefTestCase {
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
 		expectedLogger.log(testEditPart, new String[]{
-				"understandsRequest",
 				"getCommand",
 				"understandsRequest",
 		"getTargetEditPart"}, request);
@@ -347,7 +346,6 @@ public class EditPartTest extends GefTestCase {
 		//
 		expectedLogger.log(testEditPart, new String[]{
 				//
-				"understandsRequest",
 				"getCommand",
 				//
 				"understandsRequest",

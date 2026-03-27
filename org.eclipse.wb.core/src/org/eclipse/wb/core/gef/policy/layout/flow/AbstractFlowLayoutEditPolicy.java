@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -102,6 +102,9 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Command getCommand(Request request) {
+		if (!understandsRequest(request)) {
+			return null;
+		}
 		Command command = super.getCommand(request);
 		if (command == null) {
 			command = getCommand(request, getReferenceObject(request));

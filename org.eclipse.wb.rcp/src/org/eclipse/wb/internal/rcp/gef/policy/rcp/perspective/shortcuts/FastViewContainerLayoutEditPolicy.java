@@ -96,20 +96,24 @@ public final class FastViewContainerLayoutEditPolicy extends AbstractFlowLayoutE
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	@Deprecated
-	@SuppressWarnings("removal")
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof final ViewDropRequest viewDrop_Request) {
-			final ViewInfo viewInfo = viewDrop_Request.getView();
-			final FastViewInfo reference = (FastViewInfo) referenceObject;
-			return new EditCommand(m_page) {
-				@Override
-				protected void executeEdit() throws Exception {
-					FastViewInfo newView = m_container.command_CREATE(viewInfo.getId(), reference);
-					viewDrop_Request.setComponent(newView);
-				}
-			};
+		if (ViewDropRequest.TYPE.equals(request.getType())) {
+			return getDropCommand((ViewDropRequest) request, referenceObject);
 		}
 		return super.getCommand(request, referenceObject);
+	}
+
+	@SuppressWarnings("removal")
+	private Command getDropCommand(ViewDropRequest viewDrop_Request, Object referenceObject) {
+		final ViewInfo viewInfo = viewDrop_Request.getView();
+		final FastViewInfo reference = (FastViewInfo) referenceObject;
+		return new EditCommand(m_page) {
+			@Override
+			protected void executeEdit() throws Exception {
+				FastViewInfo newView = m_container.command_CREATE(viewInfo.getId(), reference);
+				viewDrop_Request.setComponent(newView);
+			}
+		};
 	}
 
 	@Override

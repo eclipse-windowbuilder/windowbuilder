@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -86,18 +86,22 @@ public final class ViewShortcutContainerLayoutEditPolicy extends AbstractFlowLay
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof final ViewDropRequest viewDrop_Request) {
-			final ViewInfo viewInfo = viewDrop_Request.getView();
-			final ViewShortcutInfo reference = (ViewShortcutInfo) referenceObject;
-			return new EditCommand(m_page) {
-				@Override
-				protected void executeEdit() throws Exception {
-					ViewShortcutInfo newView = m_container.command_CREATE(viewInfo.getId(), reference);
-					viewDrop_Request.setComponent(newView);
-				}
-			};
+		if (ViewDropRequest.TYPE.equals(request.getType())) {
+			return getDropRequest((ViewDropRequest) request, referenceObject);
 		}
 		return super.getCommand(request, referenceObject);
+	}
+
+	private Command getDropRequest(ViewDropRequest viewDrop_Request, Object referenceObject) {
+		final ViewInfo viewInfo = viewDrop_Request.getView();
+		final ViewShortcutInfo reference = (ViewShortcutInfo) referenceObject;
+		return new EditCommand(m_page) {
+			@Override
+			protected void executeEdit() throws Exception {
+				ViewShortcutInfo newView = m_container.command_CREATE(viewInfo.getId(), reference);
+				viewDrop_Request.setComponent(newView);
+			}
+		};
 	}
 
 	@Override
