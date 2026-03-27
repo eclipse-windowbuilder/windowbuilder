@@ -147,20 +147,23 @@ public abstract class LayoutEditPolicy extends DesignEditPolicy {
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public Command getCommand(Request request) {
+		if (!understandsRequest(request)) {
+			return null;
+		}
 		Object type = request.getType();
-		if (type == RequestConstants.REQ_CREATE) {
+		if (REQ_CREATE.equals(type)) {
 			return getCreateCommand((CreateRequest) request);
 		}
-		if (type == PasteRequest.REQ_PASTE) {
+		if (PasteRequest.REQ_PASTE.equals(type)) {
 			return getPasteCommand((PasteRequest) request);
 		}
-		if (type == RequestConstants.REQ_MOVE) {
+		if (REQ_MOVE.equals(type)) {
 			return getMoveCommand((ChangeBoundsRequest) request);
 		}
-		if (type == RequestConstants.REQ_ADD) {
+		if (REQ_ADD.equals(type)) {
 			return getAddCommand((ChangeBoundsRequest) request);
 		}
-		if (type == RequestConstants.REQ_ORPHAN) {
+		if (REQ_ORPHAN.equals(type)) {
 			return getOrphanCommand((GroupRequest) request);
 		}
 		return null;

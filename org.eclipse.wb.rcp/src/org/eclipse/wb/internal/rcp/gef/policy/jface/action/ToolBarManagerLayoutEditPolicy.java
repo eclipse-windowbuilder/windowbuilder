@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -86,18 +86,22 @@ ObjectFlowLayoutEditPolicy<ContributionItemInfo> {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof final ActionDropRequest actionRequest) {
-			final ContributionItemInfo reference = (ContributionItemInfo) referenceObject;
-			return new EditCommand(m_manager) {
-				@Override
-				protected void executeEdit() throws Exception {
-					ActionContributionItemInfo newItem =
-							m_manager.command_CREATE(actionRequest.getAction(), reference);
-					actionRequest.setItem(newItem);
-				}
-			};
+		if (ActionDropRequest.TYPE.equals(request.getType())) {
+			return getDropCommand((ActionDropRequest) request, referenceObject);
 		}
 		return super.getCommand(request, referenceObject);
+	}
+
+	private Command getDropCommand(ActionDropRequest actionRequest, Object referenceObject) {
+		final ContributionItemInfo reference = (ContributionItemInfo) referenceObject;
+		return new EditCommand(m_manager) {
+			@Override
+			protected void executeEdit() throws Exception {
+				ActionContributionItemInfo newItem =
+						m_manager.command_CREATE(actionRequest.getAction(), reference);
+				actionRequest.setItem(newItem);
+			}
+		};
 	}
 
 	@Override

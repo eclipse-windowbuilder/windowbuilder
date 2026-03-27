@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -94,7 +94,7 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
 
 	@Override
 	public Command getCommand(Request request) {
-		if (request instanceof ChangeBoundsRequest) {
+		if (REQ_RESIZE == request.getType()) {
 			return getResizeCommand((ChangeBoundsRequest) request);
 		}
 		return null;

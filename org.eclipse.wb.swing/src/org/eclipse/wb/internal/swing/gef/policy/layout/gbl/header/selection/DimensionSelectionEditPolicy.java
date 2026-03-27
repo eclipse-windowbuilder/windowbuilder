@@ -133,7 +133,10 @@ AbstractHeaderSelectionEditPolicy {
 
 	@Override
 	public Command getCommand(Request request) {
-		return m_resizeCommand;
+		if (REQ_RESIZE.equals(request.getType())) {
+			return m_resizeCommand;
+		}
+		return null;
 	}
 
 	@Override

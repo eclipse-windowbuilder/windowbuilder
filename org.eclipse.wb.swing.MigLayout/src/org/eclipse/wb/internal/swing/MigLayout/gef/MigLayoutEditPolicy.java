@@ -208,6 +208,9 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 
 	@Override
 	public Command getCommand(Request request) {
+		if (!understandsRequest(request)) {
+			return null;
+		}
 		if (m_flowCommand != null) {
 			return m_flowCommand;
 		}

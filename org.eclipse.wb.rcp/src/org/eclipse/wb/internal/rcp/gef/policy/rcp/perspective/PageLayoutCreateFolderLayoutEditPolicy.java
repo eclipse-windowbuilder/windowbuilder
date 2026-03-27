@@ -91,18 +91,22 @@ public final class PageLayoutCreateFolderLayoutEditPolicy extends AbstractFlowLa
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof final ViewDropRequest viewDrop_Request) {
-			final ViewInfo viewInfo = viewDrop_Request.getView();
-			final FolderViewInfo reference = (FolderViewInfo) referenceObject;
-			return new EditCommand(m_folder) {
-				@Override
-				protected void executeEdit() throws Exception {
-					FolderViewInfo newView = m_folder.command_CREATE(viewInfo.getId(), reference);
-					viewDrop_Request.setComponent(newView);
-				}
-			};
+		if (ViewDropRequest.TYPE.equals(request.getType())) {
+			return getDropCommand((ViewDropRequest) request, referenceObject);
 		}
 		return super.getCommand(request, referenceObject);
+	}
+
+	private Command getDropCommand(ViewDropRequest viewDrop_Request, Object referenceObject) {
+		final ViewInfo viewInfo = viewDrop_Request.getView();
+		final FolderViewInfo reference = (FolderViewInfo) referenceObject;
+		return new EditCommand(m_folder) {
+			@Override
+			protected void executeEdit() throws Exception {
+				FolderViewInfo newView = m_folder.command_CREATE(viewInfo.getId(), reference);
+				viewDrop_Request.setComponent(newView);
+			}
+		};
 	}
 
 	@Override

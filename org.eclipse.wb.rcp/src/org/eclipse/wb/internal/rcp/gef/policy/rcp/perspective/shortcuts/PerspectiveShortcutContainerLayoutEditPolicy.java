@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -88,19 +88,23 @@ AbstractFlowLayoutEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Command getCommand(Request request, Object referenceObject) {
-		if (request instanceof final PerspectiveDropRequest perspectiveDrop_Request) {
-			final PerspectiveInfo perspectiveInfo = perspectiveDrop_Request.getPerspective();
-			final PerspectiveShortcutInfo reference = (PerspectiveShortcutInfo) referenceObject;
-			return new EditCommand(m_page) {
-				@Override
-				protected void executeEdit() throws Exception {
-					PerspectiveShortcutInfo newPerspective =
-							m_container.command_CREATE(perspectiveInfo.getId(), reference);
-					perspectiveDrop_Request.setComponent(newPerspective);
-				}
-			};
+		if (PerspectiveDropRequest.TYPE.equals(request.getType())) {
+			return getDropRequest((PerspectiveDropRequest) request, referenceObject);
 		}
 		return super.getCommand(request, referenceObject);
+	}
+
+	private Command getDropRequest(PerspectiveDropRequest perspectiveDrop_Request, Object referenceObject) {
+		final PerspectiveInfo perspectiveInfo = perspectiveDrop_Request.getPerspective();
+		final PerspectiveShortcutInfo reference = (PerspectiveShortcutInfo) referenceObject;
+		return new EditCommand(m_page) {
+			@Override
+			protected void executeEdit() throws Exception {
+				PerspectiveShortcutInfo newPerspective =
+						m_container.command_CREATE(perspectiveInfo.getId(), reference);
+				perspectiveDrop_Request.setComponent(newPerspective);
+			}
+		};
 	}
 
 	@Override

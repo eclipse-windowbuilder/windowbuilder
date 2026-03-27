@@ -16,7 +16,6 @@ import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
 
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.commands.Command;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -223,18 +222,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	// Request/Command
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the {@link Command} to perform the specified {@link Request} or <code>null</code>.
-	 */
-	public Command getCommand(Request request) {
-		for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
-			Command command = editPolicy.getCommand(request);
-			if (command != null) {
-				return command;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * Return the <code>{@link EditPart}</code> that should be used as the <i>target</i> for the

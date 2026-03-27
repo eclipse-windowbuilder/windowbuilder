@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -275,18 +275,22 @@ LayoutConstants {
 	@Override
 	public Command getCommand(Request request) {
 		if (REQ_RESIZE.equals(request.getType())) {
-			// resizing multiple components is not supported by Matisse
-			if (((ChangeBoundsRequest) request).getEditParts().size() > 1) {
-				return null;
-			}
-			return new EditCommand(m_layout.getAdapter(JavaInfo.class)) {
-				@Override
-				protected void executeEdit() throws Exception {
-					m_layout.command_commit();
-				}
-			};
+			return getResizeCommand((ChangeBoundsRequest) request);
 		}
 		return null;
+	}
+
+	private Command getResizeCommand(ChangeBoundsRequest request) {
+		// resizing multiple components is not supported by Matisse
+		if (request.getEditParts().size() > 1) {
+			return null;
+		}
+		return new EditCommand(m_layout.getAdapter(JavaInfo.class)) {
+			@Override
+			protected void executeEdit() throws Exception {
+				m_layout.command_commit();
+			}
+		};
 	}
 
 	////////////////////////////////////////////////////////////////////////////

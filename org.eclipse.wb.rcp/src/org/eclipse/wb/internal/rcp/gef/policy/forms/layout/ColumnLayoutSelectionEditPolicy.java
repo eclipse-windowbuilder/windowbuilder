@@ -95,7 +95,10 @@ SelectionEditPolicy {
 
 	@Override
 	public Command getCommand(final Request request) {
-		return getResizeCommand((ChangeBoundsRequest) request);
+		if (REQ_RESIZE.equals(request.getType())) {
+			return getResizeCommand((ChangeBoundsRequest) request);
+		}
+		return null;
 	}
 
 	@Override

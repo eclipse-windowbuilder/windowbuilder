@@ -150,6 +150,9 @@ public abstract class LayoutEditPolicy extends AbstractEditPolicy {
 	 */
 	@Override
 	public Command getCommand(Request request) {
+		if (!understandsRequest(request)) {
+			return null;
+		}
 		// prepare drop location
 		DropRequest dropRequest = (DropRequest) request;
 		Point location = dropRequest.getLocation();
