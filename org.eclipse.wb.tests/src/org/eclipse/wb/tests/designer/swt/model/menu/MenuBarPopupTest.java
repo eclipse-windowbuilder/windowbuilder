@@ -13,12 +13,13 @@
 package org.eclipse.wb.tests.designer.swt.model.menu;
 
 import org.eclipse.wb.gef.core.tools.PasteTool;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
+
+import org.eclipse.gef.GraphicalEditPart;
 
 import org.junit.jupiter.api.Test;
 

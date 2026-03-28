@@ -13,11 +13,11 @@
 package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.draw2d.RelativeLocator;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 
 /**
  * A Handle used to resize a {@link EditPart}s.

@@ -43,6 +43,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.IMenuManager;
@@ -303,7 +304,7 @@ LayoutConstants {
 	 */
 	protected IFigure createAlignmentFigure(final AbstractComponentInfo widget,
 			final boolean isHorizontal) {
-		IEditPartViewer viewer = getHost().getViewer();
+		EditPartViewer viewer = getHost().getViewer();
 		return isHorizontal
 				? new HorizontalPopupFigure(viewer, widget)
 						: new VerticalPopupFigure(viewer, widget);
@@ -412,7 +413,7 @@ LayoutConstants {
 	private class HorizontalPopupFigure extends AbstractPopupFigure {
 		private final AbstractComponentInfo m_component;
 
-		protected HorizontalPopupFigure(IEditPartViewer viewer, AbstractComponentInfo component) {
+		protected HorizontalPopupFigure(EditPartViewer viewer, AbstractComponentInfo component) {
 			super(viewer, 9, 5);
 			m_component = component;
 		}
@@ -440,7 +441,7 @@ LayoutConstants {
 	private class VerticalPopupFigure extends AbstractPopupFigure {
 		private final AbstractComponentInfo m_component;
 
-		protected VerticalPopupFigure(IEditPartViewer viewer, AbstractComponentInfo component) {
+		protected VerticalPopupFigure(EditPartViewer viewer, AbstractComponentInfo component) {
 			super(viewer, 5, 9);
 			m_component = component;
 		}

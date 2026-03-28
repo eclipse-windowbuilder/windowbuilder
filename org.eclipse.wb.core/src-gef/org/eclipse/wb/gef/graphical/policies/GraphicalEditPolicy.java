@@ -13,7 +13,6 @@
 package org.eclipse.wb.gef.graphical.policies;
 
 import org.eclipse.wb.gef.core.policies.EditPolicy;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 /**
  * @author lobas_av
@@ -24,17 +23,4 @@ import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 @SuppressWarnings("removal")
 @Deprecated(since = "2026-06", forRemoval = true)
 public class GraphicalEditPolicy extends EditPolicy {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Access
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the <i>host</i> {@link GraphicalEditPart} on which this policy is installed.
-	 */
-	@Deprecated(since = "2026-06", forRemoval = true)
-	@Override
-	public GraphicalEditPart getHost() {
-		return (GraphicalEditPart) super.getHost();
-	}
 }

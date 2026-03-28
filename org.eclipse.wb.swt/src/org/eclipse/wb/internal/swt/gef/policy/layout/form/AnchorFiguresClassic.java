@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,6 +29,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -100,7 +101,7 @@ public final class AnchorFiguresClassic<C extends ControlInfo> {
 	 * @return the alignment figure for given component and axis.
 	 */
 	private IFigure createAlignmentFigure(C widget, int side) {
-		IEditPartViewer viewer = m_policy.getHost().getViewer();
+		EditPartViewer viewer = m_policy.getHost().getViewer();
 		return PlacementUtils.isHorizontalSide(side)
 				? new HorizontalPopupFigure(viewer, widget, side)
 						: new VerticalPopupFigure(viewer, widget, side);
@@ -212,7 +213,7 @@ public final class AnchorFiguresClassic<C extends ControlInfo> {
 		private final C m_widget;
 		private final int m_side;
 
-		protected HorizontalPopupFigure(IEditPartViewer viewer, C widget, int side) {
+		protected HorizontalPopupFigure(EditPartViewer viewer, C widget, int side) {
 			super(viewer, 9, 5);
 			m_widget = widget;
 			m_side = side;
@@ -232,7 +233,7 @@ public final class AnchorFiguresClassic<C extends ControlInfo> {
 		private final C m_widget;
 		private final int m_side;
 
-		protected VerticalPopupFigure(IEditPartViewer viewer, C widget, int side) {
+		protected VerticalPopupFigure(EditPartViewer viewer, C widget, int side) {
 			super(viewer, 5, 9);
 			m_widget = widget;
 			m_side = side;

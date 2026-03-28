@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,6 +35,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -227,7 +228,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	 */
 	protected IFigure createAlignmentFigure(final IAbstractComponentInfo widget,
 			final boolean isHorizontal) {
-		IEditPartViewer viewer = getHost().getViewer();
+		EditPartViewer viewer = getHost().getViewer();
 		return isHorizontal
 				? new HorizontalPopupFigure(viewer, widget)
 						: new VerticalPopupFigure(viewer, widget);
@@ -346,7 +347,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	protected class HorizontalPopupFigure extends AbstractPopupFigure {
 		private final IAbstractComponentInfo m_widget;
 
-		protected HorizontalPopupFigure(IEditPartViewer viewer, IAbstractComponentInfo widget) {
+		protected HorizontalPopupFigure(EditPartViewer viewer, IAbstractComponentInfo widget) {
 			super(viewer, 9, 5);
 			m_widget = widget;
 		}
@@ -375,7 +376,7 @@ public abstract class AbsoluteComplexSelectionEditPolicy<C extends IAbstractComp
 	protected class VerticalPopupFigure extends AbstractPopupFigure {
 		private final IAbstractComponentInfo m_widget;
 
-		protected VerticalPopupFigure(IEditPartViewer viewer, IAbstractComponentInfo widget) {
+		protected VerticalPopupFigure(EditPartViewer viewer, IAbstractComponentInfo widget) {
 			super(viewer, 5, 9);
 			m_widget = widget;
 		}
