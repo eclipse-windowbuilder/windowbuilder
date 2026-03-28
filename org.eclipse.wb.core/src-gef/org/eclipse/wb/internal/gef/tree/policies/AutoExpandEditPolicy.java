@@ -42,6 +42,9 @@ public final class AutoExpandEditPolicy extends AbstractEditPolicy {
 
 	@Override
 	public EditPart getTargetEditPart(Request request) {
+		if (!understandsRequest(request)) {
+			return null;
+		}
 		// prepare host widget
 		final TreeEditPart host = (TreeEditPart) getHost();
 		final TreeItem hostWidget = host.getWidget();

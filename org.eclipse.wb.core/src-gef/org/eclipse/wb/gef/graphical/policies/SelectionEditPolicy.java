@@ -176,6 +176,11 @@ public abstract class SelectionEditPolicy extends DesignEditPolicy {
 
 	@Override
 	public EditPart getTargetEditPart(Request request) {
+		// Also support non-selection requests (e.g. resize)
+		// TODO ptziegler - move this check to sub-classes
+		if (!understandsRequest(request)) {
+			return null;
+		}
 		return getHost();
 	}
 

@@ -37,6 +37,9 @@ public final class SelectionEditPolicy extends AbstractEditPolicy {
 
 	@Override
 	public EditPart getTargetEditPart(Request request) {
-		return getHost();
+		if (REQ_SELECTION.equals(request.getType())) {
+			return getHost();
+		}
+		return null;
 	}
 }

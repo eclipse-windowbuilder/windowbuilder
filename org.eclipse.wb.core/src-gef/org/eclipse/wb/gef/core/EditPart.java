@@ -224,26 +224,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Return the <code>{@link EditPart}</code> that should be used as the <i>target</i> for the
-	 * specified <code>{@link Request}</code>. Tools will generally call this method with the mouse
-	 * location so that the receiver can implement drop targeting. Typically, if this {@link EditPart}
-	 * is not the requested target (for example, this EditPart is not a composite), it will forward
-	 * the call to its parent.
-	 */
-	public org.eclipse.gef.EditPart getTargetEditPart(Request request) {
-		org.eclipse.gef.EditPart target = null;
-		// update target using any understanding EditPolicy
-		for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
-			org.eclipse.gef.EditPart newTarget = editPolicy.getTargetEditPart(request);
-			if (newTarget != null) {
-				target = newTarget;
-			}
-		}
-		// OK, we (probably) have target
-		return target;
-	}
-
-	/**
 	 * Performs the specified Request. This method can be used to send a generic message to an
 	 * EditPart. Subclasses should extend this method to handle Requests. For now, the default
 	 * implementation forward request to all EditPolicies.
