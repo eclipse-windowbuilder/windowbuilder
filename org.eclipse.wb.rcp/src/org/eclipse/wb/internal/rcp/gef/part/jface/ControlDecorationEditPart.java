@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.rcp.gef.part.jface;
 
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.rcp.model.jface.ControlDecorationInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
@@ -22,6 +21,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 
 /**
  * {@link EditPart} for {@link ControlDecorationInfo}.

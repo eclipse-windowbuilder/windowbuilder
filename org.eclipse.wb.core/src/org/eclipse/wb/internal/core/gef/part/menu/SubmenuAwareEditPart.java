@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.gef.part.menu;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.menu.SubmenuAwareLayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
@@ -24,6 +23,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.editparts.LayerManager;
 
 import java.util.Collections;

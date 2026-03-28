@@ -23,6 +23,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.NodeListener;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +31,10 @@ import java.util.List;
 /**
  * @author lobas_av
  * @coverage gef.graphical
+ * @deprecated Extend {@link AbstractGraphicalEditPart} directly or cast to
+ *             {@link org.eclipse.gef.GraphicalEditPart GraphicalEditPart}.
  */
+@Deprecated(since = "2026-06", forRemoval = true)
 public abstract class GraphicalEditPart extends org.eclipse.wb.gef.core.EditPart implements org.eclipse.gef.GraphicalEditPart {
 	private IFigure m_figure;
 

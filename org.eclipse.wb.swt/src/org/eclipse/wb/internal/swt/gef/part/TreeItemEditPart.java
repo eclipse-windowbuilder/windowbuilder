@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.part;
 
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.swt.model.widgets.TreeItemInfo;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 
 /**
  * {@link EditPart} for {@link TreeItemInfo}.

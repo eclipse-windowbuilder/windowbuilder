@@ -26,6 +26,7 @@ import java.util.List;
  *
  * @see {@link RequestProcessor}
  */
+@SuppressWarnings("removal")
 public abstract class DesignEditPart extends GraphicalEditPart {
 
 	////////////////////////////////////////////////////////////////////////////

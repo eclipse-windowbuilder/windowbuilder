@@ -13,13 +13,13 @@
 package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.GraphicalEditPart;
 
 /**
  * Resize {@link Handle} located on left/top/right/bottom sides of owner {@link GraphicalEditPart}.

@@ -20,7 +20,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
-import org.eclipse.wb.gef.graphical.GraphicalEditPart;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.tools.TabOrderContainerRequest;
 import org.eclipse.wb.internal.core.model.property.Property;
@@ -29,6 +28,8 @@ import org.eclipse.wb.internal.core.model.property.order.TabOrderInfo;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 
 import java.util.ArrayList;
@@ -85,7 +86,7 @@ public final class TabOrderContainerEditPolicy extends DesignEditPolicy {
 		eraseChildrenIndexes();
 		m_indexFeedbacks = new ArrayList<>();
 		Layer layer = getLayer(IEditPartViewer.CLICKABLE_LAYER);
-		IEditPartViewer viewer = getHost().getViewer();
+		EditPartViewer viewer = getHost().getViewer();
 		for (int index = 0; index < children.size(); index++) {
 			Object child = children.get(index);
 			GraphicalEditPart part = (GraphicalEditPart) viewer.getEditPartRegistry().get(child);
