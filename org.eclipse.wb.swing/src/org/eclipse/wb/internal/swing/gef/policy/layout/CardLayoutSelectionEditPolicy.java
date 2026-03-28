@@ -28,7 +28,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
-import org.eclipse.gef.RequestConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +147,7 @@ public final class CardLayoutSelectionEditPolicy extends SelectionEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public EditPart getTargetEditPart(Request request) {
-		if (RequestConstants.REQ_SELECTION.equals(request.getType())) {
+		if (REQ_SELECTION.equals(request.getType())) {
 			ComponentInfo component = m_layout.getCurrentComponent();
 			return getHost().getViewer().getEditPartRegistry().get(component);
 		}

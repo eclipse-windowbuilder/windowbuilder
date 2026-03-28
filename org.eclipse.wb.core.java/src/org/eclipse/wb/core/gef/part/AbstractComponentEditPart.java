@@ -40,7 +40,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.CompoundCommand;
-import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Control;
 
@@ -166,10 +165,8 @@ public abstract class AbstractComponentEditPart extends DesignEditPart implement
 	@Override
 	public EditPart getTargetEditPart(Request request) {
 		// sometimes we want to redirect selection to parent
-		if (request instanceof SelectionRequest) {
-			if (JavaInfoUtils.hasTrueParameter(m_component, "GEF.clickToParent")) {
-				return getParent().getTargetEditPart(request);
-			}
+		if (REQ_SELECTION.equals(request.getType()) && JavaInfoUtils.hasTrueParameter(m_component, "GEF.clickToParent")) {
+			return getParent().getTargetEditPart(request);
 		}
 		return super.getTargetEditPart(request);
 	}

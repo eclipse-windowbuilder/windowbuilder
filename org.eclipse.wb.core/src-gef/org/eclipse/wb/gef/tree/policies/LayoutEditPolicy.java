@@ -127,22 +127,22 @@ public abstract class LayoutEditPolicy extends AbstractEditPolicy {
 	 *         {@link Request#REQ_PASTE}, {@link Request#REQ_MOVE} or {@link Request#REQ_ADD}.
 	 */
 	@Override
-	public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
-		if (isRequestCondition(request)) {
-			// if target item is host, then check for before/after locations
-			{
-				DropRequest dropRequest = (DropRequest) request;
-				Point location = dropRequest.getLocation();
-				TreeItem targetItem = getTree().getItem(location.getSWTPoint());
-				if (targetItem == getHostWidget()
-						&& (isBeforeLocation(targetItem, location) || isAfterLocation(targetItem, location))) {
-					return null;
-				}
-			}
-			// OK drop on host
-			return getHost();
+	public EditPart getTargetEditPart(Request request) {
+		if (!understandsRequest(request)) {
+			return null;
 		}
-		return null;
+		// if target item is host, then check for before/after locations
+		{
+			DropRequest dropRequest = (DropRequest) request;
+			Point location = dropRequest.getLocation();
+			TreeItem targetItem = getTree().getItem(location.getSWTPoint());
+			if (targetItem == getHostWidget()
+					&& (isBeforeLocation(targetItem, location) || isAfterLocation(targetItem, location))) {
+				return null;
+			}
+		}
+		// OK drop on host
+		return getHost();
 	}
 
 	/**

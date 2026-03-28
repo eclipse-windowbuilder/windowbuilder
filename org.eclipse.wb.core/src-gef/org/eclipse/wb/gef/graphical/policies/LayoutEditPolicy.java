@@ -137,8 +137,11 @@ public abstract class LayoutEditPolicy extends DesignEditPolicy {
 	 * {@link Request#REQ_PASTE}, {@link Request#REQ_MOVE} or {@link Request#REQ_ADD}.
 	 */
 	@Override
-	public org.eclipse.wb.gef.core.EditPart getTargetEditPart(Request request) {
-		return isRequestCondition(request) ? getHost() : null;
+	public EditPart getTargetEditPart(Request request) {
+		if (!understandsRequest(request)) {
+			return null;
+		}
+		return getHost();
 	}
 
 	/**
