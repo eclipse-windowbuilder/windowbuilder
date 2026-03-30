@@ -99,7 +99,7 @@ AbstractHeaderLayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void handleDoubleClick(SelectionRequest request) {
-		Point location = request.getLocation().getCopy();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), request);
 		int percent = calcPercent(location);
 		if (percent > 0) {
 			layout.getPreferences().addPercent(percent, isHorizontal);
