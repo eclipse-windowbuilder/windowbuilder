@@ -48,7 +48,7 @@ public class DoubleClickEditPartTracker extends Tool {
 		if (button == 1) {
 			SelectionRequest request = new SelectionRequest();
 			request.setType(RequestConstants.REQ_OPEN);
-			request.setLocation(getAbsoluteLocation());
+			request.setLocation(getLocation());
 			m_sourceEditPart.performRequest(request);
 		}
 		return true;
