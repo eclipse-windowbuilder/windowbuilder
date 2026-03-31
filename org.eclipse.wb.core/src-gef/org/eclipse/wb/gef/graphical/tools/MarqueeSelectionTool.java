@@ -13,11 +13,11 @@
 package org.eclipse.wb.gef.graphical.tools;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.tools.Tool;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -195,27 +195,46 @@ public class MarqueeSelectionTool extends Tool {
 	 * Do not select children who are not visible.
 	 */
 	private List<EditPart> calculateNewSelection() {
-		List<EditPart> newSelections = new ArrayList<>();
-		// loop of all editparts
-		for (EditPart editPart : getAllChildren()) {
-			if (!editPart.isSelectable()) {
-				continue;
-			}
-			// prepare figure info
-			GraphicalEditPart graphicalPart = (GraphicalEditPart) editPart;
-			IFigure figure = graphicalPart.getFigure();
-			Rectangle r = figure.getBounds().getCopy();
-			FigureUtils.translateFigureToAbsolute(figure, r);
-			// compare bounds and selection bounds
-			Rectangle marqueeSelectionRectangle = getMarqueeSelectionRectangle();
-			if (marqueeSelectionRectangle.contains(r.getTopLeft())
-					&& marqueeSelectionRectangle.contains(r.getBottomRight())
-					&& figure.isVisible()
-					&& editPart.getTargetEditPart(REQUEST) == editPart) {
-				newSelections.add(editPart);
-			}
-		}
-		return newSelections;
+		return getAllChildren().stream() //
+				.filter(this::isPrimaryMarqueeSelectable) //
+				.filter(this::isMarqueeSelectable) //
+				.toList();
+	}
+
+	/**
+	 * Decides whether the given edit part may potentially be included in the
+	 * current marquee selection.
+	 *
+	 * @param editPart the {@link EditPart} of interest
+	 * @return {@code true} if the given edit part may be included into the
+	 *         marquee selection, {@code false} otherwise
+	 */
+	private boolean isMarqueeSelectable(EditPart editPart) {
+		// IMPORTANT: MarqueeSelectionTool is not a TargetingTool, thus the
+		// pre-selection does not depend on hit-testing. Therefore, the visible
+		// state of the edit part's figure has to be taken into consideration as
+		// well.
+		return editPart.isSelectable() && editPart.getTargetEditPart(REQUEST) == editPart
+				&& FigureUtilities.isNotFullyClipped(((GraphicalEditPart) editPart).getFigure());
+	}
+
+	/**
+	 * Determines which edit parts are directly affected by the current marquee
+	 * selection. Calculation is performed by regarding the current marquee
+	 * selection rectangle ( {@link #getCurrentMarqueeSelectionRectangle()}).
+	 *
+	 * @param editPart the {@link EditPart} whose state is to be determined
+	 * @return {@code true} if the {@link EditPart} should be regarded as being
+	 *         included in the current marquee selection, {@code false} otherwise
+	 */
+	private boolean isPrimaryMarqueeSelectable(EditPart editPart) {
+		// figure bounds are used to determine if edit part is included in selection
+		IFigure figure = ((GraphicalEditPart) editPart).getFigure();
+		Rectangle r = figure.getBounds().getCopy();
+		figure.translateToAbsolute(r);
+
+		Rectangle marqueeSelectionRectangle = getCurrentMarqueeSelectionRectangle();
+		return marqueeSelectionRectangle.contains(r);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -259,8 +278,8 @@ public class MarqueeSelectionTool extends Tool {
 			getFeedbackPane().add(m_marqueeFeedbackFigure);
 		}
 		// update feedback figure
-		Rectangle bounds = getMarqueeSelectionRectangle();
-		FigureUtils.translateAbsoluteToFigure(m_marqueeFeedbackFigure, bounds);
+		Rectangle bounds = getCurrentMarqueeSelectionRectangle();
+		m_marqueeFeedbackFigure.translateToRelative(bounds);
 		m_marqueeFeedbackFigure.setBounds(bounds);
 	}
 
@@ -287,8 +306,8 @@ public class MarqueeSelectionTool extends Tool {
 	 * Returns rectangular area between left-top corner <code>(m_startX, m_startY)</code> and
 	 * bottom-right corner <code>(m_currentX, m_currentY)</code>.
 	 */
-	private Rectangle getMarqueeSelectionRectangle() {
-		return new Rectangle(getAbsoluteStartLocation(), getAbsoluteLocation());
+	private Rectangle getCurrentMarqueeSelectionRectangle() {
+		return new Rectangle(getStartLocation(), getLocation());
 	}
 
 	/**
