@@ -35,7 +35,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
@@ -146,10 +145,11 @@ public abstract class DesignerTestCase extends Assertions {
 	 */
 	private void configureEclipseWindowLocation() {
 		Shell shell = Activator.getShell();
-		Point shellLocation = shell.getLocation();
-		if (shellLocation.x != 0 || shellLocation.y != 0) {
-			Rectangle clientArea = Display.getDefault().getPrimaryMonitor().getClientArea();
-			shell.setBounds(0, 0, clientArea.width, clientArea.height - 300);
+		Rectangle shellBounds = shell.getBounds();
+		if (shellBounds.width < 600 || shellBounds.height < 800) {
+			int width = Math.max(600, shellBounds.width);
+			int height = Math.max(800, shellBounds.height);
+			shell.setBounds(0, 0, width, height);
 			waitEventLoop(100, 10);
 		}
 	}
