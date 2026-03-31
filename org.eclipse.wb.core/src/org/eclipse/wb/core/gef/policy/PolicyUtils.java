@@ -190,7 +190,13 @@ public abstract class PolicyUtils {
 		return getAbsoluteLocation(editPart, request.getLocation().getCopy());
 	}
 
-	private static Point getAbsoluteLocation(GraphicalEditPart editPart, Point location) {
+	/**
+	 * <em>Important:</em> This method modifies the given {@link Point}!
+	 *
+	 * @return absolute mouse coordinates of given {@link Point}.
+	 * @since 1.24
+	 */
+	public static Point getAbsoluteLocation(GraphicalEditPart editPart, Point location) {
 		GraphicalEditPart contents = (GraphicalEditPart) editPart.getViewer().getContents();
 		contents.getFigure().translateToRelative(location);
 		return location;
