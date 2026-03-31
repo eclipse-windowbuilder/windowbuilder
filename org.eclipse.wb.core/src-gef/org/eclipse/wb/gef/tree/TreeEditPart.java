@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,6 +21,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.Widget;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.tree
  */
-public abstract class TreeEditPart extends org.eclipse.wb.gef.core.EditPart {
+public abstract class TreeEditPart extends org.eclipse.wb.gef.core.EditPart implements org.eclipse.gef.TreeEditPart {
 	private TreeItem m_widget;
 	private boolean m_expandedShouldRestore;
 	private boolean m_expanded;
@@ -38,12 +39,14 @@ public abstract class TreeEditPart extends org.eclipse.wb.gef.core.EditPart {
 	// Widget
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Override
 	public TreeItem getWidget() {
 		return m_widget;
 	}
 
-	public void setWidget(TreeItem widget) {
-		m_widget = widget;
+	@Override
+	public void setWidget(Widget widget) {
+		m_widget = (TreeItem) widget;
 		//
 		List<? extends EditPart> children = getChildren();
 		if (m_widget == null) {

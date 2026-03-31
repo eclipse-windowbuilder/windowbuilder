@@ -15,6 +15,7 @@ package org.eclipse.wb.core.gef.policy.layout.position;
 import org.eclipse.wb.core.gef.figure.AbstractPositionFeedback;
 import org.eclipse.wb.core.gef.figure.GhostPositionFeedback;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -68,7 +69,7 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 		}
 		// highlight feedback
 		m_activeFeedback = null;
-		Point location = ((DropRequest) request).getLocation();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), (DropRequest) request);
 		for (AbstractPositionFeedback feedback : m_feedbacks) {
 			if (feedback.update(location)) {
 				m_activeFeedback = feedback;

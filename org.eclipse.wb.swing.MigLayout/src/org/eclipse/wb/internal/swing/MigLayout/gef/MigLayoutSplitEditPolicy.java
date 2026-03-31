@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.gef;
 
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.check.Assert;
@@ -67,7 +68,7 @@ public final class MigLayoutSplitEditPolicy extends ComponentFlowLayoutEditPolic
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected boolean isHorizontal(Request _request) {
+	protected boolean isHorizontal(Request request) {
 		if (m_splitted) {
 			return m_splittedHorizontally;
 		} else {
@@ -81,8 +82,7 @@ public final class MigLayoutSplitEditPolicy extends ComponentFlowLayoutEditPolic
 			// prepare location in target component's Figure
 			Point location;
 			{
-				DropRequest request = (DropRequest) _request;
-				location = request.getLocation().getCopy();
+				location = PolicyUtils.getAbsoluteLocation(getHost(), (DropRequest) request);
 				FigureUtils.translateAbsoluteToFigure2(targetFigure, location);
 			}
 			// prepare bounds where we consider vertical split

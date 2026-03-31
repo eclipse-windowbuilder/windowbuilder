@@ -504,8 +504,8 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 	/**
 	 * @return absolute mouse location from given {@link Request}.
 	 */
-	private static Point getLocationFromRequest(Request request) {
-		return ((DropRequest) request).getLocation();
+	private Point getLocationFromRequest(Request request) {
+		return PolicyUtils.getAbsoluteLocation(getHost(), (DropRequest) request);
 	}
 
 	/**

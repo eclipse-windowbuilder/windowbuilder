@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.rcp.gef.policy.forms.layout.grid.header.layout;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.AbstractHeaderLayoutEditPolicy;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
 import org.eclipse.wb.draw2d.FigureUtils;
@@ -106,7 +107,7 @@ AbstractHeaderLayoutEditPolicy {
 		Point location;
 		{
 			DropRequest dropRequest = (DropRequest) request;
-			location = dropRequest.getLocation().getCopy();
+			location = PolicyUtils.getAbsoluteLocation(getHost(), dropRequest);
 		}
 		// prepare target header
 		DimensionHeaderEditPart<C> target = null;

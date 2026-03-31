@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.tree.policies;
 
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -134,7 +135,7 @@ public abstract class LayoutEditPolicy extends AbstractEditPolicy {
 		// if target item is host, then check for before/after locations
 		{
 			DropRequest dropRequest = (DropRequest) request;
-			Point location = dropRequest.getLocation();
+			Point location = PolicyUtils.getAbsoluteLocation(getHost(), dropRequest);
 			TreeItem targetItem = getTree().getItem(location.getSWTPoint());
 			if (targetItem == getHostWidget()
 					&& (isBeforeLocation(targetItem, location) || isAfterLocation(targetItem, location))) {
@@ -155,7 +156,7 @@ public abstract class LayoutEditPolicy extends AbstractEditPolicy {
 		}
 		// prepare drop location
 		DropRequest dropRequest = (DropRequest) request;
-		Point location = dropRequest.getLocation();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), dropRequest);
 		// prepare target item
 		TreeItem targetItem = getTree().getItem(location.getSWTPoint());
 		if (targetItem == null || targetItem.getData() == null) {
@@ -298,7 +299,7 @@ public abstract class LayoutEditPolicy extends AbstractEditPolicy {
 	protected void showLayoutTargetFeedback(Request request) {
 		// prepare drop location
 		DropRequest dropRequest = (DropRequest) request;
-		Point location = dropRequest.getLocation();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), dropRequest);
 		// prepare tree widget's
 		Tree tree = getTree();
 		TreeItem hostItem = getHostWidget();
