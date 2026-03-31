@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree.policies;
 
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
@@ -53,7 +54,7 @@ public final class AutoExpandEditPolicy extends AbstractEditPolicy {
 		TreeItem targetWidget;
 		{
 			DropRequest dropRequest = (DropRequest) request;
-			Point location = dropRequest.getLocation();
+			Point location = PolicyUtils.getAbsoluteLocation(host, dropRequest);
 			targetWidget = tree.getItem(location.getSWTPoint());
 		}
 		// if mouse cursor is above our "host", expand it

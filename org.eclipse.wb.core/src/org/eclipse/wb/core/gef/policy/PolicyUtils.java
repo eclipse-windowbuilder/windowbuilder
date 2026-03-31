@@ -35,6 +35,7 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.LayerConstants;
+import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
@@ -193,6 +194,22 @@ public abstract class PolicyUtils {
 		GraphicalEditPart contents = (GraphicalEditPart) editPart.getViewer().getContents();
 		contents.getFigure().translateToRelative(location);
 		return location;
+	}
+
+	/**
+	 * @return absolute mouse coordinates of given {@link DropRequest}.
+	 * @since 1.24
+	 */
+	public static Point getAbsoluteLocation(TreeEditPart editPart, DropRequest request) {
+		return request.getLocation().getCopy();
+	}
+
+	/**
+	 * @return absolute mouse coordinates of given {@link SelectionRequest}.
+	 * @since 1.24
+	 */
+	public static Point getAbsoluteLocation(TreeEditPart editPart, SelectionRequest request) {
+		return request.getLocation().getCopy();
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.validator;
 
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
@@ -101,7 +102,7 @@ public final class BorderOfChildLayoutRequestValidator implements ILayoutRequest
 		// prepare location in host
 		Point location;
 		{
-			location = request.getLocation().getCopy();
+			location = PolicyUtils.getAbsoluteLocation(host, request);
 			FigureUtils.translateAbsoluteToFigure2(hostFigure, location);
 		}
 		// check if "location" is inside of "inner part" of host

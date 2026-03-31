@@ -219,7 +219,7 @@ public class SelectionTool extends TargetingTool {
 	protected void updateTargetRequest() {
 		super.updateTargetRequest();
 		SelectionRequest request = (SelectionRequest) getTargetRequest();
-		request.setLocation(getAbsoluteLocation());
+		request.setLocation(getLocation());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

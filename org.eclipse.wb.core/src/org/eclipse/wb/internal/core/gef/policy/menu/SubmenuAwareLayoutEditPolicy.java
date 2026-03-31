@@ -99,7 +99,7 @@ public final class SubmenuAwareLayoutEditPolicy extends LayoutEditPolicy {
 		}
 		// prepare location in figure
 		IFigure figure = getHostFigure();
-		Point location = ((DropRequest) request).getLocation().getCopy();
+		Point location = PolicyUtils.getAbsoluteLocation(getHost(), (DropRequest) request);
 		FigureUtils.translateAbsoluteToFigure2(figure, location);
 		// if request's mouse location are in middle 1/3 height (width) of figure then return getHost()
 		IMenuInfo parentMenu = ((MenuEditPart) getHost().getParent()).getMenu();

@@ -127,7 +127,7 @@ IHeadersProvider {
 		m_gridTargetHelper.showGridFeedback();
 		//
 		try {
-			Point location = ((DropRequest) request).getLocation();
+			Point location = PolicyUtils.getAbsoluteLocation(getHost(), (DropRequest) request);
 			updateGridTarget(location);
 			removeTargetFigures();
 			// show insert feedbacks
