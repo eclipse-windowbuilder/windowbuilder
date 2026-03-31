@@ -19,7 +19,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
@@ -46,6 +45,8 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
 import org.apache.commons.lang3.ArrayUtils;
@@ -235,9 +236,9 @@ AbstractHeaderLayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public void buildContextMenu(IMenuManager manager) {
-		IEditPartViewer viewer = (IEditPartViewer) getHost().getViewer();
-		Tool tool = viewer.getEditDomain().getActiveTool();
-		Point location = tool.getAbsoluteLocation().getCopy();
+		Control control = getHost().getViewer().getControl();
+		Point location = new Point(control.toControl(Display.getCurrent().getCursorLocation()));
+		PolicyUtils.getAbsoluteLocation(getHost(), location);
 		final int percent = calcPercent(location);
 		// add actions
 		if (percent > 0) {
