@@ -74,22 +74,6 @@ public class TreeViewer extends AbstractEditPartViewer {
 	}
 
 	/**
-	 * @return viewer horizontal scroll offset.
-	 */
-	@Override
-	public int getHOffset() {
-		return 0;
-	}
-
-	/**
-	 * @return viewer vertical scroll offset.
-	 */
-	@Override
-	public int getVOffset() {
-		return 0;
-	}
-
-	/**
 	 * Returns root {@link EditPart}.
 	 */
 	@Override
