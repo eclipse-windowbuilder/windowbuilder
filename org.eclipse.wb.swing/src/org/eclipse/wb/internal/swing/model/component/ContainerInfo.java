@@ -14,7 +14,6 @@
 package org.eclipse.wb.internal.swing.model.component;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
@@ -24,6 +23,7 @@ import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.clipboard.ComponentClipboardCommand;

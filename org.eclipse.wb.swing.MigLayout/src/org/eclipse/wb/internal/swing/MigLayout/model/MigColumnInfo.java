@@ -14,7 +14,7 @@ package org.eclipse.wb.internal.swing.MigLayout.model;
 
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.swing.SwingImages;
+import org.eclipse.wb.internal.swing.SwingImages;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 

@@ -13,8 +13,8 @@
 package org.eclipse.wb.internal.layout.group.model;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.layout.group.Messages;
 

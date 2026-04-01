@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.palette;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutCreationSupport;

@@ -14,7 +14,6 @@
 package org.eclipse.wb.internal.core.editor.palette;
 
 import org.eclipse.wb.core.controls.palette.IPalette;
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -22,6 +21,7 @@ import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette.DesignerPaletteOperations;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;

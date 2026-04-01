@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;

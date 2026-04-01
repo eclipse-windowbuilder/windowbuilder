@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.EmptyTransfer;

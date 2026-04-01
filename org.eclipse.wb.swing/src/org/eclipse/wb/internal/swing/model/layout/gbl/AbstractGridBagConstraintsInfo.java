@@ -13,12 +13,12 @@
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.GenericPropertySetValue;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
+import org.eclipse.wb.internal.swing.SwingImages;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -38,7 +39,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetAlignmentHorizontalAction;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetAlignmentVerticalAction;
 import org.eclipse.wb.internal.swing.model.layout.gbl.actions.SetGrowAction;
-import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.jface.action.Action;

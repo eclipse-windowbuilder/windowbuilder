@@ -14,7 +14,7 @@ package org.eclipse.wb.tests.designer.swt.model.layouts.grid;
 
 import static org.eclipse.wb.internal.swt.model.layout.grid.GridLayoutInfo.getGridData;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDataInfo;

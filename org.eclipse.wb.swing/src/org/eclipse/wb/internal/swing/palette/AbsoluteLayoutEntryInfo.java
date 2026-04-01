@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.palette;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.Tool;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 
 import org.eclipse.jface.resource.ImageDescriptor;
