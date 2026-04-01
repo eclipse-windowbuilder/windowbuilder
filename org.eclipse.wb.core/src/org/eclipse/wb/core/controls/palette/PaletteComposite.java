@@ -13,12 +13,12 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.PaletteFigure;
 import org.eclipse.wb.draw2d.border.LineBorder;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.draw2d.EventManager;

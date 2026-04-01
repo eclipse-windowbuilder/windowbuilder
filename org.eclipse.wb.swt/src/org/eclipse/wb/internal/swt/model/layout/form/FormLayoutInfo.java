@@ -13,10 +13,10 @@
 package org.eclipse.wb.internal.swt.model.layout.form;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;

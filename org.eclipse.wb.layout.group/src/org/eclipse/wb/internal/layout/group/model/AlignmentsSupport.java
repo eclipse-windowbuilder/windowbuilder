@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.model;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AbstractAlignmentActionsSupport;
 import org.eclipse.wb.internal.layout.group.Messages;
 

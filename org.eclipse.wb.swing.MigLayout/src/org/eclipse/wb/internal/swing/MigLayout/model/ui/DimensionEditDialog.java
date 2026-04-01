@@ -18,13 +18,13 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
+import org.eclipse.wb.internal.swing.SwingImages;
 import org.eclipse.wb.internal.swing.MigLayout.Activator;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
-import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.ImageDescriptor;

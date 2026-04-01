@@ -12,8 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.model.property.editor;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.property.GenericProperty;
 import org.eclipse.wb.internal.core.model.property.IConfigurablePropertyObject;

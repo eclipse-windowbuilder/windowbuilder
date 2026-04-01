@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
@@ -20,6 +19,7 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AnchorsActionsSupport;
 import org.eclipse.wb.internal.core.gef.policy.snapping.ComponentAttachmentInfo;
 import org.eclipse.wb.internal.core.gef.policy.snapping.IAbsoluteLayoutCommands;

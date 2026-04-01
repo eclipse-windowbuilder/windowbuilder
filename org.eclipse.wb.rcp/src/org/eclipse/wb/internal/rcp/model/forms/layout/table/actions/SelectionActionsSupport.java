@@ -12,9 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.forms.layout.table.actions;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.rcp.model.ModelMessages;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.ITableWrapDataInfo;

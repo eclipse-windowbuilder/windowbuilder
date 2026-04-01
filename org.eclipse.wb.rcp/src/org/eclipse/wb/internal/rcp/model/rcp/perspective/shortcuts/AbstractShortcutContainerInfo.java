@@ -12,8 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.ObjectInfo;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;

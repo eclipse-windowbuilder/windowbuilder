@@ -12,10 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.MigLayout;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
+import org.eclipse.wb.internal.swing.SwingImages;
 import org.eclipse.wb.internal.swing.MigLayout.model.CellConstraintsSupport;
 import org.eclipse.wb.internal.swing.MigLayout.model.CellConstraintsSupport.DockSide;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
@@ -23,7 +24,6 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
-import org.eclipse.wb.swing.SwingImages;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.jdt.core.dom.Expression;

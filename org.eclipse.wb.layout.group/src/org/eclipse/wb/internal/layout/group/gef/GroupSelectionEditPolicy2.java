@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.gef;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
@@ -30,6 +29,7 @@ import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsolutePolicyUtils;
 import org.eclipse.wb.internal.layout.group.model.AnchorsSupport;
 import org.eclipse.wb.internal.layout.group.model.GroupLayoutUtils;

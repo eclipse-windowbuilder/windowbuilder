@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.AbstractElementInfo;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
@@ -21,6 +20,7 @@ import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryMoveCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryRemoveCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;

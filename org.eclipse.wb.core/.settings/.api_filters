@@ -8,6 +8,14 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="META-INF/MANIFEST.MF" type="org.eclipse.wb.core.editor.constants.CoreImages">
+        <filter comment="Restructuring of internal CoreImages" id="305324134">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.constants.CoreImages"/>
+                <message_argument value="org.eclipse.wb.core_1.24.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/wb/core/gef/IEditPartConfigurator.java" type="org.eclipse.wb.core.gef.IEditPartConfigurator">
         <filter comment="Restructuring of internal EditPart" id="403804204">
             <message_arguments>

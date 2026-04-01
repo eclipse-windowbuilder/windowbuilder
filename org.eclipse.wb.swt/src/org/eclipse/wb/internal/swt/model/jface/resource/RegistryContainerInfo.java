@@ -12,8 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.jface.resource;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.JavaInfo;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.check.Assert;

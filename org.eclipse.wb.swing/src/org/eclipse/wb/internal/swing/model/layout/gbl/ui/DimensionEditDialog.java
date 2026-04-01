@@ -20,11 +20,11 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 import org.eclipse.wb.internal.swing.Activator;
+import org.eclipse.wb.internal.swing.SwingImages;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
-import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.resource.ImageDescriptor;

@@ -10,7 +10,7 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.core.editor.constants;
+package org.eclipse.wb.internal.core.editor.constants;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -31,9 +31,6 @@ import java.net.URL;
  * Utility class that contains all images that are used across several
  * WindowBuilder plugins. Each image is stored as a PNG and exists in normal
  * (96DPI) and high(192DPI) resolution.
- *
- * @noreference This class is not intended to be referenced by clients.
- * @noextend This class is not intended to be extended by clients.
  */
 public abstract class CoreImages {
 	private static ResourceManager RESOURCE_MANAGER = new LocalResourceManager(JFaceResources.getResources());

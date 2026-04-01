@@ -7,7 +7,11 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.swing.Activator
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.wb.internal.swing;x-friends:="org.eclipse.wb.tests,org.eclipse.wb.swing.databinding",
+Export-Package: org.eclipse.wb.internal.swing;
+  x-friends:="org.eclipse.wb.tests,
+   org.eclipse.wb.swing.databinding,
+   org.eclipse.wb.swing.MigLayout,
+   org.eclipse.wb.swing.FormLayout",
  org.eclipse.wb.internal.swing.customize;x-internal:=true,
  org.eclipse.wb.internal.swing.gef;x-friends:="org.eclipse.wb.swing.FormLayout,org.eclipse.wb.swing.MigLayout,org.eclipse.wb.swing.java6",
  org.eclipse.wb.internal.swing.gef.part;x-internal:=true,
@@ -90,7 +94,6 @@ Export-Package: org.eclipse.wb.internal.swing;x-friends:="org.eclipse.wb.tests,o
  org.eclipse.wb.internal.swing.wizards.dialog,
  org.eclipse.wb.internal.swing.wizards.frame,
  org.eclipse.wb.internal.swing.wizards.panel,
- org.eclipse.wb.swing,
  swingintegration.example
 Import-Package: org.apache.commons.collections4;version="[4.4.0,5.0.0)",
  org.apache.commons.collections4.bidimap;version="[4.4.0,5.0.0)",

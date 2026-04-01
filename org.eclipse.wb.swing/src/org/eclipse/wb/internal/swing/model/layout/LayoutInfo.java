@@ -13,7 +13,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.layout;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObject;
@@ -23,6 +22,7 @@ import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.core.model.broadcast.JavaInfoAddProperties;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoDelete;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.ClipboardCommand;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;

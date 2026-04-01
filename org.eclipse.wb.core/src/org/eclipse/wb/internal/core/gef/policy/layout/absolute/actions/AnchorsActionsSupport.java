@@ -12,8 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.gef.GefMessages;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementsSupport;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;

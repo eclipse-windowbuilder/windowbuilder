@@ -12,9 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.edit;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.swt.gef.GefMessages;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swt.gef.policy.layout.grid.header.actions.SetAlignmentAction;

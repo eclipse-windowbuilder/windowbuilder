@@ -10,9 +10,9 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.swing;
+package org.eclipse.wb.internal.swing;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -22,9 +22,6 @@ import org.osgi.framework.FrameworkUtil;
  * Utility class that contains all images that are used accross all Swing
  * components. Each image is stored as a PNG and exists in normal (96DPI) and
  * high(192DPI) resolution.
- *
- * @noreference This class is not intended to be referenced by clients.
- * @noextend This class is not intended to be extended by clients.
  */
 public class SwingImages extends CoreImages {
 	public static ImageDescriptor ALIGNMENT_V_MENU_BASELINE_ABOVE = of("alignment/v/menu/baseline_above.svg");

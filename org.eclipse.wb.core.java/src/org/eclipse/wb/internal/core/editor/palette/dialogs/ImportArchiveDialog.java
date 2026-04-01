@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.palette.dialogs;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.editor.palette.command.CategoryAddCommand;
 import org.eclipse.wb.internal.core.editor.palette.command.Command;
 import org.eclipse.wb.internal.core.editor.palette.command.ComponentAddCommand;

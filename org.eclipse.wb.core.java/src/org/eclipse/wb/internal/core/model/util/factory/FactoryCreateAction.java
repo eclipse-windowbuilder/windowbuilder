@@ -13,12 +13,12 @@
 package org.eclipse.wb.internal.core.model.util.factory;
 
 import org.eclipse.wb.core.editor.IDesignPageSite;
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.editor.palette.command.factory.FactoryAddCommand;
 import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;

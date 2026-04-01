@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.classpath;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 
 import org.eclipse.jdt.core.IJavaElement;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.wb.swing" version="2">
+    <resource path="META-INF/MANIFEST.MF">
+        <filter comment="Restructuring of internal SwingImages" id="923795461">
+            <message_arguments>
+                <message_argument value="1.12.0"/>
+                <message_argument value="1.11.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="META-INF/MANIFEST.MF" type="org.eclipse.wb.core.editor.constants.CoreImages">
+        <filter comment="Restructuring of internal CoreImages" id="305422471">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.constants.CoreImages"/>
+                <message_argument value="org.eclipse.wb.swing_1.11.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="META-INF/MANIFEST.MF" type="org.eclipse.wb.swing.SwingImages">
+        <filter comment="Restructuring of internal SwingImages" id="305324134">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.swing.SwingImages"/>
+                <message_argument value="org.eclipse.wb.swing_1.12.0"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>

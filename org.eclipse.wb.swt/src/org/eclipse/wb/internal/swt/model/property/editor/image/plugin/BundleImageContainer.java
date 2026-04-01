@@ -12,8 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.model.property.editor.image.plugin;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IHasChildren;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageContainer;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.IImageElement;

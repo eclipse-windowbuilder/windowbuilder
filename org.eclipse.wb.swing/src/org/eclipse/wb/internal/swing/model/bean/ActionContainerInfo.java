@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.bean;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.AssociationObjects;
 import org.eclipse.wb.core.model.association.EmptyAssociation;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.generation.GenerationUtils;
 import org.eclipse.wb.internal.core.model.generation.statement.PureFlatStatementGenerator;

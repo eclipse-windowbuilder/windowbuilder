@@ -12,8 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.FormLayout.gef.header.edit;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.swing.FormLayout.gef.GefMessages;
 import org.eclipse.wb.internal.swing.FormLayout.gef.header.actions.DimensionHeaderAction;

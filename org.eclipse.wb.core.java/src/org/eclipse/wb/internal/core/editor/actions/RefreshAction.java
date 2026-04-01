@@ -13,9 +13,9 @@
 package org.eclipse.wb.internal.core.editor.actions;
 
 import org.eclipse.wb.core.editor.IDesignPage;
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 
 import org.eclipse.ui.actions.ActionFactory;
 

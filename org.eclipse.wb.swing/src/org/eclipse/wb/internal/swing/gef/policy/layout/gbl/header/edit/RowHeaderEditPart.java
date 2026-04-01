@@ -12,8 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
+import org.eclipse.wb.internal.swing.SwingImages;
 import org.eclipse.wb.internal.swing.gef.GefMessages;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions.DimensionHeaderAction;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.actions.SetAlignmentRowAction;
@@ -22,7 +23,6 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo.Alignment;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ui.RowEditDialog;
-import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;

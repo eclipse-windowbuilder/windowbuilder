@@ -13,9 +13,9 @@
 package org.eclipse.wb.internal.swing.FormLayout.model;
 
 import org.eclipse.wb.core.editor.IContextMenuConstants;
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.ComplexProperty;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;

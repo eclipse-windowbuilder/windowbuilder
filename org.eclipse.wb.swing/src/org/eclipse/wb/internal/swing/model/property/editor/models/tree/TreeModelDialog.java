@@ -12,7 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.model.property.editor.models.tree;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;

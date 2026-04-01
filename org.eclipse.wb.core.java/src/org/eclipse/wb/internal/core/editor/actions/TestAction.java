@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor.actions;
 
-import org.eclipse.wb.core.editor.constants.CoreImages;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.editor.Messages;
+import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;

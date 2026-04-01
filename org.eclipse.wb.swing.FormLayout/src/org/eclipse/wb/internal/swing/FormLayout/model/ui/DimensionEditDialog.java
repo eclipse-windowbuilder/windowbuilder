@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
+import org.eclipse.wb.internal.swing.SwingImages;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormColumnInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
@@ -26,7 +27,6 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeConstantInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.ModelMessages;
-import org.eclipse.wb.swing.SwingImages;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
