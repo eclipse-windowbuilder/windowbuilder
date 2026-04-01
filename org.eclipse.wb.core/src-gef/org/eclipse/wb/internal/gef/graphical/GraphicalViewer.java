@@ -84,22 +84,6 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	}
 
 	/**
-	 * @return viewer horizontal scroll offset.
-	 */
-	@Override
-	public int getHOffset() {
-		return m_canvas.getViewport().getHorizontalRangeModel().getValue();
-	}
-
-	/**
-	 * @return viewer vertical scroll offset.
-	 */
-	@Override
-	public int getVOffset() {
-		return m_canvas.getViewport().getVerticalRangeModel().getValue();
-	}
-
-	/**
 	 * Returns root {@link EditPart}.
 	 */
 	@Override

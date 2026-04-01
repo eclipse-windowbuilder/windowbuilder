@@ -242,8 +242,8 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 
 	protected boolean movedPastThreshold() {
 		if (!getFlag(FLAG_PAST_THRESHOLD)) {
-			Point start = getAbsoluteStartLocation();
-			Point end = getAbsoluteLocation();
+			Point start = getStartLocation();
+			Point end = getLocation();
 			setFlag(FLAG_PAST_THRESHOLD, Math.abs(start.x - end.x) > DRAG_THRESHOLD || Math.abs(start.y - end.y) > DRAG_THRESHOLD);
 		}
 		return getFlag(FLAG_PAST_THRESHOLD);
@@ -348,23 +348,6 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	// Drop Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the current x, y <b>*absolute*</b> position of the mouse cursor.
-	 */
-	public final Point getAbsoluteLocation() {
-		return new Point(getLocation().x + getCurrentViewer().getHOffset(),
-				getLocation().y + getCurrentViewer().getVOffset());
-	}
-
-	/**
-	 * Returns the starting mouse <b>*absolute*</b> location for the current tool operation. This is
-	 * typically the mouse location where the user first pressed a mouse button. This is important for
-	 * tools that interpret mouse drags.
-	 */
-	protected Point getAbsoluteStartLocation() {
-		return new Point(getStartLocation().x + getCurrentViewer().getHOffset(),
-				getStartLocation().y + getCurrentViewer().getVOffset());
-	}
 
 	/**
 	 * Resets all state fields to default values.

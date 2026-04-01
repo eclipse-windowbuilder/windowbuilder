@@ -124,16 +124,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	}
 
 	@Override
-	public int getHOffset() {
-		return 0;
-	}
-
-	@Override
-	public int getVOffset() {
-		return 0;
-	}
-
-	@Override
 	public RootEditPart getRootEditPart() {
 		return null;
 	}

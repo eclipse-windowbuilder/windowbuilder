@@ -88,16 +88,6 @@ public interface IEditPartViewer extends ISelectionProvider, org.eclipse.gef.Edi
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * @return viewer horizontal scroll offset.
-	 */
-	int getHOffset();
-
-	/**
-	 * @return viewer vertical scroll offset.
-	 */
-	int getVOffset();
-
-	/**
 	 * Returns the {@link EditDomain EditDomain} to which this viewer belongs.
 	 */
 	EditDomain getEditDomain();
