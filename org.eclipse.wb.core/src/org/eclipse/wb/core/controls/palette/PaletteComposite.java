@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -230,6 +230,7 @@ public final class PaletteComposite extends Composite {
 	 * @deprecated Use {@link #setPalette(DesignerRoot)}. This method will be
 	 *             removed after the 2027-03 release.
 	 */
+	@SuppressWarnings("removal")
 	@Deprecated(since = "1.19", forRemoval = true)
 	public void setPalette(IPalette palette) {
 		m_palette = palette;
@@ -257,6 +258,7 @@ public final class PaletteComposite extends Composite {
 	 * @deprecated Use {@link #setPreferences(DesignerPaletteViewerPreferences)}.
 	 *             This method will be removed after the 2027-03 release.
 	 */
+	@SuppressWarnings("removal")
 	@Deprecated(since = "1.19", forRemoval = true)
 	public void setPreferences(IPalettePreferences preferences) {
 		m_preferences = preferences;
@@ -281,6 +283,7 @@ public final class PaletteComposite extends Composite {
 	 * @deprecated Use {@link #selectEntry(DesignerEntry, boolean)} instead. This
 	 *             method will be removed after the 2027-03 release.
 	 */
+	@SuppressWarnings("removal")
 	@Deprecated(since = "3.19", forRemoval = true)
 	public void selectEntry(IEntry selectedEntry, boolean reload) {
 		// activate new entry
@@ -313,6 +316,7 @@ public final class PaletteComposite extends Composite {
 	 * @deprecated Use {@link #getCategoryFigure(DesignerContainer)} instead. This
 	 *             method will be removed after the 2027-03 release.
 	 */
+	@SuppressWarnings("removal")
 	@Deprecated(since = "3.19", forRemoval = true)
 	public Figure getCategoryFigure(ICategory category) {
 		return m_categoryFigures.get(category);
@@ -332,6 +336,7 @@ public final class PaletteComposite extends Composite {
 	 * @deprecated Use {@link #getEntryFigure(DesignerContainer, DesignerEntry)}
 	 *             instead. This method will be removed after the 2027-03 release.
 	 */
+	@SuppressWarnings("removal")
 	@Deprecated(since = "3.19", forRemoval = true)
 	public Figure getEntryFigure(ICategory category, IEntry entry) {
 		CategoryFigure categoryFigure = m_categoryFigures.get(category);

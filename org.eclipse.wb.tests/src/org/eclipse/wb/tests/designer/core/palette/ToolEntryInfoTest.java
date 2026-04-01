@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -57,7 +57,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 		// initialize
 		assertTrue(toolEntry.initialize(editPartViewer, panel));
 		// activate
-		assertFalse(toolEntry.activate(false));
+		assertNull(toolEntry.createTool(false));
 	}
 
 	/**
@@ -82,7 +82,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 		// initialize
 		assertTrue(toolEntry.initialize(editPartViewer, panel));
 		// activate
-		assertTrue(toolEntry.activate(false));
+		assertNotNull(toolEntry.createTool(false));
 	}
 
 	/**
@@ -109,7 +109,7 @@ public class ToolEntryInfoTest extends AbstractPaletteTest {
 		// activate
 		try {
 			DesignerPlugin.setDisplayExceptionOnConsole(false);
-			assertFalse(toolEntry.activate(false));
+			assertNull(toolEntry.createTool(false));
 		} finally {
 			DesignerPlugin.setDisplayExceptionOnConsole(true);
 		}

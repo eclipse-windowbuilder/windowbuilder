@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -137,7 +137,7 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 		{
 			AbsoluteLayoutEntryInfo absoluteEntry = new AbsoluteLayoutEntryInfo();
 			absoluteEntry.initialize(m_viewerCanvas, shell);
-			absoluteEntry.activate(false);
+			absoluteEntry.createTool(false);
 			canvas.target(shell).in(250, 50).move().click();
 			waitEventLoop(0);
 		}

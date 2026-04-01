@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,6 +37,7 @@ public interface IPalette {
 	/**
 	 * @return the {@link List} of {@link ICategory}'s to display as roots of palette.
 	 */
+	@SuppressWarnings("removal")
 	List<? extends ICategory> getCategories();
 
 	/**
@@ -62,10 +63,12 @@ public interface IPalette {
 	/**
 	 * Moves given <code>category</code> before given <code>nextCategory</code>.
 	 */
+	@SuppressWarnings("removal")
 	void moveCategory(ICategory category, ICategory nextCategory);
 
 	/**
 	 * Moves given <code>entry</code> into given category before <code>nextEntry</code>.
 	 */
+	@SuppressWarnings("removal")
 	void moveEntry(IEntry entry, ICategory targetCategory, IEntry nextEntry);
 }
