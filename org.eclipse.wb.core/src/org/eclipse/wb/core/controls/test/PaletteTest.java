@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -172,11 +172,13 @@ public class PaletteTest implements ColorConstants {
 
 		@Override
 		@Deprecated
+		@SuppressWarnings("removal")
 		public void moveCategory(ICategory category, ICategory nextCategory) {
 		}
 
 		@Override
 		@Deprecated
+		@SuppressWarnings("removal")
 		public void moveEntry(IEntry entry, ICategory targetCategory, IEntry nextEntry) {
 		}
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -385,6 +385,7 @@ public class DesignerPalette {
 	/**
 	 * @return the {@link ICategory} for given {@link CategoryInfo}.
 	 */
+	@SuppressWarnings("removal")
 	private DesignerContainer getVisualCategory(final CategoryInfo categoryInfo) {
 		DesignerContainer category = m_categoryInfoToVisual.get(categoryInfo);
 		if (category == null) {
@@ -471,6 +472,7 @@ public class DesignerPalette {
 
 			@Override
 			@Deprecated
+			@SuppressWarnings("removal")
 			public void moveCategory(ICategory _category, ICategory _nextCategory) {
 				CategoryInfo category = m_visualToCategoryInfo.get(_category);
 				CategoryInfo nextCategory = m_visualToCategoryInfo.get(_nextCategory);
@@ -479,6 +481,7 @@ public class DesignerPalette {
 
 			@Override
 			@Deprecated
+			@SuppressWarnings("removal")
 			public void moveEntry(IEntry _entry, ICategory _targetCategory, IEntry _nextEntry) {
 				EntryInfo entry = m_visualToEntryInfo.get(_entry);
 				CategoryInfo category = m_visualToCategoryInfo.get(_targetCategory);
