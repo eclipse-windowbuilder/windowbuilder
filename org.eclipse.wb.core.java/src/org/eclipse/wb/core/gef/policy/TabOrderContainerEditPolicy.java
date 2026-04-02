@@ -66,6 +66,9 @@ public final class TabOrderContainerEditPolicy extends DesignEditPolicy {
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public void showTargetFeedback(Request request) {
+		if (!understandsRequest(request)) {
+			return;
+		}
 		TabOrderContainerRequest containerRequest = (TabOrderContainerRequest) request;
 		//
 		if (containerRequest.getChildren() == null) {
@@ -114,6 +117,9 @@ public final class TabOrderContainerEditPolicy extends DesignEditPolicy {
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public void eraseTargetFeedback(Request request) {
+		if (!understandsRequest(request)) {
+			return;
+		}
 		eraseChildrenIndexes();
 		TabOrderContainerRequest containerRequest = (TabOrderContainerRequest) request;
 		TabOrderCommand command = new TabOrderCommand(getContainer(), containerRequest.getChildren());

@@ -66,12 +66,16 @@ public final class SubmenuAwareLayoutEditPolicy extends LayoutEditPolicy {
 
 	@Override
 	public void showTargetFeedback(Request request) {
-		PolicyUtils.showBorderTargetFeedback(this);
+		if (understandsRequest(request)) {
+			PolicyUtils.showBorderTargetFeedback(this);
+		}
 	}
 
 	@Override
 	public void eraseTargetFeedback(Request request) {
-		PolicyUtils.eraseBorderTargetFeedback(this);
+		if (understandsRequest(request)) {
+			PolicyUtils.eraseBorderTargetFeedback(this);
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////

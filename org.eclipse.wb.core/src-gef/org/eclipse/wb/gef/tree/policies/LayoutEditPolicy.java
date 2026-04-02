@@ -280,14 +280,14 @@ public abstract class LayoutEditPolicy extends AbstractEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void showTargetFeedback(Request request) {
-		if (isRequestCondition(request)) {
+		if (understandsRequest(request)) {
 			showLayoutTargetFeedback(request);
 		}
 	}
 
 	@Override
 	public void eraseTargetFeedback(Request request) {
-		if (isRequestCondition(request)) {
+		if (understandsRequest(request)) {
 			eraseLayoutTargetFeedback(request);
 		}
 	}

@@ -219,14 +219,16 @@ public abstract class LayoutEditPolicy extends DesignEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void showTargetFeedback(Request request) {
-		if (isRequestCondition(request)) {
+		if (understandsRequest(request)) {
 			showLayoutTargetFeedback(request);
 		}
 	}
 
 	@Override
 	public void eraseTargetFeedback(Request request) {
-		eraseLayoutTargetFeedback(request);
+		if (understandsRequest(request)) {
+			eraseLayoutTargetFeedback(request);
+		}
 	}
 
 	/**

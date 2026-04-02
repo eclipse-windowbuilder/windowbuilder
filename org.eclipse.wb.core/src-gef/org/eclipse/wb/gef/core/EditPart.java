@@ -203,20 +203,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	protected void createEditPolicies() {
 	}
 
-	/**
-	 * @return the instances of {@link EditPolicy} which understand given {@link Request}, may be
-	 *         empty {@link List}.
-	 */
-	private List<EditPolicy> getUnderstandingPolicies(Request request) {
-		List<EditPolicy> policies = new ArrayList<>();
-		for (EditPolicy editPolicy : getEditPolicyIterable()) {
-			if (editPolicy.understandsRequest(request)) {
-				policies.add(editPolicy);
-			}
-		}
-		return policies;
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Request/Command
@@ -232,38 +218,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		for (EditPolicy editPolicy : getEditPolicyIterable()) {
 			if (editPolicy instanceof IRequestEditPolicy requestPolicy) {
 				requestPolicy.performRequest(request);
-			}
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Target Feedback
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Shows or updates target feedback for the given request. This method can be called multiple
-	 * times so that the feedback can be updated for changes in the request, such as the mouse
-	 * location changing.
-	 */
-	public void showTargetFeedback(Request request) {
-		if (isActive()) {
-			for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
-				editPolicy.showTargetFeedback(request);
-			}
-		}
-	}
-
-	/**
-	 * Erases <i>target</i> feedback for the specified {@link Request}. A {@link Request} is used to
-	 * describe the type of target feedback that should be erased. This method should only be called
-	 * once to erase feedback. It should only be called in conjunction with a prior call to
-	 * {@link #showTargetFeedback(Request)}.
-	 */
-	public void eraseTargetFeedback(Request request) {
-		if (isActive()) {
-			for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
-				editPolicy.eraseTargetFeedback(request);
 			}
 		}
 	}
