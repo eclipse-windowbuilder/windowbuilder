@@ -142,6 +142,9 @@ AbstractHeaderSelectionEditPolicy {
 
 	@Override
 	public void showSourceFeedback(Request request) {
+		if (!understandsRequest(request)) {
+			return;
+		}
 		ChangeBoundsRequest changeBoundsRequest = (ChangeBoundsRequest) request;
 		m_resizeCommand = null;
 		// line feedback
@@ -185,6 +188,9 @@ AbstractHeaderSelectionEditPolicy {
 
 	@Override
 	public void eraseSourceFeedback(Request request) {
+		if (!understandsRequest(request)) {
+			return;
+		}
 		removeFeedback(m_lineFeedback);
 		m_lineFeedback = null;
 		m_feedback.remove();

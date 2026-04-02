@@ -101,7 +101,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	/**
 	 * @return the cells {@link Rectangle} occupied by host component.
 	 */
-	private Rectangle getComponentCells() throws Exception {
+	private Rectangle getComponentCells() {
 		return getGridInfo().getComponentCells(m_component);
 	}
 
@@ -304,25 +304,21 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 
 	@Override
 	public void showSourceFeedback(Request request) {
-		try {
-			if (request instanceof ChangeBoundsRequest cbRequest) {
-				if (REQ_RESIZE_SIZE.equals(request.getType())) {
-					showSizeFeedback(cbRequest);
-				}
-				if (REQ_RESIZE_SPAN.equals(request.getType())) {
-					showSpanFeedback(cbRequest);
-				}
-			}
-		} catch (Throwable e) {
-			DesignerPlugin.log(e);
+		if (REQ_RESIZE_SIZE.equals(request.getType())) {
+			showSizeFeedback((ChangeBoundsRequest) request);
+		}
+		if (REQ_RESIZE_SPAN.equals(request.getType())) {
+			showSpanFeedback((ChangeBoundsRequest) request);
 		}
 	}
 
 	@Override
 	public void eraseSourceFeedback(Request request) {
-		if (m_lineFeedback != null) {
-			removeFeedback(m_lineFeedback);
-			m_lineFeedback = null;
+		if (REQ_RESIZE_SIZE.equals(request.getType()) || REQ_RESIZE_SPAN.equals(request.getType())) {
+			if (m_lineFeedback != null) {
+				removeFeedback(m_lineFeedback);
+				m_lineFeedback = null;
+			}
 		}
 	}
 
@@ -368,7 +364,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	/**
 	 * Shows feedback and creates command for resize.
 	 */
-	private void showSizeFeedback(ChangeBoundsRequest request) throws Exception {
+	private void showSizeFeedback(ChangeBoundsRequest request) {
 		// prepare new bounds
 		Rectangle bounds = m_component.getModelBounds().getCopy();
 		bounds.performTranslate(request.getMoveDelta());
@@ -449,7 +445,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	/**
 	 * Shows feedback and creates command for span.
 	 */
-	private void showSpanFeedback(ChangeBoundsRequest request) throws Exception {
+	private void showSpanFeedback(ChangeBoundsRequest request) {
 		IGridInfo gridInfo = getGridInfo();
 		// prepare cells
 		Rectangle cells = getComponentCells().getCopy();
