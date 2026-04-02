@@ -185,13 +185,14 @@ SelectionEditPolicy {
 
 	@Override
 	public void eraseSourceFeedback(Request request) {
-		super.eraseSourceFeedback(request);
-		if (sourceFeedbackFigure != null) {
-			removeFeedback(sourceFeedbackFigure);
-			sourceFeedbackFigure = null;
+		if (AbsoluteBasedSelectionEditPolicy.REQ_RESIZE.equals(request.getType())) {
+			if (sourceFeedbackFigure != null) {
+				removeFeedback(sourceFeedbackFigure);
+				sourceFeedbackFigure = null;
+			}
+			removeResizeFeedbacks();
+			hideSizeHints();
 		}
-		removeResizeFeedbacks();
-		hideSizeHints();
 	}
 
 	private void showResizeFeedback(ChangeBoundsRequest request) throws Exception {

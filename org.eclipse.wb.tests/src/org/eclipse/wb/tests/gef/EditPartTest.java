@@ -349,16 +349,16 @@ public class EditPartTest extends GefTestCase {
 				//
 				"getTargetEditPart",
 				//
-				"understandsRequest",
 				"showSourceFeedback",
 				//
-				"understandsRequest",
 				"eraseSourceFeedback",
 				//
 				"understandsRequest",
+				//
 				"showTargetFeedback",
 				//
 				"understandsRequest",
+				//
 		"eraseTargetFeedback"}, request);
 		actualLogger.assertEquals(expectedLogger);
 		actualLogger.clear();

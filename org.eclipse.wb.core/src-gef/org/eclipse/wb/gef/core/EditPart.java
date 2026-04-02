@@ -238,38 +238,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Source Feedback
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Shows or updates source feedback for the given request. This method may be called multiple
-	 * times so that the feedback can be updated for changes in the request, such as the mouse
-	 * location changing.
-	 */
-	public void showSourceFeedback(Request request) {
-		if (isActive()) {
-			for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
-				editPolicy.showSourceFeedback(request);
-			}
-		}
-	}
-
-	/**
-	 * Erases <i>source</i> feedback for the specified {@link Request}. A {@link Request} is used to
-	 * describe the type of source feedback that should be erased. This method should only be called
-	 * once to erase feedback. It should only be called in conjunction with a prior call to
-	 * {@link #showSourceFeedback(Request)}.
-	 */
-	public void eraseSourceFeedback(Request request) {
-		if (isActive()) {
-			for (EditPolicy editPolicy : getUnderstandingPolicies(request)) {
-				editPolicy.eraseSourceFeedback(request);
-			}
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Target Feedback
 	//
 	////////////////////////////////////////////////////////////////////////////

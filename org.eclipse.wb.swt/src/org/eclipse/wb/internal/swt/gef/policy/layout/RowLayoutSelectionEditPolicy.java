@@ -102,14 +102,14 @@ public final class RowLayoutSelectionEditPolicy<C extends IControlInfo> extends 
 
 	@Override
 	public void showSourceFeedback(Request request) {
-		if (request instanceof ChangeBoundsRequest) {
+		if (REQ_RESIZE == request.getType()) {
 			showResizeFeedback((ChangeBoundsRequest) request);
 		}
 	}
 
 	@Override
 	public void eraseSourceFeedback(Request request) {
-		if (request instanceof ChangeBoundsRequest) {
+		if (REQ_RESIZE == request.getType()) {
 			eraseResizeFeedback((ChangeBoundsRequest) request);
 		}
 	}

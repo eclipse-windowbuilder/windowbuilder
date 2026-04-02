@@ -107,13 +107,17 @@ public final class TableTableColumnSelectionEditPolicy extends SelectionEditPoli
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public void showSourceFeedback(Request request) {
-		showResizeFeedback((ChangeBoundsRequest) request);
+		if (REQ_RESIZE == request.getType()) {
+			showResizeFeedback((ChangeBoundsRequest) request);
+		}
 	}
 
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public void eraseSourceFeedback(Request request) {
-		eraseResizeFeedback((ChangeBoundsRequest) request);
+		if (REQ_RESIZE == request.getType()) {
+			eraseResizeFeedback((ChangeBoundsRequest) request);
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////

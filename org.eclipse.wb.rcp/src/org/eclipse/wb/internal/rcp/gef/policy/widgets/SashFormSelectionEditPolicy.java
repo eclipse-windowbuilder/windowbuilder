@@ -117,12 +117,16 @@ public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends S
 
 	@Override
 	public void showSourceFeedback(Request request) {
-		showResizeFeedback((ChangeBoundsRequest) request);
+		if (REQ_RESIZE.equals(request.getType())) {
+			showResizeFeedback((ChangeBoundsRequest) request);
+		}
 	}
 
 	@Override
 	public void eraseSourceFeedback(Request request) {
-		eraseResizeFeedback((ChangeBoundsRequest) request);
+		if (REQ_RESIZE.equals(request.getType())) {
+			eraseResizeFeedback((ChangeBoundsRequest) request);
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
