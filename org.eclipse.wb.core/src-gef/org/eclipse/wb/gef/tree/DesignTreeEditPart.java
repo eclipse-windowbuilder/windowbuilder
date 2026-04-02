@@ -13,8 +13,10 @@
 package org.eclipse.wb.gef.tree;
 
 import org.eclipse.wb.gef.core.RequestProcessor;
+import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 
@@ -83,7 +85,12 @@ public abstract class DesignTreeEditPart extends TreeEditPart {
 
 	@Override
 	public void performRequest(Request request) {
-		super.performRequest(processRequestProcessors(request));
+		Request processedRequest = processRequestProcessors(request);
+		for (EditPolicy editPolicy : getEditPolicyIterable()) {
+			if (editPolicy instanceof IRequestEditPolicy requestPolicy) {
+				requestPolicy.performRequest(processedRequest);
+			}
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////

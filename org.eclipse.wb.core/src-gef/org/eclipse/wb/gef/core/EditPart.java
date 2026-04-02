@@ -12,11 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
-import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
-
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.Request;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -171,24 +166,5 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 * We need this for "tree" GEF, to re-create items after parent item dispose/re-create.
 	 */
 	protected void updateChildVisual(EditPart childPart, int index) {
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Request/Command
-	//
-	////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Performs the specified Request. This method can be used to send a generic message to an
-	 * EditPart. Subclasses should extend this method to handle Requests. For now, the default
-	 * implementation forward request to all EditPolicies.
-	 */
-	public void performRequest(Request request) {
-		for (EditPolicy editPolicy : getEditPolicyIterable()) {
-			if (editPolicy instanceof IRequestEditPolicy requestPolicy) {
-				requestPolicy.performRequest(request);
-			}
-		}
 	}
 }
