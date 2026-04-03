@@ -46,7 +46,7 @@ public final class ExpandableCompositeEditPart extends CompositeEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new ExpandableCompositeLayoutEditPolicy(m_composite));
-		installEditPolicy(new TerminatorLayoutEditPolicy());
+		installEditPolicy(ExpandableCompositeLayoutEditPolicy.class, new ExpandableCompositeLayoutEditPolicy(m_composite));
+		installEditPolicy(TerminatorLayoutEditPolicy.class, new TerminatorLayoutEditPolicy());
 	}
 }

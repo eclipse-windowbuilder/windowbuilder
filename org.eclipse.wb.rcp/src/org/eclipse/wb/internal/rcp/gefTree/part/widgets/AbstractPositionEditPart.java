@@ -45,6 +45,6 @@ public final class AbstractPositionEditPart extends ObjectEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new AbstractPositionLayoutEditPolicy(m_position));
+		installEditPolicy(AbstractPositionLayoutEditPolicy.class, new AbstractPositionLayoutEditPolicy(m_position));
 	}
 }

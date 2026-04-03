@@ -45,6 +45,6 @@ public final class FormHeadEditPart extends CompositeEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new FormHeadLayoutEditPolicy(m_form));
+		installEditPolicy(FormHeadLayoutEditPolicy.class, new FormHeadLayoutEditPolicy(m_form));
 	}
 }

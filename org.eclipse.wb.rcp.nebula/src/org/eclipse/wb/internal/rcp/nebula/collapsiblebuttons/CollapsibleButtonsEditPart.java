@@ -44,7 +44,7 @@ public final class CollapsibleButtonsEditPart extends CompositeEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new CollapsibleButtonsLayoutEditPolicy(m_collButtons));
-		installEditPolicy(new TerminatorLayoutEditPolicy());
+		installEditPolicy(CollapsibleButtonsLayoutEditPolicy.class, new CollapsibleButtonsLayoutEditPolicy(m_collButtons));
+		installEditPolicy(TerminatorLayoutEditPolicy.class, new TerminatorLayoutEditPolicy());
 	}
 }

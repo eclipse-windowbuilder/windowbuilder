@@ -42,6 +42,6 @@ public final class ContributionManagerEditPart extends JavaEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new TerminatorLayoutEditPolicy());
+		installEditPolicy(TerminatorLayoutEditPolicy.class, new TerminatorLayoutEditPolicy());
 	}
 }

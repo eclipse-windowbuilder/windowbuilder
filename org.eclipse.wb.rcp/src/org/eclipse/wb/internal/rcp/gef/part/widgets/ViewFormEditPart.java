@@ -46,7 +46,7 @@ public final class ViewFormEditPart extends CompositeEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new ViewFormLayoutEditPolicy(m_composite));
-		installEditPolicy(new TerminatorLayoutEditPolicy());
+		installEditPolicy(ViewFormLayoutEditPolicy.class, new ViewFormLayoutEditPolicy(m_composite));
+		installEditPolicy(TerminatorLayoutEditPolicy.class, new TerminatorLayoutEditPolicy());
 	}
 }

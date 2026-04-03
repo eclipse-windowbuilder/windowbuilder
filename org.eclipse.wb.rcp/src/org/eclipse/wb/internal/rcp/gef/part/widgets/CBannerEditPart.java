@@ -46,7 +46,7 @@ public final class CBannerEditPart extends CompositeEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new CBannerLayoutEditPolicy(m_composite));
-		installEditPolicy(new TerminatorLayoutEditPolicy());
+		installEditPolicy(CBannerLayoutEditPolicy.class, new CBannerLayoutEditPolicy(m_composite));
+		installEditPolicy(TerminatorLayoutEditPolicy.class, new TerminatorLayoutEditPolicy());
 	}
 }

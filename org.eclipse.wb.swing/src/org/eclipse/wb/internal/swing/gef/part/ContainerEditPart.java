@@ -84,7 +84,7 @@ public final class ContainerEditPart extends ComponentEditPart {
 		super.createEditPolicies();
 		// support for dropping LayoutInfo's
 		if (m_container.canSetLayout()) {
-			installEditPolicy(new DropLayoutEditPolicy(m_container));
+			installEditPolicy(DropLayoutEditPolicy.class, new DropLayoutEditPolicy(m_container));
 		}
 		// support tab ordering for children
 		installEditPolicy(

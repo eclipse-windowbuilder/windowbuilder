@@ -49,7 +49,7 @@ public final class JTabbedPaneEditPart extends ComponentEditPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(new JTabbedPaneTabLayoutEditPolicy(m_component));
+		installEditPolicy(JTabbedPaneTabLayoutEditPolicy.class, new JTabbedPaneTabLayoutEditPolicy(m_component));
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new JTabbedPaneLayoutEditPolicy(m_component));
 	}
 

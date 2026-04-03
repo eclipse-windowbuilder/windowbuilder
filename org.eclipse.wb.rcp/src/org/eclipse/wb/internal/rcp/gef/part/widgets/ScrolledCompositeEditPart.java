@@ -71,7 +71,7 @@ public final class ScrolledCompositeEditPart extends CompositeEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new ScrolledCompositeLayoutEditPolicy(m_composite));
-		installEditPolicy(new TerminatorLayoutEditPolicy());
+		installEditPolicy(ScrolledCompositeLayoutEditPolicy.class, new ScrolledCompositeLayoutEditPolicy(m_composite));
+		installEditPolicy(TerminatorLayoutEditPolicy.class, new TerminatorLayoutEditPolicy());
 	}
 }

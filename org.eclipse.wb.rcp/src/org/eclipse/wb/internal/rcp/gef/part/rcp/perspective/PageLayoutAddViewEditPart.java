@@ -47,7 +47,7 @@ public final class PageLayoutAddViewEditPart extends AbstractComponentEditPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_view.getPage(), m_view, true));
+		installEditPolicy(PageLayoutSidesLayoutEditPolicy.class, new PageLayoutSidesLayoutEditPolicy(m_view.getPage(), m_view, true));
 	}
 
 	@Override

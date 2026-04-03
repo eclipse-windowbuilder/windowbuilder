@@ -29,6 +29,11 @@ import java.util.List;
 @SuppressWarnings("removal")
 public abstract class DesignEditPart extends GraphicalEditPart {
 
+	@Override
+	protected void createEditPolicies() {
+		// does nothing by default
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Request processors

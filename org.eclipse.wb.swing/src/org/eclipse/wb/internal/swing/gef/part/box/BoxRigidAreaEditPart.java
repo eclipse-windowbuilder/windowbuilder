@@ -50,7 +50,7 @@ public final class BoxRigidAreaEditPart extends BoxEditPart {
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new StrutSelectionRigidEditPolicy(m_component));
-		installEditPolicy(new StrutDirectRigidEditPolicy(m_component));
+		installEditPolicy(StrutDirectRigidEditPolicy.class, new StrutDirectRigidEditPolicy(m_component));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
