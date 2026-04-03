@@ -112,7 +112,7 @@ public final class ContainerEditPart extends ComponentEditPart {
 						}
 					}
 				}
-				LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, layout);
+				LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy((EditPart) this, layout);
 				installEditPolicy(EditPolicy.LAYOUT_ROLE, policy);
 
 			} else {

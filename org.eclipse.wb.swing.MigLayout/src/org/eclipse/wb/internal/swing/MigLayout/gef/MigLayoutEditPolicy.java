@@ -494,7 +494,7 @@ public final class MigLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 	}
 
 	@Override
-	public org.eclipse.wb.gef.core.EditPart createHeaderEditPart(boolean horizontal, Object model) {
+	public EditPart createHeaderEditPart(boolean horizontal, Object model) {
 		if (horizontal) {
 			return new ColumnHeaderEditPart(m_layout, (MigColumnInfo) model, getHostFigure());
 		} else {

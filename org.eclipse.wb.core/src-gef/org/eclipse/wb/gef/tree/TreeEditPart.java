@@ -29,6 +29,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.tree
  */
+@SuppressWarnings("removal")
 public abstract class TreeEditPart extends org.eclipse.wb.gef.core.EditPart implements org.eclipse.gef.TreeEditPart {
 	private TreeItem m_widget;
 	private boolean m_expandedShouldRestore;

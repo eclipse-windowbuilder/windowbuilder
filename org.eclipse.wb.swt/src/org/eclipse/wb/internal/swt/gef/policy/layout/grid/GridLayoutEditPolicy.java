@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -482,7 +482,7 @@ AbstractGridLayoutEditPolicy implements IRefreshableEditPolicy {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public org.eclipse.wb.gef.core.EditPart createHeaderEditPart(boolean horizontal, Object model) {
+	public EditPart createHeaderEditPart(boolean horizontal, Object model) {
 		if (horizontal) {
 			return new ColumnHeaderEditPart<>(m_layout, (GridColumnInfo<C>) model, getHostFigure());
 		} else {

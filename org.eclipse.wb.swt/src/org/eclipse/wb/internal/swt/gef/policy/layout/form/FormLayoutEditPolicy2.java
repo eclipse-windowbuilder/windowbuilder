@@ -448,7 +448,7 @@ IHeadersProvider {
 	private FormHeaderLayoutEditPolicy<?> m_headersPolicyVertical;
 
 	@Override
-	public org.eclipse.wb.gef.core.EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
+	public EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
 		return new FormHeaderEditPart<>(m_layout, model, isHorizontal, getHostFigure());
 	}
 

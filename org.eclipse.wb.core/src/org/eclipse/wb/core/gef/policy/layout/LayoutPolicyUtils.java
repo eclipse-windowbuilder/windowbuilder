@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -33,8 +33,19 @@ public class LayoutPolicyUtils {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return the {@link LayoutEditPolicy} for given model.
+	 * @deprecated Use {@link #createLayoutEditPolicy(EditPart, Object)} instead.
+	 *             Will be removed after the 2028-06 release.
 	 */
-	public static LayoutEditPolicy createLayoutEditPolicy(org.eclipse.wb.gef.core.EditPart context, Object model) {
+	@Deprecated(forRemoval = true, since = "2026-06")
+	public static LayoutEditPolicy createLayoutEditPolicy(@SuppressWarnings("removal") org.eclipse.wb.gef.core.EditPart context, Object model) {
+		return createLayoutEditPolicy((EditPart) context, model);
+	}
+
+	/**
+	 * @return the {@link LayoutEditPolicy} for given model.
+	 * @since 1.24
+	 */
+	public static LayoutEditPolicy createLayoutEditPolicy(EditPart context, Object model) {
 		// try to create policy
 		List<ILayoutEditPolicyFactory> factories =
 				ExternalFactoriesHelper.getElementsInstances(
