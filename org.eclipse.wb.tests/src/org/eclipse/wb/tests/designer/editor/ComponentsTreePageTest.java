@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePa
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.CancelOperationError;
-import org.eclipse.wb.internal.gef.tree.dnd.TreeDropListener;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
@@ -119,10 +118,11 @@ public class ComponentsTreePageTest extends SwingGefTest {
 	}
 
 	/**
-	 * There was problem: after some exception during drag operation {@link TreeDropListener} had
-	 * state (list of {@link EditPart} to drag) remembered since last operation. So, when we reparse
-	 * source again and try to perform some other drag this state was not updated - instead it was
-	 * used to create {@link Command} and created weird effect during its execution.
+	 * There was problem: after some exception during drag operation {@code
+	 * TreeViewerTransferDropListener} had state (list of {@link EditPart} to drag)
+	 * remembered since last operation. So, when we reparse source again and try to
+	 * perform some other drag this state was not updated - instead it was used to
+	 * create {@link Command} and created weird effect during its execution.
 	 */
 	@Test
 	public void test_TreeDropListener_dragAfterException() throws Exception {

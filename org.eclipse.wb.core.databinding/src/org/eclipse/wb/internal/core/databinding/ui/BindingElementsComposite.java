@@ -19,20 +19,16 @@ import org.eclipse.wb.internal.core.databinding.Activator;
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.model.IBindingInfo;
 import org.eclipse.wb.internal.core.databinding.model.IDatabindingsProvider;
+import org.eclipse.wb.internal.core.editor.TreeTransfer;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.TableFactory;
-import org.eclipse.wb.internal.gef.tree.dnd.TreeTransfer;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
@@ -47,9 +43,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -144,27 +138,18 @@ public final class BindingElementsComposite extends Composite {
 		m_bindingViewer.setContentProvider(new ArrayContentProvider());
 		m_databindingsProvider.configureBindingViewer(settings, m_bindingViewer);
 		// viewer events
-		m_bindingViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				handleBindingSelection(selection);
+		m_bindingViewer.addPostSelectionChangedListener(event -> {
+			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+			handleBindingSelection(selection);
+		});
+		m_bindingViewer.addDoubleClickListener(event -> {
+			if (m_editBindingListener != null && !UiUtils.isEmpty(m_bindingViewer.getSelection())) {
+				m_editBindingListener.widgetSelected(null);
 			}
 		});
-		m_bindingViewer.addDoubleClickListener(new IDoubleClickListener() {
-			@Override
-			public void doubleClick(DoubleClickEvent event) {
-				if (m_editBindingListener != null && !UiUtils.isEmpty(m_bindingViewer.getSelection())) {
-					m_editBindingListener.widgetSelected(null);
-				}
-			}
-		});
-		m_bindingViewer.getControl().addListener(SWT.KeyDown, new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				if (event.character == SWT.DEL && !UiUtils.isEmpty(m_bindingViewer.getSelection())) {
-					deleteBindind();
-				}
+		m_bindingViewer.getControl().addListener(SWT.KeyDown, event -> {
+			if (event.character == SWT.DEL && !UiUtils.isEmpty(m_bindingViewer.getSelection())) {
+				deleteBindind();
 			}
 		});
 		setupDragAndDrop();

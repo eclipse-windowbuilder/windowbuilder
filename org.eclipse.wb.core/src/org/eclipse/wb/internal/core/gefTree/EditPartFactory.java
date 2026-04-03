@@ -16,15 +16,16 @@ import org.eclipse.wb.core.gef.IEditPartConfigurator;
 import org.eclipse.wb.core.gefTree.part.ObjectEditPart;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.IEditPartFactory;
+import org.eclipse.wb.internal.core.editor.structure.components.DesignComponent;
 import org.eclipse.wb.internal.core.gefTree.part.menu.MenuEditPart;
 import org.eclipse.wb.internal.core.gefTree.part.menu.MenuItemEditPart;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ui.parts.TreeViewer;
 
 import java.util.List;
 
@@ -103,6 +104,9 @@ public final class EditPartFactory implements IEditPartFactory {
 		//    }
 		if (model instanceof ObjectInfo) {
 			return new ObjectEditPart((ObjectInfo) model);
+		}
+		if (model instanceof DesignComponent) {
+			return new DesignComponentEditPart((DesignComponent) model);
 		}
 		// no EditPart found
 		return null;

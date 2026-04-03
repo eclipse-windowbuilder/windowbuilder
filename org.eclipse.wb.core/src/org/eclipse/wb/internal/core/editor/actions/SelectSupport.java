@@ -108,7 +108,9 @@ public final class SelectSupport {
 	 */
 	private void addKeyDownListener(EditPartViewer viewer) {
 		Control control = viewer.getControl();
-		control.addListener(SWT.KeyDown, m_keyListener);
+		if (control != null && !control.isDisposed()) {
+			control.addListener(SWT.KeyDown, m_keyListener);
+		}
 	}
 
 	/**
@@ -116,7 +118,7 @@ public final class SelectSupport {
 	 */
 	private void removeKeyDownListener(EditPartViewer viewer) {
 		Control control = viewer.getControl();
-		if (!control.isDisposed()) {
+		if (control != null && !control.isDisposed()) {
 			control.removeListener(SWT.KeyDown, m_keyListener);
 		}
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
 import org.eclipse.wb.internal.core.databinding.Messages;
 import org.eclipse.wb.internal.core.databinding.ui.UiUtils;
+import org.eclipse.wb.internal.core.editor.TreeTransfer;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 

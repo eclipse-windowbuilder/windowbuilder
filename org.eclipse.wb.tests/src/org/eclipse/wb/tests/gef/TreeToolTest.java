@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.gef.core.EditDomain;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -28,7 +27,9 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.gef.requests.SelectionRequest;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TreeItem;
@@ -143,10 +144,12 @@ public abstract class TreeToolTest extends GefTestCase {
 			String name,
 			RequestsLogger actualLogger,
 			ILayoutEditPolicy ipolicy) throws Exception {
-		RequestTreeEditPart editPart = new RequestTreeEditPart(name, actualLogger, ipolicy);
+		TreeEditPart editPart;
 		if (m_viewer.getRootEditPart() == parentEditPart) {
+			editPart = new RequestTreeEditPartWrapper();
 			m_viewer.getRootEditPart().setContents(editPart);
 		} else {
+			editPart = new RequestTreeEditPart(name, actualLogger, ipolicy);
 			addChildEditPart(parentEditPart, editPart);
 		}
 		return editPart;
@@ -168,6 +171,10 @@ public abstract class TreeToolTest extends GefTestCase {
 	// EditPart implementation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	private static final class RequestTreeEditPartWrapper extends AbstractTreeEditPart {
+		// stub
+	}
+
 	private static final class RequestTreeEditPart extends DesignTreeEditPart {
 		private final String m_name;
 		private final RequestsLogger m_logger;

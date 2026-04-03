@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -67,13 +67,6 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	 */
 	public final boolean isActive() {
 		return getFlag(FLAG_ACTIVE);
-	}
-
-	/**
-	 * Get {@link IEditPartViewer}.
-	 */
-	public final IEditPartViewer getCurrentViewer() {
-		return (IEditPartViewer) super.getCurrentViewer();
 	}
 
 	/**

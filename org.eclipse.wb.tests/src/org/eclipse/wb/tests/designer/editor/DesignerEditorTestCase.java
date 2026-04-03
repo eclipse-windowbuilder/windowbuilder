@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,7 +35,6 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
 import org.eclipse.wb.internal.rcp.databinding.model.widgets.WidgetsObserveTypeContainer;
 import org.eclipse.wb.tests.designer.TestUtils;
@@ -47,6 +46,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.action.IAction;

@@ -94,7 +94,8 @@ public class TreeDragToolTest extends TreeToolTest {
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
-		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, ipolicy);
+		TreeEditPart tree = addEditPart(m_viewer.getRootEditPart(), "tree", actualLogger, ipolicy);
+		TreeEditPart parent = addEditPart(tree, "parent", actualLogger, ipolicy);
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
 		TreeEditPart child2 = addEditPart(parent, "child2", actualLogger, ipolicy);
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
@@ -196,7 +197,8 @@ public class TreeDragToolTest extends TreeToolTest {
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
-		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, ipolicy);
+		TreeEditPart tree = addEditPart(m_viewer.getRootEditPart(), "tree", actualLogger, ipolicy);
+		TreeEditPart parent = addEditPart(tree, "parent", actualLogger, ipolicy);
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, null);
 		addEditPart(parent, "child2", actualLogger, ipolicy);
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
@@ -244,7 +246,8 @@ public class TreeDragToolTest extends TreeToolTest {
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
-		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, (request, editPart) -> !"child1".equals(editPart.getModel()));
+		TreeEditPart tree = addEditPart(m_viewer.getRootEditPart(), "tree", actualLogger, ipolicy);
+		TreeEditPart parent = addEditPart(tree, "parent", actualLogger, (request, editPart) -> !"child1".equals(editPart.getModel()));
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
 		addEditPart(parent, "child2", actualLogger, ipolicy);
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);

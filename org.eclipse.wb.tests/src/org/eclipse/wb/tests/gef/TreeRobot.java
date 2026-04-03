@@ -13,22 +13,23 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Tool;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
+import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Tree;
@@ -200,11 +201,11 @@ public final class TreeRobot {
 
 	private static Event createDNDEvent() {
 		return ExecutionUtils.runObject(() -> {
-			Class<?> dndClass =
-					ReflectionUtils.getClassByName(
-							TreeRobot.class.getClassLoader(),
-							"org.eclipse.swt.dnd.DNDEvent");
-			return (Event) ReflectionUtils.newInstance(dndClass, "<init>()");
+			Class<?> dndClass = ReflectionUtils.getClassByName(TreeRobot.class.getClassLoader(),
+					"org.eclipse.swt.dnd.DNDEvent");
+			Event event = (Event) ReflectionUtils.newInstance(dndClass, "<init>()");
+			ReflectionUtils.setField(event, "dataTypes", new TransferData[0]);
+			return event;
 		});
 	}
 
@@ -307,8 +308,7 @@ public final class TreeRobot {
 	 */
 	public void setExpanded(TreeEditPart editPart, boolean expanded) {
 		TreeEditPart parentEditPart = (TreeEditPart) editPart.getParent();
-		if (parentEditPart != null) {
-			TreeItem widget = (TreeItem) parentEditPart.getWidget();
+		if (parentEditPart != null && parentEditPart.getWidget() instanceof TreeItem widget) {
 			if (expanded) {
 				setExpanded(parentEditPart, expanded);
 				if (widget != null) {
