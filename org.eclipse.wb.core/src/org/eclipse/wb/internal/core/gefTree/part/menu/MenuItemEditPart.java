@@ -14,9 +14,10 @@ package org.eclipse.wb.internal.core.gefTree.part.menu;
 
 import org.eclipse.wb.core.gefTree.part.ObjectEditPart;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.gefTree.policy.menu.MenuItemLayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
+
+import org.eclipse.gef.TreeEditPart;
 
 /**
  * {@link TreeEditPart} for {@link IMenuItemInfo}.

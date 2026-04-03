@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,10 +13,11 @@
 package org.eclipse.wb.tests.designer.core.model.generic;
 
 import org.eclipse.wb.core.gef.policy.layout.ILayoutEditPolicyFactory;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
+
+import org.eclipse.gef.TreeEditPart;
 
 import org.junit.jupiter.api.Test;
 

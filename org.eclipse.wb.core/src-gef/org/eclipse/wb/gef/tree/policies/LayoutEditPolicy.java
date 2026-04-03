@@ -17,7 +17,6 @@ import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
@@ -27,6 +26,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
@@ -71,7 +71,7 @@ public abstract class LayoutEditPolicy extends AbstractEditPolicy {
 	 * Convenience method to return the host's {@link TreeItem}.
 	 */
 	protected final TreeItem getHostWidget() {
-		return getHost().getWidget();
+		return (TreeItem) getHost().getWidget();
 	}
 
 	/**

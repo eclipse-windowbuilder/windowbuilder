@@ -15,7 +15,6 @@ package org.eclipse.wb.tests.gef;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.tree.DesignTreeEditPart;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
@@ -27,10 +26,12 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.TreeItem;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -92,7 +93,7 @@ public abstract class TreeToolTest extends GefTestCase {
 	 * @return <code>(x + width / 2, y + 1)</code> location of part tree item bounds.
 	 */
 	protected static final Point getBeforeLocation(TreeEditPart part) {
-		Rectangle bounds = new Rectangle(part.getWidget().getBounds());
+		Rectangle bounds = new Rectangle(((TreeItem) part.getWidget()).getBounds());
 		Point location = bounds.getTop();
 		location.y++;
 		return location;
@@ -102,7 +103,7 @@ public abstract class TreeToolTest extends GefTestCase {
 	 * @return <code>(x + width / 2, y + height / 2)</code> location of part tree item bounds.
 	 */
 	protected static final Point getOnLocation(TreeEditPart part) {
-		Rectangle bounds = new Rectangle(part.getWidget().getBounds());
+		Rectangle bounds = new Rectangle(((TreeItem) part.getWidget()).getBounds());
 		return bounds.getCenter();
 	}
 
@@ -110,7 +111,7 @@ public abstract class TreeToolTest extends GefTestCase {
 	 * @return <code>(x + width / 2, y + height - 1)</code> location of part tree item bounds.
 	 */
 	protected static final Point getAfterLocation(TreeEditPart part) {
-		Rectangle bounds = new Rectangle(part.getWidget().getBounds());
+		Rectangle bounds = new Rectangle(((TreeItem) part.getWidget()).getBounds());
 		Point location = bounds.getBottom();
 		location.y--;
 		return location;
