@@ -46,10 +46,6 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	}
 
 	@Override
-	public void deselect(List<? extends EditPart> editParts) {
-	}
-
-	@Override
 	public void deselectAll() {
 	}
 
