@@ -34,6 +34,7 @@ import java.util.List;
  * @deprecated Extend {@link AbstractGraphicalEditPart} directly or cast to
  *             {@link org.eclipse.gef.GraphicalEditPart GraphicalEditPart}.
  */
+@SuppressWarnings("removal")
 @Deprecated(since = "2026-06", forRemoval = true)
 public abstract class GraphicalEditPart extends org.eclipse.wb.gef.core.EditPart implements org.eclipse.gef.GraphicalEditPart {
 	private IFigure m_figure;

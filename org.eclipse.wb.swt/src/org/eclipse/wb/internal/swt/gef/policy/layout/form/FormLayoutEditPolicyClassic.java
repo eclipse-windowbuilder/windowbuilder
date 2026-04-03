@@ -1584,7 +1584,7 @@ implements IHeadersProvider {
 	private FormHeaderLayoutEditPolicy<C> headersPolicyVertical;
 
 	@Override
-	public org.eclipse.wb.gef.core.EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
+	public EditPart createHeaderEditPart(boolean isHorizontal, Object model) {
 		return new FormHeaderEditPart<>(layout, model, isHorizontal, getHostFigure());
 	}
 

@@ -30,6 +30,40 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/wb/core/gef/MatchingEditPartFactory.java" type="org.eclipse.wb.core.gef.MatchingEditPartFactory">
+        <filter comment="Restructuring of internal EditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.MatchingEditPartFactory"/>
+                <message_argument value="createEditPart(EditPart, Object)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/part/menu/MenuEditPartFactory.java" type="org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory">
+        <filter comment="Restructuring of internal EditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory"/>
+                <message_argument value="createMenu(Object, IMenuInfo)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal EditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory"/>
+                <message_argument value="createMenuItem(Object, IMenuItemInfo)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal EditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory"/>
+                <message_argument value="createMenuMac(Object, IMenuInfo)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal EditPart" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory"/>
+                <message_argument value="createPopupMenu(Object, IMenuPopupInfo)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/wb/core/gef/policy/PolicyUtils.java" type="org.eclipse.wb.core.gef.policy.PolicyUtils">
         <filter comment="Restructuring of internal GraphicalEditPart" id="338792546">
             <message_arguments>

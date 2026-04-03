@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,7 @@ import org.eclipse.gef.EditPart;
  */
 public final class HeadersEditPartFactory implements IEditPartFactory {
 	@Override
-	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
-		return (org.eclipse.wb.gef.core.EditPart) model;
+	public EditPart createEditPart(EditPart context, Object model) {
+		return (EditPart) model;
 	}
 }

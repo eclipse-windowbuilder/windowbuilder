@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,7 +48,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
+	public EditPart createEditPart(EditPart context, Object model) {
 		// menu
 		{
 			if (model instanceof MenuInfo menu) {
@@ -74,7 +74,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private org.eclipse.wb.gef.core.EditPart createMenuEditPart(Object model, IMenuInfo menuInfo) {
+	private EditPart createMenuEditPart(Object model, IMenuInfo menuInfo) {
 		return EnvironmentUtils.IS_MAC
 				? MenuEditPartFactory.createMenuMac(model, menuInfo)
 						: MenuEditPartFactory.createMenu(model, menuInfo);

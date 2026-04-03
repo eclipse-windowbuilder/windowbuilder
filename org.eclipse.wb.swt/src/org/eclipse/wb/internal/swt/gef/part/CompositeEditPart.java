@@ -116,7 +116,7 @@ public class CompositeEditPart extends ControlEditPart {
 							m_composite.setLayout(m_currentLayout);
 						}
 					}
-					LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy(this, m_currentLayout);
+					LayoutEditPolicy policy = LayoutPolicyUtils.createLayoutEditPolicy((EditPart) this, m_currentLayout);
 					if (policy == null) {
 						policy = new DefaultLayoutEditPolicy();
 					}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -60,10 +60,10 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
+	public EditPart createEditPart(EditPart context, Object model) {
 		Class<?> modelClass = model.getClass();
 		for (; modelClass != null; modelClass = modelClass.getSuperclass()) {
-			org.eclipse.wb.gef.core.EditPart editPart = createEditPart(model, modelClass);
+			EditPart editPart = createEditPart(model, modelClass);
 			if (editPart != null) {
 				return editPart;
 			}
@@ -86,17 +86,17 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 	 * @return the {@link EditPart} corresponding to <code>modelClass</code>, may be <code>null</code>
 	 *         , if no match found.
 	 */
-	private org.eclipse.wb.gef.core.EditPart createEditPart(Object model, Class<?> modelClass) {
+	private EditPart createEditPart(Object model, Class<?> modelClass) {
 		// "Info" suffix
 		{
-			org.eclipse.wb.gef.core.EditPart editPart = createEditPart(model, modelClass, "Info");
+			EditPart editPart = createEditPart(model, modelClass, "Info");
 			if (editPart != null) {
 				return editPart;
 			}
 		}
 		// no suffix
 		{
-			org.eclipse.wb.gef.core.EditPart editPart = createEditPart(model, modelClass, "");
+			EditPart editPart = createEditPart(model, modelClass, "");
 			if (editPart != null) {
 				return editPart;
 			}
@@ -107,7 +107,7 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 			if (modelClassName.contains("$")) {
 				modelClassName = StringUtils.remove(modelClassName, "Info");
 				modelClassName = StringUtils.remove(modelClassName, "$");
-				org.eclipse.wb.gef.core.EditPart editPart = createEditPart(model, modelClass, modelClassName, "");
+				EditPart editPart = createEditPart(model, modelClass, modelClassName, "");
 				if (editPart != null) {
 					return editPart;
 				}
@@ -120,7 +120,7 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 	/**
 	 * Implementation for {@link #createEditPart(Object, Class)}, with single model suffix.
 	 */
-	private org.eclipse.wb.gef.core.EditPart createEditPart(Object model, Class<?> modelClass, String modelSuffix) {
+	private EditPart createEditPart(Object model, Class<?> modelClass, String modelSuffix) {
 		String modelClassName = modelClass.getName();
 		return createEditPart(model, modelClass, modelClassName, modelSuffix);
 	}
@@ -128,7 +128,7 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 	/**
 	 * Implementation for {@link #createEditPart(Object, Class)}, with single model suffix.
 	 */
-	private org.eclipse.wb.gef.core.EditPart createEditPart(Object model,
+	private EditPart createEditPart(Object model,
 			Class<?> modelClass,
 			String modelClassName,
 			String modelSuffix) {
@@ -144,7 +144,7 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 				// create corresponding EditPart, use "EditPart" prefix
 				{
 					String partClassName = partPackage + componentName + "EditPart";
-					org.eclipse.wb.gef.core.EditPart editPart = createEditPart0(model, modelClass, partClassName);
+					EditPart editPart = createEditPart0(model, modelClass, partClassName);
 					if (editPart != null) {
 						return editPart;
 					}
@@ -155,14 +155,14 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 		return null;
 	}
 
-	private static org.eclipse.wb.gef.core.EditPart createEditPart0(Object model, Class<?> modelClass, String partClassName) {
+	private static EditPart createEditPart0(Object model, Class<?> modelClass, String partClassName) {
 		try {
 			ClassLoader classLoader = modelClass.getClassLoader();
 			Class<?> partClass = classLoader.loadClass(partClassName);
 			// try all constructors
 			for (Constructor<?> constructor : partClass.getConstructors()) {
 				try {
-					return (org.eclipse.wb.gef.core.EditPart) constructor.newInstance(model);
+					return (EditPart) constructor.newInstance(model);
 				} catch (Throwable e) {
 					// ignore
 				}

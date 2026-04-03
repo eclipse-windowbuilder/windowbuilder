@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -70,9 +70,9 @@ public final class EditPartFactory implements IEditPartFactory {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
+	public EditPart createEditPart(EditPart context, Object model) {
 		for (IEditPartFactory factory : FACTORIES) {
-			org.eclipse.wb.gef.core.EditPart editPart = factory.createEditPart(null, model);
+			EditPart editPart = factory.createEditPart(null, model);
 			if (editPart != null) {
 				return editPart;
 			}
@@ -87,7 +87,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	////////////////////////////////////////////////////////////////////////////
 	private static final IEditPartFactory MENU_FACTORY = new IEditPartFactory() {
 		@Override
-		public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
+		public EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof JMenuBarInfo menu) {
 				IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menu);
 				return MenuEditPartFactory.createMenu(model, menuObject);
@@ -112,7 +112,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	};
 	private static final IEditPartFactory SPECIAL_FACTORY = new IEditPartFactory() {
 		@Override
-		public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
+		public EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof JSplitPaneInfo) {
 				return new JSplitPaneEditPart((JSplitPaneInfo) model);
 			}
@@ -130,7 +130,7 @@ public final class EditPartFactory implements IEditPartFactory {
 	};
 	private static final IEditPartFactory BOX_FACTORY = new IEditPartFactory() {
 		@Override
-		public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
+		public EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof ComponentInfo component) {
 				if (component.getCreationSupport() instanceof StaticFactoryCreationSupport) {
 					StaticFactoryCreationSupport factoryCreationSupport =
@@ -146,7 +146,7 @@ public final class EditPartFactory implements IEditPartFactory {
 			return null;
 		}
 
-		private org.eclipse.wb.gef.core.EditPart createEditPart(ComponentInfo component, String signature) {
+		private EditPart createEditPart(ComponentInfo component, String signature) {
 			// glue
 			if (signature.equals("createGlue()")) {
 				return new BoxGlueEditPart(component);
@@ -176,7 +176,7 @@ public final class EditPartFactory implements IEditPartFactory {
 					List.of("org.eclipse.wb.internal.swing.gef.part"));
 	private static final IEditPartFactory GENERIC_FACTORY = new IEditPartFactory() {
 		@Override
-		public org.eclipse.wb.gef.core.EditPart createEditPart(EditPart context, Object model) {
+		public EditPart createEditPart(EditPart context, Object model) {
 			if (model instanceof ContainerInfo) {
 				return new ContainerEditPart((ContainerInfo) model);
 			}

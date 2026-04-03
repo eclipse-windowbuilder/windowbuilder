@@ -26,7 +26,10 @@ import java.util.Map;
  *
  * @author lobas_av
  * @coverage gef.core
+ * @deprecated Cast to {@link org.eclipse.gef.EditPart EditPart} directly or
+ *             extend {@link AbstractEditPart}.
  */
+@Deprecated(forRemoval = true, since = "2026-06")
 public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPart {
 
 	////////////////////////////////////////////////////////////////////////////

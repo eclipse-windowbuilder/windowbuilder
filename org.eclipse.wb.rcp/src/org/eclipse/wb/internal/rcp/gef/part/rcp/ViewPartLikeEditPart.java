@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -46,7 +46,7 @@ public final class ViewPartLikeEditPart extends WorkbenchPartLikeEditPart {
 	@Override
 	protected EditPart createChild(Object model) {
 		if (model instanceof MenuManagerInfo manager) {
-			org.eclipse.wb.gef.core.EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_part.getMenuImpl(manager));
+			EditPart editPart = MenuEditPartFactory.createPopupMenu(model, m_part.getMenuImpl(manager));
 			EditPartFactory.configureEditPart(this, editPart);
 			return editPart;
 		}

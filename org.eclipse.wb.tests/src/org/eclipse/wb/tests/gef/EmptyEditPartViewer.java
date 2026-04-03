@@ -81,7 +81,7 @@ public class EmptyEditPartViewer extends AbstractEditPartViewer implements IEdit
 	}
 
 	@Override
-	public List<org.eclipse.wb.gef.core.EditPart> getSelectedEditParts() {
+	public List<EditPart> getSelectedEditParts() {
 		return null;
 	}
 
