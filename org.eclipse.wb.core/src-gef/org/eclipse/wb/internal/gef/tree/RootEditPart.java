@@ -14,10 +14,10 @@ package org.eclipse.wb.internal.gef.tree;
 
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.tree.DesignTreeEditPart;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.TreeEditPart;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;

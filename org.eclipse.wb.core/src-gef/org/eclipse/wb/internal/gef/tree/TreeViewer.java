@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree;
 
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.TreeEditPart;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -156,7 +156,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 		List<TreeItem> treeItems = new ArrayList<>();
 		for (EditPart editPart : getSelectedEditParts()) {
 			TreeEditPart treeEditPart = (TreeEditPart) editPart;
-			treeItems.add(treeEditPart.getWidget());
+			treeItems.add((TreeItem) treeEditPart.getWidget());
 		}
 		// set selection in tree
 		m_tree.setSelection(treeItems.toArray(new TreeItem[treeItems.size()]));

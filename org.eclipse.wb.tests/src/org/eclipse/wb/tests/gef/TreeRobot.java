@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.tests.gef;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
@@ -25,6 +24,7 @@ import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
@@ -183,7 +183,7 @@ public final class TreeRobot {
 	}
 
 	private Event createDNDEvent(TreeEditPart dragPart, Point locationInTree) {
-		Tree tree = dragPart.getWidget().getParent();
+		Tree tree = ((TreeItem) dragPart.getWidget()).getParent();
 		// create DNDEvent
 		Event event = createDNDEvent();
 		// configure event
@@ -308,7 +308,7 @@ public final class TreeRobot {
 	public void setExpanded(TreeEditPart editPart, boolean expanded) {
 		TreeEditPart parentEditPart = (TreeEditPart) editPart.getParent();
 		if (parentEditPart != null) {
-			TreeItem widget = parentEditPart.getWidget();
+			TreeItem widget = (TreeItem) parentEditPart.getWidget();
 			if (expanded) {
 				setExpanded(parentEditPart, expanded);
 				if (widget != null) {
@@ -387,7 +387,7 @@ public final class TreeRobot {
 	 * @return bounds of given {@link EditPart} in {@link Tree}.
 	 */
 	public static Rectangle getBounds(TreeEditPart editPart) {
-		TreeItem widget = editPart.getWidget();
+		TreeItem widget = (TreeItem) editPart.getWidget();
 		return new Rectangle(widget.getBounds());
 	}
 
@@ -494,14 +494,14 @@ public final class TreeRobot {
 	public TreeRobot assertFeedback_on(Object object) {
 		TreeEditPart editPart = getEditPart(object);
 		List<TreeItem> selectedItems = getFeedbackSelection();
-		Assertions.assertThat(selectedItems).containsOnly(editPart.getWidget());
+		Assertions.assertThat(selectedItems).containsOnly((TreeItem) editPart.getWidget());
 		return this;
 	}
 
 	public TreeRobot assertFeedback_notOn(Object object) {
 		TreeEditPart editPart = getEditPart(object);
 		List<TreeItem> selectedItems = getFeedbackSelection();
-		Assertions.assertThat(selectedItems).doesNotContain(editPart.getWidget());
+		Assertions.assertThat(selectedItems).doesNotContain((TreeItem) editPart.getWidget());
 		return this;
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,8 +13,9 @@
 package org.eclipse.wb.core.gefTree.part;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.gefTree.policy.dblclick.DoubleClickLayoutEditPolicy;
+
+import org.eclipse.gef.TreeEditPart;
 
 /**
  * {@link TreeEditPart} for {@link JavaInfo}.

@@ -13,10 +13,11 @@
 package org.eclipse.wb.internal.core.gefTree.part;
 
 import org.eclipse.wb.core.gefTree.part.ObjectEditPart;
-import org.eclipse.wb.gef.tree.TreeEditPart;
 import org.eclipse.wb.internal.core.gefTree.policy.generic.FlowContainerLayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.generic.FlowContainerConfigurable;
 import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
+
+import org.eclipse.gef.TreeEditPart;
 
 import java.util.List;
 

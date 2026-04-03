@@ -28,8 +28,11 @@ import java.util.List;
 /**
  * @author lobas_av
  * @coverage gef.tree
+ * @deprecated Cast to {@link org.eclipse.gef.TreeEditPart TreeEditPart}
+ *             directly or extend {@link AbstractTreeEditPart}.
  */
 @SuppressWarnings("removal")
+@Deprecated(forRemoval = true, since = "2026-06")
 public abstract class TreeEditPart extends org.eclipse.wb.gef.core.EditPart implements org.eclipse.gef.TreeEditPart {
 	private TreeItem m_widget;
 	private boolean m_expandedShouldRestore;
