@@ -19,6 +19,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.AbstractTreeEditPart;
+import org.eclipse.swt.widgets.TreeItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +30,12 @@ import java.util.List;
  *
  * @see {@link RequestProcessor}
  */
-@SuppressWarnings("removal")
-public abstract class DesignTreeEditPart extends TreeEditPart {
+public abstract class DesignTreeEditPart extends AbstractTreeEditPart {
+
+	@Override
+	public TreeItem getWidget() {
+		return (TreeItem) super.getWidget();
+	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//

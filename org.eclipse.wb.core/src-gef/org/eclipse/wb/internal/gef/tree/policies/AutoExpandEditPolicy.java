@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.gef.tree.policies;
 
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
@@ -24,6 +23,7 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.DropRequest;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
