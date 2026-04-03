@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -134,12 +133,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 		}
 		//
 		int newPartCount = children.size();
-		if (newPartCount - index > 1) {
-			// deselect old child EditPart's
-			List<EditPart> deselectList = new ArrayList<>();
-			children.listIterator(index).forEachRemaining(deselectList::add);
-			getViewer().deselect(deselectList);
-		}
 		// remove old child EditPart's
 		for (int i = index; i < newPartCount; i++) {
 			EditPart childPart = children.get(index);
