@@ -44,6 +44,6 @@ public final class ViewShortcutContainerEditPart extends AbstractShortcutContain
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(new ViewShortcutContainerLayoutEditPolicy(m_container));
+		installEditPolicy(ViewShortcutContainerLayoutEditPolicy.class, new ViewShortcutContainerLayoutEditPolicy(m_container));
 	}
 }

@@ -46,7 +46,7 @@ public class ShellEditPart extends CompositeEditPart {
 		super.createEditPolicies();
 		// support for dropping menu bar when this EditPart is Shell
 		if (canAcceptMenuBar()) {
-			installEditPolicy(new MenuBarDropLayoutEditPolicy(m_shell));
+			installEditPolicy(MenuBarDropLayoutEditPolicy.class, new MenuBarDropLayoutEditPolicy(m_shell));
 		}
 	}
 

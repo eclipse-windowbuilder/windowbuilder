@@ -205,7 +205,7 @@ public class ObjectEditPart extends DesignTreeEditPart {
 	protected void createEditPolicies() {
 		super.createEditPolicies();
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new SelectionEditPolicy());
-		installEditPolicy(new AutoExpandEditPolicy());
+		installEditPolicy(AutoExpandEditPolicy.class, new AutoExpandEditPolicy());
 		refreshEditPolicies();
 	}
 

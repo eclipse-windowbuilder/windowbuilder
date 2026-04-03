@@ -23,6 +23,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -210,8 +211,8 @@ public class EditPartTest extends GefTestCase {
 		TestEditPart testEditPart = new TestEditPart();
 		//
 		// check EditPolicies for new EditPart
-		assertNotNull(testEditPart.getEditPolicies());
-		assertTrue(testEditPart.getEditPolicies().isEmpty());
+		assertNotNull(testEditPart.test_getEditPolicies());
+		assertTrue(testEditPart.test_getEditPolicies().isEmpty());
 		//
 		// check install EditPolicy use 'null' key
 		try {
@@ -227,8 +228,8 @@ public class EditPartTest extends GefTestCase {
 		assertFalse(policy1.isActive());
 		//
 		testEditPart.installEditPolicy("_Policy1_", policy1);
-		assertEquals(1, testEditPart.getEditPolicies().size());
-		assertEquals(policy1, testEditPart.getEditPolicies().get(0));
+		assertEquals(1, testEditPart.test_getEditPolicies().size());
+		assertEquals(policy1, testEditPart.test_getEditPolicies().get(0));
 		assertEquals(policy1, testEditPart.getEditPolicy("_Policy1_"));
 		assertFalse(policy1.isActive());
 		assertSame(testEditPart, policy1.getHost());
@@ -240,9 +241,9 @@ public class EditPartTest extends GefTestCase {
 		//
 		testEditPart.activate();
 		testEditPart.installEditPolicy("_Policy2_", policy2);
-		assertEquals(2, testEditPart.getEditPolicies().size());
-		assertEquals(policy1, testEditPart.getEditPolicies().get(0));
-		assertEquals(policy2, testEditPart.getEditPolicies().get(1));
+		assertEquals(2, testEditPart.test_getEditPolicies().size());
+		assertEquals(policy1, testEditPart.test_getEditPolicies().get(0));
+		assertEquals(policy2, testEditPart.test_getEditPolicies().get(1));
 		assertEquals(policy2, testEditPart.getEditPolicy("_Policy2_"));
 		assertSame(testEditPart, policy2.getHost());
 		assertTrue(policy2.isActive());
@@ -253,9 +254,9 @@ public class EditPartTest extends GefTestCase {
 		assertFalse(policy2_new.isActive());
 		//
 		testEditPart.installEditPolicy("_Policy2_", policy2_new);
-		assertEquals(2, testEditPart.getEditPolicies().size());
-		assertEquals(policy1, testEditPart.getEditPolicies().get(0));
-		assertEquals(policy2_new, testEditPart.getEditPolicies().get(1));
+		assertEquals(2, testEditPart.test_getEditPolicies().size());
+		assertEquals(policy1, testEditPart.test_getEditPolicies().get(0));
+		assertEquals(policy2_new, testEditPart.test_getEditPolicies().get(1));
 		assertEquals(policy2_new, testEditPart.getEditPolicy("_Policy2_"));
 		assertSame(testEditPart, policy2_new.getHost());
 		assertTrue(policy2_new.isActive());
@@ -858,6 +859,12 @@ public class EditPartTest extends GefTestCase {
 
 		public List<?> test_access_getModelChildren() {
 			return super.getModelChildren();
+		}
+
+		public List<?> test_getEditPolicies() {
+			List<EditPolicy> policies = new ArrayList<>();
+			getEditPolicyIterable().forEach(policies::add);
+			return policies;
 		}
 
 		////////////////////////////////////////////////////////////////////////////

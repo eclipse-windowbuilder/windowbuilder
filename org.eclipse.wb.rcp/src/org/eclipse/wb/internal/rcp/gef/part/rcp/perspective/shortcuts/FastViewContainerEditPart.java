@@ -50,6 +50,6 @@ public final class FastViewContainerEditPart extends AbstractShortcutContainerEd
 	@SuppressWarnings("removal")
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(new FastViewContainerLayoutEditPolicy(m_container));
+		installEditPolicy(FastViewContainerLayoutEditPolicy.class, new FastViewContainerLayoutEditPolicy(m_container));
 	}
 }

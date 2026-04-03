@@ -216,11 +216,9 @@ IHeaderMenuProvider {
 	 *         {@link EditPart}.
 	 */
 	private static IHeadersProvider getHeadersProvider(EditPart editPart) {
-		// find policy that implements IHeadersProvider
-		for (EditPolicy editPolicy : ((org.eclipse.wb.gef.core.EditPart) editPart).getEditPolicies()) {
-			if (editPolicy instanceof IHeadersProvider headersProvider && headersProvider.isActive()) {
-				return headersProvider;
-			}
+		// find policy that implements IHeadersProvider (registered via LayoutPolicyUtils.createLayoutEditPolicy(....))
+		if (editPart.getEditPolicy(EditPolicy.LAYOUT_ROLE) instanceof IHeadersProvider headersProvider && headersProvider.isActive()) {
+			return headersProvider;
 		}
 		// not found
 		return null;

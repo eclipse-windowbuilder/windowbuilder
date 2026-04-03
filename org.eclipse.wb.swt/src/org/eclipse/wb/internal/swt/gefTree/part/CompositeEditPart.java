@@ -53,7 +53,7 @@ public class CompositeEditPart extends ControlEditPart {
 		super.createEditPolicies();
 		// support for dropping LayoutInfo's
 		if (m_composite.hasLayout()) {
-			installEditPolicy(new DropLayoutEditPolicy(m_composite));
+			installEditPolicy(DropLayoutEditPolicy.class, new DropLayoutEditPolicy(m_composite));
 		}
 	}
 

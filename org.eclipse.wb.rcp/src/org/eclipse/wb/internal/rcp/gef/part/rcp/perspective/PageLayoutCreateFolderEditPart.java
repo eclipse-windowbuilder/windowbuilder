@@ -48,8 +48,8 @@ public final class PageLayoutCreateFolderEditPart extends AbstractComponentEditP
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_folder.getPage(), m_folder, false));
-		installEditPolicy(new PageLayoutCreateFolderLayoutEditPolicy(m_folder));
+		installEditPolicy(PageLayoutSidesLayoutEditPolicy.class, new PageLayoutSidesLayoutEditPolicy(m_folder.getPage(), m_folder, false));
+		installEditPolicy(PageLayoutCreateFolderLayoutEditPolicy.class, new PageLayoutCreateFolderLayoutEditPolicy(m_folder));
 	}
 
 	@Override

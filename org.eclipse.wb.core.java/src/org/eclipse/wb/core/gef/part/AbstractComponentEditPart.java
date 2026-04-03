@@ -144,7 +144,7 @@ public abstract class AbstractComponentEditPart extends DesignEditPart implement
 		} else {
 			installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NonResizableSelectionEditPolicy());
 		}
-		installEditPolicy(new OpenListenerEditPolicy(m_component));
+		installEditPolicy(OpenListenerEditPolicy.class, new OpenListenerEditPolicy(m_component));
 		OpenErrorLogEditPolicy.install(this);
 		refreshEditPolicies();
 	}

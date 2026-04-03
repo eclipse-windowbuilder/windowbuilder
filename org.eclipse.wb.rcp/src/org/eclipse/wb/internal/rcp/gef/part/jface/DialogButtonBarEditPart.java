@@ -47,7 +47,7 @@ public final class DialogButtonBarEditPart extends CompositeEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new DialogButtonBarLayoutEditPolicy(m_composite));
-		installEditPolicy(new TerminatorLayoutEditPolicy());
+		installEditPolicy(DialogButtonBarLayoutEditPolicy.class, new DialogButtonBarLayoutEditPolicy(m_composite));
+		installEditPolicy(TerminatorLayoutEditPolicy.class, new TerminatorLayoutEditPolicy());
 	}
 }

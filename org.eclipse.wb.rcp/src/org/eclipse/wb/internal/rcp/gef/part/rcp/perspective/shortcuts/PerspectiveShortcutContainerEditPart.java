@@ -44,6 +44,6 @@ public final class PerspectiveShortcutContainerEditPart extends AbstractShortcut
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(new PerspectiveShortcutContainerLayoutEditPolicy(m_container));
+		installEditPolicy(PerspectiveShortcutContainerLayoutEditPolicy.class, new PerspectiveShortcutContainerLayoutEditPolicy(m_container));
 	}
 }

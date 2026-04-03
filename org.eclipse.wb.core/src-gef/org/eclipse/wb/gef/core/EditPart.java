@@ -175,36 +175,6 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 
 	////////////////////////////////////////////////////////////////////////////
 	//
-	// Policy
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Return all installed {@link EditPolicy EditPolicies}.
-	 */
-	@Deprecated
-	public List<EditPolicy> getEditPolicies() {
-		List<EditPolicy> policies = new ArrayList<>();
-		getEditPolicyIterable().forEach(policies::add);
-		return policies;
-	}
-
-	/**
-	 * Installs an {@link EditPolicy}, using its class as <i>key</i>.
-	 */
-	public void installEditPolicy(EditPolicy policy) {
-		installEditPolicy(policy.getClass(), policy);
-	}
-
-	/**
-	 * Creates the initial EditPolicies and/or reserves slots for dynamic ones. Should be implemented
-	 * to install the initial EditPolicies based on the model's initial state.
-	 */
-	@Override
-	protected void createEditPolicies() {
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
 	// Request/Command
 	//
 	////////////////////////////////////////////////////////////////////////////

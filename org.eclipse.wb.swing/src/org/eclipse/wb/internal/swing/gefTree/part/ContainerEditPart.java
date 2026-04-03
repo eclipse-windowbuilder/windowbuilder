@@ -47,7 +47,7 @@ public final class ContainerEditPart extends ComponentEditPart {
 		super.refreshEditPolicies();
 		// support for dropping LayoutInfo's
 		if (m_container.canSetLayout()) {
-			installEditPolicy(new DropLayoutEditPolicy(m_container));
+			installEditPolicy(DropLayoutEditPolicy.class, new DropLayoutEditPolicy(m_container));
 		}
 		// support for dropping components
 		if (m_container.hasLayout()) {

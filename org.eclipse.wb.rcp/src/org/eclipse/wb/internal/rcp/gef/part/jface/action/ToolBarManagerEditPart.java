@@ -45,6 +45,6 @@ public final class ToolBarManagerEditPart extends AbstractComponentEditPart {
 	@Override
 	protected void refreshEditPolicies() {
 		super.refreshEditPolicies();
-		installEditPolicy(new ToolBarManagerLayoutEditPolicy(m_manager));
+		installEditPolicy(ToolBarManagerLayoutEditPolicy.class, new ToolBarManagerLayoutEditPolicy(m_manager));
 	}
 }

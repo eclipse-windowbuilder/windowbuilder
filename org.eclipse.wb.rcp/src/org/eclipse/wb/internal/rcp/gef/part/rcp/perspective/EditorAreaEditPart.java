@@ -66,7 +66,7 @@ public final class EditorAreaEditPart extends DesignEditPart {
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new NonResizableSelectionEditPolicy());
-		installEditPolicy(new PageLayoutSidesLayoutEditPolicy(m_editorArea.getPage(),
+		installEditPolicy(PageLayoutSidesLayoutEditPolicy.class, new PageLayoutSidesLayoutEditPolicy(m_editorArea.getPage(),
 				m_editorArea,
 				false));
 	}
