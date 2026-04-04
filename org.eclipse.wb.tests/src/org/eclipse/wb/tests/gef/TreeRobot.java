@@ -307,8 +307,7 @@ public final class TreeRobot {
 	 */
 	public void setExpanded(TreeEditPart editPart, boolean expanded) {
 		TreeEditPart parentEditPart = (TreeEditPart) editPart.getParent();
-		if (parentEditPart != null) {
-			TreeItem widget = (TreeItem) parentEditPart.getWidget();
+		if (parentEditPart != null && parentEditPart.getWidget() instanceof TreeItem widget) {
 			if (expanded) {
 				setExpanded(parentEditPart, expanded);
 				if (widget != null) {

@@ -255,7 +255,7 @@ public abstract class TreeToolTest extends GefTestCase {
 
 		@Override
 		protected void refreshVisuals() {
-			getWidget().setText(m_name);
+			((TreeItem) getWidget()).setText(m_name);
 		}
 
 		@Override

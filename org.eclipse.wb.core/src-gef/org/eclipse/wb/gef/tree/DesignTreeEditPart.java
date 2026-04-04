@@ -14,11 +14,14 @@ package org.eclipse.wb.gef.tree;
 
 import org.eclipse.wb.gef.core.RequestProcessor;
 import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
+import org.eclipse.wb.internal.gef.tree.tools.DoubleClickEditPartTracker;
 
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.AbstractTreeEditPart;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +31,7 @@ import java.util.List;
  *
  * @see {@link RequestProcessor}
  */
-@SuppressWarnings("removal")
-public abstract class DesignTreeEditPart extends TreeEditPart {
+public abstract class DesignTreeEditPart extends AbstractTreeEditPart {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -125,4 +127,15 @@ public abstract class DesignTreeEditPart extends TreeEditPart {
 	public void eraseTargetFeedback(Request request) {
 		super.eraseTargetFeedback(processRequestProcessors(request));
 	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// DragTracking
+	//
+	////////////////////////////////////////////////////////////////////////////
+	@Override
+	public DragTracker getDragTracker(Request request) {
+		return new DoubleClickEditPartTracker(this);
+	}
+
 }
