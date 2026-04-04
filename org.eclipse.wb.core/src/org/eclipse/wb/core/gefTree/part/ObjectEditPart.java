@@ -33,6 +33,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -92,7 +93,7 @@ public class ObjectEditPart extends DesignTreeEditPart {
 					// do in setRedraw(false) to avoid flashing after component moving
 					tree.setRedraw(false);
 					try {
-						refresh();
+						refresh(ObjectEditPart.this);
 						{
 							setSelectionIfAllEditParts(m_delayedSelectionObjects);
 							m_delayedSelectionObjects = null;
@@ -100,6 +101,13 @@ public class ObjectEditPart extends DesignTreeEditPart {
 						viewer.setSelectionToTreeWidget();
 					} finally {
 						tree.setRedraw(true);
+					}
+				}
+
+				private void refresh(EditPart editPart) {
+					editPart.refresh();
+					for (EditPart child : editPart.getChildren()) {
+						refresh(child);
 					}
 				}
 
@@ -173,26 +181,27 @@ public class ObjectEditPart extends DesignTreeEditPart {
 	}
 
 	private void update0() {
+		if (getWidget() instanceof Tree) {
+			return;
+		}
+		TreeItem treeItem = (TreeItem) getWidget();
+
 		ImageDescriptor imageDescriptor = ObjectInfo.getImageDescriptor(m_object);
 		String text = ObjectInfo.getText(m_object);
 		if (imageDescriptor != null) {
 			Image image = imageDescriptor.createImage();
-			getWidget().addDisposeListener(event -> image.dispose());
-			getWidget().setImage(image);
+			treeItem.addDisposeListener(event -> image.dispose());
+			treeItem.setImage(image);
 		}
 		//Obtain the preference specifying the root object name. If no name is specified then the default is used
 		String rootObjectName =
 				InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).get(
 						IEditorPreferenceConstants.WB_ROOT_OBJ_NAME,
 						null);
-		if (getWidget().getParentItem() == null) {
-			if (rootObjectName == null) {
-				getWidget().setText(text);
-			} else {
-				getWidget().setText(rootObjectName);
-			}
+		if (treeItem.getParentItem() == null && rootObjectName != null) {
+			treeItem.setText(rootObjectName);
 		} else {
-			getWidget().setText(text);
+			treeItem.setText(text);
 		}
 	}
 
