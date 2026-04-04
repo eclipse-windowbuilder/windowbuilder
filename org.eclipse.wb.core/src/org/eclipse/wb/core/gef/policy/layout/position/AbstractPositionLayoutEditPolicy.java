@@ -18,7 +18,6 @@ import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -30,6 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.DropRequest;
 
 import java.util.ArrayList;
@@ -234,6 +234,14 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 	// Commands: move
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(forRemoval = true, since = "2026-06")
+	protected final Command getMoveCommand(@SuppressWarnings("removal") org.eclipse.wb.gef.core.requests.ChangeBoundsRequest request) {
+		return getMoveCommand((ChangeBoundsRequest) request);
+	}
+
+	/**
+	 * @since 1.24
+	 */
 	@Override
 	protected final Command getMoveCommand(ChangeBoundsRequest request) {
 		if (m_activeFeedback != null && request.getEditParts().size() == 1) {
@@ -253,6 +261,14 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 	// Commands: add
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(forRemoval = true, since = "2026-06")
+	protected final Command getAddCommand(@SuppressWarnings("removal") org.eclipse.wb.gef.core.requests.ChangeBoundsRequest request) {
+		return getAddCommand((ChangeBoundsRequest) request);
+	}
+
+	/**
+	 * @since 1.24
+	 */
 	@Override
 	protected final Command getAddCommand(ChangeBoundsRequest request) {
 		if (m_activeFeedback != null && request.getEditParts().size() == 1) {

@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.RectangleFigure;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -30,6 +29,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -14,10 +14,8 @@ package org.eclipse.wb.gef.tree.policies;
 
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -29,8 +27,8 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.DropRequest;
-import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -327,15 +325,6 @@ public abstract class LayoutEditPolicy extends AbstractEditPolicy {
 			// drop to children
 			removeFromSelection();
 			boolean beforeLocation = isBeforeLocation(targetItem, location);
-			if (EnvironmentUtils.IS_LINUX && request instanceof ChangeBoundsRequest changeBoundsRequest) {
-				/*
-				 * Feature in Linux: during DND dragOver() operation the
-				 * DropTargetEvent.feedback resets all previous tree insert marks.
-				 */
-				changeBoundsRequest.setDNDFeedback(beforeLocation
-						? DND.FEEDBACK_INSERT_BEFORE
-								: DND.FEEDBACK_INSERT_AFTER);
-			}
 			setTreeInsertMark(targetItem, beforeLocation);
 		}
 	}

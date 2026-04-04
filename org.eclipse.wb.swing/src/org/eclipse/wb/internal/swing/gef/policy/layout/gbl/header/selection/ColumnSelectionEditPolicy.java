@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 import java.text.MessageFormat;
 
