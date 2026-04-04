@@ -26,7 +26,6 @@ import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -51,6 +50,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.swt.SWT;
 

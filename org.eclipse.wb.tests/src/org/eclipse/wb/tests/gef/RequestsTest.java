@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
@@ -27,6 +26,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.requests.SelectionRequest;

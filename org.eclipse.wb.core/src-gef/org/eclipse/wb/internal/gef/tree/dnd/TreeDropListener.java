@@ -12,8 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree.dnd;
 
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
-
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
@@ -21,6 +19,7 @@ import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
@@ -100,8 +99,7 @@ public class TreeDropListener implements DropTargetListener {
 		if (needUpdateFeedback) {
 			showTargetFeedback();
 		}
-		m_currentEvent.feedback =
-				DND.FEEDBACK_EXPAND | DND.FEEDBACK_SCROLL | getTargetRequest().getDNDFeedback();
+		m_currentEvent.feedback = DND.FEEDBACK_EXPAND | DND.FEEDBACK_SCROLL;
 	}
 
 	@Override

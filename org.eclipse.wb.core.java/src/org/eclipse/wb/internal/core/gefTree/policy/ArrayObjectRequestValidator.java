@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.gefTree.policy;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 /**
  * Implementation of {@link ILayoutRequestValidator} for validate items for <i>array object</i>.

@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
-
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 import java.util.List;
 

@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
 import org.eclipse.draw2d.PositionConstants;
@@ -20,6 +19,7 @@ import org.eclipse.draw2d.RangeModel;
 import org.eclipse.draw2d.Viewport;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

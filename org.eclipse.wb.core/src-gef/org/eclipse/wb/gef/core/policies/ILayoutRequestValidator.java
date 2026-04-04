@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.policies;
 
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 
 /**
  * Validator for known layout requests {@link Request#REQ_CREATE}, {@link Request#REQ_PASTE},

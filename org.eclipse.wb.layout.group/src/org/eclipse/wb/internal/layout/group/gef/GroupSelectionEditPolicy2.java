@@ -22,7 +22,6 @@ import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
@@ -46,6 +45,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 

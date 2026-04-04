@@ -19,7 +19,6 @@ import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.core.requests.ChangeBoundsRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.actions.AbstractAlignmentActionsSupport;
@@ -41,6 +40,7 @@ import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.TabFolder;
 
