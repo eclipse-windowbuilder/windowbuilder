@@ -1,0 +1,13 @@
+ifdef::env-github[]
+:imagesdir: ../../html/whatsnew
+endif::[]
+
+= What's New - v1.24.0
+
+== General
+
+- [Linux] FFMA when using Java 24 or higher
+
+The Linux-specific fragment will use the Foreign Function and Memory API when used with Java 24 or higher.
+
+What's new - xref:v123.adoc[*v1.23.0*]
