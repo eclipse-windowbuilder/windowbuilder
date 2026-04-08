@@ -291,8 +291,8 @@ public class DesignerPlugin extends AbstractUIPlugin {
 	 */
 	public static void log(Throwable e) {
 		// print on console for easy debugging
-		if (m_displayExceptionOnConsole) {
-			e.printStackTrace();
+		if (!m_displayExceptionOnConsole) {
+			return;
 		}
 		// log into Eclipse .log
 		{
