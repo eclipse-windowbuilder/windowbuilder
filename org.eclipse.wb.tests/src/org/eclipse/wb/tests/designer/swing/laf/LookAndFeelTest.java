@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.swing.laf.model.SeparatorLafInfo;
 import org.eclipse.wb.internal.swing.laf.model.SystemLafInfo;
 import org.eclipse.wb.internal.swing.laf.model.UndefinedLafInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
+import org.eclipse.wb.internal.swing.utils.SwingUtils;
 import org.eclipse.wb.tests.designer.core.TestBundle;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
@@ -35,7 +36,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 
@@ -53,7 +53,7 @@ public class LookAndFeelTest extends SwingModelTest {
 	@Override
 	@AfterEach
 	public void tearDown() throws Exception {
-		UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		SwingUtils.runLogLater(() -> UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()));
 		if (m_lastParseInfo != null) {
 			LafInfo undefinedLAF = UndefinedLafInfo.INSTANCE;
 			LafSupport.selectLAF(m_lastParseInfo, undefinedLAF);
@@ -415,7 +415,7 @@ public class LookAndFeelTest extends SwingModelTest {
 			for (LafInfo lafInfo : lafList) {
 				if (!(lafInfo instanceof SeparatorLafInfo)) {
 					counter.incrementAndGet();
-					SwingUtilities.invokeLater(() -> {
+					SwingUtils.runLogLater(() -> {
 						try {
 							assertNotNull(lafInfo.getLookAndFeelInstance());
 						} catch (Throwable t) {
