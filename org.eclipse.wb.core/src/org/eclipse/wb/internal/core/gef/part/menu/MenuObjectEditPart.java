@@ -205,7 +205,7 @@ public abstract class MenuObjectEditPart extends DesignEditPart implements IMenu
 				public void run() {
 					try {
 						MenuObjectInfoUtils.m_selectingObject = m_object;
-						for (EditPart editPart : getViewer().getEditPartRegistry().values()) {
+						for (EditPart editPart : List.copyOf(getViewer().getEditPartRegistry().values())) {
 							if (editPart instanceof MenuObjectEditPart) {
 								editPart.refresh();
 							}
