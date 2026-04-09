@@ -36,13 +36,17 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swt.widgets.Display;
 
 import net.miginfocom.layout.LC;
+import net.miginfocom.layout.PlatformDefaults;
 import net.miginfocom.swing.MigLayout;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import java.awt.Toolkit;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.JButton;
 
@@ -59,6 +63,22 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	public void _test_exit() throws Exception {
 		System.exit(0);
+	}
+
+	@BeforeAll
+	public static void setUpPlatformDefaults() {
+		// The actual DPI might be platform-specific
+		int dpi = Toolkit.getDefaultToolkit().getScreenResolution();
+		PlatformDefaults.setDefaultDPI(96);
+		PlatformDefaults.setHorizontalScaleFactor(dpi / 96.0f);
+		PlatformDefaults.setVerticalScaleFactor(dpi / 96.0f);
+	}
+
+	@AfterAll
+	public static void tearDownPlatformDefaults() {
+		PlatformDefaults.setDefaultDPI(null);
+		PlatformDefaults.setHorizontalScaleFactor(null);
+		PlatformDefaults.setVerticalScaleFactor(null);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -228,16 +248,30 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link IGridInfo}.
 	 */
-	@Disabled
 	@Test
 	public void test_IGridInfo() throws Exception {
 		ContainerInfo panel = parseContainer("""
 				public class Test extends JPanel implements IConstants {
 					public Test() {
-						setLayout(new MigLayout());
-						add(new JButton(C_1), "cell 0 0, width 100px, height 40px");
-						add(new JButton(C_2), "cell 1 1, width 150px");
-						add(new JButton(C_3), "cell 2 1, width 50px");
+						setLayout(new MigLayout("insets 7 7 0 0, gapx 4, gapy 4"));
+						{
+							JButton button = new JButton(C_1);
+							button.setMinimumSize(new Dimension(40, 23));
+							button.setPreferredSize(new Dimension(40, 23));
+							add(button, "cell 0 0, width 100px, height 40px");
+						}
+						{
+							JButton button = new JButton(C_2);
+							button.setMinimumSize(new Dimension(40, 23));
+							button.setPreferredSize(new Dimension(40, 23));
+							add(button, "cell 1 1, width 150px");
+						}
+						{
+							JButton button = new JButton(C_2);
+							button.setMinimumSize(new Dimension(40, 23));
+							button.setPreferredSize(new Dimension(40, 23));
+							add(button, "cell 2 1, width 50px");
+						}
 					}
 				}""");
 		panel.refresh();
@@ -251,17 +285,17 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			assertEquals(3, gridInfo.getColumnCount());
 			Interval[] columnIntervals = gridInfo.getColumnIntervals();
 			Assertions.assertThat(columnIntervals).hasSize(3);
-			assertEquals("Interval(7, 100)", columnIntervals[0].toString());
-			assertEquals("Interval(111, 150)", columnIntervals[1].toString());
-			assertEquals("Interval(265, 50)", columnIntervals[2].toString());
+			assertEquals("Interval[begin=7, length=100]", columnIntervals[0].toString());
+			assertEquals("Interval[begin=111, length=150]", columnIntervals[1].toString());
+			assertEquals("Interval[begin=265, length=50]", columnIntervals[2].toString());
 		}
 		// rows
 		{
 			assertEquals(2, gridInfo.getRowCount());
 			Interval[] rowIntervals = gridInfo.getRowIntervals();
 			Assertions.assertThat(rowIntervals).hasSize(2);
-			assertEquals("Interval(7, 40)", rowIntervals[0].toString());
-			assertEquals("Interval(51, 23)", rowIntervals[1].toString());
+			assertEquals("Interval[begin=7, length=40]", rowIntervals[0].toString());
+			assertEquals("Interval[begin=51, length=23]", rowIntervals[1].toString());
 		}
 		// cells
 		{
@@ -1300,7 +1334,6 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	/**
 	 * Test for {@link MigDimensionInfo#toUnitString(int, String)}.
 	 */
-	@Disabled
 	@Test
 	public void test_dimensionSize_toUnitString() throws Exception {
 		ContainerInfo panel = parseContainer("""
@@ -1316,15 +1349,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			assertEquals("2.65cm", column.toUnitString(100, "cm"));
 			assertEquals("22.22%", column.toUnitString(100, "%"));
 			// check "sp" unit
-			String expected_sp;
-			int displayWidth = Display.getDefault().getBounds().width;
-			if (displayWidth == 1920) {
-				expected_sp = "5.21sp";
-			} else if (displayWidth == 1680) {
-				expected_sp = "5.95sp";
-			} else {
-				throw new AssertionError("Unknown display width: " + displayWidth);
-			}
+			String expected_sp = getScreenPercentage(100, Display.getDefault().getPrimaryMonitor().getBounds().width);
 			assertEquals(expected_sp, column.toUnitString(100, "sp"));
 		}
 		{
@@ -1332,17 +1357,13 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 			assertEquals("2.65cm", row.toUnitString(100, "cm"));
 			assertEquals("33.33%", row.toUnitString(100, "%"));
 			// check "sp" unit
-			int displayHeight = Display.getDefault().getBounds().height;
-			String expected_sp;
-			if (displayHeight == 1200) {
-				expected_sp = "8.33sp";
-			} else if (displayHeight == 1050) {
-				expected_sp = "9.52sp";
-			} else {
-				throw new AssertionError("Unknown display width: " + displayHeight);
-			}
+			String expected_sp = getScreenPercentage(100, Display.getDefault().getPrimaryMonitor().getBounds().height);
 			assertEquals(expected_sp, row.toUnitString(100, "sp"));
 		}
+	}
+
+	private static String getScreenPercentage(int size, int monitorSize) {
+		return String.format(Locale.ENGLISH, "%.2fsp", size * (size / (float) monitorSize));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

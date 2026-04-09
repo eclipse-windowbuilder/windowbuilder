@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import net.miginfocom.swing.MigLayout;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.JTable;
@@ -379,7 +378,6 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				}""");
 	}
 
-	@Disabled
 	@Test
 	public void test_oneRow_fill() throws Exception {
 		ContainerInfo panel = parseContainer("""
@@ -472,7 +470,6 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 				}""");
 	}
 
-	@Disabled
 	@Test
 	public void test_Switching_fromGridBagLayout() throws Exception {
 		ContainerInfo panel = parseContainer("""
@@ -486,6 +483,8 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 						setLayout(gridBagLayout);
 						{
 							JComboBox comboBox = new JComboBox();
+							comboBox.setMinimumSize(new Dimension(46, 20));
+							comboBox.setPreferredSize(new Dimension(46, 20));
 							GridBagConstraints gbc = new GridBagConstraints();
 							gbc.insets = new Insets(0, 0, 5, 5);
 							gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -495,6 +494,8 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 						}
 						{
 							JLabel label = new JLabel('New label');
+							label.setMinimumSize(new Dimension(46, 20));
+							label.setPreferredSize(new Dimension(46, 20));
 							GridBagConstraints gbc = new GridBagConstraints();
 							gbc.insets = new Insets(0, 0, 5, 5);
 							gbc.anchor = GridBagConstraints.EAST;
@@ -504,6 +505,8 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 						}
 						{
 							JTextField textField = new JTextField();
+							textField.setMinimumSize(new Dimension(140, 20));
+							textField.setPreferredSize(new Dimension(140, 20));
 							GridBagConstraints gbc = new GridBagConstraints();
 							gbc.gridwidth = 2;
 							gbc.insets = new Insets(0, 0, 5, 5);
@@ -515,6 +518,8 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 						}
 						{
 							JButton button = new JButton("New button");
+							button.setMinimumSize(new Dimension(89, 23));
+							button.setPreferredSize(new Dimension(89, 23));
 							GridBagConstraints gbc = new GridBagConstraints();
 							gbc.gridx = 2;
 							gbc.gridy = 2;
@@ -535,19 +540,27 @@ public class MigLayoutConverterTest extends AbstractMigLayoutTest {
 						setLayout(new MigLayout("", "[46px][305px][5px][89px]", "[20px][20px][23px]"));
 						{
 							JComboBox comboBox = new JComboBox();
+							comboBox.setMinimumSize(new Dimension(46, 20));
+							comboBox.setPreferredSize(new Dimension(46, 20));
 							add(comboBox, "cell 1 0,growx,aligny center");
 						}
 						{
 							JLabel label = new JLabel("New label");
+							label.setMinimumSize(new Dimension(46, 20));
+							label.setPreferredSize(new Dimension(46, 20));
 							add(label, "cell 0 1,alignx right,aligny center");
 						}
 						{
 							JTextField textField = new JTextField();
+							textField.setMinimumSize(new Dimension(140, 20));
+							textField.setPreferredSize(new Dimension(140, 20));
 							add(textField, "cell 1 1 3 1,growx,aligny center");
 							textField.setColumns(10);
 						}
 						{
 							JButton button = new JButton("New button");
+							button.setMinimumSize(new Dimension(89, 23));
+							button.setPreferredSize(new Dimension(89, 23));
 							add(button, "cell 3 2,alignx center,aligny center");
 						}
 					}
