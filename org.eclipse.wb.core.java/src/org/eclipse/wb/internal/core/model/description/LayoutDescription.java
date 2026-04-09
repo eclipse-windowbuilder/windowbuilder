@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -33,7 +33,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 
 /**
@@ -175,8 +174,7 @@ public final class LayoutDescription {
 		}
 		// do parse
 		try (InputStream is = resourceInfo.getURL().openStream();) {
-			JAXBContext context = ContextFactory.createContext();
-			Unmarshaller unmarshaller = context.createUnmarshaller();
+			Unmarshaller unmarshaller = ContextFactory.getContext().createUnmarshaller();
 			Component component = (Component) unmarshaller.unmarshal(is);
 			List<Creation> creations = component.getCreation();
 			for (Creation creation : creations) {

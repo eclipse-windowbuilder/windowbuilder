@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -69,7 +69,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMSource;
 
-import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
 
 /**
@@ -200,8 +199,7 @@ public class FactoryDescriptionHelper {
 						fixNamespace(document, rootElement);
 					}
 
-					JAXBContext jaxbContext = ContextFactory.createContext();
-					Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+					Unmarshaller jaxbUnmarshaller = ContextFactory.getContext().createUnmarshaller();
 					Factory factory = (Factory) jaxbUnmarshaller.unmarshal(new DOMSource(document));
 					descriptions = process(factory, state, factoryClass);
 					allMethodsAreFactories = factory.isAllMethodsAreFactories();

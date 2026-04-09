@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -112,7 +112,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.Unmarshaller;
 
@@ -371,8 +370,7 @@ public final class ComponentDescriptionHelper {
 				// read next description
 				{
 					componentDescription.setCurrentClass(descriptionInfo.clazz);
-					JAXBContext jaxbContext = ContextFactory.createContext();
-					Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+					Unmarshaller jaxbUnmarshaller = ContextFactory.getContext().createUnmarshaller();
 					Component component = (Component) jaxbUnmarshaller.unmarshal(resourceInfo.getURL());
 					process(componentDescription, component, editor);
 				}
