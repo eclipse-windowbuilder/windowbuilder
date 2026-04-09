@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.os.linux;
 
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 
 import java.lang.foreign.MemorySegment;
@@ -59,11 +58,7 @@ public class GtkWidget {
 		long widgetHandle = getHandleValue(widget, "fixedHandle");
 		if (widgetHandle == 0) {
 			// may be null, roll back to "handle"
-			if (widget instanceof Shell) {
-				widgetHandle = getHandleValue(widget, "shellHandle");
-			} else {
-				widgetHandle = getHandleValue(widget, "handle");
-			}
+			widgetHandle = getHandleValue(widget, "handle");
 		}
 		return widgetHandle;
 	}
