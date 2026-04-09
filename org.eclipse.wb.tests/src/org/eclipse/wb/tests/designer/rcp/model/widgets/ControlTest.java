@@ -72,7 +72,7 @@ public class ControlTest extends RcpModelTest {
 		CompositeInfo shell = parseComposite("""
 				public class Test extends Shell {
 					public Test() {
-						super(SWT.NONE);
+						super(SWT.NO_TRIM);
 						setSize(450, 300);
 						Button button = new Button(this, SWT.NONE);
 						button.setBounds(10, 20, 50, 30);
