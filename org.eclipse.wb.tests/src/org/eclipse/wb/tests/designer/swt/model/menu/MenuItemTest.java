@@ -28,15 +28,10 @@ import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Tests for {@link MenuItemInfo}.
@@ -477,7 +472,6 @@ public class MenuItemTest extends RcpModelTest {
 	/**
 	 * Test adding a selection listener to menu item.
 	 */
-	@Disabled
 	@Test
 	public void test_addSelectionListener() throws Exception {
 		CompositeInfo shell = parseComposite("""
@@ -497,18 +491,20 @@ public class MenuItemTest extends RcpModelTest {
 		MenuInfo menuBar = shell.getChildren(MenuInfo.class).get(0);
 		MenuItemInfo menuItem = menuBar.getChildrenItems().get(0);
 		// set mock for DesignPageSite
-		IDesignPageSite pageSite;
-		{
-			pageSite = mock(IDesignPageSite.class);
-			DesignPageSite.Helper.setSite(shell, pageSite);
-		}
+		AtomicInteger sourcePosition = new AtomicInteger();
+		IDesignPageSite pageSite = new DesignPageSite() {
+			@Override
+			public void openSourcePosition(int position) {
+				sourcePosition.set(position);
+			}
+		};
+		DesignPageSite.Helper.setSite(shell, pageSite);
 		// add selection listener
 		EventsProperty eventsProperty = (EventsProperty) menuItem.getPropertyByTitle("Events");
 		eventsProperty.openStubMethod("selection/widgetSelected");
 		waitEventLoop(0);
 		// test results
-		verify(pageSite).openSourcePosition(ArgumentMatchers.anyInt());
-		verifyNoMoreInteractions(pageSite);
+		assertEquals(696, sourcePosition.get());
 		assertEditor("""
 				public class Test extends Shell {
 					public Test() {
