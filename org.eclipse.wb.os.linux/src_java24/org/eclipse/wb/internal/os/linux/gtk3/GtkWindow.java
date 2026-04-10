@@ -14,7 +14,7 @@ package org.eclipse.wb.internal.os.linux.gtk3;
 
 import org.eclipse.wb.internal.os.linux.GtkWidget;
 
-import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 
 /**
  * A GtkWindow is a toplevel window which can contain other widgets. Windows
@@ -22,7 +22,16 @@ import org.eclipse.swt.widgets.Shell;
  * and allow the user to manipulate the window (resize it, move it, close it,…).
  */
 public class GtkWindow extends GtkWidget {
-	public GtkWindow(Shell shell) {
-		super(shell);
+	protected GtkWindow(long handle) {
+		super(handle);
+	}
+
+	/**
+	 * @param widget The SWT widget to create this object from.
+	 * @return A new {@link GtkWidget} instance backed by the given {@link Widget}
+	 *         handle.
+	 */
+	public static GtkWindow from(Widget widget) {
+		return new GtkWindow(getHandle(widget));
 	}
 }

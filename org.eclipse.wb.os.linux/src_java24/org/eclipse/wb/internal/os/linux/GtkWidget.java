@@ -26,11 +26,7 @@ import java.util.Objects;
 public class GtkWidget {
 	private final MemorySegment segment;
 
-	public GtkWidget(Widget widget) {
-		this(getHandle(widget));
-	}
-
-	public GtkWidget(long handle) {
+	protected GtkWidget(long handle) {
 		segment = handle == 0L ? MemorySegment.NULL : MemorySegment.ofAddress(handle);
 	}
 
@@ -52,9 +48,18 @@ public class GtkWidget {
 	}
 
 	/**
+	 * @param widget The SWT widget to create this object from.
+	 * @return A new {@link GtkWidget} instance backed by the given {@link Widget}
+	 *         handle.
+	 */
+	public static GtkWidget from(Widget widget) {
+		return new GtkWidget(getHandle(widget));
+	}
+
+	/**
 	 * @return the handle value of the {@link Widget} using reflection.
 	 */
-	private static long getHandle(Widget widget) {
+	protected static long getHandle(Widget widget) {
 		long widgetHandle = getHandleValue(widget, "fixedHandle");
 		if (widgetHandle == 0) {
 			// may be null, roll back to "handle"
