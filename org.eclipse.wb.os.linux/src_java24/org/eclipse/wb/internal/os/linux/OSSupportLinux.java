@@ -66,7 +66,7 @@ public final class OSSupportLinux extends OSSupport {
 		// setup key title to be used by compiz WM (if enabled)
 		if (!isWorkaroundsDisabled()) {
 			// prepare
-			GTK3.gtk_widget_show_now(new GtkWidget(shell));
+			GTK3.gtk_widget_show_now(GtkWidget.from(shell));
 			try {
 				Version currentVersion = FrameworkUtil.getBundle(SWT.class).getVersion();
 				// Bug/feature is SWT: since the widget is already shown, the Shell.setVisible()
@@ -85,7 +85,7 @@ public final class OSSupportLinux extends OSSupport {
 			m_eclipseShell = DesignerPlugin.getShell();
 			// sometimes can be null, don't know why.
 			if (m_eclipseShell != null) {
-				GTK3.gtk_window_set_keep_above(new GtkWindow(m_eclipseShell), true);
+				GTK3.gtk_window_set_keep_above(GtkWindow.from(m_eclipseShell), true);
 			}
 		}
 		shell.setLocation(10000, 10000);
@@ -98,9 +98,9 @@ public final class OSSupportLinux extends OSSupport {
 		super.endShot(control);
 		Shell shell = control.getShell();
 		if (!isWorkaroundsDisabled()) {
-			GTK.gtk_widget_hide(new GtkWidget(shell));
+			GTK.gtk_widget_hide(GtkWidget.from(shell));
 			if (m_eclipseShell != null) {
-				GTK3.gtk_window_set_keep_above(new GtkWindow(m_eclipseShell), false);
+				GTK3.gtk_window_set_keep_above(GtkWindow.from(m_eclipseShell), false);
 			}
 		}
 	}
@@ -202,7 +202,7 @@ public final class OSSupportLinux extends OSSupport {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public static Rectangle getWidgetBounds(Widget w) {
-		GtkWidget widget = new GtkWidget(w);
+		GtkWidget widget = GtkWidget.from(w);
 		try (Arena arena = Arena.ofConfined()) {
 			GtkAllocation allocation = new GtkAllocation(arena);
 			GTK.gtk_widget_get_allocation(widget, allocation);

@@ -91,7 +91,7 @@ public abstract class ScreenshotMaker {
 	 * fills {@code m_needsImage}.
 	 */
 	private void registerByHandle(Control control) {
-		GtkWidget widget = new GtkWidget(control);
+		GtkWidget widget = GtkWidget.from(control);
 		if (widget.segment() != MemorySegment.NULL) {
 			m_controlsRegistry.put(widget, control);
 		}

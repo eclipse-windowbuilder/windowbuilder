@@ -45,7 +45,7 @@ public class GTK3ScreenshotMaker extends ScreenshotMaker {
 	}
 
 	private Image traverse(Widget widget, BiConsumer<GtkWidget, Image> callback) {
-		Image image = getImageSurface(new GtkWidget(widget), callback);
+		Image image = getImageSurface(GtkWidget.from(widget), callback);
 		if (image == null) {
 			return null;
 		}
