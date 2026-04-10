@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -60,7 +60,6 @@ import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutCreationSupport;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swing.model.property.TabOrderProperty;
-import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.draw2d.geometry.Insets;
@@ -250,15 +249,10 @@ public class ContainerInfo extends ComponentInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void refresh_dispose() throws Exception {
-		// remember Container instance, we need it for clearSwingTree(), but "super" set object to "null"
-		Container container = (Container) getObject();
 		// inherit parent layout, if it is valid at all and valid time
 		processInitialLayout();
 		// call "super"
 		super.refresh_dispose();
-		if (isSwingRoot()) {
-			SwingUtils.clearSwingTree(container);
-		}
 	}
 
 	@Override

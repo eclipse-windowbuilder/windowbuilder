@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Synchronizer;
 
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.EventQueue;
 import java.awt.IllegalComponentStateException;
 import java.awt.Point;
@@ -37,9 +36,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
-import javax.swing.text.JTextComponent;
 
 /**
  * Various utilities to operate with Swing.
@@ -260,44 +257,6 @@ public final class SwingUtils {
 		synchronized (Device.class) {
 			ReflectionUtils.setField(display, "synchronizer", newSynchronizer);
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Clean up
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * For unknown reason, when we have {@link Display} created and add any {@link JTextComponent}
-	 * sub-class to {@link JFrame}, we see {@link JFrame} in <code>[JNI global]</code> roots until we
-	 * dispose {@link Display} (until OleUninitialize() invocation). So, we clear all
-	 * {@link Container}'s to minimize number of components referenced from {@link JFrame}.
-	 * <p>
-	 * See also https://bugs.eclipse.org/bugs/show_bug.cgi?id=127374 and
-	 * http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6407026
-	 * <p>
-	 * I found also that in Java6 {@link JFrame} may stuck somewhere in Draw2D/DirectDraw, so we
-	 * should clear not only for text components, but even when we make Swing screen shot.
-	 */
-	public static void clearSwingTree(final Container container) throws Exception {
-		runLaterAndWait(() -> {
-			if (container != null) {
-				// even if this container can not be effectively cleared, we will clear children,
-				// so minimize potential memory as much as possible
-				for (Component child : container.getComponents()) {
-					if (child instanceof Container) {
-						clearSwingTree((Container) child);
-					}
-				}
-				// remove all children Component's
-				ExecutionUtils.runIgnore(() -> container.removeAll());
-				// "tab order" property may install our FocusTraversalOnArray, so clear it
-				container.setFocusTraversalPolicy(null);
-				// remove layout manager: under JVM < 1.5 JFrame.setLayout() throws exception that
-				// JFrame.getContentPane().setLayout() should be used, so do this safely
-				ExecutionUtils.runIgnore(() -> container.setLayout(null));
-			}
-		});
 	}
 
 	////////////////////////////////////////////////////////////////////////////
