@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,20 +64,19 @@ public class TableTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_TableItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Table table = new Table(this, SWT.BORDER);",
-						"    {",
-						"      TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-						"      tableColumn.setWidth(100);",
-						"    }",
-						"    TableItem item_1 = new TableItem(table, SWT.NONE);",
-						"    TableItem item_2 = new TableItem(table, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Table table = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+							tableColumn.setWidth(100);
+						}
+						TableItem item_1 = new TableItem(table, SWT.NONE);
+						TableItem item_2 = new TableItem(table, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// prepare items
@@ -113,15 +112,14 @@ public class TableTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_TableItem_whenNoColumns() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Table table = new Table(this, SWT.BORDER);",
-						"    TableItem item = new TableItem(table, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Table table = new Table(this, SWT.BORDER);
+						TableItem item = new TableItem(table, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = getJavaInfoByName("table");
 		TableItemInfo item = getJavaInfoByName("item");
@@ -145,14 +143,13 @@ public class TableTest extends RcpModelTest {
 
 	@Test
 	public void test_add_TableItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Table table = new Table(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Table table = new Table(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// no items initially
 		assertTrue(table.getItems().isEmpty());
@@ -163,17 +160,17 @@ public class TableTest extends RcpModelTest {
 		List<TableItemInfo> items = table.getItems();
 		assertEquals(1, items.size());
 		assertTrue(items.contains(newItem));
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    Table table = new Table(this, SWT.BORDER);",
-				"    {",
-				"      TableItem tableItem = new TableItem(table, SWT.NONE);",
-				"      tableItem.setText('New TableItem');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Table table = new Table(this, SWT.BORDER);
+						{
+							TableItem tableItem = new TableItem(table, SWT.NONE);
+							tableItem.setText("New TableItem");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -190,23 +187,22 @@ public class TableTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_TableColumn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Table table = new Table(this, SWT.BORDER);",
-						"    table.setHeaderVisible(true);",
-						"    {",
-						"      TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);",
-						"      tableColumn_1.setWidth(50);",
-						"    }",
-						"    {",
-						"      TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);",
-						"      tableColumn_2.setWidth(100);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Table table = new Table(this, SWT.BORDER);
+						table.setHeaderVisible(true);
+						{
+							TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);
+							tableColumn_1.setWidth(50);
+						}
+						{
+							TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);
+							tableColumn_2.setWidth(100);
+						}
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// prepare columns
@@ -251,17 +247,16 @@ public class TableTest extends RcpModelTest {
 
 	@Test
 	public void test_TableColumn_setWidth() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Table table = new Table(this, SWT.BORDER);",
-						"    {",
-						"      TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-						"      tableColumn.setWidth(100);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Table table = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+							tableColumn.setWidth(100);
+						}
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		//
 		TableColumnInfo column = table.getColumns().get(0);
@@ -271,27 +266,26 @@ public class TableTest extends RcpModelTest {
 		// set new width
 		column.setWidth(120);
 		assertEquals(120, widthProperty.getValue());
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Table table = new Table(this, SWT.BORDER);",
-				"    {",
-				"      TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-				"      tableColumn.setWidth(120);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Table table = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+							tableColumn.setWidth(120);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_add_TableColumn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Table table = new Table(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Table table = new Table(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// no columns initially
 		assertTrue(table.getColumns().isEmpty());
@@ -302,36 +296,35 @@ public class TableTest extends RcpModelTest {
 		List<TableColumnInfo> columns = table.getColumns();
 		assertEquals(1, columns.size());
 		assertTrue(columns.contains(newColumn));
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Table table = new Table(this, SWT.BORDER);",
-				"    {",
-				"      TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-				"      tableColumn.setWidth(100);",
-				"      tableColumn.setText('New Column');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Table table = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+							tableColumn.setWidth(100);
+							tableColumn.setText("New Column");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_move_TableColumn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Table table = new Table(this, SWT.BORDER);",
-						"    {",
-						"      TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);",
-						"      tableColumn_1.setText('Column 1');",
-						"    }",
-						"    {",
-						"      TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);",
-						"      tableColumn_2.setText('Column 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Table table = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);
+							tableColumn_1.setText("Column 1");
+						}
+						{
+							TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);
+							tableColumn_2.setText("Column 2");
+						}
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// prepare columns
 		List<TableColumnInfo> columns = table.getColumns();
@@ -343,43 +336,42 @@ public class TableTest extends RcpModelTest {
 		// check result
 		assertSame(column_2, table.getColumns().get(0));
 		assertSame(column_1, table.getColumns().get(1));
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Table table = new Table(this, SWT.BORDER);",
-				"    {",
-				"      TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);",
-				"      tableColumn_2.setText('Column 2');",
-				"    }",
-				"    {",
-				"      TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);",
-				"      tableColumn_1.setText('Column 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Table table = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);
+							tableColumn_2.setText("Column 2");
+						}
+						{
+							TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);
+							tableColumn_1.setText("Column 1");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_reparent_TableColumn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    //",
-						"    Table table_1 = new Table(this, SWT.BORDER);",
-						"    {",
-						"      TableColumn tableColumn_1 = new TableColumn(table_1, SWT.NONE);",
-						"      tableColumn_1.setText('Column 1');",
-						"    }",
-						"    //",
-						"    Table table_2 = new Table(this, SWT.BORDER);",
-						"    {",
-						"      TableColumn tableColumn_2 = new TableColumn(table_2, SWT.NONE);",
-						"      tableColumn_2.setText('Column 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						//
+						Table table_1 = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn_1 = new TableColumn(table_1, SWT.NONE);
+							tableColumn_1.setText("Column 1");
+						}
+						//
+						Table table_2 = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn_2 = new TableColumn(table_2, SWT.NONE);
+							tableColumn_2.setText("Column 2");
+						}
+					}
+				}""");
 		// prepare table_1
 		TableInfo table_1 = (TableInfo) shell.getChildrenControls().get(0);
 		TableColumnInfo column_1 = table_1.getColumns().get(0);
@@ -395,46 +387,45 @@ public class TableTest extends RcpModelTest {
 			assertSame(column_1, columns.get(0));
 			assertSame(column_2, columns.get(1));
 		}
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    //",
-				"    Table table_1 = new Table(this, SWT.BORDER);",
-				"    //",
-				"    Table table_2 = new Table(this, SWT.BORDER);",
-				"    {",
-				"      TableColumn tableColumn_1 = new TableColumn(table_2, SWT.NONE);",
-				"      tableColumn_1.setText('Column 1');",
-				"    }",
-				"    {",
-				"      TableColumn tableColumn_2 = new TableColumn(table_2, SWT.NONE);",
-				"      tableColumn_2.setText('Column 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						//
+						Table table_1 = new Table(this, SWT.BORDER);
+						//
+						Table table_2 = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn_1 = new TableColumn(table_2, SWT.NONE);
+							tableColumn_1.setText("Column 1");
+						}
+						{
+							TableColumn tableColumn_2 = new TableColumn(table_2, SWT.NONE);
+							tableColumn_2.setText("Column 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_clipboard() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Table table = new Table(this, SWT.BORDER);",
-						"      {",
-						"        TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);",
-						"        tableColumn_1.setText('Column 1');",
-						"      }",
-						"      {",
-						"        TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);",
-						"        tableColumn_2.setText('Column 2');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							{
+								TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);
+								tableColumn_1.setText("Column 1");
+							}
+							{
+								TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);
+								tableColumn_2.setText("Column 2");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = getJavaInfoByName("table");
 		// do copy/paste
@@ -444,34 +435,34 @@ public class TableTest extends RcpModelTest {
 			shell.getLayout().command_CREATE(newTable, null);
 			JavaInfoMemento.apply(newTable);
 		}
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Table table = new Table(this, SWT.BORDER);",
-				"      {",
-				"        TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);",
-				"        tableColumn_1.setText('Column 1');",
-				"      }",
-				"      {",
-				"        TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);",
-				"        tableColumn_2.setText('Column 2');",
-				"      }",
-				"    }",
-				"    {",
-				"      Table table = new Table(this, SWT.BORDER);",
-				"      {",
-				"        TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);",
-				"        tableColumn_1.setText('Column 1');",
-				"      }",
-				"      {",
-				"        TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);",
-				"        tableColumn_2.setText('Column 2');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							{
+								TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);
+								tableColumn_1.setText("Column 1");
+							}
+							{
+								TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);
+								tableColumn_2.setText("Column 2");
+							}
+						}
+						{
+							Table table = new Table(this, SWT.BORDER);
+							{
+								TableColumn tableColumn_1 = new TableColumn(table, SWT.NONE);
+								tableColumn_1.setText("Column 1");
+							}
+							{
+								TableColumn tableColumn_2 = new TableColumn(table, SWT.NONE);
+								tableColumn_2.setText("Column 2");
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -481,39 +472,36 @@ public class TableTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_column_exposed() throws Exception {
-		setFileContentSrc(
-				"test/ExposedComposite.java",
-				getTestSource(
-						"public class ExposedComposite extends Composite {",
-						"  private TableColumn m_tableColumn;",
-						"  private Table m_table;",
-						"  //",
-						"  public ExposedComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(2, false));",
-						"    m_table = new Table(this, SWT.BORDER);",
-						"    {",
-						"      m_tableColumn = new TableColumn(m_table, SWT.NONE);",
-						"      m_tableColumn.setWidth(100);",
-						"      m_tableColumn.setText('New Column');",
-						"    }",
-						"  }",
-						"  public TableColumn getColumn() {",
-						"    return m_tableColumn;",
-						"  }",
-						"  public Table getTable() {",
-						"    return m_table;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ExposedComposite.java", getTestSource("""
+				public class ExposedComposite extends Composite {
+					private TableColumn m_tableColumn;
+					private Table m_table;
+					//
+					public ExposedComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						m_table = new Table(this, SWT.BORDER);
+						{
+							m_tableColumn = new TableColumn(m_table, SWT.NONE);
+							m_tableColumn.setWidth(100);
+							m_tableColumn.setText("New Column");
+						}
+					}
+					public TableColumn getColumn() {
+						return m_tableColumn;
+					}
+					public Table getTable() {
+						return m_table;
+					}
+				}"""));
 		waitForAutoBuild();
-		CompositeInfo mainComposite =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExposedComposite composite = new ExposedComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo mainComposite = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExposedComposite composite = new ExposedComposite(this, SWT.NONE);
+					}
+				}""");
 		assertEquals(1, mainComposite.getChildrenControls().size());
 		//
 		CompositeInfo composite = (CompositeInfo) mainComposite.getChildrenControls().get(0);
@@ -529,43 +517,40 @@ public class TableTest extends RcpModelTest {
 
 	@Test
 	public void test_item_exposed() throws Exception {
-		setFileContentSrc(
-				"test/ExposedComposite.java",
-				getTestSource(
-						"public class ExposedComposite extends Composite {",
-						"  private TableItem m_tableItem;",
-						"  private Table m_table;",
-						"  //",
-						"  public ExposedComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(2, false));",
-						"    m_table = new Table(this, SWT.BORDER);",
-						"    {",
-						"      TableColumn tableColumn = new TableColumn(m_table, SWT.NONE);",
-						"      tableColumn.setWidth(100);",
-						"      tableColumn.setText('New Column');",
-						"    }",
-						"    {",
-						"      m_tableItem = new TableItem(m_table, SWT.NONE);",
-						"      m_tableItem.setText('New Item');",
-						"    }",
-						"  }",
-						"  public TableItem getItem() {",
-						"    return m_tableItem;",
-						"  }",
-						"  public Table getTable() {",
-						"    return m_table;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ExposedComposite.java", getTestSource("""
+				public class ExposedComposite extends Composite {
+					private TableItem m_tableItem;
+					private Table m_table;
+					//
+					public ExposedComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						m_table = new Table(this, SWT.BORDER);
+						{
+							TableColumn tableColumn = new TableColumn(m_table, SWT.NONE);
+							tableColumn.setWidth(100);
+							tableColumn.setText("New Column");
+						}
+						{
+							m_tableItem = new TableItem(m_table, SWT.NONE);
+							m_tableItem.setText("New Item");
+						}
+					}
+					public TableItem getItem() {
+						return m_tableItem;
+					}
+					public Table getTable() {
+						return m_table;
+					}
+				}"""));
 		waitForAutoBuild();
-		CompositeInfo mainComposite =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    ExposedComposite composite = new ExposedComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo mainComposite = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						ExposedComposite composite = new ExposedComposite(this, SWT.NONE);
+					}
+				}""");
 		assertEquals(1, mainComposite.getChildrenControls().size());
 		//
 		CompositeInfo composite = (CompositeInfo) mainComposite.getChildrenControls().get(0);

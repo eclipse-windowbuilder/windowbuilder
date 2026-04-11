@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,13 +34,12 @@ public class ScrollableTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getClientArea_Composite() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		composite.refresh();
 		//
 		assertEquals(new Rectangle(0, 0, 450, 300), composite.getClientArea());

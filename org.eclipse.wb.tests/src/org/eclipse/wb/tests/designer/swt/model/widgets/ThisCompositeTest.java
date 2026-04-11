@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -50,16 +50,15 @@ public class ThisCompositeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_create() throws Exception {
-		CompositeInfo compositeInfo =
-				parseComposite(
-						"class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('push');",
-						"  }",
-						"}");
+		CompositeInfo compositeInfo = parseComposite("""
+				class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setText("push");
+					}
+				}""");
 		//
 		List<ControlInfo> children = compositeInfo.getChildrenControls();
 		assertEquals(1, children.size());
@@ -88,11 +87,11 @@ public class ThisCompositeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_Shell_Display() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test(Display display, int style) {",
-				"    super(display, style);",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test(Display display, int style) {
+						super(display, style);
+					}
+				}""");
 	}
 }

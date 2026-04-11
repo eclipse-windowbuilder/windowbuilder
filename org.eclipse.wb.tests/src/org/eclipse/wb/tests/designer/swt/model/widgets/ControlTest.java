@@ -67,18 +67,17 @@ public class ControlTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_MethodMain() throws Exception {
-		CompositeInfo shellInfo =
-				parseComposite(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell(SWT.NO_TRIM);",
-						"    shell.setSize(320, 240);",
-						"    shell.setText('SWT');",
-						"    Button button = new Button(shell, SWT.NONE);",
-						"    button.setBounds(10, 20, 50, 30);",
-						"    button.setText('push');",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = parseComposite("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell(SWT.NO_TRIM);
+						shell.setSize(320, 240);
+						shell.setText("SWT");
+						Button button = new Button(shell, SWT.NONE);
+						button.setBounds(10, 20, 50, 30);
+						button.setText("push");
+					}
+				}""");
 		assertInstanceOf(RootAssociation.class, shellInfo.getAssociation());
 		//
 		List<ControlInfo> children = shellInfo.getChildrenControls();
@@ -129,31 +128,31 @@ public class ControlTest extends RcpModelTest {
 	@Test
 	public void test_application() throws Exception {
 		m_waitForAutoBuild = true;
-		parseComposite(
-				"public class Test {",
-				"  private Shell shell;",
-				"  public static void main(String[] args) {",
-				"    Test app = new Test();",
-				"    app.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = Display.getDefault();",
-				"    createContents();",
-				"    shell.open();",
-				"    shell.layout();",
-				"    while (!shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  private void createContents() {",
-				"    shell = new Shell();",
-				"    shell.setSize(450, 300);",
-				"    shell.setText('SWT Application');",
-				"    shell.setLayout(new GridLayout());",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test {
+					private Shell shell;
+					public static void main(String[] args) {
+						Test app = new Test();
+						app.open();
+					}
+					public void open() {
+						Display display = Display.getDefault();
+						createContents();
+						shell.open();
+						shell.layout();
+						while (!shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					private void createContents() {
+						shell = new Shell();
+						shell.setSize(450, 300);
+						shell.setText("SWT Application");
+						shell.setLayout(new GridLayout());
+					}
+				}""");
 	}
 
 	/**
@@ -162,14 +161,13 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_newDisplay() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test {",
-						"  public static void main(String[] args) {",
-						"    Display display = new Display();",
-						"    Shell shell = new Shell(display);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test {
+					public static void main(String[] args) {
+						Display display = new Display();
+						Shell shell = new Shell(display);
+					}
+				}""");
 		assertEquals(
 				"org.eclipse.swt.widgets.Shell",
 				shell.getDescription().getComponentClass().getName());
@@ -177,25 +175,25 @@ public class ControlTest extends RcpModelTest {
 
 	@Test
 	public void test_classLoader_1() throws Exception {
-		test_classLoader(new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"  }",
-		"}"});
+		test_classLoader("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+					}
+				}""");
 	}
 
 	@Test
 	public void test_classLoader_2() throws Exception {
-		test_classLoader(new String[]{
-				"class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"  }",
-		"}"});
+		test_classLoader("""
+				class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 	}
 
-	private void test_classLoader(String[] lines) throws Exception {
+	private void test_classLoader(String lines) throws Exception {
 		CompositeInfo compositeInfo = parseComposite(lines);
 		//
 		Class<?> swtClass = m_lastLoader.loadClass("org.eclipse.swt.SWT");
@@ -220,30 +218,22 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_sharingDescriptions() throws Exception {
-		CompositeInfo shell_1 =
-				(CompositeInfo) parseSource(
-						"test",
-						"Test_1.java",
-						getSourceDQ(
-								"package test;",
-								"public class Test_1 extends org.eclipse.swt.widgets.Shell {",
-								"  public Test_1() {",
-								"    new org.eclipse.jface.viewers.TableViewer(this, 0);",
-								"  }",
-								"}"));
+		CompositeInfo shell_1 = (CompositeInfo) parseSource("test", "Test_1.java", """
+				package test;
+				public class Test_1 extends org.eclipse.swt.widgets.Shell {
+					public Test_1() {
+						new org.eclipse.jface.viewers.TableViewer(this, 0);
+					}
+				}""");
 		ViewerInfo viewer_1 =
 				(ViewerInfo) shell_1.getChildrenControls().get(0).getChildrenJava().get(0);
-		CompositeInfo shell_2 =
-				(CompositeInfo) parseSource(
-						"test",
-						"Test_2.java",
-						getSourceDQ(
-								"package test;",
-								"public class Test_2 extends org.eclipse.swt.widgets.Shell {",
-								"  public Test_2() {",
-								"    new org.eclipse.jface.viewers.TableViewer(this, 0);",
-								"  }",
-								"}"));
+		CompositeInfo shell_2 = (CompositeInfo) parseSource("test", "Test_2.java", """
+				package test;
+				public class Test_2 extends org.eclipse.swt.widgets.Shell {
+					public Test_2() {
+						new org.eclipse.jface.viewers.TableViewer(this, 0);
+					}
+				}""");
 		ViewerInfo viewer_2 =
 				(ViewerInfo) shell_2.getChildrenControls().get(0).getChildrenJava().get(0);
 		// do checks
@@ -257,23 +247,20 @@ public class ControlTest extends RcpModelTest {
 	@Test
 	public void test_nonStaticInnerClass() throws Exception {
 		m_waitForAutoBuild = true;
-		parseSource(
-				"test",
-				"Test.java",
-				getTestSource(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new MyComposite(this, SWT.NONE);",
-						"  }",
-						"  private class MyComposite extends Composite {",
-						"    public MyComposite(Composite parent, int style) {",
-						"      super(parent, style);",
-						"    }",
-						"  }",
-						"}"));
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new MyComposite(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}");
+		parseSource("test", "Test.java", getTestSource("""
+				public class Test extends Shell {
+					public Test() {
+						new MyComposite(this, SWT.NONE);
+					}
+					private class MyComposite extends Composite {
+						public MyComposite(Composite parent, int style) {
+							super(parent, style);
+						}
+					}
+				}"""));
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new MyComposite(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}""");
 	}
 
 	/**
@@ -283,20 +270,19 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_preferredBounds_usualBounds() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    setSize(500, 300);",
-						"    //",
-						"    Composite composite = new Composite(this, SWT.NONE);",
-						"    composite.setLayout(new GridLayout());",
-						"    //",
-						"    Button button = new Button(composite, SWT.NONE);",
-						"    button.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						setSize(500, 300);
+						//
+						Composite composite = new Composite(this, SWT.NONE);
+						composite.setLayout(new GridLayout());
+						//
+						Button button = new Button(composite, SWT.NONE);
+						button.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+					}
+				}""");
 		shell.refresh();
 		// check column width
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
@@ -310,13 +296,12 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_disposeHierarchy() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new Button(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		Composite shellObject = shell.getWidget();
@@ -340,13 +325,12 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ColorConverter() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		shell.refresh();
 		Property backgroundProperty = shell.getPropertyByTitle("background");
 		// check default value
@@ -364,19 +348,18 @@ public class ControlTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getAbsoluteBounds() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(800, 600);",
-						"    //",
-						"    Composite composite = new Composite(this, SWT.NONE);",
-						"    composite.setBounds(10, 20, 300, 200);",
-						"    //",
-						"    Button button = new Button(composite, SWT.NONE);",
-						"    button.setBounds(5, 10, 100, 50);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setSize(800, 600);
+						//
+						Composite composite = new Composite(this, SWT.NONE);
+						composite.setBounds(10, 20, 300, 200);
+						//
+						Button button = new Button(composite, SWT.NONE);
+						button.setBounds(5, 10, 100, 50);
+					}
+				}""");
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = composite.getChildrenControls().get(0);
 		//
@@ -406,14 +389,13 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_executeNoVariable() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						new Button(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
 		shell.refresh();
@@ -427,13 +409,12 @@ public class ControlTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_exposeAction() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// prepare context menu for "button"
 		IMenuManager manager = getDesignerMenuManager();
@@ -499,30 +480,27 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_exceptionActual_sameDefault() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends Button {",
-						"  public MyButton(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends Button {
+					public MyButton(Composite parent, int style) {
+						super(parent, style);
+						throw new IllegalStateException("actual");
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    MyButton button = new MyButton(this, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						MyButton button = new MyButton(this, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE)/}""");
 		check_constructorEvaluation_actualOnlyException_placeholder(
 				shell,
 				"new MyButton(this, SWT.NONE)");
@@ -533,30 +511,27 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_exceptionActual_noDefault() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends Button {",
-						"  public MyButton(Composite parent, int style, int value) {",
-						"    super(parent, style);",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends Button {
+					public MyButton(Composite parent, int style, int value) {
+						super(parent, style);
+						throw new IllegalStateException("actual");
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    MyButton button = new MyButton(this, SWT.NONE, 0);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE, 0)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						MyButton button = new MyButton(this, SWT.NONE, 0);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE, 0)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}""");
 		check_constructorEvaluation_actualOnlyException_placeholder(
 				shell,
 				"new MyButton(this, SWT.NONE, 0)");
@@ -568,34 +543,31 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_exceptionActual_exceptionDefault() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends Button {",
-						"  public MyButton(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    throw new IllegalStateException('default');",
-						"  }",
-						"  public MyButton(Composite parent, int style, int value) {",
-						"    super(parent, style);",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends Button {
+					public MyButton(Composite parent, int style) {
+						super(parent, style);
+						throw new IllegalStateException("default");
+					}
+					public MyButton(Composite parent, int style, int value) {
+						super(parent, style);
+						throw new IllegalStateException("actual");
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    MyButton button = new MyButton(this, SWT.NONE, 0);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE, 0)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						MyButton button = new MyButton(this, SWT.NONE, 0);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE, 0)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}""");
 		// placeholder should be created
 		check_constructorEvaluation_placeholder(shell);
 		// check logged exceptions
@@ -619,35 +591,32 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_exceptionActual_goodDefault() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends Button {",
-						"  public MyButton(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setText('A');",
-						"  }",
-						"  public MyButton(Composite parent, int style, int value) {",
-						"    super(parent, style);",
-						"    setText('B');",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends Button {
+					public MyButton(Composite parent, int style) {
+						super(parent, style);
+						setText("A");
+					}
+					public MyButton(Composite parent, int style, int value) {
+						super(parent, style);
+						setText("B");
+						throw new IllegalStateException("actual");
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    MyButton button = new MyButton(this, SWT.NONE, 0);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE, 0)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						MyButton button = new MyButton(this, SWT.NONE, 0);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE, 0)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}""");
 		shell.refresh();
 		// prepare MyButton
 		ButtonInfo button = (ButtonInfo) shell.getChildrenControls().get(0);
@@ -669,32 +638,30 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_placeholder_ignoreExposed() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends Button {",
-						"  public MyButton(Composite parent, int style, int value) {",
-						"    super(parent, style);",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"  public Control getExposed() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends Button {
+					public MyButton(Composite parent, int style, int value) {
+						super(parent, style);
+						throw new IllegalStateException("actual");
+					}
+					protected void checkSubclass() {
+					}
+					public Control getExposed() {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    MyButton button = new MyButton(this, SWT.NONE, 0);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE, 0)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}");
+		parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						MyButton button = new MyButton(this, SWT.NONE, 0);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new MyButton(this, SWT.NONE, 0)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: test.MyButton} {local-unique: button} {/new MyButton(this, SWT.NONE, 0)/}""");
 	}
 
 	/**
@@ -703,30 +670,27 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_newAnonymousControl() throws Exception {
-		setFileContentSrc(
-				"test/MyAbstractButton.java",
-				getTestSource(
-						"public class MyAbstractButton extends Button {",
-						"  public MyAbstractButton(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyAbstractButton.java", getTestSource("""
+				public class MyAbstractButton extends Button {
+					public MyAbstractButton(Composite parent, int style) {
+						super(parent, style);
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
 		useStrictEvaluationMode(false);
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new MyAbstractButton(this, SWT.NONE) {};",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new MyAbstractButton(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: test.MyAbstractButton} {empty} {/new MyAbstractButton(this, SWT.NONE)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new MyAbstractButton(this, SWT.NONE) {};
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new MyAbstractButton(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: test.MyAbstractButton} {empty} {/new MyAbstractButton(this, SWT.NONE)/}""");
 		// refresh
 		shell.refresh();
 		assertNoErrors(shell);
@@ -737,21 +701,20 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_duplicateMethodInvocation() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    createButton(this, 0);",
-						"    createButton(this, 1);",
-						"  }",
-						"  private void createButton(Composite parent, int value) {",
-						"    new Button(parent, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/createButton(this, 0)/ /createButton(this, 1)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: org.eclipse.swt.widgets.Button} {empty} {/new Button(parent, SWT.NONE)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						createButton(this, 0);
+						createButton(this, 1);
+					}
+					private void createButton(Composite parent, int value) {
+						new Button(parent, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/createButton(this, 0)/ /createButton(this, 1)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: org.eclipse.swt.widgets.Button} {empty} {/new Button(parent, SWT.NONE)/}""");
 		//
 		shell.refresh();
 		assertNoErrors(shell);
@@ -764,12 +727,12 @@ public class ControlTest extends RcpModelTest {
 	@Test
 	public void test_nullAsParent() throws Exception {
 		try {
-			parseComposite(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    Button button = new Button(null, SWT.NONE);",
-					"  }",
-					"}");
+			parseComposite("""
+					public class Test extends Shell {
+						public Test() {
+							Button button = new Button(null, SWT.NONE);
+						}
+					}""");
 		} catch (Throwable e) {
 			DesignerException de = (DesignerException) DesignerExceptionUtils.getRootCause(e);
 			assertEquals(IExceptionConstants.NULL_PARENT, de.getCode());
@@ -786,20 +749,20 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_unknownCompositeParameter() throws Exception {
-		parseComposite(
-				"public class Test {",
-				"  /**",
-				"  * @wbp.parser.entryPoint",
-				"  */",
-				"  public void createContent(Composite parent) {",
-				"    Composite composite = new Composite(parent, SWT.NONE);",
-				"    new Button(composite, SWT.NONE);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: org.eclipse.swt.widgets.Composite} {local-unique: composite} {/new Composite(parent, SWT.NONE)/ /new Button(composite, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: org.eclipse.swt.widgets.Button} {empty} {/new Button(composite, SWT.NONE)/}");
+		parseComposite("""
+				public class Test {
+					/**
+					* @wbp.parser.entryPoint
+					*/
+					public void createContent(Composite parent) {
+						Composite composite = new Composite(parent, SWT.NONE);
+						new Button(composite, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{new: org.eclipse.swt.widgets.Composite} {local-unique: composite} {/new Composite(parent, SWT.NONE)/ /new Button(composite, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: org.eclipse.swt.widgets.Button} {empty} {/new Button(composite, SWT.NONE)/}""");
 	}
 
 	/**
@@ -807,13 +770,12 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_disposeSharedShell() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent) {",
-						"    super(parent, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent) {
+						super(parent, SWT.NONE);
+					}
+				}""");
 		composite.refresh();
 		// dispose "parent", i.e. shared Shell
 		Composite shell = composite.getWidget().getParent();
@@ -828,13 +790,12 @@ public class ControlTest extends RcpModelTest {
 	@Test
 	public void test_parentNotAsFirstParameter() throws Exception {
 		useStrictEvaluationMode(false);
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(int flag, Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(int flag, Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		composite.refresh();
 		// has "parent" and "style"
 		Composite compositeObject = composite.getWidget();
@@ -854,19 +815,18 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_dontIntercept_computeSize_1() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public Point computeSize(int wHint, int hHint, boolean changed) {",
-						"    if (1 == 2) {",
-						"      return new Point(1, 2);",
-						"    }",
-						"    return super.computeSize(wHint, hHint, changed);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+					public Point computeSize(int wHint, int hHint, boolean changed) {
+						if (1 == 2) {
+							return new Point(1, 2);
+						}
+						return super.computeSize(wHint, hHint, changed);
+					}
+				}""");
 		composite.refresh();
 	}
 
@@ -875,19 +835,18 @@ public class ControlTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_dontIntercept_computeSize_2() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public Point computeSize(int wHint, int hHint) {",
-						"    if (1 == 2) {",
-						"      return new Point(1, 2);",
-						"    }",
-						"    return super.computeSize(wHint, hHint);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+					public Point computeSize(int wHint, int hHint) {
+						if (1 == 2) {
+							return new Point(1, 2);
+						}
+						return super.computeSize(wHint, hHint);
+					}
+				}""");
 		composite.refresh();
 	}
 }

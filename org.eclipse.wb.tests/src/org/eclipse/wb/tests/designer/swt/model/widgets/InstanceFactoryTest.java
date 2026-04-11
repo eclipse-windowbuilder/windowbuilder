@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -45,27 +45,24 @@ public class InstanceFactoryTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		setFileContentSrc(
-				"test/InstanceFactory.java",
-				getTestSource(
-						"public final class InstanceFactory {",
-						"  public Button createButton(Composite parent, String text) {",
-						"    Button button = new Button(parent, SWT.NONE);",
-						"    button.setText(text);",
-						"    return button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/InstanceFactory.java", getTestSource("""
+				public final class InstanceFactory {
+					public Button createButton(Composite parent, String text) {
+						Button button = new Button(parent, SWT.NONE);
+						button.setText(text);
+						return button;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  private InstanceFactory m_factory = new InstanceFactory();",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Button button = m_factory.createButton(this, 'button');",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					private InstanceFactory m_factory = new InstanceFactory();
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = m_factory.createButton(this, "button");
+					}
+				}""");
 		// check for InstanceFactoryInfo
 		{
 			InstanceFactoryContainerInfo factoryContainer = InstanceFactoryContainerInfo.get(shell);

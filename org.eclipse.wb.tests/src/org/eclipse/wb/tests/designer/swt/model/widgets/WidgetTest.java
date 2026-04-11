@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -57,13 +57,12 @@ public class WidgetTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getStyle() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new Text(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new Text(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		// bits for existing widget object
 		{
@@ -94,13 +93,13 @@ public class WidgetTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_description_setData() throws Exception {
-		ShellInfo shell = (ShellInfo) parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setData('1');",
-						"    setData('key', '2');",
-						"  }",
-						"}");
+		ShellInfo shell = (ShellInfo) parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setData("1");
+						setData("key", "2");
+					}
+				}""");
 		shell.refresh();
 		// check setData()
 		Shell shellObject = shell.getWidget();
@@ -116,34 +115,31 @@ public class WidgetTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_exposedControls() throws Exception {
-		setFileContentSrc(
-				"test/ExposedComposite.java",
-				getTestSource(
-						"public class ExposedComposite extends Composite {",
-						"  private Button m_button;",
-						"  //",
-						"  public ExposedComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(2, false));",
-						"    m_button = new Button(this, SWT.NONE);",
-						"    m_button.setText('button');",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ExposedComposite.java", getTestSource("""
+				public class ExposedComposite extends Composite {
+					private Button m_button;
+					//
+					public ExposedComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						m_button = new Button(this, SWT.NONE);
+						m_button.setText("button");
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
-		CompositeInfo mainComposite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    Label label = new Label(this, SWT.NONE);",
-						"    label.setText('label');",
-						"    ExposedComposite composite = new ExposedComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo mainComposite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						Label label = new Label(this, SWT.NONE);
+						label.setText("label");
+						ExposedComposite composite = new ExposedComposite(this, SWT.NONE);
+					}
+				}""");
 		//
 		assertEquals(2, mainComposite.getChildrenControls().size());
 		assertInstanceOf(ControlInfo.class, mainComposite.getChildrenControls().get(0));
@@ -166,35 +162,32 @@ public class WidgetTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_exposedControl_bounds() throws Exception {
-		setFileContentSrc(
-				"test/ExposedComposite.java",
-				getTestSource(
-						"public class ExposedComposite extends Composite {",
-						"  private Button m_button;",
-						"  public ExposedComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    //",
-						"    Composite innerComposite = new Composite(this, SWT.NONE);",
-						"    innerComposite.setBounds(10, 20, 100, 100);",
-						"    //",
-						"    m_button = new Button(innerComposite, SWT.NONE);",
-						"    m_button.setBounds(30, 40, 100, 20);",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ExposedComposite.java", getTestSource("""
+				public class ExposedComposite extends Composite {
+					private Button m_button;
+					public ExposedComposite(Composite parent, int style) {
+						super(parent, style);
+						//
+						Composite innerComposite = new Composite(this, SWT.NONE);
+						innerComposite.setBounds(10, 20, 100, 100);
+						//
+						m_button = new Button(innerComposite, SWT.NONE);
+						m_button.setBounds(30, 40, 100, 20);
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo mainComposite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    ExposedComposite exposedComposite = new ExposedComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo mainComposite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						ExposedComposite exposedComposite = new ExposedComposite(this, SWT.NONE);
+					}
+				}""");
 		mainComposite.refresh();
 		// prepare ExposedComposite
 		assertEquals(1, mainComposite.getChildrenControls().size());
@@ -220,24 +213,23 @@ public class WidgetTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_variableName_setData() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// no "variable name in component" configured, just name modification expected
 		{
 			button.getVariableSupport().setName("button2");
 			shell.refresh();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    Button button2 = new Button(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							Button button2 = new Button(this, SWT.NONE);
+						}
+					}""");
 		}
 		// do with "variable name in component"
 		PreferencesRepairer preferences =
@@ -248,25 +240,25 @@ public class WidgetTest extends RcpModelTest {
 			{
 				button.getVariableSupport().setName("button3");
 				shell.refresh();
-				assertEditor(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Button button3 = new Button(this, SWT.NONE);",
-						"    button3.setData('name', 'button3');",
-						"  }",
-						"}");
+				assertEditor("""
+						public class Test extends Shell {
+							public Test() {
+								Button button3 = new Button(this, SWT.NONE);
+								button3.setData("name", "button3");
+							}
+						}""");
 			}
 			// setData() for "button" exists, should be updated
 			{
 				button.getVariableSupport().setName("button4");
 				shell.refresh();
-				assertEditor(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Button button4 = new Button(this, SWT.NONE);",
-						"    button4.setData('name', 'button4');",
-						"  }",
-						"}");
+				assertEditor("""
+						public class Test extends Shell {
+							public Test() {
+								Button button4 = new Button(this, SWT.NONE);
+								button4.setData("name", "button4");
+							}
+						}""");
 			}
 		} finally {
 			preferences.restore();
@@ -279,13 +271,12 @@ public class WidgetTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_variableName_setData_onCreate() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		//
 		ControlInfo button = BTestUtils.createButton();
@@ -296,16 +287,16 @@ public class WidgetTest extends RcpModelTest {
 			preferences.setValue(IPreferenceConstants.P_VARIABLE_IN_COMPONENT, true);
 			// do add
 			rowLayout.command_CREATE(button, null);
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new RowLayout());",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      button.setData('name', 'button');",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new RowLayout());
+							{
+								Button button = new Button(this, SWT.NONE);
+								button.setData("name", "button");
+							}
+						}
+					}""");
 		} finally {
 			preferences.restore();
 		}

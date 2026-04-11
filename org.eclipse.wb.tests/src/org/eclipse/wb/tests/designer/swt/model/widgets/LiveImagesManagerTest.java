@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -61,16 +61,13 @@ public class LiveImagesManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noSourceChange() throws Exception {
-		parseSource(
-				"test",
-				"Test.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.swt.widgets.Shell;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}"));
+		parseSource("test", "Test.java", """
+				package test;
+				import org.eclipse.swt.widgets.Shell;
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		String originalSource = m_lastEditor.getSource();
 		// prepare button
 		ControlInfo button = BTestUtils.createButton();
@@ -96,12 +93,12 @@ public class LiveImagesManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_onShell() throws Exception {
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// do checks
 		ControlInfo button = BTestUtils.createButton();
 		assertNotNull(button.getImage());
@@ -113,12 +110,12 @@ public class LiveImagesManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_onComposite() throws Exception {
-		parseComposite(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		// do checks
 		ControlInfo label = BTestUtils.createControl("org.eclipse.swt.widgets.Label");
 		assertNotNull(label.getImage());
@@ -132,13 +129,12 @@ public class LiveImagesManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noDispose() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		shell.refresh();
 		// add button
@@ -167,13 +163,13 @@ public class LiveImagesManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_withShell() throws Exception {
-		parseComposite(
-				"public class Test {",
-				"  private static Shell shell;",
-				"  public static void main(String[] args) {",
-				"    shell = new Shell();",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test {
+					private static Shell shell;
+					public static void main(String[] args) {
+						shell = new Shell();
+					}
+				}""");
 		// do checks
 		ControlInfo text = BTestUtils.createControl("org.eclipse.swt.widgets.Text");
 		assertNotNull(text.getImage());
@@ -185,22 +181,20 @@ public class LiveImagesManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_customComponent() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// do checks
 		ControlInfo myComposite = BTestUtils.createControl("test.MyComposite");
 		assertNotNull(myComposite.getImage());
@@ -212,14 +206,13 @@ public class LiveImagesManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_copyPaste() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		// prepare memento
 		JavaInfoMemento memento;
@@ -238,23 +231,20 @@ public class LiveImagesManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_instanceFactory() throws Exception {
-		setFileContentSrc(
-				"test/InstanceFactory.java",
-				getTestSource(
-						"public final class InstanceFactory {",
-						"  public Button createButton(Composite parent) {",
-						"    return new Button(parent, SWT.NONE);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/InstanceFactory.java", getTestSource("""
+				public final class InstanceFactory {
+					public Button createButton(Composite parent) {
+						return new Button(parent, SWT.NONE);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse source
-		CompositeInfo shell =
-				parseComposite(
-						"public final class Test extends Shell {",
-						"  private final InstanceFactory m_factory = new InstanceFactory();",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public final class Test extends Shell {
+					private final InstanceFactory m_factory = new InstanceFactory();
+					public Test() {
+					}
+				}""");
 		shell.refresh();
 		// prepare factory
 		Class<?> factoryClass = m_lastLoader.loadClass("test.InstanceFactory");
