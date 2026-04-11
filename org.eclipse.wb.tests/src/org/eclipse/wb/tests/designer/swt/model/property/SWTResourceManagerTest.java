@@ -15,18 +15,20 @@ package org.eclipse.wb.tests.designer.swt.model.property;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.utils.ManagerUtils;
+import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 
@@ -211,16 +213,17 @@ public class SWTResourceManagerTest extends RcpModelTest {
 		}
 	}
 
-	@Disabled
 	@Test
 	public void test_getImage_classpath() throws Exception {
+		IFile imageSrc = setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
+		waitForAutoBuild();
 		// create image over SWTResourceManager
 		Image image = (Image)
 				ReflectionUtils.invokeMethod(
 						SWTManagerClass,
 						"getImage(java.lang.Class,java.lang.String)",
 						SWTManagerClass,
-						"/javax/swing/plaf/basic/icons/JavaCup16.png");
+						"/Test.png");
 		// check create
 		assertNotNull(image);
 		// check state
@@ -229,12 +232,12 @@ public class SWTResourceManagerTest extends RcpModelTest {
 				SWTManagerClass,
 				"getImage(java.lang.Class,java.lang.String)",
 				SWTManagerClass,
-				"/javax/swing/plaf/basic/icons/JavaCup16.png"));
+				"/Test.png"));
 		// load image directly over Image
-		Image directImage = new Image(null,
-				getClass().getResourceAsStream("/javax/swing/plaf/basic/icons/JavaCup16.png"));
 		// check equals images
-		try {
+		Image directImage = null;
+		try (InputStream is = imageSrc.getContents()) {
+			directImage = new Image(null, is);
 			assertEqualsImage(image, directImage);
 		} finally {
 			directImage.dispose();
@@ -287,13 +290,14 @@ public class SWTResourceManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_disposeImages() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		// create image over SWTResourceManager
 		Object image =
 				ReflectionUtils.invokeMethod(
 						SWTManagerClass,
 						"getImage(java.lang.Class,java.lang.String)",
 						SWTManagerClass,
-						"/javax/swing/plaf/basic/icons/JavaCup16.png");
+						"/Test.png");
 		// check create
 		assertNotNull(image);
 		// check state

@@ -15,6 +15,7 @@ package org.eclipse.wb.tests.designer.swt.model.property;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.utils.ManagerUtils;
+import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
 import org.eclipse.swt.SWT;
@@ -95,13 +96,14 @@ public class ResourceManagerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getImageDescriptor() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		// create image descriptor
 		Object imageDescriptor =
 				ReflectionUtils.invokeMethod(
 						ManagerClass,
 						"getImageDescriptor(java.lang.Class,java.lang.String)",
 						ManagerClass,
-						"/javax/swing/plaf/basic/icons/JavaCup16.png");
+						"/Test.png");
 		// check create
 		assertNotNull(imageDescriptor);
 	}
@@ -119,13 +121,14 @@ public class ResourceManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_getImage() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		// create image descriptor
 		Object imageDescriptor =
 				ReflectionUtils.invokeMethod(
 						ImageDescriptorClass,
 						"createFromFile(java.lang.Class,java.lang.String)",
 						ManagerClass,
-						"/javax/swing/plaf/basic/icons/JavaCup16.png");
+						"/Test.png");
 		// check create
 		assertNotNull(imageDescriptor);
 		//

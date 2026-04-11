@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
 import org.eclipse.wb.internal.swt.model.property.editor.image.ImageDescriptorPropertyEditor;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
+import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -106,10 +107,11 @@ public class ImageDescriptorPropertyEditorTestNoManager extends ImageDescriptorP
 	 */
 	@Test
 	public void test_textSource_image_over_classpath() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assert_getText_getClipboardSource_forSource(
-				getInvocationSource("getClass()", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				getInvocationSource("{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
+				getInvocationSource("getClass()", "\"/Test.png\""),
+				"Classpath: /Test.png",
+				getInvocationSource("{wbp_classTop}", "\"/Test.png\""));
 	}
 
 	/**
@@ -118,9 +120,10 @@ public class ImageDescriptorPropertyEditorTestNoManager extends ImageDescriptorP
 	 */
 	@Test
 	public void test_textSource_image_over_classpath_OtherClass() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assert_getText_getClipboardSource_forSource(
-				getInvocationSource("String.class", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				getInvocationSource("{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
+				getInvocationSource("String.class", "\"/Test.png\""),
+				"Classpath: /Test.png",
+				getInvocationSource("{wbp_classTop}", "\"/Test.png\""));
 	}
 }
