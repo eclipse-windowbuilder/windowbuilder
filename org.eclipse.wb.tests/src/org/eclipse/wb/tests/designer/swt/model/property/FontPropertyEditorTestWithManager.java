@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -75,13 +75,12 @@ public class FontPropertyEditorTestWithManager extends FontPropertyEditorTest {
 	 */
 	@Test
 	public void test_textSource_over_Constructor2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// add ResourceManager
 		ManagerContainerInfo.get(shell);
 		// set "font" property
@@ -113,27 +112,27 @@ public class FontPropertyEditorTestWithManager extends FontPropertyEditorTest {
 	 */
 	@Test
 	public void test_textSource_order() throws Exception {
-		CompositeInfo shell = parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		ManagerContainerInfo.getResourceManagerInfo(shell);
 		shell.addMethodInvocation("setFont(org.eclipse.swt.graphics.Font)",
 				FontPropertyEditor.getInvocationSource(shell, "MS Shell Dlg", 12, "org.eclipse.swt.SWT.BOLD"));
 		shell.refresh();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  private LocalResourceManager localResourceManager;",
-				"  public Test() {",
-				"    createResourceManager();",
-				"    setFont(localResourceManager.create(FontDescriptor.createFrom(\"MS Shell Dlg\", 12, SWT.BOLD)));",
-				"  }",
-				"  private void createResourceManager() {",
-				"    localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					private LocalResourceManager localResourceManager;
+					public Test() {
+						createResourceManager();
+						setFont(localResourceManager.create(FontDescriptor.createFrom(\"MS Shell Dlg\", 12, SWT.BOLD)));
+					}
+					private void createResourceManager() {
+						localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);
+					}
+				}""");
 	}
 }

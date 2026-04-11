@@ -101,27 +101,27 @@ public class ColorPropertyEditorTestWithManager extends ColorPropertyEditorTest 
 	 */
 	@Test
 	public void test_textSource_order() throws Exception {
-		CompositeInfo shell = parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		ManagerContainerInfo.getResourceManagerInfo(shell);
 		shell.addMethodInvocation("setBackground(org.eclipse.swt.graphics.Color)",
 				ColorPropertyEditor.getInvocationSource(shell, 1, 2, 3));
 		shell.refresh();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  private LocalResourceManager localResourceManager;",
-				"  public Test() {",
-				"    createResourceManager();",
-				"    setBackground(localResourceManager.create(ColorDescriptor.createFrom(new RGB(1, 2, 3))));",
-				"  }",
-				"  private void createResourceManager() {",
-				"    localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					private LocalResourceManager localResourceManager;
+					public Test() {
+						createResourceManager();
+						setBackground(localResourceManager.create(ColorDescriptor.createFrom(new RGB(1, 2, 3))));
+					}
+					private void createResourceManager() {
+						localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);
+					}
+				}""");
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -51,13 +51,12 @@ public class TabOrderPropertyTest extends RcpModelTest {
 	@Test
 	public void test_common() throws Exception {
 		// create shell
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		composite.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) composite.getPropertyByTitle("tab order");
@@ -79,60 +78,58 @@ public class TabOrderPropertyTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noValue_addNewComponent() throws Exception {
-		CompositeInfo container =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('New Button');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo container = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("New Button");
+						}
+					}
+				}""");
 		container.refresh();
 		// add new Button
 		ButtonInfo newButton = createJavaInfo("org.eclipse.swt.widgets.Button");
 		JavaInfoUtils.add(newButton, null, container, null);
 		//
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('New Button');",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("New Button");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_getValue_noValue() throws Exception {
 		// create shell
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(2, false));",
-						"    new Label(this, SWT.NONE);",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('New Button');",
-						"    }",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.NONE);",
-						"    {",
-						"      Combo combo_1 = new Combo(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						new Label(this, SWT.NONE);
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("New Button");
+						}
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						{
+							Combo combo_1 = new Combo(this, SWT.NONE);
+						}
+					}
+				}""");
 		composite.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) composite.getPropertyByTitle("tab order");
@@ -154,27 +151,26 @@ public class TabOrderPropertyTest extends RcpModelTest {
 	@Test
 	public void test_getValue() throws Exception {
 		// create shell
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  private Button button_1;",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(2, false));",
-						"    new Label(this, SWT.NONE);",
-						"    {",
-						"      button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('New Button');",
-						"    }",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.NONE);",
-						"    {",
-						"      Combo combo_1 = new Combo(this, SWT.NONE);",
-						"    }",
-						"    setTabList(new Control[]{button_1});",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					private Button button_1;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						new Label(this, SWT.NONE);
+						{
+							button_1 = new Button(this, SWT.NONE);
+							button_1.setText("New Button");
+						}
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						{
+							Combo combo_1 = new Combo(this, SWT.NONE);
+						}
+						setTabList(new Control[]{button_1});
+					}
+				}""");
 		composite.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) composite.getPropertyByTitle("tab order");
@@ -194,73 +190,73 @@ public class TabOrderPropertyTest extends RcpModelTest {
 
 	@Test
 	public void test_setValue_UNKNOWN_VALUE() throws Exception {
-		test_setValue(new String[]{
-				"public class Test extends Composite {",
-				"  private Button button_1;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText(\"New Button\");",
-				"    }",
-				"    {",
-				"      Combo combo_1 = new Combo(this, SWT.NONE);",
-				"    }",
-				"    setTabList(new Control[]{button_1});",
-				"  }",
-		"}"}, Property.UNKNOWN_VALUE, new String[]{
-				"public class Test extends Composite {",
-				"  private Button button_1;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText(\"New Button\");",
-				"    }",
-				"    {",
-				"      Combo combo_1 = new Combo(this, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"});
+		test_setValue("""
+				public class Test extends Composite {
+					private Button button_1;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						{
+							button_1 = new Button(this, SWT.NONE);
+							button_1.setText(\"New Button\");
+						}
+						{
+							Combo combo_1 = new Combo(this, SWT.NONE);
+						}
+						setTabList(new Control[]{button_1});
+					}
+				}""", Property.UNKNOWN_VALUE, """
+				public class Test extends Composite {
+					private Button button_1;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						{
+							button_1 = new Button(this, SWT.NONE);
+							button_1.setText(\"New Button\");
+						}
+						{
+							Combo combo_1 = new Combo(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_setValue_noValue() throws Exception {
-		test_setValue(new String[]{
-				"public class Test extends Composite {",
-				"  private Button button_1;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText(\"New Button\");",
-				"    }",
-				"    {",
-				"      Combo combo_1 = new Combo(this, SWT.NONE);",
-				"    }",
-				"    setTabList(new Control[]{button_1});",
-				"  }",
-		"}"}, new TabOrderInfo(), new String[]{
-				"public class Test extends Composite {",
-				"  private Button button_1;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText(\"New Button\");",
-				"    }",
-				"    {",
-				"      Combo combo_1 = new Combo(this, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"});
+		test_setValue("""
+				public class Test extends Composite {
+					private Button button_1;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						{
+							button_1 = new Button(this, SWT.NONE);
+							button_1.setText(\"New Button\");
+						}
+						{
+							Combo combo_1 = new Combo(this, SWT.NONE);
+						}
+						setTabList(new Control[]{button_1});
+					}
+				}""", new TabOrderInfo(), """
+				public class Test extends Composite {
+					private Button button_1;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						{
+							button_1 = new Button(this, SWT.NONE);
+							button_1.setText(\"New Button\");
+						}
+						{
+							Combo combo_1 = new Combo(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
-	private void test_setValue(String[] startSource, Object value, String[] newSource)
+	private void test_setValue(String startSource, Object value, String newSource)
 			throws Exception {
 		// create shell
 		CompositeInfo composite = parseComposite(startSource);
@@ -275,20 +271,19 @@ public class TabOrderPropertyTest extends RcpModelTest {
 	@Test
 	public void test_setValue() throws Exception {
 		// create shell
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Combo combo = new Combo(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						{
+							Combo combo = new Combo(this, SWT.NONE);
+						}
+					}
+				}""");
 		composite.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) composite.getPropertyByTitle("tab order");
@@ -299,70 +294,69 @@ public class TabOrderPropertyTest extends RcpModelTest {
 			property.setValue(newValue);
 		}
 		// check source
-		assertEditor(
-				"public class Test extends Composite {",
-				"  private Combo combo;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      combo = new Combo(this, SWT.NONE);",
-				"    }",
-				"    setTabList(new Control[]{combo});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					private Combo combo;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						{
+							combo = new Combo(this, SWT.NONE);
+						}
+						setTabList(new Control[]{combo});
+					}
+				}""");
 		// add new control
 		ControlInfo newControl = createJavaInfo("org.eclipse.swt.widgets.Label");
 		composite.getLayout().command_CREATE(newControl, null);
 		// check source
-		assertEditor(
-				"public class Test extends Composite {",
-				"  private Combo combo;",
-				"  private Label label;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      combo = new Combo(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      label = new Label(this, SWT.NONE);",
-				"      label.setText('New Label');",
-				"    }",
-				"    setTabList(new Control[]{combo, label});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					private Combo combo;
+					private Label label;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						{
+							combo = new Combo(this, SWT.NONE);
+						}
+						{
+							label = new Label(this, SWT.NONE);
+							label.setText("New Label");
+						}
+						setTabList(new Control[]{combo, label});
+					}
+				}""");
 	}
 
 	@Test
 	public void test_delete() throws Exception {
 		// create shell
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  private Button button;",
-						"  private Combo combo;",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      button = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      combo = new Combo(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Combo combo_2 = new Combo(this, SWT.NONE);",
-						"    }",
-						"    setTabList(new Control[]{button, combo});",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					private Button button;
+					private Combo combo;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							button = new Button(this, SWT.NONE);
+						}
+						{
+							combo = new Combo(this, SWT.NONE);
+						}
+						{
+							Combo combo_2 = new Combo(this, SWT.NONE);
+						}
+						setTabList(new Control[]{button, combo});
+					}
+				}""");
 		composite.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) composite.getPropertyByTitle("tab order");
@@ -383,68 +377,67 @@ public class TabOrderPropertyTest extends RcpModelTest {
 		assertSame(combo, info.getOrderedInfos().get(1));
 		//
 		combo2.delete();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  private Button button;",
-				"  private Combo combo;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      button = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      combo = new Combo(this, SWT.NONE);",
-				"    }",
-				"    setTabList(new Control[]{button, combo});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					private Button button;
+					private Combo combo;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							button = new Button(this, SWT.NONE);
+						}
+						{
+							combo = new Combo(this, SWT.NONE);
+						}
+						setTabList(new Control[]{button, combo});
+					}
+				}""");
 		//
 		combo.delete();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  private Button button;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      button = new Button(this, SWT.NONE);",
-				"    }",
-				"    setTabList(new Control[]{button});",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					private Button button;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							button = new Button(this, SWT.NONE);
+						}
+						setTabList(new Control[]{button});
+					}
+				}""");
 		//
 		button.delete();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+					}
+				}""");
 	}
 
 	@Test
 	public void test_delete_2() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  private Button button_1;",
-						"  private Combo combo;",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      combo = new Combo(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					private Button button_1;
+					private Combo combo;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							combo = new Combo(this, SWT.NONE);
+						}
+						{
+							Label label = new Label(this, SWT.NONE);
+						}
+					}
+				}""");
 		composite.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) composite.getPropertyByTitle("tab order");
@@ -465,33 +458,33 @@ public class TabOrderPropertyTest extends RcpModelTest {
 		assertSame(combo, info.getOrderedInfos().get(1));
 		//
 		label.delete();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  private Button button_1;",
-				"  private Combo combo;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      combo = new Combo(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					private Button button_1;
+					private Combo combo;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							combo = new Combo(this, SWT.NONE);
+						}
+					}
+				}""");
 		//
 		combo.delete();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  private Button button_1;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					private Button button_1;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							button_1 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 }

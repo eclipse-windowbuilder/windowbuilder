@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -178,13 +178,12 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	private void assert_getText_getClipboardSource_forSource2(String imageSource,
 			String expectedText,
 			String expectedClipboardSource) throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		waitForAutoBuild();
 		// add ResourceManager
 		ManagerContainerInfo.getResourceManagerInfo(shell);
@@ -202,28 +201,28 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	 */
 	@Test
 	public void test_textSource_order() throws Exception {
-		CompositeInfo shell = parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		ManagerContainerInfo.getResourceManagerInfo(shell);
 		shell.addMethodInvocation("setImage(org.eclipse.swt.graphics.Image)",
 				getInvocationSource(shell, "java.lang.String.class", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
 		shell.refresh();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  private LocalResourceManager localResourceManager;",
-				"  public Test() {",
-				"    createResourceManager();",
-				"    setImage(localResourceManager.create(ImageDescriptor.createFromFile(String.class, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")));",
-				"  }",
-				"  private void createResourceManager() {",
-				"    localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					private LocalResourceManager localResourceManager;
+					public Test() {
+						createResourceManager();
+						setImage(localResourceManager.create(ImageDescriptor.createFromFile(String.class, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")));
+					}
+					private void createResourceManager() {
+						localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);
+					}
+				}""");
 	}
 
 	private CompositeInfo shell() throws Exception {

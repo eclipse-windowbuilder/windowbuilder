@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,25 +38,21 @@ public class FontPropertyEditorTestRegistry extends FontPropertyEditorTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_info() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyRegistry.java",
-				getTestSource(
-						"public class MyRegistry extends FontRegistry {",
-						"  public static final String R_KEY = '_r_key_';",
-						"  public MyRegistry() {",
-						"    put(R_KEY, new FontData[]{new FontData('Courier New', 14, SWT.NONE)});",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyRegistry.java", getTestSource("""
+				public class MyRegistry extends FontRegistry {
+					public static final String R_KEY = "_r_key_";
+					public MyRegistry() {
+						put(R_KEY, new FontData[]{new FontData("Courier New", 14, SWT.NONE)});
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private MyRegistry registry = new MyRegistry();",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private MyRegistry registry = new MyRegistry();
+					public Test() {
+					}
+				}""");
 		shell.refresh();
 		//
 		List<RegistryContainerInfo> children = shell.getChildren(RegistryContainerInfo.class);
@@ -80,26 +76,22 @@ public class FontPropertyEditorTestRegistry extends FontPropertyEditorTest {
 
 	@Test
 	public void test_value() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyRegistry.java",
-				getTestSource(
-						"public class MyRegistry extends FontRegistry {",
-						"  public static final String R_KEY = '_r_key_';",
-						"  public MyRegistry() {",
-						"    put(R_KEY, new FontData[]{new FontData('Courier New', 14, SWT.NONE)});",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyRegistry.java", getTestSource("""
+				public class MyRegistry extends FontRegistry {
+					public static final String R_KEY = "_r_key_";
+					public MyRegistry() {
+						put(R_KEY, new FontData[]{new FontData("Courier New", 14, SWT.NONE)});
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private MyRegistry registry = new MyRegistry();",
-						"  public Test() {",
-						"    setFont(registry.get(MyRegistry.R_KEY));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private MyRegistry registry = new MyRegistry();
+					public Test() {
+						setFont(registry.get(MyRegistry.R_KEY));
+					}
+				}""");
 		shell.refresh();
 		assertNoErrors(shell);
 		//
@@ -123,26 +115,22 @@ public class FontPropertyEditorTestRegistry extends FontPropertyEditorTest {
 
 	@Test
 	public void test_value_bold() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyRegistry.java",
-				getTestSource(
-						"public class MyRegistry extends FontRegistry {",
-						"  public static final String R_KEY = '_r_key_';",
-						"  public MyRegistry() {",
-						"    put(R_KEY, new FontData[]{new FontData('Courier New', 14, SWT.NONE)});",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyRegistry.java", getTestSource("""
+				public class MyRegistry extends FontRegistry {
+					public static final String R_KEY = "_r_key_";
+					public MyRegistry() {
+						put(R_KEY, new FontData[]{new FontData("Courier New", 14, SWT.NONE)});
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private MyRegistry registry = new MyRegistry();",
-						"  public Test() {",
-						"    setFont(registry.getBold(MyRegistry.R_KEY));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private MyRegistry registry = new MyRegistry();
+					public Test() {
+						setFont(registry.getBold(MyRegistry.R_KEY));
+					}
+				}""");
 		shell.refresh();
 		assertNoErrors(shell);
 		//
@@ -159,26 +147,22 @@ public class FontPropertyEditorTestRegistry extends FontPropertyEditorTest {
 
 	@Test
 	public void test_value_italic() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyRegistry.java",
-				getTestSource(
-						"public class MyRegistry extends FontRegistry {",
-						"  public static final String R_KEY = '_r_key_';",
-						"  public MyRegistry() {",
-						"    put(R_KEY, new FontData[]{new FontData('Courier New', 14, SWT.NONE)});",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyRegistry.java", getTestSource("""
+				public class MyRegistry extends FontRegistry {
+					public static final String R_KEY = "_r_key_";
+					public MyRegistry() {
+						put(R_KEY, new FontData[]{new FontData("Courier New", 14, SWT.NONE)});
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private MyRegistry registry = new MyRegistry();",
-						"  public Test() {",
-						"    setFont(registry.getItalic(MyRegistry.R_KEY));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private MyRegistry registry = new MyRegistry();
+					public Test() {
+						setFont(registry.getItalic(MyRegistry.R_KEY));
+					}
+				}""");
 		shell.refresh();
 		assertNoErrors(shell);
 		//

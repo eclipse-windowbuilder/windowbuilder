@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,25 +47,21 @@ public class ColorPropertyEditorTestRegistry extends ColorPropertyEditorTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_info() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyRegistry.java",
-				getTestSource(
-						"public class MyRegistry extends ColorRegistry {",
-						"  public static final String R_KEY = '_r_key_';",
-						"  public MyRegistry() {",
-						"    put(R_KEY, new RGB(10, 10, 10));",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyRegistry.java", getTestSource("""
+				public class MyRegistry extends ColorRegistry {
+					public static final String R_KEY = "_r_key_";
+					public MyRegistry() {
+						put(R_KEY, new RGB(10, 10, 10));
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private MyRegistry registry = new MyRegistry();",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private MyRegistry registry = new MyRegistry();
+					public Test() {
+					}
+				}""");
 		shell.refresh();
 		//
 		List<RegistryContainerInfo> children = shell.getChildren(RegistryContainerInfo.class);
@@ -89,26 +85,22 @@ public class ColorPropertyEditorTestRegistry extends ColorPropertyEditorTest {
 
 	@Test
 	public void test_value() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyRegistry.java",
-				getTestSource(
-						"public class MyRegistry extends ColorRegistry {",
-						"  public static final String R_KEY = '_r_key_';",
-						"  public MyRegistry() {",
-						"    put(R_KEY, new RGB(10, 10, 10));",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyRegistry.java", getTestSource("""
+				public class MyRegistry extends ColorRegistry {
+					public static final String R_KEY = "_r_key_";
+					public MyRegistry() {
+						put(R_KEY, new RGB(10, 10, 10));
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private MyRegistry registry = new MyRegistry();",
-						"  public Test() {",
-						"    setBackground(registry.get(MyRegistry.R_KEY));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private MyRegistry registry = new MyRegistry();
+					public Test() {
+						setBackground(registry.get(MyRegistry.R_KEY));
+					}
+				}""");
 		shell.refresh();
 		//
 		Property property = shell.getPropertyByTitle("background");
