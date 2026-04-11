@@ -20,13 +20,13 @@ import org.eclipse.wb.internal.swt.model.jface.resource.ManagerContainerInfo;
 import org.eclipse.wb.internal.swt.model.property.editor.image.ImagePropertyEditor;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.preferences.IPreferenceConstants;
+import org.eclipse.wb.tests.designer.TestUtils;
 import org.eclipse.wb.tests.designer.tests.common.GenericPropertyNoValue;
 
 import org.eclipse.jface.resource.LocalResourceManager;
 
 import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -103,25 +103,29 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	/**
 	 * Image creation using constructor with input stream (over class resource).
 	 */
-	@Disabled
 	@Test
 	public void test_textSource_image_over_classpath() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		assert_getText_getClipboardSource_forSource(
-				"new Image(null, getClass().getResourceAsStream(\"/javax/swing/plaf/basic/icons/JavaCup16.png\"))",
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				getInvocationSource(shell(), "{wbp_classTop}", "/javax/swing/plaf/basic/icons/JavaCup16.png"));
+				"new Image(null, getClass().getResourceAsStream(\"/Test.png\"))",
+				"Classpath: /Test.png",
+				getInvocationSource(shell(), "{wbp_classTop}", "\"/Test.png\""));
 	}
 
 	/**
 	 * Image creation using constructor with input stream (over class resource).
 	 */
-	@Disabled
 	@Test
 	public void test_textSource_image_over_classpath_OtherClass() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
+		setFileContentSrc("test", "OtherClass.java", """
+				package test;
+				public class OtherClass {}
+				""");
 		assert_getText_getClipboardSource_forSource(
-				"new Image(null, java.lang.String.class.getResourceAsStream(\"/javax/swing/plaf/basic/icons/JavaCup16.png\"))",
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				getInvocationSource(shell(), "{wbp_classTop}", "/javax/swing/plaf/basic/icons/JavaCup16.png"));
+				"new Image(null, OtherClass.class.getResourceAsStream(\"/Test.png\"))",
+				"Classpath: /Test.png",
+				getInvocationSource(shell(), "{wbp_classTop}", "\"/Test.png\""));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -152,11 +156,12 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	 */
 	@Test
 	public void test_textSource_image_over_classpath2() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		CompositeInfo shell = shell();
 		assert_getText_getClipboardSource_forSource2(
-				getInvocationSource(shell, "getClass()", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				getInvocationSource(shell, "{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
+				getInvocationSource(shell, "getClass()", "\"/Test.png\""),
+				"Classpath: /Test.png",
+				getInvocationSource(shell, "{wbp_classTop}", "\"/Test.png\""));
 	}
 
 	/**
@@ -164,11 +169,12 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	 */
 	@Test
 	public void test_textSource_image_over_classpath_OtherClass2() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		CompositeInfo shell = shell();
 		assert_getText_getClipboardSource_forSource2(
-				getInvocationSource(shell, "java.lang.String.class", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""),
-				"Classpath: /javax/swing/plaf/basic/icons/JavaCup16.png",
-				getInvocationSource(shell, "{wbp_classTop}", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
+				getInvocationSource(shell, "java.lang.String.class", "\"/Test.png\""),
+				"Classpath: /Test.png",
+				getInvocationSource(shell, "{wbp_classTop}", "\"/Test.png\""));
 	}
 
 	/**
@@ -201,6 +207,7 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 	 */
 	@Test
 	public void test_textSource_order() throws Exception {
+		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
 		CompositeInfo shell = parseComposite("""
 				// filler filler filler
 				public class Test extends Shell {
@@ -209,7 +216,7 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 				}""");
 		ManagerContainerInfo.getResourceManagerInfo(shell);
 		shell.addMethodInvocation("setImage(org.eclipse.swt.graphics.Image)",
-				getInvocationSource(shell, "java.lang.String.class", "\"/javax/swing/plaf/basic/icons/JavaCup16.png\""));
+				getInvocationSource(shell, "java.lang.String.class", "\"/Test.png\""));
 		shell.refresh();
 		assertEditor("""
 				// filler filler filler
@@ -217,7 +224,7 @@ public class ImagePropertyEditorTestWithManager extends ImagePropertyEditorTest 
 					private LocalResourceManager localResourceManager;
 					public Test() {
 						createResourceManager();
-						setImage(localResourceManager.create(ImageDescriptor.createFromFile(String.class, \"/javax/swing/plaf/basic/icons/JavaCup16.png\")));
+						setImage(localResourceManager.create(ImageDescriptor.createFromFile(String.class, \"/Test.png\")));
 					}
 					private void createResourceManager() {
 						localResourceManager = new LocalResourceManager(JFaceResources.getResources(),this);
