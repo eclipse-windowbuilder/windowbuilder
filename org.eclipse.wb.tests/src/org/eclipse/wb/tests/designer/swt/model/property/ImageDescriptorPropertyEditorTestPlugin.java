@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,18 +43,16 @@ public class ImageDescriptorPropertyEditorTestPlugin extends ImageDescriptorProp
 			IFile file = getFile("icons", "1.png");
 			setFileContent(file, org.eclipse.wb.tests.designer.tests.Activator.getFile("icons/test.png"));
 		}
-		setFileContentSrc(
-				"testplugin/Activator.java",
-				getSourceDQ(
-						"package testplugin;",
-						"import org.eclipse.ui.plugin.AbstractUIPlugin;",
-						"public class Activator extends AbstractUIPlugin {",
-						"  public Activator() {",
-						"  }",
-						"  public static Activator getDefault() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("testplugin/Activator.java", """
+				package testplugin;
+				import org.eclipse.ui.plugin.AbstractUIPlugin;
+				public class Activator extends AbstractUIPlugin {
+					public Activator() {
+					}
+					public static Activator getDefault() {
+						return null;
+					}
+				}""");
 		forgetCreatedResources();
 		waitForAutoBuild();
 	}

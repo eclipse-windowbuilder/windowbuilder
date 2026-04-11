@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -74,46 +74,39 @@ public class ResourceRegistryTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_info() throws Exception {
-		setFileContentSrc(
-				"test/IRegistry.java",
-				getTestSource(
-						"public interface IRegistry {",
-						"  String X_KEY = '_x_key_';",
-						"  StringBuffer SB = new StringBuffer();",
-						"  Object object = new Object();",
-						"}"));
-		setFileContentSrc(
-				"test/AbstractRegistry.java",
-				getTestSource(
-						"public class AbstractRegistry extends ColorRegistry {",
-						"  public static final String R_KEY = '_r_key_';",
-						"  int XXX = 0;",
-						"  public AbstractRegistry() {",
-						"    put(R_KEY, new RGB(10, 10, 10));",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyRegistry.java",
-				getTestSource(
-						"public class MyRegistry extends AbstractRegistry implements IRegistry {",
-						"  public static final String R2_KEY = '_r2_key_';",
-						"  public static final String R1_KEY = '_r1_key_';",
-						"  static String m_zzz;",
-						"  private static final String AAA = 'BBB';",
-						"  public MyRegistry() {",
-						"    put(R2_KEY, new RGB(10, 10, 10));",
-						"  }",
-						"}"));
+		setFileContentSrc("test/IRegistry.java", getTestSource("""
+				public interface IRegistry {
+					String X_KEY = "_x_key_";
+					StringBuffer SB = new StringBuffer();
+					Object object = new Object();
+				}"""));
+		setFileContentSrc("test/AbstractRegistry.java", getTestSource("""
+				public class AbstractRegistry extends ColorRegistry {
+					public static final String R_KEY = "_r_key_";
+					int XXX = 0;
+					public AbstractRegistry() {
+						put(R_KEY, new RGB(10, 10, 10));
+					}
+				}"""));
+		setFileContentSrc("test/MyRegistry.java", getTestSource("""
+				public class MyRegistry extends AbstractRegistry implements IRegistry {
+					public static final String R2_KEY = "_r2_key_";
+					public static final String R1_KEY = "_r1_key_";
+					static String m_zzz;
+					private static final String AAA = "BBB";
+					public MyRegistry() {
+						put(R2_KEY, new RGB(10, 10, 10));
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private MyRegistry registry = new MyRegistry();",
-						"  public Test() {",
-						"    setBackground(registry.get(MyRegistry.R1_KEY));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private MyRegistry registry = new MyRegistry();
+					public Test() {
+						setBackground(registry.get(MyRegistry.R1_KEY));
+					}
+				}""");
 		shell.refresh();
 		//
 		List<RegistryContainerInfo> children = shell.getChildren(RegistryContainerInfo.class);

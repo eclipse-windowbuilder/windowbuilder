@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,41 +41,35 @@ public abstract class ImageDescriptorPropertyEditorTest extends RcpModelTest {
 	protected final GenericProperty createImageDescriptorPropertyForSource(String source)
 			throws Exception {
 		// prepare component with ImageDescriptor property
-		setFileContentSrc(
-				"test/MyControl.java",
-				getSourceDQ(
-						"package test;",
-						"",
-						"import org.eclipse.swt.SWT;",
-						"import org.eclipse.swt.widgets.*;",
-						"import org.eclipse.jface.resource.*;",
-						"",
-						"public class MyControl extends Composite {",
-						"  public MyControl(Composite composite, int style) {",
-						"    super(composite, style);",
-						"  }",
-						"  public void setImageDescriptor(ImageDescriptor descriptor) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyControl.java", """
+				package test;
+				
+				import org.eclipse.swt.SWT;
+				import org.eclipse.swt.widgets.*;
+				import org.eclipse.jface.resource.*;
+				
+				public class MyControl extends Composite {
+					public MyControl(Composite composite, int style) {
+						super(composite, style);
+					}
+					public void setImageDescriptor(ImageDescriptor descriptor) {
+					}
+				}""");
 		waitForAutoBuild();
 		// parse
 		m_waitForAutoBuild = true;
-		CompositeInfo shell =
-				(CompositeInfo) parseSource(
-						"test",
-						"Test.java",
-						getSourceDQ(
-								"package test;",
-								"",
-								"import org.eclipse.swt.SWT;",
-								"import org.eclipse.swt.widgets.*;",
-								"import org.eclipse.jface.resource.*;",
-								"",
-								"public class Test extends Shell {",
-								"  public Test() {",
-								"    MyControl control = new MyControl(this, SWT.NONE);",
-								"  }",
-								"}"));
+		CompositeInfo shell = (CompositeInfo) parseSource("test", "Test.java", """
+				package test;
+				
+				import org.eclipse.swt.SWT;
+				import org.eclipse.swt.widgets.*;
+				import org.eclipse.jface.resource.*;
+				
+				public class Test extends Shell {
+					public Test() {
+						MyControl control = new MyControl(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo control = shell.getChildrenControls().get(0);
 		shell.refresh();
 		assertNoErrors(shell);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -52,14 +52,13 @@ public abstract class ColorPropertyEditorTest extends RcpModelTest {
 	protected final void assert_getText_getClipboardSource_forSource(String colorSource,
 			String expectedText,
 			String expectedClipboardSource) throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setBackground(" + colorSource + ");",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						setBackground(%s);
+					}
+				}""".formatted(colorSource));
 		shell.refresh();
 		Property property = shell.getPropertyByTitle("background");
 		assertEquals(expectedText, PropertyEditorTestUtils.getText(property));
