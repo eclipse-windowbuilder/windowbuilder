@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -66,16 +66,13 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_liveImage_noSourceChange() throws Exception {
-		parseSource(
-				"test",
-				"Test.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.swt.widgets.Shell;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}"));
+		parseSource("test", "Test.java", """
+				package test;
+				import org.eclipse.swt.widgets.Shell;
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		String originalSource = m_lastEditor.getSource();
 		// prepare button
 		ControlInfo button = BTestUtils.createButton();
@@ -98,12 +95,12 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_liveImage_onShell() throws Exception {
-		parseComposite(
-				"// filler filler filler",
-				"class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// prepare buttons
 		ControlInfo button_1 = BTestUtils.createButton();
 		ControlInfo button_2 = BTestUtils.createButton();
@@ -130,13 +127,12 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_liveImage_noDispose() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		shell.refresh();
 		// add button
@@ -161,12 +157,12 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_liveImage_onComposite() throws Exception {
-		parseComposite(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		//
 		ControlInfo label = BTestUtils.createControl("org.eclipse.swt.widgets.Label");
 		assertNotNull(label.getImage());
@@ -178,13 +174,13 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_liveImage_withShell() throws Exception {
-		parseComposite(
-				"class Test {",
-				"  private static Shell shell;",
-				"  public static void main(String[] args) {",
-				"    shell = new Shell();",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test {
+					private static Shell shell;
+					public static void main(String[] args) {
+						shell = new Shell();
+					}
+				}""");
 		//
 		ControlInfo text = BTestUtils.createControl("org.eclipse.swt.widgets.Text");
 		assertNotNull(text.getImage());
@@ -196,32 +192,29 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_liveImage_forcedSize() throws Exception {
+		setFileContentSrc("test/MyCanvas.java", getTestSource("""
+				public class MyCanvas extends Canvas {
+					public MyCanvas(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
 		setFileContentSrc(
-				"test/MyCanvas.java",
-				getTestSource(
-						"public class MyCanvas extends Canvas {",
-						"  public MyCanvas(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyCanvas.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='liveComponent.forcedSize.width'>150</parameter>",
-						"    <parameter name='liveComponent.forcedSize.height'>30</parameter>",
-						"  </parameters>",
-						"</component>"));
+				"test/MyCanvas.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="liveComponent.forcedSize.width">150</parameter>
+						<parameter name="liveComponent.forcedSize.height">30</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// we should have forced "preferred" size
 		ControlInfo myCanvas = BTestUtils.createControl("test.MyCanvas");
 		assertEquals(new Dimension(150, 30), myCanvas.getPreferredSize());
@@ -233,25 +226,23 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_liveImage_whenException() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public Rectangle getClientArea() {",
-						"    throw new IllegalStateException('Problem in getClientArea()');",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+					public Rectangle getClientArea() {
+						throw new IllegalStateException("Problem in getClientArea()");
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// add log listener for exception validation
 		ILog log = DesignerPlugin.getDefault().getLog();
 		ILogListener logListener = new ILogListener() {
@@ -284,14 +275,13 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_liveImage_copyPaste() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setBounds(10, 10, 200, 100);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+						button.setBounds(10, 10, 200, 100);
+					}
+				}""");
 		shell.refresh();
 		// prepare memento
 		JavaInfoMemento memento;
@@ -316,12 +306,12 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_liveStyle_standardControl() throws Exception {
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// PUSH
 		{
 			ControlInfo button = createJavaInfo("org.eclipse.swt.widgets.Button", null);
@@ -358,22 +348,20 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_liveStyle_customControl() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, SWT.BORDER | SWT.NO_RADIO_GROUP);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, SWT.BORDER | SWT.NO_RADIO_GROUP);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// do checks
 		ControlInfo myComposite = BTestUtils.createControl("test.MyComposite");
 		int actualStyle = myComposite.getStyle();
@@ -388,12 +376,12 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_liveStyle_forMenu() throws Exception {
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// BAR
 		{
 			WidgetInfo menu = createJavaInfo("org.eclipse.swt.widgets.Menu", "bar");
@@ -414,12 +402,12 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_liveStyle_forMenuItem() throws Exception {
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// NONE
 		{
 			WidgetInfo menuItem = createJavaInfo("org.eclipse.swt.widgets.MenuItem");
@@ -461,22 +449,20 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_liveStyle_forStaticFactory() throws Exception {
-		setFileContentSrc(
-				"test/MenuStaticFactory.java",
-				getTestSource(
-						"public final class MenuStaticFactory {",
-						"  public static Button createPushButton(Composite parent) {",
-						"    return new Button(parent, SWT.PUSH);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MenuStaticFactory.java", getTestSource("""
+				public final class MenuStaticFactory {
+					public static Button createPushButton(Composite parent) {
+						return new Button(parent, SWT.PUSH);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// get factory description
 		FactoryMethodDescription description =
 				FactoryDescriptionHelper.getDescription(
@@ -499,15 +485,14 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 
 	@Test
 	public void test_liveStyle_copyPaste() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('my text');",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setText("my text");
+					}
+				}""");
 		shell.refresh();
 		// prepare memento
 		JavaInfoMemento memento;
@@ -528,18 +513,18 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		rowLayout.command_CREATE(pasteButton, null);
 		memento.apply();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    Button button = new Button(this, SWT.NONE);",
-				"    button.setText('my text');",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('my text');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setText("my text");
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("my text");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -549,13 +534,12 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_liveBaseline() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 		// prepare button
 		ControlInfo newButton = BTestUtils.createButton();
 		// get baseline
@@ -564,15 +548,15 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 		assertTrue(liveBaseline > 0);
 		// drop Button
 		shell.getLayout().command_CREATE(newButton, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		// same baseline as "live"
 		int baseline = newButton.getBaseline();
 		assertEquals(baseline, liveBaseline);

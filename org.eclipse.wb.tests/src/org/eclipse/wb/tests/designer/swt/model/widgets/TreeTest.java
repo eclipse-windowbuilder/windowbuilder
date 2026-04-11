@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -51,21 +51,20 @@ public class TreeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_TreeItem_parse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Tree tree = new Tree(this, SWT.BORDER);",
-						"    {",
-						"      TreeItem item_1 = new TreeItem(tree, SWT.NONE);",
-						"      item_1.setText('TreeItem 1');",
-						"    }",
-						"    {",
-						"      TreeItem item_2 = new TreeItem(tree, SWT.NONE);",
-						"      item_2.setText('TreeItem 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem item_1 = new TreeItem(tree, SWT.NONE);
+							item_1.setText("TreeItem 1");
+						}
+						{
+							TreeItem item_2 = new TreeItem(tree, SWT.NONE);
+							item_2.setText("TreeItem 2");
+						}
+					}
+				}""");
 		shell.refresh();
 		TreeInfo tree = getJavaInfoByName("tree");
 		// prepare items
@@ -108,19 +107,18 @@ public class TreeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_TreeItem_parse_subItems() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Tree tree = new Tree(this, SWT.BORDER);",
-						"    {",
-						"      TreeItem item = new TreeItem(tree, SWT.NONE);",
-						"      {",
-						"        TreeItem subItem = new TreeItem(item, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem item = new TreeItem(tree, SWT.NONE);
+							{
+								TreeItem subItem = new TreeItem(item, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TreeInfo tree = getJavaInfoByName("tree");
 		// prepare "item"
@@ -137,13 +135,13 @@ public class TreeTest extends RcpModelTest {
 
 	@Test
 	public void test_TreeItem_addToTable() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Tree tree = new Tree(this, SWT.BORDER);
+					}
+				}""");
 		TreeInfo tree = getJavaInfoByName("tree");
 		// no items initially
 		assertTrue(tree.getItems().isEmpty());
@@ -153,36 +151,35 @@ public class TreeTest extends RcpModelTest {
 		// check result
 		List<TreeItemInfo> items = tree.getItems();
 		Assertions.assertThat(items).containsExactly(newItem);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeItem treeItem = new TreeItem(tree, SWT.NONE);",
-				"      treeItem.setText('New TreeItem');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem treeItem = new TreeItem(tree, SWT.NONE);
+							treeItem.setText("New TreeItem");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_TreeItem_moveInTable() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Tree tree = new Tree(this, SWT.BORDER);",
-						"    {",
-						"      TreeItem item_1 = new TreeItem(tree, SWT.NONE);",
-						"      item_1.setText('TreeItem 1');",
-						"    }",
-						"    {",
-						"      TreeItem item_2 = new TreeItem(tree, SWT.NONE);",
-						"      item_2.setText('TreeItem 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem item_1 = new TreeItem(tree, SWT.NONE);
+							item_1.setText("TreeItem 1");
+						}
+						{
+							TreeItem item_2 = new TreeItem(tree, SWT.NONE);
+							item_2.setText("TreeItem 2");
+						}
+					}
+				}""");
 		shell.refresh();
 		TreeInfo tree = getJavaInfoByName("tree");
 		// prepare items
@@ -199,20 +196,20 @@ public class TreeTest extends RcpModelTest {
 		// check result
 		List<TreeItemInfo> items = tree.getItems();
 		Assertions.assertThat(items).containsExactly(item_2, item_1);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeItem item_2 = new TreeItem(tree, SWT.NONE);",
-				"      item_2.setText('TreeItem 2');",
-				"    }",
-				"    {",
-				"      TreeItem item_1 = new TreeItem(tree, SWT.NONE);",
-				"      item_1.setText('TreeItem 1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem item_2 = new TreeItem(tree, SWT.NONE);
+							item_2.setText("TreeItem 2");
+						}
+						{
+							TreeItem item_1 = new TreeItem(tree, SWT.NONE);
+							item_1.setText("TreeItem 1");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -220,17 +217,16 @@ public class TreeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_TreeItem_addToItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Tree tree = new Tree(this, SWT.BORDER);",
-						"    {",
-						"      TreeItem existingItem = new TreeItem(tree, SWT.NONE);",
-						"      existingItem.setText('existing TreeItem');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem existingItem = new TreeItem(tree, SWT.NONE);
+							existingItem.setText("existing TreeItem");
+						}
+					}
+				}""");
 		shell.refresh();
 		TreeInfo tree = (TreeInfo) shell.getChildrenControls().get(0);
 		// prepare existing item
@@ -243,21 +239,21 @@ public class TreeTest extends RcpModelTest {
 			List<TreeItemInfo> items = existingItem.getItems();
 			Assertions.assertThat(items).containsExactly(newItem);
 		}
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeItem existingItem = new TreeItem(tree, SWT.NONE);",
-				"      existingItem.setText('existing TreeItem');",
-				"      {",
-				"        TreeItem treeItem = new TreeItem(existingItem, SWT.NONE);",
-				"        treeItem.setText('New TreeItem');",
-				"      }",
-				"      existingItem.setExpanded(true);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem existingItem = new TreeItem(tree, SWT.NONE);
+							existingItem.setText("existing TreeItem");
+							{
+								TreeItem treeItem = new TreeItem(existingItem, SWT.NONE);
+								treeItem.setText("New TreeItem");
+							}
+							existingItem.setExpanded(true);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -265,21 +261,20 @@ public class TreeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_TreeItem_moveToItem() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Tree tree = new Tree(this, SWT.BORDER);",
-						"    {",
-						"      TreeItem item_1 = new TreeItem(tree, SWT.NONE);",
-						"      item_1.setText('TreeItem 1');",
-						"    }",
-						"    {",
-						"      TreeItem item_2 = new TreeItem(tree, SWT.NONE);",
-						"      item_2.setText('TreeItem 2');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem item_1 = new TreeItem(tree, SWT.NONE);
+							item_1.setText("TreeItem 1");
+						}
+						{
+							TreeItem item_2 = new TreeItem(tree, SWT.NONE);
+							item_2.setText("TreeItem 2");
+						}
+					}
+				}""");
 		shell.refresh();
 		TreeInfo tree = getJavaInfoByName("tree");
 		// prepare items
@@ -308,20 +303,20 @@ public class TreeTest extends RcpModelTest {
 			Assertions.assertThat(items).containsExactly(item_2);
 		}
 		Assertions.assertThat(item_2.getItems()).isEmpty();
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    Tree tree = new Tree(this, SWT.BORDER);",
-				"    {",
-				"      TreeItem item_1 = new TreeItem(tree, SWT.NONE);",
-				"      item_1.setText('TreeItem 1');",
-				"      {",
-				"        TreeItem item_2 = new TreeItem(item_1, SWT.NONE);",
-				"        item_2.setText('TreeItem 2');",
-				"      }",
-				"      item_1.setExpanded(true);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						Tree tree = new Tree(this, SWT.BORDER);
+						{
+							TreeItem item_1 = new TreeItem(tree, SWT.NONE);
+							item_1.setText("TreeItem 1");
+							{
+								TreeItem item_2 = new TreeItem(item_1, SWT.NONE);
+								item_2.setText("TreeItem 2");
+							}
+							item_1.setExpanded(true);
+						}
+					}
+				}""");
 	}
 }

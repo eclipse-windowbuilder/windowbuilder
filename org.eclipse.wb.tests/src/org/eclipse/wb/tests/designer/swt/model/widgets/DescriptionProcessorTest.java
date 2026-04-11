@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,37 +56,33 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_decriptionForCustomComponent_disableParent() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite fakeParent, int style, Composite realParent) {",
-						"    super(realParent, style);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyComposite.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='org.eclipse.swt.widgets.Composite'>",
-						"        <tag name='parent' value='false'/>",
-						"      </parameter>",
-						"      <parameter type='int'/>",
-						"      <parameter type='org.eclipse.swt.widgets.Composite' parent='true'/>",
-						"    </constructor>",
-						"  </constructors>",
-						"</component>"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite fakeParent, int style, Composite realParent) {
+						super(realParent, style);
+					}
+				}"""));
+		setFileContentSrc("test/MyComposite.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="org.eclipse.swt.widgets.Composite">
+								<tag name="parent" value="false"/>
+							</parameter>
+							<parameter type="int"/>
+							<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+						</constructor>
+					</constructors>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// prepare descriptions
 		ComponentDescription description =
 				ComponentDescriptionHelper.getDescription(m_lastEditor, "test.MyComposite");
@@ -113,22 +109,20 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_decriptionForCustomComponent_parentStyle() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// prepare descriptions
 		ComponentDescription description =
 				ComponentDescriptionHelper.getDescription(m_lastEditor, "test.MyComposite");
@@ -150,22 +144,20 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_decriptionForCustomComponent_onlyParent() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent) {",
-						"    super(parent, SWT.NONE);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent) {
+						super(parent, SWT.NONE);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// prepare descriptions
 		ComponentDescription description =
 				ComponentDescriptionHelper.getDescription(m_lastEditor, "test.MyComposite");
@@ -183,23 +175,20 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_decriptionForCustomComponent_1() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo custom = shell.getChildrenControls().get(0);
 		// check custom description
 		ComponentDescription description = custom.getDescription();
@@ -220,48 +209,41 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_decriptionForCustomComponent_2() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyComposite.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='org.eclipse.swt.widgets.Composite'/>",
-						"      <parameter type='int' defaultSource='org.eclipse.swt.SWT.BORDER'>",
-						"        <editor id='style'>",
-						"          <parameter name='class'>org.eclipse.swt.SWT</parameter>",
-						"          <parameter name='set'>BORDER</parameter>",
-						"        </editor>",
-						"      </parameter>",
-						"    </constructor>",
-						"  </constructors>",
-						"</component>"));
-		setFileContentSrc(
-				"test/MyComposite2.java",
-				getTestSource(
-						"public class MyComposite2 extends MyComposite {",
-						"  public MyComposite2(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
+		setFileContentSrc("test/MyComposite.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="org.eclipse.swt.widgets.Composite"/>
+							<parameter type="int" defaultSource="org.eclipse.swt.SWT.BORDER">
+								<editor id="style">
+									<parameter name="class">org.eclipse.swt.SWT</parameter>
+									<parameter name="set">BORDER</parameter>
+								</editor>
+							</parameter>
+						</constructor>
+					</constructors>
+				</component>""");
+		setFileContentSrc("test/MyComposite2.java", getTestSource("""
+				public class MyComposite2 extends MyComposite {
+					public MyComposite2(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new MyComposite2(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new MyComposite2(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo composite = shell.getChildrenControls().get(0);
 		ComponentDescription description = composite.getDescription();
 		ConstructorDescription constructorDescription = description.getConstructors().get(0);
@@ -271,37 +253,32 @@ public class DescriptionProcessorTest extends RcpModelTest {
 
 	@Test
 	public void test_noStyleProperty_whenDisplayExpressionEditor() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyComposite.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='org.eclipse.swt.widgets.Composite'/>",
-						"      <parameter type='int'>",
-						"        <editor id='displayExpression'/>",
-						"      </parameter>",
-						"    </constructor>",
-						"  </constructors>",
-						"</component>"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
+		setFileContentSrc("test/MyComposite.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="org.eclipse.swt.widgets.Composite"/>
+							<parameter type="int">
+								<editor id="displayExpression"/>
+							</parameter>
+						</constructor>
+					</constructors>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo composite = shell.getChildrenControls().get(0);
 		// still DisplayExpressionPropertyEditor, not replaced by "style" from superclass
 		{
@@ -316,17 +293,19 @@ public class DescriptionProcessorTest extends RcpModelTest {
 
 	@Test
 	public void test_forInterface() throws Exception {
-		setFileContentSrc(
-				"test/MyInterface.java",
-				getSource("package test;", "public interface MyInterface {", "  // filler", "}"));
+		setFileContentSrc("test/MyInterface.java", getSource("""
+				package test;
+				public interface MyInterface {
+				// filler",
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// ensure that process() does not throw any exception
 		Class<?> myInterface = m_lastLoader.loadClass("test.MyInterface");
 		ComponentDescription componentDescription =
@@ -375,22 +354,20 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	}
 
 	private void check_defaultCreation(String additionalParameters, String expected) throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent" + additionalParameters + ") {",
-						"    super(parent, SWT.NONE);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent%s) {
+						super(parent, SWT.NONE);
+					}
+				}""".formatted(additionalParameters)));
 		waitForAutoBuild();
 		// prepare context
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		//
 		ComponentDescription componentDescription =
 				ComponentDescriptionHelper.getDescription(m_lastEditor, "test.MyComposite");
@@ -408,38 +385,34 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_styleBeanInfo() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyCompositeBeanInfo.java",
-				getSourceDQ(
-						"package test;",
-						"import java.beans.*;",
-						"public class MyCompositeBeanInfo extends SimpleBeanInfo {",
-						"  private static final String SWT_STYLE = 'org.eclipse.wb.swt.style';",
-						"  public BeanDescriptor getBeanDescriptor() {",
-						"    BeanDescriptor luo_descriptor = new BeanDescriptor( MyComposite.class );",
-						"    luo_descriptor.setValue(SWT_STYLE, new String[][]{",
-						"      new String[]{'set', null, 'border', 'flat'},",
-						"      new String[]{'select', 'type', 'push', null, 'push', 'check', 'radio'},",
-						"    });",
-						"    return luo_descriptor;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
+		setFileContentSrc("test/MyCompositeBeanInfo.java", """
+				package test;
+				import java.beans.*;
+				public class MyCompositeBeanInfo extends SimpleBeanInfo {
+					private static final String SWT_STYLE = "org.eclipse.wb.swt.style";
+					public BeanDescriptor getBeanDescriptor() {
+						BeanDescriptor luo_descriptor = new BeanDescriptor( MyComposite.class );
+						luo_descriptor.setValue(SWT_STYLE, new String[][]{
+							new String[]{"set", null, "border", "flat"},
+							new String[]{"select", "type", "push", null, "push", "check", "radio"},
+						});
+						return luo_descriptor;
+					}
+				}""");
 		waitForAutoBuild();
 		// parse for context
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		//
 		ComponentDescription componentDescription =
 				ComponentDescriptionHelper.getDescription(m_lastEditor, "test.MyComposite");
@@ -452,12 +425,11 @@ public class DescriptionProcessorTest extends RcpModelTest {
 			ParameterDescription parameter = constructor.getParameter(1);
 			assertSame(int.class, parameter.getType());
 			StylePropertyEditor editor = (StylePropertyEditor) parameter.getEditor();
-			assertEquals(
-					getSource(
-							"org.eclipse.swt.SWT",
-							"  border boolean: BORDER",
-							"  flat boolean: FLAT",
-							"  type select: 0 PUSH CHECK RADIO"),
+			assertEquals(getSource("""
+					org.eclipse.swt.SWT
+						border boolean: BORDER
+						flat boolean: FLAT
+						type select: 0 PUSH CHECK RADIO"""),
 					editor.getAsString());
 		}
 	}
@@ -473,27 +445,24 @@ public class DescriptionProcessorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_executeCreateMethods() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public void createFoo(Composite parent) {",
-						"    setEnabled(false);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+					public void createFoo(Composite parent) {
+						setEnabled(false);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends MyComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    createFoo(this);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends MyComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						createFoo(this);
+					}
+				}""");
 		composite.refresh();
 		// if "createFoo()" was executed, then it changed "enabled"
 		assertEquals(false, composite.getWidget().isEnabled());

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,23 +47,21 @@ public class StaticFactoryTest extends RcpModelTest {
 	@BeforeEach
 	public void setUp() throws Exception {
 		super.setUp();
-		setFileContentSrc(
-				"test/StaticFactory.java",
-				getTestSource(
-						"public final class StaticFactory {",
-						"  /**",
-						"  * @wbp.factory.parameter.source text 'SF button'",
-						"  * @wbp.factory.parameter.property text setText(java.lang.String)",
-						"  */",
-						"  public static Button createButton(Composite parent, String text) {",
-						"    Button button = new Button(parent, SWT.NONE);",
-						"    button.setText(text);",
-						"    return button;",
-						"  }",
-						"  public static TableViewer createTableViewer(Composite parent) {",
-						"    return new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/StaticFactory.java", getTestSource("""
+				public final class StaticFactory {
+					/**
+					* @wbp.factory.parameter.source text "SF button"
+					* @wbp.factory.parameter.property text setText(java.lang.String)
+					*/
+					public static Button createButton(Composite parent, String text) {
+						Button button = new Button(parent, SWT.NONE);
+						button.setText(text);
+						return button;
+					}
+					public static TableViewer createTableViewer(Composite parent) {
+						return new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION);
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 
@@ -83,14 +81,13 @@ public class StaticFactoryTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse_Button() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Button button = StaticFactory.createButton(this, 'SF button');",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = StaticFactory.createButton(this, "SF button");
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// check association
 		Association association = button.getAssociation();
@@ -100,14 +97,13 @@ public class StaticFactoryTest extends RcpModelTest {
 
 	@Test
 	public void test_parse_TableViewer() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    TableViewer tableViewer = StaticFactory.createTableViewer(this);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						TableViewer tableViewer = StaticFactory.createTableViewer(this);
+					}
+				}""");
 		// check for Table of TableViewer
 		ControlInfo table = shell.getChildrenControls().get(0);
 		{
@@ -131,19 +127,18 @@ public class StaticFactoryTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ADD_TableViewer() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    //",
-						"    TableViewer tableViewer = StaticFactory.createTableViewer(this);",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new RowLayout());",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						//
+						TableViewer tableViewer = StaticFactory.createTableViewer(this);
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new RowLayout());
+						}
+					}
+				}""");
 		// prepare table
 		ControlInfo table = shell.getChildrenControls().get(0);
 		// prepare composite
@@ -151,18 +146,18 @@ public class StaticFactoryTest extends RcpModelTest {
 		RowLayoutInfo compositeLayout = (RowLayoutInfo) composite.getLayout();
 		// do move
 		compositeLayout.command_MOVE(table, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      composite.setLayout(new RowLayout());",
-				"      //",
-				"      TableViewer tableViewer = StaticFactory.createTableViewer(composite);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new RowLayout());
+							//
+							TableViewer tableViewer = StaticFactory.createTableViewer(composite);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -172,27 +167,26 @@ public class StaticFactoryTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE_Button() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 		RowLayoutInfo layout = (RowLayoutInfo) shell.getLayout();
 		// prepare Button
 		ControlInfo button = createNewButton(m_lastEditor);
 		// add Button
 		layout.command_CREATE(button, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = StaticFactory.createButton(this, 'SF button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = StaticFactory.createButton(this, "SF button");
+						}
+					}
+				}""");
 		assertEquals(
 				"StaticFactory.createButton(this, \"SF button\")",
 				button.getAssociation().getSource());
@@ -216,13 +210,12 @@ public class StaticFactoryTest extends RcpModelTest {
 
 	@Test
 	public void test_CREATE_TableViewer() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 		RowLayoutInfo layout = (RowLayoutInfo) shell.getLayout();
 		// prepare TableViewer and Table
 		ViewerInfo viewer;
@@ -243,16 +236,16 @@ public class StaticFactoryTest extends RcpModelTest {
 		}
 		// add TableViewer
 		layout.command_CREATE(table, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      TableViewer tableViewer = StaticFactory.createTableViewer(this);",
-				"      Table table = tableViewer.getTable();",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							TableViewer tableViewer = StaticFactory.createTableViewer(this);
+							Table table = tableViewer.getTable();
+						}
+					}
+				}""");
 		assertSame(shell, table.getParent());
 		assertSame(table, viewer.getParent());
 		// check associations
@@ -262,13 +255,12 @@ public class StaticFactoryTest extends RcpModelTest {
 
 	@Test
 	public void test_CREATE_liveImage() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		AbsoluteLayoutInfo absoluteLayout = (AbsoluteLayoutInfo) shell.getLayout();
 		// prepare Button
 		ControlInfo button = createNewButton(m_lastEditor);
@@ -277,14 +269,14 @@ public class StaticFactoryTest extends RcpModelTest {
 		assertNotNull(image);
 		// check that after asking "live image" we still can add button to real layout
 		absoluteLayout.commandCreate(button, null);
-		assertEditor(
-				"// filler filler filler",
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Button button = StaticFactory.createButton(this, 'SF button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				class Test extends Shell {
+					public Test() {
+						{
+							Button button = StaticFactory.createButton(this, "SF button");
+						}
+					}
+				}""");
 	}
 }

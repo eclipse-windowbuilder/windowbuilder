@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -116,16 +116,15 @@ public class CompositeTopBoundsTest extends RcpGefTest {
 			Dimension resizeSize,
 			Dimension newSize,
 			String newSizeLine) throws Exception {
-		CompositeInfo composite =
-				openComposite(
-						"class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    " + oldSizeLine,
-						"  }",
-						"}");
+		CompositeInfo composite = openComposite("""
+				class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+						%s
+					}
+				}""".formatted(oldSizeLine));
 		// check size
 		assertEquals(oldSize, canvas.getSize(composite));
 		waitEventLoop(50);
@@ -136,15 +135,15 @@ public class CompositeTopBoundsTest extends RcpGefTest {
 		canvas.dragTo(composite, 0, resizeSize.height).endDrag();
 		// check new size
 		assertEquals(newSize, canvas.getSize(composite));
-		assertEditor(
-				"class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new RowLayout());",
-				"    Button button = new Button(this, SWT.NONE);",
-				"    " + newSizeLine,
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+						%s
+					}
+				}""".formatted(newSizeLine));
 		//
 		return m_lastEditor.getModelUnit();
 	}

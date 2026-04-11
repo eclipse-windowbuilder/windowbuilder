@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -45,96 +45,96 @@ public class ButtonsTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_addButton_1() throws Exception {
-		check_addButton(new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setSize(320, 240);",
-				"    shell.setLayout(new FillLayout());",
-				"  }",
-		"}"}, new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setSize(320, 240);",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Button button = new Button(shell, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"    }",
-				"  }",
-		"}"}, null);
+		check_addButton("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(new FillLayout());
+					}
+				}""", """
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(new FillLayout());
+						{
+							Button button = new Button(shell, SWT.NONE);
+							button.setText(\"New Button\");
+						}
+					}
+				}""", null);
 	}
 
 	@Test
 	public void test_addButton_2() throws Exception {
-		check_addButton(new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setSize(320, 240);",
-				"    shell.setLayout(new FillLayout());",
-				"  }",
-		"}"}, new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setSize(320, 240);",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Button button = new Button(shell, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"}, "no-such-creationId");
+		check_addButton("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(new FillLayout());
+					}
+				}""", """
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(new FillLayout());
+						{
+							Button button = new Button(shell, SWT.NONE);
+						}
+					}
+				}""", "no-such-creationId");
 	}
 
 	@Test
 	public void test_addCheckButton() throws Exception {
-		check_addButton(new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setSize(320, 240);",
-				"    shell.setLayout(new FillLayout());",
-				"  }",
-		"}"}, new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setSize(320, 240);",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Button button = new Button(shell, SWT.CHECK);",
-				"      button.setText(\"Check Button\");",
-				"    }",
-				"  }",
-		"}"}, "check");
+		check_addButton("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(new FillLayout());
+					}
+				}""", """
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(new FillLayout());
+						{
+							Button button = new Button(shell, SWT.CHECK);
+							button.setText(\"Check Button\");
+						}
+					}
+				}""", "check");
 	}
 
 	@Test
 	public void test_addRadioButton() throws Exception {
-		check_addButton(new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setSize(320, 240);",
-				"    shell.setLayout(new FillLayout());",
-				"  }",
-		"}"}, new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setSize(320, 240);",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Button button = new Button(shell, SWT.RADIO);",
-				"      button.setText(\"Radio Button\");",
-				"    }",
-				"  }",
-		"}"}, "radio");
+		check_addButton("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(new FillLayout());
+					}
+				}""", """
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(new FillLayout());
+						{
+							Button button = new Button(shell, SWT.RADIO);
+							button.setText(\"Radio Button\");
+						}
+					}
+				}""", "radio");
 	}
 
-	private void check_addButton(String[] lines, String[] expected, String creationId)
+	private void check_addButton(String lines, String expected, String creationId)
 			throws Exception {
 		CompositeInfo shell = parseComposite(lines);
 		//
@@ -159,16 +159,15 @@ public class ButtonsTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ButtonStylePresentation() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    new Button(this, SWT.NONE);",
-						"    new Button(this, SWT.PUSH);",
-						"    new Button(this, SWT.CHECK);",
-						"    new Button(this, SWT.RADIO);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						new Button(this, SWT.NONE);
+						new Button(this, SWT.PUSH);
+						new Button(this, SWT.CHECK);
+						new Button(this, SWT.RADIO);
+					}
+				}""");
 		shell.refresh();
 		// prepare Button's
 		ButtonInfo buttonDefault = (ButtonInfo) shell.getChildrenControls().get(0);
@@ -188,13 +187,13 @@ public class ButtonsTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ButtonStylePresentation_cacheIcons() throws Exception {
-		parseComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    Button button_1 = new Button(this, SWT.CHECK);",
-				"    Button button_2 = new Button(this, SWT.CHECK);",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Button button_1 = new Button(this, SWT.CHECK);
+						Button button_2 = new Button(this, SWT.CHECK);
+					}
+				}""");
 		refresh();
 		ButtonInfo button_1 = getJavaInfoByName("button_1");
 		ButtonInfo button_2 = getJavaInfoByName("button_2");
