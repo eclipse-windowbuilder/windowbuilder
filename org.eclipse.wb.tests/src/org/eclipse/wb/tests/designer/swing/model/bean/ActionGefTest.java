@@ -258,6 +258,7 @@ public class ActionGefTest extends SwingGefTest {
 				entry.initialize(m_viewerCanvas, panel);
 				Tool tool = entry.createTool();
 				m_viewerCanvas.getEditDomain().setActiveTool(tool);
+				waitEventLoop(0);
 			}
 		}, new FailableConsumer<>() {
 			@Override
