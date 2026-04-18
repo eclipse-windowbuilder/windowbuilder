@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
 import com.jgoodies.forms.layout.FormLayout;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -59,7 +58,6 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 				}""");
 	}
 
-	@Disabled
 	@Test
 	public void test_oneRow() throws Exception {
 		ContainerInfo panel = parseContainer("""
@@ -94,7 +92,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 						setLayout(new FormLayout(new ColumnSpec[] {
 								FormSpecs.LABEL_COMPONENT_GAP_COLSPEC,
 								ColumnSpec.decode("100px"),
-								ColumnSpec.decode("16px"),
+								FormSpecs.UNRELATED_GAP_COLSPEC,
 								ColumnSpec.decode("80px"),},
 							new RowSpec[] {
 								FormSpecs.UNRELATED_GAP_ROWSPEC,
@@ -116,7 +114,6 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 		}
 	}
 
-	@Disabled
 	@Test
 	public void test_twoRows_spanColumns() throws Exception {
 		ContainerInfo panel = parseContainer("""
@@ -178,7 +175,6 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 				}""");
 	}
 
-	@Disabled
 	@Test
 	public void test_Switching_fromGridBagLayout() throws Exception {
 		ContainerInfo panel = parseContainer("""
@@ -192,6 +188,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 						setLayout(gridBagLayout);
 						{
 							JComboBox comboBox = new JComboBox();
+							comboBox.setPreferredSize(new Dimension(216, 20));
 							GridBagConstraints gbc = new GridBagConstraints();
 							gbc.insets = new Insets(0, 0, 5, 5);
 							gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -201,6 +198,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 						}
 						{
 							JLabel label = new JLabel("New label");
+							label.setPreferredSize(new Dimension(46, 20));
 							GridBagConstraints gbc = new GridBagConstraints();
 							gbc.insets = new Insets(0, 0, 5, 5);
 							gbc.anchor = GridBagConstraints.EAST;
@@ -210,6 +208,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 						}
 						{
 							JTextField textField = new JTextField();
+							textField.setPreferredSize(new Dimension(216, 20));
 							GridBagConstraints gbc = new GridBagConstraints();
 							gbc.gridwidth = 2;
 							gbc.insets = new Insets(0, 0, 5, 5);
@@ -221,6 +220,7 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 						}
 						{
 							JButton button = new JButton("New button");
+							button.setPreferredSize(new Dimension(89, 23));
 							GridBagConstraints gbc = new GridBagConstraints();
 							gbc.gridx = 2;
 							gbc.gridy = 2;
@@ -252,19 +252,23 @@ public class FormLayoutConverterTest extends AbstractFormLayoutTest {
 								RowSpec.decode("23px"),}));
 						{
 							JComboBox comboBox = new JComboBox();
+							comboBox.setPreferredSize(new Dimension(216, 20));
 							add(comboBox, "3, 1, fill, center");
 						}
 						{
 							JLabel label = new JLabel("New label");
+							label.setPreferredSize(new Dimension(46, 20));
 							add(label, "1, 3, right, center");
 						}
 						{
 							JTextField textField = new JTextField();
+							textField.setPreferredSize(new Dimension(216, 20));
 							add(textField, "3, 3, 3, 1, fill, center");
 							textField.setColumns(10);
 						}
 						{
 							JButton button = new JButton("New button");
+							button.setPreferredSize(new Dimension(89, 23));
 							add(button, "5, 5, center, center");
 						}
 					}

@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeConstantInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeInfo;
 import org.eclipse.wb.internal.swing.laf.LafSupport;
@@ -21,10 +22,16 @@ import com.jgoodies.forms.layout.ConstantSize;
 import com.jgoodies.forms.layout.ConstantSize.Unit;
 import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
+import com.jgoodies.forms.util.DefaultUnitConverter;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.awt.Font;
+
+import javax.swing.JFrame;
 
 /**
  * Test for {@link FormSizeInfo}.
@@ -44,6 +51,30 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 		LafSupport.applySelectedLAF(LafSupport.getDefaultLAF());
 	}
 
+	private static Font defaultFont;
+	private static JFrame toolkitComponent;
+	private static int defaultScreenResolution;
+
+	@BeforeAll
+	public static void setUpJGoodies() {
+		defaultFont = DefaultUnitConverter.getInstance().getDefaultDialogFont();
+		DefaultUnitConverter.getInstance().setDefaultDialogFont(new Font("Tahoma", Font.PLAIN, 10));
+
+		// Make sure all tests are executed as if at 96DPI
+		defaultScreenResolution = ReflectionUtils.getFieldInt(DefaultUnitConverter.class, "defaultScreenResolution");
+		ReflectionUtils.setField(DefaultUnitConverter.class, "defaultScreenResolution", 96);
+
+		toolkitComponent = (JFrame) ReflectionUtils.getFieldObject(FormSizeConstantInfo.class, "m_toolkitComponent");
+		ReflectionUtils.setField(FormSizeConstantInfo.class, "m_toolkitComponent", null);
+	}
+
+	@AfterAll
+	public static void tearDownJGoodies() {
+		DefaultUnitConverter.getInstance().setDefaultDialogFont(defaultFont);
+		ReflectionUtils.setField(DefaultUnitConverter.class, "defaultScreenResolution", defaultScreenResolution);
+		ReflectionUtils.setField(FormSizeConstantInfo.class, "m_toolkitComponent", toolkitComponent);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Exit zone :-) XXX
@@ -61,7 +92,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo}.
 	 */
-	@Disabled
 	@Test
 	public void test_FormSizeConstantInfo() throws Exception {
 		FormSizeConstantInfo size = new FormSizeConstantInfo(25, ConstantSize.PIXEL);
@@ -131,7 +161,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo#convertFromPixels(int, Unit)}
 	 */
-	@Disabled
 	@Test
 	public void test_FormSizeConstantInfo_convertFromPixels() throws Exception {
 		{
@@ -139,11 +168,11 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 			check_convertFromPixels(50, ConstantSize.PIXEL, expected);
 		}
 		{
-			double expected = 39.0;
+			double expected = 38.0;
 			check_convertFromPixels(50, ConstantSize.POINT, expected);
 		}
 		{
-			double expected = 34.0;
+			double expected = 35.0;
 			check_convertFromPixels(50, ConstantSize.DIALOG_UNITS_X, expected);
 		}
 		{
@@ -171,7 +200,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo#convertToPixels(double, Unit)}
 	 */
-	@Disabled
 	@Test
 	public void test_FormSizeConstantInfo_convertToPixels() throws Exception {
 		{
