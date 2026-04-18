@@ -61,13 +61,12 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_noButtonGroups() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		// no ButtonGroupContainerInfo and ButtonGroupInfo's
 		assertEquals(0, panel.getChildren(ButtonGroupContainerInfo.class).size());
@@ -82,27 +81,26 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_parse() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button_0 = new JRadioButton();",
-						"      add(button_0);",
-						"      m_buttonGroup.add(button_0);",
-						"    }",
-						"    {",
-						"      JRadioButton button_1 = new JRadioButton();",
-						"      add(button_1);",
-						"      m_buttonGroup.add(button_1);",
-						"    }",
-						"    {",
-						"      JRadioButton button_2 = new JRadioButton();",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button_0 = new JRadioButton();
+						add(button_0);
+						m_buttonGroup.add(button_0);
+						}
+						{
+						JRadioButton button_1 = new JRadioButton();
+						add(button_1);
+						m_buttonGroup.add(button_1);
+						}
+						{
+						JRadioButton button_2 = new JRadioButton();
+						add(button_2);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo buttonInfo_0 = panel.getChildrenComponents().get(0);
 		ComponentInfo buttonInfo_1 = panel.getChildrenComponents().get(1);
@@ -172,26 +170,24 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_parse_customButtonGroup() throws Exception {
-		setFileContentSrc(
-				"test/MyButtonGroup.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyButtonGroup extends ButtonGroup {",
-						"}"));
+		setFileContentSrc("test/MyButtonGroup.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyButtonGroup extends ButtonGroup {
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  private final MyButtonGroup m_buttonGroup = new MyButtonGroup();",
-				"  public Test() {",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {org.eclipse.wb.internal.swing.model.bean.ButtonGroupContainerInfo}",
-				"    {new: test.MyButtonGroup} {field-initializer: m_buttonGroup} {/new MyButtonGroup()/}");
+		parseContainer("""
+				public class Test extends JPanel {
+					private final MyButtonGroup m_buttonGroup = new MyButtonGroup();
+					public Test() {
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{org.eclipse.wb.internal.swing.model.bean.ButtonGroupContainerInfo}
+						{new: test.MyButtonGroup} {field-initializer: m_buttonGroup} {/new MyButtonGroup()/}""");
 	}
 
 	/**
@@ -199,33 +195,32 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_addButton_new() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		ButtonGroupInfo buttonGroup = ButtonGroupContainerInfo.getButtonGroups(panel).get(0);
 		// add button
 		buttonGroup.addButton(button);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      m_buttonGroup.add(button);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						m_buttonGroup.add(button);
+						add(button);
+						}
+					}
+				}""");
 		// "button" now in "buttonGroup"
 		{
 			List<ObjectReferenceInfo> buttons = buttonGroup.getButtons();
@@ -240,19 +235,18 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_addButton_inOtherGroup() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final ButtonGroup m_buttonGroup_1 = new ButtonGroup();",
-						"  private final ButtonGroup m_buttonGroup_2 = new ButtonGroup();",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      m_buttonGroup_1.add(button);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup_1 = new ButtonGroup();
+					private final ButtonGroup m_buttonGroup_2 = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						m_buttonGroup_1.add(button);
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -262,18 +256,18 @@ public class ButtonGroupTest extends SwingModelTest {
 		assertFalse(buttonGroup_2.hasButton(button));
 		// add button
 		buttonGroup_2.addButton(button);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup m_buttonGroup_1 = new ButtonGroup();",
-				"  private final ButtonGroup m_buttonGroup_2 = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      m_buttonGroup_2.add(button);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup_1 = new ButtonGroup();
+					private final ButtonGroup m_buttonGroup_2 = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						m_buttonGroup_2.add(button);
+						add(button);
+						}
+					}
+				}""");
 		// "button" now in "buttonGroup_2"
 		assertFalse(buttonGroup_1.hasButton(button));
 		assertTrue(buttonGroup_2.hasButton(button));
@@ -284,18 +278,17 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_clearButton() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      m_buttonGroup.add(button);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						m_buttonGroup.add(button);
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -303,16 +296,16 @@ public class ButtonGroupTest extends SwingModelTest {
 		assertTrue(buttonGroup.hasButton(button));
 		// clear button
 		ButtonGroupInfo.clearButton(button);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		assertFalse(buttonGroup.hasButton(button));
 	}
 
@@ -321,43 +314,42 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_newButtonGroup() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// add new ButtonGroupInfo
 		ButtonGroupInfo buttonGroup = ButtonGroupContainerInfo.add(panel, "javax.swing.ButtonGroup");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup buttonGroup = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		// add button
 		buttonGroup.addButton(button);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup buttonGroup = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      buttonGroup.add(button);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						buttonGroup.add(button);
+						add(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -371,13 +363,12 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_contextMenu_notButton() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		// no "Set ButtonGroup" expected
 		IMenuManager designerMenu = getContextMenu(panel);
@@ -390,17 +381,16 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_contextMenu_setGroup_single() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -408,17 +398,17 @@ public class ButtonGroupTest extends SwingModelTest {
 		IAction buttonGroupAction = getButtonGroupAction("m_buttonGroup", button);
 		buttonGroupAction.setChecked(true);
 		buttonGroupAction.run();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      m_buttonGroup.add(button);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						m_buttonGroup.add(button);
+						add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -426,21 +416,20 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_contextMenu_setGroup_multiple() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button_1 = new JRadioButton();",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JRadioButton button_2 = new JRadioButton();",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button_1 = new JRadioButton();
+						add(button_1);
+						}
+						{
+						JRadioButton button_2 = new JRadioButton();
+						add(button_2);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
@@ -464,22 +453,22 @@ public class ButtonGroupTest extends SwingModelTest {
 		IAction buttonGroupAction = getButtonGroupAction("m_buttonGroup", button_1, button_2);
 		buttonGroupAction.setChecked(true);
 		buttonGroupAction.run();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button_1 = new JRadioButton();",
-				"      m_buttonGroup.add(button_1);",
-				"      add(button_1);",
-				"    }",
-				"    {",
-				"      JRadioButton button_2 = new JRadioButton();",
-				"      m_buttonGroup.add(button_2);",
-				"      add(button_2);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button_1 = new JRadioButton();
+						m_buttonGroup.add(button_1);
+						add(button_1);
+						}
+						{
+						JRadioButton button_2 = new JRadioButton();
+						m_buttonGroup.add(button_2);
+						add(button_2);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -487,18 +476,17 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_contextMenu_noGroup() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      m_buttonGroup.add(button);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						m_buttonGroup.add(button);
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -508,16 +496,16 @@ public class ButtonGroupTest extends SwingModelTest {
 			noGroupAction.run();
 		}
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup m_buttonGroup = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup m_buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -525,33 +513,32 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_contextMenu_newGroup() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set new ButtonGroup
 		IAction newGroupAction = getButtonGroupAction("New standard", button);
 		newGroupAction.run();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final ButtonGroup buttonGroup = new ButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      buttonGroup.add(button);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final ButtonGroup buttonGroup = new ButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						buttonGroup.add(button);
+						add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -559,25 +546,22 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_contextMenu_newGroup_custom() throws Exception {
-		setFileContentSrc(
-				"test/MyButtonGroup.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyButtonGroup extends ButtonGroup {",
-						"}"));
+		setFileContentSrc("test/MyButtonGroup.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyButtonGroup extends ButtonGroup {
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -594,17 +578,17 @@ public class ButtonGroupTest extends SwingModelTest {
 				animateOpenTypeSelection(bot, "MyButtonGroup", "OK");
 			}
 		});
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private final MyButtonGroup myButtonGroup = new MyButtonGroup();",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      myButtonGroup.add(button);",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private final MyButtonGroup myButtonGroup = new MyButtonGroup();
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						myButtonGroup.add(button);
+						add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -612,16 +596,15 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_contextMenu_newGroup_custom_cancel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -638,15 +621,15 @@ public class ButtonGroupTest extends SwingModelTest {
 				animateOpenTypeSelection(bot, "java.lang.Object", "OK");
 			}
 		});
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -654,16 +637,15 @@ public class ButtonGroupTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_contextMenu_newGroup_custom_notButtonGroup() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JRadioButton button = new JRadioButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// prepare models
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -681,15 +663,15 @@ public class ButtonGroupTest extends SwingModelTest {
 				shell.button("Cancel").click();
 			}
 		});
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JRadioButton button = new JRadioButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+						JRadioButton button = new JRadioButton();
+						add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
