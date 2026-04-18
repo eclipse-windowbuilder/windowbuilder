@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,6 +39,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.texteditor.ChainedPreferenceStore;
+
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * Helper class for various JDT UI utils.
@@ -190,7 +192,7 @@ public final class JdtUiUtils {
 		dialog.setMessage(Messages.JdtUiUtils_selectTypeMessage);
 		// open dialog
 		if (dialog.open() == Window.OK) {
-			return (IType) dialog.getResult()[0];
+			return (IType) ArrayUtils.get(dialog.getResult(), 0);
 		}
 		// no type selected
 		return null;
