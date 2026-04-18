@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -74,10 +74,10 @@ public class ActionGefTest extends SwingGefTest {
 						}
 					}
 				}""");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
-				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
-				"  {new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}
+					{new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}
+					{new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}""");
 		panel.refresh();
 		JToolBarInfo toolBar = (JToolBarInfo) panel.getChildrenComponents().get(0);
 		// load "action" tool
@@ -115,13 +115,13 @@ public class ActionGefTest extends SwingGefTest {
 						}
 					}
 				}""");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
-				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
-				"  {new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/ /toolBar.add(action)/}",
-				"    {implicit-factory} {local-unique: button} {/toolBar.add(action)/}",
-				"  {org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}",
-				"    {innerAction} {field-initializer: action} {/new SwingAction()/ /toolBar.add(action)/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}
+					{new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}
+					{new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/ /toolBar.add(action)/}
+						{implicit-factory} {local-unique: button} {/toolBar.add(action)/}
+					{org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}
+						{innerAction} {field-initializer: action} {/new SwingAction()/ /toolBar.add(action)/}""");
 		// ...new "JButton" created, it should be selected
 		ComponentInfo button = toolBar.getChildrenComponents().get(0);
 		canvas.assertPrimarySelected(button);
@@ -144,12 +144,12 @@ public class ActionGefTest extends SwingGefTest {
 						}
 					}
 				}""");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
-				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
-				"  {new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}",
-				"  {org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}",
-				"    {new: test.ExternalAction} {field-initializer: action} {/new ExternalAction()/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}
+					{new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}
+					{new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}
+					{org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}
+						{new: test.ExternalAction} {field-initializer: action} {/new ExternalAction()/}""");
 		panel.refresh();
 		JToolBarInfo toolBar = (JToolBarInfo) panel.getChildrenComponents().get(0);
 		ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
@@ -195,12 +195,12 @@ public class ActionGefTest extends SwingGefTest {
 						}
 					}
 				}""");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
-				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
-				"  {new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}",
-				"  {org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}",
-				"    {new: test.ExternalAction} {field-initializer: action} {/new ExternalAction()/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}
+					{new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}
+					{new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}
+					{org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}
+						{new: test.ExternalAction} {field-initializer: action} {/new ExternalAction()/}""");
 		panel.refresh();
 		JToolBarInfo toolBar = (JToolBarInfo) panel.getChildrenComponents().get(0);
 		ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
@@ -246,10 +246,10 @@ public class ActionGefTest extends SwingGefTest {
 						}
 					}
 				}""");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
-				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
-				"  {new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}
+					{new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}
+					{new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}""");
 		panel.refresh();
 		JToolBarInfo toolBar = (JToolBarInfo) panel.getChildrenComponents().get(0);
 		// load "action" tool
@@ -285,13 +285,13 @@ public class ActionGefTest extends SwingGefTest {
 						}
 					}
 				}""");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}",
-				"  {new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}",
-				"  {new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/ /toolBar.add(externalAction)/}",
-				"    {implicit-factory} {local-unique: button} {/toolBar.add(externalAction)/}",
-				"  {org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}",
-				"    {new: test.ExternalAction} {field-initializer: externalAction} {/new ExternalAction()/ /toolBar.add(externalAction)/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new BorderLayout())/ /add(toolBar, BorderLayout.NORTH)/}
+					{new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}
+					{new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/ /toolBar.add(externalAction)/}
+						{implicit-factory} {local-unique: button} {/toolBar.add(externalAction)/}
+					{org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}
+						{new: test.ExternalAction} {field-initializer: externalAction} {/new ExternalAction()/ /toolBar.add(externalAction)/}""");
 		// ...new "JButton" created, it should be selected
 		ComponentInfo button = toolBar.getChildrenComponents().get(0);
 		canvas.assertPrimarySelected(button);
@@ -318,12 +318,12 @@ public class ActionGefTest extends SwingGefTest {
 						}
 					}
 				}""");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(button)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button)/}",
-				"  {org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}",
-				"    {new: test.ExternalAction} {field-initializer: action} {/new ExternalAction()/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(button)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button)/}
+					{org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}
+						{new: test.ExternalAction} {field-initializer: action} {/new ExternalAction()/}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		ActionInfo action = ActionContainerInfo.getActions(panel).get(0);
@@ -374,16 +374,16 @@ public class ActionGefTest extends SwingGefTest {
 						}
 					}
 				}""");
-		assertHierarchy(
-				"{this: javax.swing.JFrame} {this} {/setJMenuBar(menuBar)/}",
-				"  {method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JMenuBar} {local-unique: menuBar} {/new JMenuBar()/ /setJMenuBar(menuBar)/ /menuBar.add(menu)/}",
-				"    {new: javax.swing.JMenu} {local-unique: menu} {/new JMenu('Menu')/ /menuBar.add(menu)/ /menu.add(item_1)/ /menu.add(item_2)/}",
-				"      {new: javax.swing.JMenuItem} {local-unique: item_1} {/new JMenuItem('AAA AAA AAA')/ /menu.add(item_1)/}",
-				"      {new: javax.swing.JMenuItem} {local-unique: item_2} {/new JMenuItem('BBB BBB BBB')/ /menu.add(item_2)/}",
-				"  {org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}",
-				"    {new: test.ExternalAction} {field-initializer: action} {/new ExternalAction()/}");
+		assertHierarchy("""
+				{this: javax.swing.JFrame} {this} {/setJMenuBar(menuBar)/}
+					{method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+					{new: javax.swing.JMenuBar} {local-unique: menuBar} {/new JMenuBar()/ /setJMenuBar(menuBar)/ /menuBar.add(menu)/}
+						{new: javax.swing.JMenu} {local-unique: menu} {/new JMenu("Menu")/ /menuBar.add(menu)/ /menu.add(item_1)/ /menu.add(item_2)/}
+							{new: javax.swing.JMenuItem} {local-unique: item_1} {/new JMenuItem("AAA AAA AAA")/ /menu.add(item_1)/}
+							{new: javax.swing.JMenuItem} {local-unique: item_2} {/new JMenuItem("BBB BBB BBB")/ /menu.add(item_2)/}
+					{org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo}
+						{new: test.ExternalAction} {field-initializer: action} {/new ExternalAction()/}""");
 		frame.refresh();
 		JMenuBarInfo bar = frame.getChildren(JMenuBarInfo.class).get(0);
 		JMenuInfo menu = bar.getChildrenMenus().get(0);
@@ -436,17 +436,15 @@ public class ActionGefTest extends SwingGefTest {
 	 * Creates class with <code>ExternalAction</code>.
 	 */
 	private void createExternalAction() throws Exception {
-		setFileContentSrc(
-				"test/ExternalAction.java",
-				getTestSource("""
-						public class ExternalAction extends AbstractAction {
-							public ExternalAction() {
-								putValue(NAME, "My name");
-								putValue(SHORT_DESCRIPTION, "My short description");
-							}
-							public void actionPerformed(ActionEvent e) {
-							}
-						}"""));
+		setFileContentSrc("test/ExternalAction.java", getTestSource("""
+				public class ExternalAction extends AbstractAction {
+					public ExternalAction() {
+						putValue(NAME, "My name");
+						putValue(SHORT_DESCRIPTION, "My short description");
+					}
+					public void actionPerformed(ActionEvent e) {
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 
