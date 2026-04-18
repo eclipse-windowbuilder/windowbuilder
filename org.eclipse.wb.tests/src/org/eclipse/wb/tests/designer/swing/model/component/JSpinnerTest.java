@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -70,15 +70,14 @@ public class JSpinnerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setEditor() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JSpinner spinner = new JSpinner();",
-						"    spinner.setEditor(new JSpinner.NumberEditor(spinner, '#'));",
-						"    add(spinner);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JSpinner spinner = new JSpinner();
+						spinner.setEditor(new JSpinner.NumberEditor(spinner, "#"));
+						add(spinner);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -183,15 +182,14 @@ public class JSpinnerTest extends SwingModelTest {
 	private void assertEditorTextTooltip(String modelSource,
 			String expectedText,
 			String expectedTooltip) throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JSpinner spinner = new JSpinner();",
-						"    spinner.setModel(" + modelSource + ");",
-						"    add(spinner);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JSpinner spinner = new JSpinner();
+						spinner.setModel(%s);
+						add(spinner);
+					}
+				}""".formatted(modelSource));
 		panel.refresh();
 		ComponentInfo spinner = panel.getChildrenComponents().get(0);
 		Property modelProperty = spinner.getPropertyByTitle("model");
@@ -300,16 +298,15 @@ public class JSpinnerTest extends SwingModelTest {
 
 	@Test
 	public void test_editor_dateModel() throws Exception {
-		ContainerInfo spinner = parseContainer(
-				"""
-						import java.util.Calendar;
-						import java.util.Date;
-						// filler filler filler
-						public class Test extends JSpinner {
-							public Test() {
-								setModel(new SpinnerDateModel(new Date(1757800800000L), new Date(1757714400000L), new Date(1757887200000L), Calendar.DAY_OF_YEAR));
-							}
-						}""");
+		ContainerInfo spinner = parseContainer("""
+				import java.util.Calendar;
+				import java.util.Date;
+				// filler filler filler
+				public class Test extends JSpinner {
+					public Test() {
+						setModel(new SpinnerDateModel(new Date(1757800800000L), new Date(1757714400000L), new Date(1757887200000L), Calendar.DAY_OF_YEAR));
+					}
+				}""");
 		spinner.refresh();
 
 		Property modelProperty = spinner.getPropertyByTitle("model");

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,16 +39,15 @@ public class JSliderTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_36471() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JSlider slider = new JSlider();",
-						"    slider.setLabelTable(new java.util.Hashtable());",
-						"    slider.setPaintLabels(true);",
-						"    add(slider);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JSlider slider = new JSlider();
+						slider.setLabelTable(new java.util.Hashtable());
+						slider.setPaintLabels(true);
+						add(slider);
+					}
+				}""");
 		panel.refresh();
 	}
 }

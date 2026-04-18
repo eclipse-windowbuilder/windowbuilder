@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,13 +48,12 @@ public class JLabelTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_displayedMnemonic_property() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new JLabel());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new JLabel());
+					}
+				}""");
 		ComponentInfo label = panel.getChildrenComponents().get(0);
 		// we have both variants in ComponentDescription
 		{
@@ -87,27 +86,26 @@ public class JLabelTest extends SwingModelTest {
 	@Test
 	public void test_displayedMnemonicIndex_location() throws Exception {
 		dontConvertSingleQuotesToDouble();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JLabel label = new JLabel();",
-						"    label.setDisplayedMnemonic('C');",
-						"    add(label);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JLabel label = new JLabel();
+						label.setDisplayedMnemonic('C');
+						add(label);
+					}
+				}""");
 		ComponentInfo label = panel.getChildrenComponents().get(0);
 		// set "displayedMnemonicIndex"
 		label.getPropertyByTitle("displayedMnemonicIndex").setValue(1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JLabel label = new JLabel();",
-				"    label.setDisplayedMnemonic('C');",
-				"    label.setDisplayedMnemonicIndex(1);",
-				"    add(label);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						JLabel label = new JLabel();
+						label.setDisplayedMnemonic('C');
+						label.setDisplayedMnemonicIndex(1);
+						add(label);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -117,16 +115,15 @@ public class JLabelTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_labelFor_getText_noInvocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JLabel label = new JLabel();",
-						"      add(label);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel label = new JLabel();
+							add(label);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo label = panel.getChildrenComponents().get(0);
 		// check "labelFor" property
@@ -141,17 +138,16 @@ public class JLabelTest extends SwingModelTest {
 
 	@Test
 	public void test_labelFor_getText_hasInvocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final JLabel label = new JLabel();",
-						"  private final JTextField textField = new JTextField();",
-						"  public Test() {",
-						"    add(label);",
-						"    label.setLabelFor(textField);",
-						"    add(textField);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final JLabel label = new JLabel();
+					private final JTextField textField = new JTextField();
+					public Test() {
+						add(label);
+						label.setLabelFor(textField);
+						add(textField);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo label = panel.getChildrenComponents().get(0);
 		// check "labelFor" property

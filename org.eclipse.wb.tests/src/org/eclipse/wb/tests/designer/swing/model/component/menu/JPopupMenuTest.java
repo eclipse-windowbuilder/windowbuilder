@@ -68,24 +68,23 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_parse() throws Exception {
-		ContainerInfo panelInfo =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JPopupMenu popup = new JPopupMenu();",
-						"    addPopup(this, popup);",
-						"    {",
-						"      JMenuItem item_1 = new JMenuItem('Item 1');",
-						"      popup.add(item_1);",
-						"    }",
-						"    {",
-						"      JMenuItem item_2 = new JMenuItem('Item 2');",
-						"      popup.add(item_2);",
-						"    }",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
+		ContainerInfo panelInfo = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popup = new JPopupMenu();
+						addPopup(this, popup);
+						{
+							JMenuItem item_1 = new JMenuItem("Item 1");
+							popup.add(item_1);
+						}
+						{
+							JMenuItem item_2 = new JMenuItem("Item 2");
+							popup.add(item_2);
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		panelInfo.refresh();
 		// prepare JPopupMenu_Info
 		JPopupMenuInfo popupInfo = panelInfo.getChildren(JPopupMenuInfo.class).get(0);
@@ -135,16 +134,15 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_noItems() throws Exception {
-		ContainerInfo panelInfo =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JPopupMenu popup = new JPopupMenu();",
-						"    addPopup(this, popup);",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
+		ContainerInfo panelInfo = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popup = new JPopupMenu();
+						addPopup(this, popup);
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		panelInfo.refresh();
 		// do checks
 		JPopupMenuInfo popupInfo = panelInfo.getChildren(JPopupMenuInfo.class).get(0);
@@ -163,24 +161,23 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_withSeparator() throws Exception {
-		ContainerInfo panelInfo =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JPopupMenu popup = new JPopupMenu();",
-						"    addPopup(this, popup);",
-						"    {",
-						"      JMenuItem item_1 = new JMenuItem('Item 1');",
-						"      popup.add(item_1);",
-						"    }",
-						"    {",
-						"      JSeparator separator = new JSeparator();",
-						"      popup.add(separator);",
-						"    }",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
+		ContainerInfo panelInfo = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popup = new JPopupMenu();
+						addPopup(this, popup);
+						{
+							JMenuItem item_1 = new JMenuItem("Item 1");
+							popup.add(item_1);
+						}
+						{
+							JSeparator separator = new JSeparator();
+							popup.add(separator);
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		panelInfo.refresh();
 		// prepare models
 		JPopupMenuInfo popupInfo = panelInfo.getChildren(JPopupMenuInfo.class).get(0);
@@ -231,13 +228,12 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		ContainerInfo panelInfo =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panelInfo = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panelInfo.refresh();
 		// add new JPopupMenu
 		JPopupMenuInfo popupInfo = (JPopupMenuInfo) createComponent(JPopupMenu.class);
@@ -246,33 +242,33 @@ public class JPopupMenuTest extends SwingModelTest {
 			JPopupMenuAssociation association = (JPopupMenuAssociation) popupInfo.getAssociation();
 			assertEquals("addPopup(this, popupMenu)", association.getSource());
 		}
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JPopupMenu popupMenu = new JPopupMenu();",
-				"      addPopup(this, popupMenu);",
-				"    }",
-				"  }",
-				"  private static void addPopup(Component component, final JPopupMenu popup) {",
-				"    component.addMouseListener(new MouseAdapter() {",
-				"      public void mousePressed(MouseEvent e) {",
-				"        if (e.isPopupTrigger()) {",
-				"          showMenu(e);",
-				"        }",
-				"      }",
-				"      public void mouseReleased(MouseEvent e) {",
-				"        if (e.isPopupTrigger()) {",
-				"          showMenu(e);",
-				"        }",
-				"      }",
-				"      private void showMenu(MouseEvent e) {",
-				"        popup.show(e.getComponent(), e.getX(), e.getY());",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPopupMenu popupMenu = new JPopupMenu();
+							addPopup(this, popupMenu);
+						}
+					}
+					private static void addPopup(Component component, final JPopupMenu popup) {
+						component.addMouseListener(new MouseAdapter() {
+							public void mousePressed(MouseEvent e) {
+								if (e.isPopupTrigger()) {
+									showMenu(e);
+								}
+							}
+							public void mouseReleased(MouseEvent e) {
+								if (e.isPopupTrigger()) {
+									showMenu(e);
+								}
+							}
+							private void showMenu(MouseEvent e) {
+								popup.show(e.getComponent(), e.getX(), e.getY());
+							}
+						});
+					}
+				}""");
 	}
 
 	/**
@@ -280,25 +276,24 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_MOVE() throws Exception {
-		ContainerInfo panelInfo =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"      JPopupMenu popup = new JPopupMenu();",
-						"      addPopup(button_1, popup);",
-						"      popup.add(new JMenuItem());",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
+		ContainerInfo panelInfo = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+							JPopupMenu popup = new JPopupMenu();
+							addPopup(button_1, popup);
+							popup.add(new JMenuItem());
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		panelInfo.refresh();
 		// prepare components
 		ComponentInfo buttonInfo_1 = panelInfo.getChildrenComponents().get(0);
@@ -306,24 +301,24 @@ public class JPopupMenuTest extends SwingModelTest {
 		JPopupMenuInfo popupInfo = buttonInfo_1.getChildren(JPopupMenuInfo.class).get(0);
 		// move JPopupMenu_Info
 		popupInfo.command_MOVE(buttonInfo_2);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1);",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      JPopupMenu popup = new JPopupMenu();",
-				"      addPopup(button_2, popup);",
-				"      popup.add(new JMenuItem());",
-				"    }",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							JPopupMenu popup = new JPopupMenu();
+							addPopup(button_2, popup);
+							popup.add(new JMenuItem());
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 	}
 
 	/**
@@ -331,35 +326,34 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_MOVE_toTheContainer() throws Exception {
-		ContainerInfo panelInfo =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JPopupMenu popupMenu = new JPopupMenu();",
-						"    addPopup(this, popupMenu);",
-						"    JPanel innerPanel = new JPanel();",
-						"    add(innerPanel);",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
+		ContainerInfo panelInfo = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popupMenu = new JPopupMenu();
+						addPopup(this, popupMenu);
+						JPanel innerPanel = new JPanel();
+						add(innerPanel);
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		panelInfo.refresh();
 		// prepare components
 		JPopupMenuInfo popupInfo = getJavaInfoByName("popupMenu");
 		ComponentInfo innerPanel = getJavaInfoByName("innerPanel");
 		// move JPopupMenu_Info
 		popupInfo.command_MOVE(innerPanel);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JPanel innerPanel = new JPanel();",
-				"    add(innerPanel);",
-				"    JPopupMenu popupMenu = new JPopupMenu();",
-				"    addPopup(innerPanel, popupMenu);",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						JPanel innerPanel = new JPanel();
+						add(innerPanel);
+						JPopupMenu popupMenu = new JPopupMenu();
+						addPopup(innerPanel, popupMenu);
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 	}
 
 	/**
@@ -367,27 +361,26 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_PASTE() throws Exception {
-		ContainerInfo panelInfo =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"      {",
-						"        JPopupMenu popup = new JPopupMenu();",
-						"        addPopup(button_1, popup);",
-						"        popup.add(new JMenuItem('Some item'));",
-						"      }",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
+		ContainerInfo panelInfo = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+							{
+								JPopupMenu popup = new JPopupMenu();
+								addPopup(button_1, popup);
+								popup.add(new JMenuItem("Some item"));
+							}
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		panelInfo.refresh();
 		// prepare components
 		ComponentInfo buttonInfo_1 = panelInfo.getChildrenComponents().get(0);
@@ -400,34 +393,34 @@ public class JPopupMenuTest extends SwingModelTest {
 			popupCopyInfo.command_CREATE(buttonInfo_2);
 			memento.apply();
 		}
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      add(button_1);",
-				"      {",
-				"        JPopupMenu popup = new JPopupMenu();",
-				"        addPopup(button_1, popup);",
-				"        popup.add(new JMenuItem('Some item'));",
-				"      }",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      {",
-				"        JPopupMenu popup = new JPopupMenu();",
-				"        addPopup(button_2, popup);",
-				"        {",
-				"          JMenuItem menuItem = new JMenuItem('Some item');",
-				"          popup.add(menuItem);",
-				"        }",
-				"      }",
-				"    }",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+							{
+								JPopupMenu popup = new JPopupMenu();
+								addPopup(button_1, popup);
+								popup.add(new JMenuItem("Some item"));
+							}
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							{
+								JPopupMenu popup = new JPopupMenu();
+								addPopup(button_2, popup);
+								{
+									JMenuItem menuItem = new JMenuItem("Some item");
+									popup.add(menuItem);
+								}
+							}
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 	}
 
 	/**
@@ -435,16 +428,15 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_hasTrackingListener() throws Exception {
-		ContainerInfo panelInfo =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JPopupMenu popup = new JPopupMenu();",
-						"    addPopup(this, popup);",
-						"  }",
-						"  private static void addPopup(Component component, JPopupMenu popup) {",
-						"  }",
-						"}");
+		ContainerInfo panelInfo = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popup = new JPopupMenu();
+						addPopup(this, popup);
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		panelInfo.refresh();
 		MouseListener[] mouseListeners = panelInfo.getComponent().getMouseListeners();
 		Assertions.assertThat(mouseListeners).isNotEmpty();
@@ -460,23 +452,23 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_separator_addSeparator() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JPopupMenu popup = new JPopupMenu();",
-				"    addPopup(this, popup);",
-				"    {",
-				"      popup.addSeparator();",
-				"    }",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/addPopup(this, popup)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JPopupMenu} {local-unique: popup} {/new JPopupMenu()/ /addPopup(this, popup)/ /popup.addSeparator()/}",
-				"    {void} {void} {/popup.addSeparator()/}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popup = new JPopupMenu();
+						addPopup(this, popup);
+						{
+							popup.addSeparator();
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/addPopup(this, popup)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JPopupMenu} {local-unique: popup} {/new JPopupMenu()/ /addPopup(this, popup)/ /popup.addSeparator()/}
+						{void} {void} {/popup.addSeparator()/}""");
 		JPopupMenuInfo popup = getJavaInfoByName("popup");
 		JPopupMenuSeparatorInfo separator = popup.getChildren(JPopupMenuSeparatorInfo.class).get(0);
 		// check VoidInvocationVariableSupport
@@ -506,24 +498,24 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_separator_newSeparator() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JPopupMenu popup = new JPopupMenu();",
-				"    addPopup(this, popup);",
-				"    {",
-				"      JPopupMenu.Separator separator = new JPopupMenu.Separator();",
-				"      popup.add(separator);",
-				"    }",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/addPopup(this, popup)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JPopupMenu} {local-unique: popup} {/new JPopupMenu()/ /addPopup(this, popup)/ /popup.add(separator)/}",
-				"    {new: javax.swing.JPopupMenu$Separator} {local-unique: separator} {/new JPopupMenu.Separator()/ /popup.add(separator)/}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popup = new JPopupMenu();
+						addPopup(this, popup);
+						{
+							JPopupMenu.Separator separator = new JPopupMenu.Separator();
+							popup.add(separator);
+						}
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/addPopup(this, popup)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JPopupMenu} {local-unique: popup} {/new JPopupMenu()/ /addPopup(this, popup)/ /popup.add(separator)/}
+						{new: javax.swing.JPopupMenu$Separator} {local-unique: separator} {/new JPopupMenu.Separator()/ /popup.add(separator)/}""");
 	}
 
 	/**
@@ -531,15 +523,15 @@ public class JPopupMenuTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_separator_create_addSeparator() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JPopupMenu popup = new JPopupMenu();",
-				"    addPopup(this, popup);",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popup = new JPopupMenu();
+						addPopup(this, popup);
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 		JPopupMenuInfo popup = getJavaInfoByName("popup");
 		// create separator
 		JPopupMenuSeparatorCreationSupport creationSupport =
@@ -562,15 +554,15 @@ public class JPopupMenuTest extends SwingModelTest {
 			assertEquals("popup.addSeparator()", association.getSource());
 		}
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JPopupMenu popup = new JPopupMenu();",
-				"    addPopup(this, popup);",
-				"    popup.addSeparator();",
-				"  }",
-				"  private static void addPopup(Component component, JPopupMenu popup) {",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						JPopupMenu popup = new JPopupMenu();
+						addPopup(this, popup);
+						popup.addSeparator();
+					}
+					private static void addPopup(Component component, JPopupMenu popup) {
+					}
+				}""");
 	}
 }

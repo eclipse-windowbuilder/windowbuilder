@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,17 +53,16 @@ public class AppletTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_Applet_bounds() throws Exception {
-		ContainerInfo applet =
-				parseContainer(
-						"import java.applet.Applet;",
-						"public class Test extends Applet {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				import java.applet.Applet;
+				public class Test extends Applet {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		applet.refresh();
 		ComponentInfo button = getJavaInfoByName("button");
 		//
@@ -82,17 +81,16 @@ public class AppletTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JApplet_bounds() throws Exception {
-		ContainerInfo applet =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JApplet {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      getContentPane().add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends JApplet {
+					public Test() {
+						{
+							JButton button = new JButton();
+							getContentPane().add(button);
+						}
+					}
+				}""");
 		applet.refresh();
 		ComponentInfo contentPane = applet.getChildrenComponents().get(0);
 		ComponentInfo button = getJavaInfoByName("button");
@@ -109,21 +107,20 @@ public class AppletTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JApplet_getParent() throws Exception {
-		ContainerInfo applet =
-				parseContainer(
-						"public class Test extends JApplet {",
-						"  public Test() {",
-						"  }",
-						"  public void init() {",
-						"    super.getParent();",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				public class Test extends JApplet {
+					public Test() {
+					}
+					public void init() {
+						super.getParent();
+					}
+				}""");
 		applet.refresh();
 		assertNoErrors(applet);
-		assertHierarchy(
-				"{this: javax.swing.JApplet} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: javax.swing.JApplet} {this} {}
+					{method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -138,14 +135,13 @@ public class AppletTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_Applet_screenShot() throws Exception {
-		ContainerInfo applet =
-				parseContainer(
-						"import java.applet.Applet;",
-						"public class Test extends Applet {",
-						"  public Test() {",
-						"    setBackground(Color.RED);",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				import java.applet.Applet;
+				public class Test extends Applet {
+					public Test() {
+						setBackground(Color.RED);
+					}
+				}""");
 		applet.refresh();
 		//
 		assertHasRedPixel(applet);
@@ -158,14 +154,13 @@ public class AppletTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JApplet_screenShot() throws Exception {
-		ContainerInfo applet =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JApplet {",
-						"  public Test() {",
-						"    getContentPane().setBackground(Color.RED);",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends JApplet {
+					public Test() {
+						getContentPane().setBackground(Color.RED);
+					}
+				}""");
 		applet.refresh();
 		assertHasRedPixel(applet);
 	}
@@ -184,19 +179,18 @@ public class AppletTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_GUI_inConstructor() throws Exception {
-		ContainerInfo applet =
-				parseContainer(
-						"public class Test extends JApplet {",
-						"  public Test() {",
-						"    getContentPane().add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				public class Test extends JApplet {
+					public Test() {
+						getContentPane().add(new JButton());
+					}
+				}""");
 		assertNoErrors(applet);
-		assertHierarchy(
-				"{this: javax.swing.JApplet} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {/getContentPane().add(new JButton())/}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {empty} {/getContentPane().add(new JButton())/}");
+		assertHierarchy("""
+				{this: javax.swing.JApplet} {this} {}
+					{method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {/getContentPane().add(new JButton())/}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {empty} {/getContentPane().add(new JButton())/}""");
 		// refresh()
 		applet.refresh();
 		assertNotNull(applet.getComponent());
@@ -205,21 +199,20 @@ public class AppletTest extends SwingModelTest {
 
 	@Test
 	public void test_GUI_inMethod_init() throws Exception {
-		ContainerInfo applet =
-				parseContainer(
-						"public class Test extends JApplet {",
-						"  public Test() {",
-						"  }",
-						"  public void init() {",
-						"    getContentPane().add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				public class Test extends JApplet {
+					public Test() {
+					}
+					public void init() {
+						getContentPane().add(new JButton());
+					}
+				}""");
 		assertNoErrors(applet);
-		assertHierarchy(
-				"{this: javax.swing.JApplet} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {/getContentPane().add(new JButton())/}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {empty} {/getContentPane().add(new JButton())/}");
+		assertHierarchy("""
+				{this: javax.swing.JApplet} {this} {}
+					{method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {/getContentPane().add(new JButton())/}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {empty} {/getContentPane().add(new JButton())/}""");
 		// refresh()
 		applet.refresh();
 		assertNotNull(applet.getComponent());
@@ -228,34 +221,31 @@ public class AppletTest extends SwingModelTest {
 
 	@Test
 	public void test_GUI_initInExecutionFlow() throws Exception {
-		setFileContentSrc(
-				"test/MyApplet.java",
-				getTestSource(
-						"public class MyApplet extends JApplet {",
-						"  public void init() {",
-						"    myInit();",
-						"  }",
-						"  protected void myInit() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyApplet.java", getTestSource("""
+				public class MyApplet extends JApplet {
+					public void init() {
+						myInit();
+					}
+					protected void myInit() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo applet =
-				parseContainer(
-						"public class Test extends MyApplet {",
-						"  public Test() {",
-						"  }",
-						"  protected void myInit() {",
-						"    getContentPane().add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				public class Test extends MyApplet {
+					public Test() {
+					}
+					protected void myInit() {
+						getContentPane().add(new JButton());
+					}
+				}""");
 		applet.refresh();
 		assertNoErrors(applet);
-		assertHierarchy(
-				"{this: test.MyApplet} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {/getContentPane().add(new JButton())/}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {empty} {/getContentPane().add(new JButton())/}");
+		assertHierarchy("""
+				{this: test.MyApplet} {this} {}
+					{method: public java.awt.Container javax.swing.JApplet.getContentPane()} {property} {/getContentPane().add(new JButton())/}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {empty} {/getContentPane().add(new JButton())/}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -266,15 +256,14 @@ public class AppletTest extends SwingModelTest {
 	@Test
 	public void test_applet_in_applet() throws Exception {
 		// this should just parse
-		ContainerInfo applet =
-				parseContainer(
-						"public class Test extends JApplet {",
-						"  private JApplet internalApplet = new JApplet();",
-						"  public Test() {",
-						"  }",
-						"  public void init() {",
-						"  }",
-						"}");
+		ContainerInfo applet = parseContainer("""
+				public class Test extends JApplet {
+					private JApplet internalApplet = new JApplet();
+					public Test() {
+					}
+					public void init() {
+					}
+				}""");
 		applet.refresh();
 	}
 }

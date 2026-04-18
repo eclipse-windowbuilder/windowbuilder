@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -46,17 +46,16 @@ public class JInternalFrameTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_this() throws Exception {
-		JInternalFrameInfo frame =
-				parseJavaInfo(
-						"// filler filler filler",
-						"public class Test extends JInternalFrame {",
-						"  public Test() {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JInternalFrame} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JInternalFrame.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		JInternalFrameInfo frame = parseJavaInfo("""
+				// filler filler filler
+				public class Test extends JInternalFrame {
+					public Test() {
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JInternalFrame} {this} {}
+					{method: public java.awt.Container javax.swing.JInternalFrame.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 		frame.refresh();
 		assertNoErrors(frame);
 		// check bounds of JInternalFrame and its "contentPane"
@@ -77,27 +76,26 @@ public class JInternalFrameTest extends SwingModelTest {
 
 	@Test
 	public void test_onJDesktopPane() throws Exception {
-		ContainerInfo panel =
-				parseJavaInfo(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JDesktopPane desktop = new JDesktopPane();",
-						"    add(desktop);",
-						"    {",
-						"      JInternalFrame frame = new JInternalFrame();",
-						"      desktop.add(frame);",
-						"      frame.setBounds(5, 5, 200, 150);",
-						"    }",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(desktop)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JDesktopPane} {local-unique: desktop} {/new JDesktopPane()/ /add(desktop)/ /desktop.add(frame)/}",
-				"    {implicit-layout: absolute} {implicit-layout} {}",
-				"    {new: javax.swing.JInternalFrame} {local-unique: frame} {/new JInternalFrame()/ /desktop.add(frame)/ /frame.setBounds(5, 5, 200, 150)/}",
-				"      {method: public java.awt.Container javax.swing.JInternalFrame.getContentPane()} {property} {}",
-				"        {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseJavaInfo("""
+				public class Test extends JPanel {
+					public Test() {
+						JDesktopPane desktop = new JDesktopPane();
+						add(desktop);
+						{
+							JInternalFrame frame = new JInternalFrame();
+							desktop.add(frame);
+							frame.setBounds(5, 5, 200, 150);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(desktop)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JDesktopPane} {local-unique: desktop} {/new JDesktopPane()/ /add(desktop)/ /desktop.add(frame)/}
+						{implicit-layout: absolute} {implicit-layout} {}
+						{new: javax.swing.JInternalFrame} {local-unique: frame} {/new JInternalFrame()/ /desktop.add(frame)/ /frame.setBounds(5, 5, 200, 150)/}
+							{method: public java.awt.Container javax.swing.JInternalFrame.getContentPane()} {property} {}
+								{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 		panel.refresh();
 		JInternalFrameInfo frame = getJavaInfoByName("frame");
 		// JInternalFrame should be visible

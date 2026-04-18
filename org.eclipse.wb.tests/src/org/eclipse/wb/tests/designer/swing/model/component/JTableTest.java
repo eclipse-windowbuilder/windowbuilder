@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -57,17 +57,16 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_evaluate_innerTableModel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable(new MyTableModel());",
-						"    add(table);",
-						"  }",
-						"  private class MyTableModel extends DefaultTableModel {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable(new MyTableModel());
+						add(table);
+					}
+					private class MyTableModel extends DefaultTableModel {
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		JTable tableObject = (JTable) tableInfo.getObject();
@@ -80,28 +79,27 @@ public class JTableTest extends SwingModelTest {
 
 	@Test
 	public void test_evaluate_valuesAndColumns() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        new Object[]{",
-						"          '00', '01', '02'",
-						"        },",
-						"        new Object[]{",
-						"          '10', '11', '12'",
-						"        },",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B', 'C'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								new Object[]{
+									"00", "01", "02"
+								},
+								new Object[]{
+									"10", "11", "12"
+								},
+							},
+							new String[]{
+								"A", "B", "C"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		JTable tableObject = (JTable) tableInfo.getObject();
@@ -133,26 +131,25 @@ public class JTableTest extends SwingModelTest {
 
 	@Test
 	public void test_evaluate_anonymous_noColumnClass() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        new Object[]{",
-						"          '00', '01', '02'",
-						"        },",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B', 'C'",
-						"      }",
-						"    ) {",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								new Object[]{
+									"00", "01", "02"
+								},
+							},
+							new String[]{
+								"A", "B", "C"
+							}
+						) {
+						});
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		JTable tableObject = (JTable) tableInfo.getObject();
@@ -179,32 +176,31 @@ public class JTableTest extends SwingModelTest {
 
 	@Test
 	public void test_evaluate_anonymous_withColumnClass() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        new Object[]{",
-						"          'str', Boolean.TRUE, 'obj', Integer.valueOf(5)",
-						"        },",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B', 'C', 'D'",
-						"      }",
-						"    ) {",
-						"      Class[] columnTypes = new Class[] {",
-						"        String.class, Boolean.class, Object.class, Integer.class",
-						"      };",
-						"      public Class getColumnClass(int columnIndex) {",
-						"        return columnTypes[columnIndex];",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								new Object[]{
+									"str", Boolean.TRUE, "obj", Integer.valueOf(5)
+								},
+							},
+							new String[]{
+								"A", "B", "C", "D"
+							}
+						) {
+							Class[] columnTypes = new Class[] {
+								String.class, Boolean.class, Object.class, Integer.class
+							};
+							public Class getColumnClass(int columnIndex) {
+								return columnTypes[columnIndex];
+							}
+						});
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		JTable tableObject = (JTable) tableInfo.getObject();
@@ -239,32 +235,31 @@ public class JTableTest extends SwingModelTest {
 
 	@Test
 	public void test_evaluate_anonymous_withColumnEditable() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        new Object[]{",
-						"          '0', '1', '2'",
-						"        },",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B', 'C'",
-						"      }",
-						"    ) {",
-						"      boolean[] columnEditables = new boolean[] {",
-						"        true, true, false",
-						"      };",
-						"      public boolean isCellEditable(int row, int column) {",
-						"        return columnEditables[column];",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								new Object[]{
+									"0", "1", "2"
+								},
+							},
+							new String[]{
+								"A", "B", "C"
+							}
+						) {
+							boolean[] columnEditables = new boolean[] {
+								true, true, false
+							};
+							public boolean isCellEditable(int row, int column) {
+								return columnEditables[column];
+							}
+						});
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		JTable tableObject = (JTable) tableInfo.getObject();
@@ -291,26 +286,25 @@ public class JTableTest extends SwingModelTest {
 
 	@Test
 	public void test_evaluate_getColumnModel_invocations() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        new Object[]{",
-						"          '0', '1', '2'",
-						"        },",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B', 'C'",
-						"      }",
-						"    ));",
-						"    table.getColumnModel().getColumn(0).setPreferredWidth(200);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								new Object[]{
+									"0", "1", "2"
+								},
+							},
+							new String[]{
+								"A", "B", "C"
+							}
+						));
+						table.getColumnModel().getColumn(0).setPreferredWidth(200);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
@@ -328,15 +322,14 @@ public class JTableTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_editor_getText_noModel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// no model, so no text
@@ -349,25 +342,24 @@ public class JTableTest extends SwingModelTest {
 
 	@Test
 	public void test_editor_getText_someModel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01', '02'},",
-						"        {'10', '11', '12'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B', 'C'",
-						"      }",
-						"    ) {",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01", "02"},
+								{"10", "11", "12"},
+							},
+							new String[]{
+								"A", "B", "C"
+							}
+						) {
+						});
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// has model, check text
@@ -651,24 +643,23 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_insertColumn() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01'},",
-						"        {'10', '11'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01"},
+								{"10", "11"},
+							},
+							new String[]{
+								"A", "B"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
@@ -698,24 +689,23 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_removeColumn() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01', '02'},",
-						"        {'10', '11', '12'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B', 'C'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01", "02"},
+								{"10", "11", "12"},
+							},
+							new String[]{
+								"A", "B", "C"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
@@ -744,24 +734,23 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_setColumnCount() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01'},",
-						"        {'10', '11'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01"},
+								{"10", "11"},
+							},
+							new String[]{
+								"A", "B"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
@@ -807,24 +796,23 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_moveColumn() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01', '02', '03'},",
-						"        {'10', '11', '12', '13'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B', 'C', 'D'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01", "02", "03"},
+								{"10", "11", "12", "13"},
+							},
+							new String[]{
+								"A", "B", "C", "D"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
@@ -893,24 +881,23 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_setColumnType() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', Boolean.TRUE},",
-						"        {'10', '11'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", Boolean.TRUE},
+								{"10", "11"},
+							},
+							new String[]{
+								"A", "B"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
@@ -952,24 +939,23 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_insertRow() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01'},",
-						"        {'10', '11'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01"},
+								{"10", "11"},
+							},
+							new String[]{
+								"A", "B"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
@@ -999,25 +985,24 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_removeRow() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01'},",
-						"        {'10', '11'},",
-						"        {'20', '21'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01"},
+								{"10", "11"},
+								{"20", "21"},
+							},
+							new String[]{
+								"A", "B"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
@@ -1046,24 +1031,23 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_setRowCount() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01'},",
-						"        {'10', '11'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01"},
+								{"10", "11"},
+							},
+							new String[]{
+								"A", "B"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
@@ -1108,26 +1092,25 @@ public class JTableTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_TableModelDescription_moveRow() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.table.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTable table = new JTable();",
-						"    add(table);",
-						"    table.setModel(new DefaultTableModel(",
-						"      new Object[][]{",
-						"        {'00', '01'},",
-						"        {'10', '11'},",
-						"        {'20', '21'},",
-						"        {'30', '31'},",
-						"      },",
-						"      new String[]{",
-						"        'A', 'B'",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.table.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTable table = new JTable();
+						add(table);
+						table.setModel(new DefaultTableModel(
+							new Object[][]{
+								{"00", "01"},
+								{"10", "11"},
+								{"20", "21"},
+								{"30", "31"},
+							},
+							new String[]{
+								"A", "B"
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		JTableInfo tableInfo = (JTableInfo) panel.getChildrenComponents().get(0);
 		// prepare TableModelDescription
