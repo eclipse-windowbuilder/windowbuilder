@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -65,17 +65,16 @@ public class JTabbedPaneTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_association() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    //",
-						"    JButton button = new JButton();",
-						"    tabbed.addTab('New tab', button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						//
+						JButton button = new JButton();
+						tabbed.addTab("New tab", button);
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		assertEquals(1, tabbed.getChildrenComponents().size());
@@ -113,22 +112,22 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_association_insert() throws Exception {
-		parseContainer(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.insertTab('title', null, button, 'tip', 0);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(tabbed)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JTabbedPane} {local-unique: tabbed} {/new JTabbedPane()/ /add(tabbed)/ /tabbed.insertTab('title', null, button, 'tip', 0)/}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /tabbed.insertTab('title', null, button, 'tip', 0)/}");
+		parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.insertTab("title", null, button, "tip", 0);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(tabbed)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JTabbedPane} {local-unique: tabbed} {/new JTabbedPane()/ /add(tabbed)/ /tabbed.insertTab("title", null, button, "tip", 0)/}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /tabbed.insertTab("title", null, button, "tip", 0)/}""");
 	}
 
 	/**
@@ -136,20 +135,19 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_isHorizontal() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    {",
-						"      JTabbedPane tabbed_1 = new JTabbedPane(SwingConstants.TOP);",
-						"      add(tabbed_1);",
-						"    }",
-						"    {",
-						"      JTabbedPane tabbed_2 = new JTabbedPane(SwingConstants.LEFT);",
-						"      add(tabbed_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						{
+							JTabbedPane tabbed_1 = new JTabbedPane(SwingConstants.TOP);
+							add(tabbed_1);
+						}
+						{
+							JTabbedPane tabbed_2 = new JTabbedPane(SwingConstants.LEFT);
+							add(tabbed_2);
+						}
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed_1 = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		JTabbedPaneInfo tabbed_2 = (JTabbedPaneInfo) panel.getChildrenComponents().get(1);
@@ -163,15 +161,14 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_badTab() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    tabbed.addTab('title', null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						tabbed.addTab("title", null);
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		assertNoErrors(panel);
@@ -184,24 +181,21 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getTabs_noComponentModels() throws Exception {
-		setFileContentSrc(
-				"test/MyTabbedPane.java",
-				getTestSource(
-						"public class MyTabbedPane extends JTabbedPane {",
-						"  public MyTabbedPane() {",
-						"    addTab('tab_1', new JButton());",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyTabbedPane.java", getTestSource("""
+				public class MyTabbedPane extends JTabbedPane {
+					public MyTabbedPane() {
+						addTab("tab_1", new JButton());
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    MyTabbedPane tabbed = new MyTabbedPane();",
-						"    add(tabbed);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						MyTabbedPane tabbed = new MyTabbedPane();
+						add(tabbed);
+					}
+				}""");
 		refresh();
 		assertNoErrors(panel);
 		// ask tabs
@@ -214,18 +208,18 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_parse_indexOfComponent() throws Exception {
-		parseContainer(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('111', button);",
-				"      tabbed.setForegroundAt(tabbed.indexOfComponent(button), Color.RED);",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("111", button);
+							tabbed.setForegroundAt(tabbed.indexOfComponent(button), Color.RED);
+						}
+					}
+				}""");
 		refresh();
 		ComponentInfo button = getJavaInfoByName("button");
 		//
@@ -240,18 +234,18 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_disable_setModel() throws Exception {
-		parseContainer(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    tabbed.setModel(null);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('tab', button);",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						tabbed.setModel(null);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("tab", button);
+						}
+					}
+				}""");
 		refresh();
 		assertNoErrors(m_lastParseInfo);
 	}
@@ -267,14 +261,13 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getActiveComponent_null() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-						"    add(tabbed);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		IObjectPresentation presentation = tabbed.getPresentation();
@@ -294,16 +287,15 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getActiveComponent_set() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-						"    add(tabbed);",
-						"    tabbed.addTab('111', new JButton('111'));",
-						"    tabbed.addTab('222', new JButton('222'));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+						tabbed.addTab("111", new JButton("111"));
+						tabbed.addTab("222", new JButton("222"));
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		IObjectPresentation presentation = tabbed.getPresentation();
@@ -334,15 +326,14 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_property_list() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-						"    add(tabbed);",
-						"    tabbed.addTab('111', new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+						tabbed.addTab("111", new JButton());
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = tabbed.getChildrenComponents().get(0);
@@ -377,15 +368,14 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_property_subAssociation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-						"    add(tabbed);",
-						"    tabbed.addTab('111', new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+						tabbed.addTab("111", new JButton());
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		// prepare button/property
@@ -412,16 +402,15 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_property_subAt() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-						"    add(tabbed);",
-						"    tabbed.addTab('111', new JButton());",
-						"    tabbed.setForegroundAt(0, Color.RED);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+						tabbed.addTab("111", new JButton());
+						tabbed.setForegroundAt(0, Color.RED);
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		//
@@ -440,14 +429,14 @@ public class JTabbedPaneTest extends SwingModelTest {
 		{
 			// can not remove, ignore "set"
 			property.setValue(Property.UNKNOWN_VALUE);
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-					"    add(tabbed);",
-					"    tabbed.addTab('111', new JButton());",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends JPanel {
+						Test() {
+							JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+							add(tabbed);
+							tabbed.addTab("111", new JButton());
+						}
+					}""");
 		}
 	}
 
@@ -456,18 +445,17 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_property_subAtSet() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-						"    add(tabbed);",
-						"    //",
-						"    JButton button = new JButton();",
-						"    tabbed.addTab('111', button);",
-						"    tabbed.setEnabledAt(0, false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+						//
+						JButton button = new JButton();
+						tabbed.addTab("111", button);
+						tabbed.setEnabledAt(0, false);
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		//
@@ -479,18 +467,18 @@ public class JTabbedPaneTest extends SwingModelTest {
 		// add value
 		{
 			property.setExpression("java.awt.Color.RED", null);
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-					"    add(tabbed);",
-					"    //",
-					"    JButton button = new JButton();",
-					"    tabbed.addTab('111', button);",
-					"    tabbed.setForegroundAt(0, Color.RED);",
-					"    tabbed.setEnabledAt(0, false);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends JPanel {
+						Test() {
+							JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+							add(tabbed);
+							//
+							JButton button = new JButton();
+							tabbed.addTab("111", button);
+							tabbed.setForegroundAt(0, Color.RED);
+							tabbed.setEnabledAt(0, false);
+						}
+					}""");
 		}
 	}
 
@@ -501,15 +489,14 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_property_subAtSetConflict() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-						"    add(tabbed);",
-						"    tabbed.addTab('111', new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+						tabbed.addTab("111", new JButton());
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		//
@@ -521,15 +508,15 @@ public class JTabbedPaneTest extends SwingModelTest {
 		// add value
 		{
 			property.setValue("ToolTip");
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-					"    add(tabbed);",
-					"    tabbed.addTab('111', new JButton());",
-					"    tabbed.setToolTipTextAt(0, 'ToolTip');",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends JPanel {
+						Test() {
+							JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+							add(tabbed);
+							tabbed.addTab("111", new JButton());
+							tabbed.setToolTipTextAt(0, "ToolTip");
+						}
+					}""");
 		}
 	}
 
@@ -538,17 +525,16 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_property_subAtRemove() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-						"    add(tabbed);",
-						"    //",
-						"    tabbed.addTab('111', new JButton());",
-						"    tabbed.setEnabledAt(0, false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+						add(tabbed);
+						//
+						tabbed.addTab("111", new JButton());
+						tabbed.setEnabledAt(0, false);
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		//
@@ -560,15 +546,15 @@ public class JTabbedPaneTest extends SwingModelTest {
 		// add value
 		{
 			property.setValue(Boolean.TRUE);
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);",
-					"    add(tabbed);",
-					"    //",
-					"    tabbed.addTab('111', new JButton());",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends JPanel {
+						Test() {
+							JTabbedPane tabbed = new JTabbedPane(SwingConstants.TOP);
+							add(tabbed);
+							//
+							tabbed.addTab("111", new JButton());
+						}
+					}""");
 		}
 	}
 
@@ -594,14 +580,13 @@ public class JTabbedPaneTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+					}
+				}""");
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		//
 		panel.refresh();
@@ -621,17 +606,17 @@ public class JTabbedPaneTest extends SwingModelTest {
 				assertInstanceOf(InvocationChildAssociation.class, button.getAssociation());
 			}
 			// check source
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    JTabbedPane tabbed = new JTabbedPane();",
-					"    add(tabbed);",
-					"    {",
-					"      JButton button = new JButton();",
-					"      tabbed.addTab('New tab', null, button, null);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends JPanel {
+						Test() {
+							JTabbedPane tabbed = new JTabbedPane();
+							add(tabbed);
+							{
+								JButton button = new JButton();
+								tabbed.addTab("New tab", null, button, null);
+							}
+						}
+					}""");
 			// new component is active
 			assertSame(button, tabbed.getActiveComponent());
 		} finally {
@@ -644,18 +629,17 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_CREATE_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      tabbed.addTab('111', new JButton());",
-						"      tabbed.setEnabledAt(0, false);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							tabbed.addTab("111", new JButton());
+							tabbed.setEnabledAt(0, false);
+						}
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = tabbed.getChildrenComponents().get(0);
@@ -671,21 +655,21 @@ public class JTabbedPaneTest extends SwingModelTest {
 			}
 		}
 		// check source
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('New tab', null, button, null);",
-				"    }",
-				"    {",
-				"      tabbed.addTab('111', new JButton());",
-				"      tabbed.setEnabledAt(1, false);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("New tab", null, button, null);
+						}
+						{
+							tabbed.addTab("111", new JButton());
+							tabbed.setEnabledAt(1, false);
+						}
+					}
+				}""");
 		// new component is active
 		assertSame(newButton, tabbed.getActiveComponent());
 	}
@@ -695,18 +679,17 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_CREATE_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      tabbed.addTab('tab1', new JLabel());",
-						"      tabbed.setEnabledAt(0, false);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							tabbed.addTab("tab1", new JLabel());
+							tabbed.setEnabledAt(0, false);
+						}
+					}
+				}""");
 		refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo label = tabbed.getChildrenComponents().get(0);
@@ -719,21 +702,21 @@ public class JTabbedPaneTest extends SwingModelTest {
 			flowContainer.command_CREATE(newButton, label);
 		}
 		// check source
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('New tab', null, button, null);",
-				"    }",
-				"    {",
-				"      tabbed.addTab('tab1', new JLabel());",
-				"      tabbed.setEnabledAt(1, false);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("New tab", null, button, null);
+						}
+						{
+							tabbed.addTab("tab1", new JLabel());
+							tabbed.setEnabledAt(1, false);
+						}
+					}
+				}""");
 		// new component is active
 		assertSame(newButton, tabbed.getActiveComponent());
 	}
@@ -745,67 +728,65 @@ public class JTabbedPaneTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_DELETE() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      tabbed.addTab('000', button);",
-						"      tabbed.setEnabledAt(0, false);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      tabbed.addTab('111', button);",
-						"      tabbed.setEnabledAt(1, false);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("000", button);
+							tabbed.setEnabledAt(0, false);
+						}
+						{
+							JButton button = new JButton();
+							tabbed.addTab("111", button);
+							tabbed.setEnabledAt(1, false);
+						}
+					}
+				}""");
 		// prepare source
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = tabbed.getChildrenComponents().get(0);
 		// do move
 		button.delete();
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('111', button);",
-				"      tabbed.setEnabledAt(0, false);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("111", button);
+							tabbed.setEnabledAt(0, false);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_OUT() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      tabbed.addTab('000', button);",
-						"      tabbed.setEnabledAt(0, false);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      tabbed.addTab('111', button);",
-						"      tabbed.setEnabledAt(1, false);",
-						"    }",
-						"    {",
-						"      JPanel innerPanel = new JPanel();",
-						"      add(innerPanel);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("000", button);
+							tabbed.setEnabledAt(0, false);
+						}
+						{
+							JButton button = new JButton();
+							tabbed.addTab("111", button);
+							tabbed.setEnabledAt(1, false);
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+						}
+					}
+				}""");
 		// prepare source
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = tabbed.getChildrenComponents().get(0);
@@ -814,46 +795,45 @@ public class JTabbedPaneTest extends SwingModelTest {
 		FlowLayoutInfo innerLayout = (FlowLayoutInfo) innerPanel.getLayout();
 		// do move
 		innerLayout.move(button, null);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('111', button);",
-				"      tabbed.setEnabledAt(0, false);",
-				"    }",
-				"    {",
-				"      JPanel innerPanel = new JPanel();",
-				"      add(innerPanel);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        innerPanel.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("111", button);
+							tabbed.setEnabledAt(0, false);
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+							{
+								JButton button = new JButton();
+								innerPanel.add(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_MOVE_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      tabbed.addTab('111', button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      tabbed.addTab('222', button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button_1 = new JButton();
+							tabbed.addTab("111", button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							tabbed.addTab("222", button_2);
+						}
+					}
+				}""");
 		panel.refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button_1 = tabbed.getChildrenComponents().get(0);
@@ -866,43 +846,42 @@ public class JTabbedPaneTest extends SwingModelTest {
 		} finally {
 			tabbed.endEdit();
 		}
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      tabbed.addTab('222', button_2);",
-				"    }",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      tabbed.addTab('111', button_1);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button_2 = new JButton();
+							tabbed.addTab("222", button_2);
+						}
+						{
+							JButton button_1 = new JButton();
+							tabbed.addTab("111", button_1);
+						}
+					}
+				}""");
 		// active tab still should be "111"
 		assertSame(button_1, tabbed.getActiveComponent());
 	}
 
 	@Test
 	public void test_MOVE_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      tabbed.addTab('111', button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      tabbed.addTab('222', button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button_1 = new JButton();
+							tabbed.addTab("111", button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							tabbed.addTab("222", button_2);
+						}
+					}
+				}""");
 		panel.refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button_1 = tabbed.getChildrenComponents().get(0);
@@ -913,51 +892,50 @@ public class JTabbedPaneTest extends SwingModelTest {
 			FlowContainer flowContainer = new FlowContainerFactory(tabbed, false).get().get(0);
 			flowContainer.command_MOVE(button_2, button_1);
 		}
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      tabbed.addTab('222', button_2);",
-				"    }",
-				"    {",
-				"      JButton button_1 = new JButton();",
-				"      tabbed.addTab('111', button_1);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button_2 = new JButton();
+							tabbed.addTab("222", button_2);
+						}
+						{
+							JButton button_1 = new JButton();
+							tabbed.addTab("111", button_1);
+						}
+					}
+				}""");
 		// active tab still should be "111"
 		assertSame(button_1, tabbed.getActiveComponent());
 	}
 
 	@Test
 	public void test_MOVE_atForward() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    //",
-						"    JButton button_0 = new JButton();",
-						"    tabbed.addTab('000', button_0);",
-						"    tabbed.setToolTipTextAt(0, '000');",
-						"    //",
-						"    JButton button_1 = new JButton();",
-						"    tabbed.addTab('111', button_1);",
-						"    tabbed.setToolTipTextAt(1, '111');",
-						"    //",
-						"    JButton button_2 = new JButton();",
-						"    tabbed.addTab('222', button_2);",
-						"    tabbed.setToolTipTextAt(2, '222');",
-						"    //",
-						"    JButton button_3 = new JButton();",
-						"    tabbed.addTab('333', button_3);",
-						"    tabbed.setToolTipTextAt(3, '333');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						//
+						JButton button_0 = new JButton();
+						tabbed.addTab("000", button_0);
+						tabbed.setToolTipTextAt(0, "000");
+						//
+						JButton button_1 = new JButton();
+						tabbed.addTab("111", button_1);
+						tabbed.setToolTipTextAt(1, "111");
+						//
+						JButton button_2 = new JButton();
+						tabbed.addTab("222", button_2);
+						tabbed.setToolTipTextAt(2, "222");
+						//
+						JButton button_3 = new JButton();
+						tabbed.addTab("333", button_3);
+						tabbed.setToolTipTextAt(3, "333");
+					}
+				}""");
 		// prepare source
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button_1 = tabbed.getChildrenComponents().get(1);
@@ -969,57 +947,56 @@ public class JTabbedPaneTest extends SwingModelTest {
 		} finally {
 			tabbed.endEdit();
 		}
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    //",
-				"    JButton button_0 = new JButton();",
-				"    tabbed.addTab('000', button_0);",
-				"    tabbed.setToolTipTextAt(0, '000');",
-				"    //",
-				"    JButton button_2 = new JButton();",
-				"    tabbed.addTab('222', button_2);",
-				"    tabbed.setToolTipTextAt(1, '222');",
-				"    //",
-				"    JButton button_1 = new JButton();",
-				"    tabbed.addTab('111', button_1);",
-				"    tabbed.setToolTipTextAt(2, '111');",
-				"    //",
-				"    JButton button_3 = new JButton();",
-				"    tabbed.addTab('333', button_3);",
-				"    tabbed.setToolTipTextAt(3, '333');",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						//
+						JButton button_0 = new JButton();
+						tabbed.addTab("000", button_0);
+						tabbed.setToolTipTextAt(0, "000");
+						//
+						JButton button_2 = new JButton();
+						tabbed.addTab("222", button_2);
+						tabbed.setToolTipTextAt(1, "222");
+						//
+						JButton button_1 = new JButton();
+						tabbed.addTab("111", button_1);
+						tabbed.setToolTipTextAt(2, "111");
+						//
+						JButton button_3 = new JButton();
+						tabbed.addTab("333", button_3);
+						tabbed.setToolTipTextAt(3, "333");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_MOVE_atBackward() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    //",
-						"    JButton button_0 = new JButton();",
-						"    tabbed.addTab('000', button_0);",
-						"    tabbed.setToolTipTextAt(0, '000');",
-						"    //",
-						"    JButton button_1 = new JButton();",
-						"    tabbed.addTab('111', button_1);",
-						"    tabbed.setToolTipTextAt(1, '111');",
-						"    //",
-						"    JButton button_2 = new JButton();",
-						"    tabbed.addTab('222', button_2);",
-						"    tabbed.setToolTipTextAt(2, '222');",
-						"    //",
-						"    JButton button_3 = new JButton();",
-						"    tabbed.addTab('333', button_3);",
-						"    tabbed.setToolTipTextAt(3, '333');",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						//
+						JButton button_0 = new JButton();
+						tabbed.addTab("000", button_0);
+						tabbed.setToolTipTextAt(0, "000");
+						//
+						JButton button_1 = new JButton();
+						tabbed.addTab("111", button_1);
+						tabbed.setToolTipTextAt(1, "111");
+						//
+						JButton button_2 = new JButton();
+						tabbed.addTab("222", button_2);
+						tabbed.setToolTipTextAt(2, "222");
+						//
+						JButton button_3 = new JButton();
+						tabbed.addTab("333", button_3);
+						tabbed.setToolTipTextAt(3, "333");
+					}
+				}""");
 		// prepare source
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button_1 = tabbed.getChildrenComponents().get(1);
@@ -1031,50 +1008,49 @@ public class JTabbedPaneTest extends SwingModelTest {
 		} finally {
 			tabbed.endEdit();
 		}
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    //",
-				"    JButton button_0 = new JButton();",
-				"    tabbed.addTab('000', button_0);",
-				"    tabbed.setToolTipTextAt(0, '000');",
-				"    //",
-				"    JButton button_2 = new JButton();",
-				"    tabbed.addTab('222', button_2);",
-				"    tabbed.setToolTipTextAt(1, '222');",
-				"    //",
-				"    JButton button_1 = new JButton();",
-				"    tabbed.addTab('111', button_1);",
-				"    tabbed.setToolTipTextAt(2, '111');",
-				"    //",
-				"    JButton button_3 = new JButton();",
-				"    tabbed.addTab('333', button_3);",
-				"    tabbed.setToolTipTextAt(3, '333');",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						//
+						JButton button_0 = new JButton();
+						tabbed.addTab("000", button_0);
+						tabbed.setToolTipTextAt(0, "000");
+						//
+						JButton button_2 = new JButton();
+						tabbed.addTab("222", button_2);
+						tabbed.setToolTipTextAt(1, "222");
+						//
+						JButton button_1 = new JButton();
+						tabbed.addTab("111", button_1);
+						tabbed.setToolTipTextAt(2, "111");
+						//
+						JButton button_3 = new JButton();
+						tabbed.addTab("333", button_3);
+						tabbed.setToolTipTextAt(3, "333");
+					}
+				}""");
 	}
 
 	@Test
 	public void test_MOVE_atSeveral() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    //",
-						"    JButton button_0 = new JButton();",
-						"    tabbed.addTab('000', button_0);",
-						"    tabbed.setToolTipTextAt(0, '000');",
-						"    //",
-						"    JButton button_1 = new JButton();",
-						"    tabbed.addTab('111', button_1);",
-						"    tabbed.setToolTipTextAt(1, '111');",
-						"    tabbed.setEnabledAt(1, false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						//
+						JButton button_0 = new JButton();
+						tabbed.addTab("000", button_0);
+						tabbed.setToolTipTextAt(0, "000");
+						//
+						JButton button_1 = new JButton();
+						tabbed.addTab("111", button_1);
+						tabbed.setToolTipTextAt(1, "111");
+						tabbed.setEnabledAt(1, false);
+					}
+				}""");
 		// prepare source
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button_0 = tabbed.getChildrenComponents().get(0);
@@ -1086,22 +1062,22 @@ public class JTabbedPaneTest extends SwingModelTest {
 		} finally {
 			tabbed.endEdit();
 		}
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    //",
-				"    JButton button_1 = new JButton();",
-				"    tabbed.addTab('111', button_1);",
-				"    tabbed.setToolTipTextAt(0, '111');",
-				"    tabbed.setEnabledAt(0, false);",
-				"    //",
-				"    JButton button_0 = new JButton();",
-				"    tabbed.addTab('000', button_0);",
-				"    tabbed.setToolTipTextAt(1, '000');",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						//
+						JButton button_1 = new JButton();
+						tabbed.addTab("111", button_1);
+						tabbed.setToolTipTextAt(0, "111");
+						tabbed.setEnabledAt(0, false);
+						//
+						JButton button_0 = new JButton();
+						tabbed.addTab("000", button_0);
+						tabbed.setToolTipTextAt(1, "000");
+					}
+				}""");
 	}
 
 	/**
@@ -1109,34 +1085,33 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_MOVE_beforeAlreadyNext() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      tabbed.addTab('tab', button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("tab", button);
+						}
+					}
+				}""");
 		panel.refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = tabbed.getChildrenComponents().get(0);
 		// do move
 		tabbed.command_MOVE(button, null);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('tab', button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("tab", button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1144,34 +1119,33 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_MOVE_beforeItself() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      tabbed.addTab('tab', button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("tab", button);
+						}
+					}
+				}""");
 		panel.refresh();
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = tabbed.getChildrenComponents().get(0);
 		// do move
 		tabbed.command_MOVE(button, button);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('tab', button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("tab", button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1181,27 +1155,26 @@ public class JTabbedPaneTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ADD_beforeExisting() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button_0 = new JButton();",
-						"      tabbed.addTab('000', button_0);",
-						"      tabbed.setToolTipTextAt(0, '000');",
-						"    }",
-						"    {",
-						"      JPanel innerPanel = new JPanel();",
-						"      add(innerPanel);",
-						"      {",
-						"        JButton button = new JButton();",
-						"        innerPanel.add(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button_0 = new JButton();
+							tabbed.addTab("000", button_0);
+							tabbed.setToolTipTextAt(0, "000");
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+							{
+								JButton button = new JButton();
+								innerPanel.add(button);
+							}
+						}
+					}
+				}""");
 		panel.refresh();
 		JTabbedPaneInfo tabbed = getJavaInfoByName("tabbed");
 		ComponentInfo button_0 = getJavaInfoByName("button_0");
@@ -1209,89 +1182,87 @@ public class JTabbedPaneTest extends SwingModelTest {
 		//
 		ComponentInfo button = getJavaInfoByName("button");
 		tabbed.command_ADD(button, button_0);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('New tab', null, button, null);",
-				"    }",
-				"    {",
-				"      JButton button_0 = new JButton();",
-				"      tabbed.addTab('000', button_0);",
-				"      tabbed.setToolTipTextAt(1, '000');",
-				"    }",
-				"    {",
-				"      JPanel innerPanel = new JPanel();",
-				"      add(innerPanel);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("New tab", null, button, null);
+						}
+						{
+							JButton button_0 = new JButton();
+							tabbed.addTab("000", button_0);
+							tabbed.setToolTipTextAt(1, "000");
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+						}
+					}
+				}""");
 		assertSame(button, tabbed.getActiveComponent());
 	}
 
 	@Test
 	public void test_ADD_first() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    {",
-						"      JTabbedPane tabbed = new JTabbedPane();",
-						"      add(tabbed);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						{
+							JTabbedPane tabbed = new JTabbedPane();
+							add(tabbed);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		JTabbedPaneInfo tabbed = getJavaInfoByName("tabbed");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		tabbed.command_ADD(button, null);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    {",
-				"      JTabbedPane tabbed = new JTabbedPane();",
-				"      add(tabbed);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        tabbed.addTab('New tab', null, button, null);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						{
+							JTabbedPane tabbed = new JTabbedPane();
+							add(tabbed);
+							{
+								JButton button = new JButton();
+								tabbed.addTab("New tab", null, button, null);
+							}
+						}
+					}
+				}""");
 		assertSame(button, tabbed.getActiveComponent());
 	}
 
 	@Test
 	public void test_ADD_tree() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button_0 = new JButton();",
-						"      tabbed.addTab('000', button_0);",
-						"      tabbed.setToolTipTextAt(0, '000');",
-						"    }",
-						"    {",
-						"      JPanel innerPanel = new JPanel();",
-						"      add(innerPanel);",
-						"      {",
-						"        JButton button = new JButton();",
-						"        innerPanel.add(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button_0 = new JButton();
+							tabbed.addTab("000", button_0);
+							tabbed.setToolTipTextAt(0, "000");
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+							{
+								JButton button = new JButton();
+								innerPanel.add(button);
+							}
+						}
+					}
+				}""");
 		panel.refresh();
 		JTabbedPaneInfo tabbed = getJavaInfoByName("tabbed");
 		ComponentInfo button_0 = getJavaInfoByName("button_0");
@@ -1302,26 +1273,26 @@ public class JTabbedPaneTest extends SwingModelTest {
 			FlowContainer flowContainer = new FlowContainerFactory(tabbed, false).get().get(0);
 			flowContainer.command_MOVE(button, button_0);
 		}
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JTabbedPane tabbed = new JTabbedPane();",
-				"    add(tabbed);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      tabbed.addTab('New tab', null, button, null);",
-				"    }",
-				"    {",
-				"      JButton button_0 = new JButton();",
-				"      tabbed.addTab('000', button_0);",
-				"      tabbed.setToolTipTextAt(1, '000');",
-				"    }",
-				"    {",
-				"      JPanel innerPanel = new JPanel();",
-				"      add(innerPanel);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button = new JButton();
+							tabbed.addTab("New tab", null, button, null);
+						}
+						{
+							JButton button_0 = new JButton();
+							tabbed.addTab("000", button_0);
+							tabbed.setToolTipTextAt(1, "000");
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+						}
+					}
+				}""");
 		assertSame(button, tabbed.getActiveComponent());
 	}
 
@@ -1335,26 +1306,25 @@ public class JTabbedPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_selecting() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JTabbedPane tabbed = new JTabbedPane();",
-						"    add(tabbed);",
-						"    {",
-						"      JButton button_0 = new JButton();",
-						"      tabbed.addTab('000', button_0);",
-						"    }",
-						"    {",
-						"      JPanel innerPanel = new JPanel();",
-						"      tabbed.add(innerPanel);",
-						"      {",
-						"        JButton button = new JButton();",
-						"        innerPanel.add(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane();
+						add(tabbed);
+						{
+							JButton button_0 = new JButton();
+							tabbed.addTab("000", button_0);
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							tabbed.add(innerPanel);
+							{
+								JButton button = new JButton();
+								innerPanel.add(button);
+							}
+						}
+					}
+				}""");
 		//
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button_0 = tabbed.getChildrenComponents().get(0);

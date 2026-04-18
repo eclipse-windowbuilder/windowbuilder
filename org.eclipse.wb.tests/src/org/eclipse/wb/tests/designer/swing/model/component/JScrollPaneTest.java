@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -49,16 +49,15 @@ public class JScrollPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_association_constructor() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JButton button = new JButton();",
-						"    //",
-						"    JScrollPane scroll = new JScrollPane(button);",
-						"    add(scroll);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JButton button = new JButton();
+						//
+						JScrollPane scroll = new JScrollPane(button);
+						add(scroll);
+					}
+				}""");
 		JScrollPaneInfo scroll = (JScrollPaneInfo) panel.getChildrenComponents().get(0);
 		assertEquals(1, scroll.getChildrenComponents().size());
 		// check association
@@ -80,18 +79,17 @@ public class JScrollPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_association_setColumnHeaderView() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JScrollPane scroll = new JScrollPane();",
-						"    add(scroll);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      scroll.setColumnHeaderView(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JButton button = new JButton();
+							scroll.setColumnHeaderView(button);
+						}
+					}
+				}""");
 		JScrollPaneInfo scroll = (JScrollPaneInfo) panel.getChildrenComponents().get(0);
 		assertEquals(1, scroll.getChildrenComponents().size());
 		// check association
@@ -114,33 +112,33 @@ public class JScrollPaneTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getViewport_add() throws Exception {
-		parseContainer(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JScrollPane scroll = new JScrollPane();",
-				"    add(scroll);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      scroll.getViewport().add(button);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(scroll)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JScrollPane} {local-unique: scroll} {/new JScrollPane()/ /add(scroll)/ /scroll.setViewportView(button)/}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /scroll.setViewportView(button)/}");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JScrollPane scroll = new JScrollPane();",
-				"    add(scroll);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      scroll.setViewportView(button);",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JButton button = new JButton();
+							scroll.getViewport().add(button);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(scroll)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JScrollPane} {local-unique: scroll} {/new JScrollPane()/ /add(scroll)/ /scroll.setViewportView(button)/}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /scroll.setViewportView(button)/}""");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JButton button = new JButton();
+							scroll.setViewportView(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -150,14 +148,13 @@ public class JScrollPaneTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JScrollPane scroll = new JScrollPane();",
-						"    add(scroll);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+					}
+				}""");
 		JScrollPaneInfo scroll = (JScrollPaneInfo) panel.getChildrenComponents().get(0);
 		// add component
 		{
@@ -165,17 +162,17 @@ public class JScrollPaneTest extends SwingModelTest {
 			scroll.command_CREATE(newComponent, "setRowHeaderView");
 			assertInstanceOf(InvocationChildAssociation.class, newComponent.getAssociation());
 		}
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JScrollPane scroll = new JScrollPane();",
-				"    add(scroll);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      scroll.setRowHeaderView(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JButton button = new JButton();
+							scroll.setRowHeaderView(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -185,22 +182,21 @@ public class JScrollPaneTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_OUT() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JScrollPane scroll = new JScrollPane();",
-						"    add(scroll);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      scroll.setRowHeaderView(button);",
-						"    }",
-						"    {",
-						"      JPanel innerPanel = new JPanel();",
-						"      add(innerPanel);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JButton button = new JButton();
+							scroll.setRowHeaderView(button);
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+						}
+					}
+				}""");
 		// prepare source
 		JScrollPaneInfo scroll = (JScrollPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = scroll.getChildrenComponents().get(0);
@@ -209,53 +205,52 @@ public class JScrollPaneTest extends SwingModelTest {
 		FlowLayoutInfo innerLayout = (FlowLayoutInfo) innerPanel.getLayout();
 		// do move
 		innerLayout.move(button, null);
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JScrollPane scroll = new JScrollPane();",
-				"    add(scroll);",
-				"    {",
-				"      JPanel innerPanel = new JPanel();",
-				"      add(innerPanel);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        innerPanel.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+							{
+								JButton button = new JButton();
+								innerPanel.add(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_MOVE() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JScrollPane scroll = new JScrollPane();",
-						"    add(scroll);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      scroll.setRowHeaderView(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JButton button = new JButton();
+							scroll.setRowHeaderView(button);
+						}
+					}
+				}""");
 		// prepare source
 		JScrollPaneInfo scroll = (JScrollPaneInfo) panel.getChildrenComponents().get(0);
 		ComponentInfo button = scroll.getChildrenComponents().get(0);
 		// do move
 		scroll.command_MOVE(button, "setColumnHeaderView");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JScrollPane scroll = new JScrollPane();",
-				"    add(scroll);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      scroll.setColumnHeaderView(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JButton button = new JButton();
+							scroll.setColumnHeaderView(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -265,41 +260,40 @@ public class JScrollPaneTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ADD() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JScrollPane scroll = new JScrollPane();",
-						"    add(scroll);",
-						"    {",
-						"      JPanel innerPanel = new JPanel();",
-						"      add(innerPanel);",
-						"      {",
-						"        JButton button = new JButton();",
-						"        innerPanel.add(button);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+							{
+								JButton button = new JButton();
+								innerPanel.add(button);
+							}
+						}
+					}
+				}""");
 		JScrollPaneInfo scroll = (JScrollPaneInfo) panel.getChildrenComponents().get(0);
 		ContainerInfo innerPanel = (ContainerInfo) panel.getChildrenComponents().get(1);
 		ComponentInfo button = innerPanel.getChildrenComponents().get(0);
 		//
 		scroll.command_ADD(button, "setRowHeaderView");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    JScrollPane scroll = new JScrollPane();",
-				"    add(scroll);",
-				"    {",
-				"      JButton button = new JButton();",
-				"      scroll.setRowHeaderView(button);",
-				"    }",
-				"    {",
-				"      JPanel innerPanel = new JPanel();",
-				"      add(innerPanel);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						JScrollPane scroll = new JScrollPane();
+						add(scroll);
+						{
+							JButton button = new JButton();
+							scroll.setRowHeaderView(button);
+						}
+						{
+							JPanel innerPanel = new JPanel();
+							add(innerPanel);
+						}
+					}
+				}""");
 	}
 }

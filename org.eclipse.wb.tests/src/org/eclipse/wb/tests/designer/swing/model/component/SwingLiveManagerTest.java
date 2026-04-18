@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -58,13 +58,12 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_GlobalState() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		// initial "active"
 		assertSame(panel, GlobalState.getActiveObject());
@@ -83,13 +82,12 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_create() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		//
 		ComponentInfo button_1 = createJButton();
@@ -107,32 +105,27 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_liveImage_forcedSize() throws Exception {
-		setFileContentSrc(
-				"test/MyCanvas.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyCanvas extends Canvas {",
-						"}"));
-		setFileContentSrc(
-				"test/MyCanvas.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='liveComponent.forcedSize.width'>100</parameter>",
-						"    <parameter name='liveComponent.forcedSize.height'>50</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyCanvas.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyCanvas extends Canvas {
+				}"""));
+		setFileContentSrc("test/MyCanvas.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="liveComponent.forcedSize.width">100</parameter>
+						<parameter name="liveComponent.forcedSize.height">50</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo newComponent =
 				(ComponentInfo) JavaInfoUtils.createJavaInfo(
@@ -154,23 +147,20 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_whenException() throws Exception {
-		setFileContentSrc(
-				"test/MyCanvas.java",
-				getTestSource(
-						"public class MyCanvas extends Canvas {",
-						"  public void paint(Graphics g) {",
-						"    throw new IllegalStateException('Problem in constructor');",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyCanvas.java", getTestSource("""
+				public class MyCanvas extends Canvas {
+					public void paint(Graphics g) {
+						throw new IllegalStateException("Problem in constructor");
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		String originalSource = m_lastEditor.getSource();
 		// ask "live" first time
@@ -252,13 +242,12 @@ public class SwingLiveManagerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_liveBaseline() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		// prepare new JButton
 		ComponentInfo newButton = createJavaInfo("javax.swing.JButton");
@@ -268,16 +257,16 @@ public class SwingLiveManagerTest extends SwingModelTest {
 		assertTrue(liveBaseline > 0);
 		// drop JButton
 		((FlowLayoutInfo) panel.getLayout()).add(newButton, null);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton("New button");
+							add(button);
+						}
+					}
+				}""");
 		// same baseline as "live"
 		int baseline = newButton.getBaseline();
 		assertEquals(baseline, liveBaseline);

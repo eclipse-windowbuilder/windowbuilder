@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,22 +35,22 @@ public class JListTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parsing() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JList list = new JList();",
-				"    add(list);",
-				"    list.setModel(new AbstractListModel() {",
-				"      String[] values = {'111', '222', '333'};",
-				"      public int getSize() {",
-				"        return values.length;",
-				"      }",
-				"      public Object getElementAt(int i) {",
-				"        return values[i];",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						add(list);
+						list.setModel(new AbstractListModel() {
+							String[] values = {"111", "222", "333"};
+							public int getSize() {
+								return values.length;
+							}
+							public Object getElementAt(int i) {
+								return values[i];
+							}
+						});
+					}
+				}""");
 		refresh();
 		ComponentInfo listInfo = getJavaInfoByName("list");
 		JList<?> listObject = (JList<?>) listInfo.getObject();
@@ -76,22 +76,22 @@ public class JListTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_nullModelValues() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JList list = new JList();",
-				"    add(list);",
-				"    list.setModel(new AbstractListModel() {",
-				"      String[] values = null;",
-				"      public int getSize() {",
-				"        return values.length;",
-				"      }",
-				"      public Object getElementAt(int i) {",
-				"        return values[i];",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						add(list);
+						list.setModel(new AbstractListModel() {
+							String[] values = null;
+							public int getSize() {
+								return values.length;
+							}
+							public Object getElementAt(int i) {
+								return values[i];
+							}
+						});
+					}
+				}""");
 		refresh();
 		ComponentInfo listInfo = getJavaInfoByName("list");
 		JList<?> listObject = (JList<?>) listInfo.getObject();
@@ -108,54 +108,54 @@ public class JListTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setSelectedIndex() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JList list = new JList();",
-				"    add(list);",
-				"    list.setModel(new AbstractListModel() {",
-				"      String[] values = {'111', '222', '333'};",
-				"      public int getSize() {",
-				"        return values.length;",
-				"      }",
-				"      public Object getElementAt(int i) {",
-				"        return values[i];",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						add(list);
+						list.setModel(new AbstractListModel() {
+							String[] values = {"111", "222", "333"};
+							public int getSize() {
+								return values.length;
+							}
+							public Object getElementAt(int i) {
+								return values[i];
+							}
+						});
+					}
+				}""");
 		refresh();
 		ComponentInfo listInfo = getJavaInfoByName("list");
 		//
 		listInfo.getPropertyByTitle("selectedIndex").setValue(1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JList list = new JList();",
-				"    add(list);",
-				"    list.setModel(new AbstractListModel() {",
-				"      String[] values = {'111', '222', '333'};",
-				"      public int getSize() {",
-				"        return values.length;",
-				"      }",
-				"      public Object getElementAt(int i) {",
-				"        return values[i];",
-				"      }",
-				"    });",
-				"    list.setSelectedIndex(1);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						add(list);
+						list.setModel(new AbstractListModel() {
+							String[] values = {"111", "222", "333"};
+							public int getSize() {
+								return values.length;
+							}
+							public Object getElementAt(int i) {
+								return values[i];
+							}
+						});
+						list.setSelectedIndex(1);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_modelEditor() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JList list = new JList();",
-				"    add(list);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						add(list);
+					}
+				}""");
 		refresh();
 		//
 		ComponentInfo listInfo = getJavaInfoByName("list");
@@ -164,21 +164,21 @@ public class JListTest extends SwingModelTest {
 		assertEquals(0, ListModelPropertyEditor.getItems(modelProperty).length);
 		// set new items
 		ListModelPropertyEditor.setItems(modelProperty, new String[]{"aaa", "bbb"});
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JList list = new JList();",
-				"    list.setModel(new AbstractListModel() {",
-				"      String[] values = new String[] {'aaa', 'bbb'};",
-				"      public int getSize() {",
-				"        return values.length;",
-				"      }",
-				"      public Object getElementAt(int index) {",
-				"        return values[index];",
-				"      }",
-				"    });",
-				"    add(list);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						list.setModel(new AbstractListModel() {
+							String[] values = new String[] {"aaa", "bbb"};
+							public int getSize() {
+								return values.length;
+							}
+							public Object getElementAt(int index) {
+								return values[index];
+							}
+						});
+						add(list);
+					}
+				}""");
 	}
 }

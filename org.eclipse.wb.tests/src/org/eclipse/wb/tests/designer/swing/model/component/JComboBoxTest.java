@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,21 +35,20 @@ public class JComboBoxTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_addItem() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JComboBox combo = new JComboBox();",
-						"    add(combo);",
-						"    combo.addItem('a');",
-						"    combo.addItem('b');",
-						"    combo.setSelectedIndex(1);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(combo)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JComboBox} {local-unique: combo} {/new JComboBox()/ /add(combo)/ /combo.addItem('a')/ /combo.addItem('b')/ /combo.setSelectedIndex(1)/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComboBox combo = new JComboBox();
+						add(combo);
+						combo.addItem("a");
+						combo.addItem("b");
+						combo.setSelectedIndex(1);
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(combo)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JComboBox} {local-unique: combo} {/new JComboBox()/ /add(combo)/ /combo.addItem("a")/ /combo.addItem("b")/ /combo.setSelectedIndex(1)/}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}

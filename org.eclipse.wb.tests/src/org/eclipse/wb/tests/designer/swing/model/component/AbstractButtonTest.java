@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,34 +38,22 @@ public class AbstractButtonTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_horizontal() throws Exception {
-		ContainerInfo panel =
-				(ContainerInfo) parseSource(
-						"test",
-						"Test.java",
-						getSourceDQ(
-								"package test;",
-								"import javax.swing.*;",
-								"class Test extends JPanel {",
-								"  Test() {",
-								"    add(new JButton());",
-								"  }",
-								"}"));
+		ContainerInfo panel = (ContainerInfo) parseSource("test", "Test.java", """
+				package test;
+				import javax.swing.*;
+				class Test extends JPanel {
+					Test() {
+						add(new JButton());
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
-		checkStaticFieldsProperty(button, "horizontalAlignment", new String[]{
-				"LEFT",
-				"CENTER",
-				"RIGHT",
-				"LEADING",
-		"TRAILING"});
-		checkStaticFieldsProperty(button, "verticalTextPosition", new String[]{
-				"TOP",
-				"CENTER",
-		"BOTTOM"});
+		checkStaticFieldsProperty(button, "horizontalAlignment", "LEFT", "CENTER", "RIGHT", "LEADING", "TRAILING");
+		checkStaticFieldsProperty(button, "verticalTextPosition", "TOP", "CENTER", "BOTTOM");
 	}
 
 	private void checkStaticFieldsProperty(ComponentInfo button,
 			String propertyTitle,
-			String[] expectedNames) throws Exception, NoSuchFieldException, IllegalAccessException {
+			String... expectedNames) throws Exception, NoSuchFieldException, IllegalAccessException {
 		// prepare property
 		Property property = button.getPropertyByTitle(propertyTitle);
 		assertNotNull(property);

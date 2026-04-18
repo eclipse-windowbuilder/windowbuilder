@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,16 +47,15 @@ public class JDialogTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		JDialogInfo dialog =
-				(JDialogInfo) parseContainer(
-						"public class Test extends JDialog {",
-						"  public Test() {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JDialog} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		JDialogInfo dialog = (JDialogInfo) parseContainer("""
+				public class Test extends JDialog {
+					public Test() {
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JDialog} {this} {}
+					{method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 		// refresh()
 		dialog.refresh();
 		assertNoErrors(dialog);
@@ -87,34 +86,34 @@ public class JDialogTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_parseWithout_getContentPane_this() throws Exception {
-		parseJavaInfo(
-				"public class Test extends JDialog {",
-				"  public Test() {",
-				"    setModal(true);",
-				"    setLayout(new FlowLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      this.add(button);",
-				"    }",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				public class Test extends JDialog {
+					public Test() {
+						setModal(true);
+						setLayout(new FlowLayout());
+						{
+							JButton button = new JButton();
+							this.add(button);
+						}
+					}
+				}""");
 		// rewritten to use getContentPane()
-		assertEditor(
-				"public class Test extends JDialog {",
-				"  public Test() {",
-				"    setModal(true);",
-				"    getContentPane().setLayout(new FlowLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      getContentPane().add(button);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JDialog} {this} {/setModal(true)/}",
-				"  {method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {/getContentPane().setLayout(new FlowLayout())/ /getContentPane().add(button)/}",
-				"    {new: java.awt.FlowLayout} {empty} {/getContentPane().setLayout(new FlowLayout())/}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /getContentPane().add(button)/}");
+		assertEditor("""
+				public class Test extends JDialog {
+					public Test() {
+						setModal(true);
+						getContentPane().setLayout(new FlowLayout());
+						{
+							JButton button = new JButton();
+							getContentPane().add(button);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JDialog} {this} {/setModal(true)/}
+					{method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {/getContentPane().setLayout(new FlowLayout())/ /getContentPane().add(button)/}
+						{new: java.awt.FlowLayout} {empty} {/getContentPane().setLayout(new FlowLayout())/}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /getContentPane().add(button)/}""");
 	}
 
 	/**
@@ -123,34 +122,34 @@ public class JDialogTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_parseWithout_getContentPane_instance() throws Exception {
-		parseJavaInfo(
-				"public class Test {",
-				"  public static void main(String[] args) {",
-				"    JDialog dialog = new JDialog();",
-				"    dialog.setLayout(new FlowLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      dialog.add(button);",
-				"    }",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				public class Test {
+					public static void main(String[] args) {
+						JDialog dialog = new JDialog();
+						dialog.setLayout(new FlowLayout());
+						{
+							JButton button = new JButton();
+							dialog.add(button);
+						}
+					}
+				}""");
 		// rewritten to use getContentPane()
-		assertEditor(
-				"public class Test {",
-				"  public static void main(String[] args) {",
-				"    JDialog dialog = new JDialog();",
-				"    dialog.getContentPane().setLayout(new FlowLayout());",
-				"    {",
-				"      JButton button = new JButton();",
-				"      dialog.getContentPane().add(button);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: javax.swing.JDialog} {local-unique: dialog} {/new JDialog()/ /dialog.getContentPane()/ /dialog.getContentPane()/}",
-				"  {method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {/dialog.getContentPane().setLayout(new FlowLayout())/ /dialog.getContentPane().add(button)/}",
-				"    {new: java.awt.FlowLayout} {empty} {/dialog.getContentPane().setLayout(new FlowLayout())/}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /dialog.getContentPane().add(button)/}");
+		assertEditor("""
+				public class Test {
+					public static void main(String[] args) {
+						JDialog dialog = new JDialog();
+						dialog.getContentPane().setLayout(new FlowLayout());
+						{
+							JButton button = new JButton();
+							dialog.getContentPane().add(button);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JDialog} {local-unique: dialog} {/new JDialog()/ /dialog.getContentPane()/ /dialog.getContentPane()/}
+					{method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {/dialog.getContentPane().setLayout(new FlowLayout())/ /dialog.getContentPane().add(button)/}
+						{new: java.awt.FlowLayout} {empty} {/dialog.getContentPane().setLayout(new FlowLayout())/}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /dialog.getContentPane().add(button)/}""");
 	}
 
 	/**
@@ -159,29 +158,29 @@ public class JDialogTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_rewrite_setLayout_noCorrectSignature() throws Exception {
-		parseJavaInfo(
-				"public class Test extends JDialog {",
-				"  public Test() {",
-				"    setLayout();",
-				"  }",
-				"  private void setLayout() {",
-				"    getContentPane().setLayout(new FlowLayout());",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				public class Test extends JDialog {
+					public Test() {
+						setLayout();
+					}
+					private void setLayout() {
+						getContentPane().setLayout(new FlowLayout());
+					}
+				}""");
 		// no rewrite
-		assertEditor(
-				"public class Test extends JDialog {",
-				"  public Test() {",
-				"    setLayout();",
-				"  }",
-				"  private void setLayout() {",
-				"    getContentPane().setLayout(new FlowLayout());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JDialog} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {/getContentPane().setLayout(new FlowLayout())/}",
-				"    {new: java.awt.FlowLayout} {empty} {/getContentPane().setLayout(new FlowLayout())/}");
+		assertEditor("""
+				public class Test extends JDialog {
+					public Test() {
+						setLayout();
+					}
+					private void setLayout() {
+						getContentPane().setLayout(new FlowLayout());
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JDialog} {this} {}
+					{method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {/getContentPane().setLayout(new FlowLayout())/}
+						{new: java.awt.FlowLayout} {empty} {/getContentPane().setLayout(new FlowLayout())/}""");
 	}
 
 	/**
@@ -191,31 +190,31 @@ public class JDialogTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_rewrite_setLayout_ofInnerJPanel() throws Exception {
-		parseJavaInfo(
-				"public class Test extends JDialog {",
-				"  private static class Inner extends JPanel {",
-				"    public Inner() {",
-				"      setLayout(new FlowLayout());",
-				"    }",
-				"  }",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				public class Test extends JDialog {
+					private static class Inner extends JPanel {
+						public Inner() {
+							setLayout(new FlowLayout());
+						}
+					}
+					public Test() {
+					}
+				}""");
 		// no changes
-		assertEditor(
-				"public class Test extends JDialog {",
-				"  private static class Inner extends JPanel {",
-				"    public Inner() {",
-				"      setLayout(new FlowLayout());",
-				"    }",
-				"  }",
-				"  public Test() {",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JDialog} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		assertEditor("""
+				public class Test extends JDialog {
+					private static class Inner extends JPanel {
+						public Inner() {
+							setLayout(new FlowLayout());
+						}
+					}
+					public Test() {
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JDialog} {this} {}
+					{method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -230,10 +229,10 @@ public class JDialogTest extends SwingModelTest {
 					}
 				}
 				""");
-		assertHierarchy(
-				"{this: javax.swing.JDialog} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: javax.swing.JDialog} {this} {}
+					{method: public java.awt.Container javax.swing.JDialog.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 		// refresh()
 		dialog.refresh();
 		assertNoErrors(dialog);

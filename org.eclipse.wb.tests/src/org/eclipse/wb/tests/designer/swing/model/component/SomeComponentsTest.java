@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,18 +48,14 @@ public class SomeComponentsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JEditorPane() throws Exception {
-		ContainerInfo panel =
-				(ContainerInfo) parseSource(
-						"test",
-						"Test.java",
-						getSourceDQ(
-								"package test;",
-								"import javax.swing.*;",
-								"class Test extends JPanel {",
-								"  Test() {",
-								"    add(new JEditorPane());",
-								"  }",
-								"}"));
+		ContainerInfo panel = (ContainerInfo) parseSource("test", "Test.java", """
+				package test;
+				import javax.swing.*;
+				class Test extends JPanel {
+					Test() {
+						add(new JEditorPane());
+					}
+				}""");
 		ComponentInfo editorPane = panel.getChildrenComponents().get(0);
 		// we have both properties, so String variant uses qualified title
 		assertNotNull(editorPane.getPropertyByTitle("page(java.lang.String)"));
@@ -74,21 +70,21 @@ public class SomeComponentsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_Canvas_JScrollPane() throws Exception {
-		parseJavaInfo(
-				"import java.awt.Canvas;",
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout());",
-				"    {",
-				"      JScrollPane scrollPane = new JScrollPane();",
-				"      add(scrollPane);",
-				"      {",
-				"        Canvas canvas = new Canvas();",
-				"        scrollPane.setRowHeaderView(canvas);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				import java.awt.Canvas;
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new BorderLayout());
+						{
+							JScrollPane scrollPane = new JScrollPane();
+							add(scrollPane);
+							{
+								Canvas canvas = new Canvas();
+								scrollPane.setRowHeaderView(canvas);
+							}
+						}
+					}
+				}""");
 		refresh();
 	}
 }

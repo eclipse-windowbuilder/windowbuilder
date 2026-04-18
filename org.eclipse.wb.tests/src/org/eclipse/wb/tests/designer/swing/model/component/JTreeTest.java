@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.property.editor.models.tree.TreeModelPropertyEditor;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.JTree;
@@ -41,28 +40,27 @@ public class JTreeTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_JTree_parsing() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.tree.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTree tree = new JTree();",
-						"    add(tree);",
-						"    tree.setModel(new DefaultTreeModel(",
-						"      new DefaultMutableTreeNode('(root)') {",
-						"        {",
-						"          DefaultMutableTreeNode node1 = new DefaultMutableTreeNode('1');",
-						"            DefaultMutableTreeNode node2 = new DefaultMutableTreeNode('11');",
-						"            node1.add(node2);",
-						"          add(node1);",
-						"          node1 = new DefaultMutableTreeNode('2');",
-						"            node1.add(new DefaultMutableTreeNode('21'));",
-						"          add(node1);",
-						"        }",
-						"      }",
-						"    ));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.tree.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTree tree = new JTree();
+						add(tree);
+						tree.setModel(new DefaultTreeModel(
+							new DefaultMutableTreeNode("(root)") {
+								{
+									DefaultMutableTreeNode node1 = new DefaultMutableTreeNode("1");
+										DefaultMutableTreeNode node2 = new DefaultMutableTreeNode("11");
+										node1.add(node2);
+									add(node1);
+									node1 = new DefaultMutableTreeNode("2");
+										node1.add(new DefaultMutableTreeNode("21"));
+									add(node1);
+								}
+							}
+						));
+					}
+				}""");
 		panel.refresh();
 		//
 		ComponentInfo treeInfo = panel.getChildrenComponents().get(0);
@@ -114,12 +112,12 @@ public class JTreeTest extends SwingModelTest {
 			// tooltip
 			{
 				String tooltip = getPropertyTooltipText(modelEditor, modelProperty);
-				assertEquals(StringUtils.join(new String[]{
-						"(root)",
-						"    1",
-						"        11",
-						"    2",
-				"        21"}, "\n"), tooltip);
+				assertEquals("""
+						(root)
+						    1
+						        11
+						    2
+						        21""", tooltip);
 				// position
 				PropertyTooltipProvider provider = modelEditor.getAdapter(PropertyTooltipProvider.class);
 				assertSame(PropertyTooltipProvider.BELOW, provider.getTooltipPosition());
@@ -132,16 +130,15 @@ public class JTreeTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_emptyModel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.tree.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTree tree = new JTree();",
-						"    add(tree);",
-						"    tree.setModel(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.tree.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTree tree = new JTree();
+						add(tree);
+						tree.setModel(null);
+					}
+				}""");
 		panel.refresh();
 		//
 		ComponentInfo treeInfo = panel.getChildrenComponents().get(0);
@@ -172,15 +169,14 @@ public class JTreeTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setItems() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import javax.swing.tree.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JTree tree = new JTree();",
-						"    add(tree);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import javax.swing.tree.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTree tree = new JTree();
+						add(tree);
+					}
+				}""");
 		panel.refresh();
 		//
 		ComponentInfo treeInfo = panel.getChildrenComponents().get(0);
@@ -203,28 +199,28 @@ public class JTreeTest extends SwingModelTest {
 				modelProperty,
 				3,
 				rootItem);
-		assertEditor(
-				"import javax.swing.tree.*;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JTree tree = new JTree();",
-				"    tree.setModel(new DefaultTreeModel(",
-				"      new DefaultMutableTreeNode('(root)') {",
-				"        {",
-				"          DefaultMutableTreeNode node_1;",
-				"          node_1 = new DefaultMutableTreeNode('aaa');",
-				"            node_1.add(new DefaultMutableTreeNode('1'));",
-				"            node_1.add(new DefaultMutableTreeNode('2'));",
-				"          add(node_1);",
-				"          node_1 = new DefaultMutableTreeNode('bbb');",
-				"            node_1.add(new DefaultMutableTreeNode('3'));",
-				"          add(node_1);",
-				"        }",
-				"      }",
-				"    ));",
-				"    add(tree);",
-				"  }",
-				"}");
+		assertEditor("""
+				import javax.swing.tree.*;
+				public class Test extends JPanel {
+					public Test() {
+						JTree tree = new JTree();
+						tree.setModel(new DefaultTreeModel(
+							new DefaultMutableTreeNode("(root)") {
+								{
+									DefaultMutableTreeNode node_1;
+									node_1 = new DefaultMutableTreeNode("aaa");
+										node_1.add(new DefaultMutableTreeNode("1"));
+										node_1.add(new DefaultMutableTreeNode("2"));
+									add(node_1);
+									node_1 = new DefaultMutableTreeNode("bbb");
+										node_1.add(new DefaultMutableTreeNode("3"));
+									add(node_1);
+								}
+							}
+						));
+						add(tree);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

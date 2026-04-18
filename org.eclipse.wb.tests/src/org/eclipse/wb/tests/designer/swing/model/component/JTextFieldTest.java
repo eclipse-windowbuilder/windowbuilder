@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,16 +38,16 @@ public class JTextFieldTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_exposedDocument() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JTextField textField = new JTextField();",
-				"    add(textField);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(textField)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JTextField} {local-unique: textField} {/new JTextField()/ /add(textField)/}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JTextField textField = new JTextField();
+						add(textField);
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(textField)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JTextField} {local-unique: textField} {/new JTextField()/ /add(textField)/}""");
 	}
 }
