@@ -15,7 +15,6 @@ package org.eclipse.wb.gef.graphical.tools;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.core.tools.TargetingTool;
 import org.eclipse.wb.gef.core.tools.Tool;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
@@ -24,6 +23,7 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPartViewer.Conditional;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.RootEditPart;
@@ -131,7 +131,7 @@ public class SelectionTool extends TargetingTool {
 			//
 			Point current = getLocation();
 			if (getCurrentViewer() instanceof GraphicalViewer gv) {
-				Handle handle = (Handle) gv.findHandleAt(current);
+				Handle handle = gv.findHandleAt(current);
 				if (handle != null) {
 					setDragTracker(handle.getDragTracker());
 					return true;

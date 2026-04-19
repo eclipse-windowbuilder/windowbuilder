@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.gef.core.EditDomain;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.jface.viewers.ISelectionProvider;
 
 import java.util.Collection;

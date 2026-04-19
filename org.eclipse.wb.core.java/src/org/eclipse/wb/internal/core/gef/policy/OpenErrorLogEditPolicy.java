@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.gef.policy;
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.actions.errors.ErrorsAction;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -115,7 +114,7 @@ public final class OpenErrorLogEditPolicy extends AbstractEditPolicy {
 				target.setBounds(new Rectangle(5, componentArea.bottom() - 5 - 16, 16, 16));
 			}
 		};
-		m_figure = new Handle(m_editPart, locator) {
+		m_figure = new org.eclipse.wb.gef.graphical.handles.Handle(m_editPart, locator) {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
 				Image icon = DesignerPlugin.getImage("actions/errors/errors.gif");

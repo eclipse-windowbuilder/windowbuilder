@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.forms.table;
 
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.swt.palette.AbsoluteLayoutEntryInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.gef.Handle;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
