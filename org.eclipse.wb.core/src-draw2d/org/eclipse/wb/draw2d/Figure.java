@@ -17,7 +17,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -28,20 +27,6 @@ import java.util.List;
  * @coverage gef.draw2d
  */
 public class Figure extends org.eclipse.draw2d.Figure {
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Events support
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Return all registers listeners for given class or <code>null</code>.
-	 */
-	@Override
-	public <T extends Object> Iterator<T> getListeners(Class<T> listenerClass) {
-		return super.getListeners(listenerClass);
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Figure
