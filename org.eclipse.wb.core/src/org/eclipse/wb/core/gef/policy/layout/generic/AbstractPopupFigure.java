@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.generic;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
@@ -100,8 +100,8 @@ public abstract class AbstractPopupFigure extends Figure {
 			if (imageDescriptor != null) {
 				Image image = imageDescriptor.createImage();
 				org.eclipse.swt.graphics.Rectangle imageBounds = image.getBounds();
-				int x = (clientArea.width - imageBounds.width) / 2;
-				int y = (clientArea.height - imageBounds.height) / 2;
+				int x = clientArea.x + (clientArea.width - imageBounds.width) / 2;
+				int y = clientArea.y + (clientArea.height - imageBounds.height) / 2;
 				graphics.drawImage(image, x, y);
 				image.dispose();
 			}
