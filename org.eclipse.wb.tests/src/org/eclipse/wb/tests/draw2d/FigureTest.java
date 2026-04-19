@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.Border;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.draw2d.border.MarginBorder;
@@ -20,6 +19,7 @@ import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -697,7 +697,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_add_remove_MouseListener() throws Exception {
-		Figure testFigure = new Figure();
+		TestCaseFigure testFigure = new TestCaseFigure();
 		//
 		// check init state of listener for new Figure
 		assertFalse(testFigure.getListeners(MouseListener.class).hasNext());
@@ -737,7 +737,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 
 	@Test
 	public void test_add_remove_MouseMoveListener() throws Exception {
-		Figure testFigure = new Figure();
+		TestCaseFigure testFigure = new TestCaseFigure();
 		//
 		// check init state of listener for new Figure
 		assertFalse(testFigure.getListeners(MouseMotionListener.class).hasNext());
@@ -777,7 +777,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 
 	@Test
 	public void test_add_remove_FigureListener() throws Exception {
-		Figure testFigure = new Figure();
+		TestCaseFigure testFigure = new TestCaseFigure();
 		//
 		// check init state of listener for new Figure
 		assertFalse(testFigure.getListeners(FigureListener.class).hasNext());

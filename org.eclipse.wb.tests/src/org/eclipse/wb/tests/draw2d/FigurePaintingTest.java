@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -57,7 +57,7 @@ public class FigurePaintingTest extends Draw2dFigureTestCase {
 	}
 
 	private Figure addFigure(int x, int y, int width, int height) {
-		Figure figure = new Figure();
+		Figure figure = new TestCaseFigure();
 		figure.setBounds(new Rectangle(x, y, width, height));
 		figure.setLayoutManager(new XYLayout());
 		m_root.add(figure);

@@ -12,9 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
+import org.eclipse.wb.tests.draw2d.TestCaseFigure;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -49,7 +50,7 @@ public class RequestTestCaseEditPart extends DesignEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Figure createFigure() {
-		return new Figure();
+		return new TestCaseFigure();
 	}
 
 	@Override
