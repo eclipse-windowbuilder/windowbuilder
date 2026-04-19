@@ -16,11 +16,12 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -102,7 +103,7 @@ public abstract class SelectionEditPolicy extends DesignEditPolicy {
 		Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER_STATIC);
 		m_staticHandles = createStaticHandles();
 		for (Handle handle : m_staticHandles) {
-			layer.add(handle);
+			layer.add((IFigure) handle);
 		}
 	}
 
@@ -113,7 +114,7 @@ public abstract class SelectionEditPolicy extends DesignEditPolicy {
 		if (m_staticHandles != null && !m_staticHandles.isEmpty()) {
 			Layer layer = getLayer(IEditPartViewer.HANDLE_LAYER_STATIC);
 			for (Handle handle : m_staticHandles) {
-				layer.remove(handle);
+				layer.remove((IFigure) handle);
 			}
 			m_staticHandles = null;
 		}
@@ -127,7 +128,7 @@ public abstract class SelectionEditPolicy extends DesignEditPolicy {
 		Layer layer = getLayer(LayerConstants.HANDLE_LAYER);
 		m_handles = createSelectionHandles();
 		for (Handle handle : m_handles) {
-			layer.add(handle);
+			layer.add((IFigure) handle);
 		}
 		fire_showSelection();
 	}
@@ -139,7 +140,7 @@ public abstract class SelectionEditPolicy extends DesignEditPolicy {
 		fire_hideSelection();
 		if (m_handles != null) {
 			for (Handle handle : m_handles) {
-				FigureUtils.removeFigure(handle);
+				FigureUtils.removeFigure((IFigure) handle);
 			}
 			m_handles = null;
 		}

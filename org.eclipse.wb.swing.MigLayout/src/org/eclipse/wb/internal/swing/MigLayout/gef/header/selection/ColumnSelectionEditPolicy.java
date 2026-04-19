@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.MigLayout.gef.header.selection;
 
 import org.eclipse.wb.gef.core.requests.KeyRequest;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
 
 /**
@@ -52,7 +52,7 @@ public final class ColumnSelectionEditPolicy extends DimensionSelectionEditPolic
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Handle createResizeHandle() {
-		Handle handle = new SideResizeHandle(getHost(), PositionConstants.RIGHT, 7, true);
+		SideResizeHandle handle = new SideResizeHandle(getHost(), PositionConstants.RIGHT, 7, true);
 		handle.setDragTracker(new ResizeTracker(getHost(), PositionConstants.EAST, REQ_RESIZE));
 		return handle;
 	}

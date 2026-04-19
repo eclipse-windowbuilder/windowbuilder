@@ -281,7 +281,7 @@ public class SelectionToolTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			assertNull(getDragTracker(m_tool));
-			assertFalse(handle.getDragTracker().isActive());
+			assertFalse(((Tool) handle.getDragTracker()).isActive());
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.setEditParts(childEditPart);

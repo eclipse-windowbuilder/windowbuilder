@@ -23,7 +23,6 @@ import org.eclipse.wb.draw2d.AbstractRelativeLocator;
 import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.RelativeLocator;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.SquareHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -40,6 +39,7 @@ import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
@@ -349,6 +349,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 
 	/**
 	 * @return the new resize {@link Handle} for given direction.
+	 * @since 1.24
 	 */
 	protected final Handle createSizeHandle(int direction, double percent) {
 		return createSizeHandle(direction, createComponentLocator(direction, percent));
@@ -356,6 +357,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 
 	/**
 	 * @return the new resize {@link Handle} with given direction.
+	 * @since 1.24
 	 */
 	protected final Handle createSizeHandle(int direction, Locator locator) {
 		return new SizeHandle(direction, locator);
@@ -430,6 +432,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 
 	/**
 	 * @return the new span {@link Handle} for given direction.
+	 * @since 1.24
 	 */
 	protected final Handle createSpanHandle(int direction, double percent) {
 		return createSpanHandle(direction, createCellLocator(direction, percent));
@@ -437,6 +440,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 
 	/**
 	 * @return the new span {@link Handle} with given direction.
+	 * @since 1.24
 	 */
 	protected final Handle createSpanHandle(int direction, Locator locator) {
 		return new SpanHandle(direction, locator);

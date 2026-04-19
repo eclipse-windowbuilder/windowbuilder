@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -27,6 +26,7 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
 
 import java.util.ArrayList;

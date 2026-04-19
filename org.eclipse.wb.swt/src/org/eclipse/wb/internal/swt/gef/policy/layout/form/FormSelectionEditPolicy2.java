@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
 import org.eclipse.wb.draw2d.border.LineBorder;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplAutomatic
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FormLayout;
 

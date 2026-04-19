@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.PasteTool;
 import org.eclipse.wb.gef.core.tools.Tool;
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
@@ -41,6 +40,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.LayerManager;
@@ -330,9 +330,9 @@ public final class GraphicalRobot {
 		Rectangle rootBounds = m_canvas.getRootFigure().getBounds();
 		while (x < bounds.right() && y < bounds.bottom() && rootBounds.contains(x, y)) {
 			try (AutoScroller scroller = new AutoScroller(m_viewer, x, y)) {
-				Handle handle = (Handle) m_viewer.findHandleAt(scroller.getLocation());
+				Handle handle = m_viewer.findHandleAt(scroller.getLocation());
 				if (predicate.test(handle)) {
-					return handle.getBounds().getCenter();
+					return ((IFigure) handle).getBounds().getCenter();
 				}
 				x += deltaX;
 				y += deltaY;

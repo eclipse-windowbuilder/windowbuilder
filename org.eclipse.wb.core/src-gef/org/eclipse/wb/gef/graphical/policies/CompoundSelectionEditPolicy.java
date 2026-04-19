@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.policies;
 
-import org.eclipse.wb.gef.graphical.handles.Handle;
-
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 

@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.selection;
 
-import org.eclipse.wb.gef.graphical.handles.Handle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -20,6 +19,7 @@ import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Handle;
 
 import java.util.ArrayList;
 import java.util.List;

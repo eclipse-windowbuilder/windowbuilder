@@ -175,4 +175,30 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/wb/core/gef/policy/layout/grid/AbstractGridSelectionEditPolicy.java" type="org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy">
+        <filter comment="Restructuring of internal GEF Handler" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy"/>
+                <message_argument value="createSizeHandle(int, Locator)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GEF Handler" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy"/>
+                <message_argument value="createSizeHandle(int, double)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GEF Handler" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy"/>
+                <message_argument value="createSpanHandle(int, Locator)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Restructuring of internal GEF Handler" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy"/>
+                <message_argument value="createSpanHandle(int, double)"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>

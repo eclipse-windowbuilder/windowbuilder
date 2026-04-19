@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.GraphicalEditPart;
 
 /**
@@ -125,16 +126,16 @@ public abstract class Handle extends Figure implements AncestorListener, org.ecl
 	// DragTracker
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Tool m_dragTracker;
+	private DragTracker m_dragTracker;
 
 	/**
 	 * Returns the drag tracker {@link Tool} to use when the user clicks on this handle. If the drag
 	 * tracker has not been set, it will be lazily created by calling {@link #createDragTracker()}.
 	 */
 	@Override
-	public Tool getDragTracker() {
+	public DragTracker getDragTracker() {
 		if (m_dragTracker == null) {
-			m_dragTracker = createDragTrackerTool();
+			m_dragTracker = createDragTracker();
 		}
 		return m_dragTracker;
 	}
@@ -142,14 +143,14 @@ public abstract class Handle extends Figure implements AncestorListener, org.ecl
 	/**
 	 * Sets the drag tracker {@link Tool} for this handle.
 	 */
-	public void setDragTracker(Tool dragTracker) {
+	public void setDragTracker(DragTracker dragTracker) {
 		m_dragTracker = dragTracker;
 	}
 
 	/**
 	 * Creates a new drag tracker {@link Tool} to be returned by {@link #getDragTracker()}.
 	 */
-	protected final Tool createDragTrackerTool() {
+	protected final Tool createDragTracker() {
 		return null;
 	}
 
