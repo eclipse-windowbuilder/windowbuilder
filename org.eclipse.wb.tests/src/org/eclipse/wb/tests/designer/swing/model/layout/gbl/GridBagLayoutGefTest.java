@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -94,26 +94,21 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 		waitEventLoop(0);
 		// emulate paint loop during edit
 		// Mitin implemented Swing correctly, using AWT thread, but this requires SWT event loop
-		ExecutionUtils.runLogLater(new RunnableEx() {
+		ExecutionUtils.runLogLater(() -> ExecutionUtils.runLogUI(new RunnableEx() {
 			@Override
 			public void run() throws Exception {
-				ExecutionUtils.runLogUI(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						forcePaint(m_headerHorizontal);
-						forcePaint(m_headerVertical);
-					}
-
-					private void forcePaint(GraphicalViewer viewer) throws Exception {
-						FigureCanvas control = viewer.getControl();
-						Image image = OSSupport.get().makeShot(control);
-						image.dispose();
-						// Shell is set to invisible on Linux, causing successive tests to fail...
-						control.getShell().setVisible(true);
-					}
-				});
+				forcePaint(m_headerHorizontal);
+				forcePaint(m_headerVertical);
 			}
-		});
+
+			private void forcePaint(GraphicalViewer viewer) throws Exception {
+				FigureCanvas control = viewer.getControl();
+				Image image = OSSupport.get().makeShot(control);
+				image.dispose();
+				// Shell is set to invisible on Linux, causing successive tests to fail...
+				control.getShell().setVisible(true);
+			}
+		}));
 		// replace layout
 		LayoutInfo layout = createJavaInfo("java.awt.FlowLayout");
 		mainPanel.setLayout(layout);

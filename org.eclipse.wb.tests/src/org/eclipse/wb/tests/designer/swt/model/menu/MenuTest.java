@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.model.menu.IMenuPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuPopupInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -581,12 +580,7 @@ public class MenuTest extends RcpModelTest {
 						Menu.class,
 						new ConstructorCreationSupport("bar", true));
 		// add to shell
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				newMenuBar.command_CREATE(shell);
-			}
-		});
+		ExecutionUtils.run(shell, () -> newMenuBar.command_CREATE(shell));
 		// test the result
 		assertEditor("""
 				// filler filler filler
@@ -636,12 +630,7 @@ public class MenuTest extends RcpModelTest {
 						Menu.class,
 						new ConstructorCreationSupport());
 		// add to shell
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				newMenuPopup.command_CREATE(shell);
-			}
-		});
+		ExecutionUtils.run(shell, () -> newMenuPopup.command_CREATE(shell));
 		// test the result
 		assertEditor("""
 				// filler filler filler

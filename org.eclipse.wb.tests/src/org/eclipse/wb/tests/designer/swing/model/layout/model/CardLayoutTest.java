@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.association.InvocationAssociation;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
@@ -238,12 +237,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 		}
 		// add new component
 		final ComponentInfo newComponent = createJButton();
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.command_CREATE(newComponent, null);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.command_CREATE(newComponent, null));
 		assertInstanceOf(InvocationChildAssociation.class, newComponent.getAssociation());
 		// added component should be selected
 		assertSame(newComponent, layout.getCurrentComponent());
@@ -287,12 +281,7 @@ public class CardLayoutTest extends AbstractLayoutTest {
 		assertSame(button_1, layout.getNextComponent());
 		// add JPopupMenu
 		final JPopupMenuInfo newPopup = (JPopupMenuInfo) createComponent(JPopupMenu.class);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				newPopup.command_CREATE(panel);
-			}
-		});
+		ExecutionUtils.run(panel, () -> newPopup.command_CREATE(panel));
 		// "popup" is listed in "components", but ignored by CardLayout
 		assertEquals(3, panel.getChildrenComponents().size());
 		assertSame(newPopup, panel.getChildrenComponents().get(0));

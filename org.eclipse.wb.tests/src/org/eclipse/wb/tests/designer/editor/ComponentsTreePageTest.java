@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.CancelOperationError;
 import org.eclipse.wb.internal.gef.tree.dnd.TreeDropListener;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -100,14 +99,11 @@ public class ComponentsTreePageTest extends SwingGefTest {
 		assertSelectionModels();
 		// execute edit operation
 		final ComponentInfo newButton = createJButton();
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// add new JButton
-				((FlowLayoutInfo) panel.getLayout()).add(newButton, null);
-				// use broadcast to select
-				panel.getBroadcastObject().select(List.of(newButton));
-			}
+		ExecutionUtils.run(panel, () -> {
+			// add new JButton
+			((FlowLayoutInfo) panel.getLayout()).add(newButton, null);
+			// use broadcast to select
+			panel.getBroadcastObject().select(List.of(newButton));
 		});
 		// assert selection
 		assertTreeSelectionModels(newButton);

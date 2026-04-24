@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.order.ComponentOrderBeforeSibling;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
@@ -436,13 +435,10 @@ public class ContainerTest extends SwingModelTest {
 			memento = JavaInfoMemento.createMemento(inner);
 		}
 		// add copy
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ContainerInfo copy = (ContainerInfo) memento.create(panel);
-				((FlowLayoutInfo) panel.getLayout()).add(copy, null);
-				memento.apply();
-			}
+		ExecutionUtils.run(panel, () -> {
+			ContainerInfo copy = (ContainerInfo) memento.create(panel);
+			((FlowLayoutInfo) panel.getLayout()).add(copy, null);
+			memento.apply();
 		});
 		assertEditor("""
 				public class Test extends JPanel {

@@ -42,12 +42,7 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 		"</plugin>"});
 		// listener
 		final int[] setValueCount = new int[]{0};
-		RunnableEx setValueListener = new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				setValueCount[0]++;
-			}
-		};
+		RunnableEx setValueListener = () -> setValueCount[0]++;
 		// check property
 		ExtensionElementProperty<String> property =
 				new ExtensionElementProperty<>(setValueListener,

@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
@@ -71,13 +70,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 						"  }",
 						"}");
 		// create
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTextField.class);
-				layout.command_CREATE(newComponent, 1, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTextField.class);
+			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
 		assertEditor(
@@ -113,13 +109,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 						"}");
 		// create
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_ENABLE_GRAB, false);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTextField.class);
-				layout.command_CREATE(newComponent, 1, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTextField.class);
+			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
 		assertEditor(
@@ -154,13 +147,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 						"  }",
 						"}");
 		// create
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTable.class);
-				layout.command_CREATE(newComponent, 1, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTable.class);
+			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
 		assertEditor(
@@ -206,13 +196,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 						"  }",
 						"}");
 		// create
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTable.class);
-				layout.command_CREATE(newComponent, 1, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTable.class);
+			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
 		assertEditor(
@@ -250,13 +237,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 						"  }",
 						"}");
 		// create
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JLabel.class);
-				layout.command_CREATE(newComponent, 1, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JLabel.class);
+			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
 		assertEditor(
@@ -305,13 +289,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 						"  }",
 						"}");
 		// create
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JLabel.class);
-				layout.command_CREATE(newComponent, 1, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JLabel.class);
+			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
 		assertEditor(
@@ -361,13 +342,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 		Activator.getDefault().getPreferenceStore().setValue(
 				IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT,
 				false);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JLabel.class);
-				layout.command_CREATE(newComponent, 1, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JLabel.class);
+			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
 		assertEditor(
@@ -415,13 +393,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 						"}");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTextField.class);
-				layout.command_CREATE(newComponent, 2, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTextField.class);
+			layout.command_CREATE(newComponent, 2, false, 1, false);
 		});
 		// check result
 		assertEditor(
@@ -472,13 +447,10 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 						"}");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTextField.class);
-				layout.command_CREATE(newComponent, 3, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTextField.class);
+			layout.command_CREATE(newComponent, 3, false, 1, false);
 		});
 		// check result
 		assertEditor(

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.tests.designer.rcp.model.forms.table;
 import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDataInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
@@ -427,12 +426,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		assertEquals(TableWrapData.LEFT, tableWrapData.getHorizontalAlignment());
 		assertTrue(tableWrapData.getHorizontalGrab());
 		// alignment := FILL
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				tableWrapData.setHorizontalAlignment(TableWrapData.FILL);
-			}
-		});
+		ExecutionUtils.run(shell, () -> tableWrapData.setHorizontalAlignment(TableWrapData.FILL));
 		assertEquals(TableWrapData.FILL, tableWrapData.getHorizontalAlignment());
 		assertTrue(tableWrapData.getHorizontalGrab());
 		assertEditor(
@@ -446,12 +440,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				"  }",
 				"}");
 		// alignment := LEFT
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				tableWrapData.setHorizontalAlignment(TableWrapData.LEFT);
-			}
-		});
+		ExecutionUtils.run(shell, () -> tableWrapData.setHorizontalAlignment(TableWrapData.LEFT));
 		assertEquals(TableWrapData.LEFT, tableWrapData.getHorizontalAlignment());
 		assertTrue(tableWrapData.getHorizontalGrab());
 		assertEditor(
@@ -946,12 +935,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		assertEquals(TableWrapData.TOP, tableWrapData.getVerticalAlignment());
 		assertTrue(tableWrapData.getVerticalGrab());
 		// alignment := FILL
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				tableWrapData.setVerticalAlignment(TableWrapData.FILL);
-			}
-		});
+		ExecutionUtils.run(shell, () -> tableWrapData.setVerticalAlignment(TableWrapData.FILL));
 		assertEquals(TableWrapData.FILL, tableWrapData.getVerticalAlignment());
 		assertTrue(tableWrapData.getVerticalGrab());
 		assertEditor(
@@ -965,12 +949,7 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				"  }",
 				"}");
 		// alignment := TOP
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				tableWrapData.setVerticalAlignment(TableWrapData.TOP);
-			}
-		});
+		ExecutionUtils.run(shell, () -> tableWrapData.setVerticalAlignment(TableWrapData.TOP));
 		assertEquals(TableWrapData.TOP, tableWrapData.getVerticalAlignment());
 		assertTrue(tableWrapData.getVerticalGrab());
 		assertEditor(

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.model.CellConstraintsSupport;
@@ -922,13 +921,10 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
 			memento = JavaInfoMemento.createMemento(button);
 		}
 		// do paste
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ComponentInfo newComponent = (ComponentInfo) memento.create(layout);
-				layout.command_CREATE(newComponent, 3, false, 3, false);
-				memento.apply();
-			}
+		ExecutionUtils.run(panel, () -> {
+			ComponentInfo newComponent = (ComponentInfo) memento.create(layout);
+			layout.command_CREATE(newComponent, 3, false, 3, false);
+			memento.apply();
 		});
 		// check source
 		assertEditor(

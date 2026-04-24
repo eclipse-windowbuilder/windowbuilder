@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.databinding.model.ObserveTypeContainer;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.model.description.MorphingTargetDescription;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.rcp.databinding.DatabindingsProvider;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.BeansObserveTypeContainer;
 import org.eclipse.wb.internal.rcp.databinding.model.beans.bindables.FieldBeanBindableInfo;
@@ -719,13 +718,10 @@ public class DatabindingsProviderTest extends AbstractBindingTest {
 		//
 		// ============================================================================
 		//
-		ExecutionUtils.run(shell.getRootJava(), new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				Class<?> textWidgetClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Text");
-				MorphingTargetDescription target = new MorphingTargetDescription(textWidgetClass, null);
-				MorphingSupportTest.morph(comboInfo, target);
-			}
+		ExecutionUtils.run(shell.getRootJava(), () -> {
+			Class<?> textWidgetClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Text");
+			MorphingTargetDescription target = new MorphingTargetDescription(textWidgetClass, null);
+			MorphingSupportTest.morph(comboInfo, target);
 		});
 		//
 		assertEditor(DatabindingTestUtils.getTestSource(

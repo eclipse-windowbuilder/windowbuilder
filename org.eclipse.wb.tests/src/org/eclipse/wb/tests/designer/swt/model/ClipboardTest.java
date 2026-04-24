@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.model.clipboard.ComponentInfoMemento;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.rcp.ToolkitProvider;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.absolute.AbsoluteLayoutInfo;
@@ -163,13 +162,10 @@ public class ClipboardTest extends RcpModelTest {
 		}
 		// do paste
 		{
-			ExecutionUtils.run(shell, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					ControlInfo button = (ControlInfo) memento.create(shell);
-					rowLayout.command_CREATE(button, null);
-					memento.apply();
-				}
+			ExecutionUtils.run(shell, () -> {
+				ControlInfo button = (ControlInfo) memento.create(shell);
+				rowLayout.command_CREATE(button, null);
+				memento.apply();
 			});
 			assertEditor(
 					"class Test extends Shell {",
@@ -223,33 +219,30 @@ public class ClipboardTest extends RcpModelTest {
 			assertFalse(memento.getImage().isDisposed());
 		}
 		// do paste
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ControlInfo control = (ControlInfo) memento.create(shell);
-				// check that we support "live" image during paste
-				assertNotNull(control.getImage());
-				/*{
-        	ImageLoader imageLoader = new ImageLoader();
-        	imageLoader.data = new ImageData[]{control.getImage().getImageData()};
-        	imageLoader.save("C:/1.png", SWT.IMAGE_PNG);
-        }*/
-				// check preferred size
-				assertEquals(new Dimension(200, 100), control.getPreferredSize());
-				// check absolute bounds
-				{
-					Rectangle bounds = control.getBounds();
-					assertEquals(new Dimension(200, 100), bounds.getSize());
-					assertEquals(10 + shell.getClientAreaInsets().left, bounds.x);
-					assertEquals(20 + shell.getClientAreaInsets().top, bounds.y);
-					assertEquals(sourceControl.getAbsoluteBounds(), bounds);
-				}
-				// add
-				absoluteLayout.commandCreate(control, null);
-				memento.apply();
-				// now "live" image should be disposed
-				assertTrue(memento.getImage().isDisposed());
+		ExecutionUtils.run(shell, () -> {
+			ControlInfo control = (ControlInfo) memento.create(shell);
+			// check that we support "live" image during paste
+			assertNotNull(control.getImage());
+			/*{
+		ImageLoader imageLoader = new ImageLoader();
+		imageLoader.data = new ImageData[]{control.getImage().getImageData()};
+		imageLoader.save("C:/1.png", SWT.IMAGE_PNG);
+      }*/
+			// check preferred size
+			assertEquals(new Dimension(200, 100), control.getPreferredSize());
+			// check absolute bounds
+			{
+				Rectangle bounds = control.getBounds();
+				assertEquals(new Dimension(200, 100), bounds.getSize());
+				assertEquals(10 + shell.getClientAreaInsets().left, bounds.x);
+				assertEquals(20 + shell.getClientAreaInsets().top, bounds.y);
+				assertEquals(sourceControl.getAbsoluteBounds(), bounds);
 			}
+			// add
+			absoluteLayout.commandCreate(control, null);
+			memento.apply();
+			// now "live" image should be disposed
+			assertTrue(memento.getImage().isDisposed());
 		});
 	}
 
@@ -278,38 +271,35 @@ public class ClipboardTest extends RcpModelTest {
 			memento = JavaInfoMemento.createMemento(sourceControl);
 		}
 		// do paste
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// can not apply() before create()
-				try {
-					memento.apply();
-					fail();
-				} catch (AssertionFailedException e) {
-				}
-				// create control
-				ControlInfo control = (ControlInfo) memento.create(shell);
-				// can not apply() before adding to hierarchy
-				try {
-					memento.apply();
-					fail();
-				} catch (IllegalArgumentException e) {
-				}
-				// add
-				absoluteLayout.commandCreate(control, null);
+		ExecutionUtils.run(shell, () -> {
+			// can not apply() before create()
+			try {
 				memento.apply();
-				// can not apply() second time
-				try {
-					memento.apply();
-					fail();
-				} catch (IllegalArgumentException e) {
-				}
-				// can not create() after apply()
-				try {
-					memento.create(shell);
-					fail();
-				} catch (IllegalArgumentException e) {
-				}
+				fail();
+			} catch (AssertionFailedException e) {
+			}
+			// create control
+			ControlInfo control = (ControlInfo) memento.create(shell);
+			// can not apply() before adding to hierarchy
+			try {
+				memento.apply();
+				fail();
+			} catch (IllegalArgumentException e) {
+			}
+			// add
+			absoluteLayout.commandCreate(control, null);
+			memento.apply();
+			// can not apply() second time
+			try {
+				memento.apply();
+				fail();
+			} catch (IllegalArgumentException e) {
+			}
+			// can not create() after apply()
+			try {
+				memento.create(shell);
+				fail();
+			} catch (IllegalArgumentException e) {
 			}
 		});
 	}
@@ -329,12 +319,7 @@ public class ClipboardTest extends RcpModelTest {
 		// do copy/paste
 		{
 			ControlInfo control = shell.getChildrenControls().get(0);
-			doCopyPaste(control, new PasteProcedure<ControlInfo>() {
-				@Override
-				public void run(ControlInfo p) throws Exception {
-					rowLayout.command_CREATE(p, null);
-				}
-			});
+			doCopyPaste(control, p -> rowLayout.command_CREATE(p, null));
 		}
 		// check result
 		assertEditor(targetLines);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.generation.statement.lazy.LazyStatemen
 import org.eclipse.wb.internal.core.model.variable.LazyVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.description.LazyVariableDescription;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -916,13 +915,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		// add new component
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 0, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 0, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -957,13 +953,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		// add new component
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 0, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 0, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -1003,13 +996,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		// add new component
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 2, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 2, false, 1, false);
 		});
 		// check result
 		assertEditor("""
@@ -1055,13 +1045,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 0, true, 0, true);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 0, true, 0, true);
 		});
 		// check result
 		assertEditor("""
@@ -1117,13 +1104,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 1, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 1, false, 1, false);
 		});
 		// check result
 		assertEditor("""
@@ -1175,13 +1159,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 1, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 1, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -1231,13 +1212,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 1, true, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 1, true, 1, false);
 		});
 		// check result
 		assertEditor("""
@@ -1289,13 +1267,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 1, false, 1, true);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 1, false, 1, true);
 		});
 		// check result
 		assertEditor("""
@@ -1349,13 +1324,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 			IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
 			preferences.setValue(IPreferenceConstants.P_GAP_COLUMN, 10);
 		}
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 1, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 1, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -1407,13 +1379,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 			IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
 			preferences.setValue(IPreferenceConstants.P_GAP_ROW, 10);
 		}
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 0, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 0, false, 1, false);
 		});
 		// check result
 		assertEditor("""
@@ -1465,13 +1434,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 			IPreferenceStore preferences = Activator.getDefault().getPreferenceStore();
 			preferences.setValue(IPreferenceConstants.P_CHANGE_INSETS_FOR_GAPS, false);
 		}
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 0, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 0, false, 1, false);
 		});
 		// check result
 		assertEditor("""
@@ -1529,13 +1495,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE_last(button);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE_last(button);
 		});
 		// check result
 		assertEditor("""
@@ -1589,13 +1552,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE_last(button);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE_last(button);
 		});
 		// check result
 		assertEditor("""
@@ -1644,13 +1604,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button = createJButton();
-				layout.command_CREATE(button, 0, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button = createJButton();
+			layout.command_CREATE(button, 0, false, 1, false);
 		});
 		assertEditor("""
 				class Test extends JPanel {
@@ -1716,13 +1673,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// do move
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button_00 = panel.getChildrenComponents().get(0);
-				layout.command_MOVE(button_00, 1, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button_00 = panel.getChildrenComponents().get(0);
+			layout.command_MOVE(button_00, 1, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -1786,13 +1740,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// do move
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button_11 = panel.getChildrenComponents().get(1);
-				layout.command_MOVE(button_11, 0, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button_11 = panel.getChildrenComponents().get(1);
+			layout.command_MOVE(button_11, 0, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -1857,12 +1808,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		final FlowLayoutInfo flowLayout = (FlowLayoutInfo) innerPanel.getLayout();
 		final ComponentInfo button = innerPanel.getChildrenComponents().get(0);
 		// move from "innerPanel"
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				gridLayout.command_MOVE(button, 0, false, 0, false);
-			}
-		});
+		ExecutionUtils.run(panel, () -> gridLayout.command_MOVE(button, 0, false, 0, false));
 		assertEditor("""
 				class Test extends JPanel {
 					public Test() {
@@ -1890,12 +1836,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 					}
 				}""");
 		// move to "innerPanel"
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				flowLayout.move(button, null);
-			}
-		});
+		ExecutionUtils.run(panel, () -> flowLayout.move(button, null));
 		assertEditor("""
 				class Test extends JPanel {
 					public Test() {
@@ -1919,12 +1860,7 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 					}
 				}""");
 		// move again from "innerPanel"
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				gridLayout.command_MOVE(button, 0, false, 0, false);
-			}
-		});
+		ExecutionUtils.run(panel, () -> gridLayout.command_MOVE(button, 0, false, 0, false));
 		assertEditor("""
 				class Test extends JPanel {
 					public Test() {
@@ -1981,13 +1917,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		// do move
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button_2 = panel.getChildrenComponents().get(2);
-				layout.command_MOVE(button_2, 2, false, 1, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button_2 = panel.getChildrenComponents().get(2);
+			layout.command_MOVE(button_2, 2, false, 1, false);
 		});
 		// check result
 		assertEditor("""
@@ -2039,13 +1972,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		// do move
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_GBC_LONG, true);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button_2 = panel.getChildrenComponents().get(2);
-				layout.command_MOVE(button_2, 0, false, 0, true);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button_2 = panel.getChildrenComponents().get(2);
+			layout.command_MOVE(button_2, 0, false, 0, true);
 		});
 		// check result
 		assertEditor("""
@@ -2233,13 +2163,10 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// set cells
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo button_0 = panel.getChildrenComponents().get(0);
-				layout.command_setCells(button_0, new Rectangle(0, 0, 2, 1));
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo button_0 = panel.getChildrenComponents().get(0);
+			layout.command_setCells(button_0, new Rectangle(0, 0, 2, 1));
 		});
 		assertEditor("""
 				class Test extends JPanel {
@@ -2306,12 +2233,9 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 		assertEquals(2, layout.getColumns().size());
 		assertEquals(2, layout.getRows().size());
 		// set cells
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ComponentInfo button_0 = panel.getChildrenComponents().get(0);
-				layout.command_setCells(button_0, new Rectangle(0, 1, 1, 1));
-			}
+		ExecutionUtils.run(panel, () -> {
+			ComponentInfo button_0 = panel.getChildrenComponents().get(0);
+			layout.command_setCells(button_0, new Rectangle(0, 1, 1, 1));
 		});
 		assertEditor("""
 				class Test extends JPanel {
@@ -2539,91 +2463,88 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				// use "lazy"
-				SwingTestUtils.setGenerations(
-						LazyVariableDescription.INSTANCE,
-						LazyStatementGeneratorDescription.INSTANCE);
-				SwingTestUtils.setLazyMethodModifier(LazyVariableSupport.V_METHOD_MODIFIER_PRIVATE);
-				try {
-					ComponentInfo button_1 = createJButton();
-					layout.command_CREATE(button_1, 0, false, 0, false);
-					assertEditor("""
-							class Test extends JPanel {
-								private JButton button;
-								public Test() {
-									setLayout(new GridBagLayout());
-									GridBagConstraints gbc = new GridBagConstraints();
-									gbc.gridx = 0;
-									gbc.gridy = 0;
-									add(getButton(), gbc);
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			// use "lazy"
+			SwingTestUtils.setGenerations(
+					LazyVariableDescription.INSTANCE,
+					LazyStatementGeneratorDescription.INSTANCE);
+			SwingTestUtils.setLazyMethodModifier(LazyVariableSupport.V_METHOD_MODIFIER_PRIVATE);
+			try {
+				ComponentInfo button_1 = createJButton();
+				layout.command_CREATE(button_1, 0, false, 0, false);
+				assertEditor("""
+						class Test extends JPanel {
+							private JButton button;
+							public Test() {
+								setLayout(new GridBagLayout());
+								GridBagConstraints gbc = new GridBagConstraints();
+								gbc.gridx = 0;
+								gbc.gridy = 0;
+								add(getButton(), gbc);
+							}
+							private JButton getButton() {
+								if (button == null) {
+									button = new JButton();
 								}
-								private JButton getButton() {
-									if (button == null) {
-										button = new JButton();
-									}
-									return button;
+								return button;
+							}
+						}""");
+				// set text, will rename
+				setText_withAlwaysRename(button_1, "aaa");
+				assertEditor("""
+						class Test extends JPanel {
+							private JButton aaaButton;
+							public Test() {
+								setLayout(new GridBagLayout());
+								GridBagConstraints gbc = new GridBagConstraints();
+								gbc.gridx = 0;
+								gbc.gridy = 0;
+								add(getAaaButton(), gbc);
+							}
+							private JButton getAaaButton() {
+								if (aaaButton == null) {
+									aaaButton = new JButton();
+									aaaButton.setText("aaa");
 								}
-							}""");
-					// set text, will rename
-					setText_withAlwaysRename(button_1, "aaa");
-					assertEditor("""
-							class Test extends JPanel {
-								private JButton aaaButton;
-								public Test() {
-									setLayout(new GridBagLayout());
-									GridBagConstraints gbc = new GridBagConstraints();
-									gbc.gridx = 0;
-									gbc.gridy = 0;
-									add(getAaaButton(), gbc);
+								return aaaButton;
+							}
+						}""");
+				// add one more JButton, crash happens
+				ComponentInfo button_2 = createJButton();
+				layout.command_CREATE(button_2, 1, false, 0, false);
+				assertEditor("""
+						class Test extends JPanel {
+							private JButton aaaButton;
+							private JButton button;
+							public Test() {
+								setLayout(new GridBagLayout());
+								GridBagConstraints gbc = new GridBagConstraints();
+								gbc.insets = new Insets(0, 0, 0, 5);
+								gbc.gridx = 0;
+								gbc.gridy = 0;
+								add(getAaaButton(), gbc);
+								GridBagConstraints gbc_1 = new GridBagConstraints();
+								gbc_1.gridx = 1;
+								gbc_1.gridy = 0;
+								add(getButton(), gbc_1);
+							}
+							private JButton getAaaButton() {
+								if (aaaButton == null) {
+									aaaButton = new JButton();
+									aaaButton.setText("aaa");
 								}
-								private JButton getAaaButton() {
-									if (aaaButton == null) {
-										aaaButton = new JButton();
-										aaaButton.setText("aaa");
-									}
-									return aaaButton;
+								return aaaButton;
+							}
+							private JButton getButton() {
+								if (button == null) {
+									button = new JButton();
 								}
-							}""");
-					// add one more JButton, crash happens
-					ComponentInfo button_2 = createJButton();
-					layout.command_CREATE(button_2, 1, false, 0, false);
-					assertEditor("""
-							class Test extends JPanel {
-								private JButton aaaButton;
-								private JButton button;
-								public Test() {
-									setLayout(new GridBagLayout());
-									GridBagConstraints gbc = new GridBagConstraints();
-									gbc.insets = new Insets(0, 0, 0, 5);
-									gbc.gridx = 0;
-									gbc.gridy = 0;
-									add(getAaaButton(), gbc);
-									GridBagConstraints gbc_1 = new GridBagConstraints();
-									gbc_1.gridx = 1;
-									gbc_1.gridy = 0;
-									add(getButton(), gbc_1);
-								}
-								private JButton getAaaButton() {
-									if (aaaButton == null) {
-										aaaButton = new JButton();
-										aaaButton.setText("aaa");
-									}
-									return aaaButton;
-								}
-								private JButton getButton() {
-									if (button == null) {
-										button = new JButton();
-									}
-									return button;
-								}
-							}""");
-				} finally {
-					SwingTestUtils.setGenerationDefaults();
-				}
+								return button;
+							}
+						}""");
+			} finally {
+				SwingTestUtils.setGenerationDefaults();
 			}
 		});
 	}
