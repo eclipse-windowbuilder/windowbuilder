@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -73,13 +72,10 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTextField.class);
-				layout.command_CREATE(newComponent, 0, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTextField.class);
+			layout.command_CREATE(newComponent, 0, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -123,13 +119,10 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		// add new component
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(IPreferenceConstants.P_ENABLE_GRAB, false);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTextField.class);
-				layout.command_CREATE(newComponent, 0, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTextField.class);
+			layout.command_CREATE(newComponent, 0, false, 0, false);
 		}); // check result
 		assertEditor("""
 				class Test extends JPanel {
@@ -170,13 +163,10 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTable.class);
-				layout.command_CREATE(newComponent, 0, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTable.class);
+			layout.command_CREATE(newComponent, 0, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -227,13 +217,10 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JLabel.class);
-				layout.command_CREATE(newComponent, 0, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JLabel.class);
+			layout.command_CREATE(newComponent, 0, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -293,13 +280,10 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
 				}""");
 		panel.refresh();
 		// add new component
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JTextField.class);
-				layout.command_CREATE(newComponent, 1, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JTextField.class);
+			layout.command_CREATE(newComponent, 1, false, 0, false);
 		});
 		// check result
 		assertEditor("""
@@ -362,13 +346,10 @@ public class GridBagLayoutParametersTest extends AbstractGridBagLayoutTest {
 		ToolkitProvider.DESCRIPTION.getPreferences().setValue(
 				IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT,
 				false);
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
-				ComponentInfo newComponent = createComponent(JLabel.class);
-				layout.command_CREATE(newComponent, 0, false, 0, false);
-			}
+		ExecutionUtils.run(panel, () -> {
+			GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
+			ComponentInfo newComponent = createComponent(JLabel.class);
+			layout.command_CREATE(newComponent, 0, false, 0, false);
 		});
 		// check result
 		assertEditor("""

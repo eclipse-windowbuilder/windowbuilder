@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -69,12 +69,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	@Test
 	public void test_waitEventLoop() throws Exception {
 		final AtomicBoolean executed = new AtomicBoolean();
-		Display.getDefault().asyncExec(new Runnable() {
-			@Override
-			public void run() {
-				executed.set(true);
-			}
-		});
+		Display.getDefault().asyncExec(() -> executed.set(true));
 		// not executed yet
 		assertEquals(false, executed.get());
 		// wait
@@ -113,21 +108,15 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_void_ignore_noException() throws Exception {
-		boolean success = ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-			}
+		boolean success = ExecutionUtils.runIgnore(() -> {
 		});
 		assertTrue(success);
 	}
 
 	@Test
 	public void test_void_ignore_withException() throws Exception {
-		boolean success = ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				throw new Exception();
-			}
+		boolean success = ExecutionUtils.runIgnore(() -> {
+			throw new Exception();
 		});
 		assertFalse(success);
 	}
@@ -139,10 +128,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_void_log_noException() throws Exception {
-		boolean success = ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-			}
+		boolean success = ExecutionUtils.runLog(() -> {
 		});
 		assertTrue(success);
 	}
@@ -151,25 +137,19 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	public void test_void_log_withException() throws Exception {
 		final Exception exception = new Exception();
 		ILog log = DesignerPlugin.getDefault().getLog();
-		ILogListener logListener = new ILogListener() {
-			@Override
-			public void logging(IStatus status, String plugin) {
-				assertEquals(IStatus.ERROR, status.getSeverity());
-				assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
-				assertEquals(IStatus.ERROR, status.getCode());
-				assertSame(exception, status.getException());
-			}
+		ILogListener logListener = (status, plugin) -> {
+			assertEquals(IStatus.ERROR, status.getSeverity());
+			assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
+			assertEquals(IStatus.ERROR, status.getCode());
+			assertSame(exception, status.getException());
 		};
 		//
 		try {
 			log.addLogListener(logListener);
 			DesignerPlugin.setDisplayExceptionOnConsole(false);
 			//
-			boolean success = ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					throw exception;
-				}
+			boolean success = ExecutionUtils.runLog(() -> {
+				throw exception;
 			});
 			assertFalse(success);
 		} finally {
@@ -189,12 +169,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	@Test
 	public void test_void_log_later_noException() throws Exception {
 		final boolean[] executed = new boolean[]{false};
-		ExecutionUtils.runLogLater(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				executed[0] = true;
-			}
-		});
+		ExecutionUtils.runLogLater(() -> executed[0] = true);
 		// execution should be done later
 		assertFalse(executed[0]);
 		// wait for events loop, so Runnable should be executed
@@ -209,10 +184,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_void_rethrow_noException() throws Exception {
-		ExecutionUtils.runRethrow(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-			}
+		ExecutionUtils.runRethrow(() -> {
 		});
 	}
 
@@ -220,11 +192,8 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	public void test_void_rethrow_withException() throws Exception {
 		final Exception exception = new Exception();
 		try {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					throw exception;
-				}
+			ExecutionUtils.runRethrow(() -> {
+				throw exception;
 			});
 		} catch (Throwable e) {
 			assertSame(exception, e);
@@ -236,10 +205,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_void_rethrowMessage_noException() throws Exception {
-		ExecutionUtils.runRethrow(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-			}
+		ExecutionUtils.runRethrow((RunnableEx) () -> {
 		}, "Error message '%s' for %d.", "Not found", 42);
 	}
 
@@ -250,11 +216,8 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	public void test_void_rethrowMessage_withException() throws Exception {
 		final Exception exception = new Exception();
 		try {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					throw exception;
-				}
+			ExecutionUtils.runRethrow((RunnableEx) () -> {
+				throw exception;
 			}, "Error message '%s' for %d.", "Not found", 42);
 		} catch (RuntimeException e) {
 			assertEquals("Error message 'Not found' for 42.", e.getMessage());
@@ -272,12 +235,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_void_runDesignTime_void() throws Exception {
-		ExecutionUtils.runDesignTime(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				assertTrue(Beans.isDesignTime());
-			}
-		});
+		ExecutionUtils.runDesignTime(() -> assertTrue(Beans.isDesignTime()));
 	}
 
 	/**
@@ -427,19 +385,13 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	public void test_runLogUI_noException() throws Exception {
 		final boolean[] executed = new boolean[1];
 		final boolean[] success = new boolean[1];
-		Runnable runnable = new Runnable() {
-			@Override
-			public void run() {
-				success[0] = ExecutionUtils.runLogUI(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						assertNotNull(Display.getCurrent());
-						executed[0] = true;
-					}
-				});
-				// RunnableEx is already executed, because we wait for this
-				assertTrue(executed[0]);
-			}
+		Runnable runnable = () -> {
+			success[0] = ExecutionUtils.runLogUI(() -> {
+				assertNotNull(Display.getCurrent());
+				executed[0] = true;
+			});
+			// RunnableEx is already executed, because we wait for this
+			assertTrue(executed[0]);
 		};
 		// run in thread, so not in UI
 		Thread thread = new Thread(runnable);
@@ -462,14 +414,11 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	public void test_runLogUI_withException() throws Exception {
 		final Exception exception = new Exception();
 		ILog log = DesignerPlugin.getDefault().getLog();
-		ILogListener logListener = new ILogListener() {
-			@Override
-			public void logging(IStatus status, String plugin) {
-				assertEquals(IStatus.ERROR, status.getSeverity());
-				assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
-				assertEquals(IStatus.ERROR, status.getCode());
-				assertSame(exception, status.getException());
-			}
+		ILogListener logListener = (status, plugin) -> {
+			assertEquals(IStatus.ERROR, status.getSeverity());
+			assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
+			assertEquals(IStatus.ERROR, status.getCode());
+			assertSame(exception, status.getException());
 		};
 		// temporary intercept logging
 		try {
@@ -477,17 +426,9 @@ public class ExecutionUtilsTest extends SwingModelTest {
 			DesignerPlugin.setDisplayExceptionOnConsole(false);
 			// prepare RunnableEx
 			final boolean[] success = new boolean[1];
-			Runnable runnable = new Runnable() {
-				@Override
-				public void run() {
-					success[0] = ExecutionUtils.runLogUI(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							throw exception;
-						}
-					});
-				}
-			};
+			Runnable runnable = () -> success[0] = ExecutionUtils.runLogUI(() -> {
+				throw exception;
+			});
 			// run in thread, so not in UI
 			Thread thread = new Thread(runnable);
 			thread.start();
@@ -508,17 +449,7 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_runRethrowUI() throws Exception {
-		Runnable runnable = new Runnable() {
-			@Override
-			public void run() {
-				ExecutionUtils.runRethrowUI(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						assertNotNull(Display.getCurrent());
-					}
-				});
-			}
-		};
+		Runnable runnable = () -> ExecutionUtils.runRethrowUI(() -> assertNotNull(Display.getCurrent()));
 		// run in thread, so not in UI
 		Thread thread = new Thread(runnable);
 		thread.start();
@@ -533,19 +464,13 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	@Test
 	public void test_runAsync() throws Exception {
 		final boolean[] executed = new boolean[1];
-		Runnable runnable = new Runnable() {
-			@Override
-			public void run() {
-				ExecutionUtils.runLogLater(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						assertNotNull(Display.getCurrent());
-						executed[0] = true;
-					}
-				});
-				// RunnableEx is NOT executed, we just scheduled it, and no events loop was executed
-				assertFalse(executed[0]);
-			}
+		Runnable runnable = () -> {
+			ExecutionUtils.runLogLater(() -> {
+				assertNotNull(Display.getCurrent());
+				executed[0] = true;
+			});
+			// RunnableEx is NOT executed, we just scheduled it, and no events loop was executed
+			assertFalse(executed[0]);
 		};
 		// run in thread, so not in UI
 		Thread thread = new Thread(runnable);
@@ -566,16 +491,13 @@ public class ExecutionUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_UI_object() throws Exception {
-		Runnable runnable = new Runnable() {
-			@Override
-			public void run() {
-				final Object myResult = new Object();
-				Object result = ExecutionUtils.runObjectUI(() -> {
-					assertNotNull(Display.getCurrent());
-					return myResult;
-				});
-				assertSame(myResult, result);
-			}
+		Runnable runnable = () -> {
+			final Object myResult = new Object();
+			Object result = ExecutionUtils.runObjectUI(() -> {
+				assertNotNull(Display.getCurrent());
+				return myResult;
+			});
+			assertSame(myResult, result);
 		};
 		// run in thread, so not in UI
 		Thread thread = new Thread(runnable);
@@ -600,17 +522,14 @@ public class ExecutionUtilsTest extends SwingModelTest {
 			}
 		};
 		// do edit
-		ExecutionUtils.run(object, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// no refresh
-				assertFalse(refreshed.get());
-				// inner edit operation
-				object.startEdit();
-				object.endEdit();
-				// still no refresh
-				assertFalse(refreshed.get());
-			}
+		ExecutionUtils.run(object, () -> {
+			// no refresh
+			assertFalse(refreshed.get());
+			// inner edit operation
+			object.startEdit();
+			object.endEdit();
+			// still no refresh
+			assertFalse(refreshed.get());
 		});
 		// refresh happened
 		assertTrue(refreshed.get());
@@ -631,11 +550,8 @@ public class ExecutionUtilsTest extends SwingModelTest {
 		});
 		// do edit
 		assertFalse(exceptionHandled[0]);
-		ExecutionUtils.run(object, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				throw exception;
-			}
+		ExecutionUtils.run(object, () -> {
+			throw exception;
 		});
 		// exception should be handled
 		assertTrue(exceptionHandled[0]);
@@ -653,11 +569,8 @@ public class ExecutionUtilsTest extends SwingModelTest {
 		// do edit
 		final Exception exception = new Exception();
 		try {
-			ExecutionUtils.run(object, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					throw exception;
-				}
+			ExecutionUtils.run(object, () -> {
+				throw exception;
 			});
 			fail();
 		} catch (Throwable e) {
@@ -681,11 +594,8 @@ public class ExecutionUtilsTest extends SwingModelTest {
 		// do operation
 		final RuntimeException exception = new RuntimeException();
 		try {
-			ExecutionUtils.run(object, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					throw exception;
-				}
+			ExecutionUtils.run(object, () -> {
+				throw exception;
 			});
 			fail();
 		} catch (Throwable e) {
@@ -707,16 +617,13 @@ public class ExecutionUtilsTest extends SwingModelTest {
 		};
 		// do edit
 		final AtomicBoolean executed = new AtomicBoolean();
-		ExecutionUtils.runLater(object, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				executed.set(true);
-				// inner edit operation
-				object.startEdit();
-				object.endEdit();
-				// still no refresh
-				assertFalse(refreshed.get());
-			}
+		ExecutionUtils.runLater(object, () -> {
+			executed.set(true);
+			// inner edit operation
+			object.startEdit();
+			object.endEdit();
+			// still no refresh
+			assertFalse(refreshed.get());
 		});
 		// execution should be later
 		assertFalse(executed.get());

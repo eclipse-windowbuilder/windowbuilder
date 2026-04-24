@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapColumnInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.table.TableWrapDataInfo;
@@ -1477,12 +1476,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 				"}");
 		assertEquals("left, grab", column.getTitle());
 		// set alignment
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				column.setAlignment(TableWrapData.FILL);
-			}
-		});
+		ExecutionUtils.run(shell, () -> column.setAlignment(TableWrapData.FILL));
 		assertEditor(
 				"class Test extends Shell {",
 				"  Test() {",
@@ -1611,12 +1605,7 @@ public class TableWrapLayoutTest extends AbstractFormsTest {
 				"}");
 		assertEquals("top, grab", row.getTitle());
 		// set alignment
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				row.setAlignment(TableWrapData.FILL);
-			}
-		});
+		ExecutionUtils.run(shell, () -> row.setAlignment(TableWrapData.FILL));
 		assertEditor(
 				"class Test extends Shell {",
 				"  Test() {",

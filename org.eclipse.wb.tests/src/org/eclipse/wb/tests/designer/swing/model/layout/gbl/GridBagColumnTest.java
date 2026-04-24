@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
@@ -415,12 +414,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		assertEquals(1, layout.getColumns().size());
 		assertEquals(1, layout.getRows().size());
 		// append column
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().insert(1);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().insert(1));
 		assertEquals(2, layout.getColumns().size());
 		assertEquals(1, layout.getRows().size());
 		assertEditor("""
@@ -594,12 +588,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		final GridBagLayoutInfo layout = getJavaInfoByName("layout");
 		assertEquals(3, layout.getColumns().size());
 		// do delete
-		ExecutionUtils.run(layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().delete(1);
-			}
-		});
+		ExecutionUtils.run(layout, () -> layout.getColumnOperations().delete(1));
 		assertEquals(2, layout.getColumns().size());
 		assertEditor("""
 				class Test extends JPanel {
@@ -672,12 +661,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		ColumnInfo column_1 = columns.get(1);
 		ColumnInfo column_2 = columns.get(2);
 		// do move
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().move(2, 0);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().move(2, 0));
 		assertEquals(3, columns.size());
 		assertSame(column_2, columns.get(0));
 		assertSame(column_0, columns.get(1));
@@ -767,12 +751,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		ColumnInfo column_1 = columns.get(1);
 		ColumnInfo column_2 = columns.get(2);
 		// do move
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().move(0, 3);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().move(0, 3));
 		assertEquals(3, columns.size());
 		assertSame(column_1, columns.get(0));
 		assertSame(column_2, columns.get(1));
@@ -909,12 +888,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 					}""");
 		}
 		// move column
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().move(2, 1);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().move(2, 1));
 		assertEquals(3, layout.getColumns().size());
 		assertEditor("""
 				class Test extends JPanel {
@@ -975,12 +949,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		final GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		//
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().normalizeSpanning();
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().normalizeSpanning());
 		assertEditor("""
 				class Test extends JPanel {
 					public Test() {
@@ -1033,12 +1002,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		final GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		//
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().normalizeSpanning();
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().normalizeSpanning());
 		assertEditor("""
 				class Test extends JPanel {
 					public Test() {
@@ -1092,12 +1056,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		panel.refresh();
 		final GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		//
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().normalizeSpanning();
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().normalizeSpanning());
 		assertEditor("""
 				class Test extends JPanel {
 					public Test() {
@@ -1149,12 +1108,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		assertEquals(2, layout.getColumns().size());
 		assertEquals(2, layout.getRows().size());
 		// do clear
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().clear(0);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().clear(0));
 		assertEquals(2, layout.getColumns().size());
 		assertEquals(2, layout.getRows().size());
 		assertEditor("""
@@ -1212,12 +1166,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 		assertEquals(3, layout.getColumns().size());
 		assertEquals(3, layout.getRows().size());
 		// do clear
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().clear(1);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().clear(1));
 		assertEquals(3, layout.getColumns().size());
 		assertEquals(3, layout.getRows().size());
 		assertEditor("""
@@ -1290,12 +1239,7 @@ public class GridBagColumnTest extends AbstractGridBagLayoutTest {
 			assertEquals(2, columns.get(1).getSize());
 		}
 		// do split
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getColumnOperations().split(0);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getColumnOperations().split(0));
 		// check columns
 		{
 			assertEquals(2, layout.getRows().size());

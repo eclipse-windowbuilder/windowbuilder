@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMementoTransfer;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -433,14 +432,11 @@ public class ClipboardTest extends SwingModelTest {
 		}
 		// do paste
 		final ComponentInfo[] pastedComponent = new ComponentInfo[1];
-		ExecutionUtils.run(container, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ComponentInfo component = (ComponentInfo) memento.create(container);
-				flowLayout.add(component, null);
-				memento.apply();
-				pastedComponent[0] = component;
-			}
+		ExecutionUtils.run(container, () -> {
+			ComponentInfo component = (ComponentInfo) memento.create(container);
+			flowLayout.add(component, null);
+			memento.apply();
+			pastedComponent[0] = component;
 		});
 		// check result
 		assertEditor(targetLines);

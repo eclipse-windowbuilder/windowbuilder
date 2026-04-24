@@ -573,12 +573,9 @@ public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 	public static void flowContainer_CREATE(final JavaInfo container,
 			final Object object,
 			final Object reference) throws Exception {
-		ExecutionUtils.run(container, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FlowContainer flowContainer = new FlowContainerFactory(container, false).get().get(0);
-				flowContainer.command_CREATE(object, reference);
-			}
+		ExecutionUtils.run(container, () -> {
+			FlowContainer flowContainer = new FlowContainerFactory(container, false).get().get(0);
+			flowContainer.command_CREATE(object, reference);
 		});
 	}
 
@@ -588,12 +585,9 @@ public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 	public static void flowContainer_MOVE(final JavaInfo container,
 			final Object object,
 			final Object reference) throws Exception {
-		ExecutionUtils.run(container, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				FlowContainer flowContainer = new FlowContainerFactory(container, false).get().get(0);
-				flowContainer.command_MOVE(object, reference);
-			}
+		ExecutionUtils.run(container, () -> {
+			FlowContainer flowContainer = new FlowContainerFactory(container, false).get().get(0);
+			flowContainer.command_MOVE(object, reference);
 		});
 	}
 

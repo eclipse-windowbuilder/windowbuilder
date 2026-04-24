@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,7 +28,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.SwingToolkitDescription;
 import org.eclipse.wb.internal.swing.ToolkitProvider;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -1483,13 +1482,10 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 			memento = JavaInfoMemento.createMemento(inner);
 		}
 		// add copy
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ContainerInfo copy = (ContainerInfo) memento.create(panel);
-				((FlowLayoutInfo) panel.getLayout()).add(copy, null);
-				memento.apply();
-			}
+		ExecutionUtils.run(panel, () -> {
+			ContainerInfo copy = (ContainerInfo) memento.create(panel);
+			((FlowLayoutInfo) panel.getLayout()).add(copy, null);
+			memento.apply();
 		});
 		String lines = """
 				public class Test extends JPanel {

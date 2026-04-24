@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.model.generation.statement.lazy.LazyStatemen
 import org.eclipse.wb.internal.core.model.variable.description.LazyVariableDescription;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.SwingToolkitDescription;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -165,12 +164,9 @@ public class ComponentTest extends SwingModelTest {
 				}""");
 		panel.refresh();
 		//
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ComponentInfo myPanel = createJavaInfo("test.MyPanel");
-				((FlowLayoutInfo) panel.getLayout()).add(myPanel, null);
-			}
+		ExecutionUtils.run(panel, () -> {
+			ComponentInfo myPanel = createJavaInfo("test.MyPanel");
+			((FlowLayoutInfo) panel.getLayout()).add(myPanel, null);
 		});
 		assertEditor("""
 				// filler filler filler filler filler

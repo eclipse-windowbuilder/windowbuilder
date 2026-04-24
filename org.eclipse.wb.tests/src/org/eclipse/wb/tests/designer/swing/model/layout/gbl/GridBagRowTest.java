@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.gbl;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.RowInfo;
@@ -319,12 +318,7 @@ public class GridBagRowTest extends AbstractGridBagLayoutTest {
 		final GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		assertEquals(3, layout.getRows().size());
 		// do move
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getRowOperations().move(2, 0);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getRowOperations().move(2, 0));
 		assertEquals(3, layout.getRows().size());
 		assertEditor("""
 				class Test extends JPanel {
@@ -406,12 +400,7 @@ public class GridBagRowTest extends AbstractGridBagLayoutTest {
 		final GridBagLayoutInfo layout = (GridBagLayoutInfo) panel.getLayout();
 		assertEquals(3, layout.getRows().size());
 		// do move
-		ExecutionUtils.run(panel, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				layout.getRowOperations().move(0, 3);
-			}
-		});
+		ExecutionUtils.run(panel, () -> layout.getRowOperations().move(0, 3));
 		assertEquals(3, layout.getRows().size());
 		assertEditor("""
 				class Test extends JPanel {

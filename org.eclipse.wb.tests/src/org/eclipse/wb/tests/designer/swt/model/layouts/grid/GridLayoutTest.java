@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.jface.viewer.ViewerInfo;
 import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
@@ -1806,12 +1805,7 @@ public class GridLayoutTest extends RcpModelTest {
 			assertEquals("right, grab", column.getTitle());
 		}
 		// delete
-		ExecutionUtils.run(shell, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				column.delete();
-			}
-		});
+		ExecutionUtils.run(shell, column::delete);
 		assertEditor(
 				"class Test extends Shell {",
 				"  Test() {",
@@ -3040,12 +3034,7 @@ public class GridLayoutTest extends RcpModelTest {
 		refresh();
 		//
 		ControlInfo composite = getJavaInfoByName("composite");
-		doCopyPaste(composite, new PasteProcedure<ControlInfo>() {
-			@Override
-			public void run(ControlInfo copy) throws Exception {
-				shell.getLayout().command_CREATE(copy, null);
-			}
-		});
+		doCopyPaste(composite, copy -> shell.getLayout().command_CREATE(copy, null));
 		assertEditor(
 				"class Test extends Shell {",
 				"  public Test() {",
