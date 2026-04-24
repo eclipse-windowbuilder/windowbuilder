@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -284,6 +284,10 @@ public interface IPreferenceConstants {
 	 * The id of default {@link LayoutDescription}.
 	 */
 	String P_LAYOUT_DEFAULT = "layout.default";
+	/**
+	 * The template for <code>Layout</code> variable name.
+	 */
+	String P_LAYOUT_NAME_TEMPLATE = "templateLayoutName";
 	/**
 	 * If this preference is <code>true</code>, newly dropped container (if it supports layout) will
 	 * use layout manager of its parent.

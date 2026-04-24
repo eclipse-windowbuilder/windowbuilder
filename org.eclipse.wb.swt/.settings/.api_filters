@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<component id="org.eclipse.wb.swt" version="2">
+    <resource path="src/org/eclipse/wb/internal/swt/preferences/IPreferenceConstants.java" type="org.eclipse.wb.internal.swt.preferences.IPreferenceConstants">
+        <filter comment="Package is internal" id="305365105">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.internal.swt.preferences.IPreferenceConstants"/>
+                <message_argument value="org.eclipse.wb.swt_1.11.100"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/internal/swt/preferences/PreferencesMessages.java" type="org.eclipse.wb.internal.swt.preferences.PreferencesMessages">
+        <filter comment="Package is internal" id="305365105">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.internal.swt.preferences.PreferencesMessages"/>
+                <message_argument value="org.eclipse.wb.swt_1.11.100"/>
+            </message_arguments>
+        </filter>
+    </resource>
+</component>
