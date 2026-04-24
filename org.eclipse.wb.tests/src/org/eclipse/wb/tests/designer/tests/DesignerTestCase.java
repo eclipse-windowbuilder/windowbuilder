@@ -41,6 +41,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.widgets.SWTBotLabel;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
@@ -468,10 +469,9 @@ public abstract class DesignerTestCase extends Assertions {
 		SWTBotShell shellBot = bot.shell("Open type");
 		SWTBot shell = shellBot.bot();
 		// set filter
-		{
-			SWTBotText filterText = shell.text();
-			filterText.setText(typeName);
-		}
+		SWTBotText filterText = shell.text();
+		filterText.setText(typeName);
+
 		// wait for types
 		{
 			final SWTBotTable typesTable = shell.table();
@@ -483,7 +483,13 @@ public abstract class DesignerTestCase extends Assertions {
 
 				@Override
 				public String getFailureMessage() {
-					return "\"Open type\" dialog took too long to find types.";
+					SWTBotLabel progressLabel = shell.label(2);
+					return """
+							"Open type" dialog took too long to find types.
+							- Number of Items: %d
+							- Filter Text: "%s"
+							- Progress: "%s"
+							""".formatted(typesTable.rowCount(), filterText.getText(), progressLabel.getText());
 				}
 			});
 		}

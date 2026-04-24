@@ -29,9 +29,11 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
-import org.junit.jupiter.api.Test;
 
 import javax.swing.JButton;
 import javax.swing.JMenu;
@@ -52,6 +54,13 @@ public class ActionGefTest extends SwingGefTest {
 		System.exit(0);
 	}
 
+	@Override
+	@BeforeEach
+	public void setUp() throws Exception {
+		super.setUp();
+		createExternalAction();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// JToolBar
@@ -62,7 +71,6 @@ public class ActionGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JToolBar_ActionNewEntryInfo() throws Exception {
-		createExternalAction();
 		ContainerInfo panel = openContainer("""
 				public class Test extends JPanel {
 					public Test() {
@@ -131,7 +139,6 @@ public class ActionGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JToolBar_ActionUseEntryInfo_canvas() throws Exception {
-		createExternalAction();
 		ContainerInfo panel = openContainer("""
 				public class Test extends JPanel {
 					private ExternalAction action = new ExternalAction();
@@ -182,7 +189,6 @@ public class ActionGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JToolBar_ActionUseEntryInfo_tree() throws Exception {
-		createExternalAction();
 		ContainerInfo panel = openContainer("""
 				public class Test extends JPanel {
 					private ExternalAction action = new ExternalAction();
@@ -233,7 +239,6 @@ public class ActionGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JToolBar_ActionExternalEntryInfo() throws Exception {
-		createExternalAction();
 		final ContainerInfo panel = openContainer("""
 				public class Test extends JPanel {
 					public Test() {
@@ -306,7 +311,6 @@ public class ActionGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JButton_setAction() throws Exception {
-		createExternalAction();
 		ContainerInfo panel = openContainer("""
 				public class Test extends JPanel {
 					private ExternalAction action = new ExternalAction();
@@ -350,7 +354,6 @@ public class ActionGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JMenu_dropBetween_JMenuItem() throws Exception {
-		createExternalAction();
 		ContainerInfo frame = openContainer("""
 				public class Test extends JFrame {
 					private ExternalAction action = new ExternalAction();

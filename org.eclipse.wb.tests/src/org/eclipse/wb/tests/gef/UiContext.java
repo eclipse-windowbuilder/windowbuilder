@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.swt.finder.SWTBot;
@@ -78,6 +79,10 @@ public class UiContext {
 						System.err.println(shell);
 					}
 				});
+				System.err.println("Active Jobs:");
+				for (Job job : Job.getJobManager().find(null)) {
+					System.err.println(job.getName() + " - " + job.getState());
+				}
 				e.printStackTrace();
 				checkException[0] = e;
 			} finally {
