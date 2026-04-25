@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.layout.position;
 
-import org.eclipse.wb.core.gef.figure.AbstractPositionFeedback;
 import org.eclipse.wb.core.gef.figure.GhostPositionFeedback;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
@@ -48,8 +47,10 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private TextFeedback m_hintFeedback;
-	private List<AbstractPositionFeedback> m_feedbacks;
-	private AbstractPositionFeedback m_activeFeedback;
+	@SuppressWarnings("removal")
+	private List<GhostPositionFeedback> m_feedbacks;
+	@SuppressWarnings("removal")
+	private GhostPositionFeedback m_activeFeedback;
 
 	@Override
 	protected final void showLayoutTargetFeedback(Request request) {
@@ -70,7 +71,7 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 		// highlight feedback
 		m_activeFeedback = null;
 		Point location = PolicyUtils.getAbsoluteLocation(getHost(), (DropRequest) request);
-		for (AbstractPositionFeedback feedback : m_feedbacks) {
+		for (@SuppressWarnings("removal") GhostPositionFeedback feedback : m_feedbacks) {
 			if (feedback.update(location)) {
 				m_activeFeedback = feedback;
 			}
@@ -93,7 +94,7 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 		super.eraseLayoutTargetFeedback(request);
 		if (m_feedbacks != null) {
 			// remove positions
-			for (AbstractPositionFeedback feedback : m_feedbacks) {
+			for (@SuppressWarnings("removal") GhostPositionFeedback feedback : m_feedbacks) {
 				feedback.remove();
 			}
 			m_feedbacks = null;
@@ -122,7 +123,8 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 		}
 		// add feedback
 		{
-			AbstractPositionFeedback feedback = new GhostPositionFeedback(layer, bounds, hint);
+			@SuppressWarnings("removal")
+			GhostPositionFeedback feedback = new GhostPositionFeedback(layer, bounds, hint);
 			feedback.setData(data);
 			m_feedbacks.add(feedback);
 		}

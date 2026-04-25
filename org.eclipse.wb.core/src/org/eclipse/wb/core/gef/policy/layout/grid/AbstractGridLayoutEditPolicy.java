@@ -22,13 +22,13 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;

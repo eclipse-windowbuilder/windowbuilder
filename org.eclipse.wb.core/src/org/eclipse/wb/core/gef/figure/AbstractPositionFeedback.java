@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,7 +25,10 @@ import org.eclipse.draw2d.geometry.Rectangle;
  *
  * @author scheglov_ke
  * @coverage core.gef.figure
+ * @deprecated This class will be internalized after the 2028-06 release.
  */
+//TODO ptziegler - unify with GhostPositionFeedback once SolidPositionFeedback has been deleted
+@Deprecated(forRemoval = true, since = "2026-06")
 public abstract class AbstractPositionFeedback {
 	private final Layer m_layer;
 	private final String m_hint;

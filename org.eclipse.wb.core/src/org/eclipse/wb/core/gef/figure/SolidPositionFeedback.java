@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.figure;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.border.LineBorder;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
@@ -26,13 +26,18 @@ import org.eclipse.swt.graphics.Color;
  *
  * @author scheglov_ke
  * @coverage core.gef.figure
+ * @deprecated Not used anymore. This class will be removed after the 2028-06
+ *             release.
  */
+@SuppressWarnings("removal")
+@Deprecated(forRemoval = true, since = "2026-06")
 public final class SolidPositionFeedback extends AbstractPositionFeedback {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(forRemoval = true, since = "2026-06")
 	public SolidPositionFeedback(Layer layer, Rectangle bounds, String hint) {
 		super(layer, bounds, hint);
 	}
@@ -42,6 +47,7 @@ public final class SolidPositionFeedback extends AbstractPositionFeedback {
 	// Figure methods
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(forRemoval = true, since = "2026-06")
 	@Override
 	protected IFigure createFigure() {
 		IFigure figure = new Figure();
@@ -50,6 +56,7 @@ public final class SolidPositionFeedback extends AbstractPositionFeedback {
 		return figure;
 	}
 
+	@Deprecated(forRemoval = true, since = "2026-06")
 	@Override
 	public void update(boolean contains) {
 		if (contains) {
