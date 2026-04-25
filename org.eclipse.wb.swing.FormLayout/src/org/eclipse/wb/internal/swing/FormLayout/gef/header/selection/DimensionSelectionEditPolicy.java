@@ -14,10 +14,8 @@ package org.eclipse.wb.internal.swing.FormLayout.gef.header.selection;
 
 import org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -27,7 +25,9 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
