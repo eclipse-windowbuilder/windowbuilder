@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,8 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
-
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
@@ -44,8 +43,8 @@ public class SemiTransparentFigure extends Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void paintClientArea(Graphics graphics) {
-		Rectangle clientArea = getClientArea();
+	protected void paintFigure(Graphics graphics) {
+		Rectangle clientArea = getBounds();
 		// prepare image 1x1
 		Image image;
 		{
@@ -58,7 +57,7 @@ public class SemiTransparentFigure extends Figure {
 			image = new Image(null, data);
 		}
 		// stretch image on client area
-		graphics.drawImage(image, 0, 0, 1, 1, 0, 0, clientArea.width, clientArea.height);
+		graphics.drawImage(image, 0, 0, 1, 1, clientArea.x, clientArea.y, clientArea.width, clientArea.height);
 		image.dispose();
 	}
 }

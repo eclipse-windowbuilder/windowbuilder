@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.policy.selection;
 
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -61,10 +61,10 @@ public class TopResizeFigure extends SemiTransparentFigure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void paintClientArea(Graphics graphics) {
-		super.paintClientArea(graphics);
+	protected void paintFigure(Graphics graphics) {
+		super.paintFigure(graphics);
 		if (!StringUtils.isEmpty(m_sizeText)) {
-			Rectangle area = getClientArea();
+			Rectangle area = getBounds();
 			Font oldFont = graphics.getFont();
 			Font newFont = FontDescriptor.createFrom(oldFont) //
 					.setHeight(16) //

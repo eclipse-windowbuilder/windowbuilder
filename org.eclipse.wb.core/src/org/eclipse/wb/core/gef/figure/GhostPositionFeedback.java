@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,10 +13,10 @@
 package org.eclipse.wb.core.gef.figure;
 
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
 
@@ -25,7 +25,10 @@ import org.eclipse.swt.graphics.Color;
  *
  * @author scheglov_ke
  * @coverage core.gef.figure
+ * @deprecated This class will be internalized after the 2028-06 release.
  */
+@SuppressWarnings("removal")
+@Deprecated(forRemoval = true, since = "2026-06")
 public final class GhostPositionFeedback extends AbstractPositionFeedback {
 	private static final Color m_fillColor = new Color(null, 0, 255, 0);
 	private static final Color m_activeColor = new Color(null, 255, 255, 0);
