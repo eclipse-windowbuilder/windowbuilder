@@ -13,7 +13,6 @@
 package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.gef.core.tools.Tool;
 
 import org.eclipse.draw2d.AncestorListener;
 import org.eclipse.draw2d.IFigure;
@@ -21,6 +20,7 @@ import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Tool;
 
 /**
  * {@link Handle} will add an {@link IAncestorListener} to the owner's figure, and will
@@ -150,7 +150,7 @@ public abstract class Handle extends Figure implements AncestorListener, org.ecl
 	/**
 	 * Creates a new drag tracker {@link Tool} to be returned by {@link #getDragTracker()}.
 	 */
-	protected final Tool createDragTracker() {
+	protected final DragTracker createDragTracker() {
 		return null;
 	}
 

@@ -44,8 +44,8 @@ public class SelectEditPartTracker extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void resetState() {
-		super.resetState();
+	protected void resetFlags() {
+		super.resetFlags();
 		m_isSelected = false;
 	}
 

@@ -15,11 +15,11 @@ package org.eclipse.wb.tests.designer.core.palette;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.tests.gef.EmptyEditPartViewer;
 
+import org.eclipse.gef.Tool;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.junit.jupiter.api.Test;

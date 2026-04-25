@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,11 +14,11 @@ package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.gef.core.SharedCursors;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.graphics.Cursor;
 

@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core;
 
-import org.eclipse.wb.gef.core.tools.Tool;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.Tool;
 
 /**
  * Performs pre-processing {@link Request} in {@link EditPart}'s, before sending {@link Request} to

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,11 +13,11 @@
 package org.eclipse.wb.internal.gef.core;
 
 import org.eclipse.wb.gef.core.ICommandExceptionHandler;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.events.MouseEvent;
@@ -162,8 +162,8 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	 * Sets the default {@link Tool}.
 	 */
 	@Override
-	public void setDefaultTool(org.eclipse.gef.Tool defaultTool) {
-		m_defaultTool = (Tool) defaultTool;
+	public void setDefaultTool(Tool defaultTool) {
+		m_defaultTool = defaultTool;
 	}
 
 	/**
@@ -179,12 +179,12 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 	 * it is deactivated. The new {@link Tool} is told its {@link EditDomain}, and is activated.
 	 */
 	@Override
-	public void setActiveTool(org.eclipse.gef.Tool activeTool) {
+	public void setActiveTool(Tool activeTool) {
 		if (m_activeTool != null) {
 			m_activeTool.deactivate();
 		}
 		//
-		m_activeTool = (Tool) activeTool;
+		m_activeTool = activeTool;
 		//
 		if (m_activeTool != null) {
 			m_activeTool.setEditDomain(this);

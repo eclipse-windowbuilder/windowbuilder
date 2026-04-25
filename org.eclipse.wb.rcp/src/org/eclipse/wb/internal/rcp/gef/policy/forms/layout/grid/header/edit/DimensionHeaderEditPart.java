@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.header.Headers;
 import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -103,7 +103,7 @@ IHeaderMenuProvider {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public final Tool getDragTracker(Request request) {
+	public final DragTracker getDragTracker(Request request) {
 		return new ParentTargetDragEditPartTracker(this);
 	}
 

@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Tool;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

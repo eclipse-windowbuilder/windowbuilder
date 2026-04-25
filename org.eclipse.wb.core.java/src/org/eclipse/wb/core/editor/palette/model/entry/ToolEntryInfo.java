@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,9 +13,11 @@
 package org.eclipse.wb.core.editor.palette.model.entry;
 
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.gef.core.EditDomain;
+
+import org.eclipse.gef.Tool;
+import org.eclipse.gef.tools.AbstractTool;
 
 /**
  * Implementation of {@link EntryInfo} that sets {@link Tool} for {@link EditDomain}.
@@ -39,7 +41,7 @@ public abstract class ToolEntryInfo extends EntryInfo {
 				if (tool == null) {
 					return null;
 				}
-				tool.setUnloadWhenFinished(!reload);
+				((AbstractTool) tool).setUnloadWhenFinished(!reload);
 			}
 			// OK
 			m_editPartViewer.getEditDomain().setActiveTool(tool);
@@ -50,6 +52,7 @@ public abstract class ToolEntryInfo extends EntryInfo {
 	/**
 	 * @return the {@link Tool} that should be set on activation, or <code>null</code> if no
 	 *         {@link Tool} can be activated.
+	 * @since 1.15
 	 */
 	public abstract Tool createTool() throws Exception;
 }
