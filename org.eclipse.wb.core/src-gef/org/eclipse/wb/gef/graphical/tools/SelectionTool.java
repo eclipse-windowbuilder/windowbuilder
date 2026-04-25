@@ -28,6 +28,7 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.requests.SelectionRequest;
+import org.eclipse.gef.tools.MarqueeDragTracker;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.MouseEvent;

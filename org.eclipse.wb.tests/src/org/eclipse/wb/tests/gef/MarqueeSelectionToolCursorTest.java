@@ -12,11 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
-
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.Tool;
+import org.eclipse.gef.tools.MarqueeSelectionTool;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,23 +69,23 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.click(30, 30, 1);
 			//
-			m_actualLogger.assertEmpty();
+			expectedLogger.setCursor(null);
+			m_actualLogger.assertEquals(expectedLogger);
 		}
 		//
 		m_viewer.select(shellEditPart);
-		m_defaultToolProvider = new IDefaultToolProvider() {
-			@Override
-			public Tool getDefaultTool() {
-				return new MarqueeSelectionTool();
-			}
-		};
+		m_defaultToolProvider = () -> new MarqueeSelectionTool();
 		m_domain.setActiveTool(new MarqueeSelectionTool());
 		//
 		// move to "ShellEditPart_MoveHandle"
 		{
 			m_sender.moveTo(40, 20);
 			//
-			m_actualLogger.assertEmpty();
+			expectedLogger.setCursor(Cursors.CROSS);
+			expectedLogger.setCursor(Cursors.SIZEALL);
+			expectedLogger.setCursor(Cursors.NO);
+			expectedLogger.setCursor(Cursors.CROSS);
+			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// start drag
 		{
@@ -100,8 +98,7 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.startDrag(45, 30, 2);
 			//
-			expectedLogger.setCursor(Cursors.NO);
-			m_actualLogger.assertEquals(expectedLogger);
+			m_actualLogger.assertEmpty();
 		}
 		// drag
 		{
@@ -113,7 +110,8 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.endDrag();
 			//
-			m_actualLogger.assertEmpty();
+			expectedLogger.setCursor(null);
+			m_actualLogger.assertEquals(expectedLogger);
 		}
 	}
 }
