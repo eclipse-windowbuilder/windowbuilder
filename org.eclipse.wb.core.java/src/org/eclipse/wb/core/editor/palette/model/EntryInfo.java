@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,10 +14,10 @@ package org.eclipse.wb.core.editor.palette.model;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
+import org.eclipse.gef.Tool;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jface.resource.ImageDescriptor;
 
@@ -94,6 +94,7 @@ public abstract class EntryInfo extends AbstractElementInfo {
 	 *               successful using.
 	 * @return the {@link Tool} that should be set on activation, or {@code null} if
 	 *         no {@link Tool} can be activated.
+	 * @since 1.15
 	 */
 	public abstract Tool createTool(boolean reload);
 

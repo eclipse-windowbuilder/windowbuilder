@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.gef.part.menu;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuLayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
@@ -26,6 +25,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
@@ -143,7 +143,7 @@ public class MenuEditPart extends MenuObjectEditPart {
 		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, new MenuSelectionEditPolicy());
 	}
 	@Override
-	public Tool getDragTracker(org.eclipse.gef.Request request) {
+	public DragTracker getDragTracker(org.eclipse.gef.Request request) {
 		// we don't need any move/resize for menu edit part!
 		if (isSubMenu()) {
 			return new SelectEditPartTracker(this);

@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.bean;
 
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.swing.palette.ActionUseEntryInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.wb.tests.gef.UiContext;
 
+import org.eclipse.gef.Tool;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import org.apache.commons.lang3.function.FailableConsumer;

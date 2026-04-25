@@ -14,7 +14,6 @@ package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
-import org.eclipse.wb.gef.core.tools.Tool;
 
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Locator;
@@ -51,7 +50,7 @@ public class MoveHandle extends Handle {
 		setCursor(Cursors.SIZEALL);
 		// set drag tracker
 		{
-			Tool tracker = new DragEditPartTracker(owner);
+			DragEditPartTracker tracker = new DragEditPartTracker(owner);
 			tracker.setDefaultCursor(getCursor());
 			setDragTracker(tracker);
 		}

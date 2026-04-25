@@ -14,12 +14,12 @@ package org.eclipse.wb.internal.gef.graphical;
 
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.LayerConstants;
@@ -164,7 +164,7 @@ public class RootEditPart extends DesignEditPart implements org.eclipse.gef.Root
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public Tool getDragTracker(Request request) {
+	public DragTracker getDragTracker(Request request) {
 		return new MarqueeSelectionTool();
 	}
 

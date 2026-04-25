@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,7 +47,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	 * perform any necessary initialization here.
 	 */
 	public void activate() {
-		resetState();
+		resetFlags();
 		m_state = STATE_INITIAL;
 		setFlag(FLAG_ACTIVE, true);
 	}
@@ -58,7 +58,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	 */
 	public void deactivate() {
 		setFlag(FLAG_ACTIVE, false);
-		setCommand(null);
+		setCurrentCommand(null);
 		m_operationSet = null;
 	}
 
@@ -165,10 +165,10 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	/**
 	 * Execute the currently active command.
 	 */
-	protected final void executeCommand() {
+	protected final void executeCurrentCommand() {
 		if (m_command != null) {
 			Command command = m_command;
-			setCommand(null);
+			setCurrentCommand(null);
 			getDomain().getCommandStack().execute(command);
 		}
 	}
@@ -176,7 +176,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	/**
 	 * Sets the currently active command.
 	 */
-	protected final void setCommand(Command command) {
+	protected final void setCurrentCommand(Command command) {
 		m_command = command;
 		refreshCursor();
 	}
@@ -186,13 +186,6 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	 */
 	protected Command getCommand() {
 		return null;
-	}
-
-	/**
-	 * Updates currently command.
-	 */
-	protected final void updateCommand() {
-		setCommand(getCommand());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -352,7 +345,7 @@ public abstract class Tool extends org.eclipse.gef.tools.AbstractTool implements
 	/**
 	 * Resets all state fields to default values.
 	 */
-	protected void resetState() {
+	protected void resetFlags() {
 		getCurrentInput().setMouseLocation(0, 0);
 		m_stateMask = 0;
 		m_button = 0;

@@ -108,7 +108,7 @@ public abstract class TargetingTool extends Tool {
 	 */
 	protected boolean handleInvalidInput() {
 		eraseTargetFeedback();
-		setCommand(null);
+		setCurrentCommand(null);
 		return true;
 	}
 

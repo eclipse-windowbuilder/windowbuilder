@@ -130,7 +130,7 @@ public class ResizeTracker extends Tool {
 		} else {
 			m_state = STATE_INVALID;
 			eraseSourceFeedback();
-			setCommand(null);
+			setCurrentCommand(null);
 		}
 		return true;
 	}
@@ -140,7 +140,7 @@ public class ResizeTracker extends Tool {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			m_state = STATE_TERMINAL;
 			eraseSourceFeedback();
-			executeCommand();
+			executeCurrentCommand();
 		}
 		return true;
 	}
@@ -158,7 +158,7 @@ public class ResizeTracker extends Tool {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			updateRequest();
 			showSourceFeedback();
-			updateCommand();
+			setCurrentCommand(getCommand());
 		}
 		return true;
 	}

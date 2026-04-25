@@ -13,16 +13,17 @@
 package org.eclipse.wb.gef.graphical;
 
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.NodeListener;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.Tool;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import java.util.Collections;
@@ -166,7 +167,7 @@ public abstract class GraphicalEditPart extends org.eclipse.wb.gef.core.EditPart
 	 * to provide information such as which mouse button is down, and what modifier keys are pressed.
 	 */
 	@Override
-	public Tool getDragTracker(Request request) {
+	public DragTracker getDragTracker(Request request) {
 		return new DragEditPartTracker(this);
 	}
 }

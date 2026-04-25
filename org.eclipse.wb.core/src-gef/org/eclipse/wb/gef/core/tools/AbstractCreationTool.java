@@ -60,7 +60,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 		if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
 			eraseTargetFeedback();
 			unlockTargetEditPart();
-			executeCommand();
+			executeCurrentCommand();
 			selectAddedObjects();
 		}
 		//
@@ -74,7 +74,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 		updateTargetRequest();
 		updateTargetUnderMouse();
 		showTargetFeedback();
-		updateCommand();
+		setCurrentCommand(getCommand());
 		return true;
 	}
 
@@ -91,7 +91,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 		if (m_state == STATE_DRAG_IN_PROGRESS) {
 			updateTargetRequest();
 			showTargetFeedback();
-			updateCommand();
+			setCurrentCommand(getCommand());
 		}
 		return true;
 	}

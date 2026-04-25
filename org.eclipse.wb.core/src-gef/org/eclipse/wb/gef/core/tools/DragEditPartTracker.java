@@ -77,7 +77,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 			// prepare models if restoring selection
 			List<Object> models = getOperationSetModels();
 			eraseTargetFeedback();
-			executeCommand();
+			executeCurrentCommand();
 			m_state = STATE_TERMINAL;
 			// restore selection
 			restoreSelectionFromModels(models);
@@ -103,7 +103,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 			updateTargetRequest();
 			updateTargetUnderMouse();
 			showTargetFeedback();
-			updateCommand();
+			setCurrentCommand(getCommand());
 		}
 		return true;
 	}

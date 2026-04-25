@@ -8,4 +8,78 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/wb/core/editor/palette/model/EntryInfo.java" type="org.eclipse.wb.core.editor.palette.model.EntryInfo">
+        <filter comment="Remove referencef to internal Tool class" id="336695337">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.EntryInfo"/>
+                <message_argument value="createTool(boolean)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Remove reference to internal Tool class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.EntryInfo"/>
+                <message_argument value="createTool(boolean)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/editor/palette/model/entry/ChooseComponentEntryInfo.java" type="org.eclipse.wb.core.editor.palette.model.entry.ChooseComponentEntryInfo">
+        <filter comment="Remove reference to internal Tool class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.entry.ChooseComponentEntryInfo"/>
+                <message_argument value="createTool()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/editor/palette/model/entry/ComponentEntryInfo.java" type="org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo">
+        <filter comment="Remove reference to internal Tool class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo"/>
+                <message_argument value="createTool()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/editor/palette/model/entry/MarqueeSelectionToolEntryInfo.java" type="org.eclipse.wb.core.editor.palette.model.entry.MarqueeSelectionToolEntryInfo">
+        <filter comment="Remove reference to internal Tool class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.entry.MarqueeSelectionToolEntryInfo"/>
+                <message_argument value="createTool()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/editor/palette/model/entry/SelectionToolEntryInfo.java" type="org.eclipse.wb.core.editor.palette.model.entry.SelectionToolEntryInfo">
+        <filter comment="Remove reference to internal Tool class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.entry.SelectionToolEntryInfo"/>
+                <message_argument value="createTool()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/editor/palette/model/entry/TabOrderToolEntryInfo.java" type="org.eclipse.wb.core.editor.palette.model.entry.TabOrderToolEntryInfo">
+        <filter comment="Remove reference to internal Tool class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.entry.TabOrderToolEntryInfo"/>
+                <message_argument value="createTool()"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/editor/palette/model/entry/ToolEntryInfo.java" type="org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo">
+        <filter comment="Remove reference to internal Tool class" id="336695337">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo"/>
+                <message_argument value="createTool()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Remove reference to internal Tool class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo"/>
+                <message_argument value="createTool()"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Remove reference to internal Tool class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo"/>
+                <message_argument value="createTool(boolean)"/>
+            </message_arguments>
+        </filter>
+    </resource>
 </component>
