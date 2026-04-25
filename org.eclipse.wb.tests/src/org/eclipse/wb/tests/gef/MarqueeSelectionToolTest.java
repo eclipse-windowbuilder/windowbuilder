@@ -12,16 +12,20 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.graphical.tools.MarqueeSelectionTool;
-
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.tools.MarqueeSelectionTool;
+import org.eclipse.gef.util.EditPartUtilities;
 import org.eclipse.swt.SWT;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collection;
 
 /**
  * @author lobas_av
@@ -41,7 +45,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		// configure
-		m_tool = new MarqueeSelectionTool();
+		m_tool = new TestMarqueeSelectionTool();
 		m_domain.setActiveTool(m_tool);
 		//
 		m_request = new Request(RequestConstants.REQ_SELECTION);
@@ -124,6 +128,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(405, 235);
 			//
+			expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
 			expectedLogger.log(
 					childEditPart2,
 					new String[]{"getTargetEditPart", "showTargetFeedback"},
@@ -136,10 +141,10 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 			m_sender.setStateMask(0);
 			//
 			assertEquals(2, m_viewer.getSelectedEditParts().size());
-			assertSame(childEditPart1, m_viewer.getSelectedEditParts().get(0));
-			assertSame(childEditPart2, m_viewer.getSelectedEditParts().get(1));
-			assertEquals(EditPart.SELECTED, childEditPart1.getSelected());
-			assertEquals(EditPart.SELECTED_PRIMARY, childEditPart2.getSelected());
+			assertSame(childEditPart2, m_viewer.getSelectedEditParts().get(0));
+			assertSame(childEditPart1, m_viewer.getSelectedEditParts().get(1));
+			assertEquals(EditPart.SELECTED_PRIMARY, childEditPart1.getSelected());
+			assertEquals(EditPart.SELECTED, childEditPart2.getSelected());
 			//
 			expectedLogger.log(
 					childEditPart2,
@@ -158,6 +163,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(460, 360);
 			//
+			expectedLogger.log(childEditPart2, "eraseTargetFeedback", m_request);
 			expectedLogger.log(editPart, "getTargetEditPart", m_request);
 			expectedLogger.log(childEditPart1, "getTargetEditPart", m_request);
 			expectedLogger.log(childEditPart2, "getTargetEditPart", m_request);
@@ -198,6 +204,9 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(405, 235);
 			//
+			expectedLogger.log(editPart, "eraseTargetFeedback", m_request);
+			expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
+			expectedLogger.log(childEditPart2, "eraseTargetFeedback", m_request);
 			expectedLogger.log(childEditPart1, "getTargetEditPart", m_request);
 			expectedLogger.log(childEditPart2, "getTargetEditPart", m_request);
 			expectedLogger.log(childEditPart1, "showTargetFeedback", m_request);
@@ -236,6 +245,8 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(405, 235);
 			//
+			expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
+			expectedLogger.log(childEditPart2, "eraseTargetFeedback", m_request);
 			expectedLogger.log(childEditPart1, "getTargetEditPart", m_request);
 			expectedLogger.log(childEditPart2, "getTargetEditPart", m_request);
 			expectedLogger.log(childEditPart1, "showTargetFeedback", m_request);
@@ -248,10 +259,10 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 			m_sender.setStateMask(0);
 			//
 			assertEquals(2, m_viewer.getSelectedEditParts().size());
-			assertSame(editPart, m_viewer.getSelectedEditParts().get(0));
-			assertSame(childEditPart1, m_viewer.getSelectedEditParts().get(1));
-			assertEquals(EditPart.SELECTED_PRIMARY, childEditPart1.getSelected());
-			assertEquals(EditPart.SELECTED, editPart.getSelected());
+			assertSame(childEditPart1, m_viewer.getSelectedEditParts().get(0));
+			assertSame(editPart, m_viewer.getSelectedEditParts().get(1));
+			assertEquals(EditPart.SELECTED_PRIMARY, editPart.getSelected());
+			assertEquals(EditPart.SELECTED, childEditPart1.getSelected());
 			assertEquals(EditPart.SELECTED_NONE, childEditPart2.getSelected());
 			//
 			expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
@@ -266,14 +277,14 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 			m_sender.dragTo(100, 100);
 			m_sender.endDrag();
 			//
-			assertEquals(2, m_viewer.getSelectedEditParts().size());
-			assertSame(editPart, m_viewer.getSelectedEditParts().get(0));
-			assertSame(childEditPart1, m_viewer.getSelectedEditParts().get(1));
-			assertEquals(EditPart.SELECTED_PRIMARY, childEditPart1.getSelected());
-			assertEquals(EditPart.SELECTED, editPart.getSelected());
+			assertEquals(0, m_viewer.getSelectedEditParts().size());
+			assertEquals(EditPart.SELECTED_NONE, childEditPart1.getSelected());
+			assertEquals(EditPart.SELECTED_NONE, editPart.getSelected());
 			assertEquals(EditPart.SELECTED_NONE, childEditPart2.getSelected());
 			//
-			actualLogger.assertEmpty();
+			expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
+			expectedLogger.log(childEditPart2, "eraseTargetFeedback", m_request);
+			assertLoggers(expectedLogger, actualLogger);
 		}
 	}
 
@@ -311,6 +322,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 			m_sender.dragTo(405, 235);
 			//
 			expectedLogger.log(childEditPart1, "getTargetEditPart", m_request);
+			expectedLogger.log(childEditPart2, "getTargetEditPart", m_request);
 			expectedLogger.log(childEditPart1, "showTargetFeedback", m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
@@ -326,6 +338,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
 			expectedLogger.log(childEditPart1, "getTargetEditPart", m_request);
+			expectedLogger.log(childEditPart2, "getTargetEditPart", m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 	}
@@ -379,7 +392,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(
 					childEditPart,
-					new String[]{"getTargetEditPart", "showTargetFeedback"},
+					new String[] { "eraseTargetFeedback", "getTargetEditPart", "showTargetFeedback" },
 					m_request);
 			assertLoggers(expectedLogger, actualLogger);
 			//
@@ -387,6 +400,39 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(childEditPart, "eraseTargetFeedback", m_request);
 			assertLoggers(expectedLogger, actualLogger);
+		}
+	}
+
+	/**
+	 * Marquee selection tool with a deterministic algorithm for calculation the
+	 * selected edit-parts.
+	 */
+	private static class TestMarqueeSelectionTool extends MarqueeSelectionTool {
+		@Override
+		protected Collection<? extends GraphicalEditPart> calculateMarqueeSelectedEditParts() {
+			return EditPartUtilities.getAllChildren((GraphicalEditPart) getCurrentViewer().getRootEditPart()).stream() //
+					.filter(this::isPrimaryMarqueeSelectable) //
+					.filter(this::isMarqueeSelectable) //
+					.toList();
+		}
+
+		/**
+		 * Determines which edit parts are directly affected by the current marquee
+		 * selection. Calculation is performed by regarding the current marquee
+		 * selection rectangle ( {@link #getCurrentMarqueeSelectionRectangle()}).
+		 *
+		 * @param editPart the {@link EditPart} whose state is to be determined
+		 * @return {@code true} if the {@link EditPart} should be regarded as being
+		 *         included in the current marquee selection, {@code false} otherwise
+		 */
+		private boolean isPrimaryMarqueeSelectable(EditPart editPart) {
+			// figure bounds are used to determine if edit part is included in selection
+			IFigure figure = ((GraphicalEditPart) editPart).getFigure();
+			Rectangle r = figure.getBounds().getCopy();
+			figure.translateToAbsolute(r);
+
+			Rectangle marqueeSelectionRectangle = getCurrentMarqueeSelectionRectangle();
+			return marqueeSelectionRectangle.contains(r);
 		}
 	}
 }

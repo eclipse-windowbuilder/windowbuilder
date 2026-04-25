@@ -443,8 +443,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 			m_sender.setStateMask(SWT.ALT);
 			m_sender.startDrag(50, 50, 1);
 			//
-			m_expectedLogger.setCursor(Cursors.CROSS);
-			m_actualLogger.assertEquals(m_expectedLogger);
+			m_actualLogger.assertEmpty();
 		}
 		// drag over "ShellEditPart"
 		{
@@ -463,8 +462,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 			m_sender.endDrag();
 			m_sender.setStateMask(SWT.NONE);
 			//
-			m_expectedLogger.setCursor(null);
-			m_actualLogger.assertEquals(m_expectedLogger);
+			m_actualLogger.assertEmpty();
 		}
 		//
 		m_viewer.select(m_buttonEditPart);
@@ -481,8 +479,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 			m_sender.setStateMask(SWT.ALT);
 			m_sender.startDrag(220, 120, 1);
 			//
-			m_expectedLogger.setCursor(Cursors.CROSS);
-			m_actualLogger.assertEquals(m_expectedLogger);
+			m_actualLogger.assertEmpty();
 		}
 		// drag
 		{
@@ -494,8 +491,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.startDrag(230, 130, 2);
 			//
-			m_expectedLogger.setCursor(Cursors.NO);
-			m_actualLogger.assertEquals(m_expectedLogger);
+			m_actualLogger.assertEmpty();
 		}
 		// drag
 		{
