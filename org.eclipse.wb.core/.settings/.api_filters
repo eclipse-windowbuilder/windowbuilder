@@ -65,6 +65,12 @@
         </filter>
     </resource>
     <resource path="src/org/eclipse/wb/core/gef/policy/PolicyUtils.java" type="org.eclipse.wb.core.gef.policy.PolicyUtils">
+        <filter comment="Removed reference to internal Border class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
+                <message_argument value="createTargetBorder()"/>
+            </message_arguments>
+        </filter>
         <filter comment="Restructuring of internal GraphicalEditPart" id="338792546">
             <message_arguments>
                 <message_argument value="org.eclipse.wb.core.gef.policy.PolicyUtils"/>
