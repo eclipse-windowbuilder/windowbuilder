@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swing.model.bean;
 
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swing.model.bean.ActionContainerInfo;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -28,6 +29,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.gef.Tool;
 import org.eclipse.swtbot.swt.finder.SWTBot;
+
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import org.apache.commons.lang3.function.FailableConsumer;
 import org.apache.commons.lang3.function.FailableRunnable;
@@ -233,6 +236,7 @@ public class ActionGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JToolBar_ActionExternalEntryInfo() throws Exception {
+		assumeFalse(EnvironmentUtils.IS_WINDOWS);
 		createExternalAction();
 		final ContainerInfo panel = openContainer("""
 				public class Test extends JPanel {
