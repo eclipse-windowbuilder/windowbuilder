@@ -19,8 +19,6 @@ import org.eclipse.wb.core.gef.policy.layout.generic.AbstractPopupFigure;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
-import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
@@ -33,7 +31,9 @@ import org.eclipse.wb.internal.layout.group.model.AnchorsSupport;
 import org.eclipse.wb.internal.layout.group.model.GroupLayoutUtils;
 import org.eclipse.wb.internal.layout.group.model.IGroupLayoutInfo;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
