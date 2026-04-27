@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -37,48 +37,47 @@ public class FormLayoutSelectionActionsTest extends AbstractFormLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_selectionActions() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import com.jgoodies.forms.layout.*;",
-						"import com.jgoodies.forms.factories.*;",
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        ColumnSpec.decode('default:grow'),},",
-						"      new RowSpec[] {",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"    {",
-						"      JButton button = new JButton('New button');",
-						"      add(button, '6, 6');",
-						"    }",
-						"    {",
-						"      JTextField textField = new JTextField();",
-						"      add(textField, '12, 12, left, default');",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import com.jgoodies.forms.layout.*;
+				import com.jgoodies.forms.factories.*;
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "6, 6");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "12, 12, left, default");
+						}
+					}
+				}""");
 		//
 		panel.refresh();
 		//
@@ -115,46 +114,46 @@ public class FormLayoutSelectionActionsTest extends AbstractFormLayoutTest {
 		leftAction.setChecked(true);
 		leftAction.run();
 		//
-		assertEditor(
-				"import com.jgoodies.forms.layout.*;",
-				"import com.jgoodies.forms.factories.*;",
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        ColumnSpec.decode('default:grow'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        FormSpecs.RELATED_GAP_ROWSPEC,",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JButton button = new JButton('New button');",
-				"      add(button, '6, 6, left, default');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, '12, 12, left, default');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import com.jgoodies.forms.layout.*;
+				import com.jgoodies.forms.factories.*;
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button = new JButton("New button");
+							add(button, "6, 6, left, default");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "12, 12, left, default");
+						}
+					}
+				}""");
 	}
 }

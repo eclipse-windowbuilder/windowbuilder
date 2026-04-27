@@ -861,7 +861,6 @@ public class FormLayoutGefTest extends SwingGefTest {
 		{
 			ComponentInfo button_2 = getJavaInfoByName("button_2");
 			canvas.target(button_2).inX(0.5).outY(ROW_GAP + 1).move();
-			waitEventLoop(1000 * 5);
 			canvas.assertCommandNull();
 		}
 	}
