@@ -17,10 +17,8 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -40,9 +38,11 @@ import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.draw2d.PositionConstants;
@@ -1204,12 +1204,12 @@ SelectionEditPolicy {
 		};
 		hoverFigure = new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
 				if (mouseQuadrant == -1) {
 					return;
 				}
 				graphics.setBackgroundColor(ColorConstants.blue);
-				Rectangle bounds = figure.getBounds();
+				Rectangle area = figure.getBounds();
 				PointList points = new PointList();
 				switch (mouseQuadrant) {
 				case 0 :
@@ -1218,19 +1218,19 @@ SelectionEditPolicy {
 					points.addPoint(1, 7);
 					break;
 				case 1 :
-					points.addPoint(bounds.width - 1, 1);
-					points.addPoint(bounds.width - 7, 1);
-					points.addPoint(bounds.width - 1, 7);
+					points.addPoint(area.width - 1, 1);
+					points.addPoint(area.width - 7, 1);
+					points.addPoint(area.width - 1, 7);
 					break;
 				case 2 :
-					points.addPoint(1, bounds.height - 1);
-					points.addPoint(7, bounds.height - 1);
-					points.addPoint(1, bounds.height - 7);
+					points.addPoint(1, area.height - 1);
+					points.addPoint(7, area.height - 1);
+					points.addPoint(1, area.height - 7);
 					break;
 				case 3 :
-					points.addPoint(bounds.width - 1, bounds.height - 1);
-					points.addPoint(bounds.width - 7, bounds.height - 1);
-					points.addPoint(bounds.width - 1, bounds.height - 7);
+					points.addPoint(area.width - 1, area.height - 1);
+					points.addPoint(area.width - 7, area.height - 1);
+					points.addPoint(area.width - 1, area.height - 7);
 					break;
 				default :
 					break;
