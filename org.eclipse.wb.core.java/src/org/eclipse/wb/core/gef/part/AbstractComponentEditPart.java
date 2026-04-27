@@ -54,9 +54,13 @@ import java.util.List;
  */
 public abstract class AbstractComponentEditPart extends DesignEditPart implements IObjectInfoEditPart {
 	/**
-	 * Counterpart to {@link DesignRootEditPart#BOTTOM_MARGIN} which describes the
-	 * margin at the top left of the design viewer.
+	 * Top and left margin of the design viewer which are now described with
+	 * {@link DesignRootEditPart#EDIT_MARGIN}.
+	 *
+	 * @deprecated Not used anymore. This field will be removed after the 2028-06
+	 *             release.
 	 */
+	@Deprecated(forRemoval = true, since = "2026-06")
 	public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
 			? new Point(20, 28)
 					: new Point(20, 20);
@@ -114,8 +118,8 @@ public abstract class AbstractComponentEditPart extends DesignEditPart implement
 	protected void refreshVisuals() {
 		Rectangle bounds = m_component.getBounds();
 		if (m_component.isRoot()) {
-			Point rootLocation = getRootLocation();
-			bounds = bounds.getCopy().setLocation(rootLocation);
+			bounds = bounds.getCopy();
+			bounds.setLocation(0, 0);
 		}
 		// make it safe
 		if (bounds == null) {
@@ -127,7 +131,10 @@ public abstract class AbstractComponentEditPart extends DesignEditPart implement
 
 	/**
 	 * @return the location to use, if this {@link AbstractComponentInfo} is root.
+	 * @deprecated Not used anymore. This method will be removed after the 2028-06
+	 *             release.
 	 */
+	@Deprecated(forRemoval = true, since = "2026-06")
 	protected Point getRootLocation() {
 		return TOP_LOCATION;
 	}

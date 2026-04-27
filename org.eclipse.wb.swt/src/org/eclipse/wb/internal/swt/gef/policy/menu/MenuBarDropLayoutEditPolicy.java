@@ -13,13 +13,14 @@
 package org.eclipse.wb.internal.swt.gef.policy.menu;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
-import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator.LayoutRequestValidatorStubFalse;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
+import org.eclipse.wb.internal.core.gef.part.DesignRootEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.gef.GefMessages;
@@ -101,10 +102,10 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 			m_fillFeedback.setBackgroundColor(ColorConstants.menuBackground);
 			// set figure bounds
 			Insets clientAreaInsets = m_shell.getClientAreaInsets();
-			final Rectangle bounds = getHostFigure().getBounds().getCopy();
+			final Rectangle bounds = PolicyUtils.getAbsoluteBounds(getHost());
 			bounds.width -= clientAreaInsets.getWidth();
 			if (EnvironmentUtils.IS_MAC) {
-				bounds.x = AbstractComponentEditPart.TOP_LOCATION.x;
+				bounds.x = DesignRootEditPart.DESIGN_INSETS.left;
 				bounds.y = MenuEditPartFactory.MENU_Y_LOCATION;
 			} else {
 				bounds.x += clientAreaInsets.left;

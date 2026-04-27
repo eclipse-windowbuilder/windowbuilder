@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.swing.gef.policy.menu;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
+import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator.LayoutRequestValidatorStubFalse;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -95,7 +96,7 @@ public final class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 			m_feedback.setBackgroundColor(ColorConstants.menuBackground);
 			// set figure bounds
 			Insets clientAreaInsets = m_container.getInsets();
-			Rectangle bounds = getHostFigure().getBounds().getCopy();
+			Rectangle bounds = PolicyUtils.getAbsoluteBounds(getHost());
 			bounds.x += clientAreaInsets.left;
 			bounds.y += clientAreaInsets.top;
 			bounds.width -= clientAreaInsets.getWidth();
