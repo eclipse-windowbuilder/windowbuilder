@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,8 +15,6 @@ package org.eclipse.wb.internal.swt.gef.policy.menu;
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.part.AbstractComponentEditPart;
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
-import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator.LayoutRequestValidatorStubFalse;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
@@ -30,8 +28,10 @@ import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -82,17 +82,17 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 			// create figure
 			m_fillFeedback = new Figure() {
 				@Override
-				protected void paintClientArea(Graphics graphics) {
+				protected void paintFigure(Graphics graphics) {
 					// draw placeholder text
-					Rectangle bounds = getBounds();
+					Rectangle area = getBounds();
 					graphics.setForegroundColor(ColorConstants.darkGreen);
 					String menuBarText = GefMessages.MenuBarDropLayoutEditPolicy_dropMenuHint;
 					Dimension textExtent = TextUtilities.INSTANCE.getTextExtents(menuBarText, graphics.getFont());
 					FontMetrics fontMetrics = graphics.getFontMetrics();
 					{
 						int fontHeight = fontMetrics.getAscent() - fontMetrics.getDescent();
-						int x = (bounds.width - textExtent.width) / 2;
-						int y = (bounds.height - textExtent.height - fontHeight) / 2;
+						int x = area.x + (area.width - textExtent.width) / 2;
+						int y = area.y + (area.height - textExtent.height - fontHeight) / 2;
 						graphics.drawString(menuBarText, x, y);
 					}
 				}
