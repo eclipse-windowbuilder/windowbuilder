@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,8 +14,7 @@ package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Layer;
 
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
+import org.eclipse.draw2d.IFigure;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ import java.util.List;
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public interface IRootFigure {
+public interface IRootFigure extends IFigure {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Layer's
@@ -66,39 +65,4 @@ public interface IRootFigure {
 	 * Remove all layer's from this {@link IRootFigure}.
 	 */
 	void removeAll();
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Properties
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Returns the background Color of this Figure.
-	 */
-	Color getBackgroundColor();
-
-	/**
-	 * Sets the background color.
-	 */
-	void setBackgroundColor(Color background);
-
-	/**
-	 * Returns the local foreground Color of this Figure.
-	 */
-	Color getForegroundColor();
-
-	/**
-	 * Sets the foreground color.
-	 */
-	void setForegroundColor(Color foreground);
-
-	/**
-	 * Returns the current Font by reference.
-	 */
-	Font getFont();
-
-	/**
-	 * Sets the font.
-	 */
-	void setFont(Font font);
 }
