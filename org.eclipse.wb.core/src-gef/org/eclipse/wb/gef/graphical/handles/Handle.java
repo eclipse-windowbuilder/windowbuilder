@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.Figure;
-
 import org.eclipse.draw2d.AncestorListener;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Point;

@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 
 import org.eclipse.draw2d.Cursors;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
