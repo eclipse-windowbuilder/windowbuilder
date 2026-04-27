@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,6 +30,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaModelMarker;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
@@ -579,6 +580,10 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	 * Force deletes {@link IResource}.
 	 */
 	public static void forceDeleteResource(IResource resource) {
+		if (resource.getAdapter(IJavaElement.class) instanceof ICompilationUnit cu) {
+			forceDeleteCompilationUnit(cu);
+			return;
+		}
 		while (resource.exists()) {
 			try {
 				resource.refreshLocal(IResource.DEPTH_INFINITE, null);
@@ -597,6 +602,10 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	 */
 	public static void forceDeleteCompilationUnit(ICompilationUnit cu) {
 		while (cu.exists()) {
+			try {
+				cu.discardWorkingCopy();
+			} catch (Throwable e) {
+			}
 			try {
 				cu.getResource().refreshLocal(IResource.DEPTH_INFINITE, null);
 			} catch (Throwable e) {
