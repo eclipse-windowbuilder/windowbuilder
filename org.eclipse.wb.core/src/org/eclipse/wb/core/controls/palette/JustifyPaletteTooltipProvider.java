@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
-import org.eclipse.wb.draw2d.Figure;
-import org.eclipse.wb.draw2d.border.MarginBorder;
 import org.eclipse.wb.internal.draw2d.CustomTooltipProvider;
 import org.eclipse.wb.internal.draw2d.JustifyLabel;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -31,7 +31,10 @@ import org.eclipse.swt.graphics.Font;
  *
  * @author lobas_av
  * @coverage core.control.palette
+ * @deprecated No longer used. This class will be removed after the 2028-06
+ *             release.
  */
+@Deprecated(since = "2026-06", forRemoval = true)
 public final class JustifyPaletteTooltipProvider extends CustomTooltipProvider {
 	private final String m_header;
 	private final String m_details;
@@ -42,6 +45,7 @@ public final class JustifyPaletteTooltipProvider extends CustomTooltipProvider {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public JustifyPaletteTooltipProvider(String header, String details, int wrapChars) {
 		m_header = header;
 		m_details = details;
@@ -53,6 +57,8 @@ public final class JustifyPaletteTooltipProvider extends CustomTooltipProvider {
 	// CustomTooltipProvider
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("removal")
+	@Deprecated(since = "2026-06", forRemoval = true)
 	@Override
 	protected IFigure createTooltipFigure(IFigure hostFigure) {
 		// header figure
@@ -89,8 +95,8 @@ public final class JustifyPaletteTooltipProvider extends CustomTooltipProvider {
 		Figure tooltipFigure = new Figure();
 		tooltipFigure.add(headerFigure);
 		tooltipFigure.add(detailsFigure);
-		tooltipFigure.setBounds(new Rectangle(0, 0, detailsSize.width, headerSize.height
-				+ detailsSize.height));
+		tooltipFigure.setLocation(hostFigure.getLocation());
+		tooltipFigure.setSize(detailsSize.width, headerSize.height + detailsSize.height);
 		//
 		return tooltipFigure;
 	}
