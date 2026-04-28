@@ -13,11 +13,9 @@
  *******************************************************************************/
 package org.eclipse.wb.core.controls.palette;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.draw2d.PaletteFigure;
-import org.eclipse.wb.draw2d.border.LineBorder;
 import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -25,9 +23,11 @@ import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureUtilities;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
@@ -318,7 +318,7 @@ public final class PaletteComposite extends Composite {
 	 */
 	@SuppressWarnings("removal")
 	@Deprecated(since = "3.19", forRemoval = true)
-	public Figure getCategoryFigure(ICategory category) {
+	public org.eclipse.wb.draw2d.Figure getCategoryFigure(ICategory category) {
 		return m_categoryFigures.get(category);
 	}
 
@@ -338,7 +338,7 @@ public final class PaletteComposite extends Composite {
 	 */
 	@SuppressWarnings("removal")
 	@Deprecated(since = "3.19", forRemoval = true)
-	public Figure getEntryFigure(ICategory category, IEntry entry) {
+	public org.eclipse.wb.draw2d.Figure getEntryFigure(ICategory category, IEntry entry) {
 		CategoryFigure categoryFigure = m_categoryFigures.get(category);
 		return categoryFigure.m_entryFigures.get(entry);
 	}
@@ -347,7 +347,7 @@ public final class PaletteComposite extends Composite {
 	 * @return the {@link IFigure} used for displaying {@link DesignerEntry}.
 	 */
 	@SuppressWarnings("removal")
-	public Figure getEntryFigure(DesignerContainer category, DesignerEntry entry) {
+	public org.eclipse.wb.draw2d.Figure getEntryFigure(DesignerContainer category, DesignerEntry entry) {
 		return getEntryFigure((ICategory) category, (IEntry) entry);
 	}
 
@@ -574,7 +574,7 @@ public final class PaletteComposite extends Composite {
 		// Moving
 		//
 		////////////////////////////////////////////////////////////////////////////
-		private Figure m_feedback;
+		private IFigure m_feedback;
 		private Command m_moveCommand;
 
 		/**
@@ -918,7 +918,7 @@ public final class PaletteComposite extends Composite {
 		// Moving
 		//
 		////////////////////////////////////////////////////////////////////////////
-		private Figure m_feedback;
+		private IFigure m_feedback;
 		private Command m_moveCommand;
 
 		/**
@@ -1192,7 +1192,7 @@ public final class PaletteComposite extends Composite {
 		// Constructor
 		//
 		////////////////////////////////////////////////////////////////////////////
-		public FeedbackLine(Figure parent, boolean horizontal, Point location, int size) {
+		public FeedbackLine(IFigure parent, boolean horizontal, Point location, int size) {
 			m_horizontal = horizontal;
 			parent.add(this);
 			//
@@ -1274,7 +1274,7 @@ public final class PaletteComposite extends Composite {
 	 * @param p
 	 *          the mouse location relative to given <code>source</code>
 	 */
-	private IFigure getTargetFigure(Figure source, Point p) {
+	private IFigure getTargetFigure(IFigure source, Point p) {
 		// use absolute coordinates
 		Point location = Point.SINGLETON;
 		location.setLocation(p);
