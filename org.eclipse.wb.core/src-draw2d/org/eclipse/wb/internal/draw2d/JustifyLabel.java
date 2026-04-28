@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 
 import org.eclipse.draw2d.Border;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Insets;
@@ -34,7 +34,10 @@ import java.util.List;
  *
  * @author lobas_av
  * @coverage gef.draw2d
+ * @deprecated No longer used. This class will be removed after the 2028-06
+ *             release.
  */
+@Deprecated(since = "2026-06", forRemoval = true)
 public class JustifyLabel extends Figure {
 	private String m_text = "";
 	private int m_wrapChars = 50;
@@ -48,6 +51,7 @@ public class JustifyLabel extends Figure {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public JustifyLabel() {
 	}
 
@@ -59,6 +63,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * Returns the desirable size for this label's text.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	@Override
 	public Dimension getPreferredSize(int wHint, int hHint) {
 		return m_preferredSize;
@@ -67,6 +72,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * Returns the text of the label.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public String getText() {
 		return m_text;
 	}
@@ -74,6 +80,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * Sets the label's text.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public void setText(String text) {
 		m_text = text;
 		updateContent();
@@ -82,6 +89,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * Returns chars count for wrap one line.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public int getWrapChars() {
 		return m_wrapChars;
 	}
@@ -89,6 +97,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * Sets chars count for wrap one line.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public void setWrapChars(int wrapChars) {
 		m_wrapChars = wrapChars;
 		m_lineWidth = 0;
@@ -99,6 +108,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * Returns width in pixels for wrap one line.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public int getWrapPixels() {
 		return m_lineWidth;
 	}
@@ -106,6 +116,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * Sets width in pixels for wrap one line.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public void setWrapPixels(int width) {
 		m_lineWidth = width;
 		m_wrapChars = 0;
@@ -116,6 +127,7 @@ public class JustifyLabel extends Figure {
 	/**
 	 * @return <code>true</code> if figure work on char wrap mode.
 	 */
+	@Deprecated(since = "2026-06", forRemoval = true)
 	public boolean isCharMode() {
 		return m_isCharMode;
 	}
@@ -125,10 +137,11 @@ public class JustifyLabel extends Figure {
 	// Figure
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(since = "2026-06", forRemoval = true)
 	@Override
-	protected void paintClientArea(Graphics graphics) {
+	protected void paintFigure(Graphics graphics) {
 		for (Line line : m_lines) {
-			float currentX = 0;
+			float currentX = bounds.x;
 			for (int i = 0; i < line.words.length; i++) {
 				graphics.drawString(line.words[i], Math.round(currentX), line.startY);
 				currentX += line.wordsSeparatorWidth + line.widths[i];
@@ -136,12 +149,14 @@ public class JustifyLabel extends Figure {
 		}
 	}
 
+	@Deprecated(since = "2026-06", forRemoval = true)
 	@Override
 	public void setFont(Font font) {
 		super.setFont(font);
 		updateContent();
 	}
 
+	@Deprecated(since = "2026-06", forRemoval = true)
 	@Override
 	public void setBorder(Border border) {
 		super.setBorder(border);
