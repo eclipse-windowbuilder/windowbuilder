@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -123,6 +123,7 @@ public class ControllerSupport {
 			EditorState controllerEditorState = EditorState.get(astEditor);
 			controllerEditorState.initialize(
 					thisEditorState.getToolkitId(),
+					thisEditorState.getRealm(),
 					thisEditorState.getEditorLoader());
 			controllerEditorState.setFlowDescription(thisEditorState.getFlowDescription());
 			// prepare controller root AST node
@@ -590,6 +591,7 @@ public class ControllerSupport {
 		EditorState controllerEditorState = EditorState.get(controllerASTEditor);
 		controllerEditorState.initialize(
 				thisEditorState.getToolkitId(),
+				thisEditorState.getRealm(),
 				thisEditorState.getEditorLoader());
 		controllerEditorState.setFlowDescription(thisEditorState.getFlowDescription());
 		// prepare controller root AST node

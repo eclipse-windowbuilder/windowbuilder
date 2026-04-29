@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -889,7 +889,7 @@ public class AstEditorTest extends AbstractJavaTest {
 		// try to set "null", should fail
 		while (true) {
 			try {
-				state.initialize(null, null);
+				state.initialize(null, null, null);
 			} catch (AssertionFailedException e) {
 				break;
 			}
@@ -897,12 +897,12 @@ public class AstEditorTest extends AbstractJavaTest {
 		}
 		// set
 		ClassLoader classLoader = getClass().getClassLoader();
-		state.initialize(null, classLoader);
+		state.initialize(null, null, classLoader);
 		assertSame(classLoader, state.getEditorLoader());
 		// try to set again, should fail
 		while (true) {
 			try {
-				state.initialize(null, classLoader);
+				state.initialize(null, null, classLoader);
 			} catch (AssertionFailedException e) {
 				break;
 			}
