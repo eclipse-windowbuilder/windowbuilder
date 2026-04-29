@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others
+ * Copyright (c) 2011, 2026 Google, Inc. and others
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -250,7 +250,8 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 			m_editorState.setTmp_Components(m_components);
 			// add root
 			if (rootContext.getRoot() != null) {
-				addJavaInfo(rootContext.getRoot(), null);
+				IParseRealm realm = m_editorState.getRealm();
+				realm.syncExec(() -> addJavaInfo(rootContext.getRoot(), null));
 			}
 			// use IParseContextProcessor-s
 			{
@@ -307,18 +308,19 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		ExecutionFlowParseVisitor parseVisitor = getParseVisitor();
 		parseVisitor.m_currentStatement = null;
 		try {
+			IParseRealm realm = m_editorState.getRealm();
 			// visit execution flow
-			ExecutionFlowUtils.visit(
-					m_editorState.getTmp_visitingContext(),
-					m_editorState.getFlowDescription(),
-					parseVisitor);
+			realm.syncExec(() -> ExecutionFlowUtils.visit(
+						m_editorState.getTmp_visitingContext(),
+						m_editorState.getFlowDescription(),
+						parseVisitor));
 			GlobalState.setParsing(false);
 			m_editorState.setExecuting(false);
 			// now we visited execution flow, so lock ExecutionFlowDescription
 			m_editorState.getFlowDescription().lockBinaryFlow();
 			// find root
 			{
-				JavaInfo root = getRoot();
+				JavaInfo root = realm.syncCall(this::getRoot);
 				if (root != null) {
 					m_javaInfoResolver.setRootJavaInfo(root);
 					return root;
@@ -398,7 +400,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	/**
 	 * @return the root {@link JavaInfo} for parsed components.
 	 */
-	private JavaInfo getRoot() throws Throwable {
+	private JavaInfo getRoot() throws Exception {
 		m_editorState.getBroadcast().getListener(JavaEventListener.class).bindComponents(m_components);
 		JavaInfoUtils.bindBinaryComponents(m_components);
 		// select root JavaInfo

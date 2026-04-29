@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.databinding.ui.contentproviders.el;
 
-import org.eclipse.swt.SWT;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * Configuration for {@link ElPropertyUiContentProvider}.
@@ -27,7 +26,7 @@ public class ElPropertyUiConfiguration {
 	private int m_rows = 4;
 	private Color m_stringsColor = new Color(42, 0, 255);
 	private Color m_keywordsColor = new Color(127, 0, 85);
-	private Color m_numbersColor = PlatformUI.getWorkbench().getDisplay().getSystemColor(SWT.COLOR_BLACK);
+	private Color m_numbersColor = ColorConstants.black;
 	private Color m_operatorsColor = new Color(0, 57, 29);
 	private Color m_propertiesColor = new Color(130, 0, 0);
 

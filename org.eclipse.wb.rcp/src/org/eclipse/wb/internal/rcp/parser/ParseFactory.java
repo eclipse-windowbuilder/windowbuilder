@@ -18,6 +18,7 @@ import org.eclipse.wb.core.eval.ExecutionFlowUtils2;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.association.ConstructorParentAssociation;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -32,6 +33,7 @@ import org.eclipse.wb.internal.core.model.variable.MethodParameterVariableSuppor
 import org.eclipse.wb.internal.core.model.variable.ThisVariableSupport;
 import org.eclipse.wb.internal.core.parser.IJavaInfoParseResolver;
 import org.eclipse.wb.internal.core.parser.IParseFactory;
+import org.eclipse.wb.internal.core.parser.IParseRealm;
 import org.eclipse.wb.internal.core.parser.ParseRootContext;
 import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -485,6 +487,11 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 	@Override
 	protected String getToolkitId() {
 		return IPreferenceConstants.TOOLKIT_ID;
+	}
+
+	@Override
+	protected IParseRealm getRealm() {
+		return DesignerPlugin.getStandardDisplay()::syncCall;
 	}
 
 	/**

@@ -471,7 +471,7 @@ public final class DesignPage implements IDesignPage {
 			}
 		};
 		try {
-			new ProgressMonitorDialog(DesignerPlugin.getShell()).run(false, false, runnable);
+			new ProgressMonitorDialog(DesignerPlugin.getShell()).run(true, false, runnable);
 		} catch (InvocationTargetException e) {
 			ReflectionUtils.propagate(e.getCause());
 		} catch (Throwable e) {
@@ -586,12 +586,12 @@ public final class DesignPage implements IDesignPage {
 		{
 			long start = System.currentTimeMillis();
 			monitor.subTask("Refreshing...");
-			m_rootObject.refresh();
+			ExecutionUtils.runRethrowUI(m_rootObject::refresh);
 			monitor.worked(1);
 			Debug.println("refresh: " + (System.currentTimeMillis() - start));
 		}
 		// refresh design
-		m_designComposite.refresh(m_rootObject, monitor);
+		ExecutionUtils.runRethrowUI(() -> m_designComposite.refresh(m_rootObject, monitor));
 		// configure helpers
 		m_undoManager.setRoot(m_rootObject);
 	}
