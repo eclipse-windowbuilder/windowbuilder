@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -95,8 +95,7 @@ public class JPanelTopBoundsTest extends SwingGefTest {
 	 * The size of the JPanel should be able to exceed the display resolution.
 	 */
 	@Test
-	public void test_resize_veryBig() throws Exception {
-		// expand horizontally
+	public void test_resize_veryBig_expandHorizontallly() throws Exception {
 		Dimension oldSize = new Dimension(500, 400);
 		Dimension newSize = new Dimension(5000, 400);
 		check_resize_JPanel(
@@ -104,11 +103,17 @@ public class JPanelTopBoundsTest extends SwingGefTest {
 				oldSize,
 				newSize,
 				"setSize(new Dimension(5000, 400));");
-		// expand vertically
-		oldSize = new Dimension(5000, 400);
-		newSize = new Dimension(500, 4000);
+	}
+
+	/**
+	 * The size of the JPanel should be able to exceed the display resolution.
+	 */
+	@Test
+	public void test_resize_veryBig_expandVertically() throws Exception {
+		Dimension oldSize = new Dimension(500, 400);
+		Dimension newSize = new Dimension(500, 4000);
 		check_resize_JPanel(
-				"setSize(new Dimension(5000, 400));",
+				"setSize(new Dimension(500, 400));",
 				oldSize,
 				newSize,
 				"setSize(new Dimension(500, 4000));");
