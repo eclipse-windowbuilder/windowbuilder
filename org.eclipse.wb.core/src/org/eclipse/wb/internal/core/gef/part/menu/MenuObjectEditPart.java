@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.gef.core.IActiveToolListener;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.Tool;
@@ -203,13 +204,14 @@ public abstract class MenuObjectEditPart extends DesignEditPart implements IMenu
 			AsyncExecutor.schedule(new Runnable() {
 				@Override
 				public void run() {
+					EditPartViewer viewer = getViewer();
+					// Edit part is already disposed
+					if (viewer == null) {
+						return;
+					}
 					try {
 						MenuObjectInfoUtils.m_selectingObject = m_object;
-						for (EditPart editPart : List.copyOf(getViewer().getEditPartRegistry().values())) {
-							if (editPart instanceof MenuObjectEditPart) {
-								editPart.refresh();
-							}
-						}
+						refreshRecursively(viewer.getRootEditPart());
 					} finally {
 						MenuObjectInfoUtils.m_selectingObject = null;
 					}
@@ -217,6 +219,16 @@ public abstract class MenuObjectEditPart extends DesignEditPart implements IMenu
 			});
 		}
 		return target;
+	}
+
+	private void refreshRecursively(EditPart editPart) {
+		if (editPart instanceof MenuObjectEditPart) {
+			// Might remove children, so we have to traverse top-down
+			editPart.refresh();
+		}
+		for (EditPart childEditPart : editPart.getChildren()) {
+			refreshRecursively(childEditPart);
+		}
 	}
 
 	@Override

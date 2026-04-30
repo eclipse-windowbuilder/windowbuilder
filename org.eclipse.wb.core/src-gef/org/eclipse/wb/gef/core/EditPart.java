@@ -152,7 +152,11 @@ public abstract class EditPart extends org.eclipse.gef.editparts.AbstractEditPar
 	 */
 	@Override
 	public IEditPartViewer getViewer() {
-		return getParent().getViewer();
+		EditPart parent = getParent();
+		if (parent == null) {
+			return null;
+		}
+		return parent.getViewer();
 	}
 
 	/**
