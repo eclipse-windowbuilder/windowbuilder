@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.SideResizeHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
@@ -134,7 +134,7 @@ public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends S
 	// Resize
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private IFigure m_resizeFeedback;
+	private RectangleFigure m_resizeFeedback;
 	private TextFeedback m_textFeedback;
 
 	/**
@@ -159,6 +159,7 @@ public final class SashFormSelectionEditPolicy<C extends IControlInfo> extends S
 			// create selection feedback
 			{
 				m_resizeFeedback = new RectangleFigure();
+				m_resizeFeedback.setFill(false);
 				m_resizeFeedback.setForegroundColor(ColorConstants.red);
 				addFeedback(m_resizeFeedback);
 			}
