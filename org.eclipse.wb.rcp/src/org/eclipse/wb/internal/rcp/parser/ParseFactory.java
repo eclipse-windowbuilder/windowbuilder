@@ -30,8 +30,10 @@ import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.variable.MethodParameterVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.ThisVariableSupport;
+import org.eclipse.wb.internal.core.parser.DisplayParseRealm;
 import org.eclipse.wb.internal.core.parser.IJavaInfoParseResolver;
 import org.eclipse.wb.internal.core.parser.IParseFactory;
+import org.eclipse.wb.internal.core.parser.IParseRealm;
 import org.eclipse.wb.internal.core.parser.ParseRootContext;
 import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -485,6 +487,11 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 	@Override
 	protected String getToolkitId() {
 		return IPreferenceConstants.TOOLKIT_ID;
+	}
+
+	@Override
+	protected IParseRealm getRealm() {
+		return DisplayParseRealm.getRealm();
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.nebula.parser;
 
+import org.eclipse.wb.internal.core.parser.DisplayParseRealm;
 import org.eclipse.wb.internal.core.parser.IParseFactory;
+import org.eclipse.wb.internal.core.parser.IParseRealm;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.rcp.nebula.Activator;
@@ -63,5 +65,10 @@ public final class ParseFactory extends org.eclipse.wb.internal.core.parser.Abst
 	@Override
 	protected String getToolkitId() {
 		return Activator.PLUGIN_ID;
+	}
+
+	@Override
+	protected IParseRealm getRealm() {
+		return DisplayParseRealm.getRealm();
 	}
 }
