@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,6 +26,7 @@ import org.eclipse.wb.internal.core.model.variable.ThisVariableSupport;
 import org.eclipse.wb.internal.core.parser.AbstractParseFactory;
 import org.eclipse.wb.internal.core.parser.IJavaInfoParseResolver;
 import org.eclipse.wb.internal.core.parser.IParseFactory;
+import org.eclipse.wb.internal.core.parser.IParseRealm;
 import org.eclipse.wb.internal.core.parser.ParseRootContext;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
@@ -33,6 +34,7 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.swing.IExceptionConstants;
+import org.eclipse.wb.internal.swing.model.SwingParseRealm;
 import org.eclipse.wb.internal.swing.model.bean.ActionAnonymousCreationSupport;
 import org.eclipse.wb.internal.swing.model.bean.ActionInnerCreationSupport;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -273,6 +275,11 @@ public class ParseFactory extends AbstractParseFactory {
 	@Override
 	protected String getToolkitId() {
 		return IPreferenceConstants.TOOLKIT_ID;
+	}
+
+	@Override
+	protected IParseRealm getRealm() {
+		return SwingParseRealm.getRealm();
 	}
 
 	@Override

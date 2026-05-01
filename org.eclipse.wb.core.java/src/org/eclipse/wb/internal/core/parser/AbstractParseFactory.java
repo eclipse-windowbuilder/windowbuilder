@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -721,6 +721,11 @@ public abstract class AbstractParseFactory implements IParseFactory {
 	protected abstract String getToolkitId();
 
 	/**
+	 * @return the parser realm.
+	 */
+	protected abstract IParseRealm getRealm();
+
+	/**
 	 * Creates complex {@link ClassLoader} for given {@link AstEditor}.
 	 */
 	protected void initializeClassLoader(AstEditor editor) throws Exception {
@@ -729,9 +734,10 @@ public abstract class AbstractParseFactory implements IParseFactory {
 			return;
 		}
 		String toolkitId = getToolkitId();
+		IParseRealm realm = getRealm();
 		// set ClassLoader
 		ClassLoader classLoader = getClassLoader(editor);
-		editorState.initialize(toolkitId, classLoader);
+		editorState.initialize(toolkitId, realm, classLoader);
 		initializeClassLoader(classLoader, toolkitId);
 		// configure
 		IJavaProject javaProject = editor.getJavaProject();

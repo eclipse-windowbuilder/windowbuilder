@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.core.model.broadcast.BroadcastSupport;
 import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescription;
 import org.eclipse.wb.internal.core.model.description.resource.IDescriptionVersionsProvider;
 import org.eclipse.wb.internal.core.parser.AbstractParseFactory;
+import org.eclipse.wb.internal.core.parser.IParseRealm;
 import org.eclipse.wb.internal.core.parser.JavaInfoResolver;
 import org.eclipse.wb.internal.core.utils.IDisposable;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
@@ -42,6 +43,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.swing.UIDefaults;
@@ -416,6 +418,7 @@ public final class EditorState {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private String m_toolkitId;
+	private IParseRealm m_realm;
 	private ClassLoader m_editorLoader;
 
 	/**
@@ -423,6 +426,13 @@ public final class EditorState {
 	 */
 	public String getToolkitId() {
 		return m_toolkitId;
+	}
+
+	/**
+	 * @return the parser realm. Never {@code null}.
+	 */
+	public IParseRealm getRealm() {
+		return m_realm;
 	}
 
 	/**
@@ -445,11 +455,14 @@ public final class EditorState {
 	 *
 	 * @param toolkitId
 	 *          the id of "main" toolkit.
+	 * @param realm
+	 *          the parser realm. Must not be {@code null}.
 	 * @param loader
 	 *          the {@link ClassLoader} to load classes from project.
 	 */
-	public void initialize(String toolkitId, ClassLoader loader) {
+	public void initialize(String toolkitId, IParseRealm realm, ClassLoader loader) {
 		m_toolkitId = toolkitId;
+		m_realm = Objects.requireNonNull(realm);
 		// class loader can be set only one time
 		Assert.isNull(m_editorLoader);
 		// check new class loader and set

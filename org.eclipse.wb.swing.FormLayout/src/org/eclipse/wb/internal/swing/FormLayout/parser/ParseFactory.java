@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,9 +18,11 @@ import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.parser.AbstractParseFactory;
 import org.eclipse.wb.internal.core.parser.IJavaInfoParseResolver;
 import org.eclipse.wb.internal.core.parser.IParseFactory;
+import org.eclipse.wb.internal.core.parser.IParseRealm;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
+import org.eclipse.wb.internal.swing.model.SwingParseRealm;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IMethodBinding;
@@ -61,5 +63,10 @@ public class ParseFactory extends AbstractParseFactory {
 	@Override
 	protected String getToolkitId() {
 		return Activator.PLUGIN_ID;
+	}
+
+	@Override
+	protected IParseRealm getRealm() {
+		return SwingParseRealm.getRealm();
 	}
 }

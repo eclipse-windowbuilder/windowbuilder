@@ -35,7 +35,7 @@ Export-Package: org.eclipse.wb.internal.swing;
  org.eclipse.wb.internal.swing.laf.external;x-internal:=true,
  org.eclipse.wb.internal.swing.laf.model;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.swing.laf.ui;x-friends:="org.eclipse.wb.tests",
- org.eclipse.wb.internal.swing.model;x-friends:="org.eclipse.wb.tests",
+ org.eclipse.wb.internal.swing.model;x-friends:="org.eclipse.wb.tests,org.eclipse.wb.swing.FormLayout",
  org.eclipse.wb.internal.swing.model.bean;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.swing.model.component;
   x-friends:="org.eclipse.wb.tests,

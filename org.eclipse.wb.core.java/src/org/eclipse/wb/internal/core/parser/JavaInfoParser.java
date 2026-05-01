@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others
+ * Copyright (c) 2011, 2026 Google, Inc. and others
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -237,9 +237,20 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 	 */
 	private JavaInfo parse() throws Exception {
 		validateASTEditor();
+
+		final ParseRootContext rootContext = prepareParseContext();
+		return m_editorState.getRealm().syncCall(() -> parseWithinRealm(rootContext));
+	}
+
+	/**
+	 * Parses compilation unit using the given root context.
+	 *
+	 * @return single root {@link JavaInfo}.
+	 */
+	private JavaInfo parseWithinRealm(ParseRootContext rootContext) throws Exception {
+		Assert.isTrue(m_editorState.getRealm().isCurrent(), "Executed outside of expected realm: " + m_editorState.getRealm());
 		// prepare parse context
 		{
-			ParseRootContext rootContext = prepareParseContext();
 			// prepare flow description
 			ExecutionFlowDescription flowDescription = rootContext.getFlowDescription();
 			addStartMethodsNVO(flowDescription);
