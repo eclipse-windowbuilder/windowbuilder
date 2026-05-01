@@ -167,7 +167,8 @@ public abstract class DesignerTestCase extends Assertions {
 		for (Field field : clazz.getDeclaredFields()) {
 			boolean isObject = Object.class.isAssignableFrom(field.getType());
 			boolean isStatic = Modifier.isStatic(field.getModifiers());
-			if (isObject && !isStatic && field.getName().indexOf('$') == -1) {
+			boolean isFinal = Modifier.isFinal(field.getModifiers());
+			if (isObject && !isStatic && !isFinal && field.getName().indexOf('$') == -1) {
 				field.setAccessible(true);
 				field.set(this, null);
 			}
