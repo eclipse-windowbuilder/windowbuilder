@@ -28,10 +28,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -63,7 +60,6 @@ public class ObjectEditPart extends DesignTreeEditPart {
 	// Life cycle
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private Listener m_updatePresentationListener;
 
 	@Override
 	public void activate() {
@@ -71,19 +67,6 @@ public class ObjectEditPart extends DesignTreeEditPart {
 		if (m_object.isRoot()) {
 			final TreeViewer viewer = (TreeViewer) getViewer();
 			final Tree tree = viewer.getControl();
-			// update presentation only when EditPart become visible
-			{
-				m_updatePresentationListener = new Listener() {
-					@Override
-					public void handleEvent(Event event) {
-						if (event.item.getData() instanceof ObjectEditPart) {
-							ObjectEditPart editPart = (ObjectEditPart) event.item.getData();
-							editPart.update();
-						}
-					}
-				};
-				tree.addListener(SWT.PaintItem, m_updatePresentationListener);
-			}
 			// refresh hierarchy
 			m_object.addBroadcastListener(new ObjectEventListener() {
 				private List<ObjectInfo> m_delayedSelectionObjects;
@@ -151,57 +134,43 @@ public class ObjectEditPart extends DesignTreeEditPart {
 		}
 	}
 
-	@Override
-	public void deactivate() {
-		if (m_updatePresentationListener != null) {
-			TreeViewer viewer = (TreeViewer) getViewer();
-			Tree tree = viewer.getControl();
-			tree.removeListener(SWT.PaintItem, m_updatePresentationListener);
-		}
-		super.deactivate();
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Visual
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private boolean m_updateRequired;
+	private ImageDescriptor m_imageDescriptor;
 
 	@Override
-	protected final void refreshVisuals() {
-		m_updateRequired = true;
-	}
-
-	private void update() {
-		if (m_updateRequired) {
-			m_updateRequired = false;
-			ExecutionUtils.runLogUI(this::update0);
-		}
-	}
-
-	private void update0() {
-		if (getWidget() instanceof Tree) {
-			return;
-		}
-		TreeItem treeItem = (TreeItem) getWidget();
-
-		ImageDescriptor imageDescriptor = ObjectInfo.getImageDescriptor(m_object);
-		String text = ObjectInfo.getText(m_object);
-		if (imageDescriptor != null) {
-			Image image = imageDescriptor.createImage();
-			treeItem.addDisposeListener(event -> image.dispose());
-			treeItem.setImage(image);
-		}
+	protected final String getText() {
 		//Obtain the preference specifying the root object name. If no name is specified then the default is used
-		String rootObjectName =
-				InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).get(
-						IEditorPreferenceConstants.WB_ROOT_OBJ_NAME,
-						null);
+		String rootObjectName = InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE) //
+				.get(IEditorPreferenceConstants.WB_ROOT_OBJ_NAME, null);
+
+		TreeItem treeItem = (TreeItem) getWidget();
 		if (treeItem.getParentItem() == null && rootObjectName != null) {
-			treeItem.setText(rootObjectName);
-		} else {
-			treeItem.setText(text);
+			return rootObjectName;
+		}
+
+		return ObjectInfo.getText(m_object);
+	}
+
+	@Override
+	protected final Image getImage() {
+		unregisterVisuals();
+
+		m_imageDescriptor = ObjectInfo.getImageDescriptor(m_object);
+		if (m_imageDescriptor != null) {
+			return getViewer().getResourceManager().create(m_imageDescriptor);
+		}
+
+		return null;
+	}
+
+	@Override
+	protected void unregisterVisuals() {
+		if (m_imageDescriptor != null) {
+			getViewer().getResourceManager().destroy(m_imageDescriptor);
 		}
 	}
 
