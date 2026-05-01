@@ -96,19 +96,12 @@ public final class DesignPage implements IDesignPage {
 		@Override
 		public void partActivated(IWorkbenchPart part) {
 			if (part == m_designerEditor) {
-				ExecutionUtils.runLogLater(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						if (!isDisposed()) {
-							GlobalStateJava.activate(m_rootObject);
-							if (m_active) {
-								checkDependenciesOnDesignPageActivation();
-								m_undoManager.deactivate();
-								m_undoManager.activate();
-							}
-						}
-					}
-				});
+				GlobalStateJava.activate(m_rootObject);
+				if (m_active) {
+					checkDependenciesOnDesignPageActivation();
+					m_undoManager.deactivate();
+					m_undoManager.activate();
+				}
 			}
 		}
 	};
