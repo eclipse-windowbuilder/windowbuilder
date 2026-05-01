@@ -20,7 +20,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.AbstractRelativeLocator;
-import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.draw2d.RelativeLocator;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
@@ -34,6 +33,7 @@ import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
@@ -381,6 +381,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			// add feedback figure
 			if (m_lineFeedback == null) {
 				m_lineFeedback = new RectangleFigure();
+				m_lineFeedback.setFill(false);
 				m_lineFeedback.setForegroundColor(ColorConstants.green);
 				addFeedback(m_lineFeedback);
 			}
@@ -512,6 +513,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 			// add feedback figure
 			if (m_lineFeedback == null) {
 				m_lineFeedback = new RectangleFigure();
+				m_lineFeedback.setFill(false);
 				m_lineFeedback.setForegroundColor(ColorConstants.green);
 				addFeedback(m_lineFeedback);
 			}

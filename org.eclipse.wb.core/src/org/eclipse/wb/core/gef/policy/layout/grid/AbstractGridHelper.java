@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Polyline;
-import org.eclipse.wb.draw2d.RectangleFigure;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -253,6 +253,7 @@ public abstract class AbstractGridHelper {
 		// add border around container
 		{
 			RectangleFigure borderFigure = new RectangleFigure();
+			borderFigure.setFill(false);
 			borderFigure.setForegroundColor(m_borderColor);
 			borderFigure.setBounds(hostClientArea);
 			m_gridFigure.add(borderFigure);

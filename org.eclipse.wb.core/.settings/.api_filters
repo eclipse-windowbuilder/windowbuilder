@@ -206,5 +206,11 @@
                 <message_argument value="createSpanHandle(int, double)"/>
             </message_arguments>
         </filter>
+        <filter comment="Removal of internal RectangleFigure" id="388161617">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.policy.layout.grid.AbstractGridSelectionEditPolicy"/>
+                <message_argument value="m_lineFeedback"/>
+            </message_arguments>
+        </filter>
     </resource>
 </component>
