@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -72,13 +72,8 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
 	@Override
 	public void fill(final ToolBar parent, int index) {
 		m_toolItem = new ToolItem(parent, SWT.DROP_DOWN);
-		if (isSpecialTime()) {
-			m_toolItem.setImage(DesignerPlugin.getImage("nls/ms16.png"));
-			m_toolItem.setToolTipText("Back in USSR");
-		} else {
-			m_toolItem.setImage(DesignerPlugin.getImage("nls/globe3.png"));
-			m_toolItem.setToolTipText(Messages.ExternalizeStringsContributionItem_externalizeToolTip);
-		}
+		m_toolItem.setImage(DesignerPlugin.getImage("nls/globe3.png"));
+		m_toolItem.setToolTipText(Messages.ExternalizeStringsContributionItem_externalizeToolTip);
 		// listener
 		m_toolItem.addListener(SWT.Selection, new Listener() {
 			@Override
@@ -199,9 +194,7 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
 			@Override
 			public void run() throws Exception {
 				if (NlsSupport.get(m_root).getLocales().length == 0) {
-					m_toolItem.setImage(DesignerPlugin.getImage(!isSpecialTime()
-							? "nls/globe3.png"
-									: "nls/ms16.png"));
+					m_toolItem.setImage(DesignerPlugin.getImage("nls/globe3.png"));
 					m_toolItem.setText("");
 				} else {
 					LocaleInfo locale = AbstractSource.getLocaleInfo(m_root);
@@ -249,20 +242,5 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
 				m_root.refresh();
 			}
 		});
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Egg
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return <code>true</code> if current date is May, 1st and time after 5:00pm. :-)
-	 */
-	private boolean isSpecialTime() {
-		int month = Calendar.getInstance().get(Calendar.MONTH);
-		int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-		return month == Calendar.MAY && day == 1 && hour > 16;
 	}
 }
