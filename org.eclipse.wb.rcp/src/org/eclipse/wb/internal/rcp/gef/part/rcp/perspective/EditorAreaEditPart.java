@@ -13,11 +13,11 @@
 package org.eclipse.wb.internal.rcp.gef.part.rcp.perspective;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective.PageLayoutSidesLayoutEditPolicy;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.EditorAreaInfo;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
