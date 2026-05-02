@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,11 +56,7 @@ public class InvocationChildAssociationTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_invalid_noParentAccess() throws Exception {
-		try {
-			new InvocationChildAssociation("invalidSource");
-			fail();
-		} catch (AssertionFailedException e) {
-		}
+		assertThrows(AssertionFailedException.class, () -> new InvocationChildAssociation("invalidSource"));
 	}
 
 	@Test

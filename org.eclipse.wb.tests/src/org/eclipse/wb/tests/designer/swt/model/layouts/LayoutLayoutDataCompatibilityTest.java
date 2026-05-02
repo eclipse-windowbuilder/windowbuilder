@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -101,22 +101,18 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_notCompatible() throws Exception {
-		try {
-			parseComposite(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new GridLayout());",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      button.setLayoutData(new RowData());",
-					"    }",
-					"  }",
-					"}");
-			fail();
-		} catch (Throwable e) {
-			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
-			assertEquals(IExceptionConstants.INCOMPATIBLE_LAYOUT_DATA, de.getCode());
-		}
+		Throwable e = assertThrows(Throwable.class, () -> parseComposite(
+				"public class Test extends Shell {",
+				"  public Test() {",
+				"    setLayout(new GridLayout());",
+				"    {",
+				"      Button button = new Button(this, SWT.NONE);",
+				"      button.setLayoutData(new RowData());",
+				"    }",
+				"  }",
+				"}"));
+		DesignerException de = DesignerExceptionUtils.getDesignerException(e);
+		assertEquals(IExceptionConstants.INCOMPATIBLE_LAYOUT_DATA, de.getCode());
 	}
 
 	/**

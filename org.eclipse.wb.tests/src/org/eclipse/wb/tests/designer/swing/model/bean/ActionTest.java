@@ -89,20 +89,16 @@ public class ActionTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_noDesign_forActions() throws Exception {
-		try {
-			parseJavaInfo("""
-					public class Test extends AbstractAction {
-						public Test() {
-							putValue(NAME, "My name");
-							putValue(SHORT_DESCRIPTION, "My short description");
-						}
-						public void actionPerformed(ActionEvent e) {
-						}
-					}""");
-			fail();
-		} catch (DesignerException e) {
-			assertEquals(IExceptionConstants.NO_DESIGN_ACTION, e.getCode());
-		}
+		DesignerException e = assertThrows(DesignerException.class, () -> parseJavaInfo("""
+				public class Test extends AbstractAction {
+					public Test() {
+						putValue(NAME, "My name");
+						putValue(SHORT_DESCRIPTION, "My short description");
+					}
+					public void actionPerformed(ActionEvent e) {
+					}
+				}"""));
+		assertEquals(IExceptionConstants.NO_DESIGN_ACTION, e.getCode());
 	}
 
 	/**

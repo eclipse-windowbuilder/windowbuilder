@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -163,13 +163,9 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 					public Test(double b) {
 					}
 				}""");
-		try {
-			ExecutionFlowUtils.getExecutionFlowConstructor(typeDeclaration);
-			fail();
-		} catch (MultipleConstructorsError e) {
-			assertSame(null, e.getEditor());
-			assertSame(null, e.getTypeDeclaration());
-		}
+		MultipleConstructorsError e = assertThrows(MultipleConstructorsError.class, () -> ExecutionFlowUtils.getExecutionFlowConstructor(typeDeclaration));
+		assertSame(null, e.getEditor());
+		assertSame(null, e.getTypeDeclaration());
 	}
 	/**
 	 * {@link ExecutionFlowProvider} that selects constructor with single <code>int</code> parameter

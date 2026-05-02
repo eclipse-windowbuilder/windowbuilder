@@ -349,17 +349,13 @@ public class PageLayoutTest extends RcpModelTest {
 			assertTrue(creationSupport.canReorder());
 			assertTrue(creationSupport.canReparent());
 			// this PageLayout_add_CreationSupport was created without source
-			try {
-				NodeTarget nodeTarget =
-						getNodeStatementTarget(
-								page,
-								"createInitialLayout(org.eclipse.ui.IPageLayout)",
-								false,
-								1);
-				creationSupport.add_getSource(nodeTarget);
-				fail();
-			} catch (AssertionFailedException e) {
-			}
+			NodeTarget nodeTarget =
+					getNodeStatementTarget(
+							page,
+							"createInitialLayout(org.eclipse.ui.IPageLayout)",
+							false,
+							1);
+			assertThrows(AssertionFailedException.class, () -> creationSupport.add_getSource(nodeTarget));
 		}
 	}
 

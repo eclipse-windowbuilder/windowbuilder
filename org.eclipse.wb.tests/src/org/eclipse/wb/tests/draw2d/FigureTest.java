@@ -88,12 +88,8 @@ public class FigureTest extends Draw2dFigureTestCase {
 		parentFigure.add(wrongChildFigure);
 		assertEquals(parentFigure, wrongChildFigure.getParent());
 		// assert add itself
-		try {
-			parentFigure.add(parentFigure);
-			fail();
-		} catch (IllegalArgumentException e) {
-			assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
-		}
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.add(parentFigure));
+		assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
 	}
 
 	@Test
@@ -137,25 +133,19 @@ public class FigureTest extends Draw2dFigureTestCase {
 		parentFigure.add(wrongChildFigure, 2);
 		assertEquals(parentFigure, wrongChildFigure.getParent());
 		// assert add itself
-		try {
-			parentFigure.add(parentFigure, 2);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.add(parentFigure, 2));
 			assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
 		}
 		/*
 		 * === assert wrong index ===
 		 */
-		try {
-			parentFigure.add(new Figure(), -2);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
+		{
+			IndexOutOfBoundsException e = assertThrows(IndexOutOfBoundsException.class, () -> parentFigure.add(new Figure(), -2));
 			assertEquals(ERROR_MESSAGE_INVALID_INDEX, e.getMessage());
 		}
-		try {
-			parentFigure.add(new Figure(), parentFigure.getChildren().size() + 1);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
+		{
+			IndexOutOfBoundsException e = assertThrows(IndexOutOfBoundsException.class, () -> parentFigure.add(new Figure(), parentFigure.getChildren().size() + 1));
 			assertEquals(ERROR_MESSAGE_INVALID_INDEX, e.getMessage());
 		}
 	}
@@ -196,10 +186,8 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(parentFigure, wrongChildFigure.getParent());
 
 		// assert add itself
-		try {
-			parentFigure.add(parentFigure, null);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.add(parentFigure, null));
 			assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
 		}
 		/*
@@ -259,25 +247,19 @@ public class FigureTest extends Draw2dFigureTestCase {
 		parentFigure.add(wrongChildFigure, null, 2);
 		assertEquals(parentFigure, wrongChildFigure.getParent());
 		// assert add itself
-		try {
-			parentFigure.add(parentFigure, null, 2);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.add(parentFigure, null, 2));
 			assertEquals(ERROR_MESSAGE_CYCLE, e.getMessage());
 		}
 		/*
 		 * === assert wrong index ===
 		 */
-		try {
-			parentFigure.add(new Figure(), null, -2);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
+		{
+			IndexOutOfBoundsException e = assertThrows(IndexOutOfBoundsException.class, () -> parentFigure.add(new Figure(), null, -2));
 			assertEquals(ERROR_MESSAGE_INVALID_INDEX, e.getMessage());
 		}
-		try {
-			parentFigure.add(new Figure(), null, parentFigure.getChildren().size() + 1);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
+		{
+			IndexOutOfBoundsException e = assertThrows(IndexOutOfBoundsException.class, () -> parentFigure.add(new Figure(), null, parentFigure.getChildren().size() + 1));
 			assertEquals(ERROR_MESSAGE_INVALID_INDEX, e.getMessage());
 		}
 		/*
@@ -301,24 +283,18 @@ public class FigureTest extends Draw2dFigureTestCase {
 		/*
 		 * === assert remove from empty parent ===
 		 */
-		try {
-			parentFigure.remove(null);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.remove(null));
 			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		//
-		try {
-			parentFigure.remove(new Figure());
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.remove(new Figure()));
 			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		// assert remove itself
-		try {
-			parentFigure.remove(parentFigure);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.remove(parentFigure));
 			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		/*
@@ -334,10 +310,8 @@ public class FigureTest extends Draw2dFigureTestCase {
 		/*
 		 * === assert remove alredy removed figure ===
 		 */
-		try {
-			parentFigure.remove(childFigure);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.remove(childFigure));
 			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		/*
@@ -345,17 +319,13 @@ public class FigureTest extends Draw2dFigureTestCase {
 		 */
 		Figure wrongChildFigure = new Figure();
 		new Figure().add(wrongChildFigure);
-		try {
-			parentFigure.remove(wrongChildFigure);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.remove(wrongChildFigure));
 			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 		// assert remove itself
-		try {
-			parentFigure.remove(parentFigure);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> parentFigure.remove(parentFigure));
 			assertEquals(ERROR_MESSAGE_EMPTY_PARENT, e.getMessage());
 		}
 	}

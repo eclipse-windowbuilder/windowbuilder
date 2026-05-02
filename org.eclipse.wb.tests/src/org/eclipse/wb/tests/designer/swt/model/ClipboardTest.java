@@ -273,34 +273,18 @@ public class ClipboardTest extends RcpModelTest {
 		// do paste
 		ExecutionUtils.run(shell, () -> {
 			// can not apply() before create()
-			try {
-				memento.apply();
-				fail();
-			} catch (AssertionFailedException e) {
-			}
+			assertThrows(AssertionFailedException.class, memento::apply);
 			// create control
 			ControlInfo control = (ControlInfo) memento.create(shell);
 			// can not apply() before adding to hierarchy
-			try {
-				memento.apply();
-				fail();
-			} catch (IllegalArgumentException e) {
-			}
+			assertThrows(IllegalArgumentException.class, memento::apply);
 			// add
 			absoluteLayout.commandCreate(control, null);
 			memento.apply();
 			// can not apply() second time
-			try {
-				memento.apply();
-				fail();
-			} catch (IllegalArgumentException e) {
-			}
+			assertThrows(IllegalArgumentException.class, memento::apply);
 			// can not create() after apply()
-			try {
-				memento.create(shell);
-				fail();
-			} catch (IllegalArgumentException e) {
-			}
+			assertThrows(IllegalArgumentException.class, () -> memento.create(shell));
 		});
 	}
 

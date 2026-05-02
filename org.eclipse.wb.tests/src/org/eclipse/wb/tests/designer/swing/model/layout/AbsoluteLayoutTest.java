@@ -141,52 +141,20 @@ public class AbsoluteLayoutTest extends AbstractLayoutTest {
 				assertEquals("absolute", variableSupport.toString());
 				// name
 				assertFalse(variableSupport.hasName());
-				try {
-					variableSupport.getName();
-					fail();
-				} catch (IllegalStateException e) {
-				}
-				try {
-					variableSupport.setName("abc");
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, variableSupport::getName);
+				assertThrows(IllegalStateException.class, () -> variableSupport.setName("abc"));
 				// expressions
-				try {
-					variableSupport.getReferenceExpression((NodeTarget) null);
-					fail();
-				} catch (IllegalStateException e) {
-				}
-				try {
-					variableSupport.getAccessExpression((NodeTarget) null);
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, () -> variableSupport.getReferenceExpression((NodeTarget) null));
+				assertThrows(IllegalStateException.class, () -> variableSupport.getAccessExpression((NodeTarget) null));
 				// conversion
 				assertFalse(variableSupport.canConvertLocalToField());
-				try {
-					variableSupport.convertLocalToField();
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, variableSupport::convertLocalToField);
 				assertFalse(variableSupport.canConvertFieldToLocal());
-				try {
-					variableSupport.convertFieldToLocal();
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, variableSupport::convertFieldToLocal);
 				// target
-				try {
-					variableSupport.getStatementTarget();
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, variableSupport::getStatementTarget);
 				// title
-				try {
-					variableSupport.getTitle();
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, variableSupport::getTitle);
 			}
 			// association
 			assertInstanceOf(InvocationChildAssociation.class, layout.getAssociation());

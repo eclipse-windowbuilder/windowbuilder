@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -147,11 +147,7 @@ public class EditorPartTest extends RcpModelTest {
 		part.refresh();
 		//
 		IEditorSite editorSite = (IEditorSite) ReflectionUtils.invokeMethod(part.getObject(), "getEditorSite()");
-		try {
-			editorSite.getShell();
-			fail();
-		} catch (NotImplementedException e) {
-		}
+		assertThrows(NotImplementedException.class, editorSite::getShell);
 		assertEquals("IEditorSite_stub", editorSite.toString());
 		assertEquals(0, editorSite.hashCode());
 		assertEquals("some.editor.Identifier", editorSite.getId());

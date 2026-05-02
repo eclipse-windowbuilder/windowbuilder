@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,8 +41,8 @@ public class FactoryTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parseFactory() throws Exception {
-		try {
-			m_waitForAutoBuild = true;
+		m_waitForAutoBuild = true;
+		DesignerException e = assertThrows(DesignerException.class, () -> {
 			parseContainer(
 					"public final class Test {",
 					"  /**",
@@ -52,10 +52,8 @@ public class FactoryTest extends SwingModelTest {
 					"    return new JButton();",
 					"  }",
 					"}");
-			fail();
-		} catch (DesignerException e) {
-			assertEquals(ICoreExceptionConstants.PARSER_FACTORY_NOT_SUPPORTED, e.getCode());
-			assertTrue(DesignerExceptionUtils.isWarning(e));
-		}
+		});
+		assertEquals(ICoreExceptionConstants.PARSER_FACTORY_NOT_SUPPORTED, e.getCode());
+		assertTrue(DesignerExceptionUtils.isWarning(e));
 	}
 }

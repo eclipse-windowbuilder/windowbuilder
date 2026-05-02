@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -989,13 +989,11 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 						"}");
 		FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel.getLayout();
 		// try to add
-		try {
+		DesignerException e = assertThrows(DesignerException.class, () -> {
 			ComponentInfo newButton = createJavaInfo("test.MyButton");
 			flowLayout.add(newButton, null);
-			fail();
-		} catch (DesignerException e) {
-			assertEquals(ICoreExceptionConstants.GEN_NO_CONSTRUCTOR_BINDING, e.getCode());
-		}
+		});
+		assertEquals(ICoreExceptionConstants.GEN_NO_CONSTRUCTOR_BINDING, e.getCode());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

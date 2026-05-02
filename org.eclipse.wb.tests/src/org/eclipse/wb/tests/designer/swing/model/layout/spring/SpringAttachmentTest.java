@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -57,11 +57,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		assertSame(SpringLayout.EAST, SpringAttachmentInfo.getSpringSide(PositionConstants.RIGHT));
 		assertSame(SpringLayout.NORTH, SpringAttachmentInfo.getSpringSide(PositionConstants.TOP));
 		assertSame(SpringLayout.SOUTH, SpringAttachmentInfo.getSpringSide(PositionConstants.BOTTOM));
-		try {
-			SpringAttachmentInfo.getSpringSide(-1);
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+		assertThrows(IllegalArgumentException.class, () -> SpringAttachmentInfo.getSpringSide(-1));
 	}
 
 	/**
@@ -81,11 +77,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		assertEquals(
 				"javax.swing.SpringLayout.SOUTH",
 				SpringAttachmentInfo.getSpringSideSource(PositionConstants.BOTTOM));
-		try {
-			SpringAttachmentInfo.getSpringSideSource(-1);
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+		assertThrows(IllegalArgumentException.class, () -> SpringAttachmentInfo.getSpringSideSource(-1));
 	}
 
 	/**
@@ -99,11 +91,7 @@ public class SpringAttachmentTest extends AbstractLayoutTest {
 		assertEquals(
 				PositionConstants.BOTTOM,
 				SpringAttachmentInfo.getFrameworkSide(SpringLayout.SOUTH));
-		try {
-			SpringAttachmentInfo.getFrameworkSide("no such side");
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+		assertThrows(IllegalArgumentException.class, () -> SpringAttachmentInfo.getFrameworkSide("no such side"));
 	}
 
 	/**

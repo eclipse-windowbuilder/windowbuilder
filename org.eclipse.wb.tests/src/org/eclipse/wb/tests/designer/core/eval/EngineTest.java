@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -78,13 +78,9 @@ public class EngineTest extends AbstractEngineTest {
 						return value;
 					}
 				}""");
-		try {
-			evaluateSingleMethod(typeDeclaration, "foo(int)");
-			fail();
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(ICoreExceptionConstants.EVAL_NO_METHOD_INVOCATION, e.getCode());
-		}
+		Throwable e_ = assertThrows(Throwable.class, () -> evaluateSingleMethod(typeDeclaration, "foo(int)"));
+		DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
+		assertEquals(ICoreExceptionConstants.EVAL_NO_METHOD_INVOCATION, e.getCode());
 	}
 
 	/**
@@ -128,11 +124,7 @@ public class EngineTest extends AbstractEngineTest {
 			};
 		}
 		// evaluate, we don't return value, so evaluation failed
-		try {
-			AstEvaluationEngine.evaluate(context, expression);
-			fail();
-		} catch (Throwable e) {
-		}
+		assertThrows(Throwable.class, () -> AstEvaluationEngine.evaluate(context, expression));
 		assertTrue(evaluationFailed.get());
 	}
 
@@ -222,13 +214,9 @@ public class EngineTest extends AbstractEngineTest {
 								"  }",
 								"}"));
 		waitForAutoBuild();
-		try {
-			evaluateSingleMethod(typeDeclaration, "getValue()");
-			fail();
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(ICoreExceptionConstants.EVAL_NO_SIMPLE_NAME_FOUND, e.getCode());
-		}
+		Throwable e_ = assertThrows(Throwable.class, () -> evaluateSingleMethod(typeDeclaration, "getValue()"));
+		DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
+		assertEquals(ICoreExceptionConstants.EVAL_NO_SIMPLE_NAME_FOUND, e.getCode());
 	}
 
 	@Test
@@ -329,13 +317,9 @@ public class EngineTest extends AbstractEngineTest {
 						return value;
 					}
 				}""");
-		try {
-			evaluateSingleMethod(typeDeclaration, "foo(int)");
-			fail();
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(ICoreExceptionConstants.EVAL_NO_METHOD_INVOCATION, e.getCode());
-		}
+		Throwable e_ = assertThrows(Throwable.class, () -> evaluateSingleMethod(typeDeclaration, "foo(int)"));
+		DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
+		assertEquals(ICoreExceptionConstants.EVAL_NO_METHOD_INVOCATION, e.getCode());
 	}
 
 	/**

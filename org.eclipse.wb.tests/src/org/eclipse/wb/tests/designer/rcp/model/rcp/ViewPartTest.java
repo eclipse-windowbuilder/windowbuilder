@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -167,11 +167,7 @@ public class ViewPartTest extends RcpModelTest {
 				"      {implicit-layout: absolute} {implicit-layout} {}");
 		//
 		IViewSite viewSite = (IViewSite) ReflectionUtils.invokeMethod(part.getObject(), "getViewSite()");
-		try {
-			viewSite.getShell();
-			fail();
-		} catch (NotImplementedException e) {
-		}
+		assertThrows(NotImplementedException.class, viewSite::getShell);
 		assertEquals("IViewSite_stub", viewSite.toString());
 		assertEquals(0, viewSite.hashCode());
 		assertEquals("some.view.Identifier", viewSite.getId());

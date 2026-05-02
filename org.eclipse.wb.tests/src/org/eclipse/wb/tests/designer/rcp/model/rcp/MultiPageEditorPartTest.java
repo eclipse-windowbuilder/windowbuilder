@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,27 +41,23 @@ public class MultiPageEditorPartTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parsingException() throws Exception {
-		try {
-			parseJavaInfo(
-					"import org.eclipse.core.runtime.IProgressMonitor;",
-					"import org.eclipse.ui.part.MultiPageEditorPart;",
-					"public abstract class Test extends MultiPageEditorPart {",
-					"  public Test() {",
-					"  }",
-					"  protected void createPages() {",
-					"  }",
-					"  public boolean isSaveAsAllowed() {",
-					"    return false;",
-					"  }",
-					"  public void doSave(IProgressMonitor monitor) {",
-					"  }",
-					"  public void doSaveAs() {	",
-					"  }",
-					"}");
-			fail();
-		} catch (DesignerException e) {
-			assertEquals(IExceptionConstants.NO_DESIGN_MP_EDITOR, e.getCode());
-			assertTrue(DesignerExceptionUtils.isWarning(e));
-		}
+		DesignerException e = assertThrows(DesignerException.class, () -> parseJavaInfo(
+				"import org.eclipse.core.runtime.IProgressMonitor;",
+				"import org.eclipse.ui.part.MultiPageEditorPart;",
+				"public abstract class Test extends MultiPageEditorPart {",
+				"  public Test() {",
+				"  }",
+				"  protected void createPages() {",
+				"  }",
+				"  public boolean isSaveAsAllowed() {",
+				"    return false;",
+				"  }",
+				"  public void doSave(IProgressMonitor monitor) {",
+				"  }",
+				"  public void doSaveAs() {	",
+				"  }",
+				"}"));
+		assertEquals(IExceptionConstants.NO_DESIGN_MP_EDITOR, e.getCode());
+		assertTrue(DesignerExceptionUtils.isWarning(e));
 	}
 }

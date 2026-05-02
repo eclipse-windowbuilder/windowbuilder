@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -106,11 +106,7 @@ public class FillLayoutTest extends RcpModelTest {
 		assertTrue(shell.getChildrenControls().isEmpty());
 		FillLayoutInfo layout = (FillLayoutInfo) shell.getLayout();
 		//
-		try {
-			ReflectionUtils.invokeMethod(layout, "getDefaultVirtualDataObject()");
-			fail();
-		} catch (NotImplementedException e) {
-		}
+		assertThrows(NotImplementedException.class, () -> ReflectionUtils.invokeMethod(layout, "getDefaultVirtualDataObject()"));
 	}
 
 	@Test

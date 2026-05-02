@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -158,22 +158,18 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noControl() throws Exception {
-		try {
-			parseJavaInfo(
-					"import org.eclipse.jface.wizard.*;",
-					"public class Test extends WizardPage {",
-					"  public Test() {",
-					"    super('pageName');",
-					"  }",
-					"  public void createControl(Composite parent) {",
-					"  }",
-					"}");
-			fail();
-		} catch (Throwable e) {
-			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
-			assertEquals(IExceptionConstants.NO_CONTROL_IN_WIZARD_PAGE, de.getCode());
-			assertTrue(DesignerExceptionUtils.isWarning(e));
-		}
+		Throwable e = assertThrows(Throwable.class, () -> parseJavaInfo(
+				"import org.eclipse.jface.wizard.*;",
+				"public class Test extends WizardPage {",
+				"  public Test() {",
+				"    super('pageName');",
+				"  }",
+				"  public void createControl(Composite parent) {",
+				"  }",
+				"}"));
+		DesignerException de = DesignerExceptionUtils.getDesignerException(e);
+		assertEquals(IExceptionConstants.NO_CONTROL_IN_WIZARD_PAGE, de.getCode());
+		assertTrue(DesignerExceptionUtils.isWarning(e));
 	}
 
 	@Test
@@ -181,7 +177,7 @@ public class WizardPageTest extends RcpModelTest {
 		String key = "__wbp_WizardPage_simulateException";
 		try {
 			System.setProperty(key, "true");
-			parseJavaInfo(
+			Throwable e = assertThrows(Throwable.class, () -> parseJavaInfo(
 					"import org.eclipse.jface.wizard.*;",
 					"public class Test extends WizardPage {",
 					"  public Test() {",
@@ -191,9 +187,7 @@ public class WizardPageTest extends RcpModelTest {
 					"    Composite container = new Composite(parent, SWT.NULL);",
 					"    setControl(container);",
 					"  }",
-					"}");
-			fail();
-		} catch (Throwable e) {
+					"}"));
 			Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
 			assertEquals("Simulated exception", rootCause.getMessage());
 		} finally {

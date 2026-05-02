@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -96,18 +96,10 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 		{
 			IActionBarConfigurer o_IActionBarConfigurer =
 					(IActionBarConfigurer) ReflectionUtils.invokeMethod2(advisor.getObject(), "getActionBarConfigurer");
-			try {
-				o_IActionBarConfigurer.toString();
-				fail();
-			} catch (NotImplementedException e) {
-			}
+			assertThrows(NotImplementedException.class, o_IActionBarConfigurer::toString);
 			// IWorkbenchWindowConfigurer
 			IWorkbenchWindowConfigurer o_IWorkbenchWindowConfigurer = o_IActionBarConfigurer.getWindowConfigurer();
-			try {
-				o_IActionBarConfigurer.toString();
-				fail();
-			} catch (NotImplementedException e) {
-			}
+			assertThrows(NotImplementedException.class, o_IActionBarConfigurer::toString);
 			// IWorkbenchWindow
 			Object o_IWorkbenchWindow = o_IWorkbenchWindowConfigurer.getWindow();
 			assertSame(DesignerPlugin.getActiveWorkbenchWindow(), o_IWorkbenchWindow);

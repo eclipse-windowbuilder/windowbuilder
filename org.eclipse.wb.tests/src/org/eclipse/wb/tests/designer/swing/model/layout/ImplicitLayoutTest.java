@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -91,29 +91,13 @@ public class ImplicitLayoutTest extends AbstractLayoutTest {
 			assertEquals("(implicit layout)", variableSupport.getTitle());
 			// name
 			assertFalse(variableSupport.hasName());
-			try {
-				variableSupport.getName();
-				fail();
-			} catch (IllegalStateException e) {
-			}
-			try {
-				variableSupport.setName("foo");
-				fail();
-			} catch (IllegalStateException e) {
-			}
+			assertThrows(IllegalStateException.class, variableSupport::getName);
+			assertThrows(IllegalStateException.class, () -> variableSupport.setName("foo"));
 			// conversion
 			assertFalse(variableSupport.canConvertLocalToField());
-			try {
-				variableSupport.convertLocalToField();
-				fail();
-			} catch (IllegalStateException e) {
-			}
+			assertThrows(IllegalStateException.class, variableSupport::convertLocalToField);
 			assertFalse(variableSupport.canConvertFieldToLocal());
-			try {
-				variableSupport.convertFieldToLocal();
-				fail();
-			} catch (IllegalStateException e) {
-			}
+			assertThrows(IllegalStateException.class, variableSupport::convertFieldToLocal);
 			// target
 			{
 				StatementTarget target = variableSupport.getStatementTarget();

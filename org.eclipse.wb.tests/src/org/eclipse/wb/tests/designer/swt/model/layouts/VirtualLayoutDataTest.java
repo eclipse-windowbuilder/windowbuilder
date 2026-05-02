@@ -92,11 +92,7 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 			assertEquals("(virtual layout data)", variableSupport.getTitle());
 			assertEquals("virtual-layout-data", variableSupport.toString());
 			// can not be reference because don't have presentation in source
-			try {
-				variableSupport.getStatementTarget();
-				fail();
-			} catch (IllegalStateException e) {
-			}
+			assertThrows(IllegalStateException.class, variableSupport::getStatementTarget);
 		}
 		// check association
 		assertInstanceOf(EmptyAssociation.class, dataInfo.getAssociation());

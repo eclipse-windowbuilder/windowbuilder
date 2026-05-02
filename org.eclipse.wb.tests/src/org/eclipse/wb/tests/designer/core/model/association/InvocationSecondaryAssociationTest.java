@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -103,17 +103,9 @@ public class InvocationSecondaryAssociationTest extends SwingModelTest {
 					"addGB(getContentPane(), new JButton(\"north\"), BorderLayout.NORTH);",
 					m_lastEditor.getSource(association.getStatement()));
 			// can not be moved
-			try {
-				association.move(null);
-				fail();
-			} catch (NotImplementedException e) {
-			}
+			assertThrows(NotImplementedException.class, () -> association.move(null));
 			// can not be reparented
-			try {
-				association.setParent(null);
-				fail();
-			} catch (NotImplementedException e) {
-			}
+			assertThrows(NotImplementedException.class, () -> association.setParent(null));
 		}
 	}
 

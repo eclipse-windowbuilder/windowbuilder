@@ -1119,11 +1119,7 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
 				"  }",
 				"}");
 		// check that layout does not have cached CellConstraintsSupport
-		try {
-			FormLayoutInfo.getConstraints(button);
-			fail();
-		} catch (AssertionFailedException e) {
-		}
+		assertThrows(AssertionFailedException.class, () -> FormLayoutInfo.getConstraints(button));
 	}
 
 	/**
@@ -1159,11 +1155,7 @@ public class FormLayoutTest extends AbstractFormLayoutTest {
 				"  }",
 				"}");
 		// check that layout does not have cached CellConstraintsSupport
-		try {
-			FormLayoutInfo.getConstraints(button);
-			fail();
-		} catch (AssertionFailedException e) {
-		}
+		assertThrows(AssertionFailedException.class, () -> FormLayoutInfo.getConstraints(button));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
