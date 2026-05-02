@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swt.gef.policy.layout.form;
 
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutPreferences;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.swt.model.layout.form.IFormLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -135,8 +135,9 @@ public class FormHeaderEditPart<C extends IControlInfo> extends DesignEditPart {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		protected void paintClientArea(Graphics graphics) {
+		protected void paintFigure(Graphics graphics) {
 			Dimension size = m_t.t(getSize());
+			graphics.translate(getLocation());
 			graphics.setBackgroundColor(ColorConstants.buttonDarker);
 			PointList points = new PointList();
 			points.addPoint(m_t.t(new Point(3, size.height / 2)));
