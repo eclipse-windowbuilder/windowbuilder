@@ -1001,11 +1001,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
 	@Test
 	public void test_ColumnInfo_setAlignment_UNKNOWN() throws Exception {
-		try {
-			check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.UNKNOWN, "not used");
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+		assertThrows(IllegalArgumentException.class, () -> check_ColumnInfo_setAlignment(MigColumnInfo.Alignment.UNKNOWN, "not used"));
 	}
 
 	/**
@@ -1159,11 +1155,7 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 
 	@Test
 	public void test_RowInfo_setAlignment_UNKNOWN() throws Exception {
-		try {
-			check_RowInfo_setAlignment(MigRowInfo.Alignment.UNKNOWN, "not used");
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+		assertThrows(IllegalArgumentException.class, () -> check_RowInfo_setAlignment(MigRowInfo.Alignment.UNKNOWN, "not used"));
 	}
 
 	@Test

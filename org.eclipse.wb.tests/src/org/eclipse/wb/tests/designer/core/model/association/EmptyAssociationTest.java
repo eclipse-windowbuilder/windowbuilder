@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -58,31 +58,15 @@ public class EmptyAssociationTest extends SwingModelTest {
 		assertSame(button, association.getJavaInfo());
 		assertTrue(association.canDelete());
 		// no getSource()
-		try {
-			association.getSource();
-			fail();
-		} catch (NotImplementedException e) {
-		}
+		assertThrows(NotImplementedException.class, association::getSource);
 		// no getStatement()
 		assertNull(association.getStatement());
 		// can not be moved
-		try {
-			association.move(null);
-			fail();
-		} catch (NotImplementedException e) {
-		}
+		assertThrows(NotImplementedException.class, () -> association.move(null));
 		// can not be reparented
-		try {
-			association.setParent(null);
-			fail();
-		} catch (NotImplementedException e) {
-		}
+		assertThrows(NotImplementedException.class, () -> association.setParent(null));
 		// can not be morphed
-		try {
-			association.getCopy();
-			fail();
-		} catch (NotImplementedException e) {
-		}
+		assertThrows(NotImplementedException.class, association::getCopy);
 		// can not be removed
 		{
 			association.remove();

@@ -365,11 +365,7 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 			assertEquals(expectedString, constraints.getString());
 		}
 		// set bad
-		try {
-			constraints.setString("somethingBad");
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+		assertThrows(IllegalArgumentException.class, () -> constraints.setString("somethingBad"));
 	}
 
 	private String getCellConstraintsSource(CellConstraintsSupport cell) {

@@ -221,54 +221,22 @@ public class CompositeTest extends RcpModelTest {
 		assertEquals("absolute", variableSupport.toString());
 		// name
 		assertFalse(variableSupport.hasName());
-		try {
-			variableSupport.getName();
-			fail();
-		} catch (IllegalStateException e) {
-		}
-		try {
-			variableSupport.setName("foo");
-			fail();
-		} catch (IllegalStateException e) {
-		}
+		assertThrows(IllegalStateException.class, variableSupport::getName);
+		assertThrows(IllegalStateException.class, () -> variableSupport.setName("foo"));
 		// title
-		try {
-			variableSupport.getTitle();
-			fail();
-		} catch (IllegalStateException e) {
-		}
+		assertThrows(IllegalStateException.class, variableSupport::getTitle);
 		// local -> field
 		assertFalse(variableSupport.canConvertLocalToField());
-		try {
-			variableSupport.convertLocalToField();
-			fail();
-		} catch (IllegalStateException e) {
-		}
+		assertThrows(IllegalStateException.class, variableSupport::convertLocalToField);
 		// field -> local
 		assertFalse(variableSupport.canConvertFieldToLocal());
-		try {
-			variableSupport.convertFieldToLocal();
-			fail();
-		} catch (IllegalStateException e) {
-		}
+		assertThrows(IllegalStateException.class, variableSupport::convertFieldToLocal);
 		// target
-		try {
-			variableSupport.getStatementTarget();
-			fail();
-		} catch (IllegalStateException e) {
-		}
+		assertThrows(IllegalStateException.class, variableSupport::getStatementTarget);
 		// reference expression
-		try {
-			variableSupport.getReferenceExpression((NodeTarget) null);
-			fail();
-		} catch (IllegalStateException e) {
-		}
+		assertThrows(IllegalStateException.class, () -> variableSupport.getReferenceExpression((NodeTarget) null));
 		// access expression
-		try {
-			variableSupport.getAccessExpression((NodeTarget) null);
-			fail();
-		} catch (IllegalStateException e) {
-		}
+		assertThrows(IllegalStateException.class, () -> variableSupport.getAccessExpression((NodeTarget) null));
 	}
 
 	/**

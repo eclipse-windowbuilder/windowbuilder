@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,22 +43,18 @@ public class WizardTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parsingException() throws Exception {
-		try {
-			parseJavaInfo(
-					"import org.eclipse.jface.wizard.*;",
-					"public class Test extends Wizard {",
-					"  public Test() {",
-					"  }",
-					"  public void addPages() {",
-					"  }",
-					"  public boolean performFinish() {",
-					"    return true;",
-					"  }",
-					"}");
-			fail();
-		} catch (DesignerException e) {
-			assertEquals(IExceptionConstants.NO_DESIGN_WIZARD, e.getCode());
-			assertTrue(DesignerExceptionUtils.isWarning(e));
-		}
+		DesignerException e = assertThrows(DesignerException.class, () -> parseJavaInfo(
+				"import org.eclipse.jface.wizard.*;",
+				"public class Test extends Wizard {",
+				"  public Test() {",
+				"  }",
+				"  public void addPages() {",
+				"  }",
+				"  public boolean performFinish() {",
+				"    return true;",
+				"  }",
+				"}"));
+		assertEquals(IExceptionConstants.NO_DESIGN_WIZARD, e.getCode());
+		assertTrue(DesignerExceptionUtils.isWarning(e));
 	}
 }

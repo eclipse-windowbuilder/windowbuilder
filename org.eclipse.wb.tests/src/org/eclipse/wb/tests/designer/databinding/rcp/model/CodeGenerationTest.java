@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -892,12 +892,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		//
 		assertEquals("m_context.getValidationStatusProviders()", observable.getVariableIdentifier());
 		//
-		try {
-			observable.setVariableIdentifier("variable");
-			fail();
-		} catch (Throwable e) {
-			assertInstanceOf(UnsupportedOperationException.class, e);
-		}
+		assertThrows(UnsupportedOperationException.class, () -> observable.setVariableIdentifier("variable"));
 		//
 		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);
@@ -949,12 +944,7 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		//
 		assertEquals("m_value", observable.getVariableIdentifier());
 		//
-		try {
-			observable.setVariableIdentifier("variable");
-			fail();
-		} catch (Throwable e) {
-			assertInstanceOf(UnsupportedOperationException.class, e);
-		}
+		assertThrows(UnsupportedOperationException.class, () -> observable.setVariableIdentifier("variable"));
 		//
 		List<String> lines = new ArrayList<>();
 		CodeGenerationSupport generationSupport = new CodeGenerationSupport(false, observable);

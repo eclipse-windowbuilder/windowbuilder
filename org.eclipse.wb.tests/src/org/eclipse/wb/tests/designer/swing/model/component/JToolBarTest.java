@@ -316,53 +316,26 @@ public class JToolBarTest extends SwingModelTest {
 			assertEquals("void", variable.toString());
 			assertEquals("addSeparator()", variable.getTitle());
 			// target
-			try {
-				assertTarget(variable.getStatementTarget(), null, associationStatement, false);
-				fail();
-			} catch (IllegalStateException e) {
-			}
+			assertThrows(IllegalStateException.class,
+					() -> assertTarget(variable.getStatementTarget(), null, associationStatement, false));
 			// name
 			{
 				assertFalse(variable.hasName());
-				try {
-					variable.getName();
-					fail();
-				} catch (IllegalStateException e) {
-				}
-				try {
-					variable.setName("can-not-set-name");
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, variable::getName);
+				assertThrows(IllegalStateException.class, () -> variable.setName("can-not-set-name"));
 			}
 			// expressions
 			{
-				try {
-					variable.getReferenceExpression((NodeTarget) null);
-					fail();
-				} catch (IllegalStateException e) {
-				}
-				try {
-					variable.getAccessExpression((NodeTarget) null);
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, () -> variable.getReferenceExpression((NodeTarget) null));
+				assertThrows(IllegalStateException.class, () -> variable.getAccessExpression((NodeTarget) null));
 			}
 			// conversion
 			{
 				assertFalse(variable.canConvertLocalToField());
-				try {
-					variable.convertLocalToField();
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, () -> variable.convertLocalToField());
 				//
 				assertFalse(variable.canConvertFieldToLocal());
-				try {
-					variable.convertFieldToLocal();
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, variable::convertFieldToLocal);
 			}
 		}
 		// check JToolBar_Separator_CreationSupport

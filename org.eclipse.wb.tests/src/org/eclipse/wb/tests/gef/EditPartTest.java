@@ -17,6 +17,7 @@ import org.eclipse.wb.gef.core.policies.DesignEditPolicy;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
+import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
@@ -112,10 +113,8 @@ public class EditPartTest extends GefTestCase {
 		/*
 		 * check add 'null' child EditPart
 		 */
-		try {
-			templatePart.test_access_addChild(null, 0);
-			fail();
-		} catch (RuntimeException e) {
+		{
+			Exception e = assertThrows(AssertionFailedException.class, () -> templatePart.test_access_addChild(null, 0));
 			assertEquals("null argument:", e.getMessage());
 		}
 		/*
@@ -126,11 +125,9 @@ public class EditPartTest extends GefTestCase {
 		/*
 		 * check add EditPart from wrong index (positive)
 		 */
-		try {
-			templatePart.test_access_addChild(testPart1, 1);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
-			assertTrue("Index: 1, Size: 0".equals(e.getMessage()));
+		{
+			Exception e = assertThrows(IndexOutOfBoundsException.class, () -> templatePart.test_access_addChild(testPart1, 1));
+			assertEquals("Index: 1, Size: 0", e.getMessage());
 		}
 		//
 		assertTrue(templatePart.getChildren().isEmpty());
@@ -138,11 +135,9 @@ public class EditPartTest extends GefTestCase {
 		/*
 		 * check add EditPart from wrong index (negative)
 		 */
-		try {
-			templatePart.test_access_addChild(testPart1, -2);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
-			assertTrue("Index: -2, Size: 0".equals(e.getMessage()));
+		{
+			Exception e = assertThrows(IndexOutOfBoundsException.class, () -> templatePart.test_access_addChild(testPart1, -2));
+			assertEquals("Index: -2, Size: 0", e.getMessage());
 		}
 		//
 		assertTrue(templatePart.getChildren().isEmpty());
@@ -215,10 +210,9 @@ public class EditPartTest extends GefTestCase {
 		assertTrue(testEditPart.test_getEditPolicies().isEmpty());
 		//
 		// check install EditPolicy use 'null' key
-		try {
-			testEditPart.installEditPolicy(null, new TestEditPolicy());
-			fail();
-		} catch (Throwable t) {
+
+		{
+			Exception t = assertThrows(AssertionFailedException.class, () -> testEditPart.installEditPolicy(null, new TestEditPolicy()));
 			assertEquals("null argument:Edit Policies must be installed with keys", t.getMessage());
 		}
 		//

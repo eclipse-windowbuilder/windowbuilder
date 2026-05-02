@@ -339,27 +339,27 @@ public class SWTResourceManagerTest extends RcpModelTest {
 	@Test
 	public void test_decorateImage_wrongCorner() throws Exception {
 		// check out of range corner values to left
-		try {
-			ReflectionUtils.invokeMethod(
-					SWTManagerClass,
-					"decorateImage(org.eclipse.swt.graphics.Image,org.eclipse.swt.graphics.Image,int)",
-					null,
-					null,
-					0);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+				ReflectionUtils.invokeMethod(
+						SWTManagerClass,
+						"decorateImage(org.eclipse.swt.graphics.Image,org.eclipse.swt.graphics.Image,int)",
+						null,
+						null,
+						0);
+			});
 			assertEquals("Wrong decorate corner", e.getMessage());
 		}
 		// check out of range corner values to right
-		try {
-			ReflectionUtils.invokeMethod(
-					SWTManagerClass,
-					"decorateImage(org.eclipse.swt.graphics.Image,org.eclipse.swt.graphics.Image,int)",
-					null,
-					null,
-					5);
-			fail();
-		} catch (IllegalArgumentException e) {
+		{
+			IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> {
+				ReflectionUtils.invokeMethod(
+						SWTManagerClass,
+						"decorateImage(org.eclipse.swt.graphics.Image,org.eclipse.swt.graphics.Image,int)",
+						null,
+						null,
+						5);
+			});
 			assertEquals("Wrong decorate corner", e.getMessage());
 		}
 	}

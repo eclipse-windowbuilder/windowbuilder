@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,6 +24,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.EmptyVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
+import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -325,11 +326,7 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 				assertInstanceOf(VirtualConstraintsVariableSupport.class, variable);
 				assertEquals("(virtual GBL constraints)", variable.getTitle());
 				assertEquals("virtual-GBL-constraints", variable.toString());
-				try {
-					variable.getStatementTarget();
-					fail();
-				} catch (IllegalStateException e) {
-				}
+				assertThrows(IllegalStateException.class, () -> variable.getStatementTarget());
 			}
 			assertInstanceOf(EmptyAssociation.class, constraints.getAssociation());
 		}
@@ -908,32 +905,24 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 
 	@Test
 	public void test_alignments_unknownHorizontal() throws Exception {
-		try {
-			ReflectionUtils.invokeMethod2(
-					GridBagConstraintsInfo.class,
-					"getHorizontalAlignment",
-					int.class,
-					int.class,
-					-1,
-					-1);
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+		assertThrows(IllegalArgumentException.class, () -> ReflectionUtils.invokeMethod2(
+				GridBagConstraintsInfo.class,
+				"getHorizontalAlignment",
+				int.class,
+				int.class,
+				-1,
+				-1));
 	}
 
 	@Test
 	public void test_alignments_unknownVertical() throws Exception {
-		try {
-			ReflectionUtils.invokeMethod2(
-					GridBagConstraintsInfo.class,
-					"getVerticalAlignment",
-					int.class,
-					int.class,
-					-1,
-					-1);
-			fail();
-		} catch (IllegalArgumentException e) {
-		}
+		assertThrows(IllegalArgumentException.class, () -> ReflectionUtils.invokeMethod2(
+				GridBagConstraintsInfo.class,
+				"getVerticalAlignment",
+				int.class,
+				int.class,
+				-1,
+				-1));
 	}
 
 	/**

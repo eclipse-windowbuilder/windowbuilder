@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,12 +64,8 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 				public class Test {
 				}""");
 		assertSame(null, FormToolkitAccess.get(typeDeclaration));
-		try {
-			FormToolkitAccess.getOrFail(typeDeclaration);
-			fail();
-		} catch (DesignerException e) {
-			assertEquals(IExceptionConstants.NO_FORM_TOOLKIT, e.getCode());
-		}
+		DesignerException e = assertThrows(DesignerException.class, () -> FormToolkitAccess.getOrFail(typeDeclaration));
+		assertEquals(IExceptionConstants.NO_FORM_TOOLKIT, e.getCode());
 	}
 
 	@Test

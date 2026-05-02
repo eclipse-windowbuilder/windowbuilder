@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -481,17 +481,13 @@ public class ThisCreationSupportTest extends SwingModelTest {
 						"}"));
 		waitForAutoBuild();
 		// parse
-		try {
-			parseContainer(
-					"// filler filler filler",
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"  }",
-					"}");
-			fail();
-		} catch (DesignerException e) {
-			assertEquals(ICoreExceptionConstants.EVAL_NON_PUBLIC_CONSTRUCTOR, e.getCode());
-		}
+		DesignerException e = assertThrows(DesignerException.class, () -> parseContainer(
+				"// filler filler filler",
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"  }",
+				"}"));
+		assertEquals(ICoreExceptionConstants.EVAL_NON_PUBLIC_CONSTRUCTOR, e.getCode());
 	}
 
 	/**
@@ -511,19 +507,15 @@ public class ThisCreationSupportTest extends SwingModelTest {
 						"}"));
 		waitForAutoBuild();
 		// parse
-		try {
-			m_ignoreCompilationProblems = true;
-			parseContainer(
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"    super(0);",
-					"  }",
-					"}");
-			fail();
-		} catch (Throwable e) {
-			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
-			assertEquals(ICoreExceptionConstants.EVAL_BYTEBUDDY, de.getCode());
-		}
+		m_ignoreCompilationProblems = true;
+		Throwable e = assertThrows(Throwable.class, () -> parseContainer(
+				"public class Test extends MyPanel {",
+				"  public Test() {",
+				"    super(0);",
+				"  }",
+				"}"));
+		DesignerException de = DesignerExceptionUtils.getDesignerException(e);
+		assertEquals(ICoreExceptionConstants.EVAL_BYTEBUDDY, de.getCode());
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -113,13 +113,9 @@ public class MethodInvocationTest extends AbstractEngineTest {
 					}
 				}""");
 		waitForAutoBuild();
-		try {
-			evaluateSingleMethod(typeDeclaration, "root()");
-			fail();
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(ICoreExceptionConstants.EVAL_LOCAL_METHOD_INVOCATION, e.getCode());
-		}
+		Throwable e_ = assertThrows(Throwable.class, () -> evaluateSingleMethod(typeDeclaration, "root()"));
+		DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
+		assertEquals(ICoreExceptionConstants.EVAL_LOCAL_METHOD_INVOCATION, e.getCode());
 	}
 
 	/**
@@ -158,18 +154,14 @@ public class MethodInvocationTest extends AbstractEngineTest {
 				}""");
 		waitForAutoBuild();
 		//
-		try {
-			evaluateSingleMethod(typeDeclaration, "root()");
-			fail();
-		} catch (Throwable e) {
-			{
-				Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
-				Assertions.assertThat(rootCause).isExactlyInstanceOf(ArithmeticException.class);
-			}
-			{
-				DesignerException de = DesignerExceptionUtils.getDesignerException(e);
-				assertEquals(ICoreExceptionConstants.EVAL_LOCAL_METHOD_INVOCATION, de.getCode());
-			}
+		Throwable e = assertThrows(Throwable.class, () -> evaluateSingleMethod(typeDeclaration, "root()"));
+		{
+			Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
+			Assertions.assertThat(rootCause).isExactlyInstanceOf(ArithmeticException.class);
+		}
+		{
+			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
+			assertEquals(ICoreExceptionConstants.EVAL_LOCAL_METHOD_INVOCATION, de.getCode());
 		}
 	}
 
@@ -258,14 +250,10 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_methodInvocation_invalidArguments() throws Exception {
-		try {
-			m_ignoreModelCompileProblems = true;
-			evaluateExpression("Runtime.getRuntime().totalMemory(123)", "long");
-			fail();
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(ICoreExceptionConstants.EVAL_METHOD, e.getCode());
-		}
+		m_ignoreModelCompileProblems = true;
+		Throwable e_ = assertThrows(Throwable.class, () -> evaluateExpression("Runtime.getRuntime().totalMemory(123)", "long"));
+		DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
+		assertEquals(ICoreExceptionConstants.EVAL_METHOD, e.getCode());
 	}
 
 	@Test
@@ -277,13 +265,9 @@ public class MethodInvocationTest extends AbstractEngineTest {
 						return obj.hashCode();
 					}
 				}""");
-		try {
-			evaluateSingleMethod(typeDeclaration, "root()");
-			fail();
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(ICoreExceptionConstants.EVAL_NULL_INVOCATION_EXPRESSION, e.getCode());
-		}
+		Throwable e_ = assertThrows(Throwable.class, () -> evaluateSingleMethod(typeDeclaration, "root()"));
+		DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
+		assertEquals(ICoreExceptionConstants.EVAL_NULL_INVOCATION_EXPRESSION, e.getCode());
 	}
 
 	@Test
@@ -558,9 +542,7 @@ public class MethodInvocationTest extends AbstractEngineTest {
 					"<interceptor class='" + interceptorClass.getName() + "'/>");
 			testBundle.install();
 			try {
-				evaluateExpression("new MyObject()", "Object");
-				fail();
-			} catch (Throwable e) {
+				Throwable e = assertThrows(Throwable.class, () -> evaluateExpression("new MyObject()", "Object"));
 				e = DesignerExceptionUtils.getRootCause(e);
 				assertEquals("rewrite", e.getMessage());
 			} finally {
@@ -588,14 +570,10 @@ public class MethodInvocationTest extends AbstractEngineTest {
 
 	@Test
 	public void test_creation_invalidArguments() throws Exception {
-		try {
-			m_ignoreModelCompileProblems = true;
-			evaluateExpression("new java.util.ArrayList(-3)", "java.lang.Object");
-			fail();
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(ICoreExceptionConstants.EVAL_CONSTRUCTOR, e.getCode());
-		}
+		m_ignoreModelCompileProblems = true;
+		Throwable e_ = assertThrows(Throwable.class, () -> evaluateExpression("new java.util.ArrayList(-3)", "java.lang.Object"));
+		DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
+		assertEquals(ICoreExceptionConstants.EVAL_CONSTRUCTOR, e.getCode());
 	}
 
 	@Test
@@ -859,12 +837,8 @@ public class MethodInvocationTest extends AbstractEngineTest {
 						};
 					}
 				}""");
-		try {
-			evaluateSingleMethod(typeDeclaration, "foo()");
-			fail();
-		} catch (Throwable e) {
-			assertTrue(AnonymousEvaluationError.is(e));
-		}
+		Throwable e = assertThrows(Throwable.class, () -> evaluateSingleMethod(typeDeclaration, "foo()"));
+		assertTrue(AnonymousEvaluationError.is(e));
 	}
 
 	/**
@@ -1063,13 +1037,9 @@ public class MethodInvocationTest extends AbstractEngineTest {
 							}
 						}""");
 				// evaluate, but default constructor (used in interceptor) throws exception
-				try {
-					evaluateSingleMethod(typeDeclaration, "foo()");
-					fail();
-				} catch (Throwable e_) {
-					Throwable e = DesignerExceptionUtils.getRootCause(e_);
-					assertInstanceOf(IllegalStateException.class, e);
-				}
+				Throwable e_ = assertThrows(Throwable.class, () -> evaluateSingleMethod(typeDeclaration, "foo()"));
+				Throwable e = DesignerExceptionUtils.getRootCause(e_);
+				assertInstanceOf(IllegalStateException.class, e);
 			} finally {
 				testBundle.uninstall();
 			}
@@ -1196,14 +1166,10 @@ public class MethodInvocationTest extends AbstractEngineTest {
 						"}"));
 		waitForAutoBuild();
 		// validate
-		try {
-			m_ignoreModelCompileProblems = true;
-			test_SuperMethodInvocation2();
-			fail();
-		} catch (Throwable e_) {
-			DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
-			assertEquals(ICoreExceptionConstants.EVAL_SUPER_METHOD, e.getCode());
-		}
+		m_ignoreModelCompileProblems = true;
+		Throwable e_ = assertThrows(Throwable.class, () -> test_SuperMethodInvocation2());
+		DesignerException e = DesignerExceptionUtils.getDesignerException(e_);
+		assertEquals(ICoreExceptionConstants.EVAL_SUPER_METHOD, e.getCode());
 	}
 
 	private Object test_SuperMethodInvocation2() throws Exception {

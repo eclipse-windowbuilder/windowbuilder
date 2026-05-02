@@ -198,11 +198,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		TestLogger expectedLogger = new TestLogger();
 		//
 		// check add null Layer
-		try {
-			testRoot.addLayer(null);
-			fail();
-		} catch (NullPointerException e) {
-		}
+		assertThrows(NullPointerException.class, () -> testRoot.addLayer(null));
 		//
 		assertEquals(0, testRoot.getLayers().size());
 		//
@@ -252,18 +248,10 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		actualLogger.clear();
 		//
 		// check remove null Layer
-		try {
-			testRoot.removeLayer((Layer) null);
-			fail();
-		} catch (NullPointerException e) {
-		}
+		assertThrows(NullPointerException.class, () -> testRoot.removeLayer((Layer) null));
 		//
 		// check remove Layer with not exist name
-		try {
-			testRoot.removeLayer("feedback");
-			fail();
-		} catch (NullPointerException e) {
-		}
+		assertThrows(NullPointerException.class, () -> testRoot.removeLayer("feedback"));
 		//
 		Layer layer1 = new Layer("feedback");
 		testRoot.addLayer(layer1);

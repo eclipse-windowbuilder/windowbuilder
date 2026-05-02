@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -80,12 +80,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		m_actualLogger.assertEquals(m_expectedLogger);
 		//
 		// check add null point and not reset state
-		try {
-			m_polyline.addPoint(null);
-			fail();
-		} catch (NullPointerException e) {
-			m_actualLogger.assertEmpty();
-		}
+		assertThrows(NullPointerException.class, () -> m_polyline.addPoint(null));
+		m_actualLogger.assertEmpty();
 		//
 		// check work getPoint(int)
 		PointList list = m_polyline.getPoints();
@@ -99,12 +95,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 	@Test
 	public void test_insertPoint() throws Exception {
 		// check insert point with wrong index and not reset state
-		try {
-			m_polyline.insertPoint(new Point(), 1);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
-			m_actualLogger.assertEmpty();
-		}
+		assertThrows(IndexOutOfBoundsException.class, () -> m_polyline.insertPoint(new Point(), 1));
+		m_actualLogger.assertEmpty();
 		//
 		// check work insert point and reset state
 		m_polyline.insertPoint(new Point(), 0);
@@ -143,12 +135,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(new Point(-90, 0), list.getPoint(3));
 		//
 		// check insert null point index and not reset state
-		try {
-			m_polyline.insertPoint(null, 0);
-			fail();
-		} catch (NullPointerException e) {
-			m_actualLogger.assertEmpty();
-		}
+		assertThrows(NullPointerException.class, () -> m_polyline.insertPoint(null, 0));
+		m_actualLogger.assertEmpty();
 	}
 
 	@Test
@@ -162,12 +150,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(3, list.size());
 		//
 		// check remove point with wrong index and not reset state
-		try {
-			m_polyline.removePoint(4);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
-			m_actualLogger.assertEmpty();
-		}
+		assertThrows(IndexOutOfBoundsException.class, () -> m_polyline.removePoint(4));
+		m_actualLogger.assertEmpty();
 		//
 		// check remove point and reset state
 		m_polyline.removePoint(2);
@@ -200,12 +184,8 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		assertEquals(0, list.size());
 		//
 		// check remove point with wrong index and not reset state
-		try {
-			m_polyline.removePoint(0);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
-			m_actualLogger.assertEmpty();
-		}
+		assertThrows(IndexOutOfBoundsException.class, () -> m_polyline.removePoint(0));
+		m_actualLogger.assertEmpty();
 	}
 
 	@Test
@@ -284,28 +264,16 @@ public class PolylineTest extends Draw2dFigureTestCase {
 		m_actualLogger.clear();
 		//
 		// check work setPoint() with wrong index
-		try {
-			m_polyline.setPoint(new Point(), -1);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
-			m_actualLogger.assertEmpty();
-		}
+		assertThrows(IndexOutOfBoundsException.class, () -> m_polyline.setPoint(new Point(), -1));
+		m_actualLogger.assertEmpty();
 		//
 		// check work setPoint() with wrong index
-		try {
-			m_polyline.setPoint(new Point(), 2);
-			fail();
-		} catch (IndexOutOfBoundsException e) {
-			m_actualLogger.assertEmpty();
-		}
+		assertThrows(IndexOutOfBoundsException.class, () -> m_polyline.setPoint(new Point(), 2));
+		m_actualLogger.assertEmpty();
 		//
 		// check work setPoint() for null point
-		try {
-			m_polyline.setPoint(null, 0);
-			fail();
-		} catch (NullPointerException e) {
-			m_actualLogger.assertEmpty();
-		}
+		assertThrows(NullPointerException.class, () -> m_polyline.setPoint(null, 0));
+		m_actualLogger.assertEmpty();
 		//
 		// check work setPoint()
 		Point point = new Point(3, 4);
