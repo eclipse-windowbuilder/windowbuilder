@@ -14,7 +14,6 @@ package org.eclipse.wb.core.gef.policy.layout.flow;
 
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.draw2d.geometry.Transposer;

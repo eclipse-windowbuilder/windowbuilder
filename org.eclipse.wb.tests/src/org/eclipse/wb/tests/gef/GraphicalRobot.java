@@ -14,7 +14,6 @@ package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.draw2d.Polyline;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.PasteTool;
@@ -32,6 +31,7 @@ import org.eclipse.wb.tests.utils.AbsoluteSelectionTool;
 import org.eclipse.wb.tests.utils.AutoScroller;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Polyline;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
