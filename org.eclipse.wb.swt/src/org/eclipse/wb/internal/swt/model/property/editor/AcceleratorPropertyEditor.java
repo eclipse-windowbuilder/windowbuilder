@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
@@ -352,35 +351,32 @@ public final class AcceleratorPropertyEditor extends TextDialogPropertyEditor {
 			m_keyCodeToName = new TreeMap<>();
 			m_keyNameToCode = new TreeMap<>();
 			// add fields
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					// add key codes from SWT
-					for (Field field : SWT.class.getFields()) {
-						String fieldName = field.getName();
-						int fieldValue = field.getInt(null);
-						if (hasBits(fieldValue, SWT.KEYCODE_BIT)) {
-							m_keyFields.add(fieldName);
-							m_keyCodeToName.put(fieldValue, fieldName);
-							m_keyNameToCode.put(fieldName, fieldValue);
-						}
+			ExecutionUtils.runLog(() -> {
+				// add key codes from SWT
+				for (Field field : SWT.class.getFields()) {
+					String fieldName = field.getName();
+					int fieldValue = field.getInt(null);
+					if (hasBits(fieldValue, SWT.KEYCODE_BIT)) {
+						m_keyFields.add(fieldName);
+						m_keyCodeToName.put(fieldValue, fieldName);
+						m_keyNameToCode.put(fieldName, fieldValue);
 					}
-					// add numbers
-					for (char c = '0'; c < '9'; c++) {
-						String charName = Character.toString(c);
-						int charValue = c;
-						m_keyFields.add(charName);
-						m_keyCodeToName.put(charValue, charName);
-						m_keyNameToCode.put(charName, charValue);
-					}
-					// add characters
-					for (char c = 'A'; c < 'Z'; c++) {
-						String charName = Character.toString(c);
-						int charValue = c;
-						m_keyFields.add(charName);
-						m_keyCodeToName.put(charValue, charName);
-						m_keyNameToCode.put(charName, charValue);
-					}
+				}
+				// add numbers
+				for (char c = '0'; c < '9'; c++) {
+					String charName = Character.toString(c);
+					int charValue = c;
+					m_keyFields.add(charName);
+					m_keyCodeToName.put(charValue, charName);
+					m_keyNameToCode.put(charName, charValue);
+				}
+				// add characters
+				for (char c = 'A'; c < 'Z'; c++) {
+					String charName = Character.toString(c);
+					int charValue = c;
+					m_keyFields.add(charName);
+					m_keyCodeToName.put(charValue, charName);
+					m_keyNameToCode.put(charName, charValue);
 				}
 			});
 		}

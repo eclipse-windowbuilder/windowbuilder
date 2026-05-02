@@ -18,7 +18,6 @@ import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.tools.ParentTargetDragEditPartTracker;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.layout.grid.GridDimensionInfo;
 import org.eclipse.wb.internal.swt.model.layout.grid.IGridLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
@@ -114,15 +113,12 @@ IHeaderMenuProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void refreshVisuals() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				String tooltip = m_dimension.getTitle();
-				if (tooltip != null && !tooltip.isEmpty()) {
-					getFigure().setToolTip(new Label(tooltip));
-				}
-				getFigure().setBackgroundColor(COLOR_NORMAL);
+		ExecutionUtils.runLog(() -> {
+			String tooltip = m_dimension.getTitle();
+			if (tooltip != null && !tooltip.isEmpty()) {
+				getFigure().setToolTip(new Label(tooltip));
 			}
+			getFigure().setBackgroundColor(COLOR_NORMAL);
 		});
 	}
 
@@ -135,12 +131,7 @@ IHeaderMenuProvider {
 	public void performRequest(Request request) {
 		super.performRequest(request);
 		if (request.getType() == RequestConstants.REQ_OPEN) {
-			ExecutionUtils.run(m_layout.getUnderlyingModel(), new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_dimension.flipGrab();
-				}
-			});
+			ExecutionUtils.run(m_layout.getUnderlyingModel(), m_dimension::flipGrab);
 		}
 	}
 }

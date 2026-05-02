@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swt.model.property.editor.font;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.swt.support.ToolkitSupport;
 
@@ -110,12 +109,7 @@ public final class FontPreviewCanvas extends Canvas {
 			m_image = null;
 		}
 		if (fontInfo != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_image = ToolkitSupport.getFontPreview(fontInfo.getFont());
-				}
-			});
+			ExecutionUtils.runLog(() -> m_image = ToolkitSupport.getFontPreview(fontInfo.getFont()));
 		}
 		redraw();
 	}

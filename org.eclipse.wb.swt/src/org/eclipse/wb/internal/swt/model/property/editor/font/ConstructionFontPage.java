@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swt.model.property.editor.font;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swt.model.ModelMessages;
@@ -195,33 +194,30 @@ public final class ConstructionFontPage extends AbstractFontPage {
 	@Override
 	public void setFont(final FontInfo fontInfo) {
 		if (fontInfo != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					Font font = fontInfo.getFont();
-					FontData fontData = font.getFontData()[0];
-					// family
-					{
-						String family = fontData.getName();
-						m_familyList.setSelection(new String[]{family});
-						m_familyText.setText(family);
-					}
-					// style
-					{
-						int style = fontData.getStyle();
-						for (int i = 0; i < m_styleValues.length; i++) {
-							if (style == m_styleValues[i]) {
-								m_styleList.select(i);
-								m_styleText.setText(m_styleTitles[i]);
-							}
+			ExecutionUtils.runLog(() -> {
+				Font font = fontInfo.getFont();
+				FontData fontData = font.getFontData()[0];
+				// family
+				{
+					String family = fontData.getName();
+					m_familyList.setSelection(new String[] { family });
+					m_familyText.setText(family);
+				}
+				// style
+				{
+					int style = fontData.getStyle();
+					for (int i = 0; i < m_styleValues.length; i++) {
+						if (style == m_styleValues[i]) {
+							m_styleList.select(i);
+							m_styleText.setText(m_styleTitles[i]);
 						}
 					}
-					// size
-					{
-						String text = "" + fontData.getHeight();
-						m_sizeList.setSelection(new String[]{text});
-						m_sizeText.setText(text);
-					}
+				}
+				// size
+				{
+					String text = "" + fontData.getHeight();
+					m_sizeList.setSelection(new String[] { text });
+					m_sizeText.setText(text);
 				}
 			});
 		}

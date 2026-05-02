@@ -22,7 +22,6 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.gef.part.DesignRootEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.gef.GefMessages;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.menu.MenuInfo;
@@ -111,12 +110,7 @@ public class MenuBarDropLayoutEditPolicy extends LayoutEditPolicy {
 				bounds.x += clientAreaInsets.left;
 				bounds.y += clientAreaInsets.top;
 			}
-			ExecutionUtils.runIgnore(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					bounds.height = ToolkitSupport.getDefaultMenuBarHeight();
-				}
-			});
+			ExecutionUtils.runIgnore(() -> bounds.height = ToolkitSupport.getDefaultMenuBarHeight());
 			m_fillFeedback.setBounds(bounds);
 			// add some border
 			m_fillFeedback.setBorder(new LineBorder(ColorConstants.menuBackgroundSelected, 1));

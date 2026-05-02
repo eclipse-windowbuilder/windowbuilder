@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swt.utils;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.IClassLoaderInitializer;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swt.model.widgets.SwtInvocationEvaluatorInterceptor;
@@ -52,14 +51,10 @@ public final class ResourceManagerClassLoaderInitializer implements IClassLoader
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void initialize(final ClassLoader classLoader) {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				Class<?> managerClass = classLoader.loadClass("org.eclipse.wb.swt.ResourceManager");
-				Class<?> providerClass =
-						classLoader.loadClass("org.eclipse.wb.swt.ResourceManager$PluginResourceProvider");
-				initialize_ResourceManager(classLoader, managerClass, providerClass);
-			}
+		ExecutionUtils.runIgnore(() -> {
+			Class<?> managerClass = classLoader.loadClass("org.eclipse.wb.swt.ResourceManager");
+			Class<?> providerClass = classLoader.loadClass("org.eclipse.wb.swt.ResourceManager$PluginResourceProvider");
+			initialize_ResourceManager(classLoader, managerClass, providerClass);
 		});
 	}
 
