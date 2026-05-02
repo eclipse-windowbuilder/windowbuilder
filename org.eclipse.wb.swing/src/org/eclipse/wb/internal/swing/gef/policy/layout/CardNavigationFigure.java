@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,13 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.gef.policy.layout;
 
-import org.eclipse.wb.draw2d.Figure;
-
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -48,11 +45,7 @@ public final class CardNavigationFigure extends Figure {
 			public void mousePressed(MouseEvent event) {
 				event.consume();
 				//
-				Point location = Point.SINGLETON;
-				location.setLocation(event.x, event.y);
-				translateFromParent(location);
-				//
-				if (location.x < WIDTH) {
+				if (event.x - bounds.x < WIDTH) {
 					m_policy.showPrevComponent();
 				} else {
 					m_policy.showNextComponent();
@@ -67,9 +60,8 @@ public final class CardNavigationFigure extends Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void paintClientArea(Graphics graphics) {
-		Rectangle r = getClientArea();
-		graphics.drawImage(m_prevImage, r.x, r.y);
-		graphics.drawImage(m_nextImage, r.x + WIDTH, r.y);
+	protected void paintFigure(Graphics graphics) {
+		graphics.drawImage(m_prevImage, bounds.x, bounds.y);
+		graphics.drawImage(m_nextImage, bounds.x + WIDTH, bounds.y);
 	}
 }
