@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
@@ -381,24 +380,21 @@ public final class FormAttachmentInfo extends JavaInfo implements IFormAttachmen
 		if (isVirtual()) {
 			return result[0] += "(none)";
 		}
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ControlInfo control = getControl();
-				int offset = getOffset();
-				if (control == null) {
-					result[0] += "(" + getNumerator();
-					int denominator = getDenominator();
-					if (denominator != 100) {
-						result[0] += ", " + denominator;
-					}
-					if (offset != 0 || denominator != 100) {
-						result[0] += ", " + offset;
-					}
-					result[0] += ")";
-				} else {
-					result[0] += "(" + control.getVariableSupport().getTitle() + ", " + offset + ")";
+		ExecutionUtils.runIgnore(() -> {
+			ControlInfo control = getControl();
+			int offset = getOffset();
+			if (control == null) {
+				result[0] += "(" + getNumerator();
+				int denominator = getDenominator();
+				if (denominator != 100) {
+					result[0] += ", " + denominator;
 				}
+				if (offset != 0 || denominator != 100) {
+					result[0] += ", " + offset;
+				}
+				result[0] += ")";
+			} else {
+				result[0] += "(" + control.getVariableSupport().getTitle() + ", " + offset + ")";
 			}
 		});
 		return result[0];

@@ -36,7 +36,6 @@ import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsoluteBasedSele
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsolutePolicyUtils;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.KeyboardMovingLayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IPasteComponentProcessor;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
@@ -135,16 +134,13 @@ implements IHeadersProvider {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void showLayoutTargetFeedback(final Request request) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				if (request instanceof ChangeBoundsRequest) {
-					showMoveFeedback((ChangeBoundsRequest) request);
-				} else if (request instanceof CreateRequest) {
-					showCreateFeedback((CreateRequest) request);
-				} else if (request instanceof PasteRequest) {
-					showPasteFeedback((PasteRequest) request);
-				}
+		ExecutionUtils.runLog(() -> {
+			if (request instanceof ChangeBoundsRequest) {
+				showMoveFeedback((ChangeBoundsRequest) request);
+			} else if (request instanceof CreateRequest) {
+				showCreateFeedback((CreateRequest) request);
+			} else if (request instanceof PasteRequest) {
+				showPasteFeedback((PasteRequest) request);
 			}
 		});
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.model.variable.AbstractNamedVariableSupport;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.widgets.live.SwtLiveManager;
 
 import org.eclipse.jdt.core.dom.Expression;
@@ -102,19 +101,13 @@ public abstract class WidgetInfo extends AbstractComponentInfo {
 	public static void createExposedChildren(JavaInfo host) throws Exception {
 		final List<Class<?>> classList = new ArrayList<>();
 		final ClassLoader classLoader = JavaInfoUtils.getClassLoader(host);
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				Class<?> clazz = classLoader.loadClass("org.eclipse.swt.widgets.Widget");
-				classList.add(clazz);
-			}
+		ExecutionUtils.runIgnore(() -> {
+			Class<?> clazz = classLoader.loadClass("org.eclipse.swt.widgets.Widget");
+			classList.add(clazz);
 		});
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				Class<?> clazz = classLoader.loadClass("org.eclipse.jface.viewers.Viewer");
-				classList.add(clazz);
-			}
+		ExecutionUtils.runIgnore(() -> {
+			Class<?> clazz = classLoader.loadClass("org.eclipse.jface.viewers.Viewer");
+			classList.add(clazz);
 		});
 		Class<?>[] classes = classList.toArray(new Class[classList.size()]);
 		JavaInfoUtils.addExposedChildren(host, classes);

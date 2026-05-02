@@ -28,7 +28,6 @@ import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsoluteBasedSele
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsolutePolicyUtils;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.LineEndFigure;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.layout.form.FormLayoutInfoImplClassic;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormAttachmentInfo;
 import org.eclipse.wb.internal.swt.model.layout.form.IFormDataInfo;
@@ -174,12 +173,7 @@ SelectionEditPolicy {
 	@Override
 	public void showSourceFeedback(final Request request) {
 		if (AbsoluteBasedSelectionEditPolicy.REQ_RESIZE.equals(request.getType())) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					showResizeFeedback((ChangeBoundsRequest) request);
-				}
-			});
+			ExecutionUtils.runLog(() -> showResizeFeedback((ChangeBoundsRequest) request));
 		}
 	}
 

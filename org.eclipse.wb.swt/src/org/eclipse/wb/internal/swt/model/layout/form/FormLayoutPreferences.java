@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoTreeComplete;
 import org.eclipse.wb.internal.core.model.description.ToolkitDescription;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.Activator;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
@@ -213,12 +212,7 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
 	private Set<Integer> loadPercents(final QualifiedName keyPercents) {
 		final Set<Integer> values = new TreeSet<>();
 		// load persistence
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				fillPercents(getPersistentProperty(keyPercents), values);
-			}
-		});
+		ExecutionUtils.runLog(() -> fillPercents(getPersistentProperty(keyPercents), values));
 		// if no per-file defined values found, load preferences
 		if (values.isEmpty()) {
 			fillPercents(getPreferenceStore().getString(keyPercents.getLocalName()), values);
@@ -230,12 +224,9 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
 	 * Stores the percent values into underlying resource of this CU.
 	 */
 	private void setPersistentProperty(final QualifiedName key, final String value) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				IResource resource = m_layout.getUnderlyingResource();
-				resource.setPersistentProperty(key, value);
-			}
+		ExecutionUtils.runLog(() -> {
+			IResource resource = m_layout.getUnderlyingResource();
+			resource.setPersistentProperty(key, value);
 		});
 	}
 
@@ -282,12 +273,7 @@ public final class FormLayoutPreferences<C extends IControlInfo> {
 		@Override
 		public void propertyChange(final PropertyChangeEvent event) {
 			if (IPreferenceConstants.PREF_FORMLAYOUT_MODE.equals(event.getProperty())) {
-				ExecutionUtils.runLogLater(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						IDesignPageSite.Helper.getSite(m_layoutModel).reparse();
-					}
-				});
+				ExecutionUtils.runLogLater(() -> IDesignPageSite.Helper.getSite(m_layoutModel).reparse());
 			}
 		}
 	}

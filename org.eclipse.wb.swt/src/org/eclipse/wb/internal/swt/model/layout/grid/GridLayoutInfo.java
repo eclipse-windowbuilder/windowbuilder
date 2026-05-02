@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -31,7 +31,6 @@ import org.eclipse.wb.internal.core.model.variable.EmptyVariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swt.model.layout.LayoutClipboardCommand;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataClipboardCommand;
 import org.eclipse.wb.internal.swt.model.layout.LayoutDataInfo;
@@ -508,12 +507,7 @@ IGridLayoutInfo<ControlInfo> {
 
 	@Override
 	public void command_normalizeSpanning() throws Exception {
-		ExecutionUtils.run(this, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				command_normalizeSpanning0();
-			}
-		});
+		ExecutionUtils.run(this, this::command_normalizeSpanning0);
 	}
 
 	private void command_normalizeSpanning0() throws Exception {
@@ -1076,12 +1070,7 @@ IGridLayoutInfo<ControlInfo> {
 	@Override
 	public IGridInfo getGridInfo() {
 		if (m_gridInfo == null) {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					createGridInfo();
-				}
-			});
+			ExecutionUtils.runRethrow(this::createGridInfo);
 		}
 		return m_gridInfo;
 	}

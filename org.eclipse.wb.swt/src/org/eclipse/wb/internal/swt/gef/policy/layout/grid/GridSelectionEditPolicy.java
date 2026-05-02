@@ -228,15 +228,12 @@ AbstractGridSelectionEditPolicy {
 	 * Sets the {@link SWT#FILL_BOTH} grab/alignment.
 	 */
 	private void setFillBoth() {
-		execute(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				IGridDataInfo gridData = m_layout.getGridData2(m_component);
-				gridData.setHorizontalGrab(true);
-				gridData.setVerticalGrab(true);
-				gridData.setHorizontalAlignment(SWT.FILL);
-				gridData.setVerticalAlignment(SWT.FILL);
-			}
+		execute(() -> {
+			IGridDataInfo gridData = m_layout.getGridData2(m_component);
+			gridData.setHorizontalGrab(true);
+			gridData.setVerticalGrab(true);
+			gridData.setHorizontalAlignment(SWT.FILL);
+			gridData.setVerticalAlignment(SWT.FILL);
 		});
 	}
 
@@ -244,15 +241,12 @@ AbstractGridSelectionEditPolicy {
 	 * Flips the horizontal/vertical grab.
 	 */
 	private void flipGrab(final boolean horizontal) {
-		execute(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				IGridDataInfo gridData = m_layout.getGridData2(m_component);
-				if (horizontal) {
-					gridData.setHorizontalGrab(!gridData.getHorizontalGrab());
-				} else {
-					gridData.setVerticalGrab(!gridData.getVerticalGrab());
-				}
+		execute(() -> {
+			IGridDataInfo gridData = m_layout.getGridData2(m_component);
+			if (horizontal) {
+				gridData.setHorizontalGrab(!gridData.getHorizontalGrab());
+			} else {
+				gridData.setVerticalGrab(!gridData.getVerticalGrab());
 			}
 		});
 	}
@@ -261,15 +255,12 @@ AbstractGridSelectionEditPolicy {
 	 * Sets the horizontal/vertical alignment.
 	 */
 	private void setAlignment(final boolean horizontal, final int alignment) {
-		execute(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				IGridDataInfo gridData = m_layout.getGridData2(m_component);
-				if (horizontal) {
-					gridData.setHorizontalAlignment(alignment);
-				} else {
-					gridData.setVerticalAlignment(alignment);
-				}
+		execute(() -> {
+			IGridDataInfo gridData = m_layout.getGridData2(m_component);
+			if (horizontal) {
+				gridData.setHorizontalAlignment(alignment);
+			} else {
+				gridData.setVerticalAlignment(alignment);
 			}
 		});
 	}
