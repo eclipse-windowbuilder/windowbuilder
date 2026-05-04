@@ -15,10 +15,10 @@ package org.eclipse.wb.internal.core.gef.part;
 import org.eclipse.wb.core.gef.policy.selection.LineSelectionEditPolicy;
 import org.eclipse.wb.core.model.IWrapper;
 import org.eclipse.wb.core.model.IWrapperInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
@@ -74,7 +74,7 @@ public class AbstractWrapperEditPart extends DesignEditPart {
 				ImageDescriptor imageDescriptor = m_wrapper.getWrapperInfo().getDescription().getIcon();
 				if (imageDescriptor != null) {
 					Image image = imageDescriptor.createImage();
-					graphics.drawImage(image, 0, 0);
+					graphics.drawImage(image, bounds.x, bounds.y);
 					image.dispose();
 				}
 			}
