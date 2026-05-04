@@ -16,6 +16,26 @@
             </message_arguments>
         </filter>
     </resource>
+    <resource path="src/org/eclipse/wb/core/controls/palette/PaletteComposite.java" type="org.eclipse.wb.core.controls.palette.PaletteComposite">
+        <filter comment="Removal of reference to internal Figure class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.controls.palette.PaletteComposite"/>
+                <message_argument value="getCategoryFigure(ICategory)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Removal of reference to internal Figure class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.controls.palette.PaletteComposite"/>
+                <message_argument value="getEntryFigure(DesignerContainer, DesignerEntry)"/>
+            </message_arguments>
+        </filter>
+        <filter comment="Removal of reference to internal Figure class" id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.controls.palette.PaletteComposite"/>
+                <message_argument value="getEntryFigure(ICategory, IEntry)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/wb/core/gef/IEditPartConfigurator.java" type="org.eclipse.wb.core.gef.IEditPartConfigurator">
         <filter comment="Restructuring of internal EditPart" id="403804204">
             <message_arguments>

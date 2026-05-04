@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 /**
- * Collection of utilities for {@link Figure}'s.
+ * Collection of utilities for {@link IFigure}'s.
  *
  * @author lobas_av
  * @coverage gef.draw2d
@@ -35,7 +35,7 @@ public class FigureUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Removes given {@link Figure} from its parent.
+	 * Removes given {@link IFigure} from its parent.
 	 */
 	public static void removeFigure(IFigure figure) {
 		if (figure != null && figure.getParent() != null) {
@@ -49,8 +49,8 @@ public class FigureUtils {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * Translates given {@link Translatable} from <code>source</code> {@link Figure} bounds
-	 * coordinates to bounds coordinates from <code>target</code> {@link Figure}.
+	 * Translates given {@link Translatable} from <code>source</code> {@link IFigure} bounds
+	 * coordinates to bounds coordinates from <code>target</code> {@link IFigure}.
 	 */
 	public static final void translateFigureToFigure(IFigure source, IFigure target,
 			Translatable translatable) {
@@ -70,7 +70,7 @@ public class FigureUtils {
 	}
 
 	/**
-	 * Translates given {@link Translatable} from this {@link Figure} bounds coordinates to absolute (
+	 * Translates given {@link Translatable} from this {@link IFigure} bounds coordinates to absolute (
 	 * {@link RootFigure} relative) coordinates.
 	 */
 	public static final void translateFigureToAbsolute(IFigure figure, Translatable translatable) {

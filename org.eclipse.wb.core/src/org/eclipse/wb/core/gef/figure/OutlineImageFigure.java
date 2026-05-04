@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.figure;
 
-import org.eclipse.wb.draw2d.Figure;
-
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -60,10 +59,10 @@ public final class OutlineImageFigure extends Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void paintClientArea(Graphics graphics) {
+	protected void paintFigure(Graphics graphics) {
 		if (m_image != null) {
-			graphics.drawImage(m_image, 0, 0);
+			graphics.drawImage(m_image, bounds.x, bounds.y);
 		}
-		graphics.drawRectangle(getClientArea().getResized(-1, -1));
+		graphics.drawRectangle(bounds.x, bounds.y, bounds.width - 1, bounds.height - 1);
 	}
 }

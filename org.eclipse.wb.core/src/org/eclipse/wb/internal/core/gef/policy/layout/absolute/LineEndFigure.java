@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
-import org.eclipse.wb.draw2d.Figure;
-
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 
@@ -59,15 +57,14 @@ public class LineEndFigure extends Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void paintClientArea(Graphics graphics) {
+	protected void paintFigure(Graphics graphics) {
 		int oldAntialias = graphics.getAntialias();
 		try {
 			graphics.setAntialias(SWT.ON);
 			graphics.setForegroundColor(m_color);
 			graphics.setBackgroundColor(m_color);
 			graphics.setLineStyle(SWT.LINE_SOLID);
-			Rectangle clientArea = getClientArea();
-			graphics.fillArc(0, 0, clientArea.width, clientArea.height, m_startAngle, m_lengthAngle);
+			graphics.fillArc(bounds.x, bounds.y, bounds.width, bounds.height, m_startAngle, m_lengthAngle);
 		} finally {
 			graphics.setAntialias(oldAntialias);
 		}

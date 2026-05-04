@@ -15,10 +15,10 @@ package org.eclipse.wb.internal.core.gef.header;
 import org.eclipse.wb.core.gef.header.IHeaderMenuProvider;
 import org.eclipse.wb.core.gef.header.IHeadersProvider;
 import org.eclipse.wb.core.gef.policy.selection.EmptySelectionEditPolicy;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
