@@ -312,13 +312,14 @@ public final class PaletteComposite extends Composite {
 	}
 
 	/**
-	 * @return the {@link Figure} used for displaying {@link ICategory}.
+	 * @return the {@link IFigure} used for displaying {@link ICategory}.
 	 * @deprecated Use {@link #getCategoryFigure(DesignerContainer)} instead. This
 	 *             method will be removed after the 2027-03 release.
+	 * @since 1.24
 	 */
 	@SuppressWarnings("removal")
 	@Deprecated(since = "3.19", forRemoval = true)
-	public org.eclipse.wb.draw2d.Figure getCategoryFigure(ICategory category) {
+	public IFigure getCategoryFigure(ICategory category) {
 		return m_categoryFigures.get(category);
 	}
 
@@ -335,19 +336,21 @@ public final class PaletteComposite extends Composite {
 	 *
 	 * @deprecated Use {@link #getEntryFigure(DesignerContainer, DesignerEntry)}
 	 *             instead. This method will be removed after the 2027-03 release.
+	 * @since 1.24
 	 */
 	@SuppressWarnings("removal")
 	@Deprecated(since = "3.19", forRemoval = true)
-	public org.eclipse.wb.draw2d.Figure getEntryFigure(ICategory category, IEntry entry) {
+	public IFigure getEntryFigure(ICategory category, IEntry entry) {
 		CategoryFigure categoryFigure = m_categoryFigures.get(category);
 		return categoryFigure.m_entryFigures.get(entry);
 	}
 
 	/**
 	 * @return the {@link IFigure} used for displaying {@link DesignerEntry}.
+	 * @since 1.24
 	 */
 	@SuppressWarnings("removal")
-	public org.eclipse.wb.draw2d.Figure getEntryFigure(DesignerContainer category, DesignerEntry entry) {
+	public IFigure getEntryFigure(DesignerContainer category, DesignerEntry entry) {
 		return getEntryFigure((ICategory) category, (IEntry) entry);
 	}
 

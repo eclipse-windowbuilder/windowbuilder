@@ -13,11 +13,11 @@
 package org.eclipse.wb.core.gef.part;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -55,9 +55,9 @@ public abstract class ComponentIconEditPart extends DesignEditPart {
 	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
 				Image image = getIcon().createImage();
-				graphics.drawImage(image, 0, 0);
+				graphics.drawImage(image, bounds.x, bounds.y);
 				image.dispose();
 			}
 		};

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
- * Implementation of {@link ILocator} that relocates target {@link Figure} relative to the some
+ * Implementation of {@link ILocator} that relocates target {@link IFigure} relative to the some
  * reference {@link Rectangle} using two floating-point value indicating the horizontal and vertical
  * offset from that reference {@link Rectangle}. The values (0.0, 0.0) would indicate the top-left
  * corner, while the values (1.0, 1.0) would indicate the bottom-right corner.

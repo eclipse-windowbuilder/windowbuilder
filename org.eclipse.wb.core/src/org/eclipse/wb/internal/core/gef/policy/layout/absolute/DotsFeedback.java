@@ -13,9 +13,9 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.absolute;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -53,17 +53,16 @@ public class DotsFeedback<C extends IAbstractComponentInfo> extends Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void paintClientArea(Graphics graphics) {
+	protected void paintFigure(Graphics graphics) {
 		// paint dots if needed
 		if (m_layoutEditPolicy.isShowGridFeedback()) {
-			Rectangle r = getClientArea();
 			int gridStepX = m_layoutEditPolicy.getGridStepX();
 			int gridStepY = m_layoutEditPolicy.getGridStepY();
 			// paint dots
-			int x = r.x;
-			for (int i = 0; i < r.width / gridStepX; i++) {
-				int y = r.y;
-				for (int j = 0; j < r.height / gridStepY; j++) {
+			int x = bounds.x;
+			for (int i = 0; i < bounds.width / gridStepX; i++) {
+				int y = bounds.y;
+				for (int j = 0; j < bounds.height / gridStepY; j++) {
 					graphics.drawPoint(x, y);
 					y += gridStepY;
 				}
