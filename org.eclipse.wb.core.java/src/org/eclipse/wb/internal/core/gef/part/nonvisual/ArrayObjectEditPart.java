@@ -13,10 +13,10 @@
 package org.eclipse.wb.internal.core.gef.part.nonvisual;
 
 import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;

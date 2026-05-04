@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,8 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part.nonvisual;
 
-import org.eclipse.wb.draw2d.Figure;
-
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -65,9 +64,10 @@ public class BeanFigure extends Figure {
 			// set all bounds
 			setBounds(new Rectangle(location.x, location.y, width, m_imageSize.height + textSize.height));
 			m_imageLocation.x = width / 2 - m_imageSize.width / 2;
-			m_label.setBounds(new Rectangle(width / 2 - textSize.width / 2,
-					m_imageSize.height,
-					textSize.width,
+			m_label.setBounds(new Rectangle( //
+					location.x + width / 2 - textSize.width / 2, //
+					location.y + m_imageSize.height, //
+					textSize.width, //
 					textSize.height));
 		}
 	}
@@ -78,9 +78,9 @@ public class BeanFigure extends Figure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void paintClientArea(Graphics graphics) {
+	protected void paintFigure(Graphics graphics) {
 		Image image = m_imageDescriptor.createImage();
-		graphics.drawImage(image, m_imageLocation);
+		graphics.drawImage(image, bounds.x + m_imageLocation.x, bounds.y + m_imageLocation.y);
 		image.dispose();
 	}
 }
