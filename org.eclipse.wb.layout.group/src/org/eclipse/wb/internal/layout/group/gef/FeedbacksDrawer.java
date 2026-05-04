@@ -12,10 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.layout.group.gef;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.internal.core.gef.policy.layout.absolute.AbsolutePolicyUtils;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
@@ -70,10 +70,10 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
 			final int arcAngle) {
 		IFigure figure = new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
 				graphics.setBackgroundColor(AbsolutePolicyUtils.COLOR_FEEDBACK);
 				graphics.setAntialias(SWT.ON);
-				graphics.fillArc(1, 1, width - 1, height - 1, startAngle, arcAngle);
+				graphics.fillArc(bounds.x + 1, bounds.y + 1, width - 1, height - 1, startAngle, arcAngle);
 			}
 		};
 		Point point = new Point(x, y);
@@ -88,10 +88,10 @@ final class FeedbacksDrawer implements IFeedbacksDrawer {
 		final Image image = getImage(dimension);
 		IFigure figure = new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
 				// draw image
 				if (image != null) {
-					graphics.drawImage(image, 0, 0);
+					graphics.drawImage(image, bounds.x, bounds.y);
 				}
 			}
 		};
