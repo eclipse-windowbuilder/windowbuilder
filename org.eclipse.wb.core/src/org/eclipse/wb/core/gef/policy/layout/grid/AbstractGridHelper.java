@@ -15,7 +15,6 @@ package org.eclipse.wb.core.gef.policy.layout.grid;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.FigureListener;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Polyline;
@@ -160,7 +160,13 @@ public abstract class AbstractGridHelper {
 			return;
 		}
 		// create grid figure
-		m_gridFigure = new Figure();
+		m_gridFigure = new Figure() {
+			// Grid is drawn relative to the top-left corner of the container
+			@Override
+			protected boolean useLocalCoordinates() {
+				return true;
+			}
+		};
 		// install listener on root model figure
 		{
 			ObjectInfo rootObjectInfo = ((ObjectInfo) getHost().getModel()).getRoot();
