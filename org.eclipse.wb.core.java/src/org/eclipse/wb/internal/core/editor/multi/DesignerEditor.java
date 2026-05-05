@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -138,7 +138,11 @@ IDesignCompositeProvider {
 	void activated() {
 		if (m_firstActivation) {
 			m_firstActivation = false;
-			m_multiMode.editorActivatedFirstTime();
+			getRootControl().getDisplay().asyncExec(() -> {
+				if (!m_multiMode.isDisposed()) {
+					m_multiMode.editorActivatedFirstTime();
+				}
+			});
 		}
 	}
 
