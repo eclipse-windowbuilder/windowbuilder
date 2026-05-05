@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,6 +35,7 @@ public abstract class MultiMode implements IMultiMode {
 	protected final SourcePage m_sourcePage;
 	protected final DesignPage m_designPage;
 	protected final List<IEditorPage> m_additionalPages = new ArrayList<>();
+	private boolean m_disposed;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -136,11 +137,16 @@ public abstract class MultiMode implements IMultiMode {
 	 * Disposes this {@link MultiMode}.
 	 */
 	void dispose() {
+		m_disposed = true;
 		m_sourcePage.dispose();
 		m_designPage.dispose();
 		for (IEditorPage page : m_additionalPages) {
 			page.dispose();
 		}
+	}
+
+	boolean isDisposed() {
+		return m_disposed;
 	}
 
 	/**
