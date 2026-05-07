@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part.menu;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -40,7 +40,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.gef.menu
  */
-public class MenuEditPart extends MenuObjectEditPart {
+public sealed class MenuEditPart extends MenuObjectEditPart permits MacMenuEditPart {
 	// TODO(scheglov) move TOP_LOCATION to shared location
 	public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
 			? new Point(20, 28)
