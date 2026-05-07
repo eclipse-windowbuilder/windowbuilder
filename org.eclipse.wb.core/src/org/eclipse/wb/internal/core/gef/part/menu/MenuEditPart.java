@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part.menu;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuLayoutEditPolicy;
@@ -40,7 +39,7 @@ import java.util.List;
  * @author scheglov_ke
  * @coverage core.gef.menu
  */
-public class MenuEditPart extends MenuObjectEditPart {
+public sealed class MenuEditPart extends MenuObjectEditPart permits MacMenuEditPart {
 	// TODO(scheglov) move TOP_LOCATION to shared location
 	public static final Point TOP_LOCATION = EnvironmentUtils.IS_MAC
 			? new Point(20, 28)
@@ -78,7 +77,7 @@ public class MenuEditPart extends MenuObjectEditPart {
 		} else if (isSubMenu()) {
 			return new MenuImageFigure(m_menu);
 		} else {
-			return new Figure();
+			return new MenuFigure();
 		}
 	}
 	@Override

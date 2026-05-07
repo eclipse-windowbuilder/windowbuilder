@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.gef.part.menu;
 
 import org.eclipse.wb.core.gef.part.menu.MenuEditPartFactory;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
@@ -88,7 +87,7 @@ public final class MacMenuEditPart extends MenuEditPart {
 	}
 	private IFigure getFakeFigure() {
 		if (m_fakeFigure == null) {
-			m_fakeFigure = new Figure();
+			m_fakeFigure = new MenuFigure();
 			m_fakeFigure.setVisible(false);
 		}
 		return m_fakeFigure;
