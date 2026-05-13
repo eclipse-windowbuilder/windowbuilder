@@ -177,6 +177,43 @@ public class JTabbedPaneTest extends SwingModelTest {
 	}
 
 	/**
+	 * @see <a href="https://github.com/eclipse-windowbuilder/windowbuilder/issues/1509">here</a>
+	 */
+	@Test
+	public void test_invisibleTab() throws Exception {
+		setFileContentSrc("test/AlwaysNullTabbedPaneUI.java", getTestSource("""
+				import javax.swing.plaf.basic.BasicTabbedPaneUI;
+				class AlwaysNullTabbedPaneUI extends BasicTabbedPaneUI {
+					@Override
+					public Rectangle getTabBounds(JTabbedPane pane, int index) {
+						return null;
+					}
+				}
+				"""));
+		waitForAutoBuild();
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JTabbedPane tabbed = new JTabbedPane() {
+							public void repaint(Rectangle r) {
+								if (r != null) {
+									super.repaint(r);
+								}
+							}
+						};
+						add(tabbed);
+						tabbed.addTab("Tab ", new JLabel());
+						tabbed.setUI(new AlwaysNullTabbedPaneUI());
+					}
+				}""");
+		refresh();
+		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
+		assertNoErrors(panel);
+		// ask tabs
+		Assertions.assertThat(tabbed.getTabs()).isEmpty();
+	}
+
+	/**
 	 * {@link JTabbedPane} can have more tabs that number of {@link ComponentInfo}s which we see.
 	 */
 	@Test

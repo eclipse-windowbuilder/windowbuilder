@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -145,16 +145,19 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 		{
 			int tabCount = pane.getTabCount();
 			for (int i = tabCount - 1; i >= 0; i--) {
-				if (pane.getComponentAt(i) == null) {
+				if (pane.getComponentAt(i) == null || pane.getBoundsAt(i) == null) {
 					pane.remove(i);
 				}
 			}
 		}
 		// apply active component
 		{
-			ComponentInfo activeComponent = getActiveComponent();
-			if (activeComponent != null) {
-				pane.setSelectedComponent(activeComponent.getComponent());
+			ComponentInfo activeComponentInfo = getActiveComponent();
+			if (activeComponentInfo != null) {
+				Component activeComponent = activeComponentInfo.getComponent();
+				if (activeComponent != null && pane.indexOfComponent(activeComponent) != -1) {
+					pane.setSelectedComponent(activeComponent);
+				}
 			}
 		}
 	}
