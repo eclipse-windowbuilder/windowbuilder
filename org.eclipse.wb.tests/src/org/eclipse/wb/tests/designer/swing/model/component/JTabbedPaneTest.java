@@ -39,6 +39,7 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JTabbedPane;
@@ -210,7 +211,7 @@ public class JTabbedPaneTest extends SwingModelTest {
 		JTabbedPaneInfo tabbed = (JTabbedPaneInfo) panel.getChildrenComponents().get(0);
 		assertNoErrors(panel);
 		// ask tabs
-		Assertions.assertThat(tabbed.getTabs()).isEmpty();
+		assertEquals(tabbed.getTabs(), Collections.emptyList());
 	}
 
 	/**
