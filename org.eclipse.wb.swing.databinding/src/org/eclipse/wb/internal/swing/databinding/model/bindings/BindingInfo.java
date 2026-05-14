@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,7 +35,6 @@ import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.databinding.DatabindingsProvider;
 import org.eclipse.wb.internal.swing.databinding.Messages;
 import org.eclipse.wb.internal.swing.databinding.model.ObserveInfo;
@@ -285,42 +284,33 @@ public abstract class BindingInfo extends AstObjectInfo implements IBindingInfo,
 			final TypeDeclaration rootNode = JavaInfoUtils.getTypeDeclaration(javaInfoRoot);
 			//
 			if (!oldFieldState && newFieldState) {
-				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						BodyDeclarationTarget fieldTarget = new BodyDeclarationTarget(rootNode, null, true);
-						javaInfoRoot.getEditor().addFieldDeclaration(
-								"private " + type + " " + newVariable + ";",
-								fieldTarget);
-					}
+				ExecutionUtils.run(javaInfoRoot, () -> {
+					BodyDeclarationTarget fieldTarget = new BodyDeclarationTarget(rootNode, null, true);
+					javaInfoRoot.getEditor().addFieldDeclaration(
+							"private " + type + " " + newVariable + ";",
+							fieldTarget);
 				});
 			} else if (oldFieldState && !newFieldState) {
-				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						for (FieldDeclaration field : rootNode.getFields()) {
-							VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
-							if (fragment.getName().getIdentifier().equals(oldVariable)) {
-								javaInfoRoot.getEditor().removeBodyDeclaration(field);
-								return;
-							}
+				ExecutionUtils.run(javaInfoRoot, () -> {
+					for (FieldDeclaration field : rootNode.getFields()) {
+						VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
+						if (fragment.getName().getIdentifier().equals(oldVariable)) {
+							javaInfoRoot.getEditor().removeBodyDeclaration(field);
+							return;
 						}
-						Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
 					}
+					Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
 				});
 			} else if (oldFieldState && newFieldState) {
-				ExecutionUtils.run(javaInfoRoot, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						for (FieldDeclaration field : rootNode.getFields()) {
-							VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
-							if (fragment.getName().getIdentifier().equals(oldVariable)) {
-								javaInfoRoot.getEditor().setIdentifier(fragment.getName(), newVariable);
-								return;
-							}
+				ExecutionUtils.run(javaInfoRoot, () -> {
+					for (FieldDeclaration field : rootNode.getFields()) {
+						VariableDeclarationFragment fragment = DomGenerics.fragments(field).get(0);
+						if (fragment.getName().getIdentifier().equals(oldVariable)) {
+							javaInfoRoot.getEditor().setIdentifier(fragment.getName(), newVariable);
+							return;
 						}
-						Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
 					}
+					Assert.fail(MessageFormat.format(Messages.BindingInfo_undefinedField, oldVariable));
 				});
 			}
 		} catch (Throwable e) {

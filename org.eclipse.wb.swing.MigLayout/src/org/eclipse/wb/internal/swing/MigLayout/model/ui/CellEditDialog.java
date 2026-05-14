@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
@@ -115,24 +114,14 @@ public final class CellEditDialog extends ResizableDialog {
 	 * Saves {@link CellConstraintsSupport} changes into source and refreshes GUI.
 	 */
 	private void commitChanges() {
-		ExecutionUtils.run(m_layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				m_cell.write();
-			}
-		});
+		ExecutionUtils.run(m_layout, m_cell::write);
 	}
 
 	/**
 	 * Rolls back changes in {@link CellConstraintsSupport}.
 	 */
 	private void rollbackChanges() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				m_cell.setString(m_cellString);
-			}
-		});
+		ExecutionUtils.runLog(() -> m_cell.setString(m_cellString));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

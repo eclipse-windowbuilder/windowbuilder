@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -139,12 +139,7 @@ public class ComponentInfo extends AbstractComponentInfo {
 	@Override
 	protected void refresh_fetch() throws Exception {
 		Component component = getComponent();
-		refresh_fetch(this, component, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ComponentInfo.super.refresh_fetch();
-			}
-		});
+		refresh_fetch(this, component, ComponentInfo.super::refresh_fetch);
 	}
 
 	public static void refresh_fetch(AbstractComponentInfo model,

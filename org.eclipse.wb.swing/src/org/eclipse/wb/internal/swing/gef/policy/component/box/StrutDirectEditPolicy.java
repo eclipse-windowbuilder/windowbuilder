@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swing.gef.policy.component.box;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.policies.DirectTextEditPolicy;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.gef.part.box.BoxStrutHorizontalEditPart;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.layout.BoxSupport;
@@ -64,12 +63,7 @@ abstract class StrutDirectEditPolicy extends DirectTextEditPolicy {
 			return;
 		}
 		// set source
-		ExecutionUtils.run(m_strut, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				BoxSupport.setStrutSize(m_strut, source);
-			}
-		});
+		ExecutionUtils.run(m_strut, () -> BoxSupport.setStrutSize(m_strut, source));
 	}
 
 	@Override

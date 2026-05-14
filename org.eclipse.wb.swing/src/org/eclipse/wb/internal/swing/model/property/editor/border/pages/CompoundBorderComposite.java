@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swing.model.property.editor.border.pages;
 
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
@@ -67,15 +66,12 @@ public final class CompoundBorderComposite extends AbstractBorderComposite {
 			swapButton.addListener(SWT.Selection, new Listener() {
 				@Override
 				public void handleEvent(Event e) {
-					ExecutionUtils.runLog(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							BorderValue insideBorder = m_insideField.getBorderValue();
-							BorderValue outsideBorder = m_outsideField.getBorderValue();
-							m_outsideField.setBorderValue(insideBorder);
-							m_insideField.setBorderValue(outsideBorder);
-							m_borderDialog.borderUpdated();
-						}
+					ExecutionUtils.runLog(() -> {
+						BorderValue insideBorder = m_insideField.getBorderValue();
+						BorderValue outsideBorder = m_outsideField.getBorderValue();
+						m_outsideField.setBorderValue(insideBorder);
+						m_insideField.setBorderValue(outsideBorder);
+						m_borderDialog.borderUpdated();
 					});
 				}
 			});

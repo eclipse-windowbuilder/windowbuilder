@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.model.property.table.PropertyTable;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.swing.MigLayout.model.ui.CellEditDialog;
@@ -707,12 +706,9 @@ public final class CellConstraintsSupport {
 		}
 
 		private void doSetValue(final Object value) {
-			ExecutionUtils.run(m_layout, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					ReflectionUtils.invokeMethod(m_this, m_setterSignature, value);
-					write();
-				}
+			ExecutionUtils.run(m_layout, () -> {
+				ReflectionUtils.invokeMethod(m_this, m_setterSignature, value);
+				write();
 			});
 		}
 

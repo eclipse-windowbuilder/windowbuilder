@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import java.util.LinkedList;
@@ -42,20 +41,14 @@ public final class DimensionOperationsRow extends DimensionOperations<RowInfo> {
 	@Override
 	public boolean isEmpty(final int index) {
 		final boolean[] filled = new boolean[1];
-		ExecutionUtils.runLog(new RunnableEx() {
+		ExecutionUtils.runLog(() -> m_layout.visitComponents(new IComponentVisitor() {
 			@Override
-			public void run() throws Exception {
-				m_layout.visitComponents(new IComponentVisitor() {
-					@Override
-					public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-							throws Exception {
-						int y = constraints.getY();
-						int height = constraints.getHeight();
-						filled[0] |= y <= index && index < y + height;
-					}
-				});
+			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints) throws Exception {
+				int y = constraints.getY();
+				int height = constraints.getHeight();
+				filled[0] |= y <= index && index < y + height;
 			}
-		});
+		}));
 		return !filled[0];
 	}
 

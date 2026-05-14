@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swing.model.layout.gbl.ui;
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
@@ -162,13 +161,10 @@ ResizableDialog {
 	 * Saves current {@link DimensionInfo} changes into source and refreshes GUI.
 	 */
 	private void applyChanges() throws Exception {
-		ExecutionUtils.run(m_layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				setAlignment(m_dimension, m_currentAlignment);
-				m_dimension.setSize(m_currentSize);
-				m_dimension.setWeight(m_currentWeight);
-			}
+		ExecutionUtils.run(m_layout, () -> {
+			setAlignment(m_dimension, m_currentAlignment);
+			m_dimension.setSize(m_currentSize);
+			m_dimension.setWeight(m_currentWeight);
 		});
 	}
 
@@ -176,20 +172,17 @@ ResizableDialog {
 	 * Sets the {@link DimensionInfo} to edit.
 	 */
 	private void setEditDimension(final T dimension) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// apply changes
-				if (m_dimension != null) {
-					applyChanges();
-				}
-				// remember new dimension
-				m_dimension = dimension;
-				m_currentIndex = m_dimensions.indexOf(m_dimension);
-				m_currentAlignment = getAlignment(m_dimension);
-				m_currentSize = m_dimension.getSize();
-				m_currentWeight = m_dimension.getWeight();
+		ExecutionUtils.runLog(() -> {
+			// apply changes
+			if (m_dimension != null) {
+				applyChanges();
 			}
+			// remember new dimension
+			m_dimension = dimension;
+			m_currentIndex = m_dimensions.indexOf(m_dimension);
+			m_currentAlignment = getAlignment(m_dimension);
+			m_currentSize = m_dimension.getSize();
+			m_currentWeight = m_dimension.getWeight();
 		});
 	}
 

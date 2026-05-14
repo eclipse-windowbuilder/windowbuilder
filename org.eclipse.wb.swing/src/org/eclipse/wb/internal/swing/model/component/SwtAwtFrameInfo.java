@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swing.model.component;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
 /**
@@ -53,12 +52,7 @@ public class SwtAwtFrameInfo extends ContainerInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected void refresh_fetch() throws Exception {
-		SwingUtils.runLaterAndWait(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				runRefreshFetch();
-			}
-		});
+		SwingUtils.runLaterAndWait(this::runRefreshFetch);
 	}
 
 	private void runRefreshFetch() throws Exception {

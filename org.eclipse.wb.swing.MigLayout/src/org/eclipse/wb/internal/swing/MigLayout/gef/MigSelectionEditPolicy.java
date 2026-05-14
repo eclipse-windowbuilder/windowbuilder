@@ -20,7 +20,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.MigLayout.model.CellConstraintsSupport;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigColumnInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
@@ -205,13 +204,10 @@ public final class MigSelectionEditPolicy extends AbstractGridSelectionEditPolic
 	 * Sets the horizontal alignment.
 	 */
 	private void setAlignment(final MigColumnInfo.Alignment alignment) {
-		ExecutionUtils.run(m_layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(m_component);
-				constraints.setHorizontalAlignment(alignment);
-				constraints.write();
-			}
+		ExecutionUtils.run(m_layout, () -> {
+			CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(m_component);
+			constraints.setHorizontalAlignment(alignment);
+			constraints.write();
 		});
 	}
 
@@ -219,13 +215,10 @@ public final class MigSelectionEditPolicy extends AbstractGridSelectionEditPolic
 	 * Sets the vertical alignment.
 	 */
 	private void setAlignment(final MigRowInfo.Alignment alignment) {
-		ExecutionUtils.run(m_layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(m_component);
-				constraints.setVerticalAlignment(alignment);
-				constraints.write();
-			}
+		ExecutionUtils.run(m_layout, () -> {
+			CellConstraintsSupport constraints = MigLayoutInfo.getConstraints(m_component);
+			constraints.setVerticalAlignment(alignment);
+			constraints.write();
 		});
 	}
 }

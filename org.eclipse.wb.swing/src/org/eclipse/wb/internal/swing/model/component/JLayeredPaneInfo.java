@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,7 +30,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
@@ -173,12 +172,7 @@ public class JLayeredPaneInfo extends ContainerInfo {
 
 		@Override
 		public void setValue(final Object value) throws Exception {
-			ExecutionUtils.run(m_component, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					setValueEx(value);
-				}
-			});
+			ExecutionUtils.run(m_component, () -> setValueEx(value));
 		}
 
 		////////////////////////////////////////////////////////////////////////////

@@ -18,7 +18,6 @@ import org.eclipse.wb.core.eval.ExecutionFlowDescription;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -293,12 +292,7 @@ public final class BorderDialog extends ResizableDialog {
 	 * so we need to update {@link BorderPreviewCanvas}.
 	 */
 	public void borderUpdated() {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				borderUpdatedEx();
-			}
-		});
+		ExecutionUtils.runIgnore(this::borderUpdatedEx);
 	}
 
 	/**

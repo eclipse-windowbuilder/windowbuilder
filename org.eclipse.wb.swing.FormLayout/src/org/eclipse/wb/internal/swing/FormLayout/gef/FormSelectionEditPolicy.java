@@ -20,7 +20,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.FormLayout.model.CellConstraintsSupport;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -202,17 +201,14 @@ public final class FormSelectionEditPolicy extends AbstractGridSelectionEditPoli
 	 * Sets the horizontal/vertical alignment.
 	 */
 	private void setAlignment(final boolean horizontal, final Alignment alignment) {
-		ExecutionUtils.run(m_layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				CellConstraintsSupport support = FormLayoutInfo.getConstraints(m_component);
-				if (horizontal) {
-					support.setAlignH(alignment);
-				} else {
-					support.setAlignV(alignment);
-				}
-				support.write();
+		ExecutionUtils.run(m_layout, () -> {
+			CellConstraintsSupport support = FormLayoutInfo.getConstraints(m_component);
+			if (horizontal) {
+				support.setAlignH(alignment);
+			} else {
+				support.setAlignV(alignment);
 			}
+			support.write();
 		});
 	}
 }

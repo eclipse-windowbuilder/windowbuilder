@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swing.model.property.editor;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.StaticFieldPropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import java.awt.event.KeyEvent;
@@ -49,12 +48,7 @@ public final class DisplayedMnemonicKeyPropertyEditor extends StaticFieldPropert
 			}
 		}
 		// do configure
-		ExecutionUtils.runRethrow(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				configure(KeyEvent.class, fieldNames.toArray(new String[fieldNames.size()]));
-			}
-		});
+		ExecutionUtils.runRethrow(() -> configure(KeyEvent.class, fieldNames.toArray(new String[fieldNames.size()])));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

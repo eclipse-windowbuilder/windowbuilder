@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.model.property.editor.StringComboPropertyEdi
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 
@@ -242,14 +241,11 @@ public final class BorderLayoutInfo extends LayoutInfo {
 
 		@Override
 		public void setValue(final Object value) throws Exception {
-			ExecutionUtils.run(m_component, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					for (int i = 0; i < CONSTRAINTS_TITLES.length; i++) {
-						String constraintsTitle = CONSTRAINTS_TITLES[i];
-						if (constraintsTitle.equals(value)) {
-							command_REGION(m_component, CONSTRAINTS_FIELDS[i]);
-						}
+			ExecutionUtils.run(m_component, () -> {
+				for (int i = 0; i < CONSTRAINTS_TITLES.length; i++) {
+					String constraintsTitle = CONSTRAINTS_TITLES[i];
+					if (constraintsTitle.equals(value)) {
+						command_REGION(m_component, CONSTRAINTS_FIELDS[i]);
 					}
 				}
 			});

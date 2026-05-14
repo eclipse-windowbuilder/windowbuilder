@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -106,13 +106,10 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 			JavaInfo root,
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
-		RunnableEx runnable = new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				for (ObjectInfo object : objects) {
-					ComponentInfo button = (ComponentInfo) object;
-					button.removeMethodInvocations("setAction(javax.swing.Action)");
-				}
+		RunnableEx runnable = () -> {
+			for (ObjectInfo object : objects) {
+				ComponentInfo button = (ComponentInfo) object;
+				button.removeMethodInvocations("setAction(javax.swing.Action)");
 			}
 		};
 		IAction action =
@@ -133,14 +130,11 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 			final JavaInfo root,
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
-		RunnableEx runnable = new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ActionInfo action = ActionInfo.createInner(root.getEditor());
-				for (ObjectInfo object : objects) {
-					ComponentInfo button = (ComponentInfo) object;
-					ActionInfo.setAction(button, action);
-				}
+		RunnableEx runnable = () -> {
+			ActionInfo action = ActionInfo.createInner(root.getEditor());
+			for (ObjectInfo object : objects) {
+				ComponentInfo button = (ComponentInfo) object;
+				ActionInfo.setAction(button, action);
 			}
 		};
 		IAction action =
@@ -165,13 +159,10 @@ public final class ActionJavaInfoParticipator implements IJavaInfoInitialization
 			String text = actionInfo.getPresentation().getText();
 			ImageDescriptor image = actionInfo.getPresentation().getIcon();
 			// add action
-			RunnableEx runnable = new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					for (ObjectInfo object : objects) {
-						ComponentInfo button = (ComponentInfo) object;
-						ActionInfo.setAction(button, actionInfo);
-					}
+			RunnableEx runnable = () -> {
+				for (ObjectInfo object : objects) {
+					ComponentInfo button = (ComponentInfo) object;
+					ActionInfo.setAction(button, actionInfo);
 				}
 			};
 			IAction action =
