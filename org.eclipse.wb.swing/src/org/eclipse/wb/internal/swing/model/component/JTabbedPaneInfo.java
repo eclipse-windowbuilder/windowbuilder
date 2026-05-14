@@ -110,8 +110,11 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 			Component componentObject = pane.getComponentAt(i);
 			ComponentInfo component = (ComponentInfo) getChildByObject(componentObject);
 			if (component != null) {
-				Rectangle bounds = CoordinateUtils.get(pane.getBoundsAt(i));
-				tabs.add(new JTabbedPaneTabInfo(this, component, bounds));
+				java.awt.Rectangle awtBounds = pane.getBoundsAt(i);
+				if (awtBounds != null) {
+					Rectangle bounds = CoordinateUtils.get(pane.getBoundsAt(i));
+					tabs.add(new JTabbedPaneTabInfo(this, component, bounds));
+				}
 			}
 		}
 		//
@@ -145,19 +148,16 @@ public final class JTabbedPaneInfo extends ContainerInfo {
 		{
 			int tabCount = pane.getTabCount();
 			for (int i = tabCount - 1; i >= 0; i--) {
-				if (pane.getComponentAt(i) == null || pane.getBoundsAt(i) == null) {
+				if (pane.getComponentAt(i) == null) {
 					pane.remove(i);
 				}
 			}
 		}
 		// apply active component
 		{
-			ComponentInfo activeComponentInfo = getActiveComponent();
-			if (activeComponentInfo != null) {
-				Component activeComponent = activeComponentInfo.getComponent();
-				if (activeComponent != null && pane.indexOfComponent(activeComponent) != -1) {
-					pane.setSelectedComponent(activeComponent);
-				}
+			ComponentInfo activeComponent = getActiveComponent();
+			if (activeComponent != null) {
+				pane.setSelectedComponent(activeComponent.getComponent());
 			}
 		}
 	}
