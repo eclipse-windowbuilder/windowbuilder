@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,6 +26,7 @@ import java.lang.reflect.Method;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
+import java.util.Objects;
 
 import javax.swing.JFrame;
 
@@ -36,6 +37,7 @@ import javax.swing.JFrame;
  * @coverage swing.FormLayout.model
  */
 public final class FormSizeConstantInfo {
+	private static UnitConverter m_unitConverter = DefaultUnitConverter.getInstance();
 	private double m_value;
 	private Unit m_unit;
 
@@ -112,6 +114,20 @@ public final class FormSizeConstantInfo {
 		m_unit = unit;
 	}
 
+	/**
+	 * @return the {@link UnitConverter}
+	 */
+	public static UnitConverter getUnitConverter() {
+		return m_unitConverter;
+	}
+
+	/**
+	 * Sets the {@link UnitConverter}.
+	 */
+	public static void setUnitConverter(UnitConverter unitConverter) {
+		m_unitConverter = Objects.requireNonNull(unitConverter);
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Object
@@ -182,7 +198,7 @@ public final class FormSizeConstantInfo {
 	 * @return the value in pixels for value in given {@link Unit}.
 	 */
 	public static int convertToPixels(double value, Unit unit) {
-		UnitConverter converter = DefaultUnitConverter.getInstance();
+		UnitConverter converter = getUnitConverter();
 		//
 		int pixels = 0;
 		if (unit == ConstantSize.PIXEL) {
@@ -231,7 +247,7 @@ public final class FormSizeConstantInfo {
 	 *         in pixels.
 	 */
 	private static int convertFromPixelsInt(int pixels, String methodName) throws Exception {
-		UnitConverter converter = DefaultUnitConverter.getInstance();
+		UnitConverter converter = getUnitConverter();
 		Method method =
 				UnitConverter.class.getMethod(methodName, new Class[]{int.class, Component.class});
 		int result = 0;
@@ -251,7 +267,7 @@ public final class FormSizeConstantInfo {
 	 *         in pixels.
 	 */
 	private static double convertFromPixelsDouble(int pixels, String methodName) throws Exception {
-		UnitConverter converter = DefaultUnitConverter.getInstance();
+		UnitConverter converter = getUnitConverter();
 		Method method =
 				UnitConverter.class.getMethod(methodName, new Class[]{double.class, Component.class});
 		double result = 0;

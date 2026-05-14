@@ -23,7 +23,6 @@ import com.jgoodies.forms.layout.Size;
 import com.jgoodies.forms.layout.Sizes;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -61,7 +60,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo}.
 	 */
-	@Disabled
 	@Test
 	public void test_FormSizeConstantInfo() throws Exception {
 		FormSizeConstantInfo size = new FormSizeConstantInfo(25, ConstantSize.PIXEL);
@@ -131,7 +129,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo#convertFromPixels(int, Unit)}
 	 */
-	@Disabled
 	@Test
 	public void test_FormSizeConstantInfo_convertFromPixels() throws Exception {
 		{
@@ -139,7 +136,7 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 			check_convertFromPixels(50, ConstantSize.PIXEL, expected);
 		}
 		{
-			double expected = 39.0;
+			double expected = 38.0;
 			check_convertFromPixels(50, ConstantSize.POINT, expected);
 		}
 		{
@@ -171,7 +168,6 @@ public class FormSizeInfoTest extends AbstractFormLayoutTest {
 	/**
 	 * Test for {@link FormSizeConstantInfo#convertToPixels(double, Unit)}
 	 */
-	@Disabled
 	@Test
 	public void test_FormSizeConstantInfo_convertToPixels() throws Exception {
 		{

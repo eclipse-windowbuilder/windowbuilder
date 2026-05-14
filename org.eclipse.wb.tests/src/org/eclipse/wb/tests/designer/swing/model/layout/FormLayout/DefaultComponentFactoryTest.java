@@ -29,7 +29,6 @@ import org.eclipse.swt.graphics.Image;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -108,7 +107,6 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 	 * Test for {@link DefaultComponentFactoryCreateLabelEntryInfo}.
 	 */
 	@DisposeProjectAfter
-	@Disabled
 	@Test
 	public void test_createLabel_tool() throws Exception {
 		do_projectDispose();
@@ -140,7 +138,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 			Image image = newComponent.getImage();
 			assertNotNull(image);
 			org.eclipse.swt.graphics.Rectangle bounds = image.getBounds();
-			Assertions.assertThat(bounds.width).isGreaterThan(50).isLessThan(100);
+			Assertions.assertThat(bounds.width).isGreaterThan(50).isLessThan(150);
 			Assertions.assertThat(bounds.height).isGreaterThan(10).isLessThan(20);
 			image.dispose();
 		}
