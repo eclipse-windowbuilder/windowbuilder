@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.laf.model;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.swing.laf.external.ILookAndFeelInitializer;
@@ -51,13 +50,8 @@ public class PluginLafInfo extends AbstractCustomLafInfo {
 		m_extensionBundle = ExternalFactoriesHelper.getExtensionBundle(element);
 		String initializerValue = element.getAttribute("initializer");
 		if (initializerValue != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_initializer =
-							(ILookAndFeelInitializer) element.createExecutableExtension("initializer");
-				}
-			});
+			ExecutionUtils.runLog(() -> m_initializer =
+					(ILookAndFeelInitializer) element.createExecutableExtension("initializer"));
 		}
 	}
 

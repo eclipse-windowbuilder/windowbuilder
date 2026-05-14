@@ -18,7 +18,6 @@ import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.MigLayout.gef.header.edit.RowHeaderEditPart;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigRowInfo;
@@ -101,12 +100,9 @@ public final class RowSelectionEditPolicy extends DimensionSelectionEditPolicy<M
 	 */
 	private void setAlignment(final MigRowInfo.Alignment alignment) {
 		final MigLayoutInfo layout = getLayout();
-		ExecutionUtils.run(layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				getDimension().setAlignment(alignment);
-				layout.writeDimensions();
-			}
+		ExecutionUtils.run(layout, () -> {
+			getDimension().setAlignment(alignment);
+			layout.writeDimensions();
 		});
 	}
 }

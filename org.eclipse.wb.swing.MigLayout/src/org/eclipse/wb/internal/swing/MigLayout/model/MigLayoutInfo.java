@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,7 +35,6 @@ import org.eclipse.wb.internal.core.model.util.grid.GridAlignmentHelper.IAlignme
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.MigLayout.Activator;
 import org.eclipse.wb.internal.swing.MigLayout.model.ui.CellConstraintsAssistantPage;
 import org.eclipse.wb.internal.swing.MigLayout.model.ui.ColumnsDialog;
@@ -98,12 +97,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
 		// force UnitValue initialization in "design time", to be able to get strings for alignments
-		ExecutionUtils.runDesignTime(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				IDEUtil.LEFT.toString();
-			}
-		});
+		ExecutionUtils.runDesignTime(IDEUtil.LEFT::toString);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1137,20 +1131,14 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	 * Visits grid {@link ComponentInfo}'s of this {@link ContainerInfo}.
 	 */
 	private void visitGridComponents(final MigComponentVisitor visitor) {
-		ExecutionUtils.runRethrow(new RunnableEx() {
+		ExecutionUtils.runRethrow(() -> visitAllComponents(new MigComponentVisitor() {
 			@Override
-			public void run() throws Exception {
-				visitAllComponents(new MigComponentVisitor() {
-					@Override
-					public void visit(ComponentInfo component, CellConstraintsSupport constraints)
-							throws Exception {
-						if (constraints.getDockSide() == null) {
-							visitor.visit(component, constraints);
-						}
-					}
-				});
+			public void visit(ComponentInfo component, CellConstraintsSupport constraints) throws Exception {
+				if (constraints.getDockSide() == null) {
+					visitor.visit(component, constraints);
+				}
 			}
-		});
+		}));
 	}
 
 	/**
@@ -1306,12 +1294,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 	 */
 	public IGridInfo getGridInfo() {
 		if (m_gridInfo == null) {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					createGridInfo();
-				}
-			});
+			ExecutionUtils.runRethrow(this::createGridInfo);
 		}
 		return m_gridInfo;
 	}

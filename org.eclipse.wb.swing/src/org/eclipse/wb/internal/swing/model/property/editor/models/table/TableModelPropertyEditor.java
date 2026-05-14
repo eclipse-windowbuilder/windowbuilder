@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
 
@@ -91,12 +90,7 @@ public final class TableModelPropertyEditor extends TextDialogPropertyEditor {
 	private static void setModel(final GenericProperty genericProperty,
 			final TableModelDescription model) throws Exception {
 		final ComponentInfo table = (ComponentInfo) genericProperty.getJavaInfo();
-		ExecutionUtils.run(table, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				setModelEx(table, genericProperty, model);
-			}
-		});
+		ExecutionUtils.run(table, () -> setModelEx(table, genericProperty, model));
 	}
 
 	private static void setModelEx(ComponentInfo table,

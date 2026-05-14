@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -70,17 +70,7 @@ class CustomizerAction extends Action {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void performCustomize() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ExecutionUtils.runDesignTime(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						performCustomize0();
-					}
-				});
-			}
-		});
+		ExecutionUtils.runLog(() -> ExecutionUtils.runDesignTime(this::performCustomize0));
 	}
 
 	private void performCustomize0() throws Exception {
@@ -116,34 +106,28 @@ class CustomizerAction extends Action {
 				RunnableEx runnable = null;
 				if (explicit) {
 					// update changed properties
-					runnable = new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							int size = javaInfoState.properties.size();
-							for (int i = 0; i < size; i++) {
-								Property property = javaInfoState.properties.get(i);
-								if (javaInfoState.changedProperties.contains(property.getTitle())) {
-									Object newValue = javaInfoState.changedPropertyValues.get(property.getTitle());
-									Object oldValue = javaInfoState.oldValues.get(i);
-									if (!Objects.equals(newValue, oldValue)) {
-										property.setValue(newValue);
-									}
+					runnable = () -> {
+						int size = javaInfoState.properties.size();
+						for (int i = 0; i < size; i++) {
+							Property property = javaInfoState.properties.get(i);
+							if (javaInfoState.changedProperties.contains(property.getTitle())) {
+								Object newValue = javaInfoState.changedPropertyValues.get(property.getTitle());
+								Object oldValue = javaInfoState.oldValues.get(i);
+								if (!Objects.equals(newValue, oldValue)) {
+									property.setValue(newValue);
 								}
 							}
 						}
 					};
 				} else {
 					// update all properties
-					runnable = new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							int size = javaInfoState.properties.size();
-							for (int i = 0; i < size; i++) {
-								Object newValue = javaInfoState.getters.get(i).invoke(javaInfoState.object);
-								Object oldValue = javaInfoState.oldValues.get(i);
-								if (!Objects.equals(newValue, oldValue)) {
-									javaInfoState.properties.get(i).setValue(newValue);
-								}
+					runnable = () -> {
+						int size = javaInfoState.properties.size();
+						for (int i = 0; i < size; i++) {
+							Object newValue = javaInfoState.getters.get(i).invoke(javaInfoState.object);
+							Object oldValue = javaInfoState.oldValues.get(i);
+							if (!Objects.equals(newValue, oldValue)) {
+								javaInfoState.properties.get(i).setValue(newValue);
 							}
 						}
 					};
@@ -153,16 +137,13 @@ class CustomizerAction extends Action {
 			}
 			// rollback property changes
 			if (dialogResult == Window.CANCEL) {
-				ExecutionUtils.run(m_javaInfo, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						int size = javaInfoState.properties.size();
-						for (int i = 0; i < size; i++) {
-							Object newValue = javaInfoState.getters.get(i).invoke(javaInfoState.object);
-							Object oldValue = javaInfoState.oldValues.get(i);
-							if (!Objects.equals(newValue, oldValue)) {
-								javaInfoState.setters.get(i).invoke(javaInfoState.object, oldValue);
-							}
+				ExecutionUtils.run(m_javaInfo, () -> {
+					int size = javaInfoState.properties.size();
+					for (int i = 0; i < size; i++) {
+						Object newValue = javaInfoState.getters.get(i).invoke(javaInfoState.object);
+						Object oldValue = javaInfoState.oldValues.get(i);
+						if (!Objects.equals(newValue, oldValue)) {
+							javaInfoState.setters.get(i).invoke(javaInfoState.object, oldValue);
 						}
 					}
 				});

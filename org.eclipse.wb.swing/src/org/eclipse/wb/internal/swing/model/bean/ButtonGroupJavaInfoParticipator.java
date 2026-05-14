@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -112,12 +112,9 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			JavaInfo root,
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
-		RunnableEx runnable = new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				for (ObjectInfo button : objects) {
-					ButtonGroupInfo.clearButton((ComponentInfo) button);
-				}
+		RunnableEx runnable = () -> {
+			for (ObjectInfo button : objects) {
+				ButtonGroupInfo.clearButton((ComponentInfo) button);
 			}
 		};
 		IAction action =
@@ -138,13 +135,10 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			final JavaInfo root,
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
-		RunnableEx runnable = new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ButtonGroupInfo buttonGroup = ButtonGroupContainerInfo.add(root, "javax.swing.ButtonGroup");
-				for (ObjectInfo button : objects) {
-					buttonGroup.addButton((ComponentInfo) button);
-				}
+		RunnableEx runnable = () -> {
+			ButtonGroupInfo buttonGroup = ButtonGroupContainerInfo.add(root, "javax.swing.ButtonGroup");
+			for (ObjectInfo button : objects) {
+				buttonGroup.addButton((ComponentInfo) button);
 			}
 		};
 		IAction action =
@@ -165,29 +159,26 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			final JavaInfo root,
 			final List<? extends ObjectInfo> objects,
 			boolean isFirst) {
-		RunnableEx runnable = new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				String className;
+		RunnableEx runnable = () -> {
+			String className;
+			{
+				IJavaProject javaProject = root.getEditor().getJavaProject();
+				IType type = JdtUiUtils.selectClassType(DesignerPlugin.getShell(), javaProject);
+				if (type == null) {
+					return;
+				}
 				{
-					IJavaProject javaProject = root.getEditor().getJavaProject();
-					IType type = JdtUiUtils.selectClassType(DesignerPlugin.getShell(), javaProject);
-					if (type == null) {
+					ITypeHierarchy supertypeHierarchy = type.newSupertypeHierarchy(null);
+					if (!supertypeHierarchy.contains(javaProject.findType("javax.swing.ButtonGroup"))) {
 						return;
 					}
-					{
-						ITypeHierarchy supertypeHierarchy = type.newSupertypeHierarchy(null);
-						if (!supertypeHierarchy.contains(javaProject.findType("javax.swing.ButtonGroup"))) {
-							return;
-						}
-					}
-					className = type.getFullyQualifiedName();
 				}
-				//
-				ButtonGroupInfo buttonGroup = ButtonGroupContainerInfo.add(root, className);
-				for (ObjectInfo button : objects) {
-					buttonGroup.addButton((ComponentInfo) button);
-				}
+				className = type.getFullyQualifiedName();
+			}
+			//
+			ButtonGroupInfo buttonGroup = ButtonGroupContainerInfo.add(root, className);
+			for (ObjectInfo button : objects) {
+				buttonGroup.addButton((ComponentInfo) button);
 			}
 		};
 		IAction action =
@@ -213,12 +204,9 @@ public final class ButtonGroupJavaInfoParticipator implements IJavaInfoInitializ
 			String text = buttonGroup.getVariableSupport().getName();
 			ImageDescriptor icon = buttonGroup.getDescription().getIcon();
 			// add action
-			RunnableEx runnable = new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					for (ObjectInfo button : objects) {
-						buttonGroup.addButton((ComponentInfo) button);
-					}
+			RunnableEx runnable = () -> {
+				for (ObjectInfo button1 : objects) {
+					buttonGroup.addButton((ComponentInfo) button1);
 				}
 			};
 			IAction action =

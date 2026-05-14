@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -329,12 +328,9 @@ public final class LafSupport {
 	 */
 	public static void applySelectedLAF(final LafInfo lafInfo) {
 		try {
-			SwingUtils.runLaterAndWait(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					javax.swing.LookAndFeel lookAndFeelInstance = lafInfo.getLookAndFeelInstance().getValue();
-					UIManager.setLookAndFeel(lookAndFeelInstance);
-				}
+			SwingUtils.runLaterAndWait(() -> {
+				javax.swing.LookAndFeel lookAndFeelInstance = lafInfo.getLookAndFeelInstance().getValue();
+				UIManager.setLookAndFeel(lookAndFeelInstance);
 			});
 		} catch (Throwable e) {
 			DesignerPlugin.log(e);

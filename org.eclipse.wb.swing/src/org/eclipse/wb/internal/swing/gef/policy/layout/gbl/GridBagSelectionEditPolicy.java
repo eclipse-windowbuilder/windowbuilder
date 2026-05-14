@@ -244,14 +244,11 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 	 * Sets grab/fill for both dimensions.
 	 */
 	private void setFillBoth() {
-		execute(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				AbstractGridBagConstraintsInfo constraints = m_layout.getConstraints(m_component);
-				constraints.getColumn().setWeight(1.0);
-				constraints.getRow().setWeight(1.0);
-				constraints.setAlignment(ColumnInfo.Alignment.FILL, RowInfo.Alignment.FILL);
-			}
+		execute(() -> {
+			AbstractGridBagConstraintsInfo constraints = m_layout.getConstraints(m_component);
+			constraints.getColumn().setWeight(1.0);
+			constraints.getRow().setWeight(1.0);
+			constraints.setAlignment(ColumnInfo.Alignment.FILL, RowInfo.Alignment.FILL);
 		});
 	}
 
@@ -259,19 +256,16 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 	 * Flips horizontal/vertical grab.
 	 */
 	private void flipGrab(final boolean horizontal) {
-		execute(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				AbstractGridBagConstraintsInfo constraints = m_layout.getConstraints(m_component);
-				DimensionInfo dimension;
-				if (horizontal) {
-					dimension = constraints.getColumn();
-				} else {
-					dimension = constraints.getRow();
-				}
-				double weight = dimension.getWeight();
-				dimension.setWeight(weight != 0.0 ? 0.0 : 1.0);
+		execute(() -> {
+			AbstractGridBagConstraintsInfo constraints = m_layout.getConstraints(m_component);
+			DimensionInfo dimension;
+			if (horizontal) {
+				dimension = constraints.getColumn();
+			} else {
+				dimension = constraints.getRow();
 			}
+			double weight = dimension.getWeight();
+			dimension.setWeight(weight != 0.0 ? 0.0 : 1.0);
 		});
 	}
 
@@ -279,12 +273,9 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 	 * Sets the horizontal alignment.
 	 */
 	private void setAlignment(final ColumnInfo.Alignment alignment) {
-		execute(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				AbstractGridBagConstraintsInfo constraints = m_layout.getConstraints(m_component);
-				constraints.setHorizontalAlignment(alignment);
-			}
+		execute(() -> {
+			AbstractGridBagConstraintsInfo constraints = m_layout.getConstraints(m_component);
+			constraints.setHorizontalAlignment(alignment);
 		});
 	}
 
@@ -292,12 +283,9 @@ public final class GridBagSelectionEditPolicy extends AbstractGridSelectionEditP
 	 * Sets the vertical alignment.
 	 */
 	private void setAlignment(final RowInfo.Alignment alignment) {
-		execute(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				AbstractGridBagConstraintsInfo constraints = m_layout.getConstraints(m_component);
-				constraints.setVerticalAlignment(alignment);
-			}
+		execute(() -> {
+			AbstractGridBagConstraintsInfo constraints = m_layout.getConstraints(m_component);
+			constraints.setVerticalAlignment(alignment);
 		});
 	}
 

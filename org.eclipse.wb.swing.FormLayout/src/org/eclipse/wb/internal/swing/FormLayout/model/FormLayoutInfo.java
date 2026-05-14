@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -32,7 +32,6 @@ import org.eclipse.wb.internal.core.model.util.grid.GridAlignmentHelper.IAlignme
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.model.ui.ColumnsDialog;
@@ -316,18 +315,13 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 	 */
 	public Dimension getMinimumSize() {
 		final Dimension size = new Dimension(0, 0);
-		ExecutionUtils.runLog(new RunnableEx() {
+		ExecutionUtils.runLog(() -> visitComponents(new FormComponentVisitor() {
 			@Override
-			public void run() throws Exception {
-				visitComponents(new FormComponentVisitor() {
-					@Override
-					public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
-						size.width = Math.max(size.width, cell.x + cell.width - 1);
-						size.height = Math.max(size.height, cell.y + cell.height - 1);
-					}
-				});
+			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
+				size.width = Math.max(size.width, cell.x + cell.width - 1);
+				size.height = Math.max(size.height, cell.y + cell.height - 1);
 			}
-		});
+		}));
 		return size;
 	}
 
@@ -336,17 +330,12 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 	 */
 	public int[] getColumnComponentsCounts() throws Exception {
 		final int[] counts = new int[m_columns.size()];
-		ExecutionUtils.runRethrow(new RunnableEx() {
+		ExecutionUtils.runRethrow(() -> visitComponents(new FormComponentVisitor() {
 			@Override
-			public void run() throws Exception {
-				visitComponents(new FormComponentVisitor() {
-					@Override
-					public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
-						counts[cell.x - 1]++;
-					}
-				});
+			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
+				counts[cell.x - 1]++;
 			}
-		});
+		}));
 		return counts;
 	}
 
@@ -355,17 +344,12 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 	 */
 	public int[] getRowComponentsCounts() throws Exception {
 		final int[] counts = new int[m_rows.size()];
-		ExecutionUtils.runRethrow(new RunnableEx() {
+		ExecutionUtils.runRethrow(() -> visitComponents(new FormComponentVisitor() {
 			@Override
-			public void run() throws Exception {
-				visitComponents(new FormComponentVisitor() {
-					@Override
-					public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
-						counts[cell.y - 1]++;
-					}
-				});
+			public void visit(ComponentInfo component, CellConstraintsSupport cell) throws Exception {
+				counts[cell.y - 1]++;
 			}
-		});
+		}));
 		return counts;
 	}
 
@@ -1502,12 +1486,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 	 */
 	public IGridInfo getGridInfo() {
 		if (m_gridInfo == null) {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					createGridInfo();
-				}
-			});
+			ExecutionUtils.runRethrow(this::createGridInfo);
 		}
 		return m_gridInfo;
 	}

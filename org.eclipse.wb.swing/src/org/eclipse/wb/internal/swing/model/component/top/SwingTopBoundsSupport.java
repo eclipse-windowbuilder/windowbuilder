@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.swing.model.component.top;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.utils.SwingUtils;
@@ -141,22 +140,16 @@ public class SwingTopBoundsSupport extends TopBoundsSupport {
 			window.addWindowListener(new WindowAdapter() {
 				@Override
 				public void windowClosing(WindowEvent e) {
-					mainShell.getDisplay().asyncExec(new Runnable() {
-						@Override
-						public void run() {
-							mainShell.setEnabled(true);
-							mainShell.forceActive();
-						}
+					mainShell.getDisplay().asyncExec(() -> {
+						mainShell.setEnabled(true);
+						mainShell.forceActive();
 					});
 				}
 			});
-			SwingUtils.runLaterAndWait(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					window.setFocusableWindowState(true);
-					window.setVisible(true);
-					window.toFront();
-				}
+			SwingUtils.runLaterAndWait(() -> {
+				window.setFocusableWindowState(true);
+				window.setVisible(true);
+				window.toFront();
 			});
 			// wait for close
 			mainShell.setEnabled(false);

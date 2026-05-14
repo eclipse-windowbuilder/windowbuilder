@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -130,20 +130,10 @@ public final class ActionExpressionAccessor extends ExpressionAccessor {
 			final AstEditor editor = javaInfo.getEditor();
 			if (source == null) {
 				if (expression.getLocationInParent() == MethodInvocation.ARGUMENTS_PROPERTY) {
-					ExecutionUtils.run(javaInfo, new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							editor.removeEnclosingStatement(expression);
-						}
-					});
+					ExecutionUtils.run(javaInfo, () -> editor.removeEnclosingStatement(expression));
 				}
 			} else if (!editor.getSource(expression).equals(source)) {
-				ExecutionUtils.run(javaInfo, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						editor.replaceExpression(expression, source);
-					}
-				});
+				ExecutionUtils.run(javaInfo, () -> editor.replaceExpression(expression, source));
 			}
 		} else if (source != null) {
 			ExecutionUtils.run(javaInfo, new RunnableEx() {

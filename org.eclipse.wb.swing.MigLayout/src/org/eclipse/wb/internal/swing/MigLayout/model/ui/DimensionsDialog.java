@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -211,14 +211,11 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 					@Override
 					public void handleEvent(Event event) {
 						final AtomicInteger lastIndex = new AtomicInteger();
-						applyChanges(new RunnableEx() {
-							@Override
-							public void run() throws Exception {
-								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-								for (T dimension : selectedDimensions) {
-									lastIndex.set(dimension.getIndex());
-									dimension.delete();
-								}
+						applyChanges(() -> {
+							Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+							for (T dimension : selectedDimensions) {
+								lastIndex.set(dimension.getIndex());
+								dimension.delete();
 							}
 						});
 						// set selection
@@ -235,12 +232,9 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 				createButton(composite, ModelMessages.DimensionsDialog_moveUpButton, new Listener() {
 					@Override
 					public void handleEvent(Event event) {
-						applyChanges(new RunnableEx() {
-							@Override
-							public void run() throws Exception {
-								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-								moveDimensionsUp(selectedDimensions);
-							}
+						applyChanges(() -> {
+							Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+							moveDimensionsUp(selectedDimensions);
 						});
 						updateButtons();
 					}
@@ -249,12 +243,9 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 				createButton(composite, ModelMessages.DimensionsDialog_moveDownButton, new Listener() {
 					@Override
 					public void handleEvent(Event event) {
-						applyChanges(new RunnableEx() {
-							@Override
-							public void run() throws Exception {
-								Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
-								moveDimensionsDown(selectedDimensions);
-							}
+						applyChanges(() -> {
+							Iterable<T> selectedDimensions = GenericsUtils.<T>iterable(m_viewer.getSelection());
+							moveDimensionsDown(selectedDimensions);
 						});
 						updateButtons();
 					}
@@ -307,12 +298,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 	private void addNewDimension(int indexOffset) {
 		// add new dimension
 		final int index = addNewDimension_getIndex(indexOffset);
-		applyChanges(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				createNewDimension(index);
-			}
-		});
+		applyChanges(() -> createNewDimension(index));
 		m_viewer.getTable().setSelection(index);
 		// edit it
 		editSelectedDimension();
@@ -333,10 +319,7 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 	private void editSelectedDimension() {
 		T dimension = GenericsUtils.<T>first(m_viewer.getSelection());
 		editSelectedDimension(dimension);
-		applyChanges(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-			}
+		applyChanges(() -> {
 		});
 	}
 
@@ -344,12 +327,9 @@ abstract class DimensionsDialog<T extends MigDimensionInfo> extends ResizableTit
 	 * Applies changes in {@link MigDimensionInfo}-s.
 	 */
 	private void applyChanges(final RunnableEx runnable) {
-		ExecutionUtils.run(m_layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				runnable.run();
-				m_layout.writeDimensions();
-			}
+		ExecutionUtils.run(m_layout, () -> {
+			runnable.run();
+			m_layout.writeDimensions();
 		});
 		m_viewer.refresh();
 	}

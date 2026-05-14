@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -31,7 +31,6 @@ import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.swing.databinding.model.DataBindingsRootInfo;
 import org.eclipse.wb.internal.swing.databinding.model.JavaInfoDecorator;
@@ -538,12 +537,9 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 		// add
 		getBindings().add(ibinding);
 		// post process
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				BindingInfo binding = (BindingInfo) ibinding;
-				binding.create(m_rootInfo.getBindings());
-			}
+		ExecutionUtils.runLog(() -> {
+			BindingInfo binding = (BindingInfo) ibinding;
+			binding.create(m_rootInfo.getBindings());
 		});
 		// save
 		saveEdit();
@@ -552,12 +548,9 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	@Override
 	public void editBinding(final IBindingInfo ibinding) {
 		// edit
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				BindingInfo binding = (BindingInfo) ibinding;
-				binding.edit(m_rootInfo.getBindings());
-			}
+		ExecutionUtils.runLog(() -> {
+			BindingInfo binding = (BindingInfo) ibinding;
+			binding.edit(m_rootInfo.getBindings());
 		});
 		// save
 		saveEdit();
@@ -566,14 +559,11 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	@Override
 	public void deleteBinding(final IBindingInfo ibinding) {
 		// delete
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				BindingInfo binding = (BindingInfo) ibinding;
-				if (binding.delete(m_rootInfo.getBindings())) {
-					binding.postDelete();
-					getBindings().remove(binding);
-				}
+		ExecutionUtils.runLog(() -> {
+			BindingInfo binding = (BindingInfo) ibinding;
+			if (binding.delete(m_rootInfo.getBindings())) {
+				binding.postDelete();
+				getBindings().remove(binding);
 			}
 		});
 		// save
@@ -583,12 +573,9 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	@Override
 	public void deleteAllBindings() {
 		// delete all
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				for (BindingInfo binding : m_rootInfo.getBindings()) {
-					binding.postDelete();
-				}
+		ExecutionUtils.runLog(() -> {
+			for (BindingInfo binding : m_rootInfo.getBindings()) {
+				binding.postDelete();
 			}
 		});
 		getBindings().clear();
@@ -698,29 +685,21 @@ public final class DatabindingsProvider implements IDatabindingsProvider {
 	@Override
 	public void saveEdit() {
 		final boolean[] reparse = new boolean[1];
-		ExecutionUtils.run(m_javaInfoRoot, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				try {
-					m_rootInfo.preCommit();
-					reparse[0] = m_rootInfo.commit();
-				} finally {
-					m_rootInfo.postCommit();
-				}
-				// check reparse
-				if (reparse[0]) {
-					BindingDesignPage.handleReparse(m_bindingPage, m_javaInfoRoot);
-				}
+		ExecutionUtils.run(m_javaInfoRoot, () -> {
+			try {
+				m_rootInfo.preCommit();
+				reparse[0] = m_rootInfo.commit();
+			} finally {
+				m_rootInfo.postCommit();
+			}
+			// check reparse
+			if (reparse[0]) {
+				BindingDesignPage.handleReparse(m_bindingPage, m_javaInfoRoot);
 			}
 		});
 		// check synchronize
 		if (!reparse[0]) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					synchronizeObserves();
-				}
-			});
+			ExecutionUtils.runLog(this::synchronizeObserves);
 		}
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.model.layout.gbl;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import java.awt.GridBagLayout;
@@ -145,18 +144,12 @@ public abstract class DimensionInfo {
 	 * Visits {@link ComponentInfo} that belongs to this {@link DimensionInfo}.
 	 */
 	protected final void visit(final IComponentVisitor visitor) {
-		ExecutionUtils.runRethrow(new RunnableEx() {
+		ExecutionUtils.runRethrow(() -> m_layout.visitComponents(visitor, new IComponentPredicate() {
 			@Override
-			public void run() throws Exception {
-				m_layout.visitComponents(visitor, new IComponentPredicate() {
-					@Override
-					public boolean apply(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-							throws Exception {
-						return isDimensionComponent(constraints);
-					}
-				});
+			public boolean apply(ComponentInfo component, AbstractGridBagConstraintsInfo constraints) throws Exception {
+				return isDimensionComponent(constraints);
 			}
-		});
+		}));
 	}
 
 	/**

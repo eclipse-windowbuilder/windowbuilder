@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
 import org.eclipse.wb.core.controls.Separator;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
@@ -178,30 +177,22 @@ ResizableDialog {
 	 * Saves current {@link DimensionInfo} changes into source and refreshes GUI.
 	 */
 	private void applyChanges() throws Exception {
-		ExecutionUtils.run(m_layout, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				m_layout.writeDimensions();
-			}
-		});
+		ExecutionUtils.run(m_layout, m_layout::writeDimensions);
 	}
 
 	/**
 	 * Sets the {@link DimensionInfo} to edit.
 	 */
 	private void setEditDimension(final T dimension) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// apply changes
-				if (m_dimension != null) {
-					applyChanges();
-				}
-				// remember new dimension
-				m_dimension = dimension;
-				m_dimensionString = m_dimension.getString(false);
-				m_currentIndex = m_dimensions.indexOf(m_dimension);
+		ExecutionUtils.runLog(() -> {
+			// apply changes
+			if (m_dimension != null) {
+				applyChanges();
 			}
+			// remember new dimension
+			m_dimension = dimension;
+			m_dimensionString = m_dimension.getString(false);
+			m_currentIndex = m_dimensions.indexOf(m_dimension);
 		});
 	}
 

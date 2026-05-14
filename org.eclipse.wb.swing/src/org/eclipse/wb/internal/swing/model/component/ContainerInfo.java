@@ -49,7 +49,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.swing.IExceptionConstants;
 import org.eclipse.wb.internal.swing.model.CoordinateUtils;
@@ -484,12 +483,7 @@ public class ContainerInfo extends ComponentInfo {
 					}
 				}
 				// we are in process of refresh(), set inherited layout later
-				ExecutionUtils.runLater(this, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						setLayout(thisLayout);
-					}
-				});
+				ExecutionUtils.runLater(this, () -> setLayout(thisLayout));
 			}
 			// OK, stop here
 			return;
@@ -505,12 +499,7 @@ public class ContainerInfo extends ComponentInfo {
 						layoutDescription.getLayoutClassName(),
 						new ConstructorCreationSupport());
 				// we are in process of refresh(), set inherited layout later
-				ExecutionUtils.runLater(this, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						setLayout(thisLayout);
-					}
-				});
+				ExecutionUtils.runLater(this, () -> setLayout(thisLayout));
 			}
 		}
 	}

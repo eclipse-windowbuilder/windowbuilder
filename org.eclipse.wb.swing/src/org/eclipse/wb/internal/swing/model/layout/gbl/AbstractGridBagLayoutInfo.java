@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,7 +30,6 @@ import org.eclipse.wb.internal.core.model.util.grid.GridAlignmentHelper.IAlignme
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.swing.Activator;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -843,12 +842,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	 */
 	public IGridInfo getGridInfo() {
 		if (m_gridInfo == null) {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					createGridInfo();
-				}
-			});
+			ExecutionUtils.runRethrow(this::createGridInfo);
 		}
 		return m_gridInfo;
 	}
