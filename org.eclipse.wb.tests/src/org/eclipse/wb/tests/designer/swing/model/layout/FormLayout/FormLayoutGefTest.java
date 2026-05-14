@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -861,7 +861,6 @@ public class FormLayoutGefTest extends SwingGefTest {
 		{
 			ComponentInfo button_2 = getJavaInfoByName("button_2");
 			canvas.target(button_2).inX(0.5).outY(ROW_GAP + 1).move();
-			waitEventLoop(1000 * 5);
 			canvas.assertCommandNull();
 		}
 	}
