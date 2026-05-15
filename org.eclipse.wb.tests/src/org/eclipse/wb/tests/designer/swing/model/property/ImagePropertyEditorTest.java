@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,21 +35,21 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getText_noIimage() throws Exception {
-		assertImagePropertyText(null, new String[]{
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"  }",
-		"}"});
+		assertImagePropertyText(null, """
+				public class Test extends JFrame {
+					public Test() {
+					}
+				}""");
 	}
 
 	@Test
 	public void test_getText_null() throws Exception {
-		assertImagePropertyText("(null)", new String[]{
-				"public class Test extends JFrame {",
-				"  public Test() {",
-				"    setIconImage(null);",
-				"  }",
-		"}"});
+		assertImagePropertyText("(null)", """
+				public class Test extends JFrame {
+					public Test() {
+						setIconImage(null);
+					}
+				}""");
 	}
 
 	@Test
@@ -57,12 +57,12 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 		IFile imageFile = TestUtils.createImagePNG(m_testProject, "1.png", 10, 10);
 		try {
 			String absoluteImagePath = imageFile.getLocation().toPortableString();
-			assertImagePropertyText("File: " + absoluteImagePath, new String[]{
-					"public class Test extends JFrame {",
-					"  public Test() {",
-					"    setIconImage(Toolkit.getDefaultToolkit().getImage(\"" + absoluteImagePath + "\"));",
-					"  }",
-			"}"});
+			assertImagePropertyText("File: " + absoluteImagePath, """
+					public class Test extends JFrame {
+						public Test() {
+							setIconImage(Toolkit.getDefaultToolkit().getImage("%s"));
+						}
+					}""".formatted(absoluteImagePath));
 		} finally {
 			imageFile.delete(true, null);
 		}
@@ -71,46 +71,40 @@ public class ImagePropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_getText_Class_getResource_1() throws Exception {
 		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
-		assertImagePropertyText(
-				"Classpath: /Test.png",
-				new String[]{
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"    setIconImage(Toolkit.getDefaultToolkit().getImage(Test.class.getResource(\"/Test.png\")));",
-						"  }",
-				"}"});
+		assertImagePropertyText("Classpath: /Test.png", """
+				public class Test extends JFrame {
+					public Test() {
+						setIconImage(Toolkit.getDefaultToolkit().getImage(Test.class.getResource("/Test.png")));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_getText_Class_getResource_2() throws Exception {
 		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
-		assertImagePropertyText(
-				"Classpath: /Test.png",
-				new String[]{
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"    Image icon = Toolkit.getDefaultToolkit().getImage(Test.class.getResource(\"/Test.png\"));",
-						"    setIconImage(icon);",
-						"  }",
-				"}"});
+		assertImagePropertyText("Classpath: /Test.png", """
+				public class Test extends JFrame {
+					public Test() {
+						Image icon = Toolkit.getDefaultToolkit().getImage(Test.class.getResource("/Test.png"));
+						setIconImage(icon);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_getText_Class_getResource_3() throws Exception {
 		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
-		assertImagePropertyText(
-				"Classpath: /Test.png",
-				new String[]{
-						"public class Test extends JFrame {",
-						"  public Test() {",
-						"    java.net.URL url = Test.class.getResource(\"/Test.png\");",
-						"    Image icon = Toolkit.getDefaultToolkit().getImage(url);",
-						"    setIconImage(icon);",
-						"  }",
-				"}"});
+		assertImagePropertyText("Classpath: /Test.png", """
+				public class Test extends JFrame {
+					public Test() {
+						java.net.URL url = Test.class.getResource("/Test.png");
+						Image icon = Toolkit.getDefaultToolkit().getImage(url);
+						setIconImage(icon);
+					}
+				}""");
 	}
 
-	private void assertImagePropertyText(String expectedText, String[] lines) throws Exception {
+	private void assertImagePropertyText(String expectedText, String lines) throws Exception {
 		m_waitForAutoBuild = true;
 		JFrameInfo frame = (JFrameInfo) parseContainer(lines);
 		frame.refresh();

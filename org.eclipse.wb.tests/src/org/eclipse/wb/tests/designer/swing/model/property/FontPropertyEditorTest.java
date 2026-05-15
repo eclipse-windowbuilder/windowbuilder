@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -648,16 +648,15 @@ public class FontPropertyEditorTest extends SwingModelTest {
 
 	private void assertFont(String fontSource, String expectedText, String expectedClipboard)
 			throws Exception {
-		String fontLine = fontSource != null ? "    button.setFont(" + fontSource + ");" : "";
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						fontLine,
-						"    add(button);",
-						"  }",
-						"}");
+		String fontLine = fontSource != null ? "button.setFont(" + fontSource + ");" : "";
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						%s
+						add(button);
+					}
+				}""".formatted(fontLine));
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// property
 		Property property = button.getPropertyByTitle("font");
@@ -697,18 +696,17 @@ public class FontPropertyEditorTest extends SwingModelTest {
 	}
 
 	private void check_copyPaste(String originalSource, String expectedSource) throws Exception {
-		String[] lines1 =
-			{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    {",
-					"      JLabel myLabel = new JLabel();",
-					"      myLabel.setFont(" + originalSource + ");",
-					"      add(myLabel);",
-					"    }",
-					"  }",
-			"}"};
-		ContainerInfo panel = parseContainer(lines1);
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel myLabel = new JLabel();
+							myLabel.setFont(%s);
+							add(myLabel);
+						}
+					}
+				}
+				""".formatted(originalSource));
 		panel.refresh();
 		ComponentInfo label = panel.getChildrenComponents().get(0);
 		//
@@ -718,22 +716,21 @@ public class FontPropertyEditorTest extends SwingModelTest {
 			((FlowLayoutInfo) panel.getLayout()).add(newLabel, null);
 			memento.apply();
 		}
-		String[] lines =
-			{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    {",
-					"      JLabel myLabel = new JLabel();",
-					"      myLabel.setFont(" + originalSource + ");",
-					"      add(myLabel);",
-					"    }",
-					"    {",
-					"      JLabel myLabel = new JLabel();",
-					"      myLabel.setFont(" + expectedSource + ");",
-					"      add(myLabel);",
-					"    }",
-					"  }",
-			"}"};
-		assertEditor(lines);
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel myLabel = new JLabel();
+							myLabel.setFont(%s);
+							add(myLabel);
+						}
+						{
+							JLabel myLabel = new JLabel();
+							myLabel.setFont(%s);
+							add(myLabel);
+						}
+					}
+				}
+				""".formatted(originalSource, expectedSource));
 	}
 }

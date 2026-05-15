@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,25 +36,25 @@ public class IconPropertyEditorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getText_noIcon() throws Exception {
-		assertIconPropertyText(null, new String[]{
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    add(button);",
-				"  }",
-		"}"});
+		assertIconPropertyText(null, """
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_getText_null() throws Exception {
-		assertIconPropertyText("(null)", new String[]{
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    button.setIcon(null);",
-				"    add(button);",
-				"  }",
-		"}"});
+		assertIconPropertyText("(null)", """
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						button.setIcon(null);
+						add(button);
+					}
+				}""");
 	}
 
 	@Test
@@ -62,14 +62,14 @@ public class IconPropertyEditorTest extends SwingModelTest {
 		IFile imageFile = TestUtils.createImagePNG(m_testProject, "1.png", 10, 10);
 		try {
 			String absoluteImagePath = imageFile.getLocation().toPortableString();
-			assertIconPropertyText("File: " + absoluteImagePath, new String[]{
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    JButton button = new JButton();",
-					"    button.setIcon(new ImageIcon(\"" + absoluteImagePath + "\"));",
-					"    add(button);",
-					"  }",
-			"}"});
+			assertIconPropertyText("File: " + absoluteImagePath, """
+					public class Test extends JPanel {
+						public Test() {
+							JButton button = new JButton();
+							button.setIcon(new ImageIcon("%s"));
+							add(button);
+						}
+					}""".formatted(absoluteImagePath));
 		} finally {
 			forceDeleteResource(imageFile);
 		}
@@ -80,18 +80,14 @@ public class IconPropertyEditorTest extends SwingModelTest {
 		IFile imageFile = TestUtils.createImagePNG(m_testProject, "1.png", 10, 10);
 		try {
 			String absoluteImagePath = imageFile.getLocation().toPortableString();
-			assertIconPropertyText(
-					"File: " + absoluteImagePath,
-					new String[]{
-							"public class Test extends JPanel {",
-							"  public Test() {",
-							"    JButton button = new JButton();",
-							"    button.setIcon(new ImageIcon(\""
-									+ absoluteImagePath
-									+ "\", \"some description\"));",
-									"    add(button);",
-									"  }",
-					"}"});
+			assertIconPropertyText("File: " + absoluteImagePath, """
+					public class Test extends JPanel {
+						public Test() {
+							JButton button = new JButton();
+							button.setIcon(new ImageIcon("%s", "some description"));
+							add(button);
+						}
+					}""".formatted(absoluteImagePath));
 		} finally {
 			forceDeleteResource(imageFile);
 		}
@@ -100,69 +96,59 @@ public class IconPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_getText_Class_getResource_1() throws Exception {
 		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
-		assertIconPropertyText(
-				"Classpath: /Test.png",
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						"    button.setIcon(new ImageIcon(Test.class.getResource(\"/Test.png\")));",
-						"    add(button);",
-						"  }",
-				"}"});
+		assertIconPropertyText("Classpath: /Test.png", """
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						button.setIcon(new ImageIcon(Test.class.getResource("/Test.png")));
+						add(button);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_getText_Class_getResource_2() throws Exception {
 		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
-		assertIconPropertyText(
-				"Classpath: /Test.png",
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						"    button.setIcon("
-								+ "      new ImageIcon(Test.class.getResource(\"/Test.png\"), "
-								+ "      \"Some description\"));",
-								"    add(button);",
-								"  }",
-				"}"});
+		assertIconPropertyText("Classpath: /Test.png", """
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						button.setIcon(new ImageIcon(Test.class.getResource("/Test.png"), "Some description"));
+						add(button);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_getText_Class_getResource_3() throws Exception {
 		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
-		assertIconPropertyText(
-				"Classpath: /Test.png",
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						"    Icon icon = new ImageIcon(Test.class.getResource(\"/Test.png\"));",
-						"    button.setIcon(icon);",
-						"    add(button);",
-						"  }",
-				"}"});
+		assertIconPropertyText("Classpath: /Test.png", """
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						Icon icon = new ImageIcon(Test.class.getResource("/Test.png"));
+						button.setIcon(icon);
+						add(button);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_getText_Class_getResource_4() throws Exception {
 		setFileContentSrc("Test.png", TestUtils.createImagePNG(1, 1));
-		assertIconPropertyText(
-				"Classpath: /Test.png",
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						"    java.net.URL url = Test.class.getResource(\"/Test.png\");",
-						"    Icon icon = new ImageIcon(url);",
-						"    button.setIcon(icon);",
-						"    add(button);",
-						"  }",
-				"}"});
+		assertIconPropertyText("Classpath: /Test.png", """
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						java.net.URL url = Test.class.getResource("/Test.png");
+						Icon icon = new ImageIcon(url);
+						button.setIcon(icon);
+						add(button);
+					}
+				}""");
 	}
 
-	private void assertIconPropertyText(String expectedText, String[] lines) throws Exception {
+	private void assertIconPropertyText(String expectedText, String lines) throws Exception {
 		ContainerInfo panel = parseContainer(lines);
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);

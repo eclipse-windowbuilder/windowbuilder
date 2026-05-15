@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -54,13 +54,12 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ignore_SunBeansEditors() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new JButton());
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check java.awt.Color type property "background"
@@ -76,21 +75,18 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_editorForEditor() throws Exception {
-		setFileContentSrc(
-				"test/MyEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyEditor extends PropertyEditorSupport {",
-						"}"));
+		setFileContentSrc("test/MyEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyEditor extends PropertyEditorSupport {
+				}"""));
 		waitForAutoBuild();
 		// create panel
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		waitForAutoBuild();
 		// check wrapper for bean editor
@@ -102,84 +98,75 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_editorForEditor_beanInfo() throws Exception {
 		// create "value" editor
-		setFileContentSrc(
-				"test/MyIntEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyIntEditor extends PropertyEditorSupport {",
-						"}"));
+		setFileContentSrc("test/MyIntEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyIntEditor extends PropertyEditorSupport {
+				}"""));
 		// create "value2" editor
-		setFileContentSrc(
-				"test/MyComboEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyComboEditor extends PropertyEditorSupport {",
-						"  private String[] m_items = {'111', '222', '333'};",
-						"  public String[] getTags() {",
-						"    return m_items;",
-						"  }",
-						"  public boolean supportsCustomEditor() {",
-						"    return true;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComboEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyComboEditor extends PropertyEditorSupport {
+					private String[] m_items = {"111", "222", "333"};
+					public String[] getTags() {
+						return m_items;
+					}
+					public boolean supportsCustomEditor() {
+						return true;
+					}
+				}"""));
 		// create test bean
-		setFileContentSrc(
-				"test/MyBean.java",
-				getTestSource(
-						"public class MyBean extends JButton {",
-						"  private Object m_value;",
-						"  private String m_value2;",
-						"  public Object getValue() {",
-						"    return m_value;",
-						"  }",
-						"  public void setValue(Object value) {",
-						"    m_value = value;",
-						"  }",
-						"  public String getValue2() {",
-						"    return m_value2;",
-						"  }",
-						"  public void setValue2(String value) {",
-						"    m_value2 = value;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyBean.java", getTestSource("""
+				public class MyBean extends JButton {
+					private Object m_value;
+					private String m_value2;
+					public Object getValue() {
+						return m_value;
+					}
+					public void setValue(Object value) {
+						m_value = value;
+					}
+					public String getValue2() {
+						return m_value2;
+					}
+					public void setValue2(String value) {
+						m_value2 = value;
+					}
+				}"""));
 		waitForAutoBuild();
 		// create test bean info
-		setFileContentSrc(
-				"test/MyBeanBeanInfo.java",
-				getTestSource(
-						"import java.beans.BeanInfo;",
-						"import java.beans.Introspector;",
-						"import java.beans.SimpleBeanInfo;",
-						"import java.beans.PropertyDescriptor;",
-						"public class MyBeanBeanInfo extends SimpleBeanInfo {",
-						"  private PropertyDescriptor[] m_descriptors;",
-						"  public MyBeanBeanInfo() {",
-						"    try {",
-						"      BeanInfo info = Introspector.getBeanInfo(JButton.class);",
-						"      PropertyDescriptor[] descriptors = info.getPropertyDescriptors();",
-						"      m_descriptors = new PropertyDescriptor[descriptors.length + 2];",
-						"      System.arraycopy(descriptors, 0, m_descriptors, 0, descriptors.length);",
-						"      m_descriptors[descriptors.length] = new PropertyDescriptor('value', MyBean.class, 'getValue', 'setValue');",
-						"      m_descriptors[descriptors.length].setPropertyEditorClass(MyIntEditor.class);",
-						"      m_descriptors[descriptors.length + 1] = new PropertyDescriptor('value2', MyBean.class, 'getValue2', 'setValue2');",
-						"      m_descriptors[descriptors.length + 1].setPropertyEditorClass(MyComboEditor.class);",
-						"    } catch (Throwable e) {",
-						"    }",
-						"  }",
-						"  public PropertyDescriptor[] getPropertyDescriptors() {",
-						"    return m_descriptors;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyBeanBeanInfo.java", getTestSource("""
+				import java.beans.BeanInfo;
+				import java.beans.Introspector;
+				import java.beans.SimpleBeanInfo;
+				import java.beans.PropertyDescriptor;
+				public class MyBeanBeanInfo extends SimpleBeanInfo {
+					private PropertyDescriptor[] m_descriptors;
+					public MyBeanBeanInfo() {
+						try {
+							BeanInfo info = Introspector.getBeanInfo(JButton.class);
+							PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
+							m_descriptors = new PropertyDescriptor[descriptors.length + 2];
+							System.arraycopy(descriptors, 0, m_descriptors, 0, descriptors.length);
+							m_descriptors[descriptors.length] = new PropertyDescriptor("value", MyBean.class, "getValue", "setValue");
+							m_descriptors[descriptors.length].setPropertyEditorClass(MyIntEditor.class);
+							m_descriptors[descriptors.length + 1] = new PropertyDescriptor("value2", MyBean.class, "getValue2", "setValue2");
+							m_descriptors[descriptors.length + 1].setPropertyEditorClass(MyComboEditor.class);
+						} catch (Throwable e) {
+						}
+					}
+					public PropertyDescriptor[] getPropertyDescriptors() {
+						return m_descriptors;
+					}
+				}"""));
 		waitForAutoBuild();
 		// create panel
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyBean bean = new MyBean();",
-						"    add(bean);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean bean = new MyBean();
+						add(bean);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo bean = panel.getChildrenComponents().get(0);
 		// check text property "value"
@@ -205,51 +192,44 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_EditorForType_exceptionDuringLoadingEditor() throws Exception {
-		setFileContentSrc(
-				"test/MyEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyEditor extends PropertyEditorSupport {",
-						"  public MyEditor() {",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyBean.java",
-				getTestSource(
-						"public class MyBean extends JButton {",
-						"  public void setValue(Object value) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyBeanBeanInfo.java",
-				getTestSource(
-						"import java.beans.*;",
-						"public class MyBeanBeanInfo extends SimpleBeanInfo {",
-						"  private PropertyDescriptor[] m_descriptors;",
-						"  public MyBeanBeanInfo() {",
-						"    try {",
-						"      BeanInfo info = Introspector.getBeanInfo(JButton.class);",
-						"      m_descriptors = new PropertyDescriptor[1];",
-						"      m_descriptors[0] = new PropertyDescriptor('value', MyBean.class, null, 'setValue');",
-						"      m_descriptors[0].setPropertyEditorClass(MyEditor.class);",
-						"    } catch (Throwable e) {",
-						"    }",
-						"  }",
-						"  public PropertyDescriptor[] getPropertyDescriptors() {",
-						"    return m_descriptors;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyEditor extends PropertyEditorSupport {
+					public MyEditor() {
+						throw new IllegalStateException("actual");
+					}
+				}"""));
+		setFileContentSrc("test/MyBean.java", getTestSource("""
+				public class MyBean extends JButton {
+					public void setValue(Object value) {
+					}
+				}"""));
+		setFileContentSrc("test/MyBeanBeanInfo.java",getTestSource("""
+				import java.beans.*;
+				public class MyBeanBeanInfo extends SimpleBeanInfo {
+					private PropertyDescriptor[] m_descriptors;
+					public MyBeanBeanInfo() {
+						try {
+							BeanInfo info = Introspector.getBeanInfo(JButton.class);
+							m_descriptors = new PropertyDescriptor[1];
+							m_descriptors[0] = new PropertyDescriptor("value", MyBean.class, null, "setValue");
+							m_descriptors[0].setPropertyEditorClass(MyEditor.class);
+						} catch (Throwable e) {
+						}
+					}
+					public PropertyDescriptor[] getPropertyDescriptors() {
+						return m_descriptors;
+					}
+				}"""));
 		waitForAutoBuild();
 		// create panel
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyBean bean = new MyBean();",
-						"    add(bean);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean bean = new MyBean();
+						add(bean);
+					}
+				}""");
 		ComponentInfo bean = panel.getChildrenComponents().get(0);
 		// "MyEditor" throws exception, so it is ignored and default "Object" editor used
 		Property property = bean.getPropertyByTitle("value");
@@ -262,28 +242,24 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getEditorForType() throws Exception {
-		setFileContentSrc(
-				"test/MyBean.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyBean {",
-						"  // filler",
-						"}"));
-		setFileContentSrc(
-				"test/MyBeanEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyBeanEditor extends PropertyEditorSupport {",
-						"}"));
+		setFileContentSrc("test/MyBean.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyBean {
+					// filler
+				}"""));
+		setFileContentSrc("test/MyBeanEditor.java",getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyBeanEditor extends PropertyEditorSupport {
+				}"""));
 		waitForAutoBuild();
 		// parse to access class loader
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// check property editor
 		Class<?> beanType = m_lastLoader.loadClass("test.MyBean");
 		PropertyEditor propertyEditor = DescriptionPropertiesHelper.getEditorForType(beanType);
@@ -295,36 +271,29 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getEditorForType_whenParsing() throws Exception {
-		setFileContentSrc(
-				"test/MyBean.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"// filler filler filler",
-						"public class MyBean {",
-						"}"));
-		setFileContentSrc(
-				"test/MyBeanEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyBeanEditor extends PropertyEditorSupport {",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setMyBean(MyBean bean) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyBean.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				// filler filler filler
+				public class MyBean {
+				}"""));
+		setFileContentSrc("test/MyBeanEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyBeanEditor extends PropertyEditorSupport {
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setMyBean(MyBean bean) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse to access class loader
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// check "myBean" property
 		Property property = panel.getPropertyByTitle("myBean");
 		assertNotNull(property);
@@ -339,14 +308,13 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_getAsText_setAsText() throws Exception {
 		prepare_TextPropertyEditor();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyBean button = new MyBean();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean button = new MyBean();
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check text property "value"
@@ -364,14 +332,14 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 				String.class,
 				property,
 				"abc");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyBean button = new MyBean();",
-				"    button.setValue(new MyWrapper('abc'));",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean button = new MyBean();
+						button.setValue(new MyWrapper("abc"));
+						add(button);
+					}
+				}""");
 		assertEquals("abc", getPropertyText(property));
 		// set empty text, so remove value
 		ReflectionUtils.invokeMethod2(
@@ -381,13 +349,13 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 				String.class,
 				property,
 				"");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyBean button = new MyBean();",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean button = new MyBean();
+						add(button);
+					}
+				}""");
 		assertEquals(null, getPropertyText(property));
 	}
 
@@ -396,27 +364,25 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	 * {@link TextPropertyEditor}.
 	 */
 	private void prepare_TextPropertyEditor() throws Exception {
-		setFileContentSrc(
-				"test/MyEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyEditor extends PropertyEditorSupport {",
-						"  public String getAsText() {",
-						"    if (getValue() == null) {",
-						"      return null;",
-						"    }",
-						"    return ((MyWrapper)getValue()).getText();",
-						"  }",
-						"  public void setAsText(String value) {",
-						"    setValue(new MyWrapper(value));",
-						"  }",
-						"  public String getJavaInitializationString() {",
-						"    if (this.getAsText().length() > 0) {",
-						"      return 'new test.MyWrapper(\\'' + getAsText() + '\\')';",
-						"    }",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyEditor extends PropertyEditorSupport {
+					public String getAsText() {
+						if (getValue() == null) {
+							return null;
+						}
+						return ((MyWrapper)getValue()).getText();
+					}
+					public void setAsText(String value) {
+						setValue(new MyWrapper(value));
+					}
+					public String getJavaInitializationString() {
+						if (this.getAsText().length() > 0) {
+							return "new test.MyWrapper(\\"" + getAsText() + "\\")";
+						}
+						return null;
+					}
+				}"""));
 		prepare_MyWrapper_MyBean();
 	}
 
@@ -425,84 +391,76 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	 * {@link ComboPropertyEditor}, with items "111", "222", "333".
 	 */
 	private void prepare_ComboPropertyEditor() throws Exception {
-		setFileContentSrc(
-				"test/MyEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyEditor extends PropertyEditorSupport {",
-						"  public String getAsText() {",
-						"    if (getValue() == null) {",
-						"      return null;",
-						"    }",
-						"    return ((MyWrapper)getValue()).getText();",
-						"  }",
-						"  public void setAsText(String value) {",
-						"    setValue(new MyWrapper(value));",
-						"  }",
-						"  public String getJavaInitializationString() {",
-						"    if (this.getAsText().length() > 0) {",
-						"      return 'new test.MyWrapper(\\'' + getAsText() + '\\')';",
-						"    }",
-						"    return null;",
-						"  }",
-						"  private String[] m_items = {'111', '222', '333'};",
-						"  public String[] getTags() {",
-						"    return m_items;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyEditor extends PropertyEditorSupport {
+					public String getAsText() {
+						if (getValue() == null) {
+							return null;
+						}
+						return ((MyWrapper)getValue()).getText();
+					}
+					public void setAsText(String value) {
+						setValue(new MyWrapper(value));
+					}
+					public String getJavaInitializationString() {
+						if (this.getAsText().length() > 0) {
+							return "new test.MyWrapper(\\"" + getAsText() + "\\")";
+						}
+						return null;
+					}
+					private String[] m_items = {"111", "222", "333"};
+					public String[] getTags() {
+						return m_items;
+					}
+				}"""));
 		prepare_MyWrapper_MyBean();
 	}
 
 	private void prepare_MyWrapper_MyBean() throws Exception {
-		setFileContentSrc(
-				"test/MyWrapper.java",
-				getTestSource(
-						"public class MyWrapper {",
-						"  private final String m_text;",
-						"  public MyWrapper(String text) {",
-						"    m_text = text;",
-						"  }",
-						"  public String getText() {",
-						"    return m_text;",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyBean.java",
-				getTestSource(
-						"public class MyBean extends JButton {",
-						"  private Object m_value;",
-						"  public Object getValue() {",
-						"    return m_value;",
-						"  }",
-						"  public void setValue(Object value) {",
-						"    m_value = value;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyWrapper.java", getTestSource("""
+				public class MyWrapper {
+					private final String m_text;
+					public MyWrapper(String text) {
+						m_text = text;
+					}
+					public String getText() {
+						return m_text;
+					}
+				}"""));
+		setFileContentSrc("test/MyBean.java", getTestSource("""
+				public class MyBean extends JButton {
+					private Object m_value;
+					public Object getValue() {
+						return m_value;
+					}
+					public void setValue(Object value) {
+						m_value = value;
+					}
+				}"""));
 		// create test BeanInfo
-		setFileContentSrc(
-				"test/MyBeanBeanInfo.java",
-				getTestSource(
-						"import java.beans.BeanInfo;",
-						"import java.beans.Introspector;",
-						"import java.beans.SimpleBeanInfo;",
-						"import java.beans.PropertyDescriptor;",
-						"public class MyBeanBeanInfo extends SimpleBeanInfo {",
-						"  private PropertyDescriptor[] m_descriptors;",
-						"  public MyBeanBeanInfo() {",
-						"    try {",
-						"      BeanInfo info = Introspector.getBeanInfo(JButton.class);",
-						"      PropertyDescriptor[] descriptors = info.getPropertyDescriptors();",
-						"      m_descriptors = new PropertyDescriptor[descriptors.length + 1];",
-						"      System.arraycopy(descriptors, 0, m_descriptors, 0, descriptors.length);",
-						"      m_descriptors[descriptors.length] = new PropertyDescriptor('value', MyBean.class, 'getValue', 'setValue');",
-						"      m_descriptors[descriptors.length].setPropertyEditorClass(MyEditor.class);",
-						"    } catch (Throwable e) {",
-						"    }",
-						"  }",
-						"  public PropertyDescriptor[] getPropertyDescriptors() {",
-						"    return m_descriptors;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyBeanBeanInfo.java", getTestSource("""
+				import java.beans.BeanInfo;
+				import java.beans.Introspector;
+				import java.beans.SimpleBeanInfo;
+				import java.beans.PropertyDescriptor;
+				public class MyBeanBeanInfo extends SimpleBeanInfo {
+					private PropertyDescriptor[] m_descriptors;
+					public MyBeanBeanInfo() {
+						try {
+							BeanInfo info = Introspector.getBeanInfo(JButton.class);
+							PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
+							m_descriptors = new PropertyDescriptor[descriptors.length + 1];
+							System.arraycopy(descriptors, 0, m_descriptors, 0, descriptors.length);
+							m_descriptors[descriptors.length] = new PropertyDescriptor("value", MyBean.class, "getValue", "setValue");
+							m_descriptors[descriptors.length].setPropertyEditorClass(MyEditor.class);
+						} catch (Throwable e) {
+						}
+					}
+					public PropertyDescriptor[] getPropertyDescriptors() {
+						return m_descriptors;
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 
@@ -524,14 +482,13 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_IValueSourcePropertyEditor_TextPropertyEditor() throws Exception {
 		prepare_TextPropertyEditor();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyBean button = new MyBean();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean button = new MyBean();
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Property property = button.getPropertyByTitle("value");
@@ -542,14 +499,14 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 		assertEquals("new test.MyWrapper(\"myValue\")", propertyEditor.getValueSource(wrapper));
 		// set value, IValueSourcePropertyEditor should be used
 		property.setValue(wrapper);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyBean button = new MyBean();",
-				"    button.setValue(new MyWrapper('myValue'));",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean button = new MyBean();
+						button.setValue(new MyWrapper("myValue"));
+						add(button);
+					}
+				}""");
 		assertEquals("myValue", getPropertyText(property));
 	}
 
@@ -560,14 +517,13 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_IValueSourcePropertyEditor_ComboPropertyEditor() throws Exception {
 		prepare_ComboPropertyEditor();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyBean button = new MyBean();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean button = new MyBean();
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Property property = button.getPropertyByTitle("value");
@@ -578,14 +534,14 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 		assertEquals("new test.MyWrapper(\"222\")", propertyEditor.getValueSource(wrapper));
 		// set value, IValueSourcePropertyEditor should be used
 		property.setValue(wrapper);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyBean button = new MyBean();",
-				"    button.setValue(new MyWrapper('222'));",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						MyBean button = new MyBean();
+						button.setValue(new MyWrapper("222"));
+						add(button);
+					}
+				}""");
 		assertEquals("222", getPropertyText(property));
 	}
 
@@ -601,20 +557,19 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_PropertyEditorSupport_setSource_1() throws Exception {
 		configure_PropertyEditorSupport_setSource_forText();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      MyBean bean = new MyBean(1);",
-						"      add(bean);",
-						"    }",
-						"    {",
-						"      MyBean bean = new MyBean(2);",
-						"      add(bean);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyBean bean = new MyBean(1);
+							add(bean);
+						}
+						{
+							MyBean bean = new MyBean(2);
+							add(bean);
+						}
+					}
+				}""");
 		panel.refresh();
 		// "foo" for button "1"
 		{
@@ -637,16 +592,15 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_PropertyEditorSupport_setSource_2() throws Exception {
 		configure_PropertyEditorSupport_setSource_forText();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      MyBean bean = new MyBean(5);",
-						"      add(bean);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyBean bean = new MyBean(5);
+							add(bean);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Property property = button.getPropertyByTitle("foo");
@@ -658,16 +612,16 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 				String.class,
 				property,
 				"000");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      MyBean bean = new MyBean(5);",
-				"      bean.setFoo(5);",
-				"      add(bean);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyBean bean = new MyBean(5);
+							bean.setFoo(5);
+							add(bean);
+						}
+					}
+				}""");
 		assertEquals("5", getPropertyText(property));
 	}
 
@@ -677,31 +631,28 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_PropertyEditorSupport_setSource_forCombo() throws Exception {
-		setFileContentSrc(
-				"test/MyEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyEditor extends PropertyEditorSupport {",
-						"  public String[] getTags() {",
-						"    if (getSource() instanceof MyBean) {",
-						"      int value = ((MyBean) getSource()).m_value;",
-						"      return new String[] {'' + (value + 0), '' + (value + 1)};",
-						"    }",
-						"    return new String[] {};",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyEditor extends PropertyEditorSupport {
+					public String[] getTags() {
+						if (getSource() instanceof MyBean) {
+							int value = ((MyBean) getSource()).m_value;
+							return new String[] {"" + (value + 0), "" + (value + 1)};
+						}
+						return new String[] {};
+					}
+				}"""));
 		configure_PropertyEditorSupport_setSource_justBean();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      MyBean bean = new MyBean(5);",
-						"      add(bean);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyBean bean = new MyBean(5);
+							add(bean);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Property property = button.getPropertyByTitle("foo");
@@ -717,62 +668,56 @@ public class BeanPropertyEditorTest extends SwingModelTest {
 	}
 
 	private void configure_PropertyEditorSupport_setSource_forText() throws Exception {
-		setFileContentSrc(
-				"test/MyEditor.java",
-				getTestSource(
-						"import java.beans.PropertyEditorSupport;",
-						"public class MyEditor extends PropertyEditorSupport {",
-						"  public String getAsText() {",
-						"    return '' + ((MyBean) getSource()).m_value;",
-						"  }",
-						"  public void setAsText(String text) {",
-						"    // do nothing",
-						"  }",
-						"  public String getJavaInitializationString() {",
-						"    return '' + ((MyBean) getSource()).m_value;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEditor.java", getTestSource("""
+				import java.beans.PropertyEditorSupport;
+				public class MyEditor extends PropertyEditorSupport {
+					public String getAsText() {
+						return "" + ((MyBean) getSource()).m_value;
+					}
+					public void setAsText(String text) {
+						// do nothing
+					}
+					public String getJavaInitializationString() {
+						return "" + ((MyBean) getSource()).m_value;
+					}
+				}"""));
 		configure_PropertyEditorSupport_setSource_justBean();
 	}
 
 	private void configure_PropertyEditorSupport_setSource_justBean() throws Exception {
-		setFileContentSrc(
-				"test/MyBean.java",
-				getTestSource(
-						"public class MyBean extends JButton {",
-						"  int m_value;",
-						"  private int m_foo;",
-						"  public MyBean(int value) {",
-						"    m_value = value;",
-						"  }",
-						"  public int getFoo() {",
-						"    return m_foo;",
-						"  }",
-						"  public void setFoo(int foo) {",
-						"    m_foo = foo;",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyBeanBeanInfo.java",
-				getTestSource(
-						"import java.beans.*;",
-						"public class MyBeanBeanInfo extends SimpleBeanInfo {",
-						"  private PropertyDescriptor[] m_descriptors;",
-						"  public MyBeanBeanInfo() {",
-						"    try {",
-						"      BeanInfo info = Introspector.getBeanInfo(JButton.class);",
-						"      PropertyDescriptor[] descriptors = info.getPropertyDescriptors();",
-						"      m_descriptors = new PropertyDescriptor[descriptors.length + 1];",
-						"      System.arraycopy(descriptors, 0, m_descriptors, 0, descriptors.length);",
-						"      m_descriptors[descriptors.length] = new PropertyDescriptor('foo', MyBean.class, 'getFoo', 'setFoo');",
-						"      m_descriptors[descriptors.length].setPropertyEditorClass(MyEditor.class);",
-						"    } catch (Throwable e) {",
-						"    }",
-						"  }",
-						"  public PropertyDescriptor[] getPropertyDescriptors() {",
-						"    return m_descriptors;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyBean.java", getTestSource("""
+				public class MyBean extends JButton {
+					int m_value;
+					private int m_foo;
+					public MyBean(int value) {
+						m_value = value;
+					}
+					public int getFoo() {
+						return m_foo;
+					}
+					public void setFoo(int foo) {
+						m_foo = foo;
+					}
+				}"""));
+		setFileContentSrc("test/MyBeanBeanInfo.java", getTestSource("""
+				import java.beans.*;
+				public class MyBeanBeanInfo extends SimpleBeanInfo {
+					private PropertyDescriptor[] m_descriptors;
+					public MyBeanBeanInfo() {
+						try {
+							BeanInfo info = Introspector.getBeanInfo(JButton.class);
+							PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
+							m_descriptors = new PropertyDescriptor[descriptors.length + 1];
+							System.arraycopy(descriptors, 0, m_descriptors, 0, descriptors.length);
+							m_descriptors[descriptors.length] = new PropertyDescriptor("foo", MyBean.class, "getFoo", "setFoo");
+							m_descriptors[descriptors.length].setPropertyEditorClass(MyEditor.class);
+						} catch (Throwable e) {
+						}
+					}
+					public PropertyDescriptor[] getPropertyDescriptors() {
+						return m_descriptors;
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 }
