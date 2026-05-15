@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -65,17 +65,16 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 	@Test
 	public void test_getValue_1() throws Exception {
 		// create panel
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FlowLayout());",
-						"    JButton button = new JButton('Button');",
-						"    add(button);",
-						"    JComboBox combo = new JComboBox();",
-						"    add(combo);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FlowLayout());
+						JButton button = new JButton("Button");
+						add(button);
+						JComboBox combo = new JComboBox();
+						add(combo);
+					}
+				}""");
 		panel.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) panel.getPropertyByTitle("tab order");
@@ -105,19 +104,18 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 				org.eclipse.wb.internal.swing.Activator.getDefault().getBundle(),
 				"org.eclipse.wb.swing.FocusTraversalOnArray");
 		// create panel
-		ContainerInfo panel =
-				parseContainer(
-						"import org.eclipse.wb.swing.FocusTraversalOnArray;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FlowLayout());",
-						"    JButton button = new JButton('Button');",
-						"    add(button);",
-						"    JComboBox combo = new JComboBox();",
-						"    add(combo);",
-						"    setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{combo}));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import org.eclipse.wb.swing.FocusTraversalOnArray;
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FlowLayout());
+						JButton button = new JButton("Button");
+						add(button);
+						JComboBox combo = new JComboBox();
+						add(combo);
+						setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{combo}));
+					}
+				}""");
 		panel.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) panel.getPropertyByTitle("tab order");
@@ -142,17 +140,16 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 	@Test
 	public void test_setValue() throws Exception {
 		// create panel
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FlowLayout());",
-						"    JButton button = new JButton('Button');",
-						"    add(button);",
-						"    JComboBox combo = new JComboBox();",
-						"    add(combo);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FlowLayout());
+						JButton button = new JButton("Button");
+						add(button);
+						JComboBox combo = new JComboBox();
+						add(combo);
+					}
+				}""");
 		panel.refresh();
 		// property
 		TabOrderProperty property = (TabOrderProperty) panel.getPropertyByTitle("tab order");
@@ -167,39 +164,39 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 		property.setValue(newValue);
 		assertTrue(javaProject.findType("org.eclipse.wb.swing.FocusTraversalOnArray") != null);
 		// check source
-		assertEditor(
-				"import org.eclipse.wb.swing.FocusTraversalOnArray;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FlowLayout());",
-				"    JButton button = new JButton('Button');",
-				"    add(button);",
-				"    JComboBox combo = new JComboBox();",
-				"    add(combo);",
-				"    setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{combo}));",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.wb.swing.FocusTraversalOnArray;
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FlowLayout());
+						JButton button = new JButton("Button");
+						add(button);
+						JComboBox combo = new JComboBox();
+						add(combo);
+						setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{combo}));
+					}
+				}""");
 		assertTrue(property.isModified());
 		// add new component
 		FlowLayoutInfo layout = (FlowLayoutInfo) panel.getLayout();
 		ComponentInfo newComponent = createComponent(JLabel.class);
 		layout.add(newComponent, null);
 		// check source
-		assertEditor(
-				"import org.eclipse.wb.swing.FocusTraversalOnArray;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FlowLayout());",
-				"    JButton button = new JButton('Button');",
-				"    add(button);",
-				"    JComboBox combo = new JComboBox();",
-				"    add(combo);",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label);",
-				"    }",
-				"    setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{combo}));",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.wb.swing.FocusTraversalOnArray;
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FlowLayout());
+						JButton button = new JButton("Button");
+						add(button);
+						JComboBox combo = new JComboBox();
+						add(combo);
+						{
+							JLabel label = new JLabel("New label");
+							add(label);
+						}
+						setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{combo}));
+					}
+				}""");
 	}
 }
