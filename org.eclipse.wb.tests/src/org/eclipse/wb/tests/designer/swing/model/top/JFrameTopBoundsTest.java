@@ -22,7 +22,6 @@ import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Window;
@@ -160,13 +159,12 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 	/**
 	 * Using {@link JFrame#pack()}.
 	 */
-	@Disabled
 	@Test
 	public void test_resize_pack() throws Exception {
-		Dimension packSize = new Dimension(132, 89);
+		Dimension packSize = new Dimension(130, 60);
 		Dimension resizeSize = new Dimension(450, 300);
 		ICompilationUnit unit =
-				check_resize("// no size", "pack();", packSize, resizeSize, packSize, "// no size");
+				check_resize("setUndecorated(true);", "pack();", packSize, resizeSize, packSize, "setUndecorated(true);");
 		assert_sameSizeAfterReparse(unit, packSize);
 	}
 
@@ -275,8 +273,16 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 				public class Test extends %s {
 					public Test() {
 						%s
-						getContentPane().add(new JButton("Swing JButton"), BorderLayout.NORTH);
-						getContentPane().add(new Button("AWT Button"), BorderLayout.WEST);
+						{
+							JButton button = new JButton("Swing JButton");
+							button.setPreferredSize(new Dimension(130, 30));
+							getContentPane().add(button, BorderLayout.NORTH);
+						}
+						{
+							Button button = new Button("AWT Button");
+							button.setPreferredSize(new Dimension(130, 30));
+							getContentPane().add(button, BorderLayout.WEST);
+						}
 						%s
 					}
 				}""".formatted(superClassName, oldSizeLine, addSizeString));
@@ -294,8 +300,16 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 				public class Test extends %s {
 					public Test() {
 						%s
-						getContentPane().add(new JButton("Swing JButton"), BorderLayout.NORTH);
-						getContentPane().add(new Button("AWT Button"), BorderLayout.WEST);
+						{
+							JButton button = new JButton("Swing JButton");
+							button.setPreferredSize(new Dimension(130, 30));
+							getContentPane().add(button, BorderLayout.NORTH);
+						}
+						{
+							Button button = new Button("AWT Button");
+							button.setPreferredSize(new Dimension(130, 30));
+							getContentPane().add(button, BorderLayout.WEST);
+						}
 						%s
 					}
 				}""".formatted(superClassName, newSizeLine, addSizeString));
