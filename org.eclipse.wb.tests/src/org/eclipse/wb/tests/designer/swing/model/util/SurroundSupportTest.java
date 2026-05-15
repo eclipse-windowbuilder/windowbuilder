@@ -14,6 +14,7 @@ package org.eclipse.wb.tests.designer.swing.model.util;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
+import org.eclipse.wb.internal.swing.model.CoordinateUtils;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.FlowLayoutInfo;
@@ -22,23 +23,26 @@ import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.internal.swing.model.util.surround.SwingSurroundSupport;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
+import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.border.TitledBorder;
 
 /**
  * Tests for {@link SwingSurroundSupport}.
@@ -316,7 +320,6 @@ public class SurroundSupportTest extends SwingModelTest {
 	/**
 	 * Single {@link ComponentInfo} on {@link AbsoluteLayoutInfo}.
 	 */
-	@Disabled
 	@Test
 	public void test_absolute_singleControl_onTitledJPanel() throws Exception {
 		ContainerInfo panel = parseContainer("""
@@ -332,10 +335,15 @@ public class SurroundSupportTest extends SwingModelTest {
 				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
+
+		TitledBorder border = BorderFactory.createTitledBorder("JPanel title");
+		Insets insets = CoordinateUtils.get(border.getBorderInsets(button.getComponent()));
+
 		// run action
 		runSurround("javax.swing.JPanel (border)", button);
-		String expectedPanelBounds = "44, 28, 112, 79";
-		String expectedButtonBounds = "6, 22, 100, 50";
+		Rectangle r = new Rectangle(50, 50, 100, 50).expand(insets);
+		String expectedPanelBounds = "%d, %d, %d, %d".formatted(r.x, r.y, r.width, r.height);
+		String expectedButtonBounds = "%d, %d, 100, 50".formatted(insets.left, insets.top);
 		assertEditor("""
 				public class Test extends JPanel {
 					public Test() {
