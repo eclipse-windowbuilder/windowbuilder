@@ -40,7 +40,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Component;
@@ -2355,7 +2354,6 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	/**
 	 * We should not change alignments when paste existing panel.
 	 */
-	@Disabled
 	@Test
 	public void test_clipboard_disableAutoAlignment() throws Exception {
 		ContainerInfo panel = parseContainer("""
@@ -2416,28 +2414,28 @@ public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 							}
 						}
 						{
-							JPanel panel = new JPanel();
-							add(panel);
+							JPanel inner = new JPanel();
+							add(inner);
 							GridBagLayout gridBagLayout = new GridBagLayout();
 							gridBagLayout.columnWidths = new int[]{0, 0, 0};
 							gridBagLayout.rowHeights = new int[]{0, 0};
 							gridBagLayout.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 							gridBagLayout.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-							panel.setLayout(gridBagLayout);
+							inner.setLayout(gridBagLayout);
 							{
 								JLabel label = new JLabel();
 								GridBagConstraints gbc = new GridBagConstraints();
 								gbc.insets = new Insets(0, 0, 0, 5);
 								gbc.gridx = 0;
 								gbc.gridy = 0;
-								panel.add(label, gbc);
+								inner.add(label, gbc);
 							}
 							{
 								JTextField textField = new JTextField();
 								GridBagConstraints gbc = new GridBagConstraints();
 								gbc.gridx = 1;
 								gbc.gridy = 0;
-								panel.add(textField, gbc);
+								inner.add(textField, gbc);
 							}
 						}
 					}
