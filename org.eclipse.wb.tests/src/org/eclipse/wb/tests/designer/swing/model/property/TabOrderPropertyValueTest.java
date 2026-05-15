@@ -23,7 +23,6 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.jdt.core.IJavaProject;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -96,7 +95,6 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 		assertSame(components.get(1), tabOrderInfo.getOrderedInfos().get(1));
 	}
 
-	@Disabled
 	@Test
 	public void test_getValue_2() throws Exception {
 		ProjectUtils.ensureResourceType(
@@ -136,7 +134,6 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 		assertSame(components.get(1), tabOrderInfo.getOrderedInfos().get(0));
 	}
 
-	@Disabled
 	@Test
 	public void test_setValue() throws Exception {
 		// create panel
@@ -185,6 +182,7 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 		assertEditor("""
 				import org.eclipse.wb.swing.FocusTraversalOnArray;
 				public class Test extends JPanel {
+					private JLabel label;
 					public Test() {
 						setLayout(new FlowLayout());
 						JButton button = new JButton("Button");
@@ -192,10 +190,10 @@ public class TabOrderPropertyValueTest extends SwingModelTest {
 						JComboBox combo = new JComboBox();
 						add(combo);
 						{
-							JLabel label = new JLabel("New label");
+							label = new JLabel("New label");
 							add(label);
 						}
-						setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{combo}));
+						setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{combo, label}));
 					}
 				}""");
 	}
