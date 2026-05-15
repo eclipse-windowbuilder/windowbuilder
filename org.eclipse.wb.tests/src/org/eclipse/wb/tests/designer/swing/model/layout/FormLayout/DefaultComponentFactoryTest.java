@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -57,22 +57,21 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_createLabel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import com.jgoodies.forms.factories.DefaultComponentFactory;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JLabel label = DefaultComponentFactory.getInstance().createLabel('A');",
-						"      add(label);",
-						"    }",
-						"  }",
-						"  // filler filler filler",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(label)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {opaque} {local-unique: label} {/DefaultComponentFactory.getInstance().createLabel('A')/ /add(label)/}");
+		ContainerInfo panel = parseContainer("""
+				import com.jgoodies.forms.factories.DefaultComponentFactory;
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel label = DefaultComponentFactory.getInstance().createLabel("A");
+							add(label);
+						}
+					}
+					// filler filler filler
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(label)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{opaque} {local-unique: label} {/DefaultComponentFactory.getInstance().createLabel("A")/ /add(label)/}""");
 		panel.refresh();
 		ComponentInfo component = panel.getChildrenComponents().get(0);
 		// CreationSupport
@@ -82,27 +81,27 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		assertTrue(JavaInfoUtils.canReparent(component));
 		// "text" property
 		component.getPropertyByTitle("text").setValue("B");
-		assertEditor(
-				"import com.jgoodies.forms.factories.DefaultComponentFactory;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JLabel label = DefaultComponentFactory.getInstance().createLabel('B');",
-				"      add(label);",
-				"    }",
-				"  }",
-				"  // filler filler filler",
-				"}");
+		assertEditor("""
+				import com.jgoodies.forms.factories.DefaultComponentFactory;
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel label = DefaultComponentFactory.getInstance().createLabel("B");
+							add(label);
+						}
+					}
+					// filler filler filler
+				}""");
 		// delete
 		assertTrue(component.canDelete());
 		component.delete();
-		assertEditor(
-				"import com.jgoodies.forms.factories.DefaultComponentFactory;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"  // filler filler filler",
-				"}");
+		assertEditor("""
+				import com.jgoodies.forms.factories.DefaultComponentFactory;
+				public class Test extends JPanel {
+					public Test() {
+					}
+					// filler filler filler
+				}""");
 	}
 
 	/**
@@ -116,13 +115,12 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		do_projectCreate();
 		m_useFormsImports = false;
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ToolEntryInfo entry = new DefaultComponentFactoryCreateLabelEntryInfo();
 		assertEquals(entry.getClass().getName(), entry.getId());
 		assertNotNull(entry.getIcon());
@@ -148,17 +146,17 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		}
 		// add object
 		((FlowLayoutInfo) panel.getLayout()).add(newComponent, null);
-		assertEditor(
-				"import com.jgoodies.forms.factories.DefaultComponentFactory;",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JLabel label = DefaultComponentFactory.getInstance().createLabel('New JGoodies label');",
-				"      add(label);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import com.jgoodies.forms.factories.DefaultComponentFactory;
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel label = DefaultComponentFactory.getInstance().createLabel("New JGoodies label");
+							add(label);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -171,37 +169,36 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_createTitle() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"import com.jgoodies.forms.factories.DefaultComponentFactory;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JLabel label = DefaultComponentFactory.getInstance().createTitle('A');",
-						"      add(label);",
-						"    }",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(label)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {opaque} {local-unique: label} {/DefaultComponentFactory.getInstance().createTitle('A')/ /add(label)/}");
+		ContainerInfo panel = parseContainer("""
+				import com.jgoodies.forms.factories.DefaultComponentFactory;
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel label = DefaultComponentFactory.getInstance().createTitle("A");
+							add(label);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(label)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{opaque} {local-unique: label} {/DefaultComponentFactory.getInstance().createTitle("A")/ /add(label)/}""");
 		panel.refresh();
 		ComponentInfo component = panel.getChildrenComponents().get(0);
 		// CreationSupport
 		assertInstanceOf(DefaultComponentFactoryCreationSupport.class, component.getCreationSupport());
 		// "text" property
 		component.getPropertyByTitle("text").setValue("B");
-		assertEditor(
-				"import com.jgoodies.forms.factories.DefaultComponentFactory;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JLabel label = DefaultComponentFactory.getInstance().createTitle('B');",
-				"      add(label);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import com.jgoodies.forms.factories.DefaultComponentFactory;
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel label = DefaultComponentFactory.getInstance().createTitle("B");
+							add(label);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -210,13 +207,12 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		do_projectCreate();
 		m_useFormsImports = false;
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ToolEntryInfo entry = new DefaultComponentFactoryCreateTitleEntryInfo();
 		assertEquals(entry.getClass().getName(), entry.getId());
 		assertNotNull(entry.getIcon());
@@ -233,16 +229,16 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 				newComponent.getCreationSupport());
 		// add object
 		((FlowLayoutInfo) panel.getLayout()).add(newComponent, null);
-		assertEditor(
-				"import com.jgoodies.forms.factories.DefaultComponentFactory;",
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JLabel label = DefaultComponentFactory.getInstance().createTitle('New JGoodies title');",
-				"      add(label);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import com.jgoodies.forms.factories.DefaultComponentFactory;
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel label = DefaultComponentFactory.getInstance().createTitle("New JGoodies title");
+							add(label);
+						}
+					}
+				}""");
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,16 +59,15 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_Text() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		// create
 		ExecutionUtils.run(panel, () -> {
 			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
@@ -76,20 +75,20 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        ColumnSpec.decode('default:grow'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, '1, 1, fill, default');",
-				"      textField.setColumns(10);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JTextField textField = new JTextField();
+							add(textField, "1, 1, fill, default");
+							textField.setColumns(10);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -97,16 +96,15 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_Text_disabled() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		// create
 		Activator.getDefault().getPreferenceStore().setValue(IPreferenceConstants.P_ENABLE_GRAB, false);
 		ExecutionUtils.run(panel, () -> {
@@ -115,20 +113,20 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,}));",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, '1, 1');",
-				"      textField.setColumns(10);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JTextField textField = new JTextField();
+							add(textField, "1, 1");
+							textField.setColumns(10);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -136,16 +134,15 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_Table() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}""");
 		// create
 		ExecutionUtils.run(panel, () -> {
 			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
@@ -153,19 +150,19 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        ColumnSpec.decode('default:grow'),},",
-				"      new RowSpec[] {",
-				"        RowSpec.decode('default:grow'),}));",
-				"    {",
-				"      JTable table = new JTable();",
-				"      add(table, '1, 1, fill, fill');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								RowSpec.decode("default:grow"),}));
+						{
+							JTable table = new JTable();
+							add(table, "1, 1, fill, fill");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -175,26 +172,23 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_Table_onImplicit() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		final ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// create
 		ExecutionUtils.run(panel, () -> {
 			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
@@ -202,16 +196,16 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    {",
-				"      JTable table = new JTable();",
-				"      add(table, '1, 1, fill, fill');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						{
+							JTable table = new JTable();
+							add(table, "1, 1, fill, fill");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -220,22 +214,21 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_LabelBeforeText() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        ColumnSpec.decode('default:grow'),},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        RowSpec.decode('default:grow'),}));",
-						"    {",
-						"      JTextField textField = new JTextField();",
-						"      add(textField, '2, 1, fill, default');",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JTextField textField = new JTextField();
+							add(textField, "2, 1, fill, default");
+						}
+					}
+				}""");
 		// create
 		ExecutionUtils.run(panel, () -> {
 			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
@@ -243,25 +236,25 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        ColumnSpec.decode('default:grow'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        RowSpec.decode('default:grow'),}));",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label, '1, 1, right, default');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, '2, 1, fill, default');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "1, 1, right, default");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "2, 1, fill, default");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -271,23 +264,22 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_LabelBeforeText_gap() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        ColumnSpec.decode('default:grow'),},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        RowSpec.decode('default:grow'),}));",
-						"    {",
-						"      JTextField textField = new JTextField();",
-						"      add(textField, '3, 1, fill, default');",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JTextField textField = new JTextField();
+							add(textField, "3, 1, fill, default");
+						}
+					}
+				}""");
 		// create
 		ExecutionUtils.run(panel, () -> {
 			FormLayoutInfo layout = (FormLayoutInfo) panel.getLayout();
@@ -295,26 +287,26 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        ColumnSpec.decode('default:grow'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        RowSpec.decode('default:grow'),}));",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label, '1, 1, right, default');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, '3, 1, fill, default');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "1, 1, right, default");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "3, 1, fill, default");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -322,22 +314,21 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_LabelBeforeText_disabled() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        ColumnSpec.decode('default:grow'),},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        RowSpec.decode('default:grow'),}));",
-						"    {",
-						"      JTextField textField = new JTextField();",
-						"      add(textField, '2, 1, fill, default');",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JTextField textField = new JTextField();
+							add(textField, "2, 1, fill, default");
+						}
+					}
+				}""");
 		// create
 		Activator.getDefault().getPreferenceStore().setValue(
 				IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT,
@@ -348,25 +339,25 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 1, false, 1, false);
 		});
 		// check source
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        ColumnSpec.decode('default:grow'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        RowSpec.decode('default:grow'),}));",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label, '1, 1');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, '2, 1, fill, default');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "1, 1");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "2, 1, fill, default");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -375,22 +366,21 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_TextAfterLabel() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        ColumnSpec.decode('default:grow'),},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        RowSpec.decode('default:grow'),}));",
-						"    {",
-						"      JLabel label = new JLabel('New label');",
-						"      add(label, '1, 1, right, default');",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "1, 1, right, default");
+						}
+					}
+				}""");
 		panel.refresh();
 		// add new component
 		ExecutionUtils.run(panel, () -> {
@@ -399,26 +389,26 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 2, false, 1, false);
 		});
 		// check result
-		assertEditor(
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        ColumnSpec.decode('default:grow'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        RowSpec.decode('default:grow'),}));",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label, '1, 1, right, default');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, '2, 1, fill, default');",
-				"      textField.setColumns(10);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "1, 1, right, default");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "2, 1, fill, default");
+							textField.setColumns(10);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -428,23 +418,22 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 	 */
 	@Test
 	public void test_CREATE_TextAfterLabel_gap() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        ColumnSpec.decode('default:grow'),},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        RowSpec.decode('default:grow'),}));",
-						"    {",
-						"      JLabel label = new JLabel('New label');",
-						"      add(label, '1, 1, right, default');",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "1, 1, right, default");
+						}
+					}
+				}""");
 		panel.refresh();
 		// add new component
 		ExecutionUtils.run(panel, () -> {
@@ -453,27 +442,27 @@ public class FormLayoutParametersTest extends AbstractFormLayoutTest {
 			layout.command_CREATE(newComponent, 3, false, 1, false);
 		});
 		// check result
-		assertEditor(
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new FormLayout(new ColumnSpec[] {",
-				"        FormSpecs.DEFAULT_COLSPEC,",
-				"        FormSpecs.RELATED_GAP_COLSPEC,",
-				"        ColumnSpec.decode('default:grow'),},",
-				"      new RowSpec[] {",
-				"        FormSpecs.DEFAULT_ROWSPEC,",
-				"        RowSpec.decode('default:grow'),}));",
-				"    {",
-				"      JLabel label = new JLabel('New label');",
-				"      add(label, '1, 1, right, default');",
-				"    }",
-				"    {",
-				"      JTextField textField = new JTextField();",
-				"      add(textField, '3, 1, fill, default');",
-				"      textField.setColumns(10);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								ColumnSpec.decode("default:grow"),},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,
+								RowSpec.decode("default:grow"),}));
+						{
+							JLabel label = new JLabel("New label");
+							add(label, "1, 1, right, default");
+						}
+						{
+							JTextField textField = new JTextField();
+							add(textField, "3, 1, fill, default");
+							textField.setColumns(10);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

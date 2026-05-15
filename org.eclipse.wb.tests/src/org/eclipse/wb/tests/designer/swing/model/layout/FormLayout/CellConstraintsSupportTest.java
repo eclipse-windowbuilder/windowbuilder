@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,23 +53,22 @@ public class CellConstraintsSupportTest extends AbstractFormLayoutTest {
 		super.setUp();
 		//
 		if (m_testProject != null) {
-			m_panel =
-					parseContainer(
-							"public class Test extends JPanel {",
-							"  public Test() {",
-							"    setLayout(new FormLayout(new ColumnSpec[] {",
-							"        FormSpecs.RELATED_GAP_COLSPEC,",
-							"        FormSpecs.DEFAULT_COLSPEC,},",
-							"      new RowSpec[] {",
-							"        FormSpecs.RELATED_GAP_ROWSPEC,",
-							"        FormSpecs.DEFAULT_ROWSPEC,",
-							"        FormSpecs.DEFAULT_ROWSPEC,}));",
-							"    {",
-							"      JButton button = new JButton();",
-							"      add(button, '1, 2');",
-							"    }",
-							"  }",
-							"}");
+			m_panel = parseContainer("""
+					public class Test extends JPanel {
+						public Test() {
+							setLayout(new FormLayout(new ColumnSpec[] {
+									FormSpecs.RELATED_GAP_COLSPEC,
+									FormSpecs.DEFAULT_COLSPEC,},
+								new RowSpec[] {
+									FormSpecs.RELATED_GAP_ROWSPEC,
+									FormSpecs.DEFAULT_ROWSPEC,
+									FormSpecs.DEFAULT_ROWSPEC,}));
+							{
+								JButton button = new JButton();
+								add(button, "1, 2");
+							}
+						}
+					}""");
 			m_panel.refresh();
 			//
 			m_button = m_panel.getChildrenComponents().get(0);
