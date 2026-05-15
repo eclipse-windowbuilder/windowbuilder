@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.swing.model.util;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.MenuIntersector;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
@@ -66,13 +65,12 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_emptySelection() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		//
 		assertNoSurroundManager(panel, Collections.emptyList());
@@ -83,13 +81,12 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_notComponent() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		LayoutInfo layout = panel.getLayout();
 		//
@@ -101,17 +98,16 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_notSameParent() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"      button.setBounds(10, 20, 100, 50);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+							button.setBounds(10, 20, 100, 50);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
@@ -128,33 +124,32 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_flow_singleComponent() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// run action
 		runSurround_JPanel(button);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      add(panel);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        panel.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel panel = new JPanel();
+							add(panel);
+							{
+								JButton button = new JButton();
+								panel.add(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -162,34 +157,33 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_flow_singleComponent_onTitledJPanel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// run action
 		runSurround("javax.swing.JPanel (border)", button);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      panel.setBorder(new TitledBorder(null, 'JPanel title', TitledBorder.LEADING, TitledBorder.TOP, null, null));",
-				"      add(panel);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        panel.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel panel = new JPanel();
+							panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+							add(panel);
+							{
+								JButton button = new JButton();
+								panel.add(button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -197,50 +191,49 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_flow_twoComponents() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"    {",
-						"      JButton button_3 = new JButton();",
-						"      add(button_3);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+						{
+							JButton button_3 = new JButton();
+							add(button_3);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// run action
 		runSurround_JPanel(button_1, button_2);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      add(panel);",
-				"      {",
-				"        JButton button_1 = new JButton();",
-				"        panel.add(button_1);",
-				"      }",
-				"      {",
-				"        JButton button_2 = new JButton();",
-				"        panel.add(button_2);",
-				"      }",
-				"    }",
-				"    {",
-				"      JButton button_3 = new JButton();",
-				"      add(button_3);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel panel = new JPanel();
+							add(panel);
+							{
+								JButton button_1 = new JButton();
+								panel.add(button_1);
+							}
+							{
+								JButton button_2 = new JButton();
+								panel.add(button_2);
+							}
+						}
+						{
+							JButton button_3 = new JButton();
+							add(button_3);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -248,24 +241,23 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_flow_notAdjacentComponents() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"    {",
-						"      JButton button_3 = new JButton();",
-						"      add(button_3);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+						{
+							JButton button_3 = new JButton();
+							add(button_3);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_3 = panel.getChildrenComponents().get(2);
@@ -283,41 +275,40 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_absolute_singleControl() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"      button.setBounds(10, 20, 100, 50);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							add(button);
+							button.setBounds(10, 20, 100, 50);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// "button" is on absolute layout, so has "Bounds" property
 		assertNotNull(button.getPropertyByTitle("Bounds"));
 		// run action
 		runSurround_JPanel(button);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      panel.setBounds(10, 20, 100, 50);",
-				"      add(panel);",
-				"      panel.setLayout(null);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        button.setBounds(0, 0, 100, 50);",
-				"        panel.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel panel = new JPanel();
+							panel.setBounds(10, 20, 100, 50);
+							add(panel);
+							panel.setLayout(null);
+							{
+								JButton button = new JButton();
+								button.setBounds(0, 0, 100, 50);
+								panel.add(button);
+							}
+						}
+					}
+				}""");
 		// "button" is on new absolute layout, so still has "Bounds" property
 		assertNotNull(button.getPropertyByTitle("Bounds"));
 	}
@@ -328,42 +319,41 @@ public class SurroundSupportTest extends SwingModelTest {
 	@Disabled
 	@Test
 	public void test_absolute_singleControl_onTitledJPanel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"      button.setBounds(50, 50, 100, 50);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton button = new JButton();
+							add(button);
+							button.setBounds(50, 50, 100, 50);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// run action
 		runSurround("javax.swing.JPanel (border)", button);
 		String expectedPanelBounds = "44, 28, 112, 79";
 		String expectedButtonBounds = "6, 22, 100, 50";
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      panel.setBorder(new TitledBorder(null, 'JPanel title', TitledBorder.LEADING, TitledBorder.TOP, null, null));",
-				"      panel.setBounds(" + expectedPanelBounds + ");",
-				"      add(panel);",
-				"      panel.setLayout(null);",
-				"      {",
-				"        JButton button = new JButton();",
-				"        button.setBounds(" + expectedButtonBounds + ");",
-				"        panel.add(button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel panel = new JPanel();
+							panel.setBorder(new TitledBorder(null, "JPanel title", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+							panel.setBounds(%s);
+							add(panel);
+							panel.setLayout(null);
+							{
+								JButton button = new JButton();
+								button.setBounds(%s);
+								panel.add(button);
+							}
+						}
+					}
+				}""".formatted(expectedPanelBounds, expectedButtonBounds));
 	}
 
 	/**
@@ -371,60 +361,59 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_absolute_twoControls() throws Exception {
-		ContainerInfo shell =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"      button_1.setBounds(150, 50, 100, 20);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"      button_2.setBounds(10, 10, 100, 20);",
-						"    }",
-						"    {",
-						"      JButton button_3 = new JButton();",
-						"      add(button_3);",
-						"      button_3.setBounds(160, 100, 110, 50);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo shell = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+							button_1.setBounds(150, 50, 100, 20);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.setBounds(10, 10, 100, 20);
+						}
+						{
+							JButton button_3 = new JButton();
+							add(button_3);
+							button_3.setBounds(160, 100, 110, 50);
+						}
+					}
+				}""");
 		shell.refresh();
 		ComponentInfo button_1 = shell.getChildrenComponents().get(0);
 		ComponentInfo button_3 = shell.getChildrenComponents().get(2);
 		// run action
 		runSurround_JPanel(button_1, button_3);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      JPanel panel = new JPanel();",
-				"      panel.setBounds(150, 50, 120, 100);",
-				"      add(panel);",
-				"      panel.setLayout(null);",
-				"      {",
-				"        JButton button_1 = new JButton();",
-				"        button_1.setBounds(0, 0, 100, 20);",
-				"        panel.add(button_1);",
-				"      }",
-				"      {",
-				"        JButton button_3 = new JButton();",
-				"        button_3.setBounds(10, 50, 110, 50);",
-				"        panel.add(button_3);",
-				"      }",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      button_2.setBounds(10, 10, 100, 20);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						{
+							JPanel panel = new JPanel();
+							panel.setBounds(150, 50, 120, 100);
+							add(panel);
+							panel.setLayout(null);
+							{
+								JButton button_1 = new JButton();
+								button_1.setBounds(0, 0, 100, 20);
+								panel.add(button_1);
+							}
+							{
+								JButton button_3 = new JButton();
+								button_3.setBounds(10, 50, 110, 50);
+								panel.add(button_3);
+							}
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.setBounds(10, 10, 100, 20);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -438,33 +427,32 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JSplitPane_oneComponent() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		// run action
 		runSurround("javax.swing.JSplitPane", button_1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JSplitPane splitPane = new JSplitPane();",
-				"      add(splitPane);",
-				"      {",
-				"        JButton button_1 = new JButton();",
-				"        splitPane.setLeftComponent(button_1);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JSplitPane splitPane = new JSplitPane();
+							add(splitPane);
+							{
+								JButton button_1 = new JButton();
+								splitPane.setLeftComponent(button_1);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -473,42 +461,41 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JSplitPane_twoComponents() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// run action
 		runSurround("javax.swing.JSplitPane", button_1, button_2);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JSplitPane splitPane = new JSplitPane();",
-				"      add(splitPane);",
-				"      {",
-				"        JButton button_1 = new JButton();",
-				"        splitPane.setLeftComponent(button_1);",
-				"      }",
-				"      {",
-				"        JButton button_2 = new JButton();",
-				"        splitPane.setRightComponent(button_2);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JSplitPane splitPane = new JSplitPane();
+							add(splitPane);
+							{
+								JButton button_1 = new JButton();
+								splitPane.setLeftComponent(button_1);
+							}
+							{
+								JButton button_2 = new JButton();
+								splitPane.setRightComponent(button_2);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -517,24 +504,23 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JSplitPane_threeComponents() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"    {",
-						"      JButton button_3 = new JButton();",
-						"      add(button_3);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+						{
+							JButton button_3 = new JButton();
+							add(button_3);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
@@ -554,33 +540,32 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JScrollPane_oneComponent() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		// run action
 		runSurround("javax.swing.JScrollPane", button_1);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JScrollPane scrollPane = new JScrollPane();",
-				"      add(scrollPane);",
-				"      {",
-				"        JButton button_1 = new JButton();",
-				"        scrollPane.setViewportView(button_1);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JScrollPane scrollPane = new JScrollPane();
+							add(scrollPane);
+							{
+								JButton button_1 = new JButton();
+								scrollPane.setViewportView(button_1);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -589,46 +574,45 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JScrollPane_twoComponents() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// run action
 		runSurround("javax.swing.JScrollPane", button_1, button_2);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JScrollPane scrollPane = new JScrollPane();",
-				"      add(scrollPane);",
-				"      {",
-				"        JPanel panel = new JPanel();",
-				"        scrollPane.setViewportView(panel);",
-				"        {",
-				"          JButton button_1 = new JButton();",
-				"          panel.add(button_1);",
-				"        }",
-				"        {",
-				"          JButton button_2 = new JButton();",
-				"          panel.add(button_2);",
-				"        }",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JScrollPane scrollPane = new JScrollPane();
+							add(scrollPane);
+							{
+								JPanel panel = new JPanel();
+								scrollPane.setViewportView(panel);
+								{
+									JButton button_1 = new JButton();
+									panel.add(button_1);
+								}
+								{
+									JButton button_2 = new JButton();
+									panel.add(button_2);
+								}
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -642,42 +626,41 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JTabbedPane_twoComponents() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// run action
 		runSurround("javax.swing.JTabbedPane", button_1, button_2);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);",
-				"      add(tabbedPane);",
-				"      {",
-				"        JButton button_1 = new JButton();",
-				"        tabbedPane.addTab('New tab', null, button_1, null);",
-				"      }",
-				"      {",
-				"        JButton button_2 = new JButton();",
-				"        tabbedPane.addTab('New tab', null, button_2, null);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+							add(tabbedPane);
+							{
+								JButton button_1 = new JButton();
+								tabbedPane.addTab("New tab", null, button_1, null);
+							}
+							{
+								JButton button_2 = new JButton();
+								tabbedPane.addTab("New tab", null, button_2, null);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -690,34 +673,33 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_FormLayout_0() throws Exception {
-		ContainerInfo panel =
-				parseTestSourceJGFL(new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"    {",
-						"      JButton button_22 = new JButton();",
-						"      add(button_22, \"2, 2\");",
-						"    }",
-						"    {",
-						"      JButton button_BAD = new JButton();",
-						"      add(button_BAD, \"4, 2\");",
-						"    }",
-						"    {",
-						"      JButton button_44 = new JButton();",
-						"      add(button_44, \"4, 4\");",
-						"    }",
-						"  }",
-				"}"});
+		ContainerInfo panel = parseTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_22 = new JButton();
+							add(button_22, "2, 2");
+						}
+						{
+							JButton button_BAD = new JButton();
+							add(button_BAD, "4, 2");
+						}
+						{
+							JButton button_44 = new JButton();
+							add(button_44, "4, 4");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_22 = getButtons(panel).get(0);
 		ComponentInfo button_44 = getButtons(panel).get(2);
@@ -730,42 +712,40 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_FormLayout_1() throws Exception {
-		ContainerInfo panel =
-				parseTestSourceJGFL(new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"    {",
-						"      JTable table = new JTable();",
-						"      add(table, \"1, 1\");",
-						"    }",
-						"  }",
-				"}"});
+		ContainerInfo panel = parseTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JTable table = new JTable();
+							add(table, "1, 1");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo table = panel.getChildrenComponents().get(0);
 		// run action
 		runSurround("javax.swing.JScrollPane", table);
-		assertEditor(
-				getTestSourceJGFL(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"    {",
-						"      JScrollPane scrollPane = new JScrollPane();",
-						"      add(scrollPane, \"1, 1, fill, fill\");",
-						"      {",
-						"        JTable table = new JTable();",
-						"        scrollPane.setViewportView(table);",
-						"      }",
-						"    }",
-						"  }",
-						"}"),
+		assertEditor(getTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JScrollPane scrollPane = new JScrollPane();
+							add(scrollPane, "1, 1, fill, fill");
+							{
+								JTable table = new JTable();
+								scrollPane.setViewportView(table);
+							}
+						}
+					}
+				}"""),
 				m_lastEditor);
 	}
 
@@ -774,63 +754,61 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_FormLayout_2() throws Exception {
-		ContainerInfo panel =
-				parseTestSourceJGFL(new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.UNRELATED_GAP_COLSPEC,",
-						"        FormSpecs.PREF_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"    {",
-						"      JButton button_22 = new JButton();",
-						"      add(button_22, \"2, 2\");",
-						"    }",
-						"    {",
-						"      JButton button_42 = new JButton();",
-						"      add(button_42, \"4, 2\");",
-						"    }",
-						"  }",
-				"}"});
+		ContainerInfo panel = parseTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.UNRELATED_GAP_COLSPEC,
+								FormSpecs.PREF_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JButton button_22 = new JButton();
+							add(button_22, "2, 2");
+						}
+						{
+							JButton button_42 = new JButton();
+							add(button_42, "4, 2");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_22 = getButtons(panel).get(0);
 		ComponentInfo button_42 = getButtons(panel).get(1);
 		// run action
 		runSurround_JPanel(button_22, button_42);
-		assertEditor(
-				getTestSourceJGFL(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"    {",
-						"      JPanel panel = new JPanel();",
-						"      add(panel, \"2, 2, fill, fill\");",
-						"      panel.setLayout(new FormLayout(new ColumnSpec[] {",
-						"          FormSpecs.DEFAULT_COLSPEC,",
-						"          FormSpecs.UNRELATED_GAP_COLSPEC,",
-						"          FormSpecs.PREF_COLSPEC,},",
-						"        new RowSpec[] {",
-						"          FormSpecs.DEFAULT_ROWSPEC,}));",
-						"      {",
-						"        JButton button_22 = new JButton();",
-						"        panel.add(button_22, \"1, 1\");",
-						"      }",
-						"      {",
-						"        JButton button_42 = new JButton();",
-						"        panel.add(button_42, \"3, 1\");",
-						"      }",
-						"    }",
-						"  }",
-						"}"),
+		assertEditor(getTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JPanel panel = new JPanel();
+							add(panel, "2, 2, fill, fill");
+							panel.setLayout(new FormLayout(new ColumnSpec[] {
+									FormSpecs.DEFAULT_COLSPEC,
+									FormSpecs.UNRELATED_GAP_COLSPEC,
+									FormSpecs.PREF_COLSPEC,},
+								new RowSpec[] {
+									FormSpecs.DEFAULT_ROWSPEC,}));
+							{
+								JButton button_22 = new JButton();
+								panel.add(button_22, "1, 1");
+							}
+							{
+								JButton button_42 = new JButton();
+								panel.add(button_42, "3, 1");
+							}
+						}
+					}
+				}"""),
 				m_lastEditor);
 	}
 
@@ -839,67 +817,65 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_FormLayout_3() throws Exception {
-		ContainerInfo panel =
-				parseTestSourceJGFL(new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.UNRELATED_GAP_COLSPEC,",
-						"        FormSpecs.PREF_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.UNRELATED_GAP_ROWSPEC,",
-						"        FormSpecs.PREF_ROWSPEC,}));",
-						"    {",
-						"      JButton button_22 = new JButton();",
-						"      add(button_22, \"2, 2\");",
-						"    }",
-						"    {",
-						"      JButton button_44 = new JButton();",
-						"      add(button_44, \"4, 4\");",
-						"    }",
-						"  }",
-				"}"});
+		ContainerInfo panel = parseTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.UNRELATED_GAP_COLSPEC,
+								FormSpecs.PREF_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.PREF_ROWSPEC,}));
+						{
+							JButton button_22 = new JButton();
+							add(button_22, "2, 2");
+						}
+						{
+							JButton button_44 = new JButton();
+							add(button_44, "4, 4");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_22 = getButtons(panel).get(0);
 		ComponentInfo button_44 = getButtons(panel).get(1);
 		// run action
 		runSurround_JPanel(button_22, button_44);
-		assertEditor(
-				getTestSourceJGFL(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"    {",
-						"      JPanel panel = new JPanel();",
-						"      add(panel, \"2, 2, fill, fill\");",
-						"      panel.setLayout(new FormLayout(new ColumnSpec[] {",
-						"          FormSpecs.DEFAULT_COLSPEC,",
-						"          FormSpecs.UNRELATED_GAP_COLSPEC,",
-						"          FormSpecs.PREF_COLSPEC,},",
-						"        new RowSpec[] {",
-						"          FormSpecs.DEFAULT_ROWSPEC,",
-						"          FormSpecs.UNRELATED_GAP_ROWSPEC,",
-						"          FormSpecs.PREF_ROWSPEC,}));",
-						"      {",
-						"        JButton button_22 = new JButton();",
-						"        panel.add(button_22, \"1, 1\");",
-						"      }",
-						"      {",
-						"        JButton button_44 = new JButton();",
-						"        panel.add(button_44, \"3, 3\");",
-						"      }",
-						"    }",
-						"  }",
-						"}"),
+		assertEditor(getTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JPanel panel = new JPanel();
+							add(panel, "2, 2, fill, fill");
+							panel.setLayout(new FormLayout(new ColumnSpec[] {
+									FormSpecs.DEFAULT_COLSPEC,
+									FormSpecs.UNRELATED_GAP_COLSPEC,
+									FormSpecs.PREF_COLSPEC,},
+								new RowSpec[] {
+									FormSpecs.DEFAULT_ROWSPEC,
+									FormSpecs.UNRELATED_GAP_ROWSPEC,
+									FormSpecs.PREF_ROWSPEC,}));
+							{
+								JButton button_22 = new JButton();
+								panel.add(button_22, "1, 1");
+							}
+							{
+								JButton button_44 = new JButton();
+								panel.add(button_44, "3, 3");
+							}
+						}
+					}
+				}"""),
 				m_lastEditor);
 	}
 
@@ -908,76 +884,74 @@ public class SurroundSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_FormLayout_4() throws Exception {
-		ContainerInfo panel =
-				parseTestSourceJGFL(new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,",
-						"        FormSpecs.UNRELATED_GAP_COLSPEC,",
-						"        FormSpecs.PREF_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,",
-						"        FormSpecs.UNRELATED_GAP_ROWSPEC,",
-						"        FormSpecs.PREF_ROWSPEC,}));",
-						"    {",
-						"      JButton button_22 = new JButton();",
-						"      add(button_22, \"2, 2\");",
-						"    }",
-						"    {",
-						"      JButton button_42 = new JButton();",
-						"      add(button_42, \"4, 2\");",
-						"    }",
-						"    {",
-						"      JButton button_24 = new JButton();",
-						"      add(button_24, \"2, 4, 3, 1, fill, bottom\");",
-						"    }",
-						"  }",
-				"}"});
+		ContainerInfo panel = parseTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,
+								FormSpecs.UNRELATED_GAP_COLSPEC,
+								FormSpecs.PREF_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,
+								FormSpecs.UNRELATED_GAP_ROWSPEC,
+								FormSpecs.PREF_ROWSPEC,}));
+						{
+							JButton button_22 = new JButton();
+							add(button_22, "2, 2");
+						}
+						{
+							JButton button_42 = new JButton();
+							add(button_42, "4, 2");
+						}
+						{
+							JButton button_24 = new JButton();
+							add(button_24, "2, 4, 3, 1, fill, bottom");
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_22 = getButtons(panel).get(0);
 		ComponentInfo button_42 = getButtons(panel).get(1);
 		ComponentInfo button_24 = getButtons(panel).get(2);
 		// run action
 		runSurround_JPanel(button_22, button_42, button_24);
-		assertEditor(
-				getTestSourceJGFL(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(new FormLayout(new ColumnSpec[] {",
-						"        FormSpecs.RELATED_GAP_COLSPEC,",
-						"        FormSpecs.DEFAULT_COLSPEC,},",
-						"      new RowSpec[] {",
-						"        FormSpecs.RELATED_GAP_ROWSPEC,",
-						"        FormSpecs.DEFAULT_ROWSPEC,}));",
-						"    {",
-						"      JPanel panel = new JPanel();",
-						"      add(panel, \"2, 2, fill, fill\");",
-						"      panel.setLayout(new FormLayout(new ColumnSpec[] {",
-						"          FormSpecs.DEFAULT_COLSPEC,",
-						"          FormSpecs.UNRELATED_GAP_COLSPEC,",
-						"          FormSpecs.PREF_COLSPEC,},",
-						"        new RowSpec[] {",
-						"          FormSpecs.DEFAULT_ROWSPEC,",
-						"          FormSpecs.UNRELATED_GAP_ROWSPEC,",
-						"          FormSpecs.PREF_ROWSPEC,}));",
-						"      {",
-						"        JButton button_22 = new JButton();",
-						"        panel.add(button_22, \"1, 1\");",
-						"      }",
-						"      {",
-						"        JButton button_42 = new JButton();",
-						"        panel.add(button_42, \"3, 1\");",
-						"      }",
-						"      {",
-						"        JButton button_24 = new JButton();",
-						"        panel.add(button_24, \"1, 3, 3, 1, fill, bottom\");",
-						"      }",
-						"    }",
-						"  }",
-						"}"),
+		assertEditor(getTestSourceJGFL("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new FormLayout(new ColumnSpec[] {
+								FormSpecs.RELATED_GAP_COLSPEC,
+								FormSpecs.DEFAULT_COLSPEC,},
+							new RowSpec[] {
+								FormSpecs.RELATED_GAP_ROWSPEC,
+								FormSpecs.DEFAULT_ROWSPEC,}));
+						{
+							JPanel panel = new JPanel();
+							add(panel, "2, 2, fill, fill");
+							panel.setLayout(new FormLayout(new ColumnSpec[] {
+									FormSpecs.DEFAULT_COLSPEC,
+									FormSpecs.UNRELATED_GAP_COLSPEC,
+									FormSpecs.PREF_COLSPEC,},
+								new RowSpec[] {
+									FormSpecs.DEFAULT_ROWSPEC,
+									FormSpecs.UNRELATED_GAP_ROWSPEC,
+									FormSpecs.PREF_ROWSPEC,}));
+							{
+								JButton button_22 = new JButton();
+								panel.add(button_22, "1, 1");
+							}
+							{
+								JButton button_42 = new JButton();
+								panel.add(button_42, "3, 1");
+							}
+							{
+								JButton button_24 = new JButton();
+								panel.add(button_24, "1, 3, 3, 1, fill, bottom");
+							}
+						}
+					}
+				}"""),
 				m_lastEditor);
 	}
 
@@ -986,25 +960,27 @@ public class SurroundSupportTest extends SwingModelTest {
 	// JGoodies FormLayout utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private String getTestSourceJGFL(String... lines) throws Exception {
-		lines =
-				CodeUtils.join(new String[]{
-						"import com.jgoodies.forms.layout.*;",
-				"import com.jgoodies.forms.factories.*;"}, lines);
+	private String getTestSourceJGFL(String lines) throws Exception {
+		lines = """
+				import com.jgoodies.forms.layout.*;
+				import com.jgoodies.forms.factories.*;
+				%s
+				""".formatted(lines);
 		return getTestSource(lines);
 	}
 
-	private ContainerInfo parseTestSourceJGFL(String[] lines) throws Exception {
+	private ContainerInfo parseTestSourceJGFL(String lines) throws Exception {
 		// ensure FormLayout
 		{
 			m_testProject.addPlugin("com.jgoodies.common");
 			m_testProject.addPlugin("com.jgoodies.forms");
 		}
 		// do parse
-		lines =
-				CodeUtils.join(new String[]{
-						"import com.jgoodies.forms.layout.*;",
-				"import com.jgoodies.forms.factories.*;"}, lines);
+		lines = """
+				import com.jgoodies.forms.layout.*;
+				import com.jgoodies.forms.factories.*;
+				%s
+				""".formatted(lines);
 		return parseContainer(lines);
 	}
 
