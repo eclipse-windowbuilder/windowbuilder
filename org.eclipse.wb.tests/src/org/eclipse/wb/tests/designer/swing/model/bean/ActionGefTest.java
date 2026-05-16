@@ -236,7 +236,6 @@ public class ActionGefTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_JToolBar_ActionExternalEntryInfo() throws Exception {
-		assumeFalse(EnvironmentUtils.IS_WINDOWS);
 		createExternalAction();
 		final ContainerInfo panel = openContainer("""
 				public class Test extends JPanel {
@@ -253,6 +252,7 @@ public class ActionGefTest extends SwingGefTest {
 					{new: java.awt.BorderLayout} {empty} {/setLayout(new BorderLayout())/}
 					{new: javax.swing.JToolBar} {local-unique: toolBar} {/new JToolBar()/ /add(toolBar, BorderLayout.NORTH)/}""");
 		panel.refresh();
+		waitEventLoop(100);
 		JToolBarInfo toolBar = (JToolBarInfo) panel.getChildrenComponents().get(0);
 		// load "action" tool
 		new UiContext().executeAndCheck(new FailableRunnable<>() {
@@ -262,7 +262,6 @@ public class ActionGefTest extends SwingGefTest {
 				entry.initialize(m_viewerCanvas, panel);
 				Tool tool = entry.createTool();
 				m_viewerCanvas.getEditDomain().setActiveTool(tool);
-				waitEventLoop(0);
 			}
 		}, new FailableConsumer<>() {
 			@Override
