@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -70,13 +70,12 @@ public class PropertyCategoryProvidersTest extends SwingModelTest {
 	@Test
 	public void test_forcedByUser() throws Exception {
 		PropertyCategoryProvider provider = PropertyCategoryProviders.forcedByUser();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("background");
 		// no forced initially
 		assertSame(null, provider.getCategory(property));
@@ -152,13 +151,12 @@ public class PropertyCategoryProvidersTest extends SwingModelTest {
 	@Test
 	public void test_def() throws Exception {
 		PropertyCategoryProvider provider = PropertyCategoryProviders.def();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("background");
 		// NORMAL initially
 		assertSame(PropertyCategory.NORMAL, provider.getCategory(property));

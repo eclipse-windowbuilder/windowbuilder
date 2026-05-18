@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -76,24 +76,23 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_value() throws Exception {
 		prepareDoublePanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		//
 		Property property = panel.getPropertyByTitle("foo");
 		setTextEditorText(property, "12.3");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo(12.3);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(12.3);
+					}
+				}""");
 	}
 
 	/**
@@ -102,24 +101,23 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_null() throws Exception {
 		prepareDoublePanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		//
 		Property property = panel.getPropertyByTitle("foo");
 		setTextEditorText(property, "null");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo((Double) null);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo((Double) null);
+					}
+				}""");
 	}
 
 	/**
@@ -128,24 +126,23 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_removeValue_emptyString() throws Exception {
 		prepareDoublePanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(12.3);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(12.3);
+					}
+				}""");
 		panel.refresh();
 		//
 		Property property = panel.getPropertyByTitle("foo");
 		setTextEditorText(property, "");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -154,24 +151,23 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_removeValue_whitespaceString() throws Exception {
 		prepareDoublePanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(12.3);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(12.3);
+					}
+				}""");
 		panel.refresh();
 		//
 		Property property = panel.getPropertyByTitle("foo");
 		setTextEditorText(property, " ");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -180,13 +176,12 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_invalidValue() throws Exception {
 		prepareDoublePanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		//
 		final Property property = panel.getPropertyByTitle("foo");
@@ -202,22 +197,20 @@ public class DoubleObjectPropertyEditorTest extends AbstractTextPropertyEditorTe
 				shell.button("OK").click();
 			}
 		});
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	private void prepareDoublePanel() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setFoo(Double foo) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setFoo(Double foo) {
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 }

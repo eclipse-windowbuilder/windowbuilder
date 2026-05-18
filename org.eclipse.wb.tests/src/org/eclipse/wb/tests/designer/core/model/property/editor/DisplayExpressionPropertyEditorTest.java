@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,13 +34,12 @@ public class DisplayExpressionPropertyEditorTest extends SwingModelTest {
 	public void test_noExpression() throws Exception {
 		createMyPanel();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		// prepare "myFoo" property
 		Property fooProperty = panel.getPropertyByTitle("myFoo");
@@ -54,13 +53,12 @@ public class DisplayExpressionPropertyEditorTest extends SwingModelTest {
 	public void test_hasExpression() throws Exception {
 		createMyPanel();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    foo(1 + 2);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						foo(1 + 2);
+					}
+				}""");
 		panel.refresh();
 		// prepare "myFoo" property
 		Property fooProperty = panel.getPropertyByTitle("myFoo");
@@ -71,27 +69,23 @@ public class DisplayExpressionPropertyEditorTest extends SwingModelTest {
 	}
 
 	private void createMyPanel() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void foo(int value) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <methods>",
-						"      <method name='foo'>",
-						"        <parameter type='int'>",
-						"          <editor id='displayExpression'/>",
-						"        </parameter>",
-						"      </method>",
-						"  </methods>",
-						"  <method-single-property title='myFoo' method='foo(int)'/>",
-						"</component>"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void foo(int value) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<methods>
+							<method name="foo">
+								<parameter type="int">
+									<editor id="displayExpression"/>
+								</parameter>
+							</method>
+					</methods>
+					<method-single-property title="myFoo" method="foo(int)"/>
+				</component>""");
 		waitForAutoBuild();
 	}
 }

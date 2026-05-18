@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,25 +39,23 @@ public class ComponentClassPropertyTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_noForNullClass() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		assertNull(panel.getLayout().getPropertyByTitle("Class"));
 	}
 
 	@Test
 	public void test_property() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// property
 		ComponentClassProperty property = (ComponentClassProperty) panel.getPropertyByTitle("Class");
 		assertNotNull(property);

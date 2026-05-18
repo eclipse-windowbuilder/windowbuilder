@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -63,13 +63,12 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getGetter() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setEnabled(false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("enabled");
 		SetterAccessor accessor = (SetterAccessor) getGenericPropertyAccessors(property).get(0);
 		// check
@@ -103,13 +102,12 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_IAccessibleExpressionAccessor() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("enabled");
 		SetterAccessor accessor = (SetterAccessor) getGenericPropertyAccessors(property).get(0);
 		// check that IAccessibleExpressionAccessor is available
@@ -126,13 +124,12 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_PropertyTooltipProvider() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("enabled");
 		SetterAccessor accessor = (SetterAccessor) getGenericPropertyAccessors(property).get(0);
 		// ignore arbitrary adapter
@@ -155,25 +152,24 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_remove() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setEnabled(false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("enabled");
 		SetterAccessor accessor = (SetterAccessor) getGenericPropertyAccessors(property).get(0);
 		// check
 		assertFalse(((BooleanLiteral) accessor.getExpression(panel)).booleanValue());
 		accessor.setExpression(panel, null);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -181,24 +177,23 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_sameSource() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setEnabled(false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("enabled");
 		ExpressionAccessor setterAccessor = getGenericPropertyAccessors(property).get(0);
 		// check
 		assertFalse(((BooleanLiteral) setterAccessor.getExpression(panel)).booleanValue());
 		setterAccessor.setExpression(panel, "false");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setEnabled(false);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 	}
 
 	/**
@@ -206,24 +201,23 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_newSource() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setEnabled(true);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(true);
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("enabled");
 		ExpressionAccessor setterAccessor = getGenericPropertyAccessors(property).get(0);
 		// check
 		assertTrue(((BooleanLiteral) setterAccessor.getExpression(panel)).booleanValue());
 		setterAccessor.setExpression(panel, "false");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setEnabled(false);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 	}
 
 	/**
@@ -231,25 +225,24 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_newInvocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("enabled");
 		ExpressionAccessor setterAccessor = getGenericPropertyAccessors(property).get(0);
 		// check
 		assertNull(setterAccessor.getExpression(panel));
 		setterAccessor.setExpression(panel, "false");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setEnabled(false);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 	}
 
 	/**
@@ -257,26 +250,23 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_replaceComponent() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setFoo(String o) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setFoo(String o) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  private final JButton button_1 = new JButton();",
-						"  private final JButton button_2 = new JButton();",
-						"  public Test() {",
-						"    setFoo(button_1.getName());",
-						"    add(button_1);",
-						"    add(button_2);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					private final JButton button_1 = new JButton();
+					private final JButton button_2 = new JButton();
+					public Test() {
+						setFoo(button_1.getName());
+						add(button_1);
+						add(button_2);
+					}
+				}""");
 		ComponentInfo button_1 = getJavaInfoByName("button_1");
 		ComponentInfo button_2 = getJavaInfoByName("button_2");
 		// prepare ExpressionAccessor
@@ -296,16 +286,16 @@ public class SetterAccessorTest extends SwingModelTest {
 			String source = TemplateUtils.format("{0}.getName()", button_2);
 			setterAccessor.setExpression(panel, source);
 		}
-		assertEditor(
-				"public class Test extends MyPanel {",
-				"  private final JButton button_1 = new JButton();",
-				"  private final JButton button_2 = new JButton();",
-				"  public Test() {",
-				"    setFoo(button_2.getName());",
-				"    add(button_1);",
-				"    add(button_2);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends MyPanel {
+					private final JButton button_1 = new JButton();
+					private final JButton button_2 = new JButton();
+					public Test() {
+						setFoo(button_2.getName());
+						add(button_1);
+						add(button_2);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -318,13 +308,12 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_exposable() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// "enabled"
 		{
 			GenericProperty property = (GenericProperty) panel.getPropertyByTitle("enabled");
@@ -356,23 +345,20 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_defaultValue() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton(String s) {",
-						"    setText(s);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton(String s) {
+						setText(s);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyButton('A'));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyButton("A"));
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Property constructorTextProperty = PropertyUtils.getByPath(button, "Constructor/s");
@@ -382,12 +368,12 @@ public class SetterAccessorTest extends SwingModelTest {
 		assertEquals("A", textProperty.getValue());
 		// set new value in constructor
 		constructorTextProperty.setValue("B");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    add(new MyButton('B'));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyButton("B"));
+					}
+				}""");
 		assertEquals("B", constructorTextProperty.getValue());
 		assertEquals("B", textProperty.getValue());
 	}
@@ -398,29 +384,24 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_noDefaultValue() throws Exception {
-		setFileContentSrc(
-				"test/MyComponent.java",
-				getTestSource(
-						"public class MyComponent extends JComponent {",
-						"  public MyComponent() {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyComponent.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property-tag name='enabled' tag='noDefaultValue' value='true'/>",
-						"</component>"));
+		setFileContentSrc("test/MyComponent.java", getTestSource("""
+				public class MyComponent extends JComponent {
+					public MyComponent() {
+					}
+				}"""));
+		setFileContentSrc("test/MyComponent.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property-tag name="enabled" tag="noDefaultValue" value="true"/>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyComponent());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyComponent());
+					}
+				}""");
 		ComponentInfo myComponent = panel.getChildrenComponents().get(0);
 		// "panel" has default value for "enabled"
 		{
@@ -448,34 +429,29 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_noDefaultValuesForThis() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JComponent {",
-						"  public int getFoo() {",
-						"    return 555;",
-						"  }",
-						"  public void setFoo(int foo) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='noDefaultValuesForThis'>true</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JComponent {
+					public int getFoo() {
+						return 555;
+					}
+					public void setFoo(int foo) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="noDefaultValuesForThis">true</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// we disabled default values, so "foo" has no default value
 		assertSame(Property.UNKNOWN_VALUE, panel.getPropertyByTitle("foo").getValue());
 	}
@@ -486,25 +462,22 @@ public class SetterAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_exceptionInDefaultValue() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public int getFoo() {",
-						"    throw new Error();",
-						"  }",
-						"  public void setFoo(int foo) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public int getFoo() {
+						throw new Error();
+					}
+					public void setFoo(int foo) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// we throw exception in getFoo(), so "foo" has no default value
 		assertSame(Property.UNKNOWN_VALUE, panel.getPropertyByTitle("foo").getValue());
 	}

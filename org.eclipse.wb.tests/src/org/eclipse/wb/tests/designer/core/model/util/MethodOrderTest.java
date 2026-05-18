@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -1780,60 +1780,60 @@ public class MethodOrderTest extends SwingModelTest {
 	private void configureProject_afterChildren() throws Exception {
 		{
 			// ItemPanel1
-			setJavaContentSrc("test", "ItemPanel1", new String[]{
-					"public class ItemPanel1 extends JPanel {",
-					"  public ItemPanel1(JPanel parent){",
-					"    parent.add(this);",
-					"  }",
-			"}"}, new String[]{
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-					"  <creation>",
-					"    <source><![CDATA[new test.ItemPanel1(%parent%)]]></source>",
-					"  </creation>",
-					"  <constructors>",
-					"    <constructor>",
-					"      <parameter type='javax.swing.JPanel' parent='true'/>",
-					"    </constructor>",
-					"  </constructors>",
-			"</component>"});
+			setJavaContentSrc("test", "ItemPanel1", """
+					public class ItemPanel1 extends JPanel {
+						public ItemPanel1(JPanel parent){
+							parent.add(this);
+						}
+					}""", """
+					<?xml version="1.0" encoding="UTF-8"?>
+					<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+						<creation>
+							<source><![CDATA[new test.ItemPanel1(%parent%)]]></source>
+						</creation>
+						<constructors>
+							<constructor>
+								<parameter type="javax.swing.JPanel" parent="true"/>
+							</constructor>
+						</constructors>
+					</component>""");
 		}
 		{
 			// ItemPanel2
-			setJavaContentSrc("test", "ItemPanel2", new String[]{
-					"public class ItemPanel2 extends JPanel {",
-					"  public ItemPanel2(JPanel parent){",
-					"    parent.add(this);",
-					"  }",
-			"}"}, new String[]{
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-					"  <creation>",
-					"    <source><![CDATA[new test.ItemPanel2(%parent%)]]></source>",
-					"  </creation>",
-					"  <constructors>",
-					"    <constructor>",
-					"      <parameter type='javax.swing.JPanel' parent='true'/>",
-					"    </constructor>",
-					"  </constructors>",
-			"</component>"});
+			setJavaContentSrc("test", "ItemPanel2", """
+					public class ItemPanel2 extends JPanel {
+						public ItemPanel2(JPanel parent){
+							parent.add(this);
+						}
+					}""", """
+					<?xml version="1.0" encoding="UTF-8"?>
+					<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+						<creation>
+							<source><![CDATA[new test.ItemPanel2(%parent%)]]></source>
+						</creation>
+						<constructors>
+							<constructor>
+								<parameter type="javax.swing.JPanel" parent="true"/>
+							</constructor>
+						</constructors>
+					</component>""");
 		}
 		{
 			// ContainerPanel
-			setJavaContentSrc("test", "ContainerPanel", new String[]{
-					"public class ContainerPanel extends JPanel {",
-					"  public void setProperty_1(int value){",
-					"  }",
-					"  public void setProperty_2(int value){",
-					"  }",
-			"}"}, new String[]{
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-					"  <method-order>",
-					"    <method signature='setProperty_1(int)' order='last'/>",
-					"    <method signature='setProperty_2(int)' order='afterChildren test.ItemPanel1'/>",
-					"  </method-order>",
-			"</component>"});
+			setJavaContentSrc("test", "ContainerPanel", """
+					public class ContainerPanel extends JPanel {
+						public void setProperty_1(int value){
+						}
+						public void setProperty_2(int value){
+						}
+					}""", """
+					<?xml version="1.0" encoding="UTF-8"?>
+					<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+						<method-order>
+							<method signature="setProperty_1(int)" order="last"/>
+							<method signature="setProperty_2(int)" order="afterChildren test.ItemPanel1"/>
+						</method-order>
+					</component>""");
 		}
 	}
 
@@ -2063,55 +2063,55 @@ public class MethodOrderTest extends SwingModelTest {
 	private void configureProject_afterParentChildren() throws Exception {
 		{
 			// ItemPanel
-			setJavaContentSrc("test", "ItemPanel", new String[]{
-					"public class ItemPanel extends JPanel {",
-					"  public ItemPanel(JPanel parent){",
-					"    parent.add(this);",
-					"  }",
-			"}"}, new String[]{
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-					"  <creation>",
-					"    <source><![CDATA[new test.ItemPanel(%parent%)]]></source>",
-					"  </creation>",
-					"  <constructors>",
-					"    <constructor>",
-					"      <parameter type='javax.swing.JPanel' parent='true'/>",
-					"    </constructor>",
-					"  </constructors>",
-			"</component>"});
+			setJavaContentSrc("test", "ItemPanel", """
+					public class ItemPanel extends JPanel {
+						public ItemPanel(JPanel parent){
+							parent.add(this);
+						}
+					}""", """
+					<?xml version="1.0" encoding="UTF-8"?>
+					<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					  <creation>
+					    <source><![CDATA[new test.ItemPanel(%parent%)]]></source>
+					  </creation>
+					  <constructors>
+					    <constructor>
+					      <parameter type="javax.swing.JPanel" parent="true"/>
+					    </constructor>
+					  </constructors>
+					</component>""");
 		}
 		{
 			// PropertyItem
-			setJavaContentSrc("test", "PropertyItem", new String[]{
-					"public class PropertyItem extends Component {",
-					"  public PropertyItem(){",
-					"  }",
-					"  public void setValue(int value){",
-					"  }",
-			"}"}, new String[]{
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-					"  <method-order>",
-					"    <method signature='setValue(int)' order='afterParentChildren test.ItemPanel'/>",
-					"  </method-order>",
-			"</component>"});
+			setJavaContentSrc("test", "PropertyItem", """
+					public class PropertyItem extends Component {
+						public PropertyItem(){
+						}
+						public void setValue(int value){
+						}
+					}""", """
+					<?xml version="1.0" encoding="UTF-8"?>
+					<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+						<method-order>
+							<method signature="setValue(int)" order="afterParentChildren test.ItemPanel"/>
+						</method-order>
+					</component>""");
 		}
 		{
 			// ContainerPanel
-			setJavaContentSrc("test", "ContainerPanel", new String[]{
-					"public class ContainerPanel extends JPanel {",
-					"  public void setProperty(test.PropertyItem value){",
-					"  }",
-			"}"}, new String[]{
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-					"  <methods>",
-					"    <method name='setProperty'>",
-					"      <parameter type='test.PropertyItem' child='true'/>",
-					"    </method>",
-					"  </methods>",
-			"</component>"});
+			setJavaContentSrc("test", "ContainerPanel", """
+					public class ContainerPanel extends JPanel {
+						public void setProperty(test.PropertyItem value){
+						}
+					}""", """
+					<?xml version="1.0" encoding="UTF-8"?>
+					<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+						<methods>
+							<method name="setProperty">
+								<parameter type="test.PropertyItem" child="true"/>
+							</method>
+						</methods>
+					</component>""");
 		}
 		waitForAutoBuild();
 	}

@@ -771,20 +771,20 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getSource_forCreationId() throws Exception {
-		setJavaContentSrc("test", "MyButton", new String[]{
-				"public class MyButton extends JButton {",
-				"  public MyButton(boolean b) {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <creation>",
-				"    <source><![CDATA[new test.MyButton(false)]]></source>",
-				"  </creation>",
-				"  <creation id='true'>",
-				"    <source><![CDATA[new test.MyButton(true)]]></source>",
-				"  </creation>",
-		"</component>"});
+		setJavaContentSrc("test", "MyButton", """
+				public class MyButton extends JButton {
+					public MyButton(boolean b) {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<creation>
+					<source><![CDATA[new test.MyButton(false)]]></source>
+					</creation>
+					<creation id="true">
+						<source><![CDATA[new test.MyButton(true)]]></source>
+					</creation>
+				</component>""");
 		String[] lines = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
 		// parse
 		parseContainer(lines);
@@ -809,11 +809,11 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getSource_forSource() throws Exception {
-		setJavaContentSrc("test", "MyButton", new String[]{
-				"public class MyButton extends JButton {",
-				"  public MyButton(boolean b) {",
-				"  }",
-		"}"}, null);
+		setJavaContentSrc("test", "MyButton", """
+				public class MyButton extends JButton {
+					public MyButton(boolean b) {
+					}
+				}""", null);
 		String[] lines = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
 		// parse
 		parseContainer(lines);
@@ -827,18 +827,18 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 
 	@Test
 	public void test_CREATE_noInvocations() throws Exception {
-		setJavaContentSrc("test", "MyButton", new String[]{
-				"public class MyButton extends JButton {",
-				"  public MyButton() {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <creation>",
-				"    <source><![CDATA[new test.MyButton()]]></source>",
-				"    <invocation signature='setEnabled(boolean)'><![CDATA[false]]></invocation>",
-				"  </creation>",
-		"</component>"});
+		setJavaContentSrc("test", "MyButton", """
+				public class MyButton extends JButton {
+					public MyButton() {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<creation>
+						<source><![CDATA[new test.MyButton()]]></source>
+						<invocation signature="setEnabled(boolean)"><![CDATA[false]]></invocation>
+					</creation>
+				</component>""");
 		String[] lines1 = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
 		// parse
 		ContainerInfo panel = parseContainer(lines1);
@@ -879,18 +879,18 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 
 	@Test
 	public void test_CREATE_addInvocations() throws Exception {
-		setJavaContentSrc("test", "MyButton", new String[]{
-				"public class MyButton extends JButton {",
-				"  public MyButton() {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <creation>",
-				"    <source><![CDATA[new test.MyButton()]]></source>",
-				"    <invocation signature='setEnabled(boolean)'><![CDATA[false]]></invocation>",
-				"  </creation>",
-		"</component>"});
+		setJavaContentSrc("test", "MyButton", """
+				public class MyButton extends JButton {
+					public MyButton() {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<creation>
+						<source><![CDATA[new test.MyButton()]]></source>
+					<invocation signature="setEnabled(boolean)"><![CDATA[false]]></invocation>
+					</creation>
+				</component>""");
 		String[] lines1 = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
 		// parse
 		ContainerInfo panel = parseContainer(lines1);
@@ -918,19 +918,19 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 
 	@Test
 	public void test_template_index() throws Exception {
-		setJavaContentSrc("test", "MyButton", new String[]{
-				"public class MyButton extends JButton {",
-				"  public MyButton(String value) {",
-				"  }",
-				"  public void setValue(String value) {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <creation>",
-				"    <source><![CDATA[new test.MyButton(\"value_%index%\")]]></source>",
-				"  </creation>",
-		"</component>"});
+		setJavaContentSrc("test", "MyButton", """
+				public class MyButton extends JButton {
+					public MyButton(String value) {
+					}
+					public void setValue(String value) {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<creation>
+						<source><![CDATA[new test.MyButton(\"value_%index%\")]]></source>
+					</creation>
+				</component>""");
 		String[] lines1 = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
 		// parse
 		ContainerInfo panel = parseContainer(lines1);
@@ -1020,22 +1020,22 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getAssociation_hasParent() throws Exception {
-		setJavaContentSrc("test", "MyButton", new String[]{
-				"public class MyButton extends JButton {",
-				"  public MyButton(JPanel parent) {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <creation>",
-				"    <source><![CDATA[new test.MyButton(%parent%)]]></source>",
-				"  </creation>",
-				"  <constructors>",
-				"    <constructor>",
-				"      <parameter type='javax.swing.JPanel' parent='true'/>",
-				"    </constructor>",
-				"  </constructors>",
-		"</component>"});
+		setJavaContentSrc("test", "MyButton", """
+				public class MyButton extends JButton {
+					public MyButton(JPanel parent) {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<creation>
+						<source><![CDATA[new test.MyButton(%parent%)]]></source>
+					</creation>
+					<constructors>
+						<constructor>
+							<parameter type="javax.swing.JPanel" parent="true"/>
+						</constructor>
+					</constructors>
+				</component>""");
 		String[] lines = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
 		// parse
 		parseContainer(lines);

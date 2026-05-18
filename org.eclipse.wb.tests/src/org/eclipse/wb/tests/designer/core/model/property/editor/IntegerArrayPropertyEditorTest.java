@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -72,24 +72,23 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_setValue() throws Exception {
 		prepareIntegerPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		//
 		Property property = panel.getPropertyByTitle("foo");
 		setTextEditorText(property, "1 2 3");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo(new int[] {1, 2, 3});",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(new int[] {1, 2, 3});
+					}
+				}""");
 	}
 
 	/**
@@ -98,24 +97,23 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_removeValue_emptyString() throws Exception {
 		prepareIntegerPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(1, 2, 3);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(1, 2, 3);
+					}
+				}""");
 		panel.refresh();
 		//
 		Property property = panel.getPropertyByTitle("foo");
 		setTextEditorText(property, "");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -124,24 +122,23 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_removeValue_whitespaceString() throws Exception {
 		prepareIntegerPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(1, 2, 3);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(1, 2, 3);
+					}
+				}""");
 		panel.refresh();
 		//
 		Property property = panel.getPropertyByTitle("foo");
 		setTextEditorText(property, " ");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -150,13 +147,12 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 	@Test
 	public void test_setEditorText_invalidValue() throws Exception {
 		prepareIntegerPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		//
 		final Property property = panel.getPropertyByTitle("foo");
@@ -172,22 +168,20 @@ public class IntegerArrayPropertyEditorTest extends AbstractTextPropertyEditorTe
 				shell.button("OK").click();
 			}
 		});
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	private void prepareIntegerPanel() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setFoo(int... foo) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setFoo(int... foo) {
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -481,18 +481,18 @@ public class JavaInfoUtilsTest extends SwingModelTest {
 
 	@Test
 	public void test_getParameters() throws Exception {
-		setJavaContentSrc("test", "MyPanel", new String[]{
-				"public class MyPanel extends JPanel {",
-				"  public MyPanel() {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <parameters>",
-				"    <parameter name='test.parameter.1'>value_1</parameter>",
-				"    <parameter name='test.parameter.2'>1000</parameter>",
-				"  </parameters>",
-		"</component>"});
+		setJavaContentSrc("test", "MyPanel", """
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="test.parameter.1">value_1</parameter>
+						<parameter name="test.parameter.2">1000</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// parse
 		ContainerInfo panel =

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,14 +39,12 @@ public class FactoryAccessorTest extends SwingModelTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject != null) {
-			setFileContentSrc(
-					"test/StaticFactory.java",
-					getTestSource(
-							"public final class StaticFactory {",
-							"  public static JButton createButton(String text) {",
-							"    return new JButton(text);",
-							"  }",
-							"}"));
+			setFileContentSrc("test/StaticFactory.java", getTestSource("""
+					public final class StaticFactory {
+						public static JButton createButton(String text) {
+							return new JButton(text);
+						}
+					}"""));
 			waitForAutoBuild();
 		}
 	}
@@ -58,13 +56,12 @@ public class FactoryAccessorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(StaticFactory.createButton('text'));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(StaticFactory.createButton("text"));
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
 		FactoryAccessor accessor = (FactoryAccessor) getGenericPropertyAccessors(property).get(1);
@@ -79,24 +76,23 @@ public class FactoryAccessorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setExpression_newValue() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(StaticFactory.createButton('text'));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(StaticFactory.createButton("text"));
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
 		FactoryAccessor accessor = (FactoryAccessor) getGenericPropertyAccessors(property).get(1);
 		// check
 		assertTrue(accessor.setExpression(button, "\"new text\""));
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    add(StaticFactory.createButton('new text'));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						add(StaticFactory.createButton("new text"));
+					}
+				}""");
 	}
 
 	/**
@@ -104,24 +100,23 @@ public class FactoryAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_nullValue() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(StaticFactory.createButton('text'));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(StaticFactory.createButton("text"));
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		GenericProperty property = (GenericProperty) button.getPropertyByTitle("text");
 		FactoryAccessor accessor = (FactoryAccessor) getGenericPropertyAccessors(property).get(1);
 		// set "null", default value is used
 		assertTrue(accessor.setExpression(button, null));
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    add(StaticFactory.createButton((String) null));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						add(StaticFactory.createButton((String) null));
+					}
+				}""");
 	}
 
 	/**
@@ -129,23 +124,22 @@ public class FactoryAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_nullValue_noDefault() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(StaticFactory.createButton('text'));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(StaticFactory.createButton("text"));
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// create accessor
 		FactoryAccessor accessor = new FactoryAccessor(0, null);
 		// set "null", but no default value, so ignored
 		assertFalse(accessor.setExpression(button, null));
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    add(StaticFactory.createButton('text'));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						add(StaticFactory.createButton("text"));
+					}
+				}""");
 	}
 }

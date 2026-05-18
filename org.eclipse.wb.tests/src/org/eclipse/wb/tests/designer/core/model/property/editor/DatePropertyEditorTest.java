@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,14 +64,13 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 	@Test
 	public void test_setValue_default() throws Exception {
 		configureContents(false);
-		ContainerInfo container =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    DateComponent component = new DateComponent();",
-						"    add(component);",
-						"  }",
-						"}");
+		ContainerInfo container = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						DateComponent component = new DateComponent();
+						add(component);
+					}
+				}""");
 		ComponentInfo componentInfo = container.getChildrenComponents().get(0);
 		// check property
 		Property dateProperty = componentInfo.getPropertyByTitle("date");
@@ -85,28 +84,27 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 		dateProperty.setValue(rightNow);
 		// check source
 		assertEquals(new SimpleDateFormat().format(rightNow), dateEditor.getText(dateProperty));
-		assertEditor(
-				"import java.util.Date;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    DateComponent component = new DateComponent();",
-				"    component.setDate(new Date(" + Long.valueOf(currentTimeMillis).toString() + "L));",
-				"    add(component);",
-				"  }",
-				"}");
+		assertEditor("""
+				import java.util.Date;
+				public class Test extends JPanel {
+					public Test() {
+						DateComponent component = new DateComponent();
+						component.setDate(new Date(%dL));
+						add(component);
+					}
+				}""".formatted(currentTimeMillis));
 	}
 
 	@Test
 	public void test_setValue_custom() throws Exception {
 		configureContents(true);
-		ContainerInfo container =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    DateComponent component = new DateComponent();",
-						"    add(component);",
-						"  }",
-						"}");
+		ContainerInfo container = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						DateComponent component = new DateComponent();
+						add(component);
+					}
+				}""");
 		ComponentInfo componentInfo = container.getChildrenComponents().get(0);
 		// check property
 		Property dateProperty = componentInfo.getPropertyByTitle("date");
@@ -120,34 +118,31 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 		dateProperty.setValue(currentDate);
 		// check source
 		assertEquals(currentDateStr, dateEditor.getText(dateProperty));
-		assertEditor(
-				"import java.text.SimpleDateFormat;",
-				"import java.text.ParsePosition;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    DateComponent component = new DateComponent();",
-				"    component.setDate(new SimpleDateFormat('dd.MM.yyyy').parse('"
-						+ currentDateStr
-						+ "', new ParsePosition(0)));",
-						"    add(component);",
-						"  }",
-				"}");
+		assertEditor("""
+				import java.text.SimpleDateFormat;
+				import java.text.ParsePosition;
+				public class Test extends JPanel {
+					public Test() {
+						DateComponent component = new DateComponent();
+						component.setDate(new SimpleDateFormat("dd.MM.yyyy").parse("%s", new ParsePosition(0)));
+						add(component);
+					}
+				}""".formatted(currentDateStr));
 	}
 
 	@Test
 	public void test_setText_default() throws Exception {
 		configureContents(false);
 		long currentTimeMillis = System.currentTimeMillis();
-		ContainerInfo container =
-				parseContainer(
-						"import java.util.Date;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    DateComponent component = new DateComponent();",
-						"    component.setDate(new Date(" + Long.valueOf(currentTimeMillis).toString() + "L));",
-						"    add(component);",
-						"  }",
-						"}");
+		ContainerInfo container = parseContainer("""
+				import java.util.Date;
+				public class Test extends JPanel {
+					public Test() {
+						DateComponent component = new DateComponent();
+						component.setDate(new Date(%dL));
+						add(component);
+					}
+				}""".formatted(currentTimeMillis));
 		ComponentInfo componentInfo = container.getChildrenComponents().get(0);
 		// check property
 		Property dateProperty = componentInfo.getPropertyByTitle("date");
@@ -168,30 +163,29 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 		// check source
 		assertEquals(newDateStr, dateEditor.getText(dateProperty));
 		assertEquals(newDate, dateProperty.getValue());
-		assertEditor(
-				"import java.util.Date;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    DateComponent component = new DateComponent();",
-				"    component.setDate(new Date(0L));",
-				"    add(component);",
-				"  }",
-				"}");
+		assertEditor("""
+				import java.util.Date;
+				public class Test extends JPanel {
+					public Test() {
+						DateComponent component = new DateComponent();
+						component.setDate(new Date(0L));
+						add(component);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_setText_custom() throws Exception {
 		configureContents(true);
-		ContainerInfo container =
-				parseContainer(
-						"import java.util.Date;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    DateComponent component = new DateComponent();",
-						"    component.setDate(new Date());",
-						"    add(component);",
-						"  }",
-						"}");
+		ContainerInfo container = parseContainer("""
+				import java.util.Date;
+				public class Test extends JPanel {
+					public Test() {
+						DateComponent component = new DateComponent();
+						component.setDate(new Date());
+						add(component);
+					}
+				}""");
 		ComponentInfo componentInfo = container.getChildrenComponents().get(0);
 		// check property
 		Property dateProperty = componentInfo.getPropertyByTitle("date");
@@ -211,19 +205,17 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 		// check source
 		assertEquals(newDateStr, dateEditor.getText(dateProperty));
 		assertEquals(newDate, dateProperty.getValue());
-		assertEditor(
-				"import java.util.Date;",
-				"import java.text.SimpleDateFormat;",
-				"import java.text.ParsePosition;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    DateComponent component = new DateComponent();",
-				"    component.setDate(new SimpleDateFormat('dd.MM.yyyy').parse('"
-						+ newDateStr
-						+ "', new ParsePosition(0)));",
-						"    add(component);",
-						"  }",
-				"}");
+		assertEditor("""
+				import java.util.Date;
+				import java.text.SimpleDateFormat;
+				import java.text.ParsePosition;
+				public class Test extends JPanel {
+					public Test() {
+						DateComponent component = new DateComponent();
+						component.setDate(new SimpleDateFormat("dd.MM.yyyy").parse("%s", new ParsePosition(0)));
+						add(component);
+					}
+				}""".formatted(newDateStr));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -249,36 +241,30 @@ public class DatePropertyEditorTest extends AbstractTextPropertyEditorTest {
 	}
 
 	private void configureContents(boolean custom) throws Exception {
-		setJavaContentSrc(
-				"test",
-				"DateComponent",
-				new String[]{
-						"public class DateComponent extends JComponent {",
-						"  public DateComponent(){",
-						"  }",
-						"  public void setDate(java.util.Date value){",
-						"  }",
-				"}"},
-				custom
-				? new String[]{
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setDate(java.util.Date)'>",
-						"    <editor id='customDate'>",
-						"      <parameter name='functions'>import javax.swing.JTextField; import java.text.SimpleDateFormat;</parameter>",
-						"      <parameter name='toString'>(new SimpleDateFormat(\"dd.MM.yyyy\")).format(value)</parameter>",
-						"      <parameter name='toDate'>(new SimpleDateFormat(\"dd.MM.yyyy\")).parse(value)</parameter>",
-						"      <parameter name='source'>new java.text.SimpleDateFormat(\"dd.MM.yyyy\").parse(\"%value%\", new java.text.ParsePosition(0))</parameter>",
-						"    </editor>",
-						"  </property>",
-				"</component>"}
-				: new String[]{
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setDate(java.util.Date)'>",
-						"    <editor id='customDate'/>",
-						"  </property>",
-				"</component>"});
+		setJavaContentSrc("test", "DateComponent", """
+				public class DateComponent extends JComponent {
+					public DateComponent(){
+					}
+					public void setDate(java.util.Date value){
+					}
+				}""", custom ? """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setDate(java.util.Date)">
+						<editor id="customDate">
+							<parameter name="functions">import javax.swing.JTextField; import java.text.SimpleDateFormat;</parameter>
+							<parameter name="toString">(new SimpleDateFormat(\"dd.MM.yyyy\")).format(value)</parameter>
+							<parameter name="toDate">(new SimpleDateFormat(\"dd.MM.yyyy\")).parse(value)</parameter>
+							<parameter name="source">new java.text.SimpleDateFormat(\"dd.MM.yyyy\").parse(\"%value%\", new java.text.ParsePosition(0))</parameter>
+						</editor>
+					</property>
+				</component>""" : """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setDate(java.util.Date)">
+						<editor id="customDate"/>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -61,14 +61,13 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		declareProviderProperty_inner();
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		final Property property = button.getPropertyByTitle("labelProvider");
@@ -78,19 +77,19 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		// add new provider
 		{
 			propertyEditor.activate(null, property, null);
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  private class LabelProvider implements ILabelProvider {",
-					"    public String getText(Object o) {",
-					"      return null;",
-					"    }",
-					"  }",
-					"  public Test() {",
-					"    MyButton button = new MyButton();",
-					"    button.setLabelProvider(new LabelProvider());",
-					"    add(button);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						private class LabelProvider implements ILabelProvider {
+							public String getText(Object o) {
+								return null;
+							}
+						}
+						public Test() {
+							MyButton button = new MyButton();
+							button.setLabelProvider(new LabelProvider());
+							add(button);
+						}
+					}""");
 			assertEquals("test.Test.LabelProvider", getPropertyText(property));
 		}
 		// kick "doubleClick", assert that expected position opened
@@ -111,25 +110,23 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	public void test_openExternalClass() throws Exception {
 		declareButtonAndProvider();
 		declareProviderProperty_inner();
-		setFileContentSrc(
-				"test/ExternalLabelProvider.java",
-				getTestSource(
-						"public class ExternalLabelProvider implements ILabelProvider {",
-						"  public ExternalLabelProvider(long level) {",
-						"  }",
-						"  public String getText(Object o) {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ExternalLabelProvider.java", getTestSource("""
+				public class ExternalLabelProvider implements ILabelProvider {
+					public ExternalLabelProvider(long level) {
+					}
+					public String getText(Object o) {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		final Property property = button.getPropertyByTitle("labelProvider");
@@ -150,14 +147,14 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 				}
 			});
 			// check source
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    MyButton button = new MyButton();",
-					"    button.setLabelProvider(new ExternalLabelProvider(0L));",
-					"    add(button);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							MyButton button = new MyButton();
+							button.setLabelProvider(new ExternalLabelProvider(0L));
+							add(button);
+						}
+					}""");
 			assertEquals("test.ExternalLabelProvider", getPropertyText(property));
 		}
 	}
@@ -170,25 +167,23 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	public void test_openExternalClass_abstract() throws Exception {
 		declareButtonAndProvider();
 		declareProviderProperty_inner();
-		setFileContentSrc(
-				"test/AbstractLabelProvider.java",
-				getTestSource(
-						"public abstract class AbstractLabelProvider implements ILabelProvider {",
-						"  public AbstractLabelProvider(long level) {",
-						"  }",
-						"  public String getText(Object o) {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/AbstractLabelProvider.java", getTestSource("""
+				public abstract class AbstractLabelProvider implements ILabelProvider {
+					public AbstractLabelProvider(long level) {
+					}
+					public String getText(Object o) {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		final Property property = button.getPropertyByTitle("labelProvider");
@@ -219,35 +214,32 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_generateAnonymous() throws Exception {
 		declareButtonAndProvider();
-		setFileContentSrc(
-				"test/MyButton.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setLabelProvider(test.ILabelProvider)'>",
-						"    <editor id='innerClass'>",
-						"      <parameter name='mode'>anonymous</parameter>",
-						"      <parameter name='class'>test.ILabelProvider</parameter>",
-						"      <parameter name='source'><![CDATA[",
-						"new test.ILabelProvider() {",
-						"  public String getText(Object o) {",
-						"    return null;",
-						"  }",
-						"}",
-						"      ]]></parameter>",
-						"    </editor>",
-						"  </property>",
-						"</component>"));
+		setFileContentSrc("test/MyButton.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setLabelProvider(test.ILabelProvider)">
+						<editor id="innerClass">
+							<parameter name="mode">anonymous</parameter>
+							<parameter name="class">test.ILabelProvider</parameter>
+							<parameter name="source"><![CDATA[
+				new test.ILabelProvider() {
+					public String getText(Object o) {
+						return null;
+					}
+				}
+							]]></parameter>
+						</editor>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		final Property property = button.getPropertyByTitle("labelProvider");
@@ -257,18 +249,18 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		// add new provider
 		{
 			propertyEditor.activate(null, property, null);
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    MyButton button = new MyButton();",
-					"    button.setLabelProvider(new ILabelProvider() {",
-					"      public String getText(Object o) {",
-					"        return null;",
-					"      }",
-					"    });",
-					"    add(button);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							MyButton button = new MyButton();
+							button.setLabelProvider(new ILabelProvider() {
+								public String getText(Object o) {
+									return null;
+								}
+							});
+							add(button);
+						}
+					}""");
 			assertEquals("<anonymous>", getPropertyText(property));
 		}
 	}
@@ -279,45 +271,40 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_templateExpression() throws Exception {
 		declareButtonAndProvider();
-		setFileContentSrc(
-				"test/AbstractLabelProvider.java",
-				getTestSource(
-						"public abstract class AbstractLabelProvider implements ILabelProvider {",
-						"  public AbstractLabelProvider(JLabel label) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyButton.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setLabelProvider(test.ILabelProvider)'>",
-						"    <editor id='innerClass'>",
-						"      <parameter name='mode'>anonymous</parameter>",
-						"      <parameter name='class'>test.ILabelProvider</parameter>",
-						"      <parameter name='source'><![CDATA[",
-						"new test.AbstractLabelProvider(${parent.firstChild[javax.swing.JLabel].expression}) {",
-						"  public String getText(Object o) {",
-						"    return null;",
-						"  }",
-						"}",
-						"      ]]></parameter>",
-						"    </editor>",
-						"  </property>",
-						"</component>"));
+		setFileContentSrc("test/AbstractLabelProvider.java", getTestSource("""
+				public abstract class AbstractLabelProvider implements ILabelProvider {
+					public AbstractLabelProvider(JLabel label) {
+					}
+				}"""));
+		setFileContentSrc("test/MyButton.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setLabelProvider(test.ILabelProvider)">
+						<editor id="innerClass">
+							<parameter name="mode">anonymous</parameter>
+							<parameter name="class">test.ILabelProvider</parameter>
+							<parameter name="source"><![CDATA[
+				new test.AbstractLabelProvider(${parent.firstChild[javax.swing.JLabel].expression}) {
+					public String getText(Object o) {
+						return null;
+					}
+				}
+							]]></parameter>
+						</editor>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JLabel myLabel = new JLabel();",
-						"    add(myLabel);",
-						"    //",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JLabel myLabel = new JLabel();
+						add(myLabel);
+						//
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(1);
 		// prepare property
 		final Property property = button.getPropertyByTitle("labelProvider");
@@ -327,21 +314,21 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		// add new provider
 		{
 			propertyEditor.activate(null, property, null);
-			assertEditor(
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    JLabel myLabel = new JLabel();",
-					"    add(myLabel);",
-					"    //",
-					"    MyButton button = new MyButton();",
-					"    button.setLabelProvider(new AbstractLabelProvider(myLabel) {",
-					"      public String getText(Object o) {",
-					"        return null;",
-					"      }",
-					"    });",
-					"    add(button);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends JPanel {
+						public Test() {
+							JLabel myLabel = new JLabel();
+							add(myLabel);
+							//
+							MyButton button = new MyButton();
+							button.setLabelProvider(new AbstractLabelProvider(myLabel) {
+								public String getText(Object o) {
+									return null;
+								}
+							});
+							add(button);
+						}
+					}""");
 			assertEquals("<anonymous>", getPropertyText(property));
 		}
 	}
@@ -352,43 +339,37 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void declareButtonAndProvider() throws Exception {
-		setFileContentSrc(
-				"test/ILabelProvider.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public interface ILabelProvider {",
-						"  String getText(Object o);",
-						"}"));
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public void setLabelProvider(ILabelProvider provider) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ILabelProvider.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public interface ILabelProvider {
+					String getText(Object o);
+				}"""));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public void setLabelProvider(ILabelProvider provider) {
+					}
+				}"""));
 	}
 
 	private void declareProviderProperty_inner() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setLabelProvider(test.ILabelProvider)'>",
-						"    <editor id='innerClass'>",
-						"      <parameter name='mode'>inner</parameter>",
-						"      <parameter name='name'>LabelProvider</parameter>",
-						"      <parameter name='class'>test.ILabelProvider</parameter>",
-						"      <parameter name='source'><![CDATA[",
-						"private class ${name} implements test.ILabelProvider {",
-						"  public String getText(Object o) {",
-						"    return null;",
-						"  }",
-						"}",
-						"      ]]></parameter>",
-						"    </editor>",
-						"  </property>",
-						"</component>"));
+		setFileContentSrc("test/MyButton.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setLabelProvider(test.ILabelProvider)">
+						<editor id="innerClass">
+							<parameter name="mode">inner</parameter>
+							<parameter name="name">LabelProvider</parameter>
+							<parameter name="class">test.ILabelProvider</parameter>
+							<parameter name="source"><![CDATA[
+				private class ${name} implements test.ILabelProvider {
+					public String getText(Object o) {
+						return null;
+					}
+				}
+							]]></parameter>
+						</editor>
+					</property>
+				</component>""");
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -1378,17 +1378,17 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_preferredRoot_singlePreferred() throws Exception {
-		setJavaContentSrc("test", "MyPanel", new String[]{
-				"public class MyPanel extends JPanel {",
-				"  public MyPanel() {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <parameters>",
-				"    <parameter name='parser.preferredRoot'>true</parameter>",
-				"  </parameters>",
-		"</component>"});
+		setJavaContentSrc("test", "MyPanel", """
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="parser.preferredRoot">true</parameter>
+					</parameters>
+				</component>""");
 		// standard JPanel has bigger hierarchy, so without "parser.preferredRoot" is would be selected
 		parseContainer(
 				"public class Test {",
@@ -1411,17 +1411,17 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_preferredRoot_twoPreferred() throws Exception {
-		setJavaContentSrc("test", "MyPanel", new String[]{
-				"public class MyPanel extends JPanel {",
-				"  public MyPanel() {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <parameters>",
-				"    <parameter name='parser.preferredRoot'>true</parameter>",
-				"  </parameters>",
-		"</component>"});
+		setJavaContentSrc("test", "MyPanel", """
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="parser.preferredRoot">true</parameter>
+					</parameters>
+				</component>""");
 		parseContainer(
 				"public class Test {",
 				"  public static void main(String[] args) {",

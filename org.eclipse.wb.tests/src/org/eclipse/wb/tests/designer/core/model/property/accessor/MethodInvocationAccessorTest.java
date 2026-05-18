@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,26 +41,22 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare MyPanel
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setText(String text, boolean html) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <methods>",
-						"    <method name='setText'>",
-						"      <parameter type='java.lang.String' name='text' defaultSource='null'/>",
-						"      <parameter type='boolean' name='html'/>",
-						"    </method>",
-						"  </methods>",
-						"  <method-property title='text' method='setText(java.lang.String,boolean)'/>",
-						"</component>"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setText(String text, boolean html) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<methods>
+						<method name="setText">
+							<parameter type="java.lang.String" name="text" defaultSource="null"/>
+							<parameter type="boolean" name="html"/>
+						</method>
+					</methods>
+					<method-property title="text" method="setText(java.lang.String,boolean)"/>
+				</component>""");
 		waitForAutoBuild();
 	}
 
@@ -71,13 +67,12 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_access() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("text");
 		MethodInvocationAccessor accessor =
 				(MethodInvocationAccessor) getGenericPropertyAccessors(property).get(0);
@@ -98,13 +93,12 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getExpression_noInvocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("text");
 		MethodInvocationAccessor accessor =
 				(MethodInvocationAccessor) getGenericPropertyAccessors(property).get(0);
@@ -118,13 +112,12 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getExpression_hasInvocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setText('text', false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setText("text", false);
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("text");
 		MethodInvocationAccessor accessor =
 				(MethodInvocationAccessor) getGenericPropertyAccessors(property).get(0);
@@ -143,25 +136,24 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_addNew() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("text");
 		MethodInvocationAccessor accessor =
 				(MethodInvocationAccessor) getGenericPropertyAccessors(property).get(0);
 		// do check
 		accessor.setExpression(panel, "\"new text\", true");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setText('new text', true);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setText("new text", true);
+					}
+				}""");
 	}
 
 	/**
@@ -169,25 +161,24 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_removeExisting() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setText('text', false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setText("text", false);
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("text");
 		MethodInvocationAccessor accessor =
 				(MethodInvocationAccessor) getGenericPropertyAccessors(property).get(0);
 		// do check
 		accessor.setExpression(panel, null);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -195,23 +186,22 @@ public class MethodInvocationAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_replaceExisting() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setText('text', false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setText("text", false);
+					}
+				}""");
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("text");
 		MethodInvocationAccessor accessor =
 				(MethodInvocationAccessor) getGenericPropertyAccessors(property).get(0);
 		// do check
 		accessor.setExpression(panel, "\"new text\", true");
-		assertEditor(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setText('new text', true);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends MyPanel {
+					public Test() {
+						setText("new text", true);
+					}
+				}""");
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -102,33 +102,30 @@ public class StandardConvertersTest extends SwingModelTest {
 	 */
 	private void check_converter(String typeName, Object value, String expectedSource)
 			throws Exception {
-		setFileContentSrc(
-				"test/Base.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Base extends JPanel {",
-						"  public void setValue(" + typeName + " value) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/Base.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Base extends JPanel {
+					public void setValue(%s value) {
+					}
+				}""".formatted(typeName)));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public final class Test extends Base {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public final class Test extends Base {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("value");
 		property.setValue(value);
-		assertEditor(
-				"// filler filler filler",
-				"public final class Test extends Base {",
-				"  public Test() {",
-				"    setValue(" + expectedSource + ");",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public final class Test extends Base {
+					public Test() {
+						setValue(%s);
+					}
+				}""".formatted(expectedSource));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -284,13 +281,12 @@ public class StandardConvertersTest extends SwingModelTest {
 
 	@Test
 	public void test_BooleanObjectConverter_forJava5() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionConverter converter = BooleanObjectConverter.INSTANCE;
 		assertEquals("(Boolean) null", converter.toJavaSource(panel, null));
 		assertEquals("false", converter.toJavaSource(panel, false));
@@ -318,13 +314,12 @@ public class StandardConvertersTest extends SwingModelTest {
 
 	@Test
 	public void test_ByteObjectConverter_forJava5() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionConverter converter = ByteObjectConverter.INSTANCE;
 		assertEquals("(byte) 1", converter.toJavaSource(panel, Byte.valueOf((byte) 1)));
 		assertEquals("(byte) -1", converter.toJavaSource(panel, Byte.valueOf((byte) -1)));
@@ -334,13 +329,12 @@ public class StandardConvertersTest extends SwingModelTest {
 	@Test
 	public void test_ByteObjectConverter_forJava5_disableBoxing() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionConverter converter = ByteObjectConverter.INSTANCE;
 		assertEquals("Byte.valueOf((byte) 1)", converter.toJavaSource(panel, Byte.valueOf((byte) 1)));
 		assertEquals("Byte.valueOf((byte) -1)", converter.toJavaSource(panel, Byte.valueOf((byte) -1)));
@@ -359,13 +353,12 @@ public class StandardConvertersTest extends SwingModelTest {
 
 	@Test
 	public void test_ShortObjectConverter_forJava5() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionConverter converter = ShortObjectConverter.INSTANCE;
 		assertEquals("(short) 1", converter.toJavaSource(panel, Short.valueOf((short) 1)));
 		assertEquals("(short) -1", converter.toJavaSource(panel, Short.valueOf((short) -1)));
@@ -393,13 +386,12 @@ public class StandardConvertersTest extends SwingModelTest {
 
 	@Test
 	public void test_IntegerObjectConverter_forJava5() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionConverter converter = IntegerObjectConverter.INSTANCE;
 		assertEquals("1", converter.toJavaSource(panel, Integer.valueOf(1)));
 		assertEquals("-1", converter.toJavaSource(panel, Integer.valueOf(-1)));
@@ -429,13 +421,12 @@ public class StandardConvertersTest extends SwingModelTest {
 	@Test
 	public void test_LongObjectConverter_forJava5_disableBoxing() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionConverter converter = LongObjectConverter.INSTANCE;
 		assertEquals("Long.valueOf(1L)", converter.toJavaSource(panel, Long.valueOf(1)));
 		assertEquals("Long.valueOf(-1L)", converter.toJavaSource(panel, Long.valueOf(-1)));
@@ -464,13 +455,12 @@ public class StandardConvertersTest extends SwingModelTest {
 
 	@Test
 	public void test_DoubleObjectConverter_forJava5() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionConverter converter = DoubleObjectConverter.INSTANCE;
 		assertEquals("1.2", converter.toJavaSource(panel, Double.valueOf(1.2)));
 		assertEquals("-1.2", converter.toJavaSource(panel, Double.valueOf(-1.2)));
@@ -480,13 +470,12 @@ public class StandardConvertersTest extends SwingModelTest {
 	@Test
 	public void test_DoubleObjectConverter_forJava5_disableBoxing() throws Exception {
 		m_javaProject.setOption(JavaCore.COMPILER_PB_AUTOBOXING, "error");
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionConverter converter = DoubleObjectConverter.INSTANCE;
 		assertEquals("Double.valueOf(1.2)", converter.toJavaSource(panel, Double.valueOf(1.2)));
 		assertEquals("Double.valueOf(-1.2)", converter.toJavaSource(panel, Double.valueOf(-1.2)));
@@ -517,13 +506,12 @@ public class StandardConvertersTest extends SwingModelTest {
 	@Test
 	public void test_StringConverter_hasFile_withCharset() throws Exception {
 		ExpressionConverter converter = StringConverter.INSTANCE;
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		IFile file = (IFile) panel.getEditor().getModelUnit().getUnderlyingResource();
 		String value = "\u0410\u0411\u0412";
 		// ISO-8859-1, encoded

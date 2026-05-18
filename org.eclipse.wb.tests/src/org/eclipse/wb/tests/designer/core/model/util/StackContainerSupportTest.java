@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -547,15 +547,15 @@ public class StackContainerSupportTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void prepareCardPanel() throws Exception {
-		setJavaContentSrc("test", "CardPanel", new String[]{
-				"public class CardPanel extends JPanel {",
-				"  public CardPanel() {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <model class='" + CardPanel_Info.class.getName() + "'/>",
-		"</component>"});
+		setJavaContentSrc("test", "CardPanel", """
+				public class CardPanel extends JPanel {
+					public CardPanel() {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<model class="%s"/>
+				</component>""".formatted(CardPanel_Info.class.getName()));
 	}
 
 	public static class CardPanel_Info extends ContainerInfo {

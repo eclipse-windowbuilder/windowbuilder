@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -35,24 +35,21 @@ public class LocalePropertyEditorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setText() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"import java.util.Locale;",
-						"public class MyButton extends JButton {",
-						"  public void setFoo(Locale locale) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				import java.util.Locale;
+				public class MyButton extends JButton {
+					public void setFoo(Locale locale) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		Property property = button.getPropertyByTitle("foo");
@@ -61,15 +58,15 @@ public class LocalePropertyEditorTest extends SwingModelTest {
 		assertEquals(null, getPropertyText(property));
 		// set value
 		property.setValue(Locale.GERMAN);
-		assertEditor(
-				"import java.util.Locale;",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    button.setFoo(Locale.GERMAN);",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				import java.util.Locale;
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						button.setFoo(Locale.GERMAN);
+						add(button);
+					}
+				}""");
 		assertEquals(Locale.GERMAN.getDisplayName(), getPropertyText(property));
 	}
 }

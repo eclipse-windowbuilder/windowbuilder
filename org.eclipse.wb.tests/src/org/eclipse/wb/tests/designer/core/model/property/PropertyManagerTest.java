@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -66,13 +66,12 @@ public class PropertyManagerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_GenericProperty() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("background");
 		// "normal" initially
 		assertSame(null, PropertyManager.getCategoryForced(property));
@@ -104,13 +103,12 @@ public class PropertyManagerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_GenericProperty2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("background");
 		// "preferred" from previous test
 		assertSame(PropertyCategory.PREFERRED, PropertyManager.getCategory(property));

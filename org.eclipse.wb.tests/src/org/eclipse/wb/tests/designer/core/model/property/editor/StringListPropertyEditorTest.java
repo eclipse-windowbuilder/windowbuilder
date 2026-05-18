@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -157,35 +157,34 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 	@Test
 	public void test_defaultValue() throws Exception {
 		// create contents
-		setJavaContentSrc("test", "MyButton", new String[]{
-				"import javax.swing.JButton;",
-				"class MyButton extends JButton {",
-				"  public void setSelect(java.lang.String value) {",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <property id='setSelect(java.lang.String)'>",
-				"    <editor id='stringList'>",
-				"      <parameter name='ignoreCase'>false</parameter>",
-				"      <parameter-list name='strings'>default</parameter-list>",
-				"      <parameter-list name='strings'>string</parameter-list>",
-				"      <parameter-list name='strings'>value</parameter-list>",
-				"    </editor>",
-				"    <defaultValue value=\"'default'\"/>",
-				"  </property>",
-		"</component>"});
+		setJavaContentSrc("test", "MyButton", """
+				import javax.swing.JButton;
+				class MyButton extends JButton {
+					public void setSelect(java.lang.String value) {
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setSelect(java.lang.String)">
+						<editor id="stringList">
+							<parameter name="ignoreCase">false</parameter>
+							<parameter-list name="strings">default</parameter-list>
+							<parameter-list name="strings">string</parameter-list>
+							<parameter-list name="strings">value</parameter-list>
+						</editor>
+						<defaultValue value="'default'"/>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    MyButton button = new MyButton();",
-						"    button.setSelect('string');",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						MyButton button = new MyButton();
+						button.setSelect("string");
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		Property property = button.getPropertyByTitle("select");
@@ -197,13 +196,13 @@ public class StringListPropertyEditorTest extends AbstractTextPropertyEditorTest
 		setComboPropertyValue(property, 0);
 		assertEquals(property.getValue(), "default");
 		// check source
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    MyButton button = new MyButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

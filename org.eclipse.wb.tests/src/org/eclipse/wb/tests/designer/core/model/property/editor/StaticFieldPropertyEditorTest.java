@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -147,12 +147,12 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_configure_6() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// create StaticFieldPropertyEditor
 		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
 		editor.configure(m_lastState, Map.of(
@@ -175,12 +175,12 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_configure_7() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// create StaticFieldPropertyEditor
 		StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();
 		editor.configure(m_lastState, Map.of(
@@ -203,12 +203,12 @@ public class StaticFieldPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_configure_8() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// create StaticFieldPropertyEditor
 		try {
 			StaticFieldPropertyEditor editor = new StaticFieldPropertyEditor();

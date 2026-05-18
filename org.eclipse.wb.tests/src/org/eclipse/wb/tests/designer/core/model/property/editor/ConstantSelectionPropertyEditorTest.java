@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,49 +56,43 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 		// prepare test Shell
 		m_shell = new Shell();
 		// prepare JDT elements
-		setFileContentSrc(
-				"test/PrefConstants.java",
-				getTestSource(
-						"public interface PrefConstants {",
-						"  String ID_1 = 'id 1';",
-						"  int ID_2 = 2;",
-						"  int ID_3 = 3;",
-						"  String ID_4 = 'id 4';",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"  }",
-						"  public void setStringId(String id) {",
-						"  }",
-						"  public void setStringId2(String id) {",
-						"  }",
-						"  public void setIntId(int id) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setStringId(java.lang.String)'>",
-						"    <editor id='constantSelection'>",
-						"      <parameter name='type'>java.lang.String</parameter>",
-						"    </editor>",
-						"  </property>",
-						"  <property id='setStringId2(java.lang.String)'>",
-						"    <editor id='constantSelection'>",
-						"      <parameter name='type'>java.lang.String</parameter>",
-						"    </editor>",
-						"  </property>",
-						"  <property id='setIntId(int)'>",
-						"    <editor id='constantSelection'>",
-						"      <parameter name='type'>int</parameter>",
-						"    </editor>",
-						"  </property>",
-						"</component>"));
+		setFileContentSrc("test/PrefConstants.java", getTestSource("""
+				public interface PrefConstants {
+					String ID_1 = "id 1";
+					int ID_2 = 2;
+					int ID_3 = 3;
+					String ID_4 = "id 4";
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+					}
+					public void setStringId(String id) {
+					}
+					public void setStringId2(String id) {
+					}
+					public void setIntId(int id) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setStringId(java.lang.String)">
+						<editor id="constantSelection">
+							<parameter name="type">java.lang.String</parameter>
+						</editor>
+					</property>
+					<property id="setStringId2(java.lang.String)">
+						<editor id="constantSelection">
+							<parameter name="type">java.lang.String</parameter>
+						</editor>
+					</property>
+					<property id="setIntId(int)">
+						<editor id="constantSelection">
+							<parameter name="type">int</parameter>
+						</editor>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 	}
 
@@ -228,12 +222,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_utils_noValue() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		assertNull(getField());
 		assertNull(getType());
 		assertNull(getText());
@@ -245,12 +239,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_utils_notQualifiedName() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setStringId('constant');",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setStringId("constant");
+					}
+				}""");
 		assertNull(getField());
 		assertNull(getType());
 		assertNull(getText());
@@ -262,12 +256,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_utils_qualifiedName() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setStringId(PrefConstants.ID_1);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setStringId(PrefConstants.ID_1);
+					}
+				}""");
 		{
 			IField field = getField();
 			assertEquals("ID_1", field.getElementName());
@@ -290,12 +284,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 			IField field = constantsType.getField("ID_4");
 			assertTrue(field.exists());
 			setField(field);
-			assertEditor(
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"    setStringId(PrefConstants.ID_4);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends MyPanel {
+						public Test() {
+							setStringId(PrefConstants.ID_4);
+						}
+					}""");
 		}
 		// after setField() we should understand Expression
 		assertEquals("ID_4", getText());
@@ -306,12 +300,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_utils_simpleName_interface() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel implements PrefConstants {",
-				"  public Test() {",
-				"    setStringId(ID_1);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel implements PrefConstants {
+					public Test() {
+						setStringId(ID_1);
+					}
+				}""");
 		{
 			IField field = getField();
 			assertEquals("ID_1", field.getElementName());
@@ -334,12 +328,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 			IField field = constantsType.getField("ID_4");
 			assertTrue(field.exists());
 			setField(field);
-			assertEditor(
-					"public class Test extends MyPanel implements PrefConstants {",
-					"  public Test() {",
-					"    setStringId(ID_4);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends MyPanel implements PrefConstants {
+						public Test() {
+							setStringId(ID_4);
+						}
+					}""");
 		}
 		// after setField() we should understand Expression
 		assertEquals("ID_4", getText());
@@ -350,25 +344,25 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setField_local() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public static final String LOCAL_ID = 'value';",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public static final String LOCAL_ID = "value";
+					public Test() {
+					}
+				}""");
 		// set new IField
 		{
 			IType constantsType = m_testProject.getJavaProject().findType("test.Test");
 			IField field = constantsType.getField("LOCAL_ID");
 			assertTrue(field.exists());
 			setField(field);
-			assertEditor(
-					"public class Test extends MyPanel {",
-					"  public static final String LOCAL_ID = 'value';",
-					"  public Test() {",
-					"    setStringId(LOCAL_ID);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends MyPanel {
+						public static final String LOCAL_ID = "value";
+						public Test() {
+							setStringId(LOCAL_ID);
+						}
+					}""");
 		}
 		// after setField() we should understand Expression
 		assertEquals("LOCAL_ID", getText());
@@ -379,16 +373,16 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_utils_simpleName_field() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public static final String LOCAL_ID = 'value';",
-				"  public static final String LOCAL_ID2 = 'value2';",
-				"  private static final String LOCAL_ID3 = 'value3';",
-				"  public static final int INT_VALUE = 0;",
-				"  public Test() {",
-				"    setStringId(LOCAL_ID);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public static final String LOCAL_ID = "value";
+					public static final String LOCAL_ID2 = "value2";
+					private static final String LOCAL_ID3 = "value3";
+					public static final int INT_VALUE = 0;
+					public Test() {
+						setStringId(LOCAL_ID);
+					}
+				}""");
 		{
 			IField field = getField();
 			assertEquals("LOCAL_ID", field.getElementName());
@@ -412,13 +406,13 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_utils_simpleName_variable() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    String id = 'value';",
-				"    setStringId(id);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						String id = "value";
+						setStringId(id);
+					}
+				}""");
 		assertNull(getField());
 		assertNull(getType());
 		assertNull(getText());
@@ -429,14 +423,14 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getUsedTypes() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public static final String LOCAL_ID = 'value';",
-				"  public Test() {",
-				"    setStringId(PrefConstants.ID_1);",
-				"    setStringId2(LOCAL_ID);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public static final String LOCAL_ID = "value";
+					public Test() {
+						setStringId(PrefConstants.ID_1);
+						setStringId2(LOCAL_ID);
+					}
+				}""");
 		Set<IType> types = getUsedTypes();
 		// convert IType's into their names
 		Set<String> typeNames = new HashSet<>();
@@ -453,11 +447,11 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getLocalTypes_0() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel implements PrefConstants {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel implements PrefConstants {
+					public Test() {
+					}
+				}""");
 		List<IType> types = getLocalTypes();
 		// convert IType's into their names
 		Set<String> typeNames = new HashSet<>();
@@ -475,17 +469,19 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_getLocalTypes_1() throws Exception {
 		// declare interface without valid (String) constants
-		setFileContentSrc(
-				"test/BadConstants.java",
-				getSourceDQ("package test;", "public interface BadConstants {", "  int ID = 0;", "}"));
+		setFileContentSrc("test/BadConstants.java", """
+				package test;
+				public interface BadConstants {
+						int ID = 0;
+				}""");
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends MyPanel implements PrefConstants, BadConstants {",
-				"  public static final String LOCAL_ID = 'value';",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel implements PrefConstants, BadConstants {
+					public static final String LOCAL_ID = "value";
+					public Test() {
+					}
+				}""");
 		List<IType> types = getLocalTypes();
 		// convert IType's into their names
 		Set<String> typeNames = new HashSet<>();
@@ -506,13 +502,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_combo_items() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setStringId(PrefConstants.ID_1);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setStringId(PrefConstants.ID_1);
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("stringId");
 		//
 		addComboPropertyItems(property);
@@ -530,12 +525,12 @@ public class ConstantSelectionPropertyEditorTest extends SwingModelTest {
 		// set new item
 		{
 			setComboPropertyValue(property, 1);
-			assertEditor(
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"    setStringId(PrefConstants.ID_4);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends MyPanel {
+						public Test() {
+							setStringId(PrefConstants.ID_4);
+						}
+					}""");
 		}
 	}
 }

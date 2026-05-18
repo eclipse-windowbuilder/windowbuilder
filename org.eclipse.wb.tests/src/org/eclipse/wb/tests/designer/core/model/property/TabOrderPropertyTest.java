@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -50,13 +50,12 @@ public class TabOrderPropertyTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_common() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		TestTabOrderProperty property = new TestTabOrderProperty(panel, null, null, null, null);
 		assertEquals("tab order", property.getTitle());
 		assertFalse(property.isModified());
@@ -64,13 +63,12 @@ public class TabOrderPropertyTest extends SwingModelTest {
 
 	@Test
 	public void test_tooltip() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		// create property without tooltip
 		TestTabOrderProperty property = new TestTabOrderProperty(panel, null, null, null, null);
 		//
@@ -90,16 +88,15 @@ public class TabOrderPropertyTest extends SwingModelTest {
 
 	@Test
 	public void test_noValue() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						"    add(button);",
-						"    JLabel label = new JLabel();",
-						"    add(label);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+						JLabel label = new JLabel();
+						add(label);
+					}
+				}""");
 		panel.refresh();
 		//
 		assertEquals(2, panel.getChildrenComponents().size());
@@ -128,21 +125,20 @@ public class TabOrderPropertyTest extends SwingModelTest {
 
 	@Test
 	public void test_value() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						"    add(button);",
-						"    JComboBox combo = new JComboBox();",
-						"    add(combo);",
-						"    JLabel label = new JLabel();",
-						"    add(label);",
-						"    setTabOrder(new JComponent[]{label, button});",
-						"  }",
-						"  public void setTabOrder(JComponent []orders) {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+						JComboBox combo = new JComboBox();
+						add(combo);
+						JLabel label = new JLabel();
+						add(label);
+						setTabOrder(new JComponent[]{label, button});
+					}
+					public void setTabOrder(JComponent []orders) {
+					}
+				}""");
 		panel.refresh();
 		//
 		assertEquals(3, panel.getChildrenComponents().size());
