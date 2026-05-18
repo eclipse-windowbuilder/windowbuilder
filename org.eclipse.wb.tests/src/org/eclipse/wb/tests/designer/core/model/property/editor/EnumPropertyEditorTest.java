@@ -50,13 +50,12 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_externalEnum() throws Exception {
 		prepare_Foo_MyPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(Foo.B);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(Foo.B);
+					}
+				}""");
 		// prepare property
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("foo");
 		EnumPropertyEditor editor = (EnumPropertyEditor) property.getEditor();
@@ -85,13 +84,12 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_getText_noValue() throws Exception {
 		prepare_Foo_MyPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// prepare property
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("foo");
 		EnumPropertyEditor editor = (EnumPropertyEditor) property.getEditor();
@@ -106,23 +104,22 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_setText() throws Exception {
 		prepare_Foo_MyPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(Foo.B);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(Foo.B);
+					}
+				}""");
 		// prepare property
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("foo");
 		// set value
 		setPropertyText(property, "C");
-		assertEditor(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo(Foo.C);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(Foo.C);
+					}
+				}""");
 	}
 
 	/**
@@ -131,23 +128,20 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_innerEnum() throws Exception {
 		prepare_Foo();
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public enum Foo {A, B, C}",
-						"  public void setFoo(Foo foo) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public enum Foo {A, B, C}
+					public void setFoo(Foo foo) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(Foo.B);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(Foo.B);
+					}
+				}""");
 		// prepare property
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("foo");
 		EnumPropertyEditor editor = (EnumPropertyEditor) property.getEditor();
@@ -168,25 +162,22 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 	@Test
 	public void test_constructorParameter_enum() throws Exception {
 		prepare_Foo();
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton(Foo foo) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton(Foo foo) {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      MyButton button = new MyButton(Foo.B);",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyButton button = new MyButton(Foo.B);
+							add(button);
+						}
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// prepare property
 		GenericProperty property = (GenericProperty) PropertyUtils.getByPath(button, "Constructor/foo");
@@ -215,25 +206,21 @@ public class EnumPropertyEditorTest extends SwingModelTest {
 	 */
 	private void prepare_Foo_MyPanel() throws Exception {
 		prepare_Foo();
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setFoo(Foo foo) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setFoo(Foo foo) {
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 
 	private void prepare_Foo() throws Exception {
-		setFileContentSrc(
-				"test/Foo.java",
-				getSourceDQ(
-						"package test;",
-						"// filler filler filler",
-						"// filler filler filler",
-						"public enum Foo {",
-						"  A, B, C",
-						"}"));
+		setFileContentSrc("test/Foo.java", """
+				package test;
+				// filler filler filler
+				// filler filler filler
+				public enum Foo {
+					A, B, C
+				}""");
 	}
 }

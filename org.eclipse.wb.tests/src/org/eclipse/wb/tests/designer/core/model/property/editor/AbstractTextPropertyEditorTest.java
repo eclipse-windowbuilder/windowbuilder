@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -108,12 +108,12 @@ public abstract class AbstractTextPropertyEditorTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	protected void initTestSourceState() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	protected <T extends TextDisplayPropertyEditor> T createEditor(Class<T> clazz,

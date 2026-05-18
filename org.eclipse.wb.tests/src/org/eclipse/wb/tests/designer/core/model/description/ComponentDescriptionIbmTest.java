@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -108,19 +108,19 @@ public class ComponentDescriptionIbmTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private ContainerInfo createDefaultProjectContents() throws Exception {
-		setJavaContentSrc("test", "TestPanel", new String[]{
-				"public class TestPanel extends JPanel {",
-				"  public TestPanel(){",
-				"  }",
-				"  protected void setTestProperty(int value){",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <property id='setTestProperty(int)'>",
-				"    <defaultValue value='7'/>",
-				"  </property>",
-		"</component>"});
+		setJavaContentSrc("test", "TestPanel", """
+				public class TestPanel extends JPanel {
+					public TestPanel(){
+					}
+					protected void setTestProperty(int value){
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setTestProperty(int)">
+						<defaultValue value="7"/>
+					</property>
+				</component>""");
 		return parseContainer(
 				"// filler filler filler",
 				"public class Test extends TestPanel {",

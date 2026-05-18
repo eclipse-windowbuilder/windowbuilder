@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,41 +43,37 @@ public class AccessorUtilsTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private Class<?> getAccessObjectClass() throws Exception {
-		setFileContentSrc(
-				"test/AccessObject.java",
-				getSourceDQ(
-						"package test;",
-						"public class AccessObject {",
-						"  public int publicField;",
-						"  protected int protectedField;",
-						"  public void publicMethod() {",
-						"  }",
-						"  protected void protectedMethod() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/AccessObject.java", """
+				package test;
+				public class AccessObject {
+					public int publicField;
+					protected int protectedField;
+					public void publicMethod() {
+					}
+					protected void protectedMethod() {
+					}
+				}""");
 		waitForAutoBuild();
 		return m_lastLoader.loadClass("test.AccessObject");
 	}
 
 	private Class<?> getTooltipObjectClass() throws Exception {
-		setFileContentSrc(
-				"test/TooltipObject.java",
-				getSourceDQ(
-						"package test;",
-						"public class TooltipObject {",
-						"  /**",
-						"  * Some javadoc for field.",
-						"  */",
-						"  public int javadocField;",
-						"  public int emptyField;",
-						"  /**",
-						"  * Some javadoc for method.",
-						"  */",
-						"  public void javadocMethod() {",
-						"  }",
-						"  public void emptyMethod() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TooltipObject.java", """
+				package test;
+				public class TooltipObject {
+					/**
+					* Some javadoc for field.
+					*/
+					public int javadocField;
+					public int emptyField;
+					/**
+					* Some javadoc for method.
+					*/
+					public void javadocMethod() {
+					}
+					public void emptyMethod() {
+					}
+				}""");
 		waitForAutoBuild();
 		return m_lastLoader.loadClass("test.TooltipObject");
 	}
@@ -92,12 +88,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_IAccessibleExpressionAccessor_forMethod_public() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public final class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public final class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// check IAccessibleExpressionAccessor
 		Method method = ReflectionUtils.getMethod(getAccessObjectClass(), "publicMethod");
 		IAccessibleExpressionAccessor accessor =
@@ -114,13 +110,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	@Test
 	public void test_IAccessibleExpressionAccessor_forMethod_protected() throws Exception {
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new JButton());
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check IAccessibleExpressionAccessor
 		Method method = ReflectionUtils.getMethod(getAccessObjectClass(), "protectedMethod");
@@ -140,12 +135,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_IAccessibleExpressionAccessor_forField_public() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public final class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public final class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// check IAccessibleExpressionAccessor
 		Field field = ReflectionUtils.getFieldByName(getAccessObjectClass(), "publicField");
 		IAccessibleExpressionAccessor accessor =
@@ -162,13 +157,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	@Test
 	public void test_IAccessibleExpressionAccessor_forField_protected() throws Exception {
 		// prepare JavaInfo
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new JButton());
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// check IAccessibleExpressionAccessor
 		Field field = ReflectionUtils.getFieldByName(getAccessObjectClass(), "protectedField");
@@ -188,13 +182,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getExposableExpressionAccessor() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		{
 			Property property = panel.getPropertyByTitle("Class");
 			IExposableExpressionAccessor accessor =
@@ -221,13 +214,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_PropertyTooltipProvider_forMethod_noJavadoc() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public final class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public final class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("enabled");
 		// check PropertyTooltipProvider
 		Method method = ReflectionUtils.getMethod(getTooltipObjectClass(), "emptyMethod");
@@ -241,13 +233,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_PropertyTooltipProvider_forMethod_withJavadoc() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public final class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public final class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("enabled");
 		// check PropertyTooltipProvider
 		Method method = ReflectionUtils.getMethod(getTooltipObjectClass(), "javadocMethod");
@@ -266,13 +257,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_PropertyTooltipProvider_forField_noJavadoc() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public final class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public final class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("enabled");
 		// check PropertyTooltipProvider
 		Field method = ReflectionUtils.getFieldByName(getTooltipObjectClass(), "emptyField");
@@ -286,13 +276,12 @@ public class AccessorUtilsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_PropertyTooltipProvider_forField_withJavadoc() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public final class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public final class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property property = panel.getPropertyByTitle("enabled");
 		// check PropertyTooltipProvider
 		Field method = ReflectionUtils.getFieldByName(getTooltipObjectClass(), "javadocField");

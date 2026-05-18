@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -42,26 +42,22 @@ public class MethodInvocationArgumentAccessorTest extends SwingModelTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare MyPanel
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setText(String text, boolean html) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <methods>",
-						"    <method name='setText'>",
-						"      <parameter type='java.lang.String' name='text'/>",
-						"      <parameter type='boolean' name='html'/>",
-						"    </method>",
-						"  </methods>",
-						"  <method-property title='text' method='setText(java.lang.String,boolean)'/>",
-						"</component>"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setText(String text, boolean html) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<methods>
+						<method name="setText">
+							<parameter type="java.lang.String" name="text"/>
+							<parameter type="boolean" name="html"/>
+						</method>
+					</methods>
+					<method-property title="text" method="setText(java.lang.String,boolean)"/>
+				</component>""");
 		waitForAutoBuild();
 	}
 
@@ -72,13 +68,12 @@ public class MethodInvocationArgumentAccessorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_access() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionAccessor accessor = getTestAccessor(panel, -1);
 		// no adapters
 		assertNull(accessor.getAdapter(null));
@@ -96,13 +91,12 @@ public class MethodInvocationArgumentAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getExpression_noInvocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionAccessor accessor = getTestAccessor(panel, -1);
 		// do check
 		assertNull(accessor.getExpression(panel));
@@ -113,13 +107,12 @@ public class MethodInvocationArgumentAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getExpression_hasInvocation() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setText(null, false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setText(null, false);
+					}
+				}""");
 		ExpressionAccessor accessor = getTestAccessor(panel, 1);
 		// do check
 		assertEquals("false", m_lastEditor.getSource(accessor.getExpression(panel)));
@@ -135,22 +128,21 @@ public class MethodInvocationArgumentAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_replaceExisting() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setText(null, false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setText(null, false);
+					}
+				}""");
 		ExpressionAccessor accessor = getTestAccessor(panel, 1);
 		// do check
 		accessor.setExpression(panel, "true");
-		assertEditor(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setText(null, true);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends MyPanel {
+					public Test() {
+						setText(null, true);
+					}
+				}""");
 	}
 
 	/**
@@ -160,23 +152,22 @@ public class MethodInvocationArgumentAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_removeExisting_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setText('foo', false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setText("foo", false);
+					}
+				}""");
 		ExpressionAccessor accessor = getTestAccessor(panel, 0);
 		// do check
 		accessor.setExpression(panel, "(String) null");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -186,23 +177,22 @@ public class MethodInvocationArgumentAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_removeExisting_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setText('foo', false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setText("foo", false);
+					}
+				}""");
 		ExpressionAccessor accessor = getTestAccessor(panel, 0);
 		// do check
 		accessor.setExpression(panel, null);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -210,23 +200,22 @@ public class MethodInvocationArgumentAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_addNew() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		ExpressionAccessor accessor = getTestAccessor(panel, 1);
 		// do check
 		accessor.setExpression(panel, "true");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setText((String) null, true);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setText((String) null, true);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

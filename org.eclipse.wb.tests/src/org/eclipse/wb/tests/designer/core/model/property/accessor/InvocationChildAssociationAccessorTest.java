@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,26 +38,22 @@ public class InvocationChildAssociationAccessorTest extends SwingModelTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		if (m_testProject != null) {
-			setFileContentSrc(
-					"test/MyContainer.java",
-					getTestSource(
-							"public class MyContainer extends JPanel {",
-							"  public void addChild(String text, Component component) {",
-							"    add(component);",
-							"  }",
-							"}"));
-			setFileContentSrc(
-					"test/MyContainer.wbp-component.xml",
-					getSourceDQ(
-							"<?xml version='1.0' encoding='UTF-8'?>",
-							"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-							"  <methods>",
-							"    <method name='addChild'>",
-							"      <parameter type='java.lang.String'/>",
-							"      <parameter type='java.awt.Component' child='true'/>",
-							"    </method>",
-							"  </methods>",
-							"</component>"));
+			setFileContentSrc("test/MyContainer.java", getTestSource("""
+					public class MyContainer extends JPanel {
+						public void addChild(String text, Component component) {
+							add(component);
+						}
+					}"""));
+			setFileContentSrc("test/MyContainer.wbp-component.xml", """
+					<?xml version="1.0" encoding="UTF-8"?>
+					<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+						<methods>
+							<method name="addChild">
+								<parameter type="java.lang.String"/>
+								<parameter type="java.awt.Component" child="true"/>
+							</method>
+						</methods>
+					</component>""");
 			waitForAutoBuild();
 		}
 	}
@@ -69,13 +65,12 @@ public class InvocationChildAssociationAccessorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyContainer {",
-						"  public Test() {",
-						"    addChild('text', new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyContainer {
+					public Test() {
+						addChild("text", new JButton());
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
 		// check
@@ -89,23 +84,22 @@ public class InvocationChildAssociationAccessorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setExpression_newValue() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyContainer {",
-						"  public Test() {",
-						"    addChild('text', new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyContainer {
+					public Test() {
+						addChild("text", new JButton());
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
 		// check
 		assertTrue(accessor.setExpression(button, "\"new text\""));
-		assertEditor(
-				"public class Test extends MyContainer {",
-				"  public Test() {",
-				"    addChild('new text', new JButton());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends MyContainer {
+					public Test() {
+						addChild("new text", new JButton());
+					}
+				}""");
 	}
 
 	/**
@@ -113,23 +107,22 @@ public class InvocationChildAssociationAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_nullValue() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyContainer {",
-						"  public Test() {",
-						"    addChild('text', new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyContainer {
+					public Test() {
+						addChild("text", new JButton());
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, "\"\"");
 		// set "null", default value is used
 		assertTrue(accessor.setExpression(button, null));
-		assertEditor(
-				"public class Test extends MyContainer {",
-				"  public Test() {",
-				"    addChild('', new JButton());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends MyContainer {
+					public Test() {
+						addChild("", new JButton());
+					}
+				}""");
 	}
 
 	/**
@@ -137,22 +130,21 @@ public class InvocationChildAssociationAccessorTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setExpression_nullValue_noDefault() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyContainer {",
-						"  public Test() {",
-						"    addChild('text', new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyContainer {
+					public Test() {
+						addChild("text", new JButton());
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		InvocationChildAssociationAccessor accessor = new InvocationChildAssociationAccessor(0, null);
 		// set "null", but no default value, so ignored
 		assertFalse(accessor.setExpression(button, null));
-		assertEditor(
-				"public class Test extends MyContainer {",
-				"  public Test() {",
-				"    addChild('text', new JButton());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends MyContainer {
+					public Test() {
+						addChild("text", new JButton());
+					}
+				}""");
 	}
 }

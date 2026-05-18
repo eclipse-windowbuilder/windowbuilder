@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -2685,20 +2685,20 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_createAssociateAndInvokeMethod() throws Exception {
-		setJavaContentSrc("test", "MyButton", new String[]{
-				"public class MyButton extends JButton {",
-				"  public MyButton(Container container) {",
-				"    container.add(this);",
-				"  }",
-		"}"}, new String[]{
-				"<?xml version='1.0' encoding='UTF-8'?>",
-				"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-				"  <constructors>",
-				"    <constructor>",
-				"      <parameter type='java.awt.Container' parent='true'/>",
-				"    </constructor>",
-				"  </constructors>",
-		"</component>"});
+		setJavaContentSrc("test", "MyButton", """
+				public class MyButton extends JButton {
+					public MyButton(Container container) {
+						container.add(this);
+					}
+				}""", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="java.awt.Container" parent="true"/>
+						</constructor>
+					</constructors>
+				</component>""");
 		// parse
 		ContainerInfo panel =
 				parseContainer(

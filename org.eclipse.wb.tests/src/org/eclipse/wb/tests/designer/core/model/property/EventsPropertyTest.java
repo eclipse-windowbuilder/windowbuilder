@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -126,13 +126,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_noListeners() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
 		assertFalse(eventsProperty.isModified());
 		assertSame(Property.UNKNOWN_VALUE, eventsProperty.getValue());
@@ -141,20 +140,19 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_hasListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"        System.out.println('keyPressed!');",
-						"      }",
-						"      public void keyReleased(KeyEvent e) {",
-						"        System.out.println('keyReleased!');",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+								System.out.println("keyPressed!");
+							}
+							public void keyReleased(KeyEvent e) {
+								System.out.println("keyReleased!");
+							}
+						});
+					}
+				}""");
 		EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
 		assertNotNull(eventsProperty);
 		assertTrue(eventsProperty.isModified());
@@ -189,17 +187,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_listenerInVariable() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    KeyListener listener = new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"      }",
-						"    };",
-						"    addKeyListener(listener);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						KeyListener listener = new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+							}
+						};
+						addKeyListener(listener);
+					}
+				}""");
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		assertNotNull(keyPressedProperty);
 		assertTrue(keyPressedProperty.isModified());
@@ -207,21 +204,20 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_listenerInnerType() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  private class KeyHandler extends KeyAdapter {",
-						"    public void keyPressed(KeyEvent e) {",
-						"      System.out.println('keyPressed!');",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"      System.out.println('keyReleased!');",
-						"    }",
-						"  }",
-						"  Test() {",
-						"    addKeyListener(new KeyHandler());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					private class KeyHandler extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+							System.out.println("keyPressed!");
+						}
+						public void keyReleased(KeyEvent e) {
+							System.out.println("keyReleased!");
+						}
+					}
+					Test() {
+						addKeyListener(new KeyHandler());
+					}
+				}""");
 		EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
 		assertEquals("[key]", getPropertyText(eventsProperty));
 		//
@@ -236,30 +232,31 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_qualifeidListenerNames() throws Exception {
-		setFileContentSrc(
-				"test/Listener_1.java",
-				getSourceDQ("package test;", "public interface Listener_1 {", "  void foo();", "}"));
-		setFileContentSrc(
-				"test/Listener_2.java",
-				getSourceDQ("package test;", "public interface Listener_2 {", "  void bar();", "}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(Listener_1 listener) {",
-						"  }",
-						"  public void addMyListener(Listener_2 listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/Listener_1.java", """
+				package test;
+				public interface Listener_1 {
+						void foo();
+				}""");
+		setFileContentSrc("test/Listener_2.java", """
+				package test;
+				public interface Listener_2 {
+						void bar();
+				}""");
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(Listener_1 listener) {
+					}
+					public void addMyListener(Listener_2 listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// Listener_1.foo()
 		{
 			Property property = getEventsListenerMethod(panel, "my(test.Listener_1)", "foo");
@@ -283,22 +280,21 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerThis_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  Test() {",
-						"    addKeyListener(this);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      System.out.println('keyPressed!');",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"      System.out.println('keyReleased!');",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"      System.out.println('keyTyped!');",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+							System.out.println("keyPressed!");
+						}
+						public void keyReleased(KeyEvent e) {
+							System.out.println("keyReleased!");
+						}
+						public void keyTyped(KeyEvent e) {
+							System.out.println("keyTyped!");
+						}
+				}""");
 		EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
 		assertEquals("[key]", getPropertyText(eventsProperty));
 		//
@@ -313,32 +309,31 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerThis_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  private final JButton m_button = new JButton();",
-						"  Test() {",
-						"    add(m_button);",
-						"    addKeyListener(this);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      // valid routing IfStatement",
-						"      if (e.getSource() == this) {",
-						"        onThis_keyPressed(e);",
-						"      }",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"      if (e.getSource() == m_button) {",
-						"        // do nothing, we need this only to show EventsProperty",
-						"        // that here we have routing to stubs",
-						"      }",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"      // no any statement, so no stubs routing, so is handler",
-						"    }",
-						"    private void onThis_keyPressed(KeyEvent e) {",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					private final JButton m_button = new JButton();
+					Test() {
+						add(m_button);
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+							// valid routing IfStatement
+							if (e.getSource() == this) {
+								onThis_keyPressed(e);
+							}
+						}
+						public void keyReleased(KeyEvent e) {
+							if (e.getSource() == m_button) {
+								// do nothing, we need this only to show EventsProperty
+								// that here we have routing to stubs
+							}
+						}
+						public void keyTyped(KeyEvent e) {
+							// no any statement, so no stubs routing, so is handler
+						}
+						private void onThis_keyPressed(KeyEvent e) {
+						}
+				}""");
 		EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
 		assertEquals("[key]", getPropertyText(eventsProperty));
 		//
@@ -352,34 +347,33 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerThis_3() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  private final JButton m_button = new JButton();",
-						"  Test() {",
-						"    add(m_button);",
-						"    addKeyListener(this);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      // valid routing IfStatement, single Statement (not Block) as 'then'",
-						"      if (e.getSource() == this)",
-						"        onThis_keyPressed(e);",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"      if (e.getSource() == m_button) {",
-						"        // do nothing, we need this only to show EventsProperty",
-						"        // that here we have routing to stubs",
-						"      }",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"      if (e.getSource() == m_button) {",
-						"        // do nothing, we need this only to show EventsProperty",
-						"        // that here we have routing to stubs",
-						"      }",
-						"    }",
-						"    private void onThis_keyPressed(KeyEvent e) {",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					private final JButton m_button = new JButton();
+					Test() {
+						add(m_button);
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+							// valid routing IfStatement, single Statement (not Block) as "then"
+							if (e.getSource() == this)
+								onThis_keyPressed(e);
+						}
+						public void keyReleased(KeyEvent e) {
+							if (e.getSource() == m_button) {
+								// do nothing, we need this only to show EventsProperty
+								// that here we have routing to stubs
+							}
+						}
+						public void keyTyped(KeyEvent e) {
+							if (e.getSource() == m_button) {
+								// do nothing, we need this only to show EventsProperty
+								// that here we have routing to stubs
+							}
+						}
+						private void onThis_keyPressed(KeyEvent e) {
+						}
+				}""");
 		EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
 		assertEquals("[key]", getPropertyText(eventsProperty));
 		//
@@ -396,29 +390,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerAndExecutionFlow() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  private JButton m_button;",
-						"  Test() {",
-						"    m_button = new JButton();",
-						"    add(m_button);",
-						"    m_button.addKeyListener(this);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      if (e.getSource() == m_button) {",
-						"        onButton_keyPressed(e);",
-						"      }",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"      // no any statement, so no stubs routing, so is handler",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"      // no any statement, so no stubs routing, so is handler",
-						"    }",
-						"    private void onButton_keyPressed(KeyEvent e) {",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					private JButton m_button;
+					Test() {
+						m_button = new JButton();
+						add(m_button);
+						m_button.addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+							if (e.getSource() == m_button) {
+								onButton_keyPressed(e);
+							}
+						}
+						public void keyReleased(KeyEvent e) {
+							// no any statement, so no stubs routing, so is handler
+						}
+						public void keyTyped(KeyEvent e) {
+							// no any statement, so no stubs routing, so is handler
+						}
+						private void onButton_keyPressed(KeyEvent e) {
+						}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		EventsProperty eventsProperty = (EventsProperty) button.getPropertyByTitle("Events");
 		assertEquals("[key]", getPropertyText(eventsProperty));
@@ -453,62 +446,59 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_delete_method_noListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// do delete, no GUI expected
 		Property keyReleasedProperty = getEventsListenerMethod(panel, "key", "released");
 		keyReleasedProperty.setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	@Test
 	public void test_delete_method_noMethod() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		// do delete, no GUI expected
 		Property keyReleasedProperty = getEventsListenerMethod(panel, "key", "released");
 		keyReleasedProperty.setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    addKeyListener(new KeyAdapter() {",
-				"      public void keyPressed(KeyEvent e) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 	}
 
 	@Test
 	public void test_delete_method_Cancel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		final Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		String expectedSource = m_lastEditor.getSource();
 		// press "Cancel", so don't delete
@@ -530,79 +520,76 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_delete_method() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		//
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		deleteEventPropertyWithGUI(keyPressedProperty);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	@Test
 	public void test_delete_methodWithStub() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"        do_keyPressed(e);",
-						"      }",
-						"    });",
-						"  }",
-						"  public void do_keyPressed(KeyEvent e) {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+								do_keyPressed(e);
+							}
+						});
+					}
+					public void do_keyPressed(KeyEvent e) {
+					}
+				}""");
 		//
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		deleteEventPropertyWithGUI(keyPressedProperty);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	@Test
 	public void test_delete_listener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"      }",
-						"      public void keyReleased(KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+							}
+							public void keyReleased(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		//
 		Property keyProperty = getEventsListener(panel, "key");
 		deleteEventPropertyWithGUI(keyProperty);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		assertEquals(m_lastEditor.getSource(), m_lastEditor.getModelUnit().getSource());
 	}
 
@@ -613,56 +600,54 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_deleteInner_method() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new MyKeyListener());",
-						"  }",
-						"  private class MyKeyListener extends KeyAdapter {",
-						"    public void keyPressed(KeyEvent e) {",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new MyKeyListener());
+					}
+					private class MyKeyListener extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 		// prepare property
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		assertTrue(keyPressedProperty.isModified());
 		// do delete
 		deleteEventPropertyWithGUI(keyPressedProperty);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteInner_listener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new MyKeyListener());",
-						"  }",
-						"  private class MyKeyListener extends KeyAdapter {",
-						"    public void keyPressed(KeyEvent e) {",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new MyKeyListener());
+					}
+					private class MyKeyListener extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 		// prepare property
 		Property keyProperty = getEventsListener(panel, "key");
 		assertTrue(keyProperty.isModified());
 		// do delete
 		deleteEventPropertyWithGUI(keyProperty);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -671,30 +656,29 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_deleteInner_componentWithListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						"    add(button);",
-						"    button.addKeyListener(new MyKeyListener());",
-						"  }",
-						"  private class MyKeyListener extends KeyAdapter {",
-						"    public void keyPressed(KeyEvent e) {",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+						button.addKeyListener(new MyKeyListener());
+					}
+					private class MyKeyListener extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// do delete "button"
 		button.delete();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -702,36 +686,35 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_deleteComponent_andOtherListeners() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"      button_1.addKeyListener(new KeyAdapter() {});",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"      button_2.addKeyListener(new KeyAdapter() {});",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+							button_1.addKeyListener(new KeyAdapter() {});
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.addKeyListener(new KeyAdapter() {});
+						}
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		// do delete "button"
 		button_1.delete();
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      button_2.addKeyListener(new KeyAdapter() {});",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.addKeyListener(new KeyAdapter() {});
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -740,137 +723,137 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_deleteInner_listener_twoUsages_deleteJavaInfo() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"      button.addKeyListener(new MyKeyListener());",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      button_2.addKeyListener(new MyKeyListener());",
-				"    }",
-				"  }",
-				"  private class MyKeyListener extends KeyAdapter {",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+							button.addKeyListener(new MyKeyListener());
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.addKeyListener(new MyKeyListener());
+						}
+					}
+					private class MyKeyListener extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 		JavaInfo button = getJavaInfoByName("button");
 		// do delete
 		button.delete();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      button_2.addKeyListener(new MyKeyListener());",
-				"    }",
-				"  }",
-				"  private class MyKeyListener extends KeyAdapter {",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.addKeyListener(new MyKeyListener());
+						}
+					}
+					private class MyKeyListener extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteInner_listener_twoUsages_keepOne() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"      button.addKeyListener(new MyKeyListener());",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      button_2.addKeyListener(new MyKeyListener());",
-				"    }",
-				"  }",
-				"  private class MyKeyListener extends KeyAdapter {",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+							button.addKeyListener(new MyKeyListener());
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.addKeyListener(new MyKeyListener());
+						}
+					}
+					private class MyKeyListener extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 		JavaInfo button = getJavaInfoByName("button");
 		// prepare property
 		Property keyProperty = getEventsListener(button, "key");
 		assertTrue(keyProperty.isModified());
 		// do delete
 		deleteInnerListener_twoUsages(keyProperty, "&No");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      button_2.addKeyListener(new MyKeyListener());",
-				"    }",
-				"  }",
-				"  private class MyKeyListener extends KeyAdapter {",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.addKeyListener(new MyKeyListener());
+						}
+					}
+					private class MyKeyListener extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteInner_listener_twoUsages_removeAll() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"      button.addKeyListener(new MyKeyListener());",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"      button_2.addKeyListener(new MyKeyListener());",
-				"    }",
-				"  }",
-				"  private class MyKeyListener extends KeyAdapter {",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+							button.addKeyListener(new MyKeyListener());
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+							button_2.addKeyListener(new MyKeyListener());
+						}
+					}
+					private class MyKeyListener extends KeyAdapter {
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 		JavaInfo button = getJavaInfoByName("button");
 		// prepare property
 		Property keyProperty = getEventsListener(button, "key");
 		assertTrue(keyProperty.isModified());
 		// do delete
 		deleteInnerListener_twoUsages(keyProperty, "&Yes");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"    {",
-				"      JButton button_2 = new JButton();",
-				"      add(button_2);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+					}
+				}""");
 	}
 
 	private static void deleteInnerListener_twoUsages(final Property property,
@@ -901,42 +884,41 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_deleteThis_listener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  private final JButton m_button = new JButton();",
-						"  Test() {",
-						"    add(m_button);",
-						"    m_button.addKeyListener(this);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      // valid routing IfStatement",
-						"      if (e.getSource() == m_button) {",
-						"        onButton_keyPressed(e);",
-						"      }",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"    }",
-						"    private void onButton_keyPressed(KeyEvent e) {",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					private final JButton m_button = new JButton();
+					Test() {
+						add(m_button);
+						m_button.addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+							// valid routing IfStatement
+							if (e.getSource() == m_button) {
+								onButton_keyPressed(e);
+							}
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+						private void onButton_keyPressed(KeyEvent e) {
+						}
+				}""");
 		panel.refresh();
 		// delete "button"
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		button.delete();
-		assertEditor(
-				"class Test extends JPanel implements KeyListener {",
-				"  Test() {",
-				"  }",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"    public void keyReleased(KeyEvent e) {",
-				"    }",
-				"    public void keyTyped(KeyEvent e) {",
-				"    }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+					}
+						public void keyPressed(KeyEvent e) {
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -949,37 +931,36 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_delete_method_interfaceWithDirectStub() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  Test() {",
-						"    addKeyListener(this);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      onThis_keyPressed(e);",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"    }",
-						"    private void onThis_keyPressed(KeyEvent e) {",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+							onThis_keyPressed(e);
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+						private void onThis_keyPressed(KeyEvent e) {
+						}
+				}""");
 		// do delete, no GUI expected
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		keyPressedProperty.setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"class Test extends JPanel implements KeyListener {",
-				"  Test() {",
-				"    addKeyListener(this);",
-				"  }",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"    public void keyReleased(KeyEvent e) {",
-				"    }",
-				"    public void keyTyped(KeyEvent e) {",
-				"    }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+				}""");
 	}
 
 	/**
@@ -987,39 +968,38 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_delete_method_interfaceWithConditionalStub_block() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  Test() {",
-						"    addKeyListener(this);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      if (e.getSource() == this) {",
-						"        onThis_keyPressed(e);",
-						"      }",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"    }",
-						"    private void onThis_keyPressed(KeyEvent e) {",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+							if (e.getSource() == this) {
+								onThis_keyPressed(e);
+							}
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+						private void onThis_keyPressed(KeyEvent e) {
+						}
+				}""");
 		// do delete, no GUI expected
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		keyPressedProperty.setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"class Test extends JPanel implements KeyListener {",
-				"  Test() {",
-				"    addKeyListener(this);",
-				"  }",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"    public void keyReleased(KeyEvent e) {",
-				"    }",
-				"    public void keyTyped(KeyEvent e) {",
-				"    }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+				}""");
 	}
 
 	/**
@@ -1027,38 +1007,37 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_delete_method_interfaceWithConditionalStub_flat() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  Test() {",
-						"    addKeyListener(this);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      if (e.getSource() == this)",
-						"        onThis_keyPressed(e);",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"    }",
-						"    private void onThis_keyPressed(KeyEvent e) {",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+							if (e.getSource() == this)
+								onThis_keyPressed(e);
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+						private void onThis_keyPressed(KeyEvent e) {
+						}
+				}""");
 		// do delete, no GUI expected
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		keyPressedProperty.setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"class Test extends JPanel implements KeyListener {",
-				"  Test() {",
-				"    addKeyListener(this);",
-				"  }",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"    public void keyReleased(KeyEvent e) {",
-				"    }",
-				"    public void keyTyped(KeyEvent e) {",
-				"    }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+					}
+						public void keyPressed(KeyEvent e) {
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+				}""");
 	}
 
 	/**
@@ -1067,44 +1046,43 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_delete_method_interfaceWithConditionalStub_plusOtherPlace() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel implements KeyListener {",
-						"  Test() {",
-						"    addKeyListener(this);",
-						"    // not in listener, so ignored",
-						"    onThis_keyPressed(null);",
-						"  }",
-						"    public void keyPressed(KeyEvent e) {",
-						"      if (e.getSource() == this)",
-						"        onThis_keyPressed(e);",
-						"    }",
-						"    public void keyReleased(KeyEvent e) {",
-						"    }",
-						"    public void keyTyped(KeyEvent e) {",
-						"    }",
-						"    private void onThis_keyPressed(KeyEvent e) {",
-						"    }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+						// not in listener, so ignored
+						onThis_keyPressed(null);
+					}
+						public void keyPressed(KeyEvent e) {
+							if (e.getSource() == this)
+								onThis_keyPressed(e);
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+						private void onThis_keyPressed(KeyEvent e) {
+						}
+				}""");
 		// do delete, no GUI expected
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		keyPressedProperty.setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"class Test extends JPanel implements KeyListener {",
-				"  Test() {",
-				"    addKeyListener(this);",
-				"    // not in listener, so ignored",
-				"    onThis_keyPressed(null);",
-				"  }",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"    public void keyReleased(KeyEvent e) {",
-				"    }",
-				"    public void keyTyped(KeyEvent e) {",
-				"    }",
-				"    private void onThis_keyPressed(KeyEvent e) {",
-				"    }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel implements KeyListener {
+					Test() {
+						addKeyListener(this);
+						// not in listener, so ignored
+						onThis_keyPressed(null);
+					}
+						public void keyPressed(KeyEvent e) {
+						}
+						public void keyReleased(KeyEvent e) {
+						}
+						public void keyTyped(KeyEvent e) {
+						}
+						private void onThis_keyPressed(KeyEvent e) {
+						}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1114,38 +1092,36 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ensureListenerMethod_addListenerMethod() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+						});
+					}
+				}""");
 		//
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    addKeyListener(new KeyAdapter() {",
-				"      @Override",
-				"      public void keyPressed(KeyEvent e) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ensureListenerMethod_addListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_ANONYMOUS);
@@ -1153,73 +1129,72 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		{
 			Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 			ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    addKeyListener(new KeyAdapter() {",
-					"      @Override",
-					"      public void keyPressed(KeyEvent e) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+							addKeyListener(new KeyAdapter() {
+								@Override
+								public void keyPressed(KeyEvent e) {
+								}
+							});
+						}
+					}""");
 		}
 		// add one more method
 		{
 			Property keyPressedProperty = getEventsListenerMethod(panel, "key", "released");
 			ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    addKeyListener(new KeyAdapter() {",
-					"      @Override",
-					"      public void keyPressed(KeyEvent e) {",
-					"      }",
-					"      @Override",
-					"      public void keyReleased(KeyEvent e) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+							addKeyListener(new KeyAdapter() {
+								@Override
+								public void keyPressed(KeyEvent e) {
+								}
+								@Override
+								public void keyReleased(KeyEvent e) {
+								}
+							});
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_addListener_deleteListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		// ensure listener
 		{
 			ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"    addKeyListener(new KeyAdapter() {",
-					"      @Override",
-					"      public void keyPressed(KeyEvent e) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+							addKeyListener(new KeyAdapter() {
+								@Override
+								public void keyPressed(KeyEvent e) {
+								}
+							});
+						}
+					}""");
 		}
 		// delete listener
 		{
 			deleteEventPropertyWithGUI(keyPressedProperty);
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends JPanel {",
-					"  public Test() {",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends JPanel {
+						public Test() {
+						}
+					}""");
 		}
 	}
 
@@ -1230,13 +1205,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ensureListenerMethod_inner_badPosition() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -1252,13 +1226,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_ensureListenerMethod_inner_firstInType() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -1266,29 +1239,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  private class ThisKeyListener extends KeyAdapter {",
-				"    @Override",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"  public Test() {",
-				"    addKeyListener(new ThisKeyListener());",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					private class ThisKeyListener extends KeyAdapter {
+						@Override
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+					public Test() {
+						addKeyListener(new ThisKeyListener());
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ensureListenerMethod_inner_lastInType() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"class Test extends JPanel {",
-						"  Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				class Test extends JPanel {
+					Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -1296,29 +1268,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    addKeyListener(new ThisKeyListener());",
-				"  }",
-				"  private class ThisKeyListener extends KeyAdapter {",
-				"    @Override",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new ThisKeyListener());
+					}
+					private class ThisKeyListener extends KeyAdapter {
+						@Override
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ensureListenerMethod_inner_beforeExistingListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"  }",
-						"  private class ThisMouseListener extends MouseAdapter {}",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+					}
+					private class ThisMouseListener extends MouseAdapter {}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -1326,29 +1297,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    addKeyListener(new ThisKeyListener());",
-				"  }",
-				"  private class ThisKeyListener extends KeyAdapter {",
-				"    @Override",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"  private class ThisMouseListener extends MouseAdapter {}",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new ThisKeyListener());
+					}
+					private class ThisKeyListener extends KeyAdapter {
+						@Override
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+					private class ThisMouseListener extends MouseAdapter {}
+				}""");
 	}
 
 	@Test
 	public void test_ensureListenerMethod_inner_beforeNotExistingListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"class Test extends JPanel {",
-						"  Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				class Test extends JPanel {
+					Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -1356,29 +1326,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"class Test extends JPanel {",
-				"  private class ThisKeyListener extends KeyAdapter {",
-				"    @Override",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"  Test() {",
-				"    addKeyListener(new ThisKeyListener());",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				class Test extends JPanel {
+					private class ThisKeyListener extends KeyAdapter {
+						@Override
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+					Test() {
+						addKeyListener(new ThisKeyListener());
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ensureListenerMethod_inner_afterExistingListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  private class ThisMouseListener extends MouseAdapter {}",
-						"  Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					private class ThisMouseListener extends MouseAdapter {}
+					Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -1386,30 +1355,29 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  private class ThisMouseListener extends MouseAdapter {}",
-				"  private class ThisKeyListener extends KeyAdapter {",
-				"    @Override",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"  Test() {",
-				"    addKeyListener(new ThisKeyListener());",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					private class ThisMouseListener extends MouseAdapter {}
+					private class ThisKeyListener extends KeyAdapter {
+						@Override
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+					Test() {
+						addKeyListener(new ThisKeyListener());
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ensureListenerMethod_inner_noAdapter() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JButton button = new JButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
@@ -1418,29 +1386,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(button, "action", "performed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  private class ButtonActionListener implements ActionListener {",
-				"    public void actionPerformed(ActionEvent e) {",
-				"    }",
-				"  }",
-				"  Test() {",
-				"    JButton button = new JButton();",
-				"    button.addActionListener(new ButtonActionListener());",
-				"    add(button);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					private class ButtonActionListener implements ActionListener {
+						public void actionPerformed(ActionEvent e) {
+						}
+					}
+					Test() {
+						JButton button = new JButton();
+						button.addActionListener(new ButtonActionListener());
+						add(button);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ensureListenerMethod_inner_exposedVariable() throws Exception {
-		ContainerInfo frame =
-				parseContainer(
-						"// filler filler filler",
-						"class Test extends JFrame {",
-						"  Test() {",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				// filler filler filler
+				class Test extends JFrame {
+					Test() {
+					}
+				}""");
 		ContainerInfo contentPane = (ContainerInfo) frame.getChildrenComponents().get(0);
 		// set preferences
 		IPreferenceStore preferences = frame.getDescription().getToolkit().getPreferences();
@@ -1449,29 +1416,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(contentPane, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"class Test extends JFrame {",
-				"  private class ThisContentPaneKeyListener extends KeyAdapter {",
-				"    @Override",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"  Test() {",
-				"    getContentPane().addKeyListener(new ThisContentPaneKeyListener());",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				class Test extends JFrame {
+					private class ThisContentPaneKeyListener extends KeyAdapter {
+						@Override
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+					Test() {
+						getContentPane().addKeyListener(new ThisContentPaneKeyListener());
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ensureListenerMethod_inner_nameTemplate() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -1480,18 +1446,18 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  private class KeyListener_this extends KeyAdapter {",
-				"    @Override",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"  public Test() {",
-				"    addKeyListener(new KeyListener_this());",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					private class KeyListener_this extends KeyAdapter {
+						@Override
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+					public Test() {
+						addKeyListener(new KeyListener_this());
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1505,32 +1471,31 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_ensureListenerMethod_interface_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INTERFACE);
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel implements KeyListener {",
-				"  public Test() {",
-				"    addKeyListener(this);",
-				"  }",
-				"  public void keyPressed(KeyEvent e) {",
-				"  }",
-				"  public void keyReleased(KeyEvent e) {",
-				"  }",
-				"  public void keyTyped(KeyEvent e) {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel implements KeyListener {
+					public Test() {
+						addKeyListener(this);
+					}
+					public void keyPressed(KeyEvent e) {
+					}
+					public void keyReleased(KeyEvent e) {
+					}
+					public void keyTyped(KeyEvent e) {
+					}
+				}""");
 	}
 
 	/**
@@ -1539,13 +1504,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_ensureStubMethod_interface_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INTERFACE);
@@ -1553,24 +1517,24 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureStubMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel implements KeyListener {",
-				"  public Test() {",
-				"    addKeyListener(this);",
-				"  }",
-				"  public void keyPressed(KeyEvent e) {",
-				"    if (e.getSource() == this) {",
-				"      do_this_keyPressed(e);",
-				"    }",
-				"  }",
-				"  public void keyReleased(KeyEvent e) {",
-				"  }",
-				"  public void keyTyped(KeyEvent e) {",
-				"  }",
-				"  protected void do_this_keyPressed(KeyEvent e) {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel implements KeyListener {
+					public Test() {
+						addKeyListener(this);
+					}
+					public void keyPressed(KeyEvent e) {
+						if (e.getSource() == this) {
+							do_this_keyPressed(e);
+						}
+					}
+					public void keyReleased(KeyEvent e) {
+					}
+					public void keyTyped(KeyEvent e) {
+					}
+					protected void do_this_keyPressed(KeyEvent e) {
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1580,13 +1544,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_openStubMethod() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CREATE_STUB, true);
@@ -1605,20 +1568,20 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// verify
 		verify(pageSite).openSourcePosition(openSourcePosition.capture());
 		verifyNoMoreInteractions(pageSite);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    addKeyListener(new KeyAdapter() {",
-				"      @Override",
-				"      public void keyPressed(KeyEvent e) {",
-				"        do_this_keyPressed(e);",
-				"      }",
-				"    });",
-				"  }",
-				"  protected void do_this_keyPressed(KeyEvent e) {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(KeyEvent e) {
+								do_this_keyPressed(e);
+							}
+						});
+					}
+					protected void do_this_keyPressed(KeyEvent e) {
+					}
+				}""");
 		// check captured position
 		{
 			assertTrue(openSourcePosition.getValue() != 0);
@@ -1649,15 +1612,14 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_openStubMethod_whenInnerClass() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private class MyListener extends KeyAdapter {",
-						"  }",
-						"  public Test() {",
-						"    addKeyListener(new MyListener());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private class MyListener extends KeyAdapter {
+					}
+					public Test() {
+						addKeyListener(new MyListener());
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CREATE_STUB, true);
@@ -1665,17 +1627,17 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "openStubMethod()");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private class MyListener extends KeyAdapter {",
-				"    @Override",
-				"    public void keyPressed(KeyEvent e) {",
-				"    }",
-				"  }",
-				"  public Test() {",
-				"    addKeyListener(new MyListener());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private class MyListener extends KeyAdapter {
+						@Override
+						public void keyPressed(KeyEvent e) {
+						}
+					}
+					public Test() {
+						addKeyListener(new MyListener());
+					}
+				}""");
 	}
 
 	/**
@@ -1683,28 +1645,27 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_openStubMethod_noStub() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		//
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "openStubMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    addKeyListener(new KeyAdapter() {",
-				"      @Override",
-				"      public void keyPressed(KeyEvent e) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 	}
 
 	/**
@@ -1712,29 +1673,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_ensureStubMethod_noStub() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		//
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		MethodDeclaration listenerMethod =
 				(MethodDeclaration) ReflectionUtils.invokeMethod(keyPressedProperty, "ensureStubMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    addKeyListener(new KeyAdapter() {",
-				"      @Override",
-				"      public void keyPressed(KeyEvent e) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		assertEquals("keyPressed", listenerMethod.getName().getIdentifier());
 	}
 
@@ -1743,16 +1703,15 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_openStubMethod_noStub2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CREATE_STUB, true);
@@ -1760,26 +1719,25 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "openStubMethod()");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    addKeyListener(new KeyAdapter() {",
-				"      public void keyPressed(KeyEvent e) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 	}
 
 	@Test
 	public void test_openStubMethod_static() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test {",
-						"  public static void main(String [] args) {",
-						"    JPanel panel = new JPanel();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String [] args) {
+						JPanel panel = new JPanel();
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CREATE_STUB, true);
@@ -1787,20 +1745,20 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "openStubMethod()");
-		assertEditor(
-				"class Test {",
-				"  public static void main(String [] args) {",
-				"    JPanel panel = new JPanel();",
-				"    panel.addKeyListener(new KeyAdapter() {",
-				"      @Override",
-				"      public void keyPressed(KeyEvent e) {",
-				"        do_panel_keyPressed(e);",
-				"      }",
-				"    });",
-				"  }",
-				"  protected static void do_panel_keyPressed(KeyEvent e) {",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String [] args) {
+						JPanel panel = new JPanel();
+						panel.addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(KeyEvent e) {
+								do_panel_keyPressed(e);
+							}
+						});
+					}
+					protected static void do_panel_keyPressed(KeyEvent e) {
+					}
+				}""");
 	}
 
 	/**
@@ -1809,30 +1767,29 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_openStubMethod_whenLocalClass() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    class MyListener extends KeyAdapter {",
-						"    }",
-						"    addKeyListener(new MyListener());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						class MyListener extends KeyAdapter {
+						}
+						addKeyListener(new MyListener());
+					}
+				}""");
 		//
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "openStubMethod()");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    class MyListener extends KeyAdapter {",
-				"      @Override",
-				"      public void keyPressed(KeyEvent e) {",
-				"      }",
-				"    }",
-				"    addKeyListener(new MyListener());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						class MyListener extends KeyAdapter {
+							@Override
+							public void keyPressed(KeyEvent e) {
+							}
+						}
+						addKeyListener(new MyListener());
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1847,13 +1804,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_openStubListenerMethod_valid() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set mock for DesignPageSite
 		DesignPageSite pageSite;
 		{
@@ -1868,17 +1824,17 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		// test results
 		verify(pageSite).openSourcePosition(ArgumentMatchers.anyInt());
 		verifyNoMoreInteractions(pageSite);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    addKeyListener(new KeyAdapter() {",
-				"      @Override",
-				"      public void keyPressed(KeyEvent e) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 	}
 
 	/**
@@ -1888,16 +1844,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_openStubListenerMethod_openSource() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		// set mock for DesignPageSite
 		IDesignPageSite pageSite;
@@ -1917,16 +1873,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		assertEquals(
 				button.getCreationSupport().getNode().getStartPosition(),
 				openSourcePosition.getValue().intValue());
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      JButton button = new JButton();",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1937,13 +1893,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	@Test
 	public void test_openStubListenerMethod_sendBroadcast() throws Exception {
 		String name = "wbp:broadcast with parameters";
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		//
 		final AtomicReference<String> broSpec = new AtomicReference<>();
@@ -1959,12 +1914,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		waitEventLoop(0);
 		// test results
 		assertEquals(name, broSpec.get());
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	/**
@@ -1974,13 +1929,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_openStubListenerMethod_invalid() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// set mock for DesignPageSite
 		IDesignPageSite pageSite;
 		{
@@ -1993,12 +1947,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		eventsProperty.openStubMethod("no-such-listener/no-matter-what-method");
 		// test results
 		verifyNoInteractions(pageSite);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -2011,47 +1965,42 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_ensureListenerMethod_customListener() throws Exception {
-		setFileContentSrc(
-				"test/MyListener.java",
-				getSourceDQ(
-						"package test;",
-						"public interface MyListener {",
-						"  void click(Object widget, int x, int y);",
-						"  int offset();",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyListener.java", """
+				package test;
+				public interface MyListener {
+					void click(Object widget, int x, int y);
+					int offset();
+				}""");
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				// filler filler filler
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		//
 		Property clickProperty = getEventsListenerMethod(panel, "my", "click");
 		ReflectionUtils.invokeMethod(clickProperty, "ensureListenerMethod()");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    addMyListener(new MyListener() {",
-				"      public void click(Object widget, int x, int y) {",
-				"      }",
-				"      public int offset() {",
-				"        return 0;",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						addMyListener(new MyListener() {
+							public void click(Object widget, int x, int y) {
+							}
+							public int offset() {
+								return 0;
+							}
+						});
+					}
+				}""");
 	}
 
 	/**
@@ -2059,39 +2008,34 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_ensureListenerMethod_listenerInConstructor() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton(String text, FocusListener listener) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyButton.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='java.lang.String'/>",
-						"      <parameter type='java.awt.event.FocusListener'>",
-						"        <tag name='events: add listener method' value='addFocusListener(java.awt.event.FocusListener)'/>",
-						"      </parameter>",
-						"    </constructor>",
-						"  </constructors>",
-						"</component>"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton(String text, FocusListener listener) {
+					}
+				}"""));
+		setFileContentSrc("test/MyButton.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="java.lang.String"/>
+							<parameter type="java.awt.event.FocusListener">
+								<tag name="events: add listener method" value="addFocusListener(java.awt.event.FocusListener)"/>
+							</parameter>
+						</constructor>
+					</constructors>
+				</component>""");
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton('text', new FocusAdapter() {",
-						"      public void focusGained(FocusEvent e) {}",
-						"    });",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton("text", new FocusAdapter() {
+							public void focusGained(FocusEvent e) {}
+						});
+						add(button);
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		Property focusGainedProperty = getEventsListenerMethod(button, "focus", "gained");
@@ -2105,40 +2049,35 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerInConstructor_inVariable() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton(String text, FocusListener listener) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyButton.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='java.lang.String'/>",
-						"      <parameter type='java.awt.event.FocusListener'>",
-						"        <tag name='events: add listener method' value='addFocusListener(java.awt.event.FocusListener)'/>",
-						"      </parameter>",
-						"    </constructor>",
-						"  </constructors>",
-						"</component>"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton(String text, FocusListener listener) {
+					}
+				}"""));
+		setFileContentSrc("test/MyButton.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="java.lang.String"/>
+							<parameter type="java.awt.event.FocusListener">
+								<tag name="events: add listener method" value="addFocusListener(java.awt.event.FocusListener)"/>
+							</parameter>
+						</constructor>
+					</constructors>
+				</component>""");
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    FocusListener listener = new FocusAdapter() {",
-						"      public void focusGained(FocusEvent e0) {}",
-						"    };",
-						"    MyButton button = new MyButton('text', listener);",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						FocusListener listener = new FocusAdapter() {
+							public void focusGained(FocusEvent e0) {}
+						};
+						MyButton button = new MyButton("text", listener);
+						add(button);
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		//
 		String expectedSource = m_lastEditor.getSource();
@@ -2153,30 +2092,29 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_ensureListenerMethod_final() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+						});
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_FINAL_PARAMETERS, true);
 		// ensure listener
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		ReflectionUtils.invokeMethod(keyPressedProperty, "ensureListenerMethod()");
-		assertEditor(
-				"class Test extends JPanel {",
-				"  Test() {",
-				"    addKeyListener(new KeyAdapter() {",
-				"      @Override",
-				"      public void keyPressed(final KeyEvent e) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+							@Override
+							public void keyPressed(final KeyEvent e) {
+							}
+						});
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -2189,22 +2127,21 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_decorateIcon() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      add(button_1);",
-						"      button_1.addKeyListener(new KeyAdapter() {",
-						"      });",
-						"    }",
-						"    {",
-						"      JButton button_2 = new JButton();",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						{
+							JButton button_1 = new JButton();
+							add(button_1);
+							button_1.addKeyListener(new KeyAdapter() {
+							});
+						}
+						{
+							JButton button_2 = new JButton();
+							add(button_2);
+						}
+					}
+				}""");
 		ComponentInfo button_1 = panel.getChildrenComponents().get(0);
 		ComponentInfo button_2 = panel.getChildrenComponents().get(1);
 		// be default decoration enabled
@@ -2231,16 +2168,15 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ListenerMethodPropertyEditor_doubleClick() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyReleased(KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyReleased(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		//
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
@@ -2251,18 +2187,18 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		{
 			PropertyEditor keyPressedEditor = keyPressedProperty.getEditor();
 			keyPressedEditor.doubleClick(keyPressedProperty);
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    addKeyListener(new KeyAdapter() {",
-					"      public void keyReleased(KeyEvent e) {",
-					"      }",
-					"      @Override",
-					"      public void keyPressed(KeyEvent e) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends JPanel {
+						Test() {
+							addKeyListener(new KeyAdapter() {
+								public void keyReleased(KeyEvent e) {
+								}
+								@Override
+								public void keyPressed(KeyEvent e) {
+								}
+							});
+						}
+					}""");
 		}
 	}
 
@@ -2272,14 +2208,13 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_ListenerMethodPropertyEditor_activate() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+						});
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		//
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
@@ -2288,16 +2223,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		{
 			PropertyEditor keyPressedEditor = keyPressedProperty.getEditor();
 			keyPressedEditor.activate(null, keyPressedProperty, null);
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    addKeyListener(new KeyAdapter() {",
-					"      @Override",
-					"      public void keyPressed(KeyEvent e) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends JPanel {
+						Test() {
+							addKeyListener(new KeyAdapter() {
+								@Override
+								public void keyPressed(KeyEvent e) {
+								}
+							});
+						}
+					}""");
 		}
 	}
 
@@ -2311,22 +2246,19 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_addXHandler() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyCoolHandler(KeyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyCoolHandler(KeyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
 		Property myCoolProperty = getPropertyByTitle(getSubProperties(eventsProperty), "myCool");
 		assertNotNull(myCoolProperty);
@@ -2337,28 +2269,23 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerAsClass() throws Exception {
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener implements java.util.EventListener {",
-						"  public abstract void handle(KeyEvent event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener implements java.util.EventListener {
+					public abstract void handle(KeyEvent event);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// check that "my" listener exists and has only "handle" method
 		{
 			Property listener = getEventsListener(panel, "my");
@@ -2369,16 +2296,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 		// open "my.handle" listener method
 		ensureListenerMethod(panel, "my", "handle");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    addMyListener(new MyListener() {",
-				"      public void handle(KeyEvent event) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						addMyListener(new MyListener() {
+							public void handle(KeyEvent event) {
+							}
+						});
+					}
+				}""");
 	}
 
 	/**
@@ -2386,45 +2313,40 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerAsClass_innerType() throws Exception {
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener implements java.util.EventListener {",
-						"  public abstract void handle(KeyEvent event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener implements java.util.EventListener {
+					public abstract void handle(KeyEvent event);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
 		preferences.setValue(P_INNER_POSITION, V_INNER_FIRST);
 		// open "my.handle" listener method
 		ensureListenerMethod(panel, "my", "handle");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  private class ThisMyListener extends MyListener {",
-				"    public void handle(KeyEvent event) {",
-				"    }",
-				"  }",
-				"  public Test() {",
-				"    addMyListener(new ThisMyListener());",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					private class ThisMyListener extends MyListener {
+						public void handle(KeyEvent event) {
+						}
+					}
+					public Test() {
+						addMyListener(new ThisMyListener());
+					}
+				}""");
 	}
 
 	/**
@@ -2433,31 +2355,26 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerAsClass_useDeclaredNonAbstractMethods() throws Exception {
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener implements java.util.EventListener {",
-						"  public void handle(KeyEvent event) {",
-						"  }",
-						"  public void handle2(KeyEvent event) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener implements java.util.EventListener {
+					public void handle(KeyEvent event) {
+					}
+					public void handle2(KeyEvent event) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// check that "my" listener exists and has only "handle" method
 		{
 			Property listener = getEventsListener(panel, "my");
@@ -2469,16 +2386,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 		// open "my.handle" listener method
 		ensureListenerMethod(panel, "my", "handle");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    addMyListener(new MyListener() {",
-				"      public void handle(KeyEvent event) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						addMyListener(new MyListener() {
+							public void handle(KeyEvent event) {
+							}
+						});
+					}
+				}""");
 	}
 
 	/**
@@ -2486,37 +2403,30 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerAsClass_implementGenericInterface() throws Exception {
-		setFileContentSrc(
-				"test/MyInterface.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public interface MyInterface<E> {",
-						"  void handle(E event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener implements MyInterface<KeyEvent> {",
-						"  public void handle(KeyEvent event) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyInterface.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public interface MyInterface<E> {
+					void handle(E event);
+				}"""));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener implements MyInterface<KeyEvent> {
+					public void handle(KeyEvent event) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// check that "my" listener exists and has only "handle" method
 		{
 			Property listener = getEventsListener(panel, "my");
@@ -2532,28 +2442,23 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerWithGeneric() throws Exception {
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener<E extends java.awt.event.ComponentEvent> {",
-						"  public abstract void handle(E event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener<KeyEvent> listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener<E extends java.awt.event.ComponentEvent> {
+					public abstract void handle(E event);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener<KeyEvent> listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// check that "my" listener exists and has only "handle" method
 		{
 			Property listener = getEventsListener(panel, "my");
@@ -2564,16 +2469,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 		// open "my.handle" listener method
 		ensureListenerMethod(panel, "my", "handle");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    addMyListener(new MyListener<KeyEvent>() {",
-				"      public void handle(KeyEvent event) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						addMyListener(new MyListener<KeyEvent>() {
+							public void handle(KeyEvent event) {
+							}
+						});
+					}
+				}""");
 	}
 
 	/**
@@ -2581,45 +2486,40 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerWithGeneric_innerType() throws Exception {
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener<E extends java.awt.event.ComponentEvent> {",
-						"  public abstract void handle(E event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener<KeyEvent> listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener<E extends java.awt.event.ComponentEvent> {
+					public abstract void handle(E event);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener<KeyEvent> listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
 		preferences.setValue(P_INNER_POSITION, V_INNER_FIRST);
 		// open "my.handle" listener method
 		ensureListenerMethod(panel, "my", "handle");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  private class ThisMyListener extends MyListener<KeyEvent> {",
-				"    public void handle(KeyEvent event) {",
-				"    }",
-				"  }",
-				"  public Test() {",
-				"    addMyListener(new ThisMyListener());",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					private class ThisMyListener extends MyListener<KeyEvent> {
+						public void handle(KeyEvent event) {
+						}
+					}
+					public Test() {
+						addMyListener(new ThisMyListener());
+					}
+				}""");
 	}
 
 	/**
@@ -2629,36 +2529,29 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerWithGeneric_parameterizedEvent() throws Exception {
-		setFileContentSrc(
-				"test/MyEvent.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public abstract class MyEvent<E> {",
-						"  public E value;",
-						"}"));
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener<E> {",
-						"  public abstract void handle(MyEvent<E> event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener<String> listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEvent.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public abstract class MyEvent<E> {
+					public E value;
+				}"""));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener<E> {
+					public abstract void handle(MyEvent<E> event);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener<String> listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// check that "my" listener exists and has only "handle" method
 		{
 			Property listener = getEventsListener(panel, "my");
@@ -2669,16 +2562,16 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 		// open "my.handle" listener method
 		ensureListenerMethod(panel, "my", "handle");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    addMyListener(new MyListener<String>() {",
-				"      public void handle(MyEvent<String> event) {",
-				"      }",
-				"    });",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						addMyListener(new MyListener<String>() {
+							public void handle(MyEvent<String> event) {
+							}
+						});
+					}
+				}""");
 	}
 
 	/**
@@ -2687,47 +2580,39 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerWithGeneric_parameterizedEvent_actualInType() throws Exception {
-		setFileContentSrc(
-				"test/MyEvent.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public abstract class MyEvent<E> {",
-						"  public E value;",
-						"}"));
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener<E> {",
-						"  public abstract void handle(MyEvent<E> event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel<D> extends JPanel {",
-						"  public void addMyListener(MyListener<D> listener) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel2.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"// filler filler filler",
-						"public class MyPanel2<D2> extends MyPanel<D2> {",
-						"}"));
+		setFileContentSrc("test/MyEvent.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public abstract class MyEvent<E> {
+					public E value;
+				}"""));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener<E> {
+					public abstract void handle(MyEvent<E> event);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel<D> extends JPanel {
+					public void addMyListener(MyListener<D> listener) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel2.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				// filler filler filler
+				public class MyPanel2<D2> extends MyPanel<D2> {
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      MyPanel2<String> inner = new MyPanel2<String>();",
-				"      add(inner);",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel2<String> inner = new MyPanel2<String>();
+							add(inner);
+						}
+					}
+				}""");
 		ContainerInfo inner = getJavaInfoByName("inner");
 		// check that "my" listener exists and has only "handle" method
 		{
@@ -2739,20 +2624,20 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 		// open "my.handle" listener method
 		ensureListenerMethod(inner, "my", "handle");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      MyPanel2<String> inner = new MyPanel2<String>();",
-				"      inner.addMyListener(new MyListener<String>() {",
-				"        public void handle(MyEvent<String> event) {",
-				"        }",
-				"      });",
-				"      add(inner);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel2<String> inner = new MyPanel2<String>();
+							inner.addMyListener(new MyListener<String>() {
+								public void handle(MyEvent<String> event) {
+								}
+							});
+							add(inner);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -2761,84 +2646,70 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerWithGeneric_parameterizedEvent_actualInSuperclass() throws Exception {
-		setFileContentSrc(
-				"test/MyEvent.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public abstract class MyEvent<E> {",
-						"  public E value;",
-						"}"));
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"public abstract class MyListener<E> {",
-						"  public abstract void handle(MyEvent<E> event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"public class MyPanel<D> extends JPanel {",
-						"  public void addMyListener(MyListener<D> listener) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel2.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"public class MyPanel2<D2> extends MyPanel<D2> {",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel3.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"public class MyPanel3<D3> extends MyPanel2<D3> {",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel4.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel4 extends MyPanel3<String> {",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel5.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel5 extends MyPanel4 {",
-						"}"));
+		setFileContentSrc("test/MyEvent.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public abstract class MyEvent<E> {
+					public E value;
+				}"""));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				// filler filler filler filler filler
+				public abstract class MyListener<E> {
+					public abstract void handle(MyEvent<E> event);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				// filler filler filler filler filler
+				public class MyPanel<D> extends JPanel {
+					public void addMyListener(MyListener<D> listener) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel2.java", getTestSource("""
+				// filler filler filler filler filler
+				public class MyPanel2<D2> extends MyPanel<D2> {
+				}"""));
+		setFileContentSrc("test/MyPanel3.java", getTestSource("""
+				// filler filler filler filler filler
+				public class MyPanel3<D3> extends MyPanel2<D3> {
+				}"""));
+		setFileContentSrc("test/MyPanel4.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyPanel4 extends MyPanel3<String> {
+				}"""));
+		setFileContentSrc("test/MyPanel5.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyPanel5 extends MyPanel4 {
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      MyPanel5 inner = new MyPanel5();",
-				"      add(inner);",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel5 inner = new MyPanel5();
+							add(inner);
+						}
+					}
+				}""");
 		ContainerInfo inner = getJavaInfoByName("inner");
 		// open "my.handle" listener method
 		ensureListenerMethod(inner, "my", "handle");
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      MyPanel5 inner = new MyPanel5();",
-				"      inner.addMyListener(new MyListener<String>() {",
-				"        public void handle(MyEvent<String> event) {",
-				"        }",
-				"      });",
-				"      add(inner);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel5 inner = new MyPanel5();
+							inner.addMyListener(new MyListener<String>() {
+								public void handle(MyEvent<String> event) {
+								}
+							});
+							add(inner);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -2846,39 +2717,33 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerWithGeneric_parameterizedEvent_noTypeArgument() throws Exception {
-		setFileContentSrc(
-				"test/MyEvent.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public abstract class MyEvent<E> {",
-						"  public E value;",
-						"}"));
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener<E> {",
-						"  public abstract void handle(MyEvent<E> event);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel<D> extends JPanel {",
-						"  public void addMyListener(MyListener<D> listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEvent.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public abstract class MyEvent<E> {
+					public E value;
+				}"""));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener<E> {
+					public abstract void handle(MyEvent<E> event);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel<D> extends JPanel {
+					public void addMyListener(MyListener<D> listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      MyPanel inner = new MyPanel();",
-				"      add(inner);",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel inner = new MyPanel();
+							add(inner);
+						}
+					}
+				}""");
 		ContainerInfo inner = getJavaInfoByName("inner");
 		// check that "my" listener exists and has only "handle" method
 		{
@@ -2890,20 +2755,20 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 		// open "my.handle" listener method
 		ensureListenerMethod(inner, "my", "handle");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    {",
-				"      MyPanel inner = new MyPanel();",
-				"      inner.addMyListener(new MyListener<Object>() {",
-				"        public void handle(MyEvent<Object> event) {",
-				"        }",
-				"      });",
-				"      add(inner);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel inner = new MyPanel();
+							inner.addMyListener(new MyListener<Object>() {
+								public void handle(MyEvent<Object> event) {
+								}
+							});
+							add(inner);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -2912,29 +2777,25 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_listenerWithGeneric_pureTypeVariable() throws Exception {
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"public abstract class MyListener<E> {",
-						"  public abstract void handle(E object);",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel<T> extends JPanel {",
-						"  public void addMyListener(MyListener<T> listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				public abstract class MyListener<E> {
+					public abstract void handle(E object);
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel<T> extends JPanel {
+					public void addMyListener(MyListener<T> listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"// filler filler filler filler filler",
-				"public class Test<T> extends JPanel {",
-				"  public Test() {",
-				"    MyPanel<T> myPanel = new MyPanel<T>();",
-				"    add(myPanel);",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler filler filler
+				public class Test<T> extends JPanel {
+					public Test() {
+						MyPanel<T> myPanel = new MyPanel<T>();
+						add(myPanel);
+					}
+				}""");
 		ContainerInfo myPanel = getJavaInfoByName("myPanel");
 		// check that "my" listener exists and has only "handle" method
 		{
@@ -2946,18 +2807,18 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		}
 		// open "my.handle" listener method
 		ensureListenerMethod(myPanel, "my", "handle");
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test<T> extends JPanel {",
-				"  public Test() {",
-				"    MyPanel<T> myPanel = new MyPanel<T>();",
-				"    myPanel.addMyListener(new MyListener<T>() {",
-				"      public void handle(T object) {",
-				"      }",
-				"    });",
-				"    add(myPanel);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test<T> extends JPanel {
+					public Test() {
+						MyPanel<T> myPanel = new MyPanel<T>();
+						myPanel.addMyListener(new MyListener<T>() {
+							public void handle(T object) {
+							}
+						});
+						add(myPanel);
+					}
+				}""");
 	}
 
 	/**
@@ -2965,22 +2826,19 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_addListener_justSuchName() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addListener(KeyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addListener(KeyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// there is "addListener" property
 		{
 			Property listenerProperty = getEventsListener(panel, "addListener");
@@ -2990,17 +2848,17 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		{
 			Property pressedProperty = getEventsListenerMethod(panel, "addListener", "keyPressed");
 			ReflectionUtils.invokeMethod(pressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"    addListener(new KeyAdapter() {",
-					"      @Override",
-					"      public void keyPressed(KeyEvent e) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends MyPanel {
+						public Test() {
+							addListener(new KeyAdapter() {
+								@Override
+								public void keyPressed(KeyEvent e) {
+								}
+							});
+						}
+					}""");
 		}
 	}
 
@@ -3009,55 +2867,48 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_addMyListenerAdapter() throws Exception {
-		setFileContentSrc(
-				"test/MyListener.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public interface MyListener {",
-						"  void down();",
-						"  void up();",
-						"}"));
-		setFileContentSrc(
-				"test/MyListenerAdapter.java",
-				getTestSource(
-						"public class MyListenerAdapter implements MyListener {",
-						"  public void down() {",
-						"  }",
-						"  public void up() {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addMyListener(MyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyListener.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public interface MyListener {
+					void down();
+					void up();
+				}"""));
+		setFileContentSrc("test/MyListenerAdapter.java", getTestSource("""
+				public class MyListenerAdapter implements MyListener {
+					public void down() {
+					}
+					public void up() {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addMyListener(MyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// open listener, adapter should be used
 		{
 			Property pressedProperty = getEventsListenerMethod(panel, "my", "down");
 			ReflectionUtils.invokeMethod(pressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"    addMyListener(new MyListenerAdapter() {",
-					"      @Override",
-					"      public void down() {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends MyPanel {
+						public Test() {
+							addMyListener(new MyListenerAdapter() {
+								@Override
+								public void down() {
+								}
+							});
+						}
+					}""");
 		}
 	}
 
@@ -3066,65 +2917,54 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 */
 	@Test
 	public void test_addAdapterInheritance() throws Exception {
-		setFileContentSrc(
-				"test/SuperListener.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public interface SuperListener {",
-						"  void foo(int fooValue);",
-						"}"));
-		setFileContentSrc(
-				"test/SubListener.java",
-				getTestSource(
-						"public interface SubListener extends SuperListener {",
-						"  void bar(int barValue);",
-						"}"));
-		setFileContentSrc(
-				"test/SuperListenerAdapter.java",
-				getTestSource(
-						"public class SuperListenerAdapter implements SuperListener {",
-						"  public void foo(int fooValue) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/SubListenerAdapter.java",
-				getTestSource(
-						"public class SubListenerAdapter extends SuperListenerAdapter implements SuperListener {",
-						"  public void bar(int barValue) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void addSubListener(SubListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/SuperListener.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public interface SuperListener {
+					void foo(int fooValue);
+				}"""));
+		setFileContentSrc("test/SubListener.java", getTestSource("""
+				public interface SubListener extends SuperListener {
+					void bar(int barValue);
+				}"""));
+		setFileContentSrc("test/SuperListenerAdapter.java", getTestSource("""
+				public class SuperListenerAdapter implements SuperListener {
+					public void foo(int fooValue) {
+					}
+				}"""));
+		setFileContentSrc("test/SubListenerAdapter.java", getTestSource("""
+				public class SubListenerAdapter extends SuperListenerAdapter implements SuperListener {
+					public void bar(int barValue) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void addSubListener(SubListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// open listener, adapter should be used
 		{
 			Property pressedProperty = getEventsListenerMethod(panel, "sub", "foo");
 			ReflectionUtils.invokeMethod(pressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"    addSubListener(new SubListenerAdapter() {",
-					"      @Override",
-					"      public void foo(int fooValue) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends MyPanel {
+						public Test() {
+							addSubListener(new SubListenerAdapter() {
+								@Override
+								public void foo(int fooValue) {
+								}
+							});
+						}
+					}""");
 		}
 	}
 
@@ -3140,29 +2980,28 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	@Test
 	public void test_listenerAsInnerTypeOfComponent_anonymous() throws Exception {
 		prepare_listenerAsInnerTypeOfComponent();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// open listener
 		{
 			Property pressedProperty = getEventsListenerMethod(panel, "my", "handle");
 			ReflectionUtils.invokeMethod(pressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"import test.MyPanel.MyListener;",
-					"import test.MyPanel.MyEvent;",
-					"// filler filler filler",
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"    addMyListener(new MyListener() {",
-					"      public void handle(MyEvent event) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					import test.MyPanel.MyListener;
+					import test.MyPanel.MyEvent;
+					// filler filler filler
+					public class Test extends MyPanel {
+						public Test() {
+							addMyListener(new MyListener() {
+								public void handle(MyEvent event) {
+								}
+							});
+						}
+					}""");
 		}
 	}
 
@@ -3173,13 +3012,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	@Test
 	public void test_listenerAsInnerTypeOfComponent_inner() throws Exception {
 		prepare_listenerAsInnerTypeOfComponent();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -3188,19 +3026,19 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		{
 			Property pressedProperty = getEventsListenerMethod(panel, "my", "handle");
 			ReflectionUtils.invokeMethod(pressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"import test.MyPanel.MyListener;",
-					"import test.MyPanel.MyEvent;",
-					"// filler filler filler",
-					"public class Test extends MyPanel {",
-					"  private class ThisMyListener implements MyListener {",
-					"    public void handle(MyEvent event) {",
-					"    }",
-					"  }",
-					"  public Test() {",
-					"    addMyListener(new ThisMyListener());",
-					"  }",
-					"}");
+			assertEditor("""
+					import test.MyPanel.MyListener;
+					import test.MyPanel.MyEvent;
+					// filler filler filler
+					public class Test extends MyPanel {
+						private class ThisMyListener implements MyListener {
+							public void handle(MyEvent event) {
+							}
+						}
+						public Test() {
+							addMyListener(new ThisMyListener());
+						}
+					}""");
 		}
 	}
 
@@ -3211,13 +3049,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	@Test
 	public void test_listenerAsInnerTypeOfComponent_innerAdapter() throws Exception {
 		prepare_listenerAsInnerTypeOfComponent_withAdapter();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INNER_CLASS);
@@ -3226,19 +3063,19 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		{
 			Property pressedProperty = getEventsListenerMethod(panel, "my", "handle");
 			ReflectionUtils.invokeMethod(pressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"import test.MyPanel.MyAdapter;",
-					"import test.MyPanel.MyEvent;",
-					"// filler filler filler",
-					"public class Test extends MyPanel {",
-					"  private class ThisMyListener extends MyAdapter {",
-					"    public void handle(MyEvent event) {",
-					"    }",
-					"  }",
-					"  public Test() {",
-					"    addMyListener(new ThisMyListener());",
-					"  }",
-					"}");
+			assertEditor("""
+					import test.MyPanel.MyAdapter;
+					import test.MyPanel.MyEvent;
+					// filler filler filler
+					public class Test extends MyPanel {
+						private class ThisMyListener extends MyAdapter {
+							public void handle(MyEvent event) {
+							}
+						}
+						public Test() {
+							addMyListener(new ThisMyListener());
+						}
+					}""");
 		}
 	}
 
@@ -3249,13 +3086,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	@Test
 	public void test_listenerAsInnerTypeOfComponent_interface() throws Exception {
 		prepare_listenerAsInnerTypeOfComponent();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// set preferences
 		IPreferenceStore preferences = panel.getDescription().getToolkit().getPreferences();
 		preferences.setValue(P_CODE_TYPE, V_CODE_INTERFACE);
@@ -3263,53 +3099,49 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		{
 			Property pressedProperty = getEventsListenerMethod(panel, "my", "handle");
 			ReflectionUtils.invokeMethod(pressedProperty, "ensureListenerMethod()");
-			assertEditor(
-					"import test.MyPanel.MyListener;",
-					"import test.MyPanel.MyEvent;",
-					"// filler filler filler",
-					"public class Test extends MyPanel implements MyListener {",
-					"  public Test() {",
-					"    addMyListener(this);",
-					"  }",
-					"  public void handle(MyEvent event) {",
-					"  }",
-					"}");
+			assertEditor("""
+					import test.MyPanel.MyListener;
+					import test.MyPanel.MyEvent;
+					// filler filler filler
+					public class Test extends MyPanel implements MyListener {
+						public Test() {
+							addMyListener(this);
+						}
+						public void handle(MyEvent event) {
+						}
+					}""");
 		}
 	}
 
 	private void prepare_listenerAsInnerTypeOfComponent() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public class MyEvent {",
-						"  }",
-						"  public interface MyListener {",
-						"    void handle(MyEvent event);",
-						"  }",
-						"  public void addMyListener(MyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public class MyEvent {
+					}
+					public interface MyListener {
+						void handle(MyEvent event);
+					}
+					public void addMyListener(MyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 
 	private void prepare_listenerAsInnerTypeOfComponent_withAdapter() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public class MyEvent {",
-						"  }",
-						"  public interface MyListener {",
-						"    void handle(MyEvent event);",
-						"  }",
-						"  public class MyAdapter implements MyListener {",
-						"    public void handle(MyEvent event) {",
-						"    }",
-						"  }",
-						"  public void addMyListener(MyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public class MyEvent {
+					}
+					public interface MyListener {
+						void handle(MyEvent event);
+					}
+					public class MyAdapter implements MyListener {
+						public void handle(MyEvent event) {
+						}
+					}
+					public void addMyListener(MyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 
@@ -3320,16 +3152,15 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_understand() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    this.addKeyListener(new KeyAdapter() {",
-						"      public void keyReleased(KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						this.addKeyListener(new KeyAdapter() {
+							public void keyReleased(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		// prepare properties
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
@@ -3340,13 +3171,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_understandLambda() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    this.addMouseWheelListener((event) -> {});",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						this.addMouseWheelListener((event) -> {});
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		// prepare properties
 		Property propertyChangeProperty = getEventsListenerMethod(panel, "mouseWheel", "moved");
@@ -3355,13 +3185,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_understandLambda_noBlock() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    this.addMouseWheelListener((event) -> System.out.println(event));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						this.addMouseWheelListener((event) -> System.out.println(event));
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		// prepare properties
 		Property propertyChangeProperty = getEventsListenerMethod(panel, "mouseWheel", "moved");
@@ -3370,13 +3199,12 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_understandLambda_doubleColon() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    this.addMouseWheelListener(System.out::println);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						this.addMouseWheelListener(System.out::println);
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		// prepare properties
 		Property propertyChangeProperty = getEventsListenerMethod(panel, "mouseWheel", "moved");
@@ -3385,21 +3213,20 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_understandLambda_factory() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    this.addMouseWheelListener(mouseWheelMovedAdapter((event) -> {}));",
-						"  }",
-						"  static MouseWheelListener mouseWheelMovedAdapter(java.util.function.Consumer<MouseWheelEvent> c) {",
-						"    return new MouseAdapter() {",
-						"      @Override",
-						"      public void mouseWheelMoved(MouseWheelEvent e) {",
-						"        c.accept(e);",
-						"      }",
-						"    };",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						this.addMouseWheelListener(mouseWheelMovedAdapter((event) -> {}));
+					}
+					static MouseWheelListener mouseWheelMovedAdapter(java.util.function.Consumer<MouseWheelEvent> c) {
+						return new MouseAdapter() {
+							@Override
+							public void mouseWheelMoved(MouseWheelEvent e) {
+								c.accept(e);
+							}
+						};
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		// prepare properties
 		Property propertyChangeProperty = getEventsListenerMethod(panel, "mouseWheel", "moved");
@@ -3408,16 +3235,15 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	@Test
 	public void test_contextMenu() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyReleased(KeyEvent e) {",
-						"      }",
-						"    });",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyReleased(KeyEvent e) {
+							}
+						});
+					}
+				}""");
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		// prepare properties
 		Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
@@ -3452,18 +3278,18 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 			assertNotNull(keyPressedAction);
 			// run, new handler should be added
 			keyPressedAction.run();
-			assertEditor(
-					"class Test extends JPanel {",
-					"  Test() {",
-					"    addKeyListener(new KeyAdapter() {",
-					"      public void keyReleased(KeyEvent e) {",
-					"      }",
-					"      @Override",
-					"      public void keyPressed(KeyEvent e) {",
-					"      }",
-					"    });",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends JPanel {
+						Test() {
+							addKeyListener(new KeyAdapter() {
+								public void keyReleased(KeyEvent e) {
+								}
+								@Override
+								public void keyPressed(KeyEvent e) {
+								}
+							});
+						}
+					}""");
 		}
 		// check for images
 		{
@@ -3481,23 +3307,20 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_deprecatedListenerMethod() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  @Deprecated",
-						"  public void addMyListener(KeyListener listener) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					@Deprecated
+					public void addMyListener(KeyListener listener) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		Property listener = getEventsListener(panel, "my");
 		assertNotNull(listener);
 		assertSame(PropertyCategory.ADVANCED, listener.getCategory());

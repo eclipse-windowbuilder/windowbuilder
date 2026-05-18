@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -116,13 +116,13 @@ public class EnumerationValuesPropertyEditorTest extends SwingModelTest {
 		assertEquals(null, ((IClipboardSourceProvider) editor).getClipboardSource(property));
 		// set value
 		property.setValue(1);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setValue(1);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setValue(1);
+					}
+				}""");
 		// check new state
 		assertEquals("a", getPropertyText(property));
 		assertEquals("1", ((IClipboardSourceProvider) editor).getClipboardSource(property));
@@ -137,42 +137,38 @@ public class EnumerationValuesPropertyEditorTest extends SwingModelTest {
 	 * Prepares "MyPanel" class and its "MyPanelBeanInfo".
 	 */
 	private void prepareMyPanel(String attributeValue) throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setValue(Object value) {",
-						"  }",
-						"}"));
-		String[] lines =
-			{
-					"import java.beans.*;",
-					"public class MyPanelBeanInfo extends SimpleBeanInfo {",
-					"  private PropertyDescriptor[] m_descriptors;",
-					"  public MyPanelBeanInfo() {",
-					"    try {",
-					"      m_descriptors = new PropertyDescriptor[1];",
-					"      m_descriptors[0] = new PropertyDescriptor('value', MyPanel.class, null, 'setValue');",
-					"      m_descriptors[0].setValue('enumerationValues', " + attributeValue + ");",
-					"    } catch (Throwable e) {",
-					"    }",
-					"  }",
-					"  public PropertyDescriptor[] getPropertyDescriptors() {",
-					"    return m_descriptors;",
-					"  }",
-			"}"};
-		setFileContentSrc("test/MyPanelBeanInfo.java", getTestSource(lines));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setValue(Object value) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanelBeanInfo.java", getTestSource("""
+				import java.beans.*;
+				public class MyPanelBeanInfo extends SimpleBeanInfo {
+					private PropertyDescriptor[] m_descriptors;
+					public MyPanelBeanInfo() {
+						try {
+							m_descriptors = new PropertyDescriptor[1];
+							m_descriptors[0] = new PropertyDescriptor("value", MyPanel.class, null, "setValue");
+							m_descriptors[0].setValue("enumerationValues", %s);
+						} catch (Throwable e) {
+						}
+					}
+					public PropertyDescriptor[] getPropertyDescriptors() {
+						return m_descriptors;
+					}
+				}
+				""".formatted(attributeValue)));
 		waitForAutoBuild();
 	}
 
 	private GenericProperty getValueProperty() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		// prepare property
 		GenericProperty property = (GenericProperty) panel.getPropertyByTitle("value");

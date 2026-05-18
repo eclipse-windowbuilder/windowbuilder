@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -107,8 +107,8 @@ public abstract class SwingModelTest extends AbstractJavaInfoTest {
 	 */
 	public final void setJavaContentSrc(String packageName,
 			String className,
-			String[] source,
-			String[] meta) throws Exception {
+			String source,
+			String meta) throws Exception {
 		setFileContentSrc(packageName, className + ".java", getTestSource(source));
 		if (meta != null) {
 			setFileContentSrc(packageName, className + ".wbp-component.xml", getSource(meta));

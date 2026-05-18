@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,14 +59,13 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_validOrInvalidProperty() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		//
 		{
 			IAction action = getExposeAction(panel, "Class");
@@ -85,14 +84,13 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_validate() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"  private int getFoo() {return 0;}",
-						"  private void setBar(boolean bar) {}",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+					}
+					private int getFoo() {return 0;}
+					private void setBar(boolean bar) {}
+				}""");
 		IAction action = getExposeAction(panel, "enabled");
 		// invalid identifier
 		{
@@ -127,26 +125,25 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getPreviewSource_primitive() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
-		assertEquals(
-				getSourceDQ(
-						"...",
-						"  public float getButtonAlignmentX() {",
-						"    return button.getAlignmentX();",
-						"  }",
-						"  public void setButtonAlignmentX(float alignmentX) {",
-						"    button.setAlignmentX(alignmentX);",
-						"  }",
-						"..."),
-				call_getPreview(button, "alignmentX", "buttonAlignmentX", true));
+		assertEquals("""
+				...
+					public float getButtonAlignmentX() {
+						return button.getAlignmentX();
+					}
+					public void setButtonAlignmentX(float alignmentX) {
+						button.setAlignmentX(alignmentX);
+					}
+				...
+				""", call_getPreview(button, "alignmentX", "buttonAlignmentX", true));
 	}
 
 	/**
@@ -154,27 +151,26 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getPreviewSource_parameter() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  private int alignmentX;",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					private int alignmentX;
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
-		assertEquals(
-				getSourceDQ(
-						"...",
-						"  public float getButtonAlignmentX() {",
-						"    return button.getAlignmentX();",
-						"  }",
-						"  public void setButtonAlignmentX(float alignmentX_1) {",
-						"    button.setAlignmentX(alignmentX_1);",
-						"  }",
-						"..."),
-				call_getPreview(button, "alignmentX", "buttonAlignmentX", true));
+		assertEquals("""
+				...
+					public float getButtonAlignmentX() {
+						return button.getAlignmentX();
+					}
+					public void setButtonAlignmentX(float alignmentX_1) {
+						button.setAlignmentX(alignmentX_1);
+					}
+				...
+				""", call_getPreview(button, "alignmentX", "buttonAlignmentX", true));
 	}
 
 	/**
@@ -182,26 +178,25 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getPreviewSource_qualified() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
-		assertEquals(
-				getSourceDQ(
-						"...",
-						"  public String getButtonName() {",
-						"    return button.getName();",
-						"  }",
-						"  public void setButtonName(String name) {",
-						"    button.setName(name);",
-						"  }",
-						"..."),
-				call_getPreview(button, "name", "buttonName", true));
+		assertEquals("""
+				...
+					public String getButtonName() {
+						return button.getName();
+					}
+					public void setButtonName(String name) {
+						button.setName(name);
+					}
+				...
+				""", call_getPreview(button, "name", "buttonName", true));
 	}
 
 	/**
@@ -209,38 +204,35 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getPreviewSource_qualifiedArray() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public String[] getItems() {",
-						"    return null;",
-						"  }",
-						"  public void setItems(String[] items) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public String[] getItems() {
+						return null;
+					}
+					public void setItems(String[] items) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		// check preview
-		assertEquals(
-				getSourceDQ(
-						"...",
-						"  public String[] getButtonItems() {",
-						"    return button.getItems();",
-						"  }",
-						"  public void setButtonItems(String[] items) {",
-						"    button.setItems(items);",
-						"  }",
-						"..."),
-				call_getPreview(button, "items", "buttonItems", true));
+		assertEquals("""
+				...
+					public String[] getButtonItems() {
+						return button.getItems();
+					}
+					public void setButtonItems(String[] items) {
+						button.setItems(items);
+					}
+				...
+				""", call_getPreview(button, "items", "buttonItems", true));
 	}
 
 	/**
@@ -248,26 +240,25 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getPreviewSource_protected() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
-		assertEquals(
-				getSourceDQ(
-						"...",
-						"  protected String getButtonName() {",
-						"    return button.getName();",
-						"  }",
-						"  protected void setButtonName(String name) {",
-						"    button.setName(name);",
-						"  }",
-						"..."),
-				call_getPreview(button, "name", "buttonName", false));
+		assertEquals("""
+				...
+					protected String getButtonName() {
+						return button.getName();
+					}
+					protected void setButtonName(String name) {
+						button.setName(name);
+					}
+				...
+				""", call_getPreview(button, "name", "buttonName", false));
 	}
 
 	private static String call_getPreview(JavaInfo component,
@@ -309,30 +300,30 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_expose_String() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		call_expose(button, "name", "buttonName", true);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton button;",
-				"  public Test() {",
-				"    button = new JButton();",
-				"    add(button);",
-				"  }",
-				"  public String getButtonName() {",
-				"    return button.getName();",
-				"  }",
-				"  public void setButtonName(String name) {",
-				"    button.setName(name);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton button;
+					public Test() {
+						button = new JButton();
+						add(button);
+					}
+					public String getButtonName() {
+						return button.getName();
+					}
+					public void setButtonName(String name) {
+						button.setName(name);
+					}
+				}""");
 	}
 
 	/**
@@ -340,42 +331,40 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_expose_StringArray() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public String[] getItems() {",
-						"    return null;",
-						"  }",
-						"  public void setItems(String[] items) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public String[] getItems() {
+						return null;
+					}
+					public void setItems(String[] items) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    MyButton button = new MyButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		//
 		call_expose(button, "items", "buttonItems", true);
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private MyButton button;",
-				"  public Test() {",
-				"    button = new MyButton();",
-				"    add(button);",
-				"  }",
-				"  public String[] getButtonItems() {",
-				"    return button.getItems();",
-				"  }",
-				"  public void setButtonItems(String[] items) {",
-				"    button.setItems(items);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private MyButton button;
+					public Test() {
+						button = new MyButton();
+						add(button);
+					}
+					public String[] getButtonItems() {
+						return button.getItems();
+					}
+					public void setButtonItems(String[] items) {
+						button.setItems(items);
+					}
+				}""");
 	}
 
 	private static void call_expose(JavaInfo component,
@@ -395,13 +384,13 @@ public class ExposePropertySupportTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_animateDialog() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    JButton button = new JButton();",
-				"    add(button);",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+					}
+				}""");
 		ComponentInfo button = getJavaInfoByName("button");
 		assertNotNull(button);
 		// prepare action
@@ -442,20 +431,20 @@ public class ExposePropertySupportTest extends SwingModelTest {
 				okButton.click();
 			}
 		});
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  private JButton button;",
-				"  public Test() {",
-				"    button = new JButton();",
-				"    add(button);",
-				"  }",
-				"  public String getMyText() {",
-				"    return button.getText();",
-				"  }",
-				"  public void setMyText(String text) {",
-				"    button.setText(text);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					private JButton button;
+					public Test() {
+						button = new JButton();
+						add(button);
+					}
+					public String getMyText() {
+						return button.getText();
+					}
+					public void setMyText(String text) {
+						button.setText(text);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

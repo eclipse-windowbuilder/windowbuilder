@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,31 +59,27 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	@Override
 	protected void configureNewProject() throws Exception {
 		super.configureNewProject();
-		setFileContentSrc(
-				"test/StylePanel.java",
-				getTestSource(
-						"public class StylePanel extends JPanel {",
-						"  public StylePanel(long style) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/SWT.java",
-				getTestSource(
-						"public interface SWT {",
-						"  long NONE = 0;",
-						"  long B0 = 1 << 0;",
-						"  long B1 = 1 << 1;",
-						"  long B2 = 1 << 2;",
-						"  long B3 = 1 << 3;",
-						"  // mix",
-						"  long B0_B1 = B0 | B1;",
-						"  long B0_B2 = B0 | B2;",
-						"  //",
-						"  long R1 = 1 << 4;",
-						"  long R2 = 1 << 5;",
-						"  long R3 = 1 << 6;",
-						"  long R4 = 1 << 7;",
-						"}"));
+		setFileContentSrc("test/StylePanel.java", getTestSource("""
+				public class StylePanel extends JPanel {
+					public StylePanel(long style) {
+					}
+				}"""));
+		setFileContentSrc("test/SWT.java", getTestSource("""
+				public interface SWT {
+					long NONE = 0;
+					long B0 = 1 << 0;
+					long B1 = 1 << 1;
+					long B2 = 1 << 2;
+					long B3 = 1 << 3;
+					// mix
+					long B0_B1 = B0 | B1;
+					long B0_B2 = B0 | B2;
+					//
+					long R1 = 1 << 4;
+					long R2 = 1 << 5;
+					long R3 = 1 << 6;
+					long R4 = 1 << 7;
+				}"""));
 		forgetCreatedResources();
 	}
 
@@ -240,39 +236,35 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 
 	@Test
 	public void test_Select_for_methodProperty() throws Exception {
-		setFileContentSrc(
-				"test/TestComposite.java",
-				getTestSource(
-						"public class TestComposite extends JPanel {",
-						"  private long m_format;",
-						"  public long getFormat() {",
-						"    return m_format;",
-						"  }",
-						"  public void setFormat(long format) {",
-						"    m_format = format;",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/TestComposite.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setFormat(long)'>",
-						"    <editor id='style'>",
-						"      <parameter name='class'>test.SWT</parameter>",
-						"      <parameter name='select0'>type NONE NONE R1 R2</parameter>",
-						"    </editor>",
-						"  </property>",
-						"</component>"));
+		setFileContentSrc("test/TestComposite.java", getTestSource("""
+				public class TestComposite extends JPanel {
+					private long m_format;
+					public long getFormat() {
+						return m_format;
+					}
+					public void setFormat(long format) {
+						m_format = format;
+					}
+				}"""));
+		setFileContentSrc("test/TestComposite.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setFormat(long)">
+						<editor id="style">
+							<parameter name="class">test.SWT</parameter>
+							<parameter name="select0">type NONE NONE R1 R2</parameter>
+						</editor>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		parseStyleProperties0("format", new String[]{
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    TestComposite composite = new TestComposite();",
-				"    add(composite);",
-				"  }",
-		"}"});
+		parseStyleProperties0("format", """
+				public class Test extends JPanel {
+					public Test() {
+						TestComposite composite = new TestComposite();
+						add(composite);
+					}
+				}""");
 		Assertions.assertThat(m_properties).hasSize(1);
 		Property alignProperty = m_properties[0];
 		// initially no style
@@ -281,37 +273,37 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 		alignProperty.setValue("R1");
 		assertEquals("R1", alignProperty.getValue());
 		assertEditorText("[R1]");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    TestComposite composite = new TestComposite();",
-				"    composite.setFormat(SWT.R1);",
-				"    add(composite);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						TestComposite composite = new TestComposite();
+						composite.setFormat(SWT.R1);
+						add(composite);
+					}
+				}""");
 		// := R2
 		alignProperty.setValue("R2");
 		assertEquals("R2", alignProperty.getValue());
 		assertEditorText("[R2]");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    TestComposite composite = new TestComposite();",
-				"    composite.setFormat(SWT.R2);",
-				"    add(composite);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						TestComposite composite = new TestComposite();
+						composite.setFormat(SWT.R2);
+						add(composite);
+					}
+				}""");
 		// := NONE
 		alignProperty.setValue("NONE");
 		assertEquals("NONE", alignProperty.getValue());
 		assertEditorText("[]");
-		assertEditor(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    TestComposite composite = new TestComposite();",
-				"    add(composite);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends JPanel {
+					public Test() {
+						TestComposite composite = new TestComposite();
+						add(composite);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -584,13 +576,13 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	}
 
 	private void assertStyleSource(String styleSource) {
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    add(new TestComposite(" + styleSource + "));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						add(new TestComposite(%s));
+					}
+				}""".formatted(styleSource));
 	}
 
 	private void parseStyleProperties(String... styleLines) throws Exception {
@@ -598,13 +590,11 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 	}
 
 	private void parseStyleProperties(String styleSource, String[] styleLines0) throws Exception {
-		setFileContentSrc(
-				"test/TestComposite.java",
-				getTestSource(
-						"public class TestComposite extends JPanel {",
-						"  public TestComposite(long style) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestComposite.java", getTestSource("""
+				public class TestComposite extends JPanel {
+					public TestComposite(long style) {
+					}
+				}"""));
 		// convert: name|value into "parameter" line
 		String[] styleLines = new String[styleLines0.length];
 		for (int i = 0; i < styleLines0.length; i++) {
@@ -612,40 +602,36 @@ public class StylePropertyEditorLongTest extends SwingModelTest {
 			int index = line.indexOf('|');
 			String name = line.substring(0, index);
 			String value = line.substring(index + 1);
-			styleLines[i] = MessageFormat.format("<parameter name=''{0}''>{1}</parameter>", name, value);
+			styleLines[i] = MessageFormat.format("<parameter name=\"{0}\">{1}</parameter>", name, value);
 		}
 		// prepare description
-		String[] lines;
-		lines =
-				new String[]{
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='long' defaultSource='test.SWT.NONE'>",
-						"        <editor id='style'>",
-		"          <parameter name='class'>test.SWT</parameter>"};
-		lines = CodeUtils.join(lines, styleLines);
-		lines =
-				CodeUtils.join(lines, new String[]{
-						"        </editor>",
-						"      </parameter>",
-						"    </constructor>",
-						"  </constructors>",
-				"</component>"});
-		setFileContentSrc("test/TestComposite.wbp-component.xml", getSource(lines));
+		setFileContentSrc("test/TestComposite.wbp-component.xml", getSource("""
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="long" defaultSource="test.SWT.NONE">
+								<editor id="style">
+									<parameter name="class">test.SWT</parameter>
+				%s
+								</editor>
+							</parameter>
+						</constructor>
+					</constructors>
+				</component>
+				""".formatted(String.join("\n", styleLines))));
 		waitForAutoBuild();
 		// parse
-		parseStyleProperties0("Constructor/style", new String[]{
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    add(new TestComposite(" + styleSource + "));",
-				"  }",
-		"}"});
+		parseStyleProperties0("Constructor/style", """
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						add(new TestComposite(%s));
+					}
+				}""".formatted(styleSource));
 	}
 
-	private void parseStyleProperties0(String propertyPath, String[] lines) throws Exception {
+	private void parseStyleProperties0(String propertyPath, String lines) throws Exception {
 		ContainerInfo panel = parseContainer(lines);
 		panel.refresh();
 		// prepare "style" property

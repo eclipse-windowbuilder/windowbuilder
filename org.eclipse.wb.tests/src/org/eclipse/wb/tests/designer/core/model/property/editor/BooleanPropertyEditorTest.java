@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,35 +47,34 @@ public class BooleanPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	@Test
 	public void test_doubleClick() throws Exception {
 		prepareBooleanPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		panel.refresh();
 		// prepare property
 		Property property = panel.getPropertyByTitle("foo");
 		BooleanPropertyEditor editor = (BooleanPropertyEditor) property.getEditor();
 		// unknown -> true
 		editor.doubleClick(property);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo(true);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(true);
+					}
+				}""");
 		// true -> false
 		editor.doubleClick(property);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo(false);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(false);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -89,14 +88,13 @@ public class BooleanPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	@Test
 	public void test_activate_usingKeyboard() throws Exception {
 		prepareBooleanPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(true);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(true);
+					}
+				}""");
 		panel.refresh();
 		// prepare property
 		Property property = panel.getPropertyByTitle("foo");
@@ -104,13 +102,13 @@ public class BooleanPropertyEditorTest extends AbstractTextPropertyEditorTest {
 		// true -> false
 		boolean activated = editor.activate(null, property, null);
 		assertFalse(activated);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo(false);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(false);
+					}
+				}""");
 	}
 
 	/**
@@ -119,14 +117,13 @@ public class BooleanPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	@Test
 	public void test_activate_clickOnCheckBox() throws Exception {
 		prepareBooleanPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(true);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(true);
+					}
+				}""");
 		panel.refresh();
 		// prepare property
 		Property property = panel.getPropertyByTitle("foo");
@@ -134,13 +131,13 @@ public class BooleanPropertyEditorTest extends AbstractTextPropertyEditorTest {
 		// true -> false
 		boolean activated = editor.activate(null, property, new Point(10, 0));
 		assertFalse(activated);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo(false);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(false);
+					}
+				}""");
 	}
 
 	/**
@@ -149,14 +146,13 @@ public class BooleanPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	@Test
 	public void test_activate_justClickToSelect() throws Exception {
 		prepareBooleanPanel();
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    setFoo(true);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(true);
+					}
+				}""");
 		panel.refresh();
 		// prepare property
 		Property property = panel.getPropertyByTitle("foo");
@@ -164,13 +160,13 @@ public class BooleanPropertyEditorTest extends AbstractTextPropertyEditorTest {
 		// true -> false
 		boolean activated = editor.activate(null, property, new Point(100, 0));
 		assertFalse(activated);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setFoo(true);",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+						setFoo(true);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -179,13 +175,11 @@ public class BooleanPropertyEditorTest extends AbstractTextPropertyEditorTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void prepareBooleanPanel() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void setFoo(boolean foo) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void setFoo(boolean foo) {
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 }
