@@ -554,6 +554,22 @@ public class StandardConvertersTest extends SwingModelTest {
 			// special characters
 			check_StringConverter_specialCharacters(panel);
 		}
+		// windows-1252: German umlauts are encodable, Cyrillic is not.
+		{
+			file.setCharset("windows-1252", null);
+			// German umlauts pass through verbatim (no \\uXXXX)
+			{
+				String source = converter.toJavaSource(panel, "\u00dcbernehmen"); // "\u00dcbernehmen"
+				assertEquals('"' + "\u00dcbernehmen" + '"', source);
+			}
+			// Cyrillic is still escaped because windows-1252 cannot represent it
+			{
+				String source = converter.toJavaSource(panel, value);
+				assertEquals('"' + "\\u0410\\u0411\\u0412" + '"', source);
+			}
+			// special characters
+			check_StringConverter_specialCharacters(panel);
+		}
 	}
 
 	private static void check_StringConverter_specialCharacters(JavaInfo javaInfo) throws Exception {

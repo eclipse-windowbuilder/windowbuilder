@@ -16,6 +16,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
 
+import java.nio.charset.CharsetEncoder;
 import java.util.Locale;
 
 /**
@@ -326,80 +327,91 @@ public class StringUtilities {
 	}
 
 	/**
-	 * Escapes {@link String} for Java source.
+	 * Escapes {@link String} for Java source, leaving every non-control / non-quote /
+	 * non-backslash character unescaped (i.e. assumes the target charset can encode
+	 * all of them — typically UTF-8 / UTF-16).
 	 *
-	 * @return the {@link String} that can be used in quotes in Java source. Note, that it is not
-	 *         converted into any encoding, i.e. still in UTF-8.
+	 * @return the {@link String} that can be used in quotes in Java source.
 	 */
 	public static String escapeForJavaSource(String str) {
+		return escapeForJavaSource(str, null);
+	}
+
+	/**
+	 * Escapes {@link String} for Java source, escaping any character that cannot be
+	 * represented by the given {@link CharsetEncoder} as a {@code \\uXXXX} sequence.
+	 * <p>
+	 * When {@code encoder} is {@code null}, only control characters, the double quote
+	 * and the backslash are escaped — every other character passes through verbatim.
+	 *
+	 * @return the {@link String} that can be used in quotes in Java source, safe to
+	 *         write into a file encoded with the given charset.
+	 */
+	public static String escapeForJavaSource(String str, CharsetEncoder encoder) {
 		if (str == null) {
 			return null;
 		}
-		StringBuffer buffer = new StringBuffer(str.length() * 2);
-		escapeForJavaSource(buffer, str);
-		return buffer.toString();
-	}
-
-	/**
-	 * Worker method for the {@link #escapeForJavaSource(String)}.
-	 */
-	private static void escapeForJavaSource(StringBuffer out, String str) {
+		StringBuilder out = new StringBuilder(str.length() * 2);
 		int sz = str.length();
-		for (int i = 0; i < sz; i++) {
-			char c = str.charAt(i);
-			if (c < 32) {
-				switch (c) {
-				case '\b' :
-					out.append('\\');
-					out.append('b');
-					break;
-				case '\n' :
-					out.append('\\');
-					out.append('n');
-					break;
-				case '\t' :
-					out.append('\\');
-					out.append('t');
-					break;
-				case '\f' :
-					out.append('\\');
-					out.append('f');
-					break;
-				case '\r' :
-					out.append('\\');
-					out.append('r');
-					break;
-				default :
-					if (c > 0xf) {
-						out.append("\\u00" + hex(c));
-					} else {
-						out.append("\\u000" + hex(c));
-					}
-					break;
-				}
+		int i = 0;
+		while (i < sz) {
+			int cp = str.codePointAt(i);
+			int charCount = Character.charCount(cp);
+			if (cp < 32) {
+				appendControlEscape(out, (char) cp);
+			} else if (cp == '"') {
+				out.append('\\').append('"');
+			} else if (cp == '\\') {
+				out.append('\\').append('\\');
+			} else if (encoder == null || canEncode(encoder, str, i, charCount)) {
+				out.append(str, i, i + charCount);
 			} else {
-				switch (c) {
-				case '"' :
-					out.append('\\');
-					out.append('"');
-					break;
-				case '\\' :
-					out.append('\\');
-					out.append('\\');
-					break;
-				default :
-					out.append(c);
-					break;
+				for (int k = 0; k < charCount; k++) {
+					appendUnicodeEscape(out, str.charAt(i + k));
 				}
 			}
+			i += charCount;
+		}
+		return out.toString();
+	}
+
+	private static void appendControlEscape(StringBuilder out, char c) {
+		switch (c) {
+		case '\b' :
+			out.append('\\').append('b');
+			break;
+		case '\n' :
+			out.append('\\').append('n');
+			break;
+		case '\t' :
+			out.append('\\').append('t');
+			break;
+		case '\f' :
+			out.append('\\').append('f');
+			break;
+		case '\r' :
+			out.append('\\').append('r');
+			break;
+		default :
+			appendUnicodeEscape(out, c);
+			break;
 		}
 	}
 
-	/**
-	 * @return the upper case hex decimal {@link String}.
-	 */
-	private static String hex(char c) {
-		return Integer.toHexString(c).toUpperCase(Locale.ENGLISH);
+	private static boolean canEncode(CharsetEncoder encoder, String str, int offset, int charCount) {
+		if (charCount == 1) {
+			return encoder.canEncode(str.charAt(offset));
+		}
+		return encoder.canEncode(str.subSequence(offset, offset + charCount));
+	}
+
+	private static void appendUnicodeEscape(StringBuilder out, char c) {
+		String hex = Integer.toHexString(c).toUpperCase(Locale.ENGLISH);
+		out.append("\\u");
+		for (int k = hex.length(); k < 4; k++) {
+			out.append('0');
+		}
+		out.append(hex);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
