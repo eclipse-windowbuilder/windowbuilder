@@ -11,3 +11,5 @@ Import-Package: jakarta.xml.bind;version="[3.0.0,5.0.0)",
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Automatic-Module-Name: org.eclipse.wb.core.databinding.xsd
 Bundle-ActivationPolicy: lazy
+Require-Capability: osgi.extender;filter:="(osgi.extender=osgi.serviceloader.registrar)",
+ osgi.serviceloader;filter:="(osgi.serviceloader=jakarta.xml.bind.JAXBContextFactory)"
