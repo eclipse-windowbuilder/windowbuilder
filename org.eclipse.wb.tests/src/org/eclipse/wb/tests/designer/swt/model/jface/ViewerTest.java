@@ -77,14 +77,13 @@ public class ViewerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_normalNoControl_hasExpression() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		VariableSupport variableSupport = table.getVariableSupport();
 		NodeTarget nodeTarget = getNodeStatementTarget(shell, false, 1);
@@ -98,77 +97,74 @@ public class ViewerTest extends RcpModelTest {
 
 	@Test
 	public void test_normalNoControl_getReferenceExpression_viewerAsTarget() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		VariableSupport variableSupport = table.getVariableSupport();
 		NodeTarget nodeTarget = getNodeStatementTarget(shell, false, 1);
 		// ask for expression, so materialize
 		assertEquals("table", variableSupport.getReferenceExpression(nodeTarget));
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-				"    Table table = tableViewer.getTable();",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						Table table = tableViewer.getTable();
+					}
+				}""");
 	}
 
 	@Test
 	public void test_normalNoControl_getReferenceExpression_blockAsTarget() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		VariableSupport variableSupport = table.getVariableSupport();
 		NodeTarget nodeTarget = getNodeBlockTarget(shell, false);
 		// ask for expression, so materialize
 		assertEquals("table", variableSupport.getReferenceExpression(nodeTarget));
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-				"    Table table = tableViewer.getTable();",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						Table table = tableViewer.getTable();
+					}
+				}""");
 	}
 
 	@Test
 	public void test_normalNoControl_getAccessExpression_blockAsTarget() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		VariableSupport variableSupport = table.getVariableSupport();
 		NodeTarget nodeTarget = getNodeBlockTarget(shell, false);
 		// ask for expression, so materialize
 		assertEquals("table.", variableSupport.getAccessExpression(nodeTarget));
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-				"    Table table = tableViewer.getTable();",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						Table table = tableViewer.getTable();
+					}
+				}""");
 	}
 
 	/**
@@ -176,14 +172,14 @@ public class ViewerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_parseAnonymous_standalone() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER) {",
-				"    };",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER) {
+						};
+					}
+				}""");
 		refresh();
 		assertNoErrors(m_lastParseInfo);
 	}
@@ -193,15 +189,15 @@ public class ViewerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_parseAnonymous_wrapper() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    Table table = new Table(this, SWT.BORDER);",
-				"    TableViewer tableViewer = new TableViewer(table) {",
-				"    };",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Table table = new Table(this, SWT.BORDER);
+						TableViewer tableViewer = new TableViewer(table) {
+						};
+					}
+				}""");
 		refresh();
 		assertNoErrors(m_lastParseInfo);
 	}
@@ -211,14 +207,13 @@ public class ViewerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_exposeViewer() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		ViewerInfo viewer = (ViewerInfo) table.getChildrenJava().get(0);
 		// check for expose action
@@ -233,51 +228,49 @@ public class ViewerTest extends RcpModelTest {
 				viewer,
 				"getTableViewer",
 				"public");
-		assertEditor(
-				"class Test extends Shell {",
-				"  private TableViewer tableViewer;",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    tableViewer = new TableViewer(this, SWT.BORDER);",
-				"  }",
-				"  public TableViewer getTableViewer() {",
-				"    return tableViewer;",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					private TableViewer tableViewer;
+					public Test() {
+						setLayout(new FillLayout());
+						tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+					public TableViewer getTableViewer() {
+						return tableViewer;
+					}
+				}""");
 	}
 
 	@Test
 	public void test_exposedViewer() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private TableViewer m_viewer;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    m_viewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"  public TableViewer getViewer() {",
-						"    return m_viewer;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private TableViewer m_viewer;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						m_viewer = new TableViewer(this, SWT.BORDER);
+					}
+					public TableViewer getViewer() {
+						return m_viewer;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    MyComposite composite = new MyComposite(this, SWT.NONE);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new MyComposite(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: test.MyComposite} {local-unique: composite} {/new MyComposite(this, SWT.NONE)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"    {viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}",
-				"      {method: public org.eclipse.jface.viewers.TableViewer test.MyComposite.getViewer()} {property} {}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						MyComposite composite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new MyComposite(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: test.MyComposite} {local-unique: composite} {/new MyComposite(this, SWT.NONE)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+						{viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}
+							{method: public org.eclipse.jface.viewers.TableViewer test.MyComposite.getViewer()} {property} {}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -287,15 +280,14 @@ public class ViewerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parseNormalNoControl() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"    tableViewer.setUseHashlookup(true);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						tableViewer.setUseHashlookup(true);
+					}
+				}""");
 		assertEquals(2, shell.getChildrenJava().size());
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// check viewer
@@ -338,37 +330,36 @@ public class ViewerTest extends RcpModelTest {
 		{
 			assertTrue(table.canDelete());
 			table.delete();
-			assertEditor(
-					"class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new FillLayout());",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						public Test() {
+							setLayout(new FillLayout());
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_normalNoControl_materialize() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// materialize Table
 		table.addMethodInvocation("setHeaderVisible(boolean)", "true");
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-				"    Table table = tableViewer.getTable();",
-				"    table.setHeaderVisible(true);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						Table table = tableViewer.getTable();
+						table.setHeaderVisible(true);
+					}
+				}""");
 		// check supports
 		assertInstanceOf(WrapperMethodControlCreationSupport.class, table.getCreationSupport());
 		assertInstanceOf(LocalUniqueVariableSupport.class, table.getVariableSupport());
@@ -381,179 +372,174 @@ public class ViewerTest extends RcpModelTest {
 
 	@Test
 	public void test_normalNoControl_move() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"    Composite composite = new Composite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						Composite composite = new Composite(this, SWT.NONE);
+					}
+				}""");
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// do move
 		fillLayout.command_MOVE(table, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    Composite composite = new Composite(this, SWT.NONE);",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Composite composite = new Composite(this, SWT.NONE);
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_normalNoControl_reparent() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    //",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"    //",
-						"    Composite composite = new Composite(this, SWT.NONE);",
-						"    composite.setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						//
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						//
+						Composite composite = new Composite(this, SWT.NONE);
+						composite.setLayout(new RowLayout());
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// prepare composite
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(1);
 		RowLayoutInfo rowLayout = (RowLayoutInfo) composite.getLayout();
 		// do reparent
 		rowLayout.command_MOVE(table, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    //",
-				"    Composite composite = new Composite(this, SWT.NONE);",
-				"    composite.setLayout(new RowLayout());",
-				"    //",
-				"    TableViewer tableViewer = new TableViewer(composite, SWT.BORDER);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						//
+						Composite composite = new Composite(this, SWT.NONE);
+						composite.setLayout(new RowLayout());
+						//
+						TableViewer tableViewer = new TableViewer(composite, SWT.BORDER);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_normalWithControl_reparent() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    //",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"    Table table = tableViewer.getTable();",
-						"    //",
-						"    Composite composite = new Composite(this, SWT.NONE);",
-						"    composite.setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						//
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						Table table = tableViewer.getTable();
+						//
+						Composite composite = new Composite(this, SWT.NONE);
+						composite.setLayout(new RowLayout());
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// prepare composite
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(1);
 		RowLayoutInfo rowLayout = (RowLayoutInfo) composite.getLayout();
 		// do reparent
 		rowLayout.command_MOVE(table, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    //",
-				"    Composite composite = new Composite(this, SWT.NONE);",
-				"    composite.setLayout(new RowLayout());",
-				"    //",
-				"    TableViewer tableViewer = new TableViewer(composite, SWT.BORDER);",
-				"    Table table = tableViewer.getTable();",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						//
+						Composite composite = new Composite(this, SWT.NONE);
+						composite.setLayout(new RowLayout());
+						//
+						TableViewer tableViewer = new TableViewer(composite, SWT.BORDER);
+						Table table = tableViewer.getTable();
+					}
+				}""");
 	}
 
 	@Test
 	public void test_materialized_move() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);",
-						"      Table table = tableViewer.getTable();",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						{
+							TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+							Table table = tableViewer.getTable();
+						}
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		ControlInfo table = shell.getChildrenControls().get(1);
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		// do move
 		rowLayout.command_MOVE(table, button);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);",
-				"      Table table = tableViewer.getTable();",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+							Table table = tableViewer.getTable();
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_newCreated_move() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		// do create
 		ViewerInfo viewer = createTableViewer(m_lastEditor);
 		ControlInfo table = (ControlInfo) viewer.getWrapper().getWrappedInfo();
 		rowLayout.command_CREATE(table, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);",
-				"      Table table = tableViewer.getTable();",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						{
+							TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+							Table table = tableViewer.getTable();
+						}
+					}
+				}""");
 		// do move
 		rowLayout.command_MOVE(table, button);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);",
-				"      Table table = tableViewer.getTable();",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+							Table table = tableViewer.getTable();
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -563,23 +549,23 @@ public class ViewerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parseAroundTable() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Table table = new Table(this, SWT.BORDER);",
-				"      TableViewer viewer = new TableViewer(table);",
-				"      viewer.getTable().setEnabled(false);",
-				"    }",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							TableViewer viewer = new TableViewer(table);
+							viewer.getTable().setEnabled(false);
+						}
+					}
+				}""");
 		// hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Table(this, SWT.BORDER)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Table} {local-unique: table} {/new Table(this, SWT.BORDER)/ /new TableViewer(table)/ /viewer.getTable().setEnabled(false)/}",
-				"    {new: org.eclipse.jface.viewers.TableViewer} {local-unique: viewer} {/new TableViewer(table)/ /viewer.getTable()/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Table(this, SWT.BORDER)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.swt.widgets.Table} {local-unique: table} {/new Table(this, SWT.BORDER)/ /new TableViewer(table)/ /viewer.getTable().setEnabled(false)/}
+						{new: org.eclipse.jface.viewers.TableViewer} {local-unique: viewer} {/new TableViewer(table)/ /viewer.getTable()/}""");
 		TableInfo table = getJavaInfoByName("table");
 		ViewerInfo viewer = getJavaInfoByName("viewer");
 		assertSame(table, viewer.getParent());
@@ -596,14 +582,13 @@ public class ViewerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_property_useHashlookup() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		ViewerInfo viewer = (ViewerInfo) table.getChildrenJava().get(0);
 		Property property = viewer.getPropertyByTitle("useHashlookup");
@@ -611,35 +596,34 @@ public class ViewerTest extends RcpModelTest {
 		assertEquals(Boolean.FALSE, property.getValue());
 		// set "true" - add invocation
 		property.setValue(Boolean.TRUE);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-				"    tableViewer.setUseHashlookup(true);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+						tableViewer.setUseHashlookup(true);
+					}
+				}""");
 		// set "false" - remove invocation
 		property.setValue(Boolean.FALSE);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_property_style() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		ViewerInfo viewer = (ViewerInfo) table.getChildrenJava().get(0);
 		//
@@ -649,14 +633,13 @@ public class ViewerTest extends RcpModelTest {
 
 	@Test
 	public void test_contentProvider() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+					}
+				}""");
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		ViewerInfo viewer = (ViewerInfo) table.getChildrenJava().get(0);
 		//
@@ -667,23 +650,23 @@ public class ViewerTest extends RcpModelTest {
 		// add new provider
 		{
 			propertyEditor.activate(null, property, null);
-			assertEditor(
-					"class Test extends Shell {",
-					"  private static class ContentProvider implements IStructuredContentProvider {",
-					"    public Object[] getElements(Object inputElement) {",
-					"      return new Object[0];",
-					"    }",
-					"    public void dispose() {",
-					"    }",
-					"    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {",
-					"    }",
-					"  }",
-					"  public Test() {",
-					"    setLayout(new FillLayout());",
-					"    TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-					"    tableViewer.setContentProvider(new ContentProvider());",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						private static class ContentProvider implements IStructuredContentProvider {
+							public Object[] getElements(Object inputElement) {
+								return new Object[0];
+							}
+							public void dispose() {
+							}
+							public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+							}
+						}
+						public Test() {
+							setLayout(new FillLayout());
+							TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+							tableViewer.setContentProvider(new ContentProvider());
+						}
+					}""");
 			assertEquals("test.Test.ContentProvider", getPropertyText(property));
 		}
 		// just kick "doubleClick", no result tested
@@ -723,12 +706,12 @@ public class ViewerTest extends RcpModelTest {
 	@Test
 	public void test_noRootComposite() throws Exception {
 		Throwable e = assertThrows(Throwable.class, () -> {
-			parseComposite(
-					"public class Test {",
-					"  public Test(Composite parent) {",
-					"    TableViewer tableViewer = new TableViewer(parent, SWT.BORDER);",
-					"  }",
-					"}");
+			parseComposite("""
+					public class Test {
+						public Test(Composite parent) {
+							TableViewer tableViewer = new TableViewer(parent, SWT.BORDER);
+						}
+					}""");
 		});
 		Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
 		Assertions.assertThat(rootCause).isExactlyInstanceOf(NoEntryPointError.class);
@@ -741,12 +724,12 @@ public class ViewerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE_liveImage() throws Exception {
-		parseComposite(
-				"// filler filler filler",
-				"class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// prepare viewer and table
 		ViewerInfo viewer = createTableViewer(m_lastEditor);
 		TableInfo table = (TableInfo) viewer.getWrapper().getWrappedInfo();
@@ -761,62 +744,54 @@ public class ViewerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_liveImage_forcedSize() throws Exception {
-		setFileContentSrc(
-				"test/MyTable.java",
-				getTestSource(
-						"public class MyTable extends Table {",
-						"  public MyTable(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  protected void checkSubclass () {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyTableViewer.java",
-				getTestSource(
-						"public class MyTableViewer extends TableViewer {",
-						"  public MyTableViewer(Composite parent) {",
-						"    super(new MyTable(parent, SWT.NO_SCROLL));",
-						"  }",
-						"  public MyTable getMyTable() {",
-						"    return (MyTable) getTable();",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyTable.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='liveComponent.forcedSize.width'>200</parameter>",
-						"    <parameter name='liveComponent.forcedSize.height'>150</parameter>",
-						"  </parameters>",
-						"</component>"));
-		setFileContentSrc(
-				"test/MyTableViewer.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <creation>",
-						"    <source><![CDATA[new test.MyTableViewer(%parent%)]]></source>",
-						"  </creation>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='org.eclipse.swt.widgets.Composite' parent='true'/>",
-						"    </constructor>",
-						"  </constructors>",
-						"  <parameters>",
-						"    <parameter name='viewer.control.method'>getMyTable</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyTable.java", getTestSource("""
+				public class MyTable extends Table {
+					public MyTable(Composite parent, int style) {
+						super(parent, style);
+					}
+					protected void checkSubclass () {
+					}
+				}"""));
+		setFileContentSrc("test/MyTableViewer.java", getTestSource("""
+				public class MyTableViewer extends TableViewer {
+					public MyTableViewer(Composite parent) {
+						super(new MyTable(parent, SWT.NO_SCROLL));
+					}
+					public MyTable getMyTable() {
+						return (MyTable) getTable();
+					}
+				}"""));
+		setFileContentSrc("test/MyTable.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="liveComponent.forcedSize.width">200</parameter>
+						<parameter name="liveComponent.forcedSize.height">150</parameter>
+					</parameters>
+				</component>""");
+		setFileContentSrc("test/MyTableViewer.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<creation>
+						<source><![CDATA[new test.MyTableViewer(%parent%)]]></source>
+					</creation>
+					<constructors>
+						<constructor>
+							<parameter type="org.eclipse.swt.widgets.Composite" parent="true"/>
+						</constructor>
+					</constructors>
+					<parameters>
+						<parameter name="viewer.control.method">getMyTable</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		parseComposite(
-				"// filler filler filler",
-				"class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseComposite("""
+				// filler filler filler
+				class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// prepare viewer and table
 		ViewerInfo viewer = createViewer(m_lastEditor, "test.MyTableViewer");
 		TableInfo table = (TableInfo) viewer.getWrapper().getWrappedInfo();
@@ -832,13 +807,12 @@ public class ViewerTest extends RcpModelTest {
 
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+					}
+				}""");
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
 		// prepare Viewer
 		ViewerInfo viewer = createTableViewer(m_lastEditor);
@@ -858,16 +832,16 @@ public class ViewerTest extends RcpModelTest {
 		}
 		// create
 		fillLayout.command_CREATE(table, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);",
-				"      Table table = tableViewer.getTable();",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							TableViewer tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+							Table table = tableViewer.getTable();
+						}
+					}
+				}""");
 		// check table
 		{
 			assertSame(shell, table.getParent());
@@ -916,13 +890,12 @@ public class ViewerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_useFieldVariable() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+					}
+				}""");
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
 		// prepare Viewer and Table
 		ViewerInfo viewer = createTableViewer(m_lastEditor);
@@ -931,18 +904,18 @@ public class ViewerTest extends RcpModelTest {
 		GenerationSettings settings = viewer.getDescription().getToolkit().getGenerationSettings();
 		settings.setVariable(FieldUniqueVariableDescription.INSTANCE);
 		fillLayout.command_CREATE(table, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  private Table table;",
-				"  private TableViewer tableViewer;",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);",
-				"      table = tableViewer.getTable();",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					private Table table;
+					private TableViewer tableViewer;
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							tableViewer = new TableViewer(this, SWT.BORDER | SWT.FULL_SELECTION);
+							table = tableViewer.getTable();
+						}
+					}
+				}""");
 	}
 
 	/**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -60,16 +60,15 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtual_initial() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    //",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('new button');",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						//
+						Button button = new Button(this, SWT.NONE);
+						button.setText("new button");
+					}
+				}""");
 		shell.refresh();
 		// prepare layout data
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -106,18 +105,17 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtual_whenDeleteReal() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    //",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('new button');",
-						"    RowData data = new RowData();",
-						"    button.setLayoutData(data);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						//
+						Button button = new Button(this, SWT.NONE);
+						button.setText("new button");
+						RowData data = new RowData();
+						button.setLayoutData(data);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// check real LayoutDataInfo
@@ -131,15 +129,15 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 			assertInstanceOf(InvocationChildAssociation.class, dataInfo.getAssociation());
 			// delete layout data
 			dataInfo.delete();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new RowLayout());",
-					"    //",
-					"    Button button = new Button(this, SWT.NONE);",
-					"    button.setText('new button');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new RowLayout());
+							//
+							Button button = new Button(this, SWT.NONE);
+							button.setText("new button");
+						}
+					}""");
 		}
 		// check virtual
 		{
@@ -159,14 +157,13 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtual_materialize() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// check "virtual" supports
@@ -177,25 +174,25 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 		assertInstanceOf(EmptyAssociation.class, dataInfo.getAssociation());
 		// set property value, so "materialize" LayoutDataInfo
 		dataInfo.getPropertyByTitle("width").setValue(100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    Button button = new Button(this, SWT.NONE);",
-				"    button.setLayoutData(new RowData(100, SWT.DEFAULT));",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setLayoutData(new RowData(100, SWT.DEFAULT));
+					}
+				}""");
 		assertInstanceOf(ConstructorCreationSupport.class, dataInfo.getCreationSupport());
 		assertInstanceOf(EmptyVariableSupport.class, dataInfo.getVariableSupport());
 		// delete layout data, so "virtual" should be created
 		dataInfo.delete();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    Button button = new Button(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		// check new "virtual"
 		assertEquals(1, button.getChildrenJava().size());
 		LayoutDataInfo newDataInfo = (LayoutDataInfo) button.getChildrenJava().get(0);
@@ -211,13 +208,12 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtual_whenAdd() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 		shell.refresh();
 		RowLayoutInfo layout = (RowLayoutInfo) shell.getLayout();
 		// add new button
@@ -233,15 +229,15 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 		assertInstanceOf(VirtualLayoutDataVariableSupport.class, dataInfo.getVariableSupport());
 		assertInstanceOf(EmptyAssociation.class, dataInfo.getAssociation());
 		// check source
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -250,22 +246,21 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtual_whenMove() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    //",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new FillLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        button.setText('New Button');",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						//
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new FillLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setText("New Button");
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		//
 		RowLayoutInfo layout = (RowLayoutInfo) shell.getLayout();
@@ -283,21 +278,21 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 		assertInstanceOf(VirtualLayoutDataVariableSupport.class, dataInfo.getVariableSupport());
 		assertInstanceOf(EmptyAssociation.class, dataInfo.getAssociation());
 		// check source
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    //",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      composite.setLayout(new FillLayout());",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						//
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new FillLayout());
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -306,22 +301,21 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtual_removeWhenMoveFrom() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    //",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new FillLayout());",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setText('New Button');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						//
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new FillLayout());
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 		shell.refresh();
 		//
 		ControlInfo button = shell.getChildrenControls().get(1);
@@ -342,21 +336,21 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 		// no "virtual" LayoutDataInfo expected
 		assertTrue(button.getChildrenJava().isEmpty());
 		// check source
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    //",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      composite.setLayout(new FillLayout());",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"        button.setText('New Button');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						//
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new FillLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setText("New Button");
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -364,15 +358,14 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtual_whenNewLayout() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('new button');",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setText("new button");
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// check "virtual" supports
@@ -391,14 +384,14 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 		// no "virtual" LayoutDataInfo expected
 		assertTrue(button.getChildrenJava().isEmpty());
 		// check source
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout(SWT.HORIZONTAL));",
-				"    Button button = new Button(this, SWT.NONE);",
-				"    button.setText('new button');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout(SWT.HORIZONTAL));
+						Button button = new Button(this, SWT.NONE);
+						button.setText("new button");
+					}
+				}""");
 	}
 
 	/**
@@ -406,19 +399,18 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_real_whenNewLayout() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('new button');",
-						"    RowData data = new RowData();",
-						"    data.width = 50;",
-						"    data.height = 70;",
-						"    button.setLayoutData(data);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setText("new button");
+						RowData data = new RowData();
+						data.width = 50;
+						data.height = 70;
+						button.setLayoutData(data);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// check virtual Creation/Variable Support
@@ -437,14 +429,14 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 		// no "virtual" LayoutDataInfo expected
 		assertTrue(button.getChildrenJava().isEmpty());
 		// check source
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout(SWT.HORIZONTAL));",
-				"    Button button = new Button(this, SWT.NONE);",
-				"    button.setText('new button');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout(SWT.HORIZONTAL));
+						Button button = new Button(this, SWT.NONE);
+						button.setText("new button");
+					}
+				}""");
 	}
 
 	/**
@@ -453,18 +445,17 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtual_whenNewLayout2() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setText('New Button');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 		composite.refresh();
 		assertInstanceOf(GridLayoutInfo.class, composite.getLayout());
 		ControlInfo button = composite.getChildrenControls().get(0);
@@ -483,17 +474,17 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 			assertSame(newLayout, composite.getLayout());
 		}
 		// check source
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new RowLayout(SWT.HORIZONTAL));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new RowLayout(SWT.HORIZONTAL));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 		// check "virtual" RowData
 		{
 			assertEquals(1, button.getChildrenJava().size());
@@ -515,26 +506,23 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	@Test
 	public void test_implicitLayout_1() throws Exception {
 		// create GridComposite with GridLayout
-		setFileContentSrc(
-				"test/GridComposite.java",
-				getTestSource(
-						"public class GridComposite extends Composite {",
-						"  public GridComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"  }",
-						"}"));
+		setFileContentSrc("test/GridComposite.java", getTestSource("""
+				public class GridComposite extends Composite {
+					public GridComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+					}
+				}"""));
 		waitForAutoBuild();
 		// extend GridComposite
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends GridComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('New Button');",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends GridComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						Button button = new Button(this, SWT.NONE);
+						button.setText("New Button");
+					}
+				}""");
 		composite.refresh();
 		ControlInfo button = composite.getChildrenControls().get(0);
 		// implicit GridLayout expected
@@ -552,15 +540,15 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 			composite.setLayout(newLayout);
 			assertSame(newLayout, composite.getLayout());
 			// check source
-			assertEditor(
-					"public class Test extends GridComposite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    setLayout(new RowLayout(SWT.HORIZONTAL));",
-					"    Button button = new Button(this, SWT.NONE);",
-					"    button.setText('New Button');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends GridComposite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							setLayout(new RowLayout(SWT.HORIZONTAL));
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}""");
 			// check "virtual" RowData
 			{
 				assertEquals(1, button.getChildrenJava().size());
@@ -575,14 +563,14 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 		// we again have "implicit" GridLayout and "virtual" GridData
 		{
 			assertInstanceOf(GridLayoutInfo.class, composite.getLayout());
-			assertEditor(
-					"public class Test extends GridComposite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    Button button = new Button(this, SWT.NONE);",
-					"    button.setText('New Button');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends GridComposite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}""");
 			// check "virtual" GridData
 			{
 				assertEquals(1, button.getChildrenJava().size());
@@ -600,27 +588,24 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	@Test
 	public void test_implicitLayout_2() throws Exception {
 		// create GridComposite with GridLayout
-		setFileContentSrc(
-				"test/GridComposite.java",
-				getTestSource(
-						"public class GridComposite extends Composite {",
-						"  public GridComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"  }",
-						"}"));
+		setFileContentSrc("test/GridComposite.java", getTestSource("""
+				public class GridComposite extends Composite {
+					public GridComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+					}
+				}"""));
 		waitForAutoBuild();
 		// extend GridComposite
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends GridComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new RowLayout(SWT.HORIZONTAL));",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('New Button');",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends GridComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new RowLayout(SWT.HORIZONTAL));
+						Button button = new Button(this, SWT.NONE);
+						button.setText("New Button");
+					}
+				}""");
 		composite.refresh();
 		ControlInfo button = composite.getChildrenControls().get(0);
 		// explicit RowLayout expected
@@ -654,14 +639,14 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 			assertInstanceOf(GridLayoutInfo.class, composite.getLayout());
 		}
 		// check source
-		assertEditor(
-				"public class Test extends GridComposite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    Button button = new Button(this, SWT.NONE);",
-				"    button.setText('New Button');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends GridComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						Button button = new Button(this, SWT.NONE);
+						button.setText("New Button");
+					}
+				}""");
 		// check that button has "virtual" GridData
 		{
 			assertEquals(1, button.getChildrenJava().size());
@@ -677,30 +662,27 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_whenExposedControl_deleteExplicitData_restoreVirtual() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(1, false));",
-						"    m_button = new Button(this, SWT.NONE);",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						m_button = new Button(this, SWT.NONE);
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"    myComposite.getButton().setLayoutData(new GridData());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						myComposite.getButton().setLayoutData(new GridData());
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = getJavaInfoByName("myComposite");
 		ControlInfo button = getJavaInfoByName("getButton()");
@@ -716,12 +698,12 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 			// delete, "explicit" GridData is gone
 			assertTrue(button.canDelete());
 			button.delete();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}""");
 			assertTrue(myComposite.getChildren().contains(button));
 			// check new GridData
 			{
@@ -743,14 +725,13 @@ public class VirtualLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_delete_shouldKeepSameInstance() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		LayoutDataInfo initialData = LayoutInfo.getLayoutData(button);

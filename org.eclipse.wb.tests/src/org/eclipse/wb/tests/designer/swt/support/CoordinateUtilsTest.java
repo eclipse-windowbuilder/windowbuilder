@@ -53,13 +53,13 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_1() throws Exception {
-		ShellInfo shell = (ShellInfo) parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setBounds(10, 20, 50, 30);",
-						"  }",
-						"}");
+		ShellInfo shell = (ShellInfo) parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+						button.setBounds(10, 20, 50, 30);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		shell.refresh();
 		// On GTK, the bounds are only calculated if the shell is visible
@@ -101,14 +101,13 @@ public class CoordinateUtilsTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_withGroup() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Group group = new Group(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Group group = new Group(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo group = (CompositeInfo) shell.getChildrenControls().get(0);
 		//

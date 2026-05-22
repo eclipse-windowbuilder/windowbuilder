@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -50,20 +50,19 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_empty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
-		setGridLayout(shell, new String[]{
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"  }",
-		"}"}, new Rectangle[]{});
+		CompositeInfo shell = parseComposite("""
+						// filler filler filler
+						public class Test extends Shell {
+							public Test() {
+							}
+						}""");
+		setGridLayout(shell, """
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+					}
+				}""", new Rectangle[] {});
 	}
 
 	/**
@@ -71,32 +70,31 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_singleColumn_normalOrder() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button_0 = new Button(this, SWT.NONE);",
-						"      button_0.setBounds(10, 10, 100, 20);",
-						"    }",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setBounds(20, 40, 100, 20);",
-						"    }",
-						"  }",
-						"}");
-		setGridLayout(shell, new String[]{
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_0 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"}, new Rectangle[]{new Rectangle(0, 0, 1, 1), new Rectangle(0, 1, 1, 1)});
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+							button_0.setBounds(10, 10, 100, 20);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setBounds(20, 40, 100, 20);
+						}
+					}
+				}""");
+		setGridLayout(shell, """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+					}
+				}""", new Rectangle(0, 0, 1, 1), new Rectangle(0, 1, 1, 1));
 	}
 
 	/**
@@ -104,34 +102,33 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noReorderIfRightOrder() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button_0 = new Button(this, SWT.NONE);",
-						"      button_0.setBounds(10, 10, 100, 20);",
-						"    }",
-						"    int marker;",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setBounds(10, 50, 100, 20);",
-						"    }",
-						"  }",
-						"}");
-		setGridLayout(shell, new String[]{
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_0 = new Button(this, SWT.NONE);",
-				"    }",
-				"    int marker;",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"});
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+							button_0.setBounds(10, 10, 100, 20);
+						}
+						int marker;
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setBounds(10, 50, 100, 20);
+						}
+					}
+				}""");
+		setGridLayout(shell, """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+						}
+						int marker;
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -139,32 +136,31 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_singleColumn_reverseOrder() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setBounds(20, 40, 100, 20);",
-						"    }",
-						"    {",
-						"      Button button_0 = new Button(this, SWT.NONE);",
-						"      button_0.setBounds(10, 10, 100, 20);",
-						"    }",
-						"  }",
-						"}");
-		setGridLayout(shell, new String[]{
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_0 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"}, new Rectangle[]{new Rectangle(0, 0, 1, 1), new Rectangle(0, 1, 1, 1)});
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setBounds(20, 40, 100, 20);
+						}
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+							button_0.setBounds(10, 10, 100, 20);
+						}
+					}
+				}""");
+		setGridLayout(shell, """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+					}
+				}""", new Rectangle(0, 0, 1, 1), new Rectangle(0, 1, 1, 1));
 	}
 
 	/**
@@ -172,32 +168,31 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_twoRows_noFillers() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button_0 = new Button(this, SWT.NONE);",
-						"      button_0.setBounds(10, 10, 100, 20);",
-						"    }",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setBounds(120, 15, 100, 20);",
-						"    }",
-						"  }",
-						"}");
-		setGridLayout(shell, new String[]{
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_0 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"}, new Rectangle[]{new Rectangle(0, 0, 1, 1), new Rectangle(1, 0, 1, 1)});
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+							button_0.setBounds(10, 10, 100, 20);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setBounds(120, 15, 100, 20);
+						}
+					}
+				}""");
+		setGridLayout(shell, """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+					}
+				}""", new Rectangle(0, 0, 1, 1), new Rectangle(1, 0, 1, 1));
 	}
 
 	/**
@@ -205,34 +200,33 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_twoRows_withFillers() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button_0 = new Button(this, SWT.NONE);",
-						"      button_0.setBounds(10, 10, 100, 20);",
-						"    }",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setBounds(120, 40, 100, 20);",
-						"    }",
-						"  }",
-						"}");
-		setGridLayout(shell, new String[]{
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_0 = new Button(this, SWT.NONE);",
-				"    }",
-				"    new Label(this, SWT.NONE);",
-				"    new Label(this, SWT.NONE);",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"}, new Rectangle[]{new Rectangle(0, 0, 1, 1), new Rectangle(1, 1, 1, 1)});
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+							button_0.setBounds(10, 10, 100, 20);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setBounds(120, 40, 100, 20);
+						}
+					}
+				}""");
+		setGridLayout(shell, """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+						}
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+					}
+				}""", new Rectangle(0, 0, 1, 1), new Rectangle(1, 1, 1, 1));
 	}
 
 	/**
@@ -240,43 +234,39 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_spanHorizontal() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button_0 = new Button(this, SWT.NONE);",
-						"      button_0.setBounds(10, 10, 10, 10);",
-						"    }",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setBounds(30, 10, 10, 10);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setBounds(10, 30, 30, 10);",
-						"    }",
-						"  }",
-						"}");
-		setGridLayout(shell, new String[]{
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_0 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));",
-				"    }",
-				"  }",
-		"}"}, new Rectangle[]{
-				new Rectangle(0, 0, 1, 1),
-				new Rectangle(1, 0, 1, 1),
-				new Rectangle(0, 1, 2, 1)});
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+							button_0.setBounds(10, 10, 10, 10);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setBounds(30, 10, 10, 10);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setBounds(10, 30, 30, 10);
+						}
+					}
+				}""");
+		setGridLayout(shell, """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+						}
+					}
+				}""", new Rectangle(0, 0, 1, 1), new Rectangle(1, 0, 1, 1), new Rectangle(0, 1, 2, 1));
 	}
 
 	/**
@@ -284,43 +274,39 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_spanVertical() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button_0 = new Button(this, SWT.NONE);",
-						"      button_0.setBounds(10, 10, 10, 10);",
-						"    }",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setBounds(30, 10, 10, 30);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setBounds(10, 30, 10, 10);",
-						"    }",
-						"  }",
-						"}");
-		setGridLayout(shell, new String[]{
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_0 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 2));",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-		"}"}, new Rectangle[]{
-				new Rectangle(0, 0, 1, 1),
-				new Rectangle(1, 0, 1, 2),
-				new Rectangle(0, 1, 1, 1)});
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+							button_0.setBounds(10, 10, 10, 10);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setBounds(30, 10, 10, 30);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setBounds(10, 30, 10, 10);
+						}
+					}
+				}""");
+		setGridLayout(shell, """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_0 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 2));
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""", new Rectangle(0, 0, 1, 1), new Rectangle(1, 0, 1, 2), new Rectangle(0, 1, 1, 1));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -331,7 +317,7 @@ public class GridLayoutConverterTest extends RcpModelTest {
 	/**
 	 * Sets the {@link GridLayout} for given {@link CompositeInfo}.
 	 */
-	private void setGridLayout(CompositeInfo composite, String[] expectedLines, Rectangle[] cells)
+	private void setGridLayout(CompositeInfo composite, String expectedLines, Rectangle... cells)
 			throws Exception {
 		GridLayoutInfo layout = setGridLayout(composite, expectedLines);
 		// check cells for control's
@@ -347,7 +333,7 @@ public class GridLayoutConverterTest extends RcpModelTest {
 		}
 	}
 
-	private GridLayoutInfo setGridLayout(CompositeInfo composite, String[] expectedLines)
+	private GridLayoutInfo setGridLayout(CompositeInfo composite, String expectedLines)
 			throws Exception {
 		composite.getRoot().refresh();
 		// set GridLayout

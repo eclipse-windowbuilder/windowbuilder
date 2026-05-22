@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,13 +59,12 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	@Test
 	public void test_implicitData() throws Exception {
 		prepareGridComposite_forImplicit();
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends GridComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends GridComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		composite.refresh();
 		ControlInfo button = composite.getChildrenControls().get(0);
 		//
@@ -95,13 +94,13 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 			// set new value for "widthHint"
 			property.setValue(110);
 			assertEquals(110, property.getValue());
-			assertEditor(
-					"public class Test extends GridComposite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    ((GridData) getButton().getLayoutData()).widthHint = 110;",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends GridComposite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							((GridData) getButton().getLayoutData()).widthHint = 110;
+						}
+					}""");
 			// check supports
 			assertSame(creationSupport, gridData.getCreationSupport());
 			assertNotSame(variableSupport, gridData.getVariableSupport());
@@ -110,12 +109,12 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 		}
 		// delete, so any "explicit" ASTNode's are removed, we GridData is still "implicit"
 		gridData.delete();
-		assertEditor(
-				"public class Test extends GridComposite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends GridComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		assertSame(creationSupport, gridData.getCreationSupport());
 		assertInstanceOf(ImplicitLayoutDataVariableSupport.class, gridData.getVariableSupport());
 		assertInstanceOf(ImplicitObjectAssociation.class, gridData.getAssociation());
@@ -129,13 +128,12 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	public void test_implicitData_advanced() throws Exception {
 		prepareGridComposite_forImplicit();
 		// extend GridComposite
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends GridComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends GridComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		composite.refresh();
 		ControlInfo button = composite.getChildrenControls().get(0);
 		//
@@ -165,13 +163,13 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 			// set new value for "widthHint"
 			property.setValue(110);
 			assertEquals(110, property.getValue());
-			assertEditor(
-					"public class Test extends GridComposite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    ((GridData) getButton().getLayoutData()).widthHint = 110;",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends GridComposite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							((GridData) getButton().getLayoutData()).widthHint = 110;
+						}
+					}""");
 			// check supports
 			assertSame(creationSupport, gridData.getCreationSupport());
 			assertNotSame(variableSupport, gridData.getVariableSupport());
@@ -185,51 +183,49 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 			// set value, so force variable (and Block)
 			property.setValue(60);
 			assertEquals(60, property.getValue());
-			assertEditor(
-					"public class Test extends GridComposite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    {",
-					"      GridData gridData = (GridData) getButton().getLayoutData();",
-					"      gridData.heightHint = 60;",
-					"      gridData.widthHint = 110;",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends GridComposite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							{
+								GridData gridData = (GridData) getButton().getLayoutData();
+								gridData.heightHint = 60;
+								gridData.widthHint = 110;
+							}
+						}
+					}""");
 			// remove value, so inline
 			property.setValue(Property.UNKNOWN_VALUE);
 			assertEquals(50, property.getValue());
-			assertEditor(
-					"public class Test extends GridComposite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    ((GridData) getButton().getLayoutData()).widthHint = 110;",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends GridComposite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							((GridData) getButton().getLayoutData()).widthHint = 110;
+						}
+					}""");
 		}
 	}
 
 	private void prepareGridComposite_forImplicit() throws Exception {
-		setFileContentSrc(
-				"test/GridComposite.java",
-				getTestSource(
-						"public class GridComposite extends Composite {",
-						"  private Button m_button;",
-						"  public GridComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      m_button = new Button(this, SWT.NONE);",
-						"      GridData data = new GridData();",
-						"      data.widthHint = 100;",
-						"      data.heightHint = 50;",
-						"      m_button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/GridComposite.java", getTestSource("""
+				public class GridComposite extends Composite {
+					private Button m_button;
+					public GridComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							m_button = new Button(this, SWT.NONE);
+							GridData data = new GridData();
+							data.widthHint = 100;
+							data.heightHint = 50;
+							m_button.setLayoutData(data);
+						}
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 
@@ -238,32 +234,28 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_implicitReplace_withExplicitData() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(1, false));",
-						"    m_button = new Button(this, SWT.NONE);",
-						"    m_button.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						m_button = new Button(this, SWT.NONE);
+						m_button.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"    myComposite.getButton().setLayoutData(new GridData());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						myComposite.getButton().setLayoutData(new GridData());
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = myComposite.getChildrenControls().get(0);
@@ -286,31 +278,27 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_delete_shouldKeepSameInstance() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(1, false));",
-						"    m_button = new Button(this, SWT.NONE);",
-						"    m_button.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						m_button = new Button(this, SWT.NONE);
+						m_button.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = myComposite.getChildrenControls().get(0);
@@ -330,12 +318,12 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 		// delete "button", same LayoutData should be kept
 		assertTrue(button.canDelete());
 		button.delete();
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		{
 			LayoutDataInfo newData = LayoutInfo.getLayoutData(button);
 			assertSame(initialData, newData);
@@ -351,33 +339,29 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_delete_removeMaterialized() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(1, false));",
-						"    m_button = new Button(this, SWT.NONE);",
-						"    m_button.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						m_button = new Button(this, SWT.NONE);
+						m_button.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"    GridData gridData = (GridData) myComposite.getButton().getLayoutData();",
-						"    gridData.grabExcessVerticalSpace = true;",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						GridData gridData = (GridData) myComposite.getButton().getLayoutData();
+						gridData.grabExcessVerticalSpace = true;
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = myComposite.getChildrenControls().get(0);
@@ -397,12 +381,12 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 		// delete "button", same LayoutData should be kept
 		assertTrue(button.canDelete());
 		button.delete();
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		{
 			LayoutDataInfo newData = LayoutInfo.getLayoutData(button);
 			assertSame(initialData, newData);
@@ -428,51 +412,48 @@ public class ImplicitLayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addNewComposite_withExposedControl_andImplicitLayoutData() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      m_button = new Button(this, SWT.NONE);",
-						"      m_button.setLayoutData(new GridData());",
-						"    }",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							m_button = new Button(this, SWT.NONE);
+							m_button.setLayoutData(new GridData());
+						}
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new FillLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new FillLayout());
+					}
+				}""");
 		FillLayoutInfo layout = (FillLayoutInfo) shell.getLayout();
 		// create MyComposite
 		CompositeInfo myComposite = createJavaInfo("test.MyComposite");
 		layout.command_CREATE(myComposite, null);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new MyComposite(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: test.MyComposite} {local-unique: myComposite} {/new MyComposite(this, SWT.NONE)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"    {method: public org.eclipse.swt.widgets.Button test.MyComposite.getButton()} {property} {}",
-				"      {implicit-layout-data: org.eclipse.swt.layout.GridData} {implicit-layout-data} {}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new FillLayout());
+						{
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new MyComposite(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: test.MyComposite} {local-unique: myComposite} {/new MyComposite(this, SWT.NONE)/}
+						{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+						{method: public org.eclipse.swt.widgets.Button test.MyComposite.getButton()} {property} {}
+							{implicit-layout-data: org.eclipse.swt.layout.GridData} {implicit-layout-data} {}""");
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -51,16 +51,15 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_enablement() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      Text text = new Text(this, SWT.NONE);",
-						"      Table table = new Table(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Button button = new Button(this, SWT.NONE);
+							Text text = new Text(this, SWT.NONE);
+							Table table = new Table(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		ControlInfo text = shell.getChildrenControls().get(1);
 		ControlInfo table = shell.getChildrenControls().get(2);
@@ -95,121 +94,117 @@ public class AbsoluteLayoutOrderingTest extends RcpModelTest {
 
 	@Test
 	public void test_bringToFront() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      Text text = new Text(this, SWT.NONE);",
-						"      Table table = new Table(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Button button = new Button(this, SWT.NONE);
+							Text text = new Text(this, SWT.NONE);
+							Table table = new Table(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		ControlInfo text = shell.getChildrenControls().get(1);
 		ControlInfo table = shell.getChildrenControls().get(2);
 		// run action
 		getOrderAction(createOrderManager(table), "Bring to Front").run();
 		// check result
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"      Table table = new Table(this, SWT.NONE);",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      Text text = new Text(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Table table = new Table(this, SWT.NONE);
+							Button button = new Button(this, SWT.NONE);
+							Text text = new Text(this, SWT.NONE);
+					}
+				}""");
 		Assertions.assertThat(shell.getChildrenControls()).containsExactly(table, button, text);
 	}
 
 	@Test
 	public void test_bringForward() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      Text text = new Text(this, SWT.NONE);",
-						"      Table table = new Table(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Button button = new Button(this, SWT.NONE);
+							Text text = new Text(this, SWT.NONE);
+							Table table = new Table(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		ControlInfo text = shell.getChildrenControls().get(1);
 		ControlInfo table = shell.getChildrenControls().get(2);
 		// run action
 		getOrderAction(createOrderManager(table), "Bring Forward").run();
 		// check result
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      Table table = new Table(this, SWT.NONE);",
-				"      Text text = new Text(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Button button = new Button(this, SWT.NONE);
+							Table table = new Table(this, SWT.NONE);
+							Text text = new Text(this, SWT.NONE);
+					}
+				}""");
 		Assertions.assertThat(shell.getChildrenControls()).containsExactly(button, table, text);
 	}
 
 	@Test
 	public void test_sendToBack() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      Text text = new Text(this, SWT.NONE);",
-						"      Table table = new Table(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Button button = new Button(this, SWT.NONE);
+							Text text = new Text(this, SWT.NONE);
+							Table table = new Table(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		ControlInfo text = shell.getChildrenControls().get(1);
 		ControlInfo table = shell.getChildrenControls().get(2);
 		// run action
 		getOrderAction(createOrderManager(button), "Send to Back").run();
 		// check result
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"      Text text = new Text(this, SWT.NONE);",
-				"      Table table = new Table(this, SWT.NONE);",
-				"      Button button = new Button(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Text text = new Text(this, SWT.NONE);
+							Table table = new Table(this, SWT.NONE);
+							Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		Assertions.assertThat(shell.getChildrenControls()).containsExactly(text, table, button);
 	}
 
 	@Test
 	public void test_sendBackward() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      Text text = new Text(this, SWT.NONE);",
-						"      Table table = new Table(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Button button = new Button(this, SWT.NONE);
+							Text text = new Text(this, SWT.NONE);
+							Table table = new Table(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		ControlInfo text = shell.getChildrenControls().get(1);
 		ControlInfo table = shell.getChildrenControls().get(2);
 		// run action
 		getOrderAction(createOrderManager(button), "Send Backward").run();
 		// check result
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"      Text text = new Text(this, SWT.NONE);",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      Table table = new Table(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+							Text text = new Text(this, SWT.NONE);
+							Button button = new Button(this, SWT.NONE);
+							Table table = new Table(this, SWT.NONE);
+					}
+				}""");
 		Assertions.assertThat(shell.getChildrenControls()).containsExactly(text, button, table);
 	}
 

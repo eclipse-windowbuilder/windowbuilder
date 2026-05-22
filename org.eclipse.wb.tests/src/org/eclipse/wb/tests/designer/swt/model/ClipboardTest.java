@@ -141,17 +141,16 @@ public class ClipboardTest extends RcpModelTest {
 	private void check_propertiesPaste(String invocationCode_1, String invocationCode_2)
 			throws Exception {
 		m_waitForAutoBuild = true;
-		final CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.BORDER | SWT.CHECK);",
-						"      button." + invocationCode_1 + ";",
-						"    }",
-						"  }",
-						"}");
+		final CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.BORDER | SWT.CHECK);
+							button.%s;
+						}
+					}
+				}""".formatted(invocationCode_1));
 		final RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		shell.refresh();
 		// create memento for "button"
@@ -167,20 +166,20 @@ public class ClipboardTest extends RcpModelTest {
 				rowLayout.command_CREATE(button, null);
 				memento.apply();
 			});
-			assertEditor(
-					"class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new RowLayout());",
-					"    {",
-					"      Button button = new Button(this, SWT.BORDER | SWT.CHECK);",
-					"      button." + invocationCode_1 + ";",
-					"    }",
-					"    {",
-					"      Button button = new Button(this, SWT.BORDER | SWT.CHECK);",
-					"      button." + invocationCode_2 + ";",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						public Test() {
+							setLayout(new RowLayout());
+							{
+								Button button = new Button(this, SWT.BORDER | SWT.CHECK);
+								button.%s;
+							}
+							{
+								Button button = new Button(this, SWT.BORDER | SWT.CHECK);
+								button.%s;
+							}
+						}
+					}""".formatted(invocationCode_1, invocationCode_2));
 		}
 	}
 
@@ -194,16 +193,15 @@ public class ClipboardTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_liveImageSize() throws Exception {
-		final CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setBounds(10, 20, 200, 100);",
-						"    }",
-						"  }",
-						"}");
+		final CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(10, 20, 200, 100);
+						}
+					}
+				}""");
 		final AbsoluteLayoutInfo absoluteLayout = (AbsoluteLayoutInfo) shell.getLayout();
 		shell.refresh();
 		// create memento for "control"
@@ -251,16 +249,15 @@ public class ClipboardTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_asserts() throws Exception {
-		final CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setBounds(10, 20, 200, 100);",
-						"    }",
-						"  }",
-						"}");
+		final CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(10, 20, 200, 100);
+						}
+					}
+				}""");
 		final AbsoluteLayoutInfo absoluteLayout = (AbsoluteLayoutInfo) shell.getLayout();
 		shell.refresh();
 		// create memento for "control"
@@ -296,7 +293,7 @@ public class ClipboardTest extends RcpModelTest {
 	/**
 	 * Does copy/paste for first child of parsed {@link CompositeInfo} with {@link RowLayoutInfo}.
 	 */
-	private void layouts_doCopy(String[] sourceLines, String[] targetLines) throws Exception {
+	private void layouts_doCopy(String sourceLines, String targetLines) throws Exception {
 		final CompositeInfo shell = parseComposite(sourceLines);
 		final RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		shell.refresh();
@@ -311,502 +308,476 @@ public class ClipboardTest extends RcpModelTest {
 
 	@Test
 	public void test_factoryStatic() throws Exception {
-		setFileContentSrc(
-				"test/StaticFactory.java",
-				getTestSource(
-						"public final class StaticFactory {",
-						"  public static Button createButton(Composite parent, String text) {",
-						"    Button button = new Button(parent, SWT.NONE);",
-						"    button.setText(text);",
-						"    return button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/StaticFactory.java", getTestSource("""
+				public final class StaticFactory {
+					public static Button createButton(Composite parent, String text) {
+						Button button = new Button(parent, SWT.NONE);
+						button.setText(text);
+						return button;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = StaticFactory.createButton(this, \"button\");",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = StaticFactory.createButton(this, \"button\");",
-						"    }",
-						"    {",
-						"      Button button = StaticFactory.createButton(this, \"button\");",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = StaticFactory.createButton(this, "button");
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = StaticFactory.createButton(this, "button");
+						}
+						{
+							Button button = StaticFactory.createButton(this, "button");
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_viewer_1() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      TableViewer viewer = new TableViewer(this, SWT.BORDER);",
-						"      viewer.setUseHashlookup(true);",
-						"      viewer.getTable().setHeaderVisible(true);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      TableViewer viewer = new TableViewer(this, SWT.BORDER);",
-						"      viewer.setUseHashlookup(true);",
-						"      viewer.getTable().setHeaderVisible(true);",
-						"    }",
-						"    {",
-						"      TableViewer viewer = new TableViewer(this, SWT.BORDER);",
-						"      viewer.setUseHashlookup(true);",
-						"      Table table = viewer.getTable();",
-						"      table.setHeaderVisible(true);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							TableViewer viewer = new TableViewer(this, SWT.BORDER);
+							viewer.setUseHashlookup(true);
+							viewer.getTable().setHeaderVisible(true);
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							TableViewer viewer = new TableViewer(this, SWT.BORDER);
+							viewer.setUseHashlookup(true);
+							viewer.getTable().setHeaderVisible(true);
+						}
+						{
+							TableViewer viewer = new TableViewer(this, SWT.BORDER);
+							viewer.setUseHashlookup(true);
+							Table table = viewer.getTable();
+							table.setHeaderVisible(true);
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_exposedSubComponent() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new RowLayout());",
-						"    m_button = new Button(this, SWT.NONE);",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new RowLayout());
+						m_button = new Button(this, SWT.NONE);
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// do copy/paste
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"      myComposite.getButton().setText(\"button\");",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"      myComposite.getButton().setText(\"button\");",
-						"    }",
-						"    {",
-						"      MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"      myComposite.getButton().setText(\"button\");",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+							myComposite.getButton().setText("button");
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+							myComposite.getButton().setText("button");
+						}
+						{
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+							myComposite.getButton().setText("button");
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_viewer_2() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Table table = new Table(this, SWT.BORDER);",
-						"      table.setHeaderVisible(true);",
-						"      TableViewer viewer = new TableViewer(table);",
-						"      viewer.setUseHashlookup(true);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Table table = new Table(this, SWT.BORDER);",
-						"      table.setHeaderVisible(true);",
-						"      TableViewer viewer = new TableViewer(table);",
-						"      viewer.setUseHashlookup(true);",
-						"    }",
-						"    {",
-						"      Table table = new Table(this, SWT.BORDER);",
-						"      table.setHeaderVisible(true);",
-						"      TableViewer viewer = new TableViewer(table);",
-						"      viewer.setUseHashlookup(true);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							table.setHeaderVisible(true);
+							TableViewer viewer = new TableViewer(table);
+							viewer.setUseHashlookup(true);
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							table.setHeaderVisible(true);
+							TableViewer viewer = new TableViewer(table);
+							viewer.setUseHashlookup(true);
+						}
+						{
+							Table table = new Table(this, SWT.BORDER);
+							table.setHeaderVisible(true);
+							TableViewer viewer = new TableViewer(table);
+							viewer.setUseHashlookup(true);
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_Table() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Table table = new Table(this, SWT.BORDER);",
-						"      {",
-						"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-						"        tableColumn.setWidth(100);",
-						"        tableColumn.setText(\"AAA\");",
-						"      }",
-						"      {",
-						"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-						"        tableColumn.setWidth(100);",
-						"        tableColumn.setText(\"BBB\");",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Table table = new Table(this, SWT.BORDER);",
-						"      {",
-						"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-						"        tableColumn.setWidth(100);",
-						"        tableColumn.setText(\"AAA\");",
-						"      }",
-						"      {",
-						"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-						"        tableColumn.setWidth(100);",
-						"        tableColumn.setText(\"BBB\");",
-						"      }",
-						"    }",
-						"    {",
-						"      Table table = new Table(this, SWT.BORDER);",
-						"      {",
-						"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-						"        tableColumn.setWidth(100);",
-						"        tableColumn.setText(\"AAA\");",
-						"      }",
-						"      {",
-						"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-						"        tableColumn.setWidth(100);",
-						"        tableColumn.setText(\"BBB\");",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							{
+								TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+								tableColumn.setWidth(100);
+								tableColumn.setText("AAA");
+							}
+							{
+								TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+								tableColumn.setWidth(100);
+								tableColumn.setText("BBB");
+							}
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Table table = new Table(this, SWT.BORDER);
+							{
+								TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+								tableColumn.setWidth(100);
+								tableColumn.setText("AAA");
+							}
+							{
+								TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+								tableColumn.setWidth(100);
+								tableColumn.setText("BBB");
+							}
+						}
+						{
+							Table table = new Table(this, SWT.BORDER);
+							{
+								TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+								tableColumn.setWidth(100);
+								tableColumn.setText("AAA");
+							}
+							{
+								TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+								tableColumn.setWidth(100);
+								tableColumn.setText("BBB");
+							}
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_layouts_AbsoluteLayout_implicit() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_layouts_AbsoluteLayout_null() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(null);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(null);",
-						"    }",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(null);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(null);
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(null);
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(null);
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_layouts_AbsoluteLayout_withComponent() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"        button.setText(\"button\");",
-						"        button.setBounds(10, 20, 200, 100);",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"        button.setText(\"button\");",
-						"        button.setBounds(10, 20, 200, 100);",
-						"      }",
-						"    }",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"        button.setText(\"button\");",
-						"        button.setBounds(10, 20, 200, 100);",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.CHECK);
+								button.setText("button");
+								button.setBounds(10, 20, 200, 100);
+							}
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.CHECK);
+								button.setText("button");
+								button.setBounds(10, 20, 200, 100);
+							}
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.CHECK);
+								button.setText("button");
+								button.setBounds(10, 20, 200, 100);
+							}
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_layouts_FillLayout() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new FillLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"        button.setText(\"second button\");",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new FillLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"        button.setText(\"second button\");",
-						"      }",
-						"    }",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new FillLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"        button.setText(\"second button\");",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new FillLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+							{
+								Button button = new Button(composite, SWT.CHECK);
+								button.setText("second button");
+							}
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new FillLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+							{
+								Button button = new Button(composite, SWT.CHECK);
+								button.setText("second button");
+							}
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new FillLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+							{
+								Button button = new Button(composite, SWT.CHECK);
+								button.setText("second button");
+							}
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_layouts_RowLayout() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new RowLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        button.setLayoutData(new RowData(100, 200));",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.RADIO);",
-						"        RowData rowData = new RowData();",
-						"        rowData.width = 100;",
-						"        button.setLayoutData(rowData);",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new RowLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        button.setLayoutData(new RowData(100, 200));",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.RADIO);",
-						"        RowData rowData = new RowData();",
-						"        rowData.width = 100;",
-						"        button.setLayoutData(rowData);",
-						"      }",
-						"    }",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new RowLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        button.setLayoutData(new RowData(100, 200));",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.RADIO);",
-						"        button.setLayoutData(new RowData(100, SWT.DEFAULT));",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new RowLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new RowData(100, 200));
+							}
+							{
+								Button button = new Button(composite, SWT.CHECK);
+							}
+							{
+								Button button = new Button(composite, SWT.RADIO);
+								RowData rowData = new RowData();
+								rowData.width = 100;
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new RowLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new RowData(100, 200));
+							}
+							{
+								Button button = new Button(composite, SWT.CHECK);
+							}
+							{
+								Button button = new Button(composite, SWT.RADIO);
+								RowData rowData = new RowData();
+								rowData.width = 100;
+								button.setLayoutData(rowData);
+							}
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new RowLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new RowData(100, 200));
+							}
+							{
+								Button button = new Button(composite, SWT.CHECK);
+							}
+							{
+								Button button = new Button(composite, SWT.RADIO);
+								button.setLayoutData(new RowData(100, SWT.DEFAULT));
+							}
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_layouts_GridLayout() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new GridLayout(2, false));",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        GridData gridData = new GridData();",
-						"        gridData.horizontalAlignment = GridData.FILL;",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"      new Label(composite, SWT.NONE);",
-						"      new Label(composite, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new GridLayout(2, false));",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        GridData gridData = new GridData();",
-						"        gridData.horizontalAlignment = GridData.FILL;",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"      new Label(composite, SWT.NONE);",
-						"      new Label(composite, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"      }",
-						"    }",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new GridLayout(2, false));",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        button.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));",
-						"      }",
-						"      new Label(composite, SWT.NONE);",
-						"      new Label(composite, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(composite, SWT.CHECK);",
-						"      }",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new GridLayout(2, false));
+							{
+								Button button = new Button(composite, SWT.NONE);
+								GridData gridData = new GridData();
+								gridData.horizontalAlignment = GridData.FILL;
+								button.setLayoutData(gridData);
+							}
+							new Label(composite, SWT.NONE);
+							new Label(composite, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.CHECK);
+							}
+						}
+					}
+				}""";
+		String targetLines = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new GridLayout(2, false));
+							{
+								Button button = new Button(composite, SWT.NONE);
+								GridData gridData = new GridData();
+								gridData.horizontalAlignment = GridData.FILL;
+								button.setLayoutData(gridData);
+							}
+							new Label(composite, SWT.NONE);
+							new Label(composite, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.CHECK);
+							}
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new GridLayout(2, false));
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 1, 1));
+							}
+							new Label(composite, SWT.NONE);
+							new Label(composite, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.CHECK);
+							}
+						}
+					}
+				}""";
 		layouts_doCopy(sourceLines, targetLines);
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,28 +53,27 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_Text() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+					}
+				}""");
 		refresh();
 		GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
 		//
 		ControlInfo newText = BTestUtils.createControl("org.eclipse.swt.widgets.Text");
 		layout.command_CREATE(newText, 0, false, 0, false);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Text text = new Text(this, SWT.BORDER);",
-				"      text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Text text = new Text(this, SWT.BORDER);
+							text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -82,13 +81,12 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_Text_disabled() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+					}
+				}""");
 		refresh();
 		GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
 		//
@@ -98,15 +96,15 @@ public class GridLayoutParametersTest extends RcpModelTest {
 			preferences.setValue(IPreferenceConstants.P_ENABLE_GRAB, false);
 			ControlInfo newText = BTestUtils.createControl("org.eclipse.swt.widgets.Text");
 			layout.command_CREATE(newText, 0, false, 0, false);
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    setLayout(new GridLayout(1, false));",
-					"    {",
-					"      Text text = new Text(this, SWT.BORDER);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							setLayout(new GridLayout(1, false));
+							{
+								Text text = new Text(this, SWT.BORDER);
+							}
+						}
+					}""");
 		} finally {
 			preferences.restore();
 		}
@@ -117,30 +115,29 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_Table() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+					}
+				}""");
 		refresh();
 		GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
 		//
 		ControlInfo newTable = BTestUtils.createControl("org.eclipse.swt.widgets.Table");
 		layout.command_CREATE(newTable, 0, false, 0, false);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Table table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);",
-				"      table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));",
-				"      table.setHeaderVisible(true);",
-				"      table.setLinesVisible(true);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Table table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
+							table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1));
+							table.setHeaderVisible(true);
+							table.setLinesVisible(true);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -149,36 +146,35 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_LabelBeforeText() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    new Label(this, SWT.NONE);",
-						"    {",
-						"      Text text = new Text(this, SWT.BORDER);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						new Label(this, SWT.NONE);
+						{
+							Text text = new Text(this, SWT.BORDER);
+						}
+					}
+				}""");
 		refresh();
 		GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
 		//
 		ControlInfo newLabel = BTestUtils.createControl("org.eclipse.swt.widgets.Label");
 		layout.command_CREATE(newLabel, 0, false, 0, false);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Label label = new Label(this, SWT.NONE);",
-				"      label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));",
-				"      label.setText('New Label');",
-				"    }",
-				"    {",
-				"      Text text = new Text(this, SWT.BORDER);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+							label.setText("New Label");
+						}
+						{
+							Text text = new Text(this, SWT.BORDER);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -186,17 +182,16 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_LabelBeforeText_disabled() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    new Label(this, SWT.NONE);",
-						"    {",
-						"      Text text = new Text(this, SWT.BORDER);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						new Label(this, SWT.NONE);
+						{
+							Text text = new Text(this, SWT.BORDER);
+						}
+					}
+				}""");
 		refresh();
 		GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
 		//
@@ -206,19 +201,19 @@ public class GridLayoutParametersTest extends RcpModelTest {
 			preferences.setValue(IPreferenceConstants.P_ENABLE_RIGHT_ALIGNMENT, false);
 			ControlInfo newLabel = BTestUtils.createControl("org.eclipse.swt.widgets.Label");
 			layout.command_CREATE(newLabel, 0, false, 0, false);
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    setLayout(new GridLayout(2, false));",
-					"    {",
-					"      Label label = new Label(this, SWT.NONE);",
-					"      label.setText('New Label');",
-					"    }",
-					"    {",
-					"      Text text = new Text(this, SWT.BORDER);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							setLayout(new GridLayout(2, false));
+							{
+								Label label = new Label(this, SWT.NONE);
+								label.setText("New Label");
+							}
+							{
+								Text text = new Text(this, SWT.BORDER);
+							}
+						}
+					}""");
 		} finally {
 			preferences.restore();
 		}
@@ -230,36 +225,35 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_Text_afterLabel() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"    }",
-						"    new Label(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+						}
+						new Label(this, SWT.NONE);
+					}
+				}""");
 		refresh();
 		GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
 		//
 		ControlInfo newText = createJavaInfo("org.eclipse.swt.widgets.Text");
 		layout.command_CREATE(newText, 1, false, 0, false);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Label label = new Label(this, SWT.NONE);",
-				"      label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));",
-				"    }",
-				"    {",
-				"      Text text = new Text(this, SWT.BORDER);",
-				"      text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+						}
+						{
+							Text text = new Text(this, SWT.BORDER);
+							text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -267,30 +261,29 @@ public class GridLayoutParametersTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_Text_afterFiller() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+					}
+				}""");
 		refresh();
 		GridLayoutInfo layout = (GridLayoutInfo) shell.getLayout();
 		//
 		ControlInfo newText = createJavaInfo("org.eclipse.swt.widgets.Text");
 		layout.command_CREATE(newText, 1, false, 0, false);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    new Label(this, SWT.NONE);",
-				"    {",
-				"      Text text = new Text(this, SWT.BORDER);",
-				"      text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						new Label(this, SWT.NONE);
+						{
+							Text text = new Text(this, SWT.BORDER);
+							text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+						}
+					}
+				}""");
 	}
 }

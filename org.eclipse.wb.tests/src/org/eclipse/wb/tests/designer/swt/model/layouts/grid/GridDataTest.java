@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,20 +56,19 @@ public class GridDataTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_modernHorizontalAlignment() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData(-1, -1, false, false);",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData(-1, -1, false, false);
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		shell.startEdit();
 		//
@@ -90,20 +89,19 @@ public class GridDataTest extends RcpModelTest {
 
 	@Test
 	public void test_modernVerticalAlignment() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData(-1, -1, false, false);",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData(-1, -1, false, false);
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		shell.startEdit();
 		//
@@ -185,30 +183,29 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setHorizontalAlignment() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		GridDataInfo gridData = getGridData(button);
 		// SWT.LEFT is default alignment, so nothing should be changed
 		gridData.setHorizontalAlignment(SWT.LEFT);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -216,30 +213,29 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setVerticalAlignment() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		GridDataInfo gridData = getGridData(button);
 		// SWT.CENTER is default alignment, so nothing should be changed
 		gridData.setVerticalAlignment(SWT.CENTER);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -249,16 +245,15 @@ public class GridDataTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getSmallAlignmentImage() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
 		shell.refresh();
@@ -310,17 +305,16 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getSmallAlignmentImage_invalid() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(-1, -1, false, false));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(-1, -1, false, false));
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
@@ -339,16 +333,15 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_sizeHint_width() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		GridDataInfo gridData = GridLayoutInfo.getGridData(button);
@@ -357,32 +350,32 @@ public class GridDataTest extends RcpModelTest {
 		// set hint
 		gridData.setWidthHint(200);
 		assertEquals(200, gridData.getWidthHint());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);",
-				"        gridData.widthHint = 200;",
-				"        button.setLayoutData(gridData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+								gridData.widthHint = 200;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		// remove hint
 		gridData.setWidthHint(-1);
 		assertEquals(-1, gridData.getWidthHint());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -390,16 +383,15 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_sizeHint_height() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		GridDataInfo gridData = GridLayoutInfo.getGridData(button);
@@ -408,32 +400,32 @@ public class GridDataTest extends RcpModelTest {
 		// set hint
 		gridData.setHeightHint(200);
 		assertEquals(200, gridData.getHeightHint());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);",
-				"        gridData.heightHint = 200;",
-				"        button.setLayoutData(gridData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+								gridData.heightHint = 200;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		// remove hint
 		gridData.setHeightHint(-1);
 		assertEquals(-1, gridData.getHeightHint());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -443,21 +435,20 @@ public class GridDataTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_grabHorizontal() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData();",
-						"        gridData.grabExcessHorizontalSpace = true;",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								gridData.grabExcessHorizontalSpace = true;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// initial state, set new
@@ -467,15 +458,15 @@ public class GridDataTest extends RcpModelTest {
 			gridData.setHorizontalGrab(false);
 		}
 		// check new state
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		{
 			GridDataInfo gridData = getGridData(button);
 			assertFalse(gridData.getHorizontalGrab());
@@ -484,20 +475,19 @@ public class GridDataTest extends RcpModelTest {
 
 	@Test
 	public void test_grabVertical() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData();",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// initial state, set new
@@ -507,20 +497,20 @@ public class GridDataTest extends RcpModelTest {
 			gridData.setVerticalGrab(true);
 		}
 		// check new state
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        GridData gridData = new GridData();",
-				"        gridData.grabExcessVerticalSpace = true;",
-				"        button.setLayoutData(gridData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								gridData.grabExcessVerticalSpace = true;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		{
 			GridDataInfo gridData = getGridData(button);
 			assertTrue(gridData.getVerticalGrab());
@@ -529,21 +519,20 @@ public class GridDataTest extends RcpModelTest {
 
 	@Test
 	public void test_grab_usingProperty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData();",
-						"        gridData.grabExcessHorizontalSpace = true;",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								gridData.grabExcessHorizontalSpace = true;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// initial state, set new
@@ -553,15 +542,15 @@ public class GridDataTest extends RcpModelTest {
 			gridData.getPropertyByTitle("grabExcessHorizontalSpace").setValue(Boolean.FALSE);
 		}
 		// check new state
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		{
 			GridDataInfo gridData = getGridData(button);
 			assertFalse(gridData.getHorizontalGrab());
@@ -578,37 +567,37 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setHorizontalSpan() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		refresh();
 		ControlInfo button = getJavaInfoByName("button_1");
 		//
 		GridDataInfo gridData = getGridData(button);
 		gridData.setHorizontalSpan(2);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"    new Label(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+						new Label(this, SWT.NONE);
+					}
+				}""");
 	}
 
 	/**
@@ -616,18 +605,18 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setProperty_horizontalSpan() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		refresh();
 		ControlInfo button = getJavaInfoByName("button_1");
 		Property property = getGridData(button).getPropertyByTitle("horizontalSpan");
@@ -645,20 +634,20 @@ public class GridDataTest extends RcpModelTest {
 		}
 		// set "2"
 		property.setValue(2);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"    new Label(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+						new Label(this, SWT.NONE);
+					}
+				}""");
 	}
 
 	/**
@@ -666,50 +655,49 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setVerticalSpan() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_3 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_4 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_4 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button_2");
 		//
 		GridDataInfo gridData = getGridData(button);
 		gridData.setVerticalSpan(2);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 2));",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_4 = new Button(this, SWT.NONE);",
-				"    }",
-				"    new Label(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 2));
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_4 = new Button(this, SWT.NONE);
+						}
+						new Label(this, SWT.NONE);
+					}
+				}""");
 	}
 
 	/**
@@ -717,25 +705,24 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setProperty_verticalSpan() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_3 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_4 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_4 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button_2");
 		Property property = getGridData(button).getPropertyByTitle("verticalSpan");
@@ -753,26 +740,26 @@ public class GridDataTest extends RcpModelTest {
 		}
 		// set "2"
 		property.setValue(2);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 2));",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_4 = new Button(this, SWT.NONE);",
-				"    }",
-				"    new Label(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 2));
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_4 = new Button(this, SWT.NONE);
+						}
+						new Label(this, SWT.NONE);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -782,16 +769,15 @@ public class GridDataTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_contextMenu_horizontal() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
 		GridDataInfo gridData = (GridDataInfo) button.getChildrenJava().get(0);
@@ -821,31 +807,31 @@ public class GridDataTest extends RcpModelTest {
 				IAction action = findChildAction(manager2, "&Right");
 				action.setChecked(true);
 				action.run();
-				assertEditor(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));",
-						"    }",
-						"  }",
-						"}");
+				assertEditor("""
+						class Test extends Shell {
+							Test() {
+								setLayout(new GridLayout(1, false));
+								{
+									Button button = new Button(this, SWT.NONE);
+									button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+								}
+							}
+						}""");
 			}
 			// use "Grab action"
 			{
 				IAction action = findChildAction(manager2, "&Grab excess space");
 				action.run();
-				assertEditor(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));",
-						"    }",
-						"  }",
-						"}");
+				assertEditor("""
+						class Test extends Shell {
+							Test() {
+								setLayout(new GridLayout(1, false));
+								{
+									Button button = new Button(this, SWT.NONE);
+									button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true, false, 1, 1));
+								}
+							}
+						}""");
 			}
 		} finally {
 			shell.refresh_dispose();
@@ -854,16 +840,15 @@ public class GridDataTest extends RcpModelTest {
 
 	@Test
 	public void test_contextMenu_vertical() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
 		GridDataInfo gridData = (GridDataInfo) button.getChildrenJava().get(0);
@@ -890,31 +875,31 @@ public class GridDataTest extends RcpModelTest {
 				IAction action = findChildAction(manager2, "&Bottom");
 				action.setChecked(true);
 				action.run();
-				assertEditor(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, false, 1, 1));",
-						"    }",
-						"  }",
-						"}");
+				assertEditor("""
+						class Test extends Shell {
+							Test() {
+								setLayout(new GridLayout(1, false));
+								{
+									Button button = new Button(this, SWT.NONE);
+									button.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, false, 1, 1));
+								}
+							}
+						}""");
 			}
 			// use "Grab action"
 			{
 				IAction action = findChildAction(manager2, "&Grab excess space");
 				action.run();
-				assertEditor(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, true, 1, 1));",
-						"    }",
-						"  }",
-						"}");
+				assertEditor("""
+						class Test extends Shell {
+							Test() {
+								setLayout(new GridLayout(1, false));
+								{
+									Button button = new Button(this, SWT.NONE);
+									button.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, false, true, 1, 1));
+								}
+							}
+						}""");
 			}
 		} finally {
 			shell.refresh_dispose();
@@ -923,21 +908,20 @@ public class GridDataTest extends RcpModelTest {
 
 	@Test
 	public void test_contextMenu_horizontalHint() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData();",
-						"        gridData.widthHint = 200;",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								gridData.widthHint = 200;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// clear "widthHint"
@@ -947,15 +931,15 @@ public class GridDataTest extends RcpModelTest {
 			assertNotNull(clearHintAction);
 			// use action
 			clearHintAction.run();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    setLayout(new GridLayout(1, false));",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							setLayout(new GridLayout(1, false));
+							{
+								Button button = new Button(this, SWT.NONE);
+							}
+						}
+					}""");
 		}
 		// no "widthHint" value, so no action
 		{
@@ -966,21 +950,20 @@ public class GridDataTest extends RcpModelTest {
 
 	@Test
 	public void test_contextMenu_verticalHint() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData();",
-						"        gridData.heightHint = 200;",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								gridData.heightHint = 200;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// clear "heightHint"
@@ -990,15 +973,15 @@ public class GridDataTest extends RcpModelTest {
 			assertNotNull(clearHintAction);
 			// use action
 			clearHintAction.run();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    setLayout(new GridLayout(1, false));",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							setLayout(new GridLayout(1, false));
+							{
+								Button button = new Button(this, SWT.NONE);
+							}
+						}
+					}""");
 		}
 		// no "widthHint" value, so no action
 		{
@@ -1026,16 +1009,15 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_defaultValues() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		GridDataInfo gridData = getGridData(button);
@@ -1058,17 +1040,16 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_separateValuesFor_GridData_FILL_BOTH() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(GridData.FILL_BOTH));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(GridData.FILL_BOTH));
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		GridDataInfo gridData = getGridData(button);
@@ -1086,167 +1067,161 @@ public class GridDataTest extends RcpModelTest {
 
 	@Test
 	public void test_deleteIfDefault_emptyConstructor() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData());",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData());
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor4_yes() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor4_no1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor4_no2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor6_yes() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor6_no1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1259,18 +1234,17 @@ public class GridDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasParentLayout_notCompatible() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setLayoutData(new GridData());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new Button(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new GridData())/}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+						button.setLayoutData(new GridData());
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new Button(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new GridData())/}""");
 		//
 		shell.refresh();
 		assertNoErrors(shell);

@@ -74,24 +74,24 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_deleteChildAndAncestorResize() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      composite.setLayout(new GridLayout());",
-				"      {",
-				"        Label label = new Label(composite, SWT.NONE);",
-				"        label.setText('Label');",
-				"      }",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"        button.setText('Button');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new GridLayout());
+							{
+								Label label = new Label(composite, SWT.NONE);
+								label.setText("Label");
+							}
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setText("Button");
+							}
+						}
+					}
+				}""");
 
 		assertJavaInfo("composite");
 		assertJavaInfo("label");
@@ -106,20 +106,20 @@ public class GridLayoutGefTest extends RcpGefTest {
 			IAction deleteAction = getDeleteAction();
 			assertTrue(deleteAction.isEnabled());
 			deleteAction.run();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new GridLayout());",
-					"    {",
-					"      Composite composite = new Composite(this, SWT.NONE);",
-					"      composite.setLayout(new GridLayout());",
-					"      {",
-					"        Label label = new Label(composite, SWT.NONE);",
-					"        label.setText('Label');",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new GridLayout());
+							{
+								Composite composite = new Composite(this, SWT.NONE);
+								composite.setLayout(new GridLayout());
+								{
+									Label label = new Label(composite, SWT.NONE);
+									label.setText("Label");
+								}
+							}
+						}
+					}""");
 		}
 	}
 
@@ -130,20 +130,20 @@ public class GridLayoutGefTest extends RcpGefTest {
 	@Test
 	public void test_replaceGridLayout_withAbsolute() throws Exception {
 		prepareComponent();
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    new Label(this, SWT.NONE);",
-				"    new Label(this, SWT.NONE);",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		// select "shell", so show headers
 		canvas.select(composite);
 		waitEventLoop(20);
@@ -156,20 +156,20 @@ public class GridLayoutGefTest extends RcpGefTest {
 			waitEventLoop(20);
 		}
 		// validate
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setBounds(5, 5, 100, 50);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setBounds(110, 60, 100, 50);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setBounds(5, 5, 100, 50);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setBounds(110, 60, 100, 50);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -178,14 +178,14 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_change_numColumns() throws Exception {
-		openPanel(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    Button button_00 = new Button(this, SWT.NONE);",
-				"    Button button_01 = new Button(this, SWT.NONE);",
-				"  }",
-				"}");
+		openPanel("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						Button button_00 = new Button(this, SWT.NONE);
+						Button button_01 = new Button(this, SWT.NONE);
+					}
+				}""");
 		// select "shell", so show headers
 		canvas.select(composite);
 		// initially: 1 column, 2 rows
@@ -197,14 +197,14 @@ public class GridLayoutGefTest extends RcpGefTest {
 		assertNoLoggedExceptions();
 		assertEquals(2, layout.getColumns().size());
 		assertEquals(1, layout.getRows().size());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    Button button_00 = new Button(this, SWT.NONE);",
-				"    Button button_01 = new Button(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						Button button_00 = new Button(this, SWT.NONE);
+						Button button_01 = new Button(this, SWT.NONE);
+					}
+				}""");
 	}
 
 	/**
@@ -213,15 +213,15 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_markAsExcluded() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		ControlInfo button = getJavaInfoByName("button");
 		GraphicalEditPart buttonPart = canvas.getEditPart(button);
 		// select "button", so show grid selection
@@ -232,20 +232,20 @@ public class GridLayoutGefTest extends RcpGefTest {
 		assertNoLoggedExceptions();
 		assertInstanceOf(NonResizableSelectionEditPolicy.class,
 				buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE));
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);",
-				"        gd_button.exclude = true;",
-				"        button.setLayoutData(gd_button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+								gd_button.exclude = true;
+								button.setLayoutData(gd_button);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -253,15 +253,15 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_indirectlyExposed() throws Exception {
-		openPanel(
-				"import org.eclipse.ui.dialogs.FilteredTree;",
-				"import org.eclipse.ui.dialogs.PatternFilter;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    FilteredTree filteredTree = new FilteredTree(this, SWT.NONE, new PatternFilter());",
-				"  }",
-				"}");
+		openPanel("""
+				import org.eclipse.ui.dialogs.FilteredTree;
+				import org.eclipse.ui.dialogs.PatternFilter;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						FilteredTree filteredTree = new FilteredTree(this, SWT.NONE, new PatternFilter());
+					}
+				}""");
 		CompositeInfo filteredTree = getJavaInfoByName("filteredTree");
 		ControlInfo filterControl = filteredTree.getChildrenControls().get(0);
 		// select "filterControl" has simple selection policy
@@ -275,20 +275,20 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_moveOut() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Group group = new Group(this, SWT.NONE);",
-				"      group.setLayout(new FillLayout());",
-				"      group.setText('My Group');",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Group group = new Group(this, SWT.NONE);
+							group.setLayout(new FillLayout());
+							group.setText("My Group");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		CompositeInfo group = getJavaInfoByName("group");
 		ControlInfo button = getJavaInfoByName("button");
 		// select "button", check for "grid" selection
@@ -300,20 +300,20 @@ public class GridLayoutGefTest extends RcpGefTest {
 		}
 		// drag "button" to "group"
 		canvas.beginDrag(button).dragTo(group, 0.5, 0.5).endDrag();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Group group = new Group(this, SWT.NONE);",
-				"      group.setLayout(new FillLayout());",
-				"      group.setText('My Group');",
-				"      {",
-				"        Button button = new Button(group, SWT.NONE);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Group group = new Group(this, SWT.NONE);
+							group.setLayout(new FillLayout());
+							group.setText("My Group");
+							{
+								Button button = new Button(group, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		// no "grid" selection
 		{
 			GraphicalEditPart buttonPart = canvas.getEditPart(button);
@@ -329,69 +329,69 @@ public class GridLayoutGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setSizeHint_width() throws Exception {
-		openPanel(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 		ControlInfo button = getJavaInfoByName("button");
 		// resize EAST of "button"
 		canvas.toResizeHandle(button, "resize_size", PositionConstants.EAST).beginDrag();
 		canvas.target(button).in(200, 0).drag().endDrag();
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);",
-				"        gd_button.widthHint = 200;",
-				"        button.setLayoutData(gd_button);",
-				"      }",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+								gd_button.widthHint = 200;
+								button.setLayoutData(gd_button);
+							}
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_setSizeHint_height() throws Exception {
-		openPanel(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 		ControlInfo button = getJavaInfoByName("button");
 		// resize SOUTH of "button"
 		canvas.toResizeHandle(button, "resize_size", PositionConstants.SOUTH).beginDrag();
 		canvas.target(button).in(0, 50).drag();
 		canvas.endDrag();
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);",
-				"        gd_button.heightHint = 50;",
-				"        button.setLayoutData(gd_button);",
-				"      }",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false, false, 1, 1);
+								gd_button.heightHint = 50;
+								button.setLayoutData(gd_button);
+							}
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -401,16 +401,16 @@ public class GridLayoutGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_setAlignment_usingKeyboard() throws Exception {
-		openPanel(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 		ControlInfo button = getJavaInfoByName("button");
 		canvas.select(button);
 		// horizontal
@@ -464,28 +464,28 @@ public class GridLayoutGefTest extends RcpGefTest {
 
 	private void assert_setAlignment(String alignmentString) {
 		if (alignmentString != null) {
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    setLayout(new GridLayout(1, false));",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      button.setLayoutData(new GridData(" + alignmentString + ", 1, 1));",
-					"      button.setText('New Button');",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							setLayout(new GridLayout(1, false));
+							{
+								Button button = new Button(this, SWT.NONE);
+								button.setLayoutData(new GridData(%s, 1, 1));
+								button.setText("New Button");
+							}
+						}
+					}""".formatted(alignmentString));
 		} else {
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    setLayout(new GridLayout(1, false));",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      button.setText('New Button');",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							setLayout(new GridLayout(1, false));
+							{
+								Button button = new Button(this, SWT.NONE);
+								button.setText("New Button");
+							}
+						}
+					}""");
 		}
 	}
 
@@ -496,17 +496,17 @@ public class GridLayoutGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE_filled() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(composite, M, M);
@@ -515,30 +515,28 @@ public class GridLayoutGefTest extends RcpGefTest {
 
 	@Test
 	public void test_CREATE_filledByInherited() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource2(
-						"public class MyShell extends Shell {",
-						"  public MyShell() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setText('Implicit Button');",
-						"    }",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource2("""
+				public class MyShell extends Shell {
+					public MyShell() {
+						super(SWT.NONE);
+						setLayout(new GridLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("Implicit Button");
+						}
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyShell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyShell {
+					public Test() {
+					}
+				}""");
 		//
 		loadButtonWithText();
 		{
@@ -552,281 +550,281 @@ public class GridLayoutGefTest extends RcpGefTest {
 
 	@Test
 	public void test_CREATE_virtual_0x0() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(composite, M, M);
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_virtual_0x1() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+					}
+				}""");
 		//
 		loadButtonWithText();
 		canvas.moveTo(composite, M + VS + VG, M);
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(2, false));",
-				"    new Label(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						new Label(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_appendToColumn_1x0() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+					}
+				}""");
 		JavaInfo existingButton = getJavaInfoByName("existingButton");
 		//
 		loadButtonWithText();
 		canvas.target(existingButton).inX(0.5).outY(S + 1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_appendToRow_0x1() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+					}
+				}""");
 		JavaInfo existingButton = getJavaInfoByName("existingButton");
 		//
 		loadButtonWithText();
 		canvas.target(existingButton).inY(0.5).outX(S + 1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_beforeFirstRow() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+					}
+				}""");
 		JavaInfo existingButton = getJavaInfoByName("existingButton");
 		//
 		loadButtonWithText();
 		canvas.target(existingButton).inX(0.5).outY(-2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_beforeFirstColumn() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+					}
+				}""");
 		JavaInfo existingButton = getJavaInfoByName("existingButton");
 		//
 		loadButtonWithText();
 		canvas.target(existingButton).inY(0.5).outX(-2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("Existing Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_insertColumn() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button 1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+						}
+					}
+				}""");
 		JavaInfo button_1 = getJavaInfoByName("button_1");
 		//
 		loadButtonWithText();
 		canvas.target(button_1).inY(0.5).outX(S / 2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(3, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button 1');",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(3, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_CREATE_insertRow() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button 1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button 2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+						}
+					}
+				}""");
 		JavaInfo button_1 = getJavaInfoByName("button_1");
 		//
 		loadButtonWithText();
 		canvas.target(button_1).inX(0.5).outY(S / 2).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button 1');",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button 2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button 1");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button 2");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -839,42 +837,40 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE_inherited_columnOperations() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource2(
-						"public class MyShell extends Shell {",
-						"  public MyShell() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('Implicit #1');",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setText('Implicit #2');",
-						"    }",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource2("""
+				public class MyShell extends Shell {
+					public MyShell() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Implicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Implicit #2");
+						}
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyShell {",
-				"  public Test() {",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Explicit #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Explicit #2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyShell {
+					public Test() {
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Explicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Explicit #2");
+						}
+					}
+				}""");
 		loadButton();
 		// can not insert column
 		{
@@ -896,34 +892,32 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE_inheritedEmpty_columnOperations() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource2(
-						"public class MyShell extends Shell {",
-						"  public MyShell() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new GridLayout(2, false));",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource2("""
+				public class MyShell extends Shell {
+					public MyShell() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(2, false));
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyShell {",
-				"  public Test() {",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Explicit #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Explicit #2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyShell {
+					public Test() {
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Explicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Explicit #2");
+						}
+					}
+				}""");
 		loadButton();
 		// can insert column
 		{
@@ -944,42 +938,40 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE_inherited_rowOperations() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource2(
-						"public class MyShell extends Shell {",
-						"  public MyShell() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('Implicit #1');",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setText('Implicit #2');",
-						"    }",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource2("""
+				public class MyShell extends Shell {
+					public MyShell() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Implicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Implicit #2");
+						}
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyShell {",
-				"  public Test() {",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Explicit #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Explicit #2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyShell {
+					public Test() {
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Explicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Explicit #2");
+						}
+					}
+				}""");
 		loadButton();
 		// can not insert before "implicit" row
 		{
@@ -1007,37 +999,37 @@ public class GridLayoutGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_PASTE_virtual_1x0() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('My Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("My Button");
+						}
+					}
+				}""");
 		JavaInfo existingButton = getJavaInfoByName("existingButton");
 		//
 		doCopyPaste(existingButton);
 		canvas.target(existingButton).inX(0.5).outY(S + 1).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('My Button');",
-				"    }",
-				"    {",
-				"      Button existingButton = new Button(this, SWT.NONE);",
-				"      existingButton.setText('My Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("My Button");
+						}
+						{
+							Button existingButton = new Button(this, SWT.NONE);
+							existingButton.setText("My Button");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1047,74 +1039,74 @@ public class GridLayoutGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_MOVE_virtual_1x0() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("Existing Button");
+						}
+					}
+				}""");
 		JavaInfo button = getJavaInfoByName("button");
 		//
 		canvas.beginDrag(button);
 		canvas.target(button).inX(0.5).outY(S + 1).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(1, false));",
-				"    new Label(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('Existing Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						new Label(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("Existing Button");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ADD_virtual_0x0() throws Exception {
-		openPanel(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('Existing Button');",
-				"    }",
-				"    {",
-				"      Composite target = new Composite(this, SWT.NONE);",
-				"      target.setLayout(new GridLayout(1, false));",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("Existing Button");
+						}
+						{
+							Composite target = new Composite(this, SWT.NONE);
+							target.setLayout(new GridLayout(1, false));
+						}
+					}
+				}""");
 		JavaInfo button = getJavaInfoByName("button");
 		JavaInfo target = getJavaInfoByName("target");
 		//
 		canvas.beginDrag(button);
 		canvas.dragTo(target, M + VS / 2, M + VS / 2);
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Composite target = new Composite(this, SWT.NONE);",
-				"      target.setLayout(new GridLayout(1, false));",
-				"      {",
-				"        Button button = new Button(target, SWT.NONE);",
-				"        button.setText('Existing Button');",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							Composite target = new Composite(this, SWT.NONE);
+							target.setLayout(new GridLayout(1, false));
+							{
+								Button button = new Button(target, SWT.NONE);
+								button.setText("Existing Button");
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1127,34 +1119,32 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_headerColumn_MOVE_inherited() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource2(
-						"public class MyShell extends Shell {",
-						"  public MyShell() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('Implicit #1');",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setText('Implicit #2');",
-						"    }",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource2("""
+				public class MyShell extends Shell {
+					public MyShell() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Implicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Implicit #2");
+						}
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyShell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyShell {
+					public Test() {
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1169,21 +1159,21 @@ public class GridLayoutGefTest extends RcpGefTest {
 
 	@Test
 	public void test_headerColumn_MOVE_beforeFirst() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Implicit #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Implicit #2');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Implicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Implicit #2");
+						}
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1195,44 +1185,44 @@ public class GridLayoutGefTest extends RcpGefTest {
 			horizontalRobot.assertCommandNotNull();
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Implicit #2');",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Implicit #1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(2, false));
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Implicit #2");
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Implicit #1");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerColumn_MOVE_afterLast() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(3, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(3, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1244,48 +1234,48 @@ public class GridLayoutGefTest extends RcpGefTest {
 			horizontalRobot.assertCommandNotNull();
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(3, false));",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(3, false));
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerColumn_MOVE_beforeOther() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(3, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(3, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1297,48 +1287,48 @@ public class GridLayoutGefTest extends RcpGefTest {
 			horizontalRobot.assertCommandNotNull();
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(3, false));",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(3, false));
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerColumn_MOVE_beforeOther_RTL() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.RIGHT_TO_LEFT);",
-				"    setLayout(new GridLayout(3, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.RIGHT_TO_LEFT);
+						setLayout(new GridLayout(3, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1350,25 +1340,25 @@ public class GridLayoutGefTest extends RcpGefTest {
 			horizontalRobot.assertCommandNotNull();
 			horizontalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.RIGHT_TO_LEFT);",
-				"    setLayout(new GridLayout(3, false));",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.RIGHT_TO_LEFT);
+						setLayout(new GridLayout(3, false));
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1381,34 +1371,32 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_headerRow_MOVE_inherited_moveImplicitRow() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource2(
-						"public class MyShell extends Shell {",
-						"  public MyShell() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('Implicit #1');",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setText('Implicit #2');",
-						"    }",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource2("""
+				public class MyShell extends Shell {
+					public MyShell() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Implicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Implicit #2");
+						}
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyShell {",
-				"  public Test() {",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyShell {
+					public Test() {
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1426,38 +1414,36 @@ public class GridLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_headerRow_MOVE_inherited_moveBeforeImplicitRow() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource2(
-						"public class MyShell extends Shell {",
-						"  public MyShell() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setText('Implicit #1');",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setText('Implicit #2');",
-						"    }",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource2("""
+				public class MyShell extends Shell {
+					public MyShell() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Implicit #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Implicit #2");
+						}
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		openPanel(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test extends MyShell {",
-				"  public Test() {",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('Explicit Button');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test extends MyShell {
+					public Test() {
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("Explicit Button");
+						}
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1472,25 +1458,25 @@ public class GridLayoutGefTest extends RcpGefTest {
 
 	@Test
 	public void test_headerRow_MOVE_beforeOther() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1502,48 +1488,48 @@ public class GridLayoutGefTest extends RcpGefTest {
 			verticalRobot.assertCommandNotNull();
 			verticalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_headerRow_MOVE_afterLast() throws Exception {
-		openPanel(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"  }",
-				"}");
+		openPanel("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+					}
+				}""");
 		// select "composite" to show headers
 		canvas.select(composite);
 		// animate headers
@@ -1555,25 +1541,25 @@ public class GridLayoutGefTest extends RcpGefTest {
 			verticalRobot.assertCommandNotNull();
 			verticalRobot.endDrag();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setText('Button #2');",
-				"    }",
-				"    {",
-				"      Button button_3 = new Button(this, SWT.NONE);",
-				"      button_3.setText('Button #3');",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setText('Button #1');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new GridLayout(1, false));
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setText("Button #2");
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+							button_3.setText("Button #3");
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setText("Button #1");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

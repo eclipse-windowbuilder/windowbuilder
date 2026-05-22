@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.tests.designer.swt.model.layouts;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.editor.errors.ErrorEntryInfo;
+import org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSupport;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.swt.IExceptionConstants;
@@ -58,26 +59,26 @@ public class LayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse_setLayout_single() throws Exception {
-		parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new RowLayout())/}",
-				"  {new: org.eclipse.swt.layout.RowLayout} {empty} {/setLayout(new RowLayout())/}");
+		parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new RowLayout())/}
+					{new: org.eclipse.swt.layout.RowLayout} {empty} {/setLayout(new RowLayout())/}""");
 	}
 
 	@Test
 	public void test_parse_setLayout_double() throws Exception {
-		Throwable t = assertThrows(Throwable.class, () -> parseComposite(
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    setLayout(new FillLayout());",
-				"  }",
-				"}"));
+		Throwable t = assertThrows(Throwable.class, () -> parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						setLayout(new FillLayout());
+					}
+				}"""));
 		ErrorEntryInfo errorEntry = DesignerExceptionUtils.getErrorEntry(t);
 		assertEquals(IExceptionConstants.DOUBLE_SET_LAYOUT, errorEntry.getCode());
 		assertEquals("""
@@ -92,13 +93,12 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_isActive() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// prepare implicit layout
 		LayoutInfo oldLayout = shell.getLayout();
 		assertTrue(oldLayout.isActive());
@@ -118,21 +118,20 @@ public class LayoutTest extends RcpModelTest {
 
 	@Test
 	public void test_changeLayout() throws Exception {
-		CompositeInfo shellInfo =
-				parseComposite(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell();",
-						"    RowLayout layout = new RowLayout();",
-						"    shell.setLayout(layout);",
-						"    //",
-						"    Button button = new Button(shell, SWT.NONE);",
-						"    RowData data = new RowData();",
-						"    data.width = 50;",
-						"    data.height = 40;",
-						"    button.setLayoutData(data);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = parseComposite("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						RowLayout layout = new RowLayout();
+						shell.setLayout(layout);
+						//
+						Button button = new Button(shell, SWT.NONE);
+						RowData data = new RowData();
+						data.width = 50;
+						data.height = 40;
+						button.setLayoutData(data);
+					}
+				}""");
 		// check layout
 		RowLayoutInfo layoutInfo = (RowLayoutInfo) shellInfo.getLayout();
 		assertNotNull(layoutInfo);
@@ -150,48 +149,45 @@ public class LayoutTest extends RcpModelTest {
 				assertFalse(child instanceof GridLayoutInfo);
 			}
 			//
-			assertEditor(
-					"class Test {",
-					"  public static void main(String[] args) {",
-					"    Shell shell = new Shell();",
-					"    shell.setLayout(new FillLayout(SWT.HORIZONTAL));",
-					"    //",
-					"    Button button = new Button(shell, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test {
+						public static void main(String[] args) {
+							Shell shell = new Shell();
+							shell.setLayout(new FillLayout(SWT.HORIZONTAL));
+							//
+							Button button = new Button(shell, SWT.NONE);
+						}
+					}""");
 			assertTrue(buttonInfo.getChildrenJava().isEmpty());
 		}
 	}
 
 	@Test
 	public void test_visualInheritance_withOverride() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    init();",
-						"  }",
-						"  protected void init() {",
-						"    setLayout(new FillLayout());",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						init();
+					}
+					protected void init() {
+						setLayout(new FillLayout());
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends MyComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  protected void init() {",
-						"    super.init();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.MyComposite} {this} {}",
-				"  {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends MyComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+					protected void init() {
+						super.init();
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyComposite} {this} {}
+					{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}""");
 		// refresh()
 		composite.refresh();
 		assertNoErrors(composite);
@@ -207,14 +203,13 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_isManagedObject_simpleFalse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 		LayoutInfo layout = shell.getLayout();
 		// not ControlInfo
 		{
@@ -233,14 +228,13 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_isManagedObject_simpleTrue() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = getJavaInfoByName("button");
 		LayoutInfo layout = shell.getLayout();
 		//
@@ -252,14 +246,13 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_isManagedObject_falseBecauseNotActive() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		ControlInfo button = getJavaInfoByName("button");
 		// prepare implicit layout
 		LayoutInfo oldLayout = shell.getLayout();
@@ -288,28 +281,25 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasImplicitControls_RowLayout() throws Exception {
-		setFileContentSrc(
-				"test/ImplicitComposite.java",
-				getTestSource(
-						"public class ImplicitComposite extends Composite {",
-						"  public ImplicitComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new RowLayout());",
-						"    new Button(this, SWT.NONE);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ImplicitComposite.java", getTestSource("""
+				public class ImplicitComposite extends Composite {
+					public ImplicitComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new RowLayout());
+						new Button(this, SWT.NONE);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends ImplicitComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.ImplicitComposite} {this} {}",
-				"  {implicit-layout: org.eclipse.swt.layout.RowLayout} {implicit-layout} {}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends ImplicitComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.ImplicitComposite} {this} {}
+					{implicit-layout: org.eclipse.swt.layout.RowLayout} {implicit-layout} {}""");
 		assertTrue(composite.hasLayout());
 		// refresh
 		composite.refresh();
@@ -326,28 +316,25 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasImplicitControls_GridLayout() throws Exception {
-		setFileContentSrc(
-				"test/ImplicitComposite.java",
-				getTestSource(
-						"public class ImplicitComposite extends Composite {",
-						"  public ImplicitComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(1, false));",
-						"    new Button(this, SWT.NONE);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ImplicitComposite.java", getTestSource("""
+				public class ImplicitComposite extends Composite {
+					public ImplicitComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						new Button(this, SWT.NONE);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends ImplicitComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.ImplicitComposite} {this} {}",
-				"  {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends ImplicitComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.ImplicitComposite} {this} {}
+					{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}""");
 		assertTrue(composite.hasLayout());
 		// refresh
 		composite.refresh();
@@ -363,36 +350,33 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasImplicitControls_directExposedChild() throws Exception {
-		setFileContentSrc(
-				"test/ImplicitComposite.java",
-				getTestSource(
-						"public class ImplicitComposite extends Composite {",
-						"  private Button m_button;",
-						"  public ImplicitComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      m_button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ImplicitComposite.java", getTestSource("""
+				public class ImplicitComposite extends Composite {
+					private Button m_button;
+					public ImplicitComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							m_button = new Button(this, SWT.NONE);
+						}
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends ImplicitComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.ImplicitComposite} {this} {}",
-				"  {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"  {method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}",
-				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends ImplicitComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.ImplicitComposite} {this} {}
+					{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+					{method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}
+						{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 		assertTrue(composite.hasLayout());
 		LayoutInfo layout = composite.getLayout();
 		Assertions.assertThat(layout.getControls()).hasSize(1);
@@ -411,40 +395,37 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasImplicitControls_indirectExposedChild() throws Exception {
-		setFileContentSrc(
-				"test/ImplicitComposite.java",
-				getTestSource(
-						"public class ImplicitComposite extends Composite {",
-						"  private Button m_button;",
-						"  public ImplicitComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Composite container = new Composite(this, SWT.NONE);",
-						"      container.setLayout(new RowLayout());",
-						"      {",
-						"        m_button = new Button(container, SWT.NONE);",
-						"        m_button.setLayoutData(new RowData());",
-						"      }",
-						"    }",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ImplicitComposite.java", getTestSource("""
+				public class ImplicitComposite extends Composite {
+					private Button m_button;
+					public ImplicitComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							Composite container = new Composite(this, SWT.NONE);
+							container.setLayout(new RowLayout());
+							{
+								m_button = new Button(container, SWT.NONE);
+								m_button.setLayoutData(new RowData());
+							}
+						}
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends ImplicitComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.ImplicitComposite} {this} {}",
-				"  {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"  {method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends ImplicitComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.ImplicitComposite} {this} {}
+					{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+					{method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}""");
 		assertTrue(composite.hasLayout());
 		LayoutInfo layout = composite.getLayout();
 		Assertions.assertThat(layout.getControls()).isEmpty();
@@ -462,37 +443,34 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasImplicitControls_directExposedChild_Viewer() throws Exception {
-		setFileContentSrc(
-				"test/ImplicitComposite.java",
-				getTestSource(
-						"public class ImplicitComposite extends Composite {",
-						"  private TableViewer m_viewer;",
-						"  public ImplicitComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      m_viewer = new TableViewer(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"  public TableViewer getViewer() {",
-						"    return m_viewer;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ImplicitComposite.java", getTestSource("""
+				public class ImplicitComposite extends Composite {
+					private TableViewer m_viewer;
+					public ImplicitComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							m_viewer = new TableViewer(this, SWT.NONE);
+						}
+					}
+					public TableViewer getViewer() {
+						return m_viewer;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends ImplicitComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.ImplicitComposite} {this} {}",
-				"  {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"  {viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}",
-				"    {method: public org.eclipse.jface.viewers.TableViewer test.ImplicitComposite.getViewer()} {property} {}",
-				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends ImplicitComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.ImplicitComposite} {this} {}
+					{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+					{viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}
+						{method: public org.eclipse.jface.viewers.TableViewer test.ImplicitComposite.getViewer()} {property} {}
+						{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 		assertTrue(composite.hasLayout());
 		LayoutInfo layout = composite.getLayout();
 		Assertions.assertThat(layout.getControls()).hasSize(1);
@@ -511,40 +489,37 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasImplicitControls_indirectExposedChild_Viewer() throws Exception {
-		setFileContentSrc(
-				"test/ImplicitComposite.java",
-				getTestSource(
-						"public class ImplicitComposite extends Composite {",
-						"  private TableViewer m_viewer;",
-						"  public ImplicitComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Composite container = new Composite(this, SWT.NONE);",
-						"      container.setLayout(new RowLayout());",
-						"      {",
-						"        m_viewer = new TableViewer(container, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"  public TableViewer getViewer() {",
-						"    return m_viewer;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ImplicitComposite.java", getTestSource("""
+				public class ImplicitComposite extends Composite {
+					private TableViewer m_viewer;
+					public ImplicitComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							Composite container = new Composite(this, SWT.NONE);
+							container.setLayout(new RowLayout());
+							{
+								m_viewer = new TableViewer(container, SWT.NONE);
+							}
+						}
+					}
+					public TableViewer getViewer() {
+						return m_viewer;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends ImplicitComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.ImplicitComposite} {this} {}",
-				"  {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"  {viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}",
-				"    {method: public org.eclipse.jface.viewers.TableViewer test.ImplicitComposite.getViewer()} {property} {}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends ImplicitComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.ImplicitComposite} {this} {}
+					{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+					{viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}
+						{method: public org.eclipse.jface.viewers.TableViewer test.ImplicitComposite.getViewer()} {property} {}""");
 		assertTrue(composite.hasLayout());
 		LayoutInfo layout = composite.getLayout();
 		Assertions.assertThat(layout.getControls()).isEmpty();
@@ -564,46 +539,43 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_indirectExposedChildren_andLocalLayoutData() throws Exception {
-		setFileContentSrc(
-				"test/ImplicitComposite.java",
-				getTestSource(
-						"public class ImplicitComposite extends Composite {",
-						"  private Button m_button;",
-						"  public ImplicitComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Composite container = new Composite(this, SWT.NONE);",
-						"      container.setLayout(new RowLayout());",
-						"      {",
-						"        m_button = new Button(container, SWT.NONE);",
-						"        m_button.setLayoutData(new RowData());",
-						"      }",
-						"    }",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ImplicitComposite.java", getTestSource("""
+				public class ImplicitComposite extends Composite {
+					private Button m_button;
+					public ImplicitComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							Composite container = new Composite(this, SWT.NONE);
+							container.setLayout(new RowLayout());
+							{
+								m_button = new Button(container, SWT.NONE);
+								m_button.setLayoutData(new RowData());
+							}
+						}
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends ImplicitComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      Text text = new Text(this, SWT.BORDER);",
-						"      text.setLayoutData(new GridData());",
-						"    }",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.ImplicitComposite} {this} {/new Text(this, SWT.BORDER)/}",
-				"  {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"  {method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}",
-				"  {new: org.eclipse.swt.widgets.Text} {local-unique: text} {/new Text(this, SWT.BORDER)/ /text.setLayoutData(new GridData())/}",
-				"    {new: org.eclipse.swt.layout.GridData} {empty} {/text.setLayoutData(new GridData())/}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends ImplicitComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Text text = new Text(this, SWT.BORDER);
+							text.setLayoutData(new GridData());
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.ImplicitComposite} {this} {/new Text(this, SWT.BORDER)/}
+					{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+					{method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}
+					{new: org.eclipse.swt.widgets.Text} {local-unique: text} {/new Text(this, SWT.BORDER)/ /text.setLayoutData(new GridData())/}
+						{new: org.eclipse.swt.layout.GridData} {empty} {/text.setLayoutData(new GridData())/}""");
 		assertTrue(composite.hasLayout());
 		// refresh
 		composite.refresh();
@@ -616,16 +588,15 @@ public class LayoutTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void check_nameTemplate(String template, String... lines) throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new FillLayout(SWT.HORIZONTAL));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new FillLayout(SWT.HORIZONTAL));
+						}
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
 		LayoutInfo layout = composite.getLayout();
@@ -643,18 +614,17 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_nameTemplate_useDefaultName() throws Exception {
-		check_nameTemplate(
-				org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT,
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      FillLayout fillLayout = new FillLayout(SWT.HORIZONTAL);",
-				"      fillLayout.spacing = 5;",
-				"      composite.setLayout(fillLayout);",
-				"    }",
-				"  }",
-				"}");
+		check_nameTemplate(SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT, """
+				class Test extends Shell {
+					public Test() {
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							FillLayout fillLayout = new FillLayout(SWT.HORIZONTAL);
+							fillLayout.spacing = 5;
+							composite.setLayout(fillLayout);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -662,18 +632,17 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_nameTemplate_alternativeTemplate_1() throws Exception {
-		check_nameTemplate(
-				"${layoutAcronym}_${compositeName}",
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      FillLayout fl_composite = new FillLayout(SWT.HORIZONTAL);",
-				"      fl_composite.spacing = 5;",
-				"      composite.setLayout(fl_composite);",
-				"    }",
-				"  }",
-				"}");
+		check_nameTemplate("${layoutAcronym}_${compositeName}", """
+				class Test extends Shell {
+					public Test() {
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							FillLayout fl_composite = new FillLayout(SWT.HORIZONTAL);
+							fl_composite.spacing = 5;
+							composite.setLayout(fl_composite);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -681,17 +650,16 @@ public class LayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_nameTemplate_alternativeTemplate_2() throws Exception {
-		check_nameTemplate(
-				"${compositeName}${layoutClassName}",
-				"class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      FillLayout compositeFillLayout = new FillLayout(SWT.HORIZONTAL);",
-				"      compositeFillLayout.spacing = 5;",
-				"      composite.setLayout(compositeFillLayout);",
-				"    }",
-				"  }",
-				"}");
+		check_nameTemplate("${compositeName}${layoutClassName}", """
+				class Test extends Shell {
+					public Test() {
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							FillLayout compositeFillLayout = new FillLayout(SWT.HORIZONTAL);
+							compositeFillLayout.spacing = 5;
+							composite.setLayout(compositeFillLayout);
+						}
+					}
+				}""");
 	}
 }
