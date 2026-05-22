@@ -51,22 +51,21 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_compatible() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData());",
-						"    }",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Button(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new GridData())/}",
-				"    {new: org.eclipse.swt.layout.GridData} {empty} {/button.setLayoutData(new GridData())/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData());
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Button(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new GridData())/}
+						{new: org.eclipse.swt.layout.GridData} {empty} {/button.setLayoutData(new GridData())/}""");
 		// refresh()
 		shell.refresh();
 		assertNoErrors(shell);
@@ -77,20 +76,19 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noData() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Button(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Button(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/}""");
 		// refresh()
 		shell.refresh();
 		assertNoErrors(shell);
@@ -101,16 +99,16 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_notCompatible() throws Exception {
-		Throwable e = assertThrows(Throwable.class, () -> parseComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new RowData());",
-				"    }",
-				"  }",
-				"}"));
+		Throwable e = assertThrows(Throwable.class, () -> parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData());
+						}
+					}
+				}"""));
 		DesignerException de = DesignerExceptionUtils.getDesignerException(e);
 		assertEquals(IExceptionConstants.INCOMPATIBLE_LAYOUT_DATA, de.getCode());
 	}
@@ -121,33 +119,30 @@ public class LayoutLayoutDataCompatibilityTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_FillLayout_generatedFillData() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource(
-						"public class MyShell extends Shell {",
-						"  public MyShell() {",
-						"    setLayout(new FillLayout());",
-						"  }",
-						"  protected void setDoComputeSize(boolean b) {",
-						"    computeSize(-1, -1); // force FillData assignment",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource("""
+				public class MyShell extends Shell {
+					public MyShell() {
+						setLayout(new FillLayout());
+					}
+					protected void setDoComputeSize(boolean b) {
+						computeSize(-1, -1); // force FillData assignment
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends MyShell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    setDoComputeSize(true);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.MyShell} {this} {/new Button(this, SWT.NONE)/ /setDoComputeSize(true)/}",
-				"  {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends MyShell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+						setDoComputeSize(true);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyShell} {this} {/new Button(this, SWT.NONE)/ /setDoComputeSize(true)/}
+					{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/}""");
 		// refresh()
 		shell.refresh();
 		assertNoErrors(shell);

@@ -52,27 +52,27 @@ public class FillLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_isHorizontal_1() throws Exception {
-		test_isHorizontal(new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setLayout(new FillLayout(SWT.HORIZONTAL));",
-				"  }",
-		"}"});
+		test_isHorizontal("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout(SWT.HORIZONTAL));
+					}
+				}""");
 	}
 
 	@Test
 	public void test_isHorizontal_2() throws Exception {
-		test_isHorizontal(new String[]{
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setLayout(new FillLayout());",
-				"  }",
-		"}"});
+		test_isHorizontal("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+					}
+				}""");
 	}
 
-	private void test_isHorizontal(String[] lines) throws Exception {
+	private void test_isHorizontal(String lines) throws Exception {
 		CompositeInfo shellInfo = parseComposite(lines);
 		// check layout
 		FillLayoutInfo layoutInfo = (FillLayoutInfo) shellInfo.getLayout();
@@ -96,13 +96,12 @@ public class FillLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_NoVirtualLayoutData() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+					}
+				}""");
 		assertTrue(shell.getChildrenControls().isEmpty());
 		FillLayoutInfo layout = (FillLayoutInfo) shell.getLayout();
 		//
@@ -111,14 +110,13 @@ public class FillLayoutTest extends RcpModelTest {
 
 	@Test
 	public void test_AddControls() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell();",
-						"    shell.setLayout(new FillLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+					}
+				}""");
 		assertTrue(shell.getChildrenControls().isEmpty());
 		FillLayoutInfo layout = (FillLayoutInfo) shell.getLayout();
 		// add "Button" to end
@@ -133,16 +131,16 @@ public class FillLayoutTest extends RcpModelTest {
 		}
 		assertEquals(1, shell.getChildrenControls().size());
 		assertSame(button, shell.getChildrenControls().get(0));
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Button button = new Button(shell, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+						{
+							Button button = new Button(shell, SWT.NONE);
+						}
+					}
+				}""");
 		// add "Label" before "Button"
 		ControlInfo label = BTestUtils.createControl("org.eclipse.swt.widgets.Label");
 		layout.command_CREATE(label, button);
@@ -150,41 +148,40 @@ public class FillLayoutTest extends RcpModelTest {
 		assertEquals(2, shell.getChildrenControls().size());
 		assertSame(label, shell.getChildrenControls().get(0));
 		assertSame(button, shell.getChildrenControls().get(1));
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Label label = new Label(shell, SWT.NONE);",
-				"      label.setText('New Label');",
-				"    }",
-				"    {",
-				"      Button button = new Button(shell, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+						{
+							Label label = new Label(shell, SWT.NONE);
+							label.setText("New Label");
+						}
+						{
+							Button button = new Button(shell, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_MoveControls() throws Exception {
-		CompositeInfo shellInfo =
-				parseComposite(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell();",
-						"    shell.setLayout(new FillLayout());",
-						"    {",
-						"      Label label = new Label(shell, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button = new Button(shell, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Combo combo = new Combo(shell, SWT.READ_ONLY);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = parseComposite("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+						{
+							Label label = new Label(shell, SWT.NONE);
+						}
+						{
+							Button button = new Button(shell, SWT.NONE);
+						}
+						{
+							Combo combo = new Combo(shell, SWT.READ_ONLY);
+						}
+					}
+				}""");
 		FillLayoutInfo layout = (FillLayoutInfo) shellInfo.getLayout();
 		ControlInfo labelInfo = shellInfo.getChildrenControls().get(0);
 		ControlInfo buttonInfo = shellInfo.getChildrenControls().get(1);
@@ -204,22 +201,22 @@ public class FillLayoutTest extends RcpModelTest {
 		assertSame(labelAssociation, labelInfo.getAssociation());
 		assertSame(buttonAssociation, buttonInfo.getAssociation());
 		assertSame(comboAssociation, comboInfo.getAssociation());
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Label label = new Label(shell, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Combo combo = new Combo(shell, SWT.READ_ONLY);",
-				"    }",
-				"    {",
-				"      Button button = new Button(shell, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+						{
+							Label label = new Label(shell, SWT.NONE);
+						}
+						{
+							Combo combo = new Combo(shell, SWT.READ_ONLY);
+						}
+						{
+							Button button = new Button(shell, SWT.NONE);
+						}
+					}
+				}""");
 		// move "Label" to end
 		layout.command_MOVE(labelInfo, null);
 		assertSame(comboInfo, shellInfo.getChildrenControls().get(0));
@@ -228,47 +225,46 @@ public class FillLayoutTest extends RcpModelTest {
 		assertSame(labelAssociation, labelInfo.getAssociation());
 		assertSame(buttonAssociation, buttonInfo.getAssociation());
 		assertSame(comboAssociation, comboInfo.getAssociation());
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Combo combo = new Combo(shell, SWT.READ_ONLY);",
-				"    }",
-				"    {",
-				"      Button button = new Button(shell, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Label label = new Label(shell, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+						{
+							Combo combo = new Combo(shell, SWT.READ_ONLY);
+						}
+						{
+							Button button = new Button(shell, SWT.NONE);
+						}
+						{
+							Label label = new Label(shell, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_ReparentControls() throws Exception {
-		CompositeInfo shellInfo =
-				parseComposite(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell();",
-						"    shell.setLayout(new FillLayout());",
-						"    {",
-						"      Label label = new Label(shell, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button = new Button(shell, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Composite composite = new Composite(shell, SWT.NONE);",
-						"      composite.setLayout(new FillLayout());",
-						"      {",
-						"        Combo combo = new Combo(composite, SWT.READ_ONLY);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = parseComposite("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+						{
+							Label label = new Label(shell, SWT.NONE);
+						}
+						{
+							Button button = new Button(shell, SWT.NONE);
+						}
+						{
+							Composite composite = new Composite(shell, SWT.NONE);
+							composite.setLayout(new FillLayout());
+							{
+								Combo combo = new Combo(composite, SWT.READ_ONLY);
+							}
+						}
+					}
+				}""");
 		assertEquals(3, shellInfo.getChildrenControls().size());
 		ControlInfo labelInfo = shellInfo.getChildrenControls().get(0);
 		ControlInfo buttonInfo = shellInfo.getChildrenControls().get(1);
@@ -294,26 +290,26 @@ public class FillLayoutTest extends RcpModelTest {
 		assertSame(labelAssociation, labelInfo.getAssociation());
 		assertSame(buttonAssociation, buttonInfo.getAssociation());
 		assertSame(comboAssociation, comboInfo.getAssociation());
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Label label = new Label(shell, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Composite composite = new Composite(shell, SWT.NONE);",
-				"      composite.setLayout(new FillLayout());",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"      }",
-				"      {",
-				"        Combo combo = new Combo(composite, SWT.READ_ONLY);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+						{
+							Label label = new Label(shell, SWT.NONE);
+						}
+						{
+							Composite composite = new Composite(shell, SWT.NONE);
+							composite.setLayout(new FillLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+							{
+								Combo combo = new Combo(composite, SWT.READ_ONLY);
+							}
+						}
+					}
+				}""");
 		// move "Label" to end of "Composite"
 		layoutInfo.command_MOVE(labelInfo, null);
 		assertEquals(1, shellInfo.getChildrenControls().size());
@@ -325,25 +321,25 @@ public class FillLayoutTest extends RcpModelTest {
 		assertSame(labelAssociation, labelInfo.getAssociation());
 		assertSame(buttonAssociation, buttonInfo.getAssociation());
 		assertSame(comboAssociation, comboInfo.getAssociation());
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    shell.setLayout(new FillLayout());",
-				"    {",
-				"      Composite composite = new Composite(shell, SWT.NONE);",
-				"      composite.setLayout(new FillLayout());",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"      }",
-				"      {",
-				"        Combo combo = new Combo(composite, SWT.READ_ONLY);",
-				"      }",
-				"      {",
-				"        Label label = new Label(composite, SWT.NONE);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(shell, SWT.NONE);
+							composite.setLayout(new FillLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+							{
+								Combo combo = new Combo(composite, SWT.READ_ONLY);
+							}
+							{
+								Label label = new Label(composite, SWT.NONE);
+							}
+						}
+					}
+				}""");
 	}
 }

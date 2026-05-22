@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,37 +56,36 @@ public class LayoutDataTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_deleteLayoutData() throws Exception {
-		CompositeInfo shellInfo =
-				parseComposite(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell();",
-						"    RowLayout layout = new RowLayout();",
-						"    shell.setLayout(layout);",
-						"    //",
-						"    Button button = new Button(shell, SWT.NONE);",
-						"    RowData data = new RowData();",
-						"    data.width = 50;",
-						"    data.height = 40;",
-						"    button.setLayoutData(data);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = parseComposite("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						RowLayout layout = new RowLayout();
+						shell.setLayout(layout);
+						//
+						Button button = new Button(shell, SWT.NONE);
+						RowData data = new RowData();
+						data.width = 50;
+						data.height = 40;
+						button.setLayoutData(data);
+					}
+				}""");
 		shellInfo.refresh();
 		//
 		ControlInfo button = shellInfo.getChildrenControls().get(0);
 		Property property = button.getPropertyByTitle("LayoutData");
 		//
 		property.setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    Shell shell = new Shell();",
-				"    RowLayout layout = new RowLayout();",
-				"    shell.setLayout(layout);",
-				"    //",
-				"    Button button = new Button(shell, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						RowLayout layout = new RowLayout();
+						shell.setLayout(layout);
+						//
+						Button button = new Button(shell, SWT.NONE);
+					}
+				}""");
 	}
 
 	/**
@@ -94,18 +93,17 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_excludeProperties() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      RowData data = new RowData(100, 100);",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							RowData data = new RowData(100, 100);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		Property layoutDataProperty = button.getPropertyByTitle("LayoutData");
@@ -122,72 +120,70 @@ public class LayoutDataTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_codeGeneration_Block() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		RowDataInfo layoutData = RowLayoutInfo.getRowData(button);
 		// set "width" property, so materialize RowData
 		layoutData.getPropertyByTitle("width").setValue(100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new RowData(100, SWT.DEFAULT));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData(100, SWT.DEFAULT));
+						}
+					}
+				}""");
 		// set "exclude" property, so force variable
 		layoutData.getPropertyByTitle("exclude").setValue(true);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        RowData rowData = new RowData(100, SWT.DEFAULT);",
-				"        rowData.exclude = true;",
-				"        button.setLayoutData(rowData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(100, SWT.DEFAULT);
+								rowData.exclude = true;
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 		// set "exclude" property to default, so no reason to have variable
 		layoutData.getPropertyByTitle("exclude").setValue(false);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new RowData(100, SWT.DEFAULT));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData(100, SWT.DEFAULT));
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_codeGeneration_Flat() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		RowDataInfo layoutData = RowLayoutInfo.getRowData(button);
@@ -198,39 +194,39 @@ public class LayoutDataTest extends RcpModelTest {
 		try {
 			// set "width" property, so materialize RowData
 			layoutData.getPropertyByTitle("width").setValue(100);
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new RowLayout());",
-					"    ",
-					"    Button button = new Button(this, SWT.NONE);",
-					"    button.setLayoutData(new RowData(100, SWT.DEFAULT));",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new RowLayout());
+							
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData(100, SWT.DEFAULT));
+						}
+					}""");
 			// set "exclude" property, so force variable
 			layoutData.getPropertyByTitle("exclude").setValue(true);
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new RowLayout());",
-					"    ",
-					"    Button button = new Button(this, SWT.NONE);",
-					"    RowData rowData = new RowData(100, SWT.DEFAULT);",
-					"    rowData.exclude = true;",
-					"    button.setLayoutData(rowData);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new RowLayout());
+							
+							Button button = new Button(this, SWT.NONE);
+							RowData rowData = new RowData(100, SWT.DEFAULT);
+							rowData.exclude = true;
+							button.setLayoutData(rowData);
+						}
+					}""");
 			// set "exclude" property to default, so no reason to have variable
 			layoutData.getPropertyByTitle("exclude").setValue(false);
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new RowLayout());",
-					"    ",
-					"    Button button = new Button(this, SWT.NONE);",
-					"    button.setLayoutData(new RowData(100, SWT.DEFAULT));",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new RowLayout());
+							
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData(100, SWT.DEFAULT));
+						}
+					}""");
 		} finally {
 			generationSettings.setStatement(generationSettings.getDefaultStatement());
 		}
@@ -241,31 +237,30 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_codeGeneration_ignoreIfDelete() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        RowData rowData = new RowData(100, SWT.DEFAULT);",
-						"        rowData.exclude = false;",
-						"        button.setLayoutData(rowData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(100, SWT.DEFAULT);
+								rowData.exclude = false;
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		final ControlInfo button = shell.getChildrenControls().get(0);
 		// do delete
 		button.delete();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -278,16 +273,15 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_nameTemplate_useDefaultName() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		//
@@ -295,20 +289,20 @@ public class LayoutDataTest extends RcpModelTest {
 				org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE,
 				org.eclipse.wb.internal.core.model.variable.SyncParentChildVariableNameSupport.TEMPLATE_FOR_DEFAULT);
 		RowLayoutInfo.getRowData(button).getPropertyByTitle("exclude").setValue(true);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);",
-				"        rowData.exclude = true;",
-				"        button.setLayoutData(rowData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);
+								rowData.exclude = true;
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -316,16 +310,15 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_nameTemplate_alternativeTemplate_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		//
@@ -333,20 +326,20 @@ public class LayoutDataTest extends RcpModelTest {
 				org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE,
 				"${dataAcronym}${controlName-cap}");
 		RowLayoutInfo.getRowData(button).getPropertyByTitle("exclude").setValue(true);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        RowData rdButton = new RowData(SWT.DEFAULT, SWT.DEFAULT);",
-				"        rdButton.exclude = true;",
-				"        button.setLayoutData(rdButton);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rdButton = new RowData(SWT.DEFAULT, SWT.DEFAULT);
+								rdButton.exclude = true;
+								button.setLayoutData(rdButton);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -354,16 +347,15 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_nameTemplate_alternativeTemplate_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		//
@@ -371,20 +363,20 @@ public class LayoutDataTest extends RcpModelTest {
 				org.eclipse.wb.internal.swt.preferences.IPreferenceConstants.P_LAYOUT_DATA_NAME_TEMPLATE,
 				"${controlName}${dataClassName}");
 		RowLayoutInfo.getRowData(button).getPropertyByTitle("exclude").setValue(true);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        RowData buttonRowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);",
-				"        buttonRowData.exclude = true;",
-				"        button.setLayoutData(buttonRowData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData buttonRowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);
+								buttonRowData.exclude = true;
+								button.setLayoutData(buttonRowData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -392,39 +384,38 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_nameTemplate_renameWithControl() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        RowData rowData = new RowData(100, SWT.DEFAULT);",
-						"        rowData.exclude = false;",
-						"        button.setLayoutData(rowData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(100, SWT.DEFAULT);
+								rowData.exclude = false;
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
 		button.getVariableSupport().setName("myButton");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button myButton = new Button(this, SWT.NONE);",
-				"      {",
-				"        RowData rowData = new RowData(100, SWT.DEFAULT);",
-				"        rowData.exclude = false;",
-				"        myButton.setLayoutData(rowData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button myButton = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(100, SWT.DEFAULT);
+								rowData.exclude = false;
+								myButton.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -434,188 +425,182 @@ public class LayoutDataTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_deleteIfDefault() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new RowData(SWT.DEFAULT, SWT.DEFAULT));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData(SWT.DEFAULT, SWT.DEFAULT));
+						}
+					}
+				}""");
 		shell.refresh();
 		// perform edit operation, see that no reason to have RowData
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_negativeValue() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new RowData(-1, SWT.DEFAULT));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData(-1, SWT.DEFAULT));
+						}
+					}
+				}""");
 		shell.refresh();
 		// perform edit operation, see that no reason to have RowData
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_notLiterals() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      int width = SWT.DEFAULT;",
-						"      button.setLayoutData(new RowData(width, SWT.DEFAULT));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							int width = SWT.DEFAULT;
+							button.setLayoutData(new RowData(width, SWT.DEFAULT));
+						}
+					}
+				}""");
 		shell.refresh();
 		// perform edit operation, variable in constructor - keep LayoutData
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      int width = SWT.DEFAULT;",
-				"      button.setLayoutData(new RowData(width, SWT.DEFAULT));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							int width = SWT.DEFAULT;
+							button.setLayoutData(new RowData(width, SWT.DEFAULT));
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_hasVariable() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);",
-						"        button.setLayoutData(rowData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// perform edit operation, see that no reason to have RowData
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_hasMethodInvocation() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);",
-						"        rowData.hashCode();",
-						"        button.setLayoutData(rowData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);
+								rowData.hashCode();
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// no changes, because has MethodInvocation
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);",
-				"        rowData.hashCode();",
-				"        button.setLayoutData(rowData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);
+								rowData.hashCode();
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_hasFieldAssignment() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);",
-						"        rowData.exclude = true;",
-						"        button.setLayoutData(rowData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);
+								rowData.exclude = true;
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// no changes, because has assignment
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);",
-				"        rowData.exclude = true;",
-				"        button.setLayoutData(rowData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								RowData rowData = new RowData(SWT.DEFAULT, SWT.DEFAULT);
+								rowData.exclude = true;
+								button.setLayoutData(rowData);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -628,16 +613,15 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noParentControl() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    RowData dangling = new RowData();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {}",
-				"  {implicit-layout: absolute} {implicit-layout} {}");
+		CompositeInfo composite = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						RowData dangling = new RowData();
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {}
+					{implicit-layout: absolute} {implicit-layout} {}""");
 		//
 		composite.refresh();
 		assertNoErrors(composite);
@@ -649,17 +633,16 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noParentComposite_noLayout() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayoutData(new RowData());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Composite} {this} {/setLayoutData(new RowData())/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}");
+		CompositeInfo composite = parseComposite("""
+				class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayoutData(new RowData());
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Composite} {this} {/setLayoutData(new RowData())/}
+					{implicit-layout: absolute} {implicit-layout} {}""");
 		//
 		composite.refresh();
 		assertNoErrors(composite);
@@ -670,18 +653,17 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasParentLayout_notCompatible() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setLayoutData(new RowData());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new Button(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new RowData())/}");
+		CompositeInfo composite = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+						button.setLayoutData(new RowData());
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new Button(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new RowData())/}""");
 		//
 		composite.refresh();
 		assertNoErrors(composite);
@@ -693,23 +675,22 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasParentLayout_notCompatible_alreadyRemoved() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new RowData());",
-						"      button.setLayoutData(new GridData());",
-						"    }",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Button(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new RowData())/ /button.setLayoutData(new GridData())/}",
-				"    {new: org.eclipse.swt.layout.GridData} {empty} {/button.setLayoutData(new GridData())/}");
+		CompositeInfo composite = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData());
+							button.setLayoutData(new GridData());
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Button(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new RowData())/ /button.setLayoutData(new GridData())/}
+						{new: org.eclipse.swt.layout.GridData} {empty} {/button.setLayoutData(new GridData())/}""");
 		//
 		composite.refresh();
 		assertNoErrors(composite);
@@ -722,38 +703,33 @@ public class LayoutDataTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_hasParentComposite_noLayout() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new RowLayout());",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyComposite.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='layout.has'>false</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new RowLayout());
+					}
+				}"""));
+		setFileContentSrc("test/MyComposite.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="layout.has">false</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends MyComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setLayoutData(new RowData());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.MyComposite} {this} {/new Button(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new RowData())/}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends MyComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						Button button = new Button(this, SWT.NONE);
+						button.setLayoutData(new RowData());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyComposite} {this} {/new Button(this, SWT.NONE)/}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new RowData())/}""");
 		//
 		composite.refresh();
 		assertNoErrors(composite);

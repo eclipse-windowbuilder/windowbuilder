@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -104,24 +104,23 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_invalidAbsoluteLayoutToolkit() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test {",
-						"  /**",
-						"  * @wbp.nonvisual location=571,523",
-						"  */",
-						"  private static final Object myStaticBean = new java.util.ArrayList<Object>();",
-						"  protected Shell shell;",
-						"  public static void main(String[] args) {",
-						"    Test window = new Test();",
-						"    window.open();",
-						"  }",
-						"  public void open() {",
-						"    shell = new Shell(SWT.NONE);",
-						"    Button button_1 = new Button(shell, SWT.NONE);",
-						"    button_1.setBounds(42, 118, 81, 20);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test {
+					/**
+					* @wbp.nonvisual location=571,523
+					*/
+					private static final Object myStaticBean = new java.util.ArrayList<Object>();
+					protected Shell shell;
+					public static void main(String[] args) {
+						Test window = new Test();
+						window.open();
+					}
+					public void open() {
+						shell = new Shell(SWT.NONE);
+						Button button_1 = new Button(shell, SWT.NONE);
+						button_1.setBounds(42, 118, 81, 20);
+					}
+				}""");
 		shell.refresh();
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) shell.getLayout();
 		assertSame(ToolkitProvider.DESCRIPTION, layout.getDescription().getToolkit());
@@ -134,15 +133,14 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		CompositeInfo shellInfo =
-				parseComposite(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell();",
-						"    shell.setSize(320, 240);",
-						"    shell.setLayout(null);",
-						"  }",
-						"}");
+		CompositeInfo shellInfo = parseComposite("""
+				class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						shell.setSize(320, 240);
+						shell.setLayout(null);
+					}
+				}""");
 		// prepare layout
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) shellInfo.getLayout();
 		{
@@ -168,13 +166,12 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 
 	@Test
 	public void test_setLayout() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+					}
+				}""");
 		// check initial layout
 		{
 			LayoutInfo layout = shell.getLayout();
@@ -185,12 +182,12 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		shell.setLayout(absoluteLayout);
 		// check result
 		assertSame(absoluteLayout, shell.getLayout());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		// listen for AbsoluteLayoutInfo setObject() during refresh
 		{
 			final boolean[] absoluteLayout_objectSet = new boolean[1];
@@ -215,17 +212,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_onSet() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new RowData(200, 100));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new RowData(200, 100));
+						}
+					}
+				}""");
 		shell.refresh();
 		// set absolute layout
 		AbsoluteLayoutInfo absoluteLayout =
@@ -238,16 +234,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		Rectangle bounds = button.getBounds();
 		// check result
 		assertSame(absoluteLayout, shell.getLayout());
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setBounds(3, 3, " + bounds.width + ", " + bounds.height + ");",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(3, 3, %d, %d);
+						}
+					}
+				}""".formatted(bounds.width, bounds.height));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -261,15 +257,15 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_onSetLayout_forChild_keepAbsolute() throws Exception {
-		parseComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Composite inner = new Composite(this, SWT.NONE);",
-				"      inner.setBounds(10, 20, 200, 100);",
-				"    }",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Composite inner = new Composite(this, SWT.NONE);
+							inner.setBounds(10, 20, 200, 100);
+						}
+					}
+				}""");
 		refresh();
 		// set RowLayout for "inner"
 		new UiContext().executeAndCheck(new FailableRunnable<>() {
@@ -286,16 +282,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 				shell.button("No, keep 'null' layout").click();
 			}
 		});
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Composite inner = new Composite(this, SWT.NONE);",
-				"      inner.setBounds(10, 20, 200, 100);",
-				"      inner.setLayout(new RowLayout(SWT.HORIZONTAL));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Composite inner = new Composite(this, SWT.NONE);
+							inner.setBounds(10, 20, 200, 100);
+							inner.setLayout(new RowLayout(SWT.HORIZONTAL));
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -304,15 +300,15 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_onSetLayout_forChild_useFormLayout() throws Exception {
-		parseComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Composite inner = new Composite(this, SWT.NONE);",
-				"      inner.setBounds(10, 20, 200, 100);",
-				"    }",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Composite inner = new Composite(this, SWT.NONE);
+							inner.setBounds(10, 20, 200, 100);
+						}
+					}
+				}""");
 		refresh();
 		// set RowLayout for "inner"
 		new UiContext().executeAndCheck(new FailableRunnable<>() {
@@ -329,24 +325,24 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 				shell.button("Yes, use FormLayout").click();
 			}
 		});
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Composite inner = new Composite(this, SWT.NONE);",
-				"      {",
-				"        FormData formData = new FormData();",
-				"        formData.bottom = new FormAttachment(0, 120);",
-				"        formData.right = new FormAttachment(0, 210);",
-				"        formData.top = new FormAttachment(0, 20);",
-				"        formData.left = new FormAttachment(0, 10);",
-				"        inner.setLayoutData(formData);",
-				"      }",
-				"      inner.setLayout(new RowLayout(SWT.HORIZONTAL));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Composite inner = new Composite(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.bottom = new FormAttachment(0, 120);
+								formData.right = new FormAttachment(0, 210);
+								formData.top = new FormAttachment(0, 20);
+								formData.left = new FormAttachment(0, 10);
+								inner.setLayoutData(formData);
+							}
+							inner.setLayout(new RowLayout(SWT.HORIZONTAL));
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -360,23 +356,22 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_delete() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setText('New Button');",
-						"      button.setLocation(0, 0);",
-						"      button.setLocation(new Point(0, 0));",
-						"      button.setSize(0, 0);",
-						"      button.setSize(new Point(0, 0));",
-						"      button.setBounds(0, 0, 0, 0);",
-						"      button.setBounds(new Rectangle(0, 0, 0, 0));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							button.setLocation(0, 0);
+							button.setLocation(new Point(0, 0));
+							button.setSize(0, 0);
+							button.setSize(new Point(0, 0));
+							button.setBounds(0, 0, 0, 0);
+							button.setBounds(new Rectangle(0, 0, 0, 0));
+						}
+					}
+				}""");
 		//
 		AbsoluteLayoutInfo absoluteLayout = (AbsoluteLayoutInfo) shell.getLayout();
 		assertInstanceOf(InvocationChildAssociation.class, absoluteLayout.getAssociation());
@@ -384,16 +379,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		//
 		LayoutInfo rowLayout = BTestUtils.createLayout("org.eclipse.swt.layout.RowLayout");
 		shell.setLayout(rowLayout);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout(SWT.HORIZONTAL));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout(SWT.HORIZONTAL));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -406,26 +401,25 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_create() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+					}
+				}""");
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) shell.getLayout();
 		//
 		ControlInfo button = BTestUtils.createButton();
 		layout.commandCreate(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -433,33 +427,32 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_create_withReference() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Text text = new Text(this, SWT.BORDER);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Text text = new Text(this, SWT.BORDER);
+						}
+					}
+				}""");
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) shell.getLayout();
 		ControlInfo referenceControl = shell.getChildrenControls().get(0);
 		//
 		ControlInfo button = BTestUtils.createButton();
 		layout.commandCreate(button, referenceControl);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Text text = new Text(this, SWT.BORDER);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						{
+							Text text = new Text(this, SWT.BORDER);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -470,33 +463,23 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	/**
 	 * generic check for bounds changing.
 	 */
-	private void check_changeBounds(String[] initial,
-			String[] expected,
+	private void check_changeBounds(String initial,
+			String expected,
 			Point location,
 			Dimension size) throws Exception {
-		String[] initialCode =
-				new String[]{
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText(\"test\");",
-						"  }",
-		"}"};
+		String initialCode = """
+				class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						Button button = new Button(this, SWT.NONE);
+				%s
+						button.setText("test");
+					}
+				}""";
 		// prepare initial code
-		String[] initialLines = ArrayUtils.clone(initialCode);
-		for (int i = 0; i < initial.length; i++) {
-			if (!StringUtils.isEmpty(initial[i])) {
-				initialLines = ArrayUtils.insert(4 + i, initialLines, initial[i]);
-			}
-		}
+		String initialLines = initialCode.formatted(initial);
 		// prepare expected code
-		String[] expectedLines = ArrayUtils.clone(initialCode);
-		for (int i = 0; i < expected.length; i++) {
-			if (!StringUtils.isEmpty(expected[i])) {
-				expectedLines = ArrayUtils.insert(4 + i, expectedLines, expected[i]);
-			}
-		}
+		String expectedLines = initialCode.formatted(expected);
 		// prepare model
 		CompositeInfo shellInfo = parseComposite(initialLines);
 		shellInfo.refresh();
@@ -510,137 +493,140 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 
 	@Test
 	public void test_command_changeBounds_set_location_only() throws Exception {
-		check_changeBounds(
-				new String[]{""},
-				new String[]{"    button.setLocation(10, 10);"},
+		check_changeBounds("""
+				""", """
+						button.setLocation(10, 10);
+				""",
 				new Point(10, 10),
 				null);
 	}
 
 	@Test
 	public void test_command_changeBounds_set_size_after_location() throws Exception {
-		check_changeBounds(new String[]{"    button.setLocation(10, 10);"}, new String[]{
-				"    button.setSize(25, 60);",
-		"    button.setLocation(10, 10);"}, new Point(10, 10), new Dimension(25, 60));
+		check_changeBounds("""
+						button.setLocation(10, 10);
+				""", """
+						button.setSize(25, 60);
+						button.setLocation(10, 10);
+				""", new Point(10, 10), new Dimension(25, 60));
 	}
 
 	@Test
 	public void test_command_changeBounds_set_size_only() throws Exception {
-		check_changeBounds(new String[]{
-				"    button.setSize(25, 60);",
-		"    button.setLocation(20, 20);"}, new String[]{
-				"    button.setSize(30, 100);",
-		"    button.setLocation(20, 20);"}, null, new Dimension(30, 100));
+		check_changeBounds("""
+						button.setSize(25, 60);
+						button.setLocation(20, 20);
+				""", """
+						button.setSize(30, 100);
+						button.setLocation(20, 20);
+				""", null, new Dimension(30, 100));
 	}
 
 	@Test
 	public void test_command_changeBounds_set_location_and_size() throws Exception {
-		check_changeBounds(
-				new String[]{""},
-				new String[]{"    button.setBounds(10, 10, 25, 70);"},
-				new Point(10, 10),
-				new Dimension(25, 70));
+		check_changeBounds("""
+				""", """
+						button.setBounds(10, 10, 25, 70);
+				""", new Point(10, 10), new Dimension(25, 70));
 	}
 
 	@Test
 	public void test_command_changeBounds_set_location_only_after_setBounds_set() throws Exception {
-		check_changeBounds(
-				new String[]{"    button.setBounds(10, 10, 25, 70);"},
-				new String[]{"    button.setBounds(30, 30, 25, 70);"},
-				new Point(30, 30),
-				null);
+		check_changeBounds("""
+						button.setBounds(10, 10, 25, 70);
+				""", """
+						button.setBounds(30, 30, 25, 70);
+				""", new Point(30, 30), null);
 	}
 
 	@Test
 	public void test_command_changeBounds_set_size_only_after_setBounds_set() throws Exception {
-		check_changeBounds(
-				new String[]{"    button.setBounds(30, 30, 25, 70);"},
-				new String[]{"    button.setBounds(30, 30, 100, 100);"},
-				null,
-				new Dimension(100, 100));
+		check_changeBounds("""
+						button.setBounds(30, 30, 25, 70);
+				""", """
+						button.setBounds(30, 30, 100, 100);
+				""", null, new Dimension(100, 100));
 	}
 
 	@Test
 	public void test_command_changeBounds_set_location_and_size_after_setBounds_set()
 			throws Exception {
-		check_changeBounds(
-				new String[]{"    button.setBounds(30, 30, 100, 100);"},
-				new String[]{"    button.setBounds(10, 10, 25, 70);"},
-				new Point(10, 10),
-				new Dimension(25, 70));
+		check_changeBounds("""
+						button.setBounds(30, 30, 100, 100);
+				""", """
+						button.setBounds(10, 10, 25, 70);
+				""", new Point(10, 10), new Dimension(25, 70));
 	}
 
 	@Test
 	public void test_command_changeBounds_set_location_only_as_Rectangle() throws Exception {
-		check_changeBounds(
-				new String[]{"    button.setBounds(new Rectangle(10, 10, 25, 80));"},
-				new String[]{"    button.setBounds(new Rectangle(0, 0, 25, 80));"},
-				new Point(0, 0),
-				null);
+		check_changeBounds("""
+						button.setBounds(new Rectangle(10, 10, 25, 80));
+				""", """
+						button.setBounds(new Rectangle(0, 0, 25, 80));
+				""", new Point(0, 0), null);
 	}
 
 	@Test
 	public void test_command_changeBounds_set_size_only_as_Rectangle() throws Exception {
-		check_changeBounds(
-				new String[]{"    button.setBounds(new Rectangle(0, 0, 25, 80));"},
-				new String[]{"    button.setBounds(new Rectangle(0, 0, 20, 60));"},
-				null,
-				new Dimension(20, 60));
+		check_changeBounds("""
+						button.setBounds(new Rectangle(0, 0, 25, 80));
+				""", """
+						button.setBounds(new Rectangle(0, 0, 20, 60));
+				""", null, new Dimension(20, 60));
 	}
 
 	@Test
 	public void test_command_changeBounds_set_location_and_size_as_Rectangle() throws Exception {
-		check_changeBounds(
-				new String[]{"    button.setBounds(new Rectangle(0, 0, 20, 60));"},
-				new String[]{"    button.setBounds(new Rectangle(10, 10, 25, 80));"},
-				new Point(10, 10),
-				new Dimension(25, 80));
+		check_changeBounds("""
+						button.setBounds(new Rectangle(0, 0, 20, 60));
+				""", """
+						button.setBounds(new Rectangle(10, 10, 25, 80));
+				""", new Point(10, 10), new Dimension(25, 80));
 	}
 
 	@Test
 	public void test_command_changeBounds_set_location_only_as_Point() throws Exception {
-		check_changeBounds(
-				new String[]{"    button.setLocation(new Point(10, 10));"},
-				new String[]{"    button.setLocation(new Point(0, 0));"},
-				new Point(0, 0),
-				null);
+		check_changeBounds("""
+						button.setLocation(new Point(10, 10));
+				""", """
+						button.setLocation(new Point(0, 0));
+				""", new Point(0, 0), null);
 	}
 
 	@Test
 	public void test_command_changeBounds_set_size_only_as_Point() throws Exception {
-		check_changeBounds(
-				new String[]{"    button.setSize(new Point(20, 50));"},
-				new String[]{"    button.setSize(new Point(25, 40));"},
-				null,
-				new Dimension(25, 40));
+		check_changeBounds("""
+						button.setSize(new Point(20, 50));
+				""", """
+						button.setSize(new Point(25, 40));
+				""", null, new Dimension(25, 40));
 	}
 
 	@Test
 	public void test_command_changeBounds_setBoundsInts_removeUnused() throws Exception {
-		check_changeBounds(
-				new String[]{
-						"    button.setBounds(10, 20, 100, 50);",
-						"    button.setLocation(10, 20);",
-						"    button.setSize(100, 50);",
-						"    button.setLocation(new Point(10, 20));",
-				"    button.setSize(new Point(100, 50));"},
-				new String[]{"    button.setBounds(1, 2, 25, 40);"},
-				new Point(1, 2),
-				new Dimension(25, 40));
+		check_changeBounds("""
+						button.setBounds(10, 20, 100, 50);
+						button.setLocation(10, 20);
+						button.setSize(100, 50);
+						button.setLocation(new Point(10, 20));
+						button.setSize(new Point(100, 50));
+				""", """
+						button.setBounds(1, 2, 25, 40);
+				""", new Point(1, 2), new Dimension(25, 40));
 	}
 
 	@Test
 	public void test_command_changeBounds_setBoundsRectangle_removeUnused() throws Exception {
-		check_changeBounds(
-				new String[]{
-						"    button.setBounds(new Rectangle(10, 20, 100, 50));",
-						"    button.setLocation(10, 20);",
-						"    button.setSize(100, 50);",
-						"    button.setLocation(new Point(10, 20));",
-				"    button.setSize(new Point(100, 50));"},
-				new String[]{"    button.setBounds(new Rectangle(1, 2, 25, 40));"},
-				new Point(1, 2),
-				new Dimension(25, 40));
+		check_changeBounds("""
+						button.setBounds(new Rectangle(10, 20, 100, 50));
+						button.setLocation(10, 20);
+						button.setSize(100, 50);
+						button.setLocation(new Point(10, 20));
+						button.setSize(new Point(100, 50));
+				""", """
+						button.setBounds(new Rectangle(1, 2, 25, 40));
+				""", new Point(1, 2), new Dimension(25, 40));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -653,17 +639,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_autoSize_otherProperty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setBounds(0, 0, 10, 10);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(0, 0, 10, 10);
+						}
+					}
+				}""");
 		preferences.setValue(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE, true);
 		//
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -681,18 +666,17 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_autoSize_textProperty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setText('New');",
-						"      button.setBounds(0, 0, 10, 10);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New");
+							button.setBounds(0, 0, 10, 10);
+						}
+					}
+				}""");
 		preferences.setValue(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE, true);
 		//
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -710,17 +694,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_autoSize_imageProperty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setBounds(0, 0, 10, 10);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(0, 0, 10, 10);
+						}
+					}
+				}""");
 		preferences.setValue(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE, true);
 		//
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -741,18 +724,17 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_autoSize_textProperty_notEnabled() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setText('New');",
-						"      button.setBounds(0, 0, 10, 10);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New");
+							button.setBounds(0, 0, 10, 10);
+						}
+					}
+				}""");
 		preferences.setValue(IPreferenceConstants.P_AUTOSIZE_ON_PROPERTY_CHANGE, false);
 		//
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -775,17 +757,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_autoSizeAction_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setText('New');",
-						"      button.setBounds(10, 20, 10, 10);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New");
+							button.setBounds(10, 20, 10, 10);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		Dimension buttonPrefSize = button.getPreferredSize();
@@ -799,20 +780,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		}
 		// perform auto-size
 		autoSizeAction.run();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New');",
-				"      button.setBounds(10, 20, "
-						+ buttonPrefSize.width
-						+ ", "
-						+ buttonPrefSize.height
-						+ ");",
-						"    }",
-						"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New");
+							button.setBounds(10, 20, %d, %d);
+						}
+					}
+				}""".formatted(buttonPrefSize.width, buttonPrefSize.height));
 	}
 
 	/**
@@ -820,18 +797,17 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_autoSizeAction_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test {",
-						"  public static void main(String[] args) {",
-						"    Shell shell = new Shell();",
-						"    {",
-						"      Button button = new Button(shell, SWT.NONE);",
-						"      button.setText('New');",
-						"      button.setBounds(10, 20, 10, 10);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test {
+					public static void main(String[] args) {
+						Shell shell = new Shell();
+						{
+							Button button = new Button(shell, SWT.NONE);
+							button.setText("New");
+							button.setBounds(10, 20, 10, 10);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// prepare action
@@ -853,17 +829,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 * Helper method preparing to test "Bounds" property.
 	 */
 	private Property prepareBoundsProperty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setBounds(10, 30, 100, 200);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(10, 30, 100, 200);
+						}
+					}
+				}""");
 		shell.refresh();
 		Property boundsProperty = shell.getChildrenControls().get(0).getPropertyByTitle("Bounds");
 		return boundsProperty;
@@ -904,16 +879,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		Property subProperty = getBoundsPropertySubProperty("x");
 		assertNotNull(subProperty);
 		subProperty.setValue(0);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setBounds(0, 30, 100, 200);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(0, 30, 100, 200);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -936,16 +911,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		Property subProperty = getBoundsPropertySubProperty("y");
 		assertNotNull(subProperty);
 		subProperty.setValue(5);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setBounds(10, 5, 100, 200);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(10, 5, 100, 200);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -968,16 +943,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		Property subProperty = getBoundsPropertySubProperty("width");
 		assertNotNull(subProperty);
 		subProperty.setValue(150);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setBounds(10, 30, 150, 200);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(10, 30, 150, 200);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1000,16 +975,16 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		Property subProperty = getBoundsPropertySubProperty("height");
 		assertNotNull(subProperty);
 		subProperty.setValue(220);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setBounds(10, 30, 100, 220);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(10, 30, 100, 220);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1035,40 +1010,39 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	@Test
 	public void test_changeBounds_CreationFlow() throws Exception {
 		preferences.setValue(IPreferenceConstants.P_CREATION_FLOW, true);
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(null);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setBounds(5, 5, 100, 30);",
-						"    }",
-						"    {",
-						"      Text text = new Text(this, SWT.BORDER);",
-						"      text.setBounds(50, 50, 100, 30);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(5, 5, 100, 30);
+						}
+						{
+							Text text = new Text(this, SWT.BORDER);
+							text.setBounds(50, 50, 100, 30);
+						}
+					}
+				}""");
 		shell.refresh();
 		AbsoluteLayoutInfo layout = (AbsoluteLayoutInfo) shell.getLayout();
 		ControlInfo button = getJavaInfoByName("button");
 		// Change bounds
 		layout.commandChangeBounds(button, new Point(100, 100), null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(null);",
-				"    {",
-				"      Text text = new Text(this, SWT.BORDER);",
-				"      text.setBounds(50, 50, 100, 30);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setBounds(100, 100, 100, 30);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(null);
+						{
+							Text text = new Text(this, SWT.BORDER);
+							text.setBounds(50, 50, 100, 30);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(100, 100, 100, 30);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1078,20 +1052,19 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_clipboard() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        button.setBounds(10, 20, 100, 50);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setBounds(10, 20, 100, 50);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
 		// prepare memento
@@ -1106,26 +1079,26 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 			fillLayout.command_CREATE(composite, null);
 			memento.apply();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"        button.setBounds(10, 20, 100, 50);",
-				"      }",
-				"    }",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"        button.setBounds(10, 20, 100, 50);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setBounds(10, 20, 100, 50);
+							}
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setBounds(10, 20, 100, 50);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1139,28 +1112,25 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_canMove() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource(
-						"public class MyShell extends Shell {",
-						"  private Button m_button;",
-						"  public MyShell() {",
-						"    setLayout(null);",
-						"    m_button = new Button(this, SWT.NONE);",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource("""
+				public class MyShell extends Shell {
+					private Button m_button;
+					public MyShell() {
+						setLayout(null);
+						m_button = new Button(this, SWT.NONE);
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo panel =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends MyShell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo panel = parseComposite("""
+				// filler filler filler
+				public class Test extends MyShell {
+					public Test() {
+					}
+				}""");
 		assertInstanceOf(AbsoluteLayoutInfo.class, panel.getLayout());
 		ControlInfo button = panel.getChildrenControls().get(0);
 		// check permissions

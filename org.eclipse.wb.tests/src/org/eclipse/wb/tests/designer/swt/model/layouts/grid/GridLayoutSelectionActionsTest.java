@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,13 +47,12 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_emptySelection() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout());
+					}
+				}""");
 		shell.refresh();
 		// prepare actions
 		List<Object> actions = getSelectionActions();
@@ -63,25 +62,24 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 
 	@Test
 	public void test_selectionActions() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"      label.setText('Label:');",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData();",
-						"        gridData.grabExcessHorizontalSpace = true;",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setText("Label:");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								gridData.grabExcessHorizontalSpace = true;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		List<Object> actions;
 		ControlInfo label = shell.getChildrenControls().get(0);
@@ -112,25 +110,24 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 
 	@Test
 	public void test_grabAction() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"      label.setText('Label:');",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData();",
-						"        gridData.grabExcessHorizontalSpace = true;",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setText("Label:");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								gridData.grabExcessHorizontalSpace = true;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(1);
 		// prepare actions: button
@@ -144,46 +141,45 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 		horizontalGrab.setChecked(false);
 		horizontalGrab.run();
 		//
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Label label = new Label(this, SWT.NONE);",
-				"      label.setText('Label:');",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        GridData gridData = new GridData();",
-				"        gridData.grabExcessVerticalSpace = true;",
-				"        button.setLayoutData(gridData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setText("Label:");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData();
+								gridData.grabExcessVerticalSpace = true;
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_alignmentAction() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(2, false));",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"      label.setText('Label:');",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false);",
-						"        button.setLayoutData(gridData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setText("Label:");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								GridData gridData = new GridData(SWT.LEFT, SWT.CENTER, false, false);
+								button.setLayoutData(gridData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		List<Object> actions;
 		ControlInfo button = shell.getChildrenControls().get(1);
@@ -198,20 +194,20 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 		bottomAction.setChecked(true);
 		bottomAction.run();
 		//
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new GridLayout(2, false));",
-				"    {",
-				"      Label label = new Label(this, SWT.NONE);",
-				"      label.setText('Label:');",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, false, false));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(2, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setText("Label:");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.RIGHT, SWT.BOTTOM, false, false));
+						}
+					}
+				}""");
 		// prepare actions: wrong selection
 		{
 			actions = getSelectionActions(shell, button);
@@ -224,40 +220,37 @@ public class GridLayoutSelectionActionsTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_indirectExposedChild() throws Exception {
-		setFileContentSrc(
-				"test/ImplicitComposite.java",
-				getTestSource(
-						"public class ImplicitComposite extends Composite {",
-						"  private Button m_button;",
-						"  public ImplicitComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Composite container = new Composite(this, SWT.NONE);",
-						"      container.setLayout(new RowLayout());",
-						"      {",
-						"        m_button = new Button(container, SWT.NONE);",
-						"        m_button.setLayoutData(new RowData());",
-						"      }",
-						"    }",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ImplicitComposite.java", getTestSource("""
+				public class ImplicitComposite extends Composite {
+					private Button m_button;
+					public ImplicitComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							Composite container = new Composite(this, SWT.NONE);
+							container.setLayout(new RowLayout());
+							{
+								m_button = new Button(container, SWT.NONE);
+								m_button.setLayoutData(new RowData());
+							}
+						}
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends ImplicitComposite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.ImplicitComposite} {this} {}",
-				"  {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"  {method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends ImplicitComposite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.ImplicitComposite} {this} {}
+					{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+					{method: public org.eclipse.swt.widgets.Button test.ImplicitComposite.getButton()} {property} {}""");
 		composite.refresh();
 		ControlInfo button = composite.getChildrenControls().get(0);
 		// prepare actions: button

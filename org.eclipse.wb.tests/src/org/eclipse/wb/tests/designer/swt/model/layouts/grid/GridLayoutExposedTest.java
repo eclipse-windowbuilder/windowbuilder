@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,13 +53,12 @@ public class GridLayoutExposedTest extends RcpModelTest {
 	public void test_deleteExposedComponent_noExplicitData() throws Exception {
 		configureForDelete();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = myComposite.getChildrenControls().get(0);
@@ -75,12 +74,12 @@ public class GridLayoutExposedTest extends RcpModelTest {
 			// delete, no visible change expected
 			assertTrue(button.canDelete());
 			button.delete();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}""");
 			assertFalse(button.isDeleted());
 			// check new GridData
 			{
@@ -98,14 +97,13 @@ public class GridLayoutExposedTest extends RcpModelTest {
 	public void test_deleteExposedComponent_withExplicitData() throws Exception {
 		configureForDelete();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"    myComposite.getButton().setLayoutData(new GridData());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						myComposite.getButton().setLayoutData(new GridData());
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = myComposite.getChildrenControls().get(0);
@@ -121,12 +119,12 @@ public class GridLayoutExposedTest extends RcpModelTest {
 			// delete, "explicit" GridData is gone
 			assertTrue(button.canDelete());
 			button.delete();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}""");
 			assertTrue(myComposite.getChildren().contains(button));
 			// check new GridData
 			{
@@ -142,47 +140,43 @@ public class GridLayoutExposedTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_deleteWhenTwoExposed() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  private Text m_text;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(1, false));",
-						"    m_button = new Button(this, SWT.NONE);",
-						"    m_text = new Text(this, SWT.NONE);",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"  public Text getText() {",
-						"    return m_text;",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					private Text m_text;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						m_button = new Button(this, SWT.NONE);
+						m_text = new Text(this, SWT.NONE);
+					}
+					public Button getButton() {
+						return m_button;
+					}
+					public Text getText() {
+						return m_text;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = myComposite.getChildrenControls().get(0);
 		// do operations
 		{
 			button.delete();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}""");
 		}
 	}
 
@@ -190,21 +184,19 @@ public class GridLayoutExposedTest extends RcpModelTest {
 	 * Configures project for delete tests.
 	 */
 	private void configureForDelete() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout(1, false));",
-						"    m_button = new Button(this, SWT.NONE);",
-						"    m_button.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(1, false));
+						m_button = new Button(this, SWT.NONE);
+						m_button.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 }
