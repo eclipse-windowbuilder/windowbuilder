@@ -104,6 +104,25 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 				errorEntry.getDescription().replaceAll("\r", ""));
 	}
 
+	@Test
+	public void test_parse_setLayout_double_withNull() throws Exception {
+		Throwable t = assertThrows(Throwable.class, () -> parseContainer("""
+				class Test extends JPanel {
+					public Test() {
+						setLayout(null);
+						setLayout(new GridLayout());
+					}
+				}"""));
+		ErrorEntryInfo errorEntry = DesignerExceptionUtils.getErrorEntry(t);
+		assertEquals(IExceptionConstants.DOUBLE_SET_LAYOUT, errorEntry.getCode());
+		assertEquals("""
+				line 7: You are attempting to set the
+						layout <b>null</b> for the Container <b>(javax.swing.JPanel)</b>. However, the Container already has the layout <b>java.awt.GridLayout</b>.
+						Please remove the invalid <i>setLayout()</i> invocation from your source.
+				\t""",
+				errorEntry.getDescription().replaceAll("\r", ""));
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// isActive()
