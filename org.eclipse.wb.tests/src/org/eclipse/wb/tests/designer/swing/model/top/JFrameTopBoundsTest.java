@@ -182,18 +182,16 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 								pack();
 							}
 						}"""));
-		setFileContentSrc(
-				"test/MyFrame.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <methods>",
-						"    <method name='finishInit'/>",
-						"  </methods>",
-						"  <parameters>",
-						"    <parameter name='topBounds.pack'>true</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyFrame.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<methods>
+						<method name="finishInit"/>
+					</methods>
+					<parameters>
+						<parameter name="topBounds.pack">true</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// open
 		ContainerInfo frame = openContainer("""

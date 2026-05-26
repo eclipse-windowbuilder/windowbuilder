@@ -44,14 +44,13 @@ public class ClipboardTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_hasMemento() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton('111');",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton("111");
+						add(button);
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		panel.refresh();
 		// do checks
@@ -61,14 +60,13 @@ public class ClipboardTest extends SwingModelTest {
 
 	@Test
 	public void test_getComponentClassName() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton('111');",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton("111");
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		// check JavaInfoMemento
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -78,16 +76,15 @@ public class ClipboardTest extends SwingModelTest {
 
 	@Test
 	public void test_transfer() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton('111');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton("111");
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// invoke just to cover
 		{
@@ -144,39 +141,37 @@ public class ClipboardTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_singleComponent() throws Exception {
-		String[] sourceLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton((Icon) null);",
-						"      button.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);",
-						"      button.setEnabled(false);",
-						"      button.setText(\"222\");",
-						"      add(button);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton((Icon) null);",
-						"      button.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);",
-						"      button.setEnabled(false);",
-						"      button.setText(\"222\");",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton((Icon) null);",
-						"      button.setText(\"222\");",
-						"      button.setEnabled(false);",
-						"      button.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);",
-						"      add(button);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton((Icon) null);
+							button.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+							button.setEnabled(false);
+							button.setText("222");
+							add(button);
+						}
+					}
+				}""";
+		String targetLines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton((Icon) null);
+							button.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+							button.setEnabled(false);
+							button.setText("222");
+							add(button);
+						}
+						{
+							JButton button = new JButton((Icon) null);
+							button.setText("222");
+							button.setEnabled(false);
+							button.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+							add(button);
+						}
+					}
+				}""";
 		flow_doCopy(sourceLines, targetLines);
 	}
 
@@ -185,229 +180,206 @@ public class ClipboardTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_exposedSubComponent() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  private JButton button;",
-						"  public MyPanel() {",
-						"    button = new JButton();",
-						"    add(button);",
-						"  }",
-						"  public JButton getButton() {",
-						"    return button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					private JButton button;
+					public MyPanel() {
+						button = new JButton();
+						add(button);
+					}
+					public JButton getButton() {
+						return button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// do copy/paste
-		String[] sourceLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      MyPanel myPanel = new MyPanel();",
-						"      myPanel.getButton().setText(\"exposed button\");",
-						"      add(myPanel);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      MyPanel myPanel = new MyPanel();",
-						"      myPanel.getButton().setText(\"exposed button\");",
-						"      add(myPanel);",
-						"    }",
-						"    {",
-						"      MyPanel myPanel = new MyPanel();",
-						"      myPanel.getButton().setText(\"exposed button\");",
-						"      add(myPanel);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel myPanel = new MyPanel();
+							myPanel.getButton().setText("exposed button");
+							add(myPanel);
+						}
+					}
+				}""";
+		String targetLines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel myPanel = new MyPanel();
+							myPanel.getButton().setText("exposed button");
+							add(myPanel);
+						}
+						{
+							MyPanel myPanel = new MyPanel();
+							myPanel.getButton().setText("exposed button");
+							add(myPanel);
+						}
+					}
+				}""";
 		flow_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_factoryStatic() throws Exception {
-		setFileContentSrc(
-				"test/StaticFactory.java",
-				getTestSource(
-						"public final class StaticFactory {",
-						"  public static JButton createButton(String _text) {",
-						"    return new JButton(_text);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/StaticFactory.java", getTestSource("""
+				public final class StaticFactory {
+					public static JButton createButton(String _text) {
+						return new JButton(_text);
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		String[] sourceLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = StaticFactory.createButton(\"button\");",
-						"      add(button);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = StaticFactory.createButton(\"button\");",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = StaticFactory.createButton(\"button\");",
-						"      add(button);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = StaticFactory.createButton("button");
+							add(button);
+						}
+					}
+				}""";
+		String targetLines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = StaticFactory.createButton("button");
+							add(button);
+						}
+						{
+							JButton button = StaticFactory.createButton("button");
+							add(button);
+						}
+					}
+				}""";
 		flow_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_factoryStatic_complex() throws Exception {
-		setFileContentSrc(
-				"test/StaticFactory.java",
-				getTestSource(
-						"public final class StaticFactory {",
-						"  public static JButton createButton(String _text, int i, Object o) {",
-						"    return new JButton(_text);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/StaticFactory.java", getTestSource("""
+				public final class StaticFactory {
+					public static JButton createButton(String _text, int i, Object o) {
+						return new JButton(_text);
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		String[] sourceLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = StaticFactory.createButton(\"button\", 1, new Object());",
-						"      add(button);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = StaticFactory.createButton(\"button\", 1, new Object());",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = StaticFactory.createButton(\"button\", 1, (Object) null);",
-						"      add(button);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = StaticFactory.createButton("button", 1, new Object());
+							add(button);
+						}
+					}
+				}""";
+		String targetLines = """
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = StaticFactory.createButton("button", 1, new Object());
+							add(button);
+						}
+						{
+							JButton button = StaticFactory.createButton("button", 1, (Object) null);
+							add(button);
+						}
+					}
+				}""";
 		flow_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_factoryInstance_single() throws Exception {
-		setFileContentSrc(
-				"test/InstanceFactory.java",
-				getTestSource(
-						"public final class InstanceFactory {",
-						"  public JButton createButton(String _text) {",
-						"    return new JButton(_text);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/InstanceFactory.java", getTestSource("""
+				public final class InstanceFactory {
+					public JButton createButton(String _text) {
+						return new JButton(_text);
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		String[] sourceLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  private final InstanceFactory m_factory = new InstanceFactory();",
-						"  public Test() {",
-						"    {",
-						"      JButton button = m_factory.createButton(\"button\");",
-						"      add(button);",
-						"    }",
-						"  }",
-		"}"};
-		String[] targetLines =
-				new String[]{
-						"public class Test extends JPanel {",
-						"  private final InstanceFactory m_factory = new InstanceFactory();",
-						"  public Test() {",
-						"    {",
-						"      JButton button = m_factory.createButton(\"button\");",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = m_factory.createButton(\"button\");",
-						"      add(button);",
-						"    }",
-						"  }",
-		"}"};
+		String sourceLines = """
+				public class Test extends JPanel {
+					private final InstanceFactory m_factory = new InstanceFactory();
+					public Test() {
+						{
+							JButton button = m_factory.createButton("button");
+							add(button);
+						}
+					}
+				}""";
+		String targetLines = """
+				public class Test extends JPanel {
+					private final InstanceFactory m_factory = new InstanceFactory();
+					public Test() {
+						{
+							JButton button = m_factory.createButton("button");
+							add(button);
+						}
+						{
+							JButton button = m_factory.createButton("button");
+							add(button);
+						}
+					}
+				}""";
 		flow_doCopy(sourceLines, targetLines);
 	}
 
 	@Test
 	public void test_factoryInstance_new() throws Exception {
-		setFileContentSrc(
-				"test/InstanceFactory.java",
-				getTestSource(
-						"public final class InstanceFactory {",
-						"  public JButton createButton(String _text) {",
-						"    return new JButton(_text);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/InstanceFactory.java", getTestSource("""
+				public final class InstanceFactory {
+					public JButton createButton(String _text) {
+						return new JButton(_text);
+					}
+				}"""));
 		waitForAutoBuild();
 		// prepare memento
 		JavaInfoMemento memento;
 		{
-			ContainerInfo panel =
-					parseContainer(
-							"public class Test extends JPanel {",
-							"  private final InstanceFactory m_factory = new InstanceFactory();",
-							"  public Test() {",
-							"    {",
-							"      JButton button = m_factory.createButton('button');",
-							"      add(button);",
-							"    }",
-							"  }",
-							"}");
+			ContainerInfo panel = parseContainer("""
+					public class Test extends JPanel {
+						private final InstanceFactory m_factory = new InstanceFactory();
+						public Test() {
+							{
+								JButton button = m_factory.createButton("button");
+								add(button);
+							}
+						}
+					}""");
 			panel.refresh();
 			//
 			ComponentInfo component = panel.getChildrenComponents().get(0);
 			memento = JavaInfoMemento.createMemento(component);
 		}
 		// use memento for paste
-		ContainerInfo panel2 =
-				(ContainerInfo) parseSource(
-						"test",
-						"Test2.java",
-						getTestSource(
-								"// filler filler filler filler filler",
-								"// filler filler filler filler filler",
-								"public class Test2 extends JPanel {",
-								"  public Test2() {",
-								"  }",
-								"}"));
+		ContainerInfo panel2 = (ContainerInfo) parseSource("test", "Test2.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test2 extends JPanel {
+					public Test2() {
+					}
+				}"""));
 		FlowLayoutInfo flowLayout = (FlowLayoutInfo) panel2.getLayout();
 		//
 		ComponentInfo component = (ComponentInfo) memento.create(panel2);
 		flowLayout.add(component, null);
 		memento.apply();
-		assertEditor(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class Test2 extends JPanel {",
-				"  private final InstanceFactory instanceFactory = new InstanceFactory();",
-				"  public Test2() {",
-				"    {",
-				"      JButton button = instanceFactory.createButton('button');",
-				"      add(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Test2 extends JPanel {
+					private final InstanceFactory instanceFactory = new InstanceFactory();
+					public Test2() {
+						{
+							JButton button = instanceFactory.createButton("button");
+							add(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -420,7 +392,7 @@ public class ClipboardTest extends SwingModelTest {
 	 *
 	 * @return the pasted {@link ComponentInfo}.
 	 */
-	private ComponentInfo flow_doCopy(String[] sourceLines, String[] targetLines) throws Exception {
+	private ComponentInfo flow_doCopy(String sourceLines, String targetLines) throws Exception {
 		final ContainerInfo container = parseContainer(sourceLines);
 		final FlowLayoutInfo flowLayout = (FlowLayoutInfo) container.getLayout();
 		container.refresh();
