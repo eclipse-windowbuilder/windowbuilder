@@ -80,12 +80,12 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getMainMethod() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    JPanel panel = new JPanel();",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+					}
+				}""");
 		MethodDeclaration mainMethod = LafSupport.getMainMethod(m_lastEditor);
 		assertNotNull(mainMethod);
 	}
@@ -95,12 +95,12 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getSetLookAndFeel_no() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    JPanel panel = new JPanel();",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+					}
+				}""");
 		MethodDeclaration mainMethod = LafSupport.getMainMethod(m_lastEditor);
 		MethodInvocation setLookAndFeelMethod = LafSupport.getSetLookAndFeelMethod(mainMethod);
 		assertNull(setLookAndFeelMethod);
@@ -111,16 +111,16 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getSetLookAndFeel_String() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel('com.sun.java.swing.plaf.motif.MotifLookAndFeel');",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		MethodDeclaration mainMethod = LafSupport.getMainMethod(m_lastEditor);
 		MethodInvocation setLookAndFeelMethod = LafSupport.getSetLookAndFeelMethod(mainMethod);
 		assertNotNull(setLookAndFeelMethod);
@@ -131,16 +131,16 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getSetLookAndFeel_LookAndFeel() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		MethodDeclaration mainMethod = LafSupport.getMainMethod(m_lastEditor);
 		MethodInvocation setLookAndFeelMethod = LafSupport.getSetLookAndFeelMethod(mainMethod);
 		assertNotNull(setLookAndFeelMethod);
@@ -151,31 +151,31 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_addSetLookAndFeel() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		LafInfo lafInfo = new LafInfo("Metal", "Metal", MetalLookAndFeel.class.getName());
 		lafInfo.applyInMain(m_lastEditor);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel('javax.swing.plaf.metal.MetalLookAndFeel');",
-				"    } catch (Throwable e) {",
-				"      e.printStackTrace();",
-				"    }",
-				"    try {",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+						} catch (Throwable e) {
+							e.printStackTrace();
+						}
+						try {
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -184,28 +184,28 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_modifySetLookAndFeel_String() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel('com.sun.java.swing.plaf.motif.MotifLookAndFeel');",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		LafInfo lafInfo = new LafInfo("Metal", "Metal", MetalLookAndFeel.class.getName());
 		lafInfo.applyInMain(m_lastEditor);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel('javax.swing.plaf.metal.MetalLookAndFeel');",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -214,28 +214,28 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_modifySetLookAndFeel_LookAndFeel() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		LafInfo lafInfo = new LafInfo("Metal", "Metal", MetalLookAndFeel.class.getName());
 		lafInfo.applyInMain(m_lastEditor);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(\"javax.swing.plaf.metal.MetalLookAndFeel\");",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -244,31 +244,31 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_addSetSystemLookAndFeel() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		LafInfo lafInfo = SystemLafInfo.INSTANCE;
 		lafInfo.applyInMain(m_lastEditor);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());",
-				"    } catch (Throwable e) {",
-				"      e.printStackTrace();",
-				"    }",
-				"    try {",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+						} catch (Throwable e) {
+							e.printStackTrace();
+						}
+						try {
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -278,28 +278,28 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_modifySetSystemLookAndFeel_String() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel('com.sun.java.swing.plaf.motif.MotifLookAndFeel');",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		LafInfo lafInfo = SystemLafInfo.INSTANCE;
 		lafInfo.applyInMain(m_lastEditor);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -309,28 +309,28 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_modifySetSystemLookAndFeel_LookAndFeel() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		LafInfo lafInfo = SystemLafInfo.INSTANCE;
 		lafInfo.applyInMain(m_lastEditor);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -339,27 +339,27 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_removeSetSystemLookAndFeel_without_try() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 		LafInfo lafInfo = UndefinedLafInfo.INSTANCE;
 		lafInfo.applyInMain(m_lastEditor);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							JPanel panel = new JPanel();
+						} catch (Throwable e) {
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -368,33 +368,33 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_removeSetSystemLookAndFeel_with_try() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());",
-				"    } catch (Throwable e) {",
-				"      e.printStackTrace();",
-				"    } finally {",
-				"      System.out.println();",
-				"    }",
-				"    try {",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable ex) {",
-				"    }",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+						} catch (Throwable e) {
+							e.printStackTrace();
+						} finally {
+							System.out.println();
+						}
+						try {
+							JPanel panel = new JPanel();
+						} catch (Throwable ex) {
+						}
+					}
+				}""");
 		LafInfo lafInfo = UndefinedLafInfo.INSTANCE;
 		lafInfo.applyInMain(m_lastEditor);
-		assertEditor(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    try {",
-				"      JPanel panel = new JPanel();",
-				"    } catch (Throwable ex) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							JPanel panel = new JPanel();
+						} catch (Throwable ex) {
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -474,13 +474,12 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_get_selected_LAF_default() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    JPanel panel = new JPanel();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+					}
+				}""");
 		LafInfo selectedLAF = LafSupport.getSelectedLAF(panel);
 		if (EnvironmentUtils.IS_LINUX) {
 			assertEquals(selectedLAF.getClassName(), "javax.swing.plaf.metal.MetalLookAndFeel");
@@ -494,13 +493,12 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_get_selected_changed() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    JPanel panel = new JPanel();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+					}
+				}""");
 		// set <undefined> LAF (<system> set by default)
 		LafInfo undefinedLAF = UndefinedLafInfo.INSTANCE;
 		LafSupport.selectLAF(panel, undefinedLAF);
@@ -513,14 +511,12 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_get_selected_changed_reparse() throws Exception {
-		String[] source =
-				new String[]{
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    JPanel panel = new JPanel();",
-						"  }",
-		"}"};
-		ContainerInfo panel = parseContainer(source);
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+					}
+				}""");
 		// set <undefined> LAF
 		LafInfo undefinedLAF = UndefinedLafInfo.INSTANCE;
 		LafSupport.selectLAF(panel, undefinedLAF);
@@ -534,18 +530,16 @@ public class LookAndFeelTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_get_selected_changed_reparse_installed_in_main() throws Exception {
-		String[] source =
-				new String[]{
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    try {",
-						"      UIManager.setLookAndFeel(\"com.sun.java.swing.plaf.motif.MotifLookAndFeel\");",
-						"    } catch (Throwable e) {",
-						"    }",
-						"    JPanel panel = new JPanel();",
-						"  }",
-		"}"};
-		ContainerInfo panel = parseContainer(source);
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						try {
+							UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+						} catch (Throwable e) {
+						}
+						JPanel panel = new JPanel();
+					}
+				}""");
 		// set <system> LAF
 		LafInfo systemLAF = SystemLafInfo.INSTANCE;
 		LafSupport.selectLAF(panel, systemLAF);

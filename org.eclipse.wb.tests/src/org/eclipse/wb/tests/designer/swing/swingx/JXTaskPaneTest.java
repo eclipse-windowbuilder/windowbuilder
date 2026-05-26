@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,16 +48,15 @@ public class JXTaskPaneTest extends SwingxModelTest {
 	@Test
 	public void test_Action_parse() throws Exception {
 		createExternalAction();
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  private ExternalAction action = new ExternalAction();",
-						"  Test() {",
-						"    JXTaskPane pane = new JXTaskPane();",
-						"    Component actionComponent = pane.add(action);",
-						"    add(pane);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					private ExternalAction action = new ExternalAction();
+					Test() {
+						JXTaskPane pane = new JXTaskPane();
+						Component actionComponent = pane.add(action);
+						add(pane);
+					}
+				}""");
 		panel.refresh();
 		//
 		assertEquals(ActionContainerInfo.getActions(panel).size(), 1);
@@ -74,39 +73,38 @@ public class JXTaskPaneTest extends SwingxModelTest {
 	 */
 	@Test
 	public void test_Action_CREATE() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    JXTaskPane pane = new JXTaskPane();",
-						"    add(pane);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						JXTaskPane pane = new JXTaskPane();
+						add(pane);
+					}
+				}""");
 		panel.refresh();
 		JXTaskPaneInfo pane = (JXTaskPaneInfo) panel.getChildrenComponents().get(0);
 		// create Action
 		ActionInfo action = ActionInfo.createInner(pane.getEditor());
 		pane.command_CREATE(action, null);
 		// check
-		assertEditor(
-				"class Test extends JPanel {",
-				"  private final Action action = new SwingAction();",
-				"  Test() {",
-				"    JXTaskPane pane = new JXTaskPane();",
-				"    add(pane);",
-				"    {",
-				"      Component component = pane.add(action);",
-				"    }",
-				"  }",
-				"  private class SwingAction extends AbstractAction {",
-				"    public SwingAction() {",
-				"      putValue(NAME, 'SwingAction');",
-				"      putValue(SHORT_DESCRIPTION, 'Some short description');",
-				"    }",
-				"    public void actionPerformed(ActionEvent e) {",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends JPanel {
+					private final Action action = new SwingAction();
+					Test() {
+						JXTaskPane pane = new JXTaskPane();
+						add(pane);
+						{
+							Component component = pane.add(action);
+						}
+					}
+					private class SwingAction extends AbstractAction {
+						public SwingAction() {
+							putValue(NAME, "SwingAction");
+							putValue(SHORT_DESCRIPTION, "Some short description");
+						}
+						public void actionPerformed(ActionEvent e) {
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -118,17 +116,15 @@ public class JXTaskPaneTest extends SwingxModelTest {
 	 * Create {@link CompilationUnit} with external {@link Action}.
 	 */
 	private void createExternalAction() throws Exception {
-		setFileContentSrc(
-				"test/ExternalAction.java",
-				getTestSource(
-						"public class ExternalAction extends AbstractAction {",
-						"  public ExternalAction() {",
-						"    putValue(NAME, 'My name');",
-						"    putValue(SHORT_DESCRIPTION, 'My short description');",
-						"  }",
-						"  public void actionPerformed(ActionEvent e) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ExternalAction.java", getTestSource("""
+				public class ExternalAction extends AbstractAction {
+					public ExternalAction() {
+						putValue(NAME, "My name");
+						putValue(SHORT_DESCRIPTION, "My short description");
+					}
+					public void actionPerformed(ActionEvent e) {
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 }
