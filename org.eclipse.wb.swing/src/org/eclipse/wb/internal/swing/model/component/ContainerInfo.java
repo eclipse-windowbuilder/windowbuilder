@@ -112,10 +112,18 @@ public class ContainerInfo extends ComponentInfo {
 				throw new DesignerException(IExceptionConstants.DOUBLE_SET_LAYOUT, //
 						m_this.getEditor().getLineNumber(newLayout.getSourcePosition()), //
 						m_this.getPresentation().getText(), //
-						existingLayout.getDescription().getComponentClass().getName(), //
-						newLayout.getDescription().getComponentClass().getName());
+						getLayoutName(existingLayout), //
+						getLayoutName(newLayout));
 			}
 		});
+	}
+
+	private static String getLayoutName(JavaInfo layoutInfo) {
+		Class<?> componentClass = layoutInfo.getDescription().getComponentClass();
+		if (componentClass == null) {
+			return null;
+		}
+		return componentClass.getName();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
