@@ -20,8 +20,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <baseline.repo>https://download.eclipse.org/releases/2026-03</baseline.repo>
-    <eclipse.repo>https://download.eclipse.org/releases/2026-06</eclipse.repo>
+    <baseline.repo>https://download.eclipse.org/releases/2026-06</baseline.repo>
+    <eclipse.repo>https://download.eclipse.org/releases/2026-09</eclipse.repo>
     <tycho.sbom.url>${eclipse.repo}</tycho.sbom.url>
     <target-platform>${maven.multiModuleProjectDirectory}/target-platform/wb.target</target-platform>
   </properties>
@@ -149,13 +149,13 @@
         <plugin>
           <groupId>org.asciidoctor</groupId>
           <artifactId>asciidoctor-maven-plugin</artifactId>
-          <version>2.2.6</version>
+          <version>3.2.0</version>
           <dependencies>
             <!-- Required for source-code highlighting -->
             <dependency>
               <groupId>org.jruby</groupId>
               <artifactId>jruby</artifactId>
-              <version>9.4.8.0</version>
+              <version>9.4.15.0</version>
             </dependency>
           </dependencies>
           <configuration>
