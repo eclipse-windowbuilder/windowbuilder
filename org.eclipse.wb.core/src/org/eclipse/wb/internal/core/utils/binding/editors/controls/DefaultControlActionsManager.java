@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.texteditor.IWorkbenchActionDefinitionIds;
+import org.eclipse.ui.IWorkbenchCommandConstants;
 
 /**
  * Default manager for installing/unistalling global handlers for {@link Control} actions commands.
@@ -41,7 +41,7 @@ public class DefaultControlActionsManager extends AbstractControlActionsManager 
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected IHandler getHandlerFor(String actionName) {
-		if (actionName.equalsIgnoreCase(IWorkbenchActionDefinitionIds.SELECT_ALL)) {
+		if (IWorkbenchCommandConstants.EDIT_SELECT_ALL.equals(actionName)) {
 			return SELECTALL_HANDLER;
 		}
 		return super.getHandlerFor(actionName);
