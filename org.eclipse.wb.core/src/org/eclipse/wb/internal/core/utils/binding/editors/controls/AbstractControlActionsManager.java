@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,10 +25,10 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.ISources;
+import org.eclipse.ui.IWorkbenchCommandConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.IHandlerActivation;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.eclipse.ui.texteditor.IWorkbenchActionDefinitionIds;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -40,15 +40,14 @@ import java.util.List;
  * @author mitin_aa
  */
 public abstract class AbstractControlActionsManager {
-	@SuppressWarnings("deprecation")
-	protected final Object[] COMMAND_HANDLER_IDS = new Object[]{
-			IWorkbenchActionDefinitionIds.COPY,
-			IWorkbenchActionDefinitionIds.CUT,
-			IWorkbenchActionDefinitionIds.PASTE,
-			IWorkbenchActionDefinitionIds.DELETE,
-			IWorkbenchActionDefinitionIds.SELECT_ALL,
-			IWorkbenchActionDefinitionIds.UNDO,
-			IWorkbenchActionDefinitionIds.REDO};
+	private final String[] COMMAND_HANDLER_IDS = new String[] {
+			IWorkbenchCommandConstants.EDIT_COPY,
+			IWorkbenchCommandConstants.EDIT_CUT,
+			IWorkbenchCommandConstants.EDIT_PASTE,
+			IWorkbenchCommandConstants.EDIT_DELETE,
+			IWorkbenchCommandConstants.EDIT_SELECT_ALL,
+			IWorkbenchCommandConstants.EDIT_UNDO,
+			IWorkbenchCommandConstants.EDIT_REDO};
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -123,7 +122,7 @@ public abstract class AbstractControlActionsManager {
 	protected void activateHandlers() {
 		IHandlerService service = getHandlerService();
 		for (int i = 0; i < COMMAND_HANDLER_IDS.length; ++i) {
-			String actionName = (String) COMMAND_HANDLER_IDS[i];
+			String actionName = COMMAND_HANDLER_IDS[i];
 			IHandler handler = getHandlerFor(actionName);
 			activateHandler(actionName, service, handler, new Expression() {
 				@Override
