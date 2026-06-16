@@ -239,7 +239,7 @@ public abstract class OSSupportLinux extends OSSupport {
 				offset.y -= getWidgetBounds(shell.getMenuBar()).height;
 			}
 			// draw
-			Image decoratedShellImage = new Image(display, shellBounds);
+			Image decoratedShellImage = new Image(display, shellBounds.width, shellBounds.height);
 			GC gc = new GC(decoratedShellImage);
 			// draw background
 			gc.setBackground(ColorConstants.titleBackground);
