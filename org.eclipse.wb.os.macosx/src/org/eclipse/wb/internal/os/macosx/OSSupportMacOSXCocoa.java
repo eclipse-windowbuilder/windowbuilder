@@ -65,7 +65,7 @@ public abstract class OSSupportMacOSXCocoa<H extends Number> extends OSSupportMa
 				return null;
 			}
 			H view = getID(control, "view");
-			Image image = new Image(control.getDisplay(), bounds);
+			Image image = new Image(control.getDisplay(), bounds.width, bounds.height);
 			GC gc = new GC(image);
 			H context = getID(gc, "handle");
 			if (control instanceof Shell) {
