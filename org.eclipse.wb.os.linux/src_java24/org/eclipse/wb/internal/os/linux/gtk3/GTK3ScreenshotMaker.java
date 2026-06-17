@@ -27,10 +27,6 @@ import org.eclipse.wb.internal.os.linux.cairo.CairoSurface;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Widget;
 
 import java.util.function.BiConsumer;
 
@@ -40,29 +36,6 @@ import java.util.function.BiConsumer;
 public class GTK3ScreenshotMaker extends ScreenshotMaker {
 
 	@Override
-	protected Image makeShot(Shell shell, BiConsumer<GtkWidget, Image> callback) {
-		return traverse(shell, callback);
-	}
-
-	private Image traverse(Widget widget, BiConsumer<GtkWidget, Image> callback) {
-		Image image = getImageSurface(GtkWidget.from(widget), callback);
-		if (image == null) {
-			return null;
-		}
-		if (widget instanceof Composite composite) {
-			for (Control childWidget : composite.getChildren()) {
-				Image childImage = traverse(childWidget, callback);
-				if (childImage == null) {
-					continue;
-				}
-				if (callback == null) {
-					childImage.dispose();
-				}
-			}
-		}
-		return image;
-	}
-
 	protected Image getImageSurface(GtkWidget widget, BiConsumer<GtkWidget, Image> callback) {
 		GdkWindow window = GTK3.gtk_widget_get_window(widget);
 		if (!GDK3.gdk_window_is_visible(window)) {

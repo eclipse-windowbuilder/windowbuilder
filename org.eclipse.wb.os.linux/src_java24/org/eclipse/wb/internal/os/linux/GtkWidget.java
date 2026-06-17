@@ -16,33 +16,27 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.swt.widgets.Widget;
 
-import java.lang.foreign.MemorySegment;
 import java.util.Objects;
 
 /**
  * GtkWidget is the base class all widgets in GTK+ derive from. It manages the
  * widget lifecycle, states and style.
  */
-public class GtkWidget {
-	private final MemorySegment segment;
+public class GtkWidget extends GObject {
 
 	protected GtkWidget(long handle) {
-		segment = handle == 0L ? MemorySegment.NULL : MemorySegment.ofAddress(handle);
-	}
-
-	public MemorySegment segment() {
-		return segment;
+		super(handle);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(segment.address());
+		return Objects.hash(segment().address());
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof GtkWidget other) {
-			return segment.address() == other.segment.address();
+			return segment().address() == other.segment().address();
 		}
 		return false;
 	}

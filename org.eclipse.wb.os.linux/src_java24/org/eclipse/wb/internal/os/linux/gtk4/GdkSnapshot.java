@@ -10,17 +10,14 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.internal.os.linux.gtk3;
+package org.eclipse.wb.internal.os.linux.gtk4;
 
 import org.eclipse.wb.internal.os.linux.GObject;
 
 import java.lang.foreign.MemorySegment;
 
-/**
- * A GDK window.
- */
-public class GdkWindow extends GObject {
-	protected GdkWindow(MemorySegment segment) {
+public class GdkSnapshot extends GObject {
+	public GdkSnapshot(MemorySegment segment) {
 		super(segment);
 	}
 }

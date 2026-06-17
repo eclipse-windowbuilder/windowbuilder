@@ -26,7 +26,7 @@ public abstract class GTK extends Native {
 
 	static {
 		if (isGtk4()) {
-			GTK = SymbolLookup.libraryLookup("libgtk-4.so.0", Arena.ofAuto());
+			GTK = SymbolLookup.libraryLookup("libgtk-4.so.1", Arena.ofAuto());
 		} else {
 			GTK = SymbolLookup.libraryLookup("libgtk-3.so.0", Arena.ofAuto());
 		}
