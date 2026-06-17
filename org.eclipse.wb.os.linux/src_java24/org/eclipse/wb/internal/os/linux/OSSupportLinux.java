@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.os.linux.gtk3.GTK3;
 import org.eclipse.wb.internal.os.linux.gtk3.GTK3ScreenshotMaker;
 import org.eclipse.wb.internal.os.linux.gtk3.GtkWindow;
+import org.eclipse.wb.internal.os.linux.gtk4.GTK4ScreenshotMaker;
 import org.eclipse.wb.internal.swt.VisualDataMockupProvider;
 import org.eclipse.wb.os.OSSupport;
 
@@ -44,7 +45,7 @@ import java.util.List;
 public final class OSSupportLinux extends OSSupport {
 	private static Version SWT_VERSION_3_126 = new Version(3, 126, 0);
 	private final VisualDataMockupProvider mockupProvider = new VisualDataMockupProvider();
-	private final ScreenshotMaker screenshotMaker = new GTK3ScreenshotMaker();
+	private final ScreenshotMaker screenshotMaker = GTK.isGtk4() ? new GTK4ScreenshotMaker() : new GTK3ScreenshotMaker();
 	private Shell m_eclipseShell;
 
 	////////////////////////////////////////////////////////////////////////////

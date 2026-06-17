@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 
 import java.lang.foreign.MemorySegment;
 import java.util.HashMap;
@@ -148,7 +149,30 @@ public abstract class ScreenshotMaker {
 	 *                 model. Can be <code>null</code>.
 	 * @return the GdkPixmap* or cairo_surface_t* of {@link Shell}.
 	 */
-	protected abstract Image makeShot(Shell shell, BiConsumer<GtkWidget, Image> callback);
+	protected final Image makeShot(Shell shell, BiConsumer<GtkWidget, Image> callback) {
+		return traverse(shell, callback);
+	}
+
+	private Image traverse(Widget widget, BiConsumer<GtkWidget, Image> callback) {
+		Image image = getImageSurface(GtkWidget.from(widget), callback);
+		if (image == null) {
+			return null;
+		}
+		if (widget instanceof Composite composite) {
+			for (Control childWidget : composite.getChildren()) {
+				Image childImage = traverse(childWidget, callback);
+				if (childImage == null) {
+					continue;
+				}
+				if (callback == null) {
+					childImage.dispose();
+				}
+			}
+		}
+		return image;
+	}
+
+	protected abstract Image getImageSurface(GtkWidget widget, BiConsumer<GtkWidget, Image> callback);
 
 	private boolean bindImage(final Control control, final Image image) {
 		if (control.getData(OSSupport.WBP_NEED_IMAGE) != null && control.getData(OSSupport.WBP_IMAGE) == null) {

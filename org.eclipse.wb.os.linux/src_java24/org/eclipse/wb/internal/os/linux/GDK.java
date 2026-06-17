@@ -29,7 +29,7 @@ public class GDK extends Native {
 
 	static {
 		if (isGtk4()) {
-			GDK = SymbolLookup.libraryLookup("libgdk-4.so.0", Arena.ofAuto());
+			GDK = GTK.GTK;
 		} else {
 			GDK = SymbolLookup.libraryLookup("libgdk-3.so.0", Arena.ofAuto());
 		}
