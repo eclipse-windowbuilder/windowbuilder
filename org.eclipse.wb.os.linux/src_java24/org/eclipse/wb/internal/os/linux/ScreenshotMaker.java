@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 
 import java.lang.foreign.MemorySegment;
 import java.util.HashMap;
@@ -148,7 +149,40 @@ public abstract class ScreenshotMaker {
 	 *                 model. Can be <code>null</code>.
 	 * @return the GdkPixmap* or cairo_surface_t* of {@link Shell}.
 	 */
-	protected abstract Image makeShot(Shell shell, BiConsumer<GtkWidget, Image> callback);
+	protected Image makeShot(Shell shell, BiConsumer<GtkWidget, Image> callback) {
+		return traverse(shell, callback);
+	}
+
+	private Image traverse(Widget w, BiConsumer<GtkWidget, Image> callback) {
+		GtkWidget widget = GtkWidget.from(w);
+		Image image = getImageSurface(GtkWidget.from(w));
+		if (image == null) {
+			return null;
+		}
+		if (callback != null) {
+			callback.accept(widget, image);
+		}
+		if (w instanceof Composite composite) {
+			for (Control childWidget : composite.getChildren()) {
+				Image childImage = traverse(childWidget, callback);
+				if (childImage == null) {
+					continue;
+				}
+				if (callback == null) {
+					childImage.dispose();
+				}
+			}
+		}
+		return image;
+	}
+
+	/**
+	 * Captures the given widget.
+	 *
+	 * @param widget The widget to capture
+	 * @return An image containing the visual representation of the given widget.
+	 */
+	protected abstract Image getImageSurface(GtkWidget widget);
 
 	private boolean bindImage(final Control control, final Image image) {
 		if (control.getData(OSSupport.WBP_NEED_IMAGE) != null && control.getData(OSSupport.WBP_IMAGE) == null) {
