@@ -1,0 +1,14 @@
+ifdef::env-github[]
+:imagesdir: ../../html/whatsnew
+endif::[]
+
+= What's New - v1.25.0
+
+== General
+
+- [Linux] Wayland Support for SWT Designer
+
+The screenshot mechanism for GTK3 has been adapted to support both X11 and Wayland. _Note_ This support is only
+available with Java 24 or higher.
+
+What's new - xref:v124.adoc[*v1.24.0*]
