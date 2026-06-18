@@ -10,7 +10,11 @@
  * Contributors:
  *    Patrick Ziegler - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wb.internal.os.linux.cairo;
+package org.eclipse.wb.internal.os.linux;
+
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import org.eclipse.swt.graphics.GC;
 
 import java.lang.foreign.MemorySegment;
 
@@ -21,6 +25,19 @@ import java.lang.foreign.MemorySegment;
  * Cairo contexts, as {@code cairo_t} objects are named, are central to cairo
  * and all drawing with cairo is always done to a cairo_t object.
  */
-public record CairoContext(MemorySegment segment) {
+public record Cairo(MemorySegment segment) {
+	/**
+	 * Creates a new CairoContext instance associated with the GC object.
+	 *
+	 * @param gc The context to paint on.
+	 * @return The Cairo context backed by the given GC.
+	 */
+	public static Cairo from(GC gc) {
+		long handle = getHandleValue(gc, "handle");
+		return new Cairo(MemorySegment.ofAddress(handle));
+	}
 
+	private static long getHandleValue(GC gc, String fieldName) {
+		return ReflectionUtils.getFieldLong(gc, fieldName);
+	}
 }
