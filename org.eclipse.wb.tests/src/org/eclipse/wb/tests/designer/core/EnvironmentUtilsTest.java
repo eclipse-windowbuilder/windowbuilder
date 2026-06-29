@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,16 +23,6 @@ import org.junit.jupiter.api.Test;
  * @author scheglov_ke
  */
 public class EnvironmentUtilsTest extends DesignerTestCase {
-	/**
-	 * Test for known state of host and development flag.
-	 */
-	@Test
-	public void test_DEVELOPER_HOST() throws Exception {
-		if ("SCHEGLOV-KE".equals(EnvironmentUtils.HOST_NAME)) {
-			assertTrue(EnvironmentUtils.DEVELOPER_HOST);
-		}
-	}
-
 	/**
 	 * Test for {@link EnvironmentUtils#getJavaVersion()}.
 	 */

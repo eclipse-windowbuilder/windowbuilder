@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,10 +15,10 @@ package org.eclipse.wb.internal.core.gef.policy.snapping;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.policy.snapping.PlacementInfo.AttachmentTypes;
-import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.Pair;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
@@ -43,6 +43,7 @@ import java.util.Set;
  * @coverage core.gef.policy.snapping
  */
 public final class PlacementsSupport {
+	private static final boolean DEBUG = Platform.getDebugBoolean("org.eclipse.wb.core/debug/placementSupport");
 	private final IVisualDataProvider m_visualDataProvider;
 	private final IFeedbackProxy m_feedbackProxy;
 	private final List<IAbstractComponentInfo> m_allWidgets;
@@ -406,9 +407,9 @@ public final class PlacementsSupport {
 			} else {
 				placeAttachedToWidget(widget, placementInfo, isHorizontal);
 			}
-		} else {
+		} else if (DEBUG) {
 			// overlapping
-			Debug.println("move overlapping");
+			System.out.println("move overlapping");
 		}
 	}
 
@@ -588,9 +589,9 @@ public final class PlacementsSupport {
 							resizeDelta);
 				}
 			}
-		} else {
+		} else if (DEBUG) {
 			// overlapping
-			Debug.println("resize overlapping");
+			System.out.println("resize overlapping");
 		}
 	}
 

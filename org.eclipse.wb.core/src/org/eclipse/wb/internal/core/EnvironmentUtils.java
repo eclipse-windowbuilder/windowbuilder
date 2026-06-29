@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,12 +14,9 @@ package org.eclipse.wb.internal.core;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.SystemUtils;
 
 import java.lang.Runtime.Version;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Locale;
 
 /**
@@ -29,24 +26,6 @@ import java.util.Locale;
  * @coverage core
  */
 public final class EnvironmentUtils extends AbstractUIPlugin {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Host
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public static final String HOST_NAME = getHostName();
-	public static final boolean DEVELOPER_HOST;
-	static {
-		String host = HOST_NAME.toUpperCase(Locale.ENGLISH);
-		DEVELOPER_HOST = "SCHEGLOV-KE".equals(host)
-				|| "SCHEGLOV-MACPRO".equals(host)
-				|| "SCHEGLOV-WIN".equals(host)
-				|| "SCHEGLOV".equals(host)
-				|| "MITIN-AA".equals(host)
-				|| "MITIN-AA-MAC".equals(host)
-				|| "SABLIN-AA".equals(host)
-				|| "FLANKER-WINDOWS".equals(host);
-	}
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Operating systems
@@ -94,23 +73,6 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
 	// System utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static String getHostName() {
-		String hostName = "";
-		try {
-			hostName = InetAddress.getLocalHost().getHostName();
-			String[] names = StringUtils.split(hostName, '.');
-			for (String name : names) {
-				if (StringUtils.isNumeric(name)) {
-					// getHostName() returned in a IP-address form
-					return hostName;
-				}
-			}
-			hostName = names[0];
-		} catch (UnknownHostException e) {
-		}
-		return hostName;
-	}
-
 	/**
 	 * Decides if the operating system matches.
 	 *

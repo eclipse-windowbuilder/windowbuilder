@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.rcp.wizards.swt.application;
 
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.rcp.Activator;
@@ -114,9 +113,5 @@ public final class SwtApplicationWizardPage extends RcpWizardPage {
 		GridDataFactory.create(m_mainButton).indentH(24);
 		//
 		createSeparator(parent, columns);
-		// I always use same names during tests
-		if (EnvironmentUtils.DEVELOPER_HOST) {
-			setTypeName("Application_1", true);
-		}
 	}
 }

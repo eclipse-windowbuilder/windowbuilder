@@ -35,7 +35,6 @@ import org.eclipse.wb.internal.core.parser.IJavaInfoParseResolver;
 import org.eclipse.wb.internal.core.parser.IParseFactory;
 import org.eclipse.wb.internal.core.parser.IParseRealm;
 import org.eclipse.wb.internal.core.parser.ParseRootContext;
-import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
@@ -44,6 +43,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.BundleClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.CompositeClassLoader;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
+import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.IExceptionConstants;
 import org.eclipse.wb.internal.rcp.RcpToolkitDescription;
 import org.eclipse.wb.internal.rcp.model.e4.E4PartInfo;
@@ -60,6 +60,7 @@ import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutI
 import org.eclipse.wb.internal.rcp.model.widgets.DialogInfo;
 import org.eclipse.wb.internal.rcp.preferences.IPreferenceConstants;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTVisitor;
@@ -108,6 +109,8 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 	public static final String[] NOT_EDITING_TYPES = {
 			"org.eclipse.swt.widgets.TabItem",
 			"org.eclipse.swt.custom.CTabItem",};
+
+	private static final boolean DEBUG = Platform.getDebugBoolean(Activator.PLUGIN_ID + "/debug/methodBinding");
 
 	@Override
 	public ParseRootContext getRootContext(AstEditor editor,
@@ -204,7 +207,9 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 		for (MethodDeclaration method : typeDeclaration.getMethods()) {
 			IMethodBinding methodBinding = method.resolveBinding();
 			if (methodBinding == null) {
-				Debug.println("Unable to resolve method binding for: " + method.getName());
+				if (DEBUG) {
+					System.out.println("Unable to resolve method binding for: " + method.getName());
+				}
 				continue;
 			}
 			IAnnotationBinding[] annotations = methodBinding.getAnnotations();
