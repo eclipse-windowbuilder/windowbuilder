@@ -1606,6 +1606,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 			//
 			////////////////////////////////////////////////////////////////////////////
 			@Override
+			@Deprecated
 			public boolean hasVirtualColumns() {
 				return true;
 			}
@@ -1626,6 +1627,7 @@ public final class FormLayoutInfo extends LayoutInfo implements IPreferenceConst
 			//
 			////////////////////////////////////////////////////////////////////////////
 			@Override
+			@Deprecated
 			public boolean hasVirtualRows() {
 				return true;
 			}

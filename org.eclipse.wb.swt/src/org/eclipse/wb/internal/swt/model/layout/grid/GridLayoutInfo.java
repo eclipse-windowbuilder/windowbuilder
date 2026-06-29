@@ -1194,6 +1194,7 @@ IGridLayoutInfo<ControlInfo> {
 			//
 			////////////////////////////////////////////////////////////////////////////
 			@Override
+			@Deprecated
 			public boolean hasVirtualColumns() {
 				return true;
 			}
@@ -1214,6 +1215,7 @@ IGridLayoutInfo<ControlInfo> {
 			//
 			////////////////////////////////////////////////////////////////////////////
 			@Override
+			@Deprecated
 			public boolean hasVirtualRows() {
 				return true;
 			}
