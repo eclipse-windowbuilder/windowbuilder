@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -549,6 +549,9 @@ public abstract class JavaInfoEvaluationHelper {
 				if (expression instanceof Assignment) {
 					evaluateAssignment(expression);
 				}
+			}
+			if (node instanceof MethodInvocation expression) {
+				evaluateExpression(expression);
 			}
 		} catch (Throwable e) {
 			ReflectionUtils.propagate(e);
