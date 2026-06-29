@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,9 +14,10 @@ package org.eclipse.wb.core.model.broadcast;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
+
+import org.eclipse.core.runtime.Platform;
 
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.InvocationHandlerAdapter;
@@ -39,6 +40,7 @@ import java.util.Map;
  * @coverage core.model
  */
 public final class BroadcastSupport {
+	private static final boolean DEBUG = Platform.getDebugBoolean("org.eclipse.wb.core/debug/broadcastSupport");
 	/**
 	 * {@link Map} for "listener class" -> "listener implementations".
 	 */
@@ -126,7 +128,7 @@ public final class BroadcastSupport {
 		// new case - implement single listener interface
 		{
 			Class<?>[] interfaces = implClass.getInterfaces();
-			if (EnvironmentUtils.DEVELOPER_HOST) {
+			if (DEBUG) {
 				Assert.isTrue(
 						interfaces.length == 1,
 						"Only one listener interface expected, but %s found.",

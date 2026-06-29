@@ -1200,7 +1200,7 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 
 	private void highlightVisitedNodes(VisitedNodes visitedNodes) throws JavaModelException {
 		// don't call DesignPageSite methods
-		if (EnvironmentUtils.DEVELOPER_HOST && EnvironmentUtils.isTestingTime()) {
+		if (EnvironmentUtils.isTestingTime()) {
 			return;
 		}
 		// do highlight

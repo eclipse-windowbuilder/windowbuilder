@@ -1,0 +1,10 @@
+# Debugging options for the org.eclipse.wb.core plugin.
+
+# Turn on validation of broadcast listeners
+org.eclipse.wb.core/debug/broadcastSupport=false
+
+# Turn on tracing of exceptions
+org.eclipse.wb.core/debug/exceptions=false
+
+# Turn on tracing of overlapping components
+org.eclipse.wb.core/debug/placementSupport=false

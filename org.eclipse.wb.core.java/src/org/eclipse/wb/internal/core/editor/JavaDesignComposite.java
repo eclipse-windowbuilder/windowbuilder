@@ -20,9 +20,9 @@ import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.editor.actions.SelectSupport;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette;
 import org.eclipse.wb.internal.core.model.DesignRootObject;
-import org.eclipse.wb.internal.core.utils.Debug;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
@@ -38,6 +38,7 @@ import org.eclipse.ui.IEditorPart;
  * @coverage core.editor
  */
 public final class JavaDesignComposite extends DesignComposite {
+	private static final boolean DEBUG = Platform.getDebugBoolean("org.eclipse.wb.core.java/debug/perf");
 	private DesignPageActions m_pageActions;
 	private JavaDesignToolbarHelper m_toolbarHelper;
 	private DesignerPalette m_designerPalette;
@@ -148,7 +149,9 @@ public final class JavaDesignComposite extends DesignComposite {
 				String toolkitId = m_rootObject.getDescription().getToolkit().getId();
 				m_designerPalette.setInput(m_viewer, m_rootObject, toolkitId);
 			}
-			Debug.println("palette: " + (System.currentTimeMillis() - start));
+			if (DEBUG) {
+				System.out.println("palette: " + (System.currentTimeMillis() - start));
+			}
 		}
 		{
 			monitor.subTask("Configuring errors action...");

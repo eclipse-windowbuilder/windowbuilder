@@ -34,7 +34,6 @@ import org.eclipse.wb.internal.core.editor.structure.PartListenerAdapter;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.util.GlobalStateJava;
 import org.eclipse.wb.internal.core.parser.JavaInfoParser;
-import org.eclipse.wb.internal.core.utils.Debug;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
@@ -49,6 +48,7 @@ import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -73,6 +73,7 @@ import java.util.Map;
  * @coverage core.editor
  */
 public final class DesignPage implements IDesignPage {
+	private static final boolean DEBUG = Platform.getDebugBoolean("org.eclipse.wb.core.java/debug/perf");
 	private boolean m_disposed;
 	private DesignerEditor m_designerEditor;
 	private ICompilationUnit m_compilationUnit;
@@ -532,10 +533,14 @@ public final class DesignPage implements IDesignPage {
 		try {
 			long start = System.currentTimeMillis();
 			monitor.subTask("Parsing...");
-			Debug.print("Parsing...");
+			if (DEBUG) {
+				System.out.print("Parsing...");
+			}
 			m_rootObject = JavaInfoParser.parse(m_compilationUnit);
 			monitor.worked(1);
-			Debug.println("done: " + (System.currentTimeMillis() - start));
+			if (DEBUG) {
+				System.out.println("done: " + (System.currentTimeMillis() - start));
+			}
 		} finally {
 			// notify parseEnd()
 			for (EditorLifeCycleListener listener : getLifeCycleListeners()) {
@@ -581,7 +586,9 @@ public final class DesignPage implements IDesignPage {
 			monitor.subTask("Refreshing...");
 			ExecutionUtils.runRethrowUI(m_rootObject::refresh);
 			monitor.worked(1);
-			Debug.println("refresh: " + (System.currentTimeMillis() - start));
+			if (DEBUG) {
+				System.out.println("refresh: " + (System.currentTimeMillis() - start));
+			}
 		}
 		// refresh design
 		ExecutionUtils.runRethrowUI(() -> m_designComposite.refresh(m_rootObject, monitor));

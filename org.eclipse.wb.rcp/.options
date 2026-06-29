@@ -1,0 +1,4 @@
+# Debugging options for the org.eclipse.wb.rcp plugin.
+
+# Turn on tracing of AST method binding resolution
+org.eclipse.wb.rcp/debug/methodBinding=false

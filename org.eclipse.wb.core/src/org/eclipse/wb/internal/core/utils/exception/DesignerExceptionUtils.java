@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.branding.BrandingUtils;
 import org.eclipse.wb.core.controls.BrowserComposite;
 import org.eclipse.wb.core.editor.errors.IExceptionRewriter;
 import org.eclipse.wb.internal.core.DesignerPlugin;
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.errors.ErrorEntryInfo;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
@@ -28,6 +27,7 @@ import org.eclipse.wb.internal.core.utils.xml.parser.QHandlerAdapter;
 import org.eclipse.wb.internal.core.utils.xml.parser.QParser;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.dnd.Clipboard;
@@ -68,6 +68,7 @@ import java.util.TreeMap;
  * @coverage core.util
  */
 public final class DesignerExceptionUtils {
+	private static final boolean DEBUG = Platform.getDebugBoolean("org.eclipse.wb.core/debug/exceptions");
 	/**
 	 * @return the HTML for displaying given {@link Throwable}.
 	 *
@@ -407,7 +408,7 @@ public final class DesignerExceptionUtils {
 	}
 
 	private static ErrorEntryInfo getErrorEntry0(int exceptionCode) {
-		if (m_codeToDescription == null || EnvironmentUtils.DEVELOPER_HOST) {
+		if (m_codeToDescription == null || DEBUG) {
 			fillErrorEntries();
 		}
 		return m_codeToDescription.get(exceptionCode);

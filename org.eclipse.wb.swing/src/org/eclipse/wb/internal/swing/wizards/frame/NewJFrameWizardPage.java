@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.wizards.frame;
 
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.dialogfields.CheckDialogField;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -89,10 +88,6 @@ public final class NewJFrameWizardPage extends SwingWizardPage {
 		m_advancedField.setLabelText(Messages.NewJFrameWizardPage_useAdvancedTemplate);
 		m_advancedField.setSelection(true);
 		m_advancedField.doFillIntoGrid(composite, 1);
-		// I always use same names during tests
-		if (EnvironmentUtils.DEVELOPER_HOST) {
-			setTypeName("JFrame_1", true);
-		}
 	}
 
 	@Override
@@ -103,10 +98,6 @@ public final class NewJFrameWizardPage extends SwingWizardPage {
 			m_advancedField.setSelection(true);
 		} else {
 			m_advancedField.setEnabled(false);
-			m_advancedField.setSelection(false);
-		}
-		// I don't like advanced template anymore :-(
-		if (EnvironmentUtils.DEVELOPER_HOST) {
 			m_advancedField.setSelection(false);
 		}
 	}
