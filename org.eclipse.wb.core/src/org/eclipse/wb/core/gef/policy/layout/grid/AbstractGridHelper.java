@@ -155,6 +155,7 @@ public abstract class AbstractGridHelper {
 	/**
 	 * Shows the grid feedback.
 	 */
+	@SuppressWarnings("removal")
 	public final void showGridFeedback() {
 		if (m_gridFigure != null) {
 			return;

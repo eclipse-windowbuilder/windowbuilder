@@ -286,6 +286,7 @@ public class GridLayoutTest extends RcpModelTest {
 	 * Test for {@link IGridInfo}.
 	 */
 	@Test
+	@SuppressWarnings("removal")
 	public void test_gridInfo() throws Exception {
 		CompositeInfo shell = parseComposite("""
 				class Test extends Shell {

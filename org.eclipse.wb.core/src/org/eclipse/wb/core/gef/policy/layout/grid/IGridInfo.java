@@ -95,10 +95,11 @@ public interface IGridInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return <code>true</code> if this {@link IGridInfo} supports virtual columns. For example in
-	 *         GWT widget HTMLTable always filled with columns/rows, so virtual columns/rows don't
-	 *         exist.
+	 * @return <code>true</code> if this {@link IGridInfo} supports virtual columns.
+	 * @deprecated Always returns {@code true}. This method will be removed after
+	 *             the 2028-09 release.
 	 */
+	@Deprecated(since = "2026-09", forRemoval = true)
 	boolean hasVirtualColumns();
 
 	/**
@@ -117,9 +118,11 @@ public interface IGridInfo {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return <code>true</code> if this {@link IGridInfo} supports virtual rows. For example in GWT
-	 *         widget HTMLTable always filled with columns/rows, so virtual columns/rows don't exist.
+	 * @return <code>true</code> if this {@link IGridInfo} supports virtual rows.
+	 * @deprecated Always returns {@code true}. This method will be removed after
+	 *             the 2028-09 release.
 	 */
+	@Deprecated(since = "2026-09", forRemoval = true)
 	boolean hasVirtualRows();
 
 	/**
