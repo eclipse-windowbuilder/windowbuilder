@@ -133,6 +133,39 @@ public class GridBagConstraintsTest extends AbstractGridBagLayoutTest {
 	}
 
 	@Test
+	public void test_access1() throws Exception {
+		test_access("\t\tlayout.setConstraints(label, new GridBagConstraints(0, 0, 1, 1, 100, 100, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(10, 10, 0, 0), 5, 5));");
+	}
+
+	@Test
+	public void test_access2() throws Exception {
+		test_access("""
+				\t\tGridBagConstraints constraints = new GridBagConstraints(0, 0, 1, 1, 100, 100, GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(10, 10, 0, 0), 5, 5);
+				\t\tlayout.setConstraints(label, constraints);
+				""");
+	}
+
+	private void test_access(String code) throws Exception {
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						GridBagLayout layout = new GridBagLayout();
+						setLayout(layout);
+
+						JLabel label = new JLabel("New label");
+						add(label);
+
+				%s
+					}
+				}""".formatted(code));
+		ContainerInfo label = panel.getChildren(ContainerInfo.class).getFirst();
+		GridBagConstraintsInfo constraints = GridBagLayoutInfo.getConstraintsFor(label);
+
+		assertEquals(constraints.getInsets("left"), 10);
+		assertEquals(constraints.getInsets("top"), 10);
+	}
+
+	@Test
 	public void test_properties() throws Exception {
 		ContainerInfo panel = parseContainer("""
 				class Test extends JPanel {
