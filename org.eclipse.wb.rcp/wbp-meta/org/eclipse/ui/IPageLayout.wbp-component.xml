@@ -52,7 +52,6 @@
 	</methods>
 	<!-- PROPERTIES -->
 	<standard-bean-properties/>
-	<properties-advanced names="editorReuseThreshold"/>
 	<property id="setEditorAreaVisible(boolean)">
 		<defaultValue value="true"/>
 	</property>

@@ -80,7 +80,8 @@ IDescriptionVersionsProviderFactory {
 				"4.7",
 				"4.8",
 				"4.9",
-				"4.10");
+				"4.10",
+				"4.11");
 		return new FromListDescriptionVersionsProvider(allVersions, version) {
 			@Override
 			protected boolean validate(Class<?> componentClass) throws Exception {
@@ -116,6 +117,9 @@ IDescriptionVersionsProviderFactory {
 		// between 4.965 and 4.972 then we can't distinguish between them (as both have
 		// version 4.9). Instead we have to manually bump the minor version whenever
 		// there is a "breaking" change.
-		return 10;
+		if (version < 4973) {
+			return 10;
+		}
+		return 11;
 	}
 }

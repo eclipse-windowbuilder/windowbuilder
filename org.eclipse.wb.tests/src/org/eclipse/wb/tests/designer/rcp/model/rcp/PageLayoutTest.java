@@ -296,10 +296,6 @@ public class PageLayoutTest extends RcpModelTest {
 			assertTrue((Boolean) property.getValue());
 		}
 		{
-			Property property = page.getPropertyByTitle("editorReuseThreshold");
-			assertNotNull(property);
-		}
-		{
 			Property property = page.getPropertyByTitle("fixed");
 			assertNotNull(property);
 			assertFalse((Boolean) property.getValue());

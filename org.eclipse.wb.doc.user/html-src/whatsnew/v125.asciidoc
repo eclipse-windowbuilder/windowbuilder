@@ -4,6 +4,11 @@ endif::[]
 
 = What's New - v1.25.0
 
+== SWT
+
+- Deprecation of `IPageLayout.editorReuseThreshold`. The corresponding method has been deprecated in 2023 and removed
+  with the 2026-09 release. Support for this property will be fully removed after the 2028-09 release.
+
 == General
 
 - [Linux] Wayland Support for SWT Designer
