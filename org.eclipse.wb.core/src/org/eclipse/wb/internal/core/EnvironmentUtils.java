@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import org.apache.commons.lang3.SystemUtils;
@@ -195,5 +196,14 @@ public final class EnvironmentUtils extends AbstractUIPlugin {
 
 	public static boolean isBurningWaveEnabled() {
 		return Boolean.valueOf(System.getProperty(WBP_BURNINGWAVE, Boolean.FALSE.toString()));
+	}
+
+	private static final boolean IS_ICU4J_ENABLED = Platform.getBundle("com.ibm.icu") != null;
+
+	/**
+	 * ICU4J was removed as a platform dependency with the 2026-09 release.
+	 */
+	public static boolean isICU4JEnabled() {
+		return IS_ICU4J_ENABLED;
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.databinding.rcp;
 
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.tests.designer.core.TestProject;
 import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoTest;
@@ -28,7 +29,9 @@ public class DatabindingTestUtils {
 	 */
 	public static void configure(TestProject testProject) throws Exception {
 		BTestUtils.configure(testProject);
-		testProject.addPlugin("com.ibm.icu");
+		if (EnvironmentUtils.isICU4JEnabled()) {
+			testProject.addPlugin("com.ibm.icu");
+		}
 		testProject.addPlugin("org.eclipse.core.databinding");
 		testProject.addPlugin("org.eclipse.core.databinding.beans");
 		testProject.addPlugin("org.eclipse.core.databinding.observable");

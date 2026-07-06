@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -424,7 +424,9 @@ public final class ProjectUtils {
 		symbolicNames.add("org.eclipse.jface");
 		symbolicNames.add("org.eclipse.jface.text");
 		symbolicNames.add("org.eclipse.ui.workbench");
-		symbolicNames.add("com.ibm.icu");
+		if (EnvironmentUtils.isICU4JEnabled()) {
+			symbolicNames.add("com.ibm.icu");
+		}
 		symbolicNames.add("org.eclipse.ui.forms");
 		// SWT
 		String pluginId = "org.eclipse.swt." + SWT.getPlatform() + "." + Platform.getOS();

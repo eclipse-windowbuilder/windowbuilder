@@ -18,6 +18,7 @@ import org.eclipse.wb.core.eval.ExecutionFlowUtils2;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.association.ConstructorParentAssociation;
+import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
@@ -512,7 +513,9 @@ public final class ParseFactory extends org.eclipse.wb.internal.swt.parser.Parse
 	@Override
 	protected void initializeClassLoader_parent(AstEditor editor,
 			CompositeClassLoader parentClassLoader) throws Exception {
-		parentClassLoader.add(new BundleClassLoader("com.ibm.icu"), List.of("com.ibm.icu."));
+		if (EnvironmentUtils.isICU4JEnabled()) {
+			parentClassLoader.add(new BundleClassLoader("com.ibm.icu"), List.of("com.ibm.icu."));
+		}
 		parentClassLoader.add(new BundleClassLoader("org.eclipse.ui"), null);
 		parentClassLoader.add(new BundleClassLoader("org.eclipse.ui.forms"), null);
 		parentClassLoader.add(new BundleClassLoader("org.eclipse.jdt.ui"), null);
