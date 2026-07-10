@@ -459,4 +459,23 @@ public class StringUtilities {
 	public static String removeStart(String str, String remove) {
 		return Strings.CS.removeStart(str, remove);
 	}
+
+	/**
+	 * Removes a substring only if it is at the end of a source string, otherwise
+	 * returns the source string.
+	 *
+	 * <p>
+	 * A {@code null} source string will return {@code null}. An empty ("") source
+	 * string will return the empty string. A {@code null} search string will return
+	 * the source string.
+	 * </p>
+	 *
+	 * @param str    the source String to search, may be null.
+	 * @param remove the String to search for and remove, may be null.
+	 * @return the substring with the string removed if found, {@code null} if null
+	 *         String input.
+	 */
+	public static String removeEnd(final String str, final String remove) {
+		return Strings.CS.removeEnd(str, remove);
+	}
 }

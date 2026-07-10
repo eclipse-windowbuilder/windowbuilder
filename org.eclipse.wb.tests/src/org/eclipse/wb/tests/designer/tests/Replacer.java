@@ -15,8 +15,6 @@ package org.eclipse.wb.tests.designer.tests;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,7 +99,7 @@ public class Replacer {
 				}
 				// begin/end
 				invocation = StringUtilities.removeStart(invocation, begin);
-				invocation = StringUtils.removeEnd(invocation, end);
+				invocation = StringUtilities.removeEnd(invocation, end);
 				//invocation = "createTypeDeclaration_Test0(" + invocation + "\")";
 				invocation = "createTypeDeclaration_Test0(" + invocation;
 				System.out.println(invocation);
@@ -159,7 +157,7 @@ public class Replacer {
   			}
   			// begin/end
   			invocation = StringUtilities.removeStart(invocation, begin);
-  			invocation = StringUtils.removeEnd(invocation, end);
+  			invocation = StringUtilities.removeEnd(invocation, end);
   			invocation = "assertEditor(\"" + invocation + '"';
   			// replace " with '
   			invocation = StringUtils.replace(invocation, "\\\"", "'");
@@ -196,7 +194,7 @@ public class Replacer {
   			String invocation = s.substring(invocationBegin, invocationEnd);
   			// begin/end
   			invocation = StringUtilities.removeStart(invocation, begin);
-  			invocation = StringUtils.removeEnd(invocation, "}");
+  			invocation = StringUtilities.removeEnd(invocation, "}");
   			invocation = "parseComposite("// filler filler filler", " + invocation;
   			// replace " with '
   			invocation = StringUtils.replace(invocation, "\\\"", "'");

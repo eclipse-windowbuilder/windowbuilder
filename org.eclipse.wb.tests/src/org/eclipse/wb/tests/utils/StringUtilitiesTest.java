@@ -298,6 +298,17 @@ public class StringUtilitiesTest extends DesignerTestCase {
 	}
 
 	@Test
+	public void test_removeEnd() {
+		assertEquals(null, StringUtilities.removeEnd(null, "*"));
+		assertEquals("", StringUtilities.removeEnd("", "*"));
+		assertEquals("*", StringUtilities.removeEnd("*", null));
+		assertEquals("www.domain.com", StringUtilities.removeEnd("www.domain.com", ".com."));
+		assertEquals("www.domain", StringUtilities.removeEnd("www.domain.com", ".com"));
+		assertEquals("www.domain.com", StringUtilities.removeEnd("www.domain.com", "domain"));
+		assertEquals("abc", StringUtilities.removeEnd("abc", ""));
+	}
+
+	@Test
 	public void test_removeStart() {
 		assertEquals(null, StringUtilities.removeStart(null, "*"));
 		assertEquals("", StringUtilities.removeStart("", "*"));

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,10 +17,9 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddAfter;
 import org.eclipse.wb.internal.core.model.util.surround.SurroundSupport;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * {@link IJavaInfoInitializationParticipator} that performs name-based binding of
@@ -121,7 +120,7 @@ public final class LayoutJavaInfoParticipator implements IJavaInfoInitialization
 			final String layoutName;
 			{
 				String layoutClassName = layoutClass.getName();
-				layoutName = StringUtils.removeEnd(layoutClassName, "Info");
+				layoutName = StringUtilities.removeEnd(layoutClassName, "Info");
 			}
 			// bind safely
 			final Class<?> finalLayoutClass = layoutClass;

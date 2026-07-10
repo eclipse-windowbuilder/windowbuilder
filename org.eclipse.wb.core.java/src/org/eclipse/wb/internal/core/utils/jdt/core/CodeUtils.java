@@ -201,7 +201,7 @@ public class CodeUtils {
 	 */
 	public static IType findPrimaryType(ICompilationUnit compilationUnit) {
 		String unitName = compilationUnit.getElementName();
-		String typeName = StringUtils.removeEnd(unitName, ".java");
+		String typeName = StringUtilities.removeEnd(unitName, ".java");
 		IType primaryType = compilationUnit.getType(typeName);
 		if (primaryType.exists()) {
 			return primaryType;

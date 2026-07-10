@@ -122,7 +122,7 @@ public class BeanBindableInfo extends BindableInfo {
 			}
 		} else {
 			String localReference = StringUtilities.removeStart(reference, "\"");
-			localReference = StringUtils.removeEnd(localReference, "\"");
+			localReference = StringUtilities.removeEnd(localReference, "\"");
 			return resolvePropertyReference(reference, StringUtils.split(localReference, "."), 0);
 		}
 		return null;
@@ -142,7 +142,7 @@ public class BeanBindableInfo extends BindableInfo {
 			//
 			for (PropertyBindableInfo property : getProperties()) {
 				String propertyReference = StringUtilities.removeStart(property.getReference(), "\"");
-				propertyReference = StringUtils.removeEnd(propertyReference, "\"");
+				propertyReference = StringUtilities.removeEnd(propertyReference, "\"");
 				int pointIndex = propertyReference.lastIndexOf('.');
 				//
 				if (pointIndex != -1) {

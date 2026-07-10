@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.model.description.ParameterDescription;
 import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescriptionHelper;
 import org.eclipse.wb.internal.core.model.property.editor.DisplayExpressionPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEditor;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstParser;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -30,8 +31,6 @@ import org.eclipse.wb.internal.core.utils.ui.ImageUtils;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Layout;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.beans.BeanInfo;
 import java.lang.reflect.Constructor;
@@ -237,7 +236,7 @@ public final class DescriptionProcessor implements IDescriptionProcessor {
 				}
 				arguments += ", ";
 			}
-			arguments = StringUtils.removeEnd(arguments, ", ");
+			arguments = StringUtilities.removeEnd(arguments, ", ");
 			return arguments;
 		}
 

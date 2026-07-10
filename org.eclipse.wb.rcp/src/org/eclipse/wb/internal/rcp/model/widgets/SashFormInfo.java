@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,6 +22,7 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.CreationSupport;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.model.property.converter.IntegerConverter;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -195,7 +196,7 @@ public final class SashFormInfo extends CompositeInfo implements ISashFormInfo<C
 			String elementsSource;
 			{
 				elementsSource = StringUtils.repeat("1, ", getChildrenControls().size());
-				elementsSource = StringUtils.removeEnd(elementsSource, ", ");
+				elementsSource = StringUtilities.removeEnd(elementsSource, ", ");
 			}
 			// add invocation
 			String arraySource = "new int[] {" + elementsSource + "}";

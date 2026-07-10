@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.generic;
 
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IParametersProvider;
 
@@ -120,13 +121,13 @@ public final class SelectionEditPolicyInstaller {
 		String containerName;
 		{
 			containerName = StringUtils.substringAfterLast(containerClassName, ".model.");
-			containerName = StringUtils.removeEnd(containerName, "Info");
+			containerName = StringUtilities.removeEnd(containerName, "Info");
 		}
 		// containerName + childName
 		{
 			String childClassName = child.getClass().getName();
 			String childName = StringUtils.substringAfterLast(childClassName, ".");
-			childName = StringUtils.removeEnd(childName, "Info");
+			childName = StringUtilities.removeEnd(childName, "Info");
 			//
 			Class<?> clazz = loadClass2(basePackageName, containerName + childName);
 			if (clazz != null) {

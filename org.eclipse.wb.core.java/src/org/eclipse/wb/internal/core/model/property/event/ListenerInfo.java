@@ -94,8 +94,8 @@ final class ListenerInfo {
 		String name = addListenerMethod.getName();
 		// convert into simple name
 		name = StringUtilities.removeStart(name, "add");
-		name = StringUtils.removeEnd(name, "Listener");
-		name = StringUtils.removeEnd(name, "Handler");
+		name = StringUtilities.removeEnd(name, "Listener");
+		name = StringUtilities.removeEnd(name, "Handler");
 		name = StringUtils.uncapitalize(name);
 		// if become empty, use full name
 		if (name.length() == 0) {
@@ -112,8 +112,8 @@ final class ListenerInfo {
 		// -Listener/Handler +Adapter
 		{
 			String adapterClassName = listenerType.getName();
-			adapterClassName = StringUtils.removeEnd(adapterClassName, "Listener");
-			adapterClassName = StringUtils.removeEnd(adapterClassName, "Handler");
+			adapterClassName = StringUtilities.removeEnd(adapterClassName, "Listener");
+			adapterClassName = StringUtilities.removeEnd(adapterClassName, "Handler");
 			adapterClassName = adapterClassName + "Adapter";
 			adapterType = _getExistingType(listenerType, adapterClassName);
 		}

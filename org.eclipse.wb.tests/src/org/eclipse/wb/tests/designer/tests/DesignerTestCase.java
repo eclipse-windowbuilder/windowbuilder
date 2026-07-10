@@ -427,7 +427,7 @@ public abstract class DesignerTestCase extends Assertions {
 		}
 		// end
 		String result = buffer.toString();
-		result = StringUtils.removeEnd(result, ",\n");
+		result = StringUtilities.removeEnd(result, ",\n");
 		return result;
 	}
 

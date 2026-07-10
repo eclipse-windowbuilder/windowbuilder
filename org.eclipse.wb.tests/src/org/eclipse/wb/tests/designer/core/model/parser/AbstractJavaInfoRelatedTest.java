@@ -224,7 +224,7 @@ public abstract class AbstractJavaInfoRelatedTest extends AbstractJavaTest {
 			}
 		});
 		String result = buffer.toString();
-		result = StringUtils.removeEnd(result, ",\n");
+		result = StringUtilities.removeEnd(result, ",\n");
 		System.out.println(result);
 	}
 

@@ -13,6 +13,7 @@
 package org.eclipse.wb.core.gef;
 
 import org.eclipse.wb.gef.core.IEditPartFactory;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.eclipse.gef.EditPart;
@@ -140,7 +141,7 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 				// prepare name of component, strip model package and "Info" suffix
 				String componentName = modelClassName;
 				componentName = componentName.substring(modelPackage.length());
-				componentName = StringUtils.removeEnd(componentName, modelSuffix);
+				componentName = StringUtilities.removeEnd(componentName, modelSuffix);
 				// create corresponding EditPart, use "EditPart" prefix
 				{
 					String partClassName = partPackage + componentName + "EditPart";

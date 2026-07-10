@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,8 +13,7 @@
 package org.eclipse.wb.internal.swing.model.property.editor.font;
 
 import org.eclipse.wb.internal.core.model.property.converter.StringConverter;
-
-import org.apache.commons.lang3.StringUtils;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 
 import java.awt.Font;
 import java.text.MessageFormat;
@@ -226,7 +225,7 @@ public final class DerivedFontInfo extends FontInfo {
 		}
 		// new family
 		if (m_newFamily != null) {
-			sizeSource = StringUtils.removeEnd(sizeSource, "f");
+			sizeSource = StringUtilities.removeEnd(sizeSource, "f");
 			return MessageFormat.format(
 					"new java.awt.Font({0}, {1}, {2})",
 					StringConverter.INSTANCE.toJavaSource(null, m_newFamily),

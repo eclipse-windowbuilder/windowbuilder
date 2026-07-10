@@ -79,6 +79,7 @@ import org.eclipse.wb.internal.core.model.description.rules.StandardBeanProperti
 import org.eclipse.wb.internal.core.model.description.rules.StandardBeanPropertyTagRule;
 import org.eclipse.wb.internal.core.model.description.rules.ToolkitRule;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstParser;
@@ -458,7 +459,7 @@ public final class ComponentDescriptionHelper {
 				buffer.append(AstParser.getDefaultValue(parameterName));
 				buffer.append(", ");
 			}
-			arguments = StringUtils.removeEnd(buffer.toString(), ", ");
+			arguments = StringUtilities.removeEnd(buffer.toString(), ", ");
 		}
 		// prepare source
 		return "new " + componentClassName + "(" + arguments + ")";

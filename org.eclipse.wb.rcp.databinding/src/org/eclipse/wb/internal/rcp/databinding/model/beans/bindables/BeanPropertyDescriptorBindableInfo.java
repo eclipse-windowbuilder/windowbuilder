@@ -18,8 +18,6 @@ import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObserve
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.beans.PropertyDescriptor;
 
 /**
@@ -50,7 +48,7 @@ public final class BeanPropertyDescriptorBindableInfo extends BeanPropertyBindab
 
 	private static String createReference(IObserveInfo parent, String reference) throws Exception {
 		if (parent instanceof BeanPropertyDescriptorBindableInfo bindableParent) {
-			return StringUtils.removeEnd(bindableParent.getReference(), "\"") + "." + reference + "\"";
+			return StringUtilities.removeEnd(bindableParent.getReference(), "\"") + "." + reference + "\"";
 		}
 		return "\"" + reference + "\"";
 	}
@@ -60,7 +58,7 @@ public final class BeanPropertyDescriptorBindableInfo extends BeanPropertyBindab
 			Class<?> objectType) throws Exception {
 		if (parent instanceof BeanPropertyDescriptorBindableInfo bindableParent) {
 			String parentReference = StringUtilities.removeStart(bindableParent.getReference(), "\"");
-			parentReference = StringUtils.removeEnd(parentReference, "\"");
+			parentReference = StringUtilities.removeEnd(parentReference, "\"");
 			//
 			final String bindingReference = parentReference + "." + reference;
 			return new SimpleObservePresentation(reference,
