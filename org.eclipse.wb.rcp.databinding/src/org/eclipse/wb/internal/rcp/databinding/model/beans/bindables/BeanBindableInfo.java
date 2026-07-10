@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2023 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -120,7 +120,7 @@ public class BeanBindableInfo extends BindableInfo {
 				}
 			}
 		} else {
-			String localReference = reference.replaceFirst("^\"", "");
+			String localReference = StringUtils.removeStart(reference, "\"");
 			localReference = StringUtils.removeEnd(localReference, "\"");
 			return resolvePropertyReference(reference, StringUtils.split(localReference, "."), 0);
 		}
@@ -140,7 +140,7 @@ public class BeanBindableInfo extends BindableInfo {
 			String localReference = references[index];
 			//
 			for (PropertyBindableInfo property : getProperties()) {
-				String propertyReference = property.getReference().replaceFirst("^\"", "");
+				String propertyReference = StringUtils.removeStart(property.getReference(), "\"");
 				propertyReference = StringUtils.removeEnd(propertyReference, "\"");
 				int pointIndex = propertyReference.lastIndexOf('.');
 				//

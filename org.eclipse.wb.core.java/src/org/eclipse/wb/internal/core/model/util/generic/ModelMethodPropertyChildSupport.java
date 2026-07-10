@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,8 @@ package org.eclipse.wb.internal.core.model.util.generic;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.model.property.Property;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * This helper allows to create top-level {@link Property} that as wrapper for some
@@ -58,7 +60,7 @@ public final class ModelMethodPropertyChildSupport extends ModelMethodPropertyAb
 			protected void processParameterPart(String part) throws Exception {
 				super.processParameterPart(part);
 				if (part.startsWith("child=")) {
-					m_childTypeName = part.substring("child=".length());
+					m_childTypeName = StringUtils.removeStart(part, "child=");
 				}
 			}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2024 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,6 +28,8 @@ import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
 import org.eclipse.jdt.core.dom.SuperMethodInvocation;
 import org.eclipse.jdt.core.dom.ThisExpression;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Changes known unsupported patterns into supported.
@@ -94,7 +96,7 @@ public final class SwingRewriteProcessor {
 						"java.awt.Container",
 						"setLayout(java.awt.LayoutManager)")) {
 					String superSource = editor.getSource(node);
-					String source = superSource.replaceFirst("^super\\.", "");
+					String source = StringUtils.removeStart(superSource, "super.");
 					editor.replaceExpression(node, source);
 				}
 			}

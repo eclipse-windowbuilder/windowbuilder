@@ -198,11 +198,8 @@ public class ControllerSupport {
 		String reference = JavaInfoReferenceProvider.getReference(javaInfo);
 		String fieldPrefix = JavaCore.getOption(JavaCore.CODEASSIST_FIELD_PREFIXES);
 		fieldPrefix = fieldPrefix == null ? "m_" : fieldPrefix;
-		String methodName = reference;
-		if (methodName.startsWith(fieldPrefix)) {
-			methodName = methodName.substring(fieldPrefix.length());
-		}
-		methodName = "get" + StringUtils.capitalize(methodName) + "()";
+		String methodName =
+				"get" + StringUtils.capitalize(StringUtils.removeStart(reference, fieldPrefix)) + "()";
 		// prepare method header
 		String header =
 				"public " + javaInfo.getDescription().getComponentClass().getName() + " " + methodName;

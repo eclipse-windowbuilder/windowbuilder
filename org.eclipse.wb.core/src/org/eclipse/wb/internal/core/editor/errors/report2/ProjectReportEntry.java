@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011 Google, Inc.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,6 +21,7 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -77,11 +78,9 @@ public final class ProjectReportEntry implements IReportEntry {
 					IFile file = (IFile) resource;
 					InputStream fileStream = file.getContents();
 					// remove leading slash
-					String filePath = file.getFullPath().toPortableString();
-					if (filePath.startsWith(File.separator)) {
-						filePath = filePath.substring(File.separator.length());
-					}
-					filePath = "project/" + filePath;
+					String filePath =
+							"project/"
+									+ StringUtils.removeStart(file.getFullPath().toPortableString(), File.separator);
 					zipStream.putNextEntry(new ZipEntry(filePath));
 					try {
 						IOUtils.copy(fileStream, zipStream);

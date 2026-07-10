@@ -110,7 +110,7 @@ public final class PropertyCategory {
 		// system
 		if (StringUtils.startsWith(text, "system(")) {
 			String systemText = text;
-			systemText = systemText.substring("system(".length());
+			systemText = StringUtils.removeStart(systemText, "system(");
 			systemText = StringUtils.removeEnd(systemText, ")");
 			try {
 				int priority = Integer.parseInt(systemText);
