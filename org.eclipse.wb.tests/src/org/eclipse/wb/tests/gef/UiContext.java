@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.swt.finder.SWTBot;
@@ -76,6 +77,12 @@ public class UiContext {
 					System.err.println("Shells:");
 					for (Shell shell : Display.getCurrent().getShells()) {
 						System.err.println(shell);
+					}
+
+					System.err.println("Jobs:");
+					Job[] jobs = Job.getJobManager().find(null);
+					for (Job job : jobs) {
+						System.err.println("%s (%s) - %d".formatted(job.getName(), job.getJobGroup(), job.getState()));
 					}
 				});
 				e.printStackTrace();
