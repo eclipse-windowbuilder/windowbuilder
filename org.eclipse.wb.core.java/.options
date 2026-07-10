@@ -1,4 +1,7 @@
 # Debugging options for the org.eclipse.wb.core.java plugin.
 
+# Turn on tracing of AST evaluation
+org.eclipse.wb.core.java/debug/ast/eval=false
+
 # Turn on tracing of performance
 org.eclipse.wb.core.java/debug/perf=false

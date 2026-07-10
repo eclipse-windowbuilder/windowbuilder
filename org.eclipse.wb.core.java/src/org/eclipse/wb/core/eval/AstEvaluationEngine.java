@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.IMethodBinding;
@@ -43,6 +44,8 @@ public final class AstEvaluationEngine {
 	 * The value that means that {@link AstEvaluationEngine} can not evaluate given expression.
 	 */
 	public static final Object UNKNOWN = new Object();
+
+	private static final boolean DEBUG = Platform.getDebugBoolean("org.eclipse.wb.core.java/debug/ast/eval");
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -119,17 +122,26 @@ public final class AstEvaluationEngine {
 			Object value = context.evaluate(expression);
 			if (value != UNKNOWN) {
 				context.evaluationSuccessful(expression, value);
+				if (DEBUG) {
+					System.out.println("evaluate: " + expression + " => " + value);
+				}
 				return value;
 			}
 		}
 		// simple expression
 		if (expression instanceof NullLiteral) {
 			context.evaluationSuccessful(expression, null);
+			if (DEBUG) {
+				System.out.println("evaluate: " + expression + " => null");
+			}
 			return null;
 		}
 		if (expression instanceof ParenthesizedExpression parenthesizedExpression) {
 			Object value = evaluate(context, parenthesizedExpression.getExpression());
 			context.evaluationSuccessful(expression, value);
+			if (DEBUG) {
+				System.out.println("evaluate: " + expression + " => " + value);
+			}
 			return value;
 		}
 		// use expression evaluators
@@ -142,6 +154,9 @@ public final class AstEvaluationEngine {
 				Object value = evaluator.evaluate(context, expression, typeBinding, typeQualifiedName);
 				if (value != UNKNOWN) {
 					context.evaluationSuccessful(expression, value);
+					if (DEBUG) {
+						System.out.println("evaluate: " + expression + " => " + value + " via " + evaluator.getClass().getSimpleName());
+					}
 					return value;
 				}
 			}
@@ -156,10 +171,16 @@ public final class AstEvaluationEngine {
 					Object value = evaluator.evaluate(context, expression, typeBinding, typeQualifiedName);
 					if (value != UNKNOWN) {
 						context.evaluationSuccessful(expression, value);
+						if (DEBUG) {
+							System.out.println("evaluate: " + expression + " => " + value + " via " + evaluator.getClass().getSimpleName());
+						}
 						return value;
 					}
 				}
 			}
+		}
+		if (DEBUG) {
+			System.out.println("evaluate: " + expression + " ...failed");
 		}
 		// unknown expression
 		throw new DesignerException(ICoreExceptionConstants.EVAL_UNKNOWN_EXPRESSION_TYPE,
