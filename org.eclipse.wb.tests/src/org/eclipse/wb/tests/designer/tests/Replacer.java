@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.tests.designer.tests;
 
 import org.eclipse.wb.internal.core.utils.IOUtils2;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -99,7 +100,7 @@ public class Replacer {
 					System.exit(0);
 				}
 				// begin/end
-				invocation = StringUtils.removeStart(invocation, begin);
+				invocation = StringUtilities.removeStart(invocation, begin);
 				invocation = StringUtils.removeEnd(invocation, end);
 				//invocation = "createTypeDeclaration_Test0(" + invocation + "\")";
 				invocation = "createTypeDeclaration_Test0(" + invocation;
@@ -157,7 +158,7 @@ public class Replacer {
   				System.exit(0);
   			}
   			// begin/end
-  			invocation = StringUtils.removeStart(invocation, begin);
+  			invocation = StringUtilities.removeStart(invocation, begin);
   			invocation = StringUtils.removeEnd(invocation, end);
   			invocation = "assertEditor(\"" + invocation + '"';
   			// replace " with '
@@ -194,7 +195,7 @@ public class Replacer {
   		{
   			String invocation = s.substring(invocationBegin, invocationEnd);
   			// begin/end
-  			invocation = StringUtils.removeStart(invocation, begin);
+  			invocation = StringUtilities.removeStart(invocation, begin);
   			invocation = StringUtils.removeEnd(invocation, "}");
   			invocation = "parseComposite("// filler filler filler", " + invocation;
   			// replace " with '

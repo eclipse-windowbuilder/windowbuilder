@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.core.model.property.category;
 
 import org.eclipse.wb.internal.core.model.property.Property;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.apache.commons.lang3.StringUtils;
@@ -110,7 +111,7 @@ public final class PropertyCategory {
 		// system
 		if (StringUtils.startsWith(text, "system(")) {
 			String systemText = text;
-			systemText = StringUtils.removeStart(systemText, "system(");
+			systemText = StringUtilities.removeStart(systemText, "system(");
 			systemText = StringUtils.removeEnd(systemText, ")");
 			try {
 				int priority = Integer.parseInt(systemText);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.core.model.association.AssociationObjectFactory;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.util.predicate.AlwaysPredicate;
 import org.eclipse.wb.internal.core.model.util.predicate.ExpressionPredicate;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
@@ -197,7 +198,7 @@ public final class FlowContainerFactory {
 	}
 
 	private static AssociationObjectFactory getAssociation_invocationChild(String associationString) {
-		associationString = StringUtils.removeStart(associationString, "invocationChild ");
+		associationString = StringUtilities.removeStart(associationString, "invocationChild ");
 		Assert.isTrue(
 				associationString.startsWith("%parent%."),
 				"Association 'invocationChild' should start with %%parent%%., but '%s' found.",

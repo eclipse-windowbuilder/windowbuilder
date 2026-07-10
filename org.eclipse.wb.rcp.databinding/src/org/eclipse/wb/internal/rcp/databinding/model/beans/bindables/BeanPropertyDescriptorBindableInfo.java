@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.rcp.databinding.model.beans.bindables;
 import org.eclipse.wb.internal.core.databinding.model.IObserveInfo;
 import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.presentation.SimpleObservePresentation;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.rcp.databinding.ui.providers.TypeImageProvider;
 
 import org.apache.commons.lang3.StringUtils;
@@ -58,7 +59,7 @@ public final class BeanPropertyDescriptorBindableInfo extends BeanPropertyBindab
 			String reference,
 			Class<?> objectType) throws Exception {
 		if (parent instanceof BeanPropertyDescriptorBindableInfo bindableParent) {
-			String parentReference = StringUtils.removeStart(bindableParent.getReference(), "\"");
+			String parentReference = StringUtilities.removeStart(bindableParent.getReference(), "\"");
 			parentReference = StringUtils.removeEnd(parentReference, "\"");
 			//
 			final String bindingReference = parentReference + "." + reference;

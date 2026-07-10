@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.core.utils.jdt.core;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
@@ -185,7 +186,7 @@ public class CodeUtils {
 		String tag = preferences.getString(name);
 		tag = tag.trim();
 		// remove leading "//" prefix to search even "// $hide" - formatted line comments
-		tag = StringUtils.removeStart(tag, "//");
+		tag = StringUtilities.removeStart(tag, "//");
 		return tag;
 	}
 

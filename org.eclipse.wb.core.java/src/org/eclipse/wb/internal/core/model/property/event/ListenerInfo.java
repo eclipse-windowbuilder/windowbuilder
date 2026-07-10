@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.core.model.property.event;
 
 import org.eclipse.wb.internal.core.utils.GenericTypeResolver;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.collections4.MultiValuedMap;
@@ -92,7 +93,7 @@ final class ListenerInfo {
 	private static String _getListenerSimpleName(Method addListenerMethod) {
 		String name = addListenerMethod.getName();
 		// convert into simple name
-		name = StringUtils.removeStart(name, "add");
+		name = StringUtilities.removeStart(name, "add");
 		name = StringUtils.removeEnd(name, "Listener");
 		name = StringUtils.removeEnd(name, "Handler");
 		name = StringUtils.uncapitalize(name);

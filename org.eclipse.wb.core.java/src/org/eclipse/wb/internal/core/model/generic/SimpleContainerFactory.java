@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,6 +16,7 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.AssociationObjectFactories;
 import org.eclipse.wb.core.model.association.AssociationObjectFactory;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.apache.commons.lang3.StringUtils;
@@ -139,7 +140,7 @@ public final class SimpleContainerFactory {
 	}
 
 	private static AssociationObjectFactory getAssociation_invocationChild(String associationString) {
-		associationString = StringUtils.removeStart(associationString, "invocationChild ");
+		associationString = StringUtilities.removeStart(associationString, "invocationChild ");
 		Assert.isTrue(
 				associationString.startsWith("%parent%."),
 				"Association 'invocationChild' should start with '%%parent%%.', but '%s' found.",

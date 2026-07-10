@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.core.databinding.model.IObservePresentation;
 import org.eclipse.wb.internal.core.databinding.model.reference.IReferenceProvider;
 import org.eclipse.wb.internal.core.databinding.ui.ObserveType;
 import org.eclipse.wb.internal.core.databinding.utils.CoreUtils;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.rcp.databinding.model.BindableInfo;
 
 import org.apache.commons.lang3.StringUtils;
@@ -120,7 +121,7 @@ public class BeanBindableInfo extends BindableInfo {
 				}
 			}
 		} else {
-			String localReference = StringUtils.removeStart(reference, "\"");
+			String localReference = StringUtilities.removeStart(reference, "\"");
 			localReference = StringUtils.removeEnd(localReference, "\"");
 			return resolvePropertyReference(reference, StringUtils.split(localReference, "."), 0);
 		}
@@ -140,7 +141,7 @@ public class BeanBindableInfo extends BindableInfo {
 			String localReference = references[index];
 			//
 			for (PropertyBindableInfo property : getProperties()) {
-				String propertyReference = StringUtils.removeStart(property.getReference(), "\"");
+				String propertyReference = StringUtilities.removeStart(property.getReference(), "\"");
 				propertyReference = StringUtils.removeEnd(propertyReference, "\"");
 				int pointIndex = propertyReference.lastIndexOf('.');
 				//

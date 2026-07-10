@@ -23,6 +23,7 @@ import org.eclipse.wb.internal.core.databinding.wizards.autobindings.AbstractDes
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.variable.FieldUniqueVariableSupport;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
@@ -199,7 +200,7 @@ public class ControllerSupport {
 		String fieldPrefix = JavaCore.getOption(JavaCore.CODEASSIST_FIELD_PREFIXES);
 		fieldPrefix = fieldPrefix == null ? "m_" : fieldPrefix;
 		String methodName =
-				"get" + StringUtils.capitalize(StringUtils.removeStart(reference, fieldPrefix)) + "()";
+				"get" + StringUtils.capitalize(StringUtilities.removeStart(reference, fieldPrefix)) + "()";
 		// prepare method header
 		String header =
 				"public " + javaInfo.getDescription().getComponentClass().getName() + " " + methodName;

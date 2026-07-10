@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.model.property.GenericPropertyImpl;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 
 import org.apache.commons.lang3.StringUtils;
@@ -51,13 +52,13 @@ public abstract class CopyPropertyTopAbstractSupport {
 				String[] parts = StringUtils.split(parameter);
 				for (String part : parts) {
 					if (part.startsWith("from=")) {
-						sourcePath = StringUtils.removeStart(part, "from=");
+						sourcePath = StringUtilities.removeStart(part, "from=");
 					}
 					if (part.startsWith("to=")) {
-						copyTitle = StringUtils.removeStart(part, "to=");
+						copyTitle = StringUtilities.removeStart(part, "to=");
 					}
 					if (part.startsWith("category=")) {
-						String categoryText = StringUtils.removeStart(part, "category=");
+						String categoryText = StringUtilities.removeStart(part, "category=");
 						category = PropertyCategory.get(categoryText, category);
 					}
 				}

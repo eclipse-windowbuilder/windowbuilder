@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.core.editor.errors.report2;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -21,7 +22,6 @@ import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -80,7 +80,7 @@ public final class ProjectReportEntry implements IReportEntry {
 					// remove leading slash
 					String filePath =
 							"project/"
-									+ StringUtils.removeStart(file.getFullPath().toPortableString(), File.separator);
+									+ StringUtilities.removeStart(file.getFullPath().toPortableString(), File.separator);
 					zipStream.putNextEntry(new ZipEntry(filePath));
 					try {
 						IOUtils.copy(fileStream, zipStream);

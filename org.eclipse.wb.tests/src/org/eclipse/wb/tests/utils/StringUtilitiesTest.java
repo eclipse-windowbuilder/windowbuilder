@@ -296,4 +296,15 @@ public class StringUtilitiesTest extends DesignerTestCase {
 		assertEquals("ab", StringUtilities.removeNonLatinCharacters("a\u0410b"));
 		assertEquals("abc", StringUtilities.removeNonLatinCharacters("a@b.c"));
 	}
+
+	@Test
+	public void test_removeStart() {
+		assertEquals(null, StringUtilities.removeStart(null, "*"));
+		assertEquals("", StringUtilities.removeStart("", "*"));
+		assertEquals("*", StringUtilities.removeStart("*", null));
+		assertEquals("domain.com", StringUtilities.removeStart("www.domain.com", "www."));
+		assertEquals("domain.com", StringUtilities.removeStart("domain.com", "www."));
+		assertEquals("www.domain.com", StringUtilities.removeStart("www.domain.com", "domain"));
+		assertEquals("abc", StringUtilities.removeStart("abc", ""));
+	}
 }

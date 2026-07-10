@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.core.utils;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.nio.charset.CharsetEncoder;
@@ -439,5 +440,23 @@ public class StringUtilities {
 	 */
 	public static boolean isLatinCharacter(char c) {
 		return c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z';
+	}
+
+	/**
+	 * Removes a substring only if it is at the beginning of a source string,
+	 * otherwise returns the source string.
+	 *
+	 * <p>
+	 * A {@code null} source string will return {@code null}. An empty ("") source
+	 * string will return the empty string. A {@code null} search string will return
+	 * the source string.
+	 *
+	 * @param str    the source String to search, may be {@code null}.
+	 * @param remove the String to search for and remove, may be {@code null}.
+	 * @return the substring with the string removed if found, {@code null} if null
+	 *         String input.
+	 */
+	public static String removeStart(String str, String remove) {
+		return Strings.CS.removeStart(str, remove);
 	}
 }

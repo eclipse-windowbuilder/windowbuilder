@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.category.PropertyCategory;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.StringListPropertyEditor;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -133,27 +134,27 @@ abstract class ModelMethodPropertyAbstractSupport {
 		////////////////////////////////////////////////////////////////////////////
 		protected void processParameterPart(String part) throws Exception {
 			if (part.startsWith("getter=")) {
-				getterSignature = StringUtils.removeStart(part, "getter=");
+				getterSignature = StringUtilities.removeStart(part, "getter=");
 			}
 			if (part.startsWith("setter=")) {
-				setterSignature = StringUtils.removeStart(part, "setter=");
+				setterSignature = StringUtilities.removeStart(part, "setter=");
 			}
 			if (part.startsWith("type=")) {
-				String typeName = StringUtils.removeStart(part, "type=");
+				String typeName = StringUtilities.removeStart(part, "type=");
 				type = ReflectionUtils.getClassByName(GlobalState.getClassLoader(), typeName);
 				if (propertyEditor == null) {
 					propertyEditor = GlobalState.getDescriptionHelper().getEditorForType(type);
 				}
 			}
 			if (part.startsWith("editor=")) {
-				String desc = StringUtils.removeStart(part, "editor=");
+				String desc = StringUtilities.removeStart(part, "editor=");
 				parseEditor(desc);
 			}
 			if (part.startsWith("title=")) {
-				title = StringUtils.removeStart(part, "title=");
+				title = StringUtilities.removeStart(part, "title=");
 			}
 			if (part.startsWith("category=")) {
-				String categoryText = StringUtils.removeStart(part, "category=");
+				String categoryText = StringUtilities.removeStart(part, "category=");
 				category = PropertyCategory.get(categoryText, category);
 			}
 		}
