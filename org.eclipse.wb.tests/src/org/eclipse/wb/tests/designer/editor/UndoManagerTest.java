@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -32,6 +32,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourceAttributes;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -310,7 +311,7 @@ public class UndoManagerTest extends SwingGefTest {
 		// organize imports
 		actionBars.getGlobalActionHandler(JdtActionConstants.ORGANIZE_IMPORTS).run();
 		// wait for "Organize Imports" job
-		waitEventLoop(100);
+		getOrganizeImportJob().join();
 		assertEquals(
 				getSourceDQ(
 						"package test;",
@@ -322,6 +323,15 @@ public class UndoManagerTest extends SwingGefTest {
 				m_lastEditor.getModelUnit().getSource());
 		// switch to "Design", no exception expected
 		openDesignPage();
+	}
+
+	private Job getOrganizeImportJob() {
+		for (Job job : Job.getJobManager().find(null)) {
+			if ("Organize Imports".equals(job.getName())) {
+				return job;
+			}
+		}
+		throw new IllegalStateException("Unable to find 'Organize Import' job");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
