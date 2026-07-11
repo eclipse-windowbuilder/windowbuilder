@@ -18,17 +18,17 @@ import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.Compone
 import org.eclipse.wb.internal.core.model.util.grid.GridConvertionHelper.ComponentInGroup;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
+import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.jdt.internal.core.util.ComponentInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper for converting coordinates of {@link ComponentInfo} children to
+ * Helper for converting coordinates of {@link CompositeInfo} children to
  * {@link ITableWrapLayoutInfo}.
  *
  * @author sablin_aa

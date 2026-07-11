@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: org.eclipse.wb.internal.swt.Activator
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: org.eclipse.wb.internal.swt;x-friends:="org.eclipse.wb.os.linux,org.eclipse.wb.tests,org.eclipse.wb.rcp",
+Export-Package: org.eclipse.wb.internal.swt;x-friends:="org.eclipse.wb.os.linux,org.eclipse.wb.tests,org.eclipse.wb.rcp,org.eclipse.wb.os.macosx",
  org.eclipse.wb.internal.swt.gef;x-friends:="org.eclipse.wb.rcp",
  org.eclipse.wb.internal.swt.gef.part;x-friends:="org.eclipse.wb.rcp,org.eclipse.wb.rcp.nebula",
  org.eclipse.wb.internal.swt.gef.policy;x-internal:=true,
