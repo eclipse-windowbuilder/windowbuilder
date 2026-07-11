@@ -38,9 +38,6 @@ import org.eclipse.wb.internal.swing.model.property.editor.icon.IconPropertyEdit
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Expression;
 
-import org.apache.commons.lang3.JavaVersion;
-import org.apache.commons.lang3.SystemUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

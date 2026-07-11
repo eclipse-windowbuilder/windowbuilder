@@ -12,8 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders;
 
-import org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassAndPropertiesConfiguration.IPropertiesFilter;
-
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 
 import java.util.ArrayList;

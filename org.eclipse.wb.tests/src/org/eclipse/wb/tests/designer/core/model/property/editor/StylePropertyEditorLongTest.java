@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.property.editor.IValueSourcePropertyEd
 import org.eclipse.wb.internal.core.model.property.editor.StringComboPropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.style.StylePropertyEditor;
 import org.eclipse.wb.internal.core.model.util.PropertyUtils;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;

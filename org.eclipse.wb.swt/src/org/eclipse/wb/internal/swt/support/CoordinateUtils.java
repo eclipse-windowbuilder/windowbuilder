@@ -12,9 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swt.support;
 
-import org.eclipse.wb.internal.core.EnvironmentUtils;
-import org.eclipse.wb.os.OSSupport;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -23,7 +20,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 
 /**

@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.rcp.model.widgets.AbstractPositionInfo;
 import org.eclipse.wb.internal.rcp.model.widgets.ViewFormInfo;
-import org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;

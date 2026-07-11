@@ -38,8 +38,6 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.Calendar;
-
 /**
  * Implementation of {@link ContributionItem} for working with NLS.
  *

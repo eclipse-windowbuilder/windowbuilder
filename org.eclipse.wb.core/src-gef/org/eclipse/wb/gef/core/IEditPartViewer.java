@@ -21,7 +21,6 @@ import org.eclipse.gef.Handle;
 import org.eclipse.jface.viewers.ISelectionProvider;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @author lobas_av

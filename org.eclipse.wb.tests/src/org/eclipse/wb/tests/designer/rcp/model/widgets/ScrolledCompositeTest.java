@@ -13,8 +13,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
 import org.eclipse.wb.internal.rcp.model.widgets.ScrolledCompositeInfo;
-import org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo;
-import org.eclipse.wb.internal.swt.model.layout.RowLayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.rcp.BTestUtils;
