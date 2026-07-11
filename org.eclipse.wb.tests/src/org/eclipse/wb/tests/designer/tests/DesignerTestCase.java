@@ -19,12 +19,15 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.DesignContextMenuProvider;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
+import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jdt.internal.corext.util.OpenTypeHistory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -465,7 +468,21 @@ public abstract class DesignerTestCase extends Assertions {
 	/**
 	 * Animates "Open type" dialog, set filter and waits for first result in types list.
 	 */
+	@SuppressWarnings("restriction")
 	public static void animateOpenTypeSelection(SWTBot bot, String typeName, String buttonName) {
+		// Force refresh of the "Open Type" cache to make sure the requested type exists.
+		OpenTypeHistory.getInstance().markAsInconsistent();
+		ExecutionUtils.runRethrow(() -> {
+			Class<?> updateJobClass = ReflectionUtils.getClassByName(DesignerTestCase.class.getClassLoader(), "org.eclipse.jdt.internal.corext.util.OpenTypeHistory$UpdateJob");
+			Field updateJobFamilyField = ReflectionUtils.getFieldByName(updateJobClass, "FAMILY");
+			updateJobFamilyField.trySetAccessible();
+			Object updateJobFamily = updateJobFamilyField.get(null);
+			for (Job job : Job.getJobManager().find(updateJobFamily)) {
+				job.join();
+			}
+		});
+
+
 		SWTBotShell shellBot = bot.shell("Open type");
 		SWTBot shell = shellBot.bot();
 		// set filter
