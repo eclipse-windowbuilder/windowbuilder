@@ -31,6 +31,7 @@ import org.eclipse.wb.internal.core.model.generic.SimpleContainerFactory;
 import org.eclipse.wb.internal.core.model.util.GlobalStateJava;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.parser.JavaInfoParser;
+import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.BodyDeclarationTarget;
@@ -45,6 +46,8 @@ import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 import org.eclipse.wb.tests.designer.core.PreferencesRepairer;
 import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoTest.JavaInfoExtension;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -86,8 +89,17 @@ public abstract class AbstractJavaInfoTest extends AbstractJavaInfoRelatedTest {
 			} catch (Throwable e) {
 				JavaInfo javaInfo = EditorState.getActiveJavaInfo();
 				if (javaInfo != null) {
+					System.err.println("##### Source Code: ");
 					System.err.println(javaInfo.getEditor().getSource());
+					System.err.println("##### Source File: ");
+					IFile javaFile = (IFile) javaInfo.getEditor().getModelUnit().getResource();
+					System.err.println(IOUtils2.readString(javaFile));
+					System.err.println("##### Hierarchy: ");
 					System.err.println(printHierarchy(javaInfo));
+					System.err.println("##### Jobs: ");
+					for (Job job : Job.getJobManager().find(null)) {
+						System.out.println(job.getName() + "," + job.getJobGroup() + " - " + job.getState());
+					}
 				}
 				throw e;
 			}
