@@ -930,7 +930,7 @@ public final class GraphicalRobot {
 			}
 		}
 		// OK, get Command from active tool
-		return (Command) ReflectionUtils.getFieldObject(tool, "m_command");
+		return (Command) ReflectionUtils.invokeMethod(tool, "getCurrentCommand()");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

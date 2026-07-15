@@ -344,7 +344,7 @@ public final class TreeRobot {
 			}
 		}
 		// OK, get Command from active tool
-		return (Command) ReflectionUtils.getFieldObject(tool, "m_command");
+		return (Command) ReflectionUtils.invokeMethod(tool, "getCurrentCommand()");
 	}
 
 	private void waitEventLoop() {

@@ -18,6 +18,7 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPartViewer.Conditional;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.tools.AbstractTool;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -32,7 +33,7 @@ import java.util.Collections;
  * @author lobas_av
  * @coverage gef.core
  */
-public abstract class TargetingTool extends Tool {
+public abstract class TargetingTool extends AbstractTool {
 	private EditPart m_target;
 	private Request m_request;
 	private boolean m_isLockTarget;
@@ -49,6 +50,11 @@ public abstract class TargetingTool extends Tool {
 		m_target = null;
 		m_request = null;
 		super.deactivate();
+	}
+
+	@Override
+	protected String getCommandName() {
+		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

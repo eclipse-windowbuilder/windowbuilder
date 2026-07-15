@@ -205,6 +205,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 			//
 			// during executeCommand ivoke setCommand(null) then cursor == NO
 			expectedLogger.setCursor(CURSOR_NO());
+			expectedLogger.setCursor(null);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 	}
@@ -215,6 +216,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 				createEditPart(m_viewer.getRootEditPart(), 20, 20, 460, 360, new Command(){});
 		EditPart buttonEditPart = createEditPart(shellEditPart, 100, 100, 200, 100, null);
 		m_viewer.select(buttonEditPart);
+		CursorLogger expectedLogger = new CursorLogger();
 		//
 		// first update cursor after mouse enter into viewer
 		{
@@ -222,7 +224,6 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 			//
 			m_sender.mouseEnter(0, 0);
 			//
-			CursorLogger expectedLogger = new CursorLogger();
 			expectedLogger.setCursor(CURSOR_NO());
 			m_actualLogger.assertEquals(expectedLogger);
 		}
@@ -257,7 +258,8 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.endDrag();
 			//
-			m_actualLogger.assertEmpty();
+			expectedLogger.setCursor(null);
+			m_actualLogger.assertEquals(expectedLogger);
 		}
 	}
 
@@ -286,6 +288,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 			m_sender.click(60, 60, 2);
 			//
 			expectedLogger.setCursor(CURSOR_NO());
+			expectedLogger.setCursor(null);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 	}
@@ -327,6 +330,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 			m_sender.click(70, 70, 2);
 			//
 			expectedLogger.setCursor(CURSOR_NO());
+			expectedLogger.setCursor(null);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// end drag
@@ -386,7 +390,8 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.endDrag();
 			//
-			m_actualLogger.assertEmpty();
+			expectedLogger.setCursor(null);
+			m_actualLogger.equals(expectedLogger);
 		}
 	}
 
@@ -464,7 +469,8 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 			//
 			// during executeCommand ivoke setCommand(null) then cursor == NO
 			expectedLogger.setCursor(CURSOR_NO());
-			expectedLogger.setCursor(CURSOR_ADD());
+			// cursor is cleared when switching back to default tool
+			expectedLogger.setCursor(null);
 			//
 			m_actualLogger.assertEquals(expectedLogger);
 		}

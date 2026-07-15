@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree.tools;
 
-import org.eclipse.wb.gef.core.tools.Tool;
-
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.SelectionRequest;
+import org.eclipse.gef.tools.AbstractTool;
 
 /**
  * Special {@link Tool} for handle only double-click mouse event and route it to {@link EditPart}.
@@ -26,7 +26,7 @@ import org.eclipse.gef.requests.SelectionRequest;
  * @author lobas_av
  * @coverage gef.tree
  */
-public class DoubleClickEditPartTracker extends Tool {
+public class DoubleClickEditPartTracker extends AbstractTool implements DragTracker {
 	private final EditPart m_sourceEditPart;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -36,6 +36,11 @@ public class DoubleClickEditPartTracker extends Tool {
 	////////////////////////////////////////////////////////////////////////////
 	public DoubleClickEditPartTracker(EditPart sourceEditPart) {
 		m_sourceEditPart = sourceEditPart;
+	}
+
+	@Override
+	protected String getCommandName() {
+		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////

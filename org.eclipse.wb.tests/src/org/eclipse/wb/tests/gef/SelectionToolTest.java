@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
-import org.eclipse.wb.gef.core.tools.Tool;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
@@ -147,7 +146,7 @@ public class SelectionToolTest extends RequestTestCase {
 		RequestsLogger expectedLogger = new RequestsLogger();
 		//
 		assertNull(getDragTracker(m_tool));
-		Tool tracker = null;
+		RequestDragTracker tracker = null;
 		//
 		// start drag "ChildEditPart"
 		{
@@ -231,6 +230,7 @@ public class SelectionToolTest extends RequestTestCase {
 				addEditPart(editPart, "ChildEditPart", actualLogger, 50, 50, 70, 50);
 		//
 		MoveHandle handle = new MoveHandle(childEditPart);
+		handle.setDragTracker(new RequestDragTracker(childEditPart));
 		LayerManager.Helper.find(m_viewer).getLayer(LayerConstants.HANDLE_LAYER).add(handle);
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();
@@ -241,7 +241,7 @@ public class SelectionToolTest extends RequestTestCase {
 		{
 			m_sender.startDrag(100, 100, 1);
 			//
-			Tool tracker = getDragTracker(m_tool);
+			RequestDragTracker tracker = getDragTracker(m_tool);
 			assertNotNull(tracker);
 			assertTrue(tracker.isActive());
 			assertSame(handle.getDragTracker(), tracker);
@@ -281,7 +281,7 @@ public class SelectionToolTest extends RequestTestCase {
 			m_sender.endDrag();
 			//
 			assertNull(getDragTracker(m_tool));
-			assertFalse(((Tool) handle.getDragTracker()).isActive());
+			assertFalse(((RequestDragTracker) handle.getDragTracker()).isActive());
 			//
 			ChangeBoundsRequest request = new ChangeBoundsRequest(RequestConstants.REQ_MOVE);
 			request.setEditParts(childEditPart);
@@ -306,9 +306,9 @@ public class SelectionToolTest extends RequestTestCase {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private static final Tool getDragTracker(SelectionTool tool) throws Exception {
+	private static final RequestDragTracker getDragTracker(SelectionTool tool) throws Exception {
 		Field field = SelectionTool.class.getDeclaredField("m_dragTracker");
 		field.setAccessible(true);
-		return (Tool) field.get(tool);
+		return (RequestDragTracker) field.get(tool);
 	}
 }

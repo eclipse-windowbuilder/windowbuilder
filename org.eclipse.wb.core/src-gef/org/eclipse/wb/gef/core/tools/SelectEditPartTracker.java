@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.SelectionRequest;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 
 /**
@@ -25,7 +25,7 @@ import org.eclipse.swt.graphics.Cursor;
  * @author lobas_av
  * @coverage gef.core
  */
-public class SelectEditPartTracker extends TargetingTool {
+public class SelectEditPartTracker extends TargetingTool implements DragTracker {
 	private final EditPart m_sourceEditPart;
 	private boolean m_isSelected;
 
@@ -56,7 +56,7 @@ public class SelectEditPartTracker extends TargetingTool {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Cursor calculateCursor() {
-		return m_state == STATE_INITIAL || m_state == STATE_DRAG
+		return isInState(STATE_INITIAL) || isInState(STATE_DRAG)
 				? getDefaultCursor()
 						: super.calculateCursor();
 	}
@@ -69,19 +69,19 @@ public class SelectEditPartTracker extends TargetingTool {
 	@Override
 	protected boolean handleButtonDown(int button) {
 		if ((button == 1 || button == 3)
-				&& m_state == STATE_INITIAL
+				&& isInState(STATE_INITIAL)
 				&& m_sourceEditPart.getSelected() == EditPart.SELECTED_NONE) {
 			performSelection();
 		}
 		if (button == 1) {
-			if (m_state == STATE_INITIAL) {
-				m_state = STATE_DRAG;
+			if (isInState(STATE_INITIAL)) {
+				setState(STATE_DRAG);
 			}
 		} else {
 			if (button == 3) {
-				m_state = STATE_TERMINAL;
+				setState(STATE_TERMINAL);
 			} else {
-				m_state = STATE_INVALID;
+				setState(STATE_INVALID);
 			}
 			handleInvalidInput();
 		}
@@ -90,17 +90,17 @@ public class SelectEditPartTracker extends TargetingTool {
 
 	@Override
 	protected boolean handleButtonUp(int button) {
-		if (m_state == STATE_DRAG) {
+		if (isInState(STATE_DRAG)) {
 			performSelection();
-			m_state = STATE_TERMINAL;
+			setState(STATE_TERMINAL);
 		}
 		return true;
 	}
 
 	@Override
 	protected boolean handleDragStarted() {
-		if (m_state == STATE_DRAG) {
-			m_state = STATE_DRAG_IN_PROGRESS;
+		if (isInState(STATE_DRAG)) {
+			setState(STATE_DRAG_IN_PROGRESS);
 		}
 		return true;
 	}
@@ -134,13 +134,13 @@ public class SelectEditPartTracker extends TargetingTool {
 			m_isSelected = true;
 			EditPartViewer viewer = getCurrentViewer();
 			//
-			if ((m_stateMask & SWT.CONTROL) != 0) {
+			if (getCurrentInput().isControlKeyDown()) {
 				if (viewer.getSelectedEditParts().contains(m_sourceEditPart)) {
 					viewer.deselect(m_sourceEditPart);
 				} else {
 					viewer.appendSelection(m_sourceEditPart);
 				}
-			} else if ((m_stateMask & SWT.SHIFT) != 0) {
+			} else if (getCurrentInput().isShiftKeyDown()) {
 				viewer.appendSelection(m_sourceEditPart);
 			} else {
 				viewer.select(m_sourceEditPart);

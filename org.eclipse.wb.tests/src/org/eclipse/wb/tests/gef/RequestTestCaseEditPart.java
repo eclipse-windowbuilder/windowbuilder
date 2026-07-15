@@ -16,6 +16,7 @@ import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.tests.draw2d.TestCaseFigure;
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -93,6 +94,11 @@ public class RequestTestCaseEditPart extends DesignEditPart {
 	public Command getCommand(Request request) {
 		m_logger.log(this, "getCommand", request);
 		return super.getCommand(request);
+	}
+
+	@Override
+	public DragTracker getDragTracker(Request request) {
+		return new RequestDragTracker(this);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

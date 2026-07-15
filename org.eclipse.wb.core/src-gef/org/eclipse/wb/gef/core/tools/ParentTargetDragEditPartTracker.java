@@ -40,7 +40,7 @@ public class ParentTargetDragEditPartTracker extends DragEditPartTracker {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected boolean handleButtonUp(int button) {
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			unlockTargetEditPart();
 		}
 		super.handleButtonUp(button);
@@ -50,7 +50,7 @@ public class ParentTargetDragEditPartTracker extends DragEditPartTracker {
 	@Override
 	protected boolean handleDragStarted() {
 		super.handleDragStarted();
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
 			List<? extends EditPart> editParts = request.getEditParts();
 			lockTargetEditPart(editParts.get(0).getParent());

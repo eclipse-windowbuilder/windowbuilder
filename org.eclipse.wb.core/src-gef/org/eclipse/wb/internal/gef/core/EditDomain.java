@@ -16,11 +16,9 @@ import org.eclipse.wb.gef.core.ICommandExceptionHandler;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.EventListenerList;
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
-import org.eclipse.swt.events.MouseEvent;
 
 /**
  * @author lobas_av
@@ -29,8 +27,6 @@ import org.eclipse.swt.events.MouseEvent;
 public class EditDomain extends org.eclipse.gef.EditDomain {
 	private Tool m_activeTool;
 	private Tool m_defaultTool;
-	private EditPartViewer m_currentViewer;
-	private MouseEvent m_currentMouseEvent;
 	private ICommandExceptionHandler m_exceptionHandler;
 
 	public EditDomain() {
@@ -193,81 +189,6 @@ public class EditDomain extends org.eclipse.gef.EditDomain {
 			for (IActiveToolListener listener : getEventTable().getListenersIterable(IActiveToolListener.class)) {
 				listener.toolActivated(m_activeTool);
 			}
-			// handle auto reload tool and update cursor
-			if (m_currentViewer != null) {
-				m_activeTool.setViewer(m_currentViewer);
-				m_activeTool.mouseMove(m_currentMouseEvent, m_currentViewer);
-			}
 		}
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Handle mouse events
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Called when the mouse button has been double-clicked on a viewer.
-	 */
-	@Override
-	public void mouseDoubleClick(MouseEvent event, EditPartViewer viewer) {
-		m_currentMouseEvent = event;
-		super.mouseDoubleClick(event, viewer);
-	}
-
-	/**
-	 * Called when the mouse button has been pressed on a viewer.
-	 */
-	@Override
-	public void mouseDown(MouseEvent event, EditPartViewer viewer) {
-		m_currentMouseEvent = event;
-		super.mouseDown(event, viewer);
-	}
-
-	/**
-	 * Called when the mouse button has been released on a viewer.
-	 */
-	@Override
-	public void mouseUp(MouseEvent event, EditPartViewer viewer) {
-		m_currentMouseEvent = event;
-		super.mouseUp(event, viewer);
-	}
-
-	/**
-	 * Called when the mouse has been moved on a viewer.
-	 */
-	@Override
-	public void mouseMove(MouseEvent event, EditPartViewer viewer) {
-		m_currentMouseEvent = event;
-		super.mouseMove(event, viewer);
-	}
-
-	/**
-	 * Called when the mouse has been dragged within a viewer.
-	 */
-	@Override
-	public void mouseDrag(MouseEvent event, EditPartViewer viewer) {
-		m_currentMouseEvent = event;
-		super.mouseDrag(event, viewer);
-	}
-
-	/**
-	 * Called when the mouse enters a viewer.
-	 */
-	@Override
-	public void viewerEntered(MouseEvent event, EditPartViewer viewer) {
-		m_currentMouseEvent = event;
-		m_currentViewer = viewer;
-		super.viewerEntered(event, viewer);
-	}
-
-	/**
-	 * Called when the mouse exits a viewer.
-	 */
-	@Override
-	public void viewerExited(MouseEvent event, EditPartViewer viewer) {
-		m_currentMouseEvent = event;
-		m_currentViewer = null;
-		super.viewerExited(event, viewer);
 	}
 }

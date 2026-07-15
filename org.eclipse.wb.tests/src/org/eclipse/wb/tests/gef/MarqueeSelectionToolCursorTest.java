@@ -81,9 +81,7 @@ public class MarqueeSelectionToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.moveTo(40, 20);
 			//
-			expectedLogger.setCursor(Cursors.CROSS);
 			expectedLogger.setCursor(Cursors.SIZEALL);
-			expectedLogger.setCursor(Cursors.NO);
 			expectedLogger.setCursor(Cursors.CROSS);
 			m_actualLogger.assertEquals(expectedLogger);
 		}

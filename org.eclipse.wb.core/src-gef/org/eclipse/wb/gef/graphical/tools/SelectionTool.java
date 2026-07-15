@@ -118,14 +118,14 @@ public class SelectionTool extends TargetingTool {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected boolean handleButtonDown(int button) {
-		if (m_state == STATE_INITIAL) {
-			m_state = STATE_DRAG;
+		if (isInState(STATE_INITIAL)) {
+			setState(STATE_DRAG);
 			//
 			if (m_dragTracker != null) {
 				m_dragTracker.deactivate();
 			}
 			//
-			if ((m_stateMask & SWT.ALT) != 0) {
+			if (getCurrentInput().isAltKeyDown()) {
 				setDragTracker(new MarqueeDragTracker());
 				return true;
 			}
@@ -159,18 +159,18 @@ public class SelectionTool extends TargetingTool {
 	protected boolean handleButtonUp(int button) {
 		((SelectionRequest) getTargetRequest()).setLastButtonPressed(0);
 		setDragTracker(null);
-		m_state = STATE_INITIAL;
+		setState(STATE_INITIAL);
 		unlockTargetEditPart();
 		return true;
 	}
 
 	@Override
 	protected boolean handleMove() {
-		if (m_state == STATE_DRAG) {
-			m_state = STATE_INITIAL;
+		if (isInState(STATE_DRAG)) {
+			setState(STATE_INITIAL);
 			setDragTracker(null);
 		}
-		if (m_state == STATE_INITIAL) {
+		if (isInState(STATE_INITIAL)) {
 			updateTargetRequest();
 			updateTargetUnderMouse();
 			showTargetFeedback();
@@ -184,13 +184,11 @@ public class SelectionTool extends TargetingTool {
 	 */
 	@Override
 	protected boolean handleViewerExited() {
-		if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG) || isInState(STATE_DRAG_IN_PROGRESS)) {
 			// send low level event to give current tracker a chance to process 'mouse up' event.
 			Event event = new Event();
 			event.x = getLocation().x;
 			event.y = getLocation().y;
-			event.stateMask = m_stateMask;
-			event.button = m_button;
 			event.widget = getCurrentViewer().getControl();
 			mouseUp(new MouseEvent(event), getCurrentViewer());
 		}

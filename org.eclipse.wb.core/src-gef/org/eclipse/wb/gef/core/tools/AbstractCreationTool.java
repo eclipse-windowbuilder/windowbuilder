@@ -43,13 +43,13 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	@Override
 	protected boolean handleButtonDown(int button) {
 		if (button == 1) {
-			if (m_state == STATE_INITIAL) {
-				m_state = STATE_DRAG;
+			if (isInState(STATE_INITIAL)) {
+				setState(STATE_DRAG);
 				((AbstractCreateRequest) getTargetRequest()).setLocation(getLocation());
 				lockTargetEditPart(getTargetEditPart());
 			}
 		} else {
-			m_state = STATE_INVALID;
+			setState(STATE_INVALID);
 			handleInvalidInput();
 		}
 		return true;
@@ -57,14 +57,14 @@ public abstract class AbstractCreationTool extends TargetingTool {
 
 	@Override
 	protected boolean handleButtonUp(int button) {
-		if (m_state == STATE_DRAG || m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG) || isInState(STATE_DRAG_IN_PROGRESS)) {
 			eraseTargetFeedback();
 			unlockTargetEditPart();
 			executeCurrentCommand();
 			selectAddedObjects();
 		}
 		//
-		m_state = STATE_TERMINAL;
+		setState(STATE_TERMINAL);
 		handleFinished();
 		return true;
 	}
@@ -80,15 +80,15 @@ public abstract class AbstractCreationTool extends TargetingTool {
 
 	@Override
 	protected boolean handleDragStarted() {
-		if (m_state == STATE_DRAG) {
-			m_state = STATE_DRAG_IN_PROGRESS;
+		if (isInState(STATE_DRAG)) {
+			setState(STATE_DRAG_IN_PROGRESS);
 		}
 		return true;
 	}
 
 	@Override
 	protected boolean handleDragInProgress() {
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			updateTargetRequest();
 			showTargetFeedback();
 			setCurrentCommand(getCommand());
@@ -114,7 +114,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	protected void updateTargetRequest() {
 		super.updateTargetRequest();
 		AbstractCreateRequest request = (AbstractCreateRequest) getTargetRequest();
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			request.setLocation(getStartLocation());
 			request.setSize(getDragMoveDelta());
 		} else {

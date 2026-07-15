@@ -73,12 +73,12 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected boolean handleButtonUp(int button) {
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			// prepare models if restoring selection
 			List<Object> models = getOperationSetModels();
 			eraseTargetFeedback();
 			executeCurrentCommand();
-			m_state = STATE_TERMINAL;
+			setState(STATE_TERMINAL);
 			// restore selection
 			restoreSelectionFromModels(models);
 		} else {
@@ -90,7 +90,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	@Override
 	protected boolean handleDragStarted() {
 		super.handleDragStarted();
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			updateTargetRequest();
 			updateTargetUnderMouse();
 		}
@@ -99,7 +99,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 
 	@Override
 	protected boolean handleDragInProgress() {
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			updateTargetRequest();
 			updateTargetUnderMouse();
 			showTargetFeedback();

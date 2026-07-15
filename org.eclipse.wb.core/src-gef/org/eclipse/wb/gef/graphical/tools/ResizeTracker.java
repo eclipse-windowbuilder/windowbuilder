@@ -13,19 +13,19 @@
 package org.eclipse.wb.gef.graphical.tools;
 
 import org.eclipse.wb.gef.core.requests.KeyRequest;
-import org.eclipse.wb.gef.core.tools.Tool;
 
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
-import org.eclipse.swt.SWT;
+import org.eclipse.gef.tools.AbstractTool;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.graphics.Cursor;
 
@@ -42,7 +42,7 @@ import java.util.ListIterator;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class ResizeTracker extends Tool {
+public class ResizeTracker extends AbstractTool implements DragTracker {
 	private final List<EditPart> m_operationSet;
 	private final int m_direction;
 	private final Object m_requestType;
@@ -67,6 +67,11 @@ public class ResizeTracker extends Tool {
 		m_direction = direction;
 		m_requestType = requestType;
 		setDefaultCursor(Cursors.getDirectionalCursor(direction));
+	}
+
+	@Override
+	protected String getCommandName() {
+		return null;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -110,7 +115,7 @@ public class ResizeTracker extends Tool {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	protected Cursor calculateCursor() {
-		if (m_state == STATE_DRAG) {
+		if (isInState(STATE_DRAG)) {
 			return getDefaultCursor();
 		}
 		return super.calculateCursor();
@@ -124,11 +129,11 @@ public class ResizeTracker extends Tool {
 	@Override
 	protected boolean handleButtonDown(int button) {
 		if (button == 1) {
-			if (m_state == STATE_INITIAL) {
-				m_state = STATE_DRAG;
+			if (isInState(STATE_INITIAL)) {
+				setState(STATE_DRAG);
 			}
 		} else {
-			m_state = STATE_INVALID;
+			setState(STATE_INVALID);
 			eraseSourceFeedback();
 			setCurrentCommand(null);
 		}
@@ -137,8 +142,8 @@ public class ResizeTracker extends Tool {
 
 	@Override
 	protected boolean handleButtonUp(int button) {
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
-			m_state = STATE_TERMINAL;
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
+			setState(STATE_TERMINAL);
 			eraseSourceFeedback();
 			executeCurrentCommand();
 		}
@@ -147,15 +152,15 @@ public class ResizeTracker extends Tool {
 
 	@Override
 	protected boolean handleDragStarted() {
-		if (m_state == STATE_DRAG) {
-			m_state = STATE_DRAG_IN_PROGRESS;
+		if (isInState(STATE_DRAG)) {
+			setState(STATE_DRAG_IN_PROGRESS);
 		}
 		return true;
 	}
 
 	@Override
 	protected boolean handleDragInProgress() {
-		if (m_state == STATE_DRAG_IN_PROGRESS) {
+		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			updateRequest();
 			showSourceFeedback();
 			setCurrentCommand(getCommand());
@@ -239,7 +244,7 @@ public class ResizeTracker extends Tool {
 		// set EditPart's
 		getRequest().setEditParts(getOperationSet());
 		// set stateMask
-		getRequest().setSnapToEnabled((m_stateMask & SWT.CONTROL) > 0);
+		getRequest().setSnapToEnabled(getCurrentInput().isControlKeyDown());
 		// update request
 		Point corner = new Point();
 		Dimension resize = new Dimension();
