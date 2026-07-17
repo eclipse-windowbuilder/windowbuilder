@@ -35,12 +35,12 @@ public class AbsoluteDragEditPartTracker extends DragEditPartTracker {
 	}
 
 	@Override
-	protected void updateTargetUnderMouse() {
+	protected boolean updateTargetUnderMouse() {
 		Point absoluteLocation = getLocation();
 		try (AutoScroller scroller = new AutoScroller(getCurrentViewer(), absoluteLocation.x, absoluteLocation.y)) {
 			Point location = scroller.getLocation();
 			getCurrentInput().setMouseLocation(location.x, location.y);
-			super.updateTargetUnderMouse();
+			return super.updateTargetUnderMouse();
 		} finally {
 			getCurrentInput().setMouseLocation(absoluteLocation.x, absoluteLocation.y);
 		}

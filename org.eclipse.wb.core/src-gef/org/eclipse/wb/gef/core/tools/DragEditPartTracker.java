@@ -139,7 +139,10 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		if (!getCurrentViewer().getSelectedEditParts().isEmpty() && getOperationSet().isEmpty()) {
 			return editPart -> false;
 		}
-		return super.getTargetingConditional();
+		return (target) -> {
+			updateTargetRequest(target);
+			return target.getTargetEditPart(getTargetRequest()) != null;
+		};
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -212,9 +215,7 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 		request.setLocation(getLocation());
 	}
 
-	@Override
 	protected void updateTargetRequest(EditPart target) {
-		super.updateTargetRequest(target);
 		ChangeBoundsRequest request = (ChangeBoundsRequest) getTargetRequest();
 		List<? extends EditPart> editParts = request.getEditParts();
 		if (!editParts.isEmpty()) {

@@ -17,6 +17,7 @@ import org.eclipse.wb.internal.gef.core.SharedCursors;
 
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.tools.TargetingTool;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 

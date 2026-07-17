@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 import org.eclipse.draw2d.geometry.Point;
 
 import java.util.Collection;
+import java.util.function.Supplier;
 
 /**
  * Subclass of the creation tool that also supports figures outside the visible
@@ -35,8 +36,8 @@ public class AbsoluteCreationTool extends CreationTool {
 	}
 
 	@Override
-	protected void updateTargetUnderMouse() {
-		whileScrolled(super::updateTargetUnderMouse);
+	protected boolean updateTargetUnderMouse() {
+		return whileScrolled(super::updateTargetUnderMouse);
 	}
 
 	@Override
@@ -49,14 +50,21 @@ public class AbsoluteCreationTool extends CreationTool {
 		whileScrolled(super::eraseTargetFeedback);
 	}
 
-	private void whileScrolled(Runnable r) {
+	private <T> T whileScrolled(Supplier<T> s) {
 		Point absoluteLocation = getLocation();
 		try (AutoScroller scroller = new AutoScroller(getCurrentViewer(), absoluteLocation.x, absoluteLocation.y)) {
 			Point location = scroller.getLocation();
 			getCurrentInput().setMouseLocation(location.x, location.y);
-			r.run();
+			return s.get();
 		} finally {
 			getCurrentInput().setMouseLocation(absoluteLocation.x, absoluteLocation.y);
 		}
+	}
+
+	private void whileScrolled(Runnable r) {
+		whileScrolled(() -> {
+			r.run();
+			return null;
+		});
 	}
 }

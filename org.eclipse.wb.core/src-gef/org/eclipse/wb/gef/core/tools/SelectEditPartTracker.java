@@ -17,6 +17,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.SelectionRequest;
+import org.eclipse.gef.tools.TargetingTool;
 import org.eclipse.swt.graphics.Cursor;
 
 /**

@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.core.gef.tools;
 import org.eclipse.wb.core.gef.policy.TabOrderContainerEditPolicy;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.tools.TargetingTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.draw2d.Cursors;
@@ -23,6 +22,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.tools.TargetingTool;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
@@ -198,7 +198,7 @@ public final class TabOrderTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void updateTargetUnderMouse() {
+	protected boolean updateTargetUnderMouse() {
 		// find on clickable layer
 		EditPart editPart =
 				((IEditPartViewer) getCurrentViewer()).findObjectAtExcluding(
@@ -218,6 +218,7 @@ public final class TabOrderTool extends TargetingTool {
 			editPart = editPart.getTargetEditPart(getTargetRequest());
 		}
 		setTargetEditPart(editPart);
+		return true;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
