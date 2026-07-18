@@ -53,7 +53,7 @@ public class ResizeTrackerTest extends RequestTestCase {
 		m_viewport = m_viewer.getControl().getViewport();
 	}
 
-	private void setUp(int direction, Object type) {
+	private void setUp(int direction, String type) {
 		m_direction = direction;
 		m_type = type;
 		m_domain.setActiveTool(new ResizeTracker(direction, type));

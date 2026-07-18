@@ -69,12 +69,12 @@ SelectionEditPolicy {
 		handle.setDragTracker(new ResizeTracker(direction, REQ_RESIZE) {
 			@Override
 			protected Command getCommand() {
-				return getLayoutEditPolicy().getResizeCommandImpl(getRequest());
+				return getLayoutEditPolicy().getResizeCommandImpl(getSourceRequest());
 			}
 
 			@Override
 			protected void showSourceFeedback() {
-				getLayoutEditPolicy().showResizeFeedback(getRequest());
+				getLayoutEditPolicy().showResizeFeedback(getSourceRequest());
 				setShowingFeedback(true);
 			}
 
@@ -82,7 +82,7 @@ SelectionEditPolicy {
 			protected void eraseSourceFeedback() {
 				if (isShowingFeedback()) {
 					setShowingFeedback(false);
-					getLayoutEditPolicy().eraseResizeFeedback(getRequest());
+					getLayoutEditPolicy().eraseResizeFeedback(getSourceRequest());
 				}
 			}
 		});

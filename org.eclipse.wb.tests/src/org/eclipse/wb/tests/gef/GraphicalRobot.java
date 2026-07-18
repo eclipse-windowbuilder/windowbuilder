@@ -255,14 +255,22 @@ public final class GraphicalRobot {
 		Predicate<Handle> predicate = handle -> {
 			if (handle.getDragTracker() instanceof ResizeTracker) {
 				ResizeTracker resizeTracker = (ResizeTracker) handle.getDragTracker();
-				return resizeTracker.getDirection() == direction
-						&& Objects.equals(resizeTracker.getRequestType(), type);
+				return getResizeDirection(resizeTracker) == direction
+						&& Objects.equals(getCommandName(resizeTracker), type);
 			}
 			return false;
 		};
 		toHandle(object, predicate);
 		// continue
 		return this;
+	}
+
+	private int getResizeDirection(ResizeTracker resizeTracker) {
+		return (int) ReflectionUtils.invokeMethodEx(resizeTracker, "getResizeDirection()");
+	}
+
+	private String getCommandName(ResizeTracker resizeTracker) {
+		return (String) ReflectionUtils.invokeMethodEx(resizeTracker, "getCommandName()");
 	}
 
 	/**
