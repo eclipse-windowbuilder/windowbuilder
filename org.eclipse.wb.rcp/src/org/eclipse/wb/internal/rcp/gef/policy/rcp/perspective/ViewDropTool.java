@@ -44,6 +44,11 @@ public final class ViewDropTool extends AbstractCreationTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	protected String getCommandName() {
+		return ViewDropRequest.TYPE;
+	}
+
+	@Override
 	protected Request createTargetRequest() {
 		return new ViewDropRequest(m_view);
 	}

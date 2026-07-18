@@ -33,6 +33,12 @@ public final class DialogButtonDropTool extends AbstractCreationTool {
 	// AbstractCreationTool
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	protected String getCommandName() {
+		return DialogButtonDropRequest.TYPE;
+	}
+
 	@Override
 	protected Request createTargetRequest() {
 		return new DialogButtonDropRequest();

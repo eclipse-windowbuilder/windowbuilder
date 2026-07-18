@@ -33,6 +33,11 @@ public final class CollapsibleButtonDropTool extends AbstractCreationTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
+	protected String getCommandName() {
+		return CollapsibleButtonDropRequest.TYPE;
+	}
+
+	@Override
 	protected Request createTargetRequest() {
 		return new CollapsibleButtonDropRequest();
 	}

@@ -58,6 +58,12 @@ public class PasteTool extends AbstractCreationTool {
 	// Request
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	protected String getCommandName() {
+		return PasteRequest.REQ_PASTE;
+	}
+
 	/**
 	 * Creates a {@link PasteRequest} and sets this memento object on the request.
 	 */

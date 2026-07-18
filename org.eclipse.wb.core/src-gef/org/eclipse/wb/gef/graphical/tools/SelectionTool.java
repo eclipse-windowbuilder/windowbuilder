@@ -94,6 +94,11 @@ public class SelectionTool extends TargetingTool {
 		super.deactivate();
 	}
 
+	@Override
+	protected String getCommandName() {
+		return REQ_SELECTION;
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Cursor

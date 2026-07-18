@@ -78,6 +78,11 @@ public final class TabOrderTool extends TargetingTool {
 		}
 	}
 
+	@Override
+	protected String getCommandName() {
+		return (String) TabOrderContainerEditPolicy.TAB_ORDER_REQUEST.getType();
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Request

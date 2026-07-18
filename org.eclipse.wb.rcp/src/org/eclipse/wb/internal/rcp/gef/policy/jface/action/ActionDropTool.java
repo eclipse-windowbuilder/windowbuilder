@@ -44,6 +44,12 @@ public final class ActionDropTool extends AbstractCreationTool {
 	// AbstractCreationTool
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	protected String getCommandName() {
+		return ActionDropRequest.TYPE;
+	}
+
 	@Override
 	protected Request createTargetRequest() {
 		return new ActionDropRequest(m_action);

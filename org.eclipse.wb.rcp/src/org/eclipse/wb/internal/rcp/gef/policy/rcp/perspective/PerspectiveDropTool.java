@@ -43,6 +43,12 @@ public final class PerspectiveDropTool extends AbstractCreationTool {
 	// AbstractCreationTool
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	@Override
+	protected String getCommandName() {
+		return PerspectiveDropRequest.TYPE;
+	}
+
 	@Override
 	protected Request createTargetRequest() {
 		return new PerspectiveDropRequest(m_perspective);

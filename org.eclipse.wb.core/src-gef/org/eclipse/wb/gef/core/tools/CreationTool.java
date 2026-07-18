@@ -75,6 +75,11 @@ public class CreationTool extends AbstractCreationTool {
 		return new CreateRequest(m_factory);
 	}
 
+	@Override
+	protected String getCommandName() {
+		return REQ_CREATE;
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Selection

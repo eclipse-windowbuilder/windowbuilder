@@ -38,6 +38,11 @@ public class SelectEditPartTracker extends TargetingTool implements DragTracker 
 		m_sourceEditPart = sourceEditPart;
 	}
 
+	@Override
+	protected String getCommandName() {
+		return "Select Tracker";
+	}
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Drop Access
