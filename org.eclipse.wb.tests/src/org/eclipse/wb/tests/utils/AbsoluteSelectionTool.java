@@ -44,7 +44,7 @@ public class AbsoluteSelectionTool extends SelectionTool {
 	@Override
 	public void setDragTracker(DragTracker dragTracker) {
 		if (dragTracker != null && dragTracker.getClass() == DragEditPartTracker.class) {
-			EditPart sourceEditPart = (EditPart) ReflectionUtils.getFieldObject(dragTracker, "m_sourceEditPart");
+			EditPart sourceEditPart = (EditPart) ReflectionUtils.invokeMethodEx(dragTracker, "getSourceEditPart()");
 			super.setDragTracker(new AbsoluteDragEditPartTracker(sourceEditPart));
 			return;
 		}

@@ -28,6 +28,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.GroupRequest;
+import org.eclipse.gef.tools.SelectEditPartTracker;
 import org.eclipse.jface.viewers.StructuredSelection;
 
 import java.util.ArrayList;

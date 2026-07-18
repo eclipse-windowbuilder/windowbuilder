@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.gef.part.menu;
 
 import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.gef.core.tools.SelectEditPartTracker;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuLayoutEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.menu.MenuSelectionEditPolicy;
@@ -29,6 +28,7 @@ import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.tools.SelectEditPartTracker;
 
 import java.util.ArrayList;
 import java.util.List;
