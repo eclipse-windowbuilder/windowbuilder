@@ -27,7 +27,7 @@ import org.eclipse.swt.graphics.Color;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public abstract class SquareHandle extends Handle {
+public abstract class SquareHandle extends DesignHandle {
 	/**
 	 * The default size for square handles.
 	 */

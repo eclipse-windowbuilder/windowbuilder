@@ -290,6 +290,7 @@ public class JFrameTopBoundsTest extends SwingGefTest {
 		// change size
 		canvas.beginResize(frame, PositionConstants.EAST);
 		canvas.dragTo(frame, resizeSize.width, 0).endDrag();
+		waitEventLoop(50);
 		canvas.beginResize(frame, PositionConstants.SOUTH);
 		canvas.dragTo(frame, 0, resizeSize.height).endDrag();
 		// check new size

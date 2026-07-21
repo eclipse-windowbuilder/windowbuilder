@@ -14,6 +14,7 @@ package org.eclipse.wb.internal.rcp.gef.policy.rcp.perspective;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.FigureUtils;
+import org.eclipse.wb.gef.graphical.handles.DesignHandle;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
@@ -78,7 +79,7 @@ public final class AbstractPartSelectionEditPolicy extends SelectionEditPolicy {
 			return Collections.emptyList();
 		}
 		// prepare handle
-		org.eclipse.wb.gef.graphical.handles.Handle resizeHandle = new org.eclipse.wb.gef.graphical.handles.Handle(getHost(), target -> {
+		DesignHandle resizeHandle = new DesignHandle(getHost(), target -> {
 			// prepare bounds (relative to page)
 			Rectangle bounds = m_line.getBounds().getCopy();
 			if (m_line.isHorizontal()) {

@@ -231,6 +231,7 @@ public class SelectionToolTest extends RequestTestCase {
 		//
 		MoveHandle handle = new MoveHandle(childEditPart);
 		handle.setDragTracker(new RequestDragTracker(childEditPart));
+		handle.validate();
 		LayerManager.Helper.find(m_viewer).getLayer(LayerConstants.HANDLE_LAYER).add(handle);
 		//
 		RequestsLogger expectedLogger = new RequestsLogger();

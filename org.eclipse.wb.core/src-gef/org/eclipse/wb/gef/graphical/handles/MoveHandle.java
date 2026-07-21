@@ -26,7 +26,7 @@ import org.eclipse.gef.GraphicalEditPart;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class MoveHandle extends Handle {
+public class MoveHandle extends DesignHandle {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructors

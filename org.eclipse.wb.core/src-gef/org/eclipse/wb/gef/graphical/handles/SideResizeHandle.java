@@ -27,7 +27,7 @@ import org.eclipse.gef.GraphicalEditPart;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class SideResizeHandle extends Handle {
+public class SideResizeHandle extends DesignHandle {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor

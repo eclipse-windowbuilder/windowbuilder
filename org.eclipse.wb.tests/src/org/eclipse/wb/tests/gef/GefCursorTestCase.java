@@ -70,6 +70,10 @@ public abstract class GefCursorTestCase extends GefTestCase {
 		m_actualLogger = new CursorLogger();
 		m_viewer = new TestGraphicalViewer(m_shell, m_actualLogger);
 		m_viewer.getControl().setSize(500, 400);
+		m_viewer.addSelectionChangedListener(event -> {
+			// wait for handlers to update after selection
+			m_viewer.getControl().getLightweightSystem().getUpdateManager().performUpdate();
+		});
 		// set edit domain
 		m_domain = new EditDomain() {
 			@Override
