@@ -18,7 +18,6 @@ import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.PasteTool;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
-import org.eclipse.wb.gef.graphical.handles.ResizeHandle;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -44,6 +43,7 @@ import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.LayerManager;
+import org.eclipse.gef.handles.ResizeHandle;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
@@ -238,8 +238,8 @@ public final class GraphicalRobot {
 	 */
 	public GraphicalRobot toResizeHandle(Object object, final int direction) {
 		Predicate<Handle> predicate = handle -> {
-			if (handle instanceof ResizeHandle resizeHandle) {
-				return resizeHandle.getDirection() == direction;
+			if (handle instanceof ResizeHandle) {
+				return ReflectionUtils.getFieldInt(handle, "cursorDirection") == direction;
 			}
 			return false;
 		};

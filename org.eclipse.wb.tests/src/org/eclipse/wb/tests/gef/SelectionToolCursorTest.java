@@ -91,7 +91,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// move to "ButtonEditPart_NORTH_WEST_ResizeHandle"
 		{
-			m_sender.moveTo(120, 120);
+			m_sender.moveTo(100, 100);
 			//
 			m_expectedLogger.setCursor(Cursors.SIZENW);
 			m_actualLogger.assertEquals(m_expectedLogger);
@@ -131,14 +131,14 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// move to "ButtonEditPart_NORTH_WEST_ResizeHandle"
 		{
-			m_sender.moveTo(120, 120);
+			m_sender.moveTo(100, 100);
 			//
 			m_expectedLogger.setCursor(Cursors.SIZENW);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// start drag
 		{
-			m_sender.startDrag(120, 120, 1);
+			m_sender.startDrag(100, 100, 1);
 			//
 			m_actualLogger.assertEmpty();
 		}
@@ -157,27 +157,27 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// move to "ShellEditPart"
 		{
-			m_sender.moveTo(110, 220);
+			m_sender.moveTo(90, 200);
 			//
 			m_expectedLogger.setCursor(null);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// move to "ButtonEditPart_SOUTH_WEST_ResizeHandle"
 		{
-			m_sender.moveTo(120, 220);
+			m_sender.moveTo(100, 200);
 			//
 			m_expectedLogger.setCursor(Cursors.SIZESW);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// start drag
 		{
-			m_sender.startDrag(120, 220, 1);
+			m_sender.startDrag(100, 200, 1);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag to "ShellEditPart"
 		{
-			m_sender.dragTo(100, 220);
+			m_sender.dragTo(80, 200);
 			//
 			m_actualLogger.assertEmpty();
 		}
@@ -190,32 +190,32 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// move to "ButtonEditPart_NORTH_ResizeHandle"
 		{
-			m_sender.moveTo(220, 120);
+			m_sender.moveTo(200, 100);
 			//
 			m_expectedLogger.setCursor(Cursors.SIZEN);
 			m_actualLogger.assertEquals(m_expectedLogger);
 		}
 		// start drag
 		{
-			m_sender.startDrag(220, 120, 1);
+			m_sender.startDrag(200, 100, 1);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag to "ShellEditPart"
 		{
-			m_sender.dragTo(220, 100);
+			m_sender.dragTo(200, 80);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// invalid input
 		{
-			m_sender.startDrag(220, 100, 2);
+			m_sender.startDrag(200, 80, 2);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag to "ShellEditPart"
 		{
-			m_sender.dragTo(220, 90);
+			m_sender.dragTo(200, 70);
 			//
 			m_actualLogger.assertEmpty();
 		}
@@ -289,20 +289,20 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// move to "EditPart_NORTH_EAST_ResizeHandle"
 		{
-			m_sender.moveTo(80, 30);
+			m_sender.moveTo(60, 10);
 			//
 			expectedLogger.setCursor(Cursors.SIZENE);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// start drag
 		{
-			m_sender.startDrag(80, 30, 1);
+			m_sender.startDrag(60, 10, 1);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag
 		{
-			m_sender.dragTo(90, 30);
+			m_sender.dragTo(70, 10);
 			//
 			m_actualLogger.assertEmpty();
 		}
@@ -434,26 +434,26 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// move to "ShellEditPart"
 		{
-			m_sender.moveTo(50, 50);
+			m_sender.moveTo(30, 30);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// use tracker
 		{
 			m_sender.setStateMask(SWT.ALT);
-			m_sender.startDrag(50, 50, 1);
+			m_sender.startDrag(30, 30, 1);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag over "ShellEditPart"
 		{
-			m_sender.dragTo(100, 100);
+			m_sender.dragTo(80, 80);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag over "ButtonEditPart_NORTH_ResizeHandle"
 		{
-			m_sender.dragTo(220, 120);
+			m_sender.dragTo(200, 100);
 			//
 			m_actualLogger.assertEmpty();
 		}
@@ -469,7 +469,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		//
 		// move to "ButtonEditPart_NORTH_ResizeHandle"
 		{
-			m_sender.moveTo(220, 120);
+			m_sender.moveTo(200, 100);
 			//
 			m_expectedLogger.setCursor(Cursors.SIZEN);
 			m_actualLogger.assertEquals(m_expectedLogger);
@@ -477,25 +477,25 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		// use tracker
 		{
 			m_sender.setStateMask(SWT.ALT);
-			m_sender.startDrag(220, 120, 1);
+			m_sender.startDrag(200, 100, 1);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag
 		{
-			m_sender.dragTo(230, 130);
+			m_sender.dragTo(210, 110);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// invalid input
 		{
-			m_sender.startDrag(230, 130, 2);
+			m_sender.startDrag(210, 110, 2);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag
 		{
-			m_sender.dragTo(235, 135);
+			m_sender.dragTo(215, 115);
 			//
 			m_actualLogger.assertEmpty();
 		}
