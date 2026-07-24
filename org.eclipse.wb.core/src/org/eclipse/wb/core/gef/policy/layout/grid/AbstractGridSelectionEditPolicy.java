@@ -26,7 +26,6 @@ import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.SquareHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Cursors;
@@ -108,7 +107,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	/**
 	 * @return the pixels {@link Rectangle} of host component.
 	 */
-	private Rectangle getComponentCellBounds() throws Exception {
+	private Rectangle getComponentCellBounds() {
 		Rectangle cells = getComponentCells();
 		return getGridInfo().getCellsRectangle(cells);
 	}
@@ -116,7 +115,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	/**
 	 * @return the pixels {@link Rectangle} of host component in feedback.
 	 */
-	private Rectangle getComponentCellBounds_atFeedback() throws Exception {
+	private Rectangle getComponentCellBounds_atFeedback() {
 		Rectangle bounds = getComponentCellBounds();
 		translateModelToFeedback(bounds);
 		return bounds;
@@ -131,17 +130,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	 * @return the {@link MoveHandle} for host component.
 	 */
 	protected final MoveHandle createMoveHandle() {
-		MoveHandle moveHandle = new MoveHandle(getHost(), new Locator() {
-			@Override
-			public void relocate(IFigure target) {
-				try {
-					Rectangle bounds = getComponentCellBounds_atFeedback();
-					target.setBounds(bounds);
-				} catch (Throwable e) {
-					DesignerPlugin.log(e);
-				}
-			}
-		});
+		MoveHandle moveHandle = new MoveHandle(getHost(), target -> target.setBounds(getComponentCellBounds_atFeedback()));
 		moveHandle.setForegroundColor(ColorConstants.red);
 		return moveHandle;
 	}
@@ -625,12 +614,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 
 			@Override
 			protected Rectangle getReferenceRectangle() {
-				try {
-					Rectangle bounds = getComponentCellBounds_atFeedback();
-					return bounds;
-				} catch (Throwable e) {
-					return new Rectangle();
-				}
+				return getComponentCellBounds_atFeedback();
 			}
 		}
 		//
