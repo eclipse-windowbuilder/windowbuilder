@@ -281,8 +281,29 @@ public final class SwingUtils {
 	 */
 	public static Point getRelativeLocation(final Component parentComponent, final Component childComponent)
 			throws Exception {
-		return runObjectLaterAndWait(() -> SwingUtilities.convertPoint(childComponent.getParent(),
-				childComponent.getLocation(), parentComponent));
+		if (EnvironmentUtils.IS_LINUX) {
+			return internalGetRelativeLocationLinux(parentComponent, childComponent);
+		}
+		return internalGetRelativeLocation(parentComponent, childComponent);
+	}
+
+	private static Point internalGetRelativeLocationLinux(final Component parentComponent, final Component childComponent) throws Exception {
+		long end = System.currentTimeMillis() + 1000;
+		Point p;
+		do {
+			p = internalGetRelativeLocation(parentComponent, childComponent);
+			// The Swing component is moved asynchronously by the window manager. Wait until we get a consistent result
+			Point p1 = internalGetRelativeLocation(parentComponent, childComponent);
+			if (p.equals(p1)) {
+				break;
+			}
+		} while (System.currentTimeMillis() < end);
+		return p;
+
+	}
+
+	private static Point internalGetRelativeLocation(final Component parentComponent, final Component childComponent) throws Exception {
+		return runObjectLaterAndWait(() -> SwingUtilities.convertPoint(childComponent.getParent(), childComponent.getLocation(), parentComponent));
 	}
 
 	/**
