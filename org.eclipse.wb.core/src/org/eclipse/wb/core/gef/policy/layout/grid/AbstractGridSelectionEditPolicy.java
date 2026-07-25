@@ -19,8 +19,6 @@ import org.eclipse.wb.core.gef.policy.layout.LayoutPolicyUtils;
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
-import org.eclipse.wb.draw2d.AbstractRelativeLocator;
-import org.eclipse.wb.draw2d.RelativeLocator;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.SquareHandle;
@@ -33,6 +31,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.RelativeLocator;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
@@ -592,13 +591,13 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	protected final Locator createComponentLocator(int direction, double percent) {
 		IFigure reference = getHostFigure();
 		if (direction == PositionConstants.WEST) {
-			return new RelativeLocator(reference, 0, percent);
+			return new org.eclipse.wb.draw2d.RelativeLocator(reference, 0, percent);
 		} else if (direction == PositionConstants.EAST) {
-			return new RelativeLocator(reference, 1, percent);
+			return new org.eclipse.wb.draw2d.RelativeLocator(reference, 1, percent);
 		} else if (direction == PositionConstants.NORTH) {
-			return new RelativeLocator(reference, percent, percent);
+			return new org.eclipse.wb.draw2d.RelativeLocator(reference, percent, percent);
 		} else if (direction == PositionConstants.SOUTH) {
-			return new RelativeLocator(reference, percent, 1);
+			return new org.eclipse.wb.draw2d.RelativeLocator(reference, percent, 1);
 		}
 		throw new IllegalArgumentException("Unknown direction: " + direction);
 	}
@@ -607,14 +606,14 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	 * @return {@link Locator} that positions handles on component's cells side.
 	 */
 	protected final Locator createCellLocator(int direction, double percent) {
-		class SideLocator extends AbstractRelativeLocator {
+		class SideLocator extends RelativeLocator {
 			public SideLocator(double relativeX, double relativeY) {
-				super(relativeX, relativeY);
+				super(getHost().getFigure(), relativeX, relativeY);
 			}
 
 			@Override
-			protected Rectangle getReferenceRectangle() {
-				return getComponentCellBounds_atFeedback();
+			protected Rectangle getReferenceBox() {
+				return getComponentCellBounds();
 			}
 		}
 		//
