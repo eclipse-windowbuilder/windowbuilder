@@ -659,7 +659,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		}
 
 		@Override
-		public void endVisit(ClassInstanceCreation creation) {
+		protected void endVisitEx(ClassInstanceCreation creation) {
 			try {
 				if (createJavaInfo_noModel(creation)) {
 					return;
@@ -742,7 +742,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		}
 
 		@Override
-		public void endVisit(MethodInvocation invocation) {
+		protected void endVisitEx(MethodInvocation invocation) {
 			try {
 				if (createJavaInfo_noModel(invocation)) {
 					return;

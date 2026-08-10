@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -337,7 +337,7 @@ public final class ExecutionFlowUtils2 {
 		}
 
 		@Override
-		public void endVisit(MethodInvocation node) {
+		protected void endVisitEx(MethodInvocation node) {
 			MethodDeclaration method = AstNodeUtils.getLocalMethodDeclaration(node);
 			if (method != null) {
 				// may be "lazy"
