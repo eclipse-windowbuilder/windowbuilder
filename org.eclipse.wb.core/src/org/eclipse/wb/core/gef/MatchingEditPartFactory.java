@@ -18,8 +18,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 
 import org.eclipse.gef.EditPart;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.lang.reflect.Constructor;
 import java.util.List;
 
@@ -106,8 +104,8 @@ public final class MatchingEditPartFactory implements IEditPartFactory {
 		{
 			String modelClassName = modelClass.getName();
 			if (modelClassName.contains("$")) {
-				modelClassName = StringUtils.remove(modelClassName, "Info");
-				modelClassName = StringUtils.remove(modelClassName, "$");
+				modelClassName = StringUtilities.remove(modelClassName, "Info");
+				modelClassName = StringUtilities.remove(modelClassName, "$");
 				EditPart editPart = createEditPart(model, modelClass, modelClassName, "");
 				if (editPart != null) {
 					return editPart;

@@ -578,7 +578,7 @@ public abstract class DesignerTestCase extends Assertions {
 				text = text.substring(0, index);
 			}
 		}
-		text = StringUtils.remove(text, "&");
+		text = StringUtils.remove(text, '&');
 		return text;
 	}
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -83,7 +83,7 @@ public abstract class BeanPropertiesCodeSupport extends ObservableCodeSupport {
 		if (m_parserBeanType != null
 				&& m_parserPropertyReference != null
 				&& m_parserPropertyType == null) {
-			String propertyName = StringUtils.remove(m_parserPropertyReference, "\"");
+			String propertyName = StringUtils.remove(m_parserPropertyReference, '"');
 			for (PropertyDescriptor descriptor : BeanSupport.getPropertyDescriptors(m_parserBeanType)) {
 				if (propertyName.equals(descriptor.getName())) {
 					m_parserPropertyType = descriptor.getPropertyType();
