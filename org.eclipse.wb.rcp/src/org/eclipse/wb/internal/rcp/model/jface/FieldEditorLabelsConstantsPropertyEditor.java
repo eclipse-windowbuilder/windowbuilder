@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -179,7 +179,7 @@ public final class FieldEditorLabelsConstantsPropertyEditor extends TextDialogPr
 						line);
 			}
 			// prepare "label" and "field" code
-			int lastSpaceIndex = StringUtils.lastIndexOf(line, " ");
+			int lastSpaceIndex = line.lastIndexOf(" ");
 			String label = line.substring(0, lastSpaceIndex).trim();
 			String fieldCode = line.substring(lastSpaceIndex).trim();
 			// convert "fieldCode" into IField

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,8 +21,6 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Image;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -232,7 +230,7 @@ public final class SwingScreenshotMaker {
 	private static void fixJLabelWithHTML(Component component) throws Exception {
 		if (component instanceof JLabel label) {
 			String text = label.getText();
-			if (StringUtils.containsIgnoreCase(text, "<html>")) {
+			if (text != null && text.toLowerCase().contains("<html>")) {
 				SwingImageUtils.createComponentShotAWT(component);
 			}
 		}

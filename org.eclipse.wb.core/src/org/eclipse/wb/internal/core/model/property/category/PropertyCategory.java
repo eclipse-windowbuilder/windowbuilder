@@ -16,8 +16,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * Describes category of {@link Property}.
  *
@@ -109,7 +107,7 @@ public final class PropertyCategory {
 			return HIDDEN;
 		}
 		// system
-		if (StringUtils.startsWith(text, "system(")) {
+		if (text != null && text.startsWith("system(")) {
 			String systemText = text;
 			systemText = StringUtilities.removeStart(systemText, "system(");
 			systemText = StringUtilities.removeEnd(systemText, ")");
