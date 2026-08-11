@@ -62,6 +62,7 @@ import org.eclipse.wb.internal.core.model.variable.LocalReuseVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.LocalUniqueVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.nls.NlsSupport;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
@@ -103,7 +104,6 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -530,7 +530,7 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		{
 			int position = root.getCreationSupport().getNode().getStartPosition();
 			String endOfLineComment = root.getEditor().getEndOfLineComment(position);
-			if (StringUtils.contains(endOfLineComment, "@wbp.parser.preferredRoot")) {
+			if (StringUtilities.contains(endOfLineComment, "@wbp.parser.preferredRoot")) {
 				return true;
 			}
 		}

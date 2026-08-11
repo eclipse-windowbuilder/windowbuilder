@@ -328,4 +328,14 @@ public class StringUtilitiesTest extends DesignerTestCase {
 		assertEquals("qd", StringUtilities.remove("queued", "ue"));
 		assertEquals("queued", StringUtilities.remove("queued", "zz"));
 	}
+
+	@Test
+	public void test_contains() {
+		assertFalse(StringUtilities.contains(null, "*"));
+		assertFalse(StringUtilities.contains("*", null));
+		assertTrue(StringUtilities.contains("", ""));
+		assertTrue(StringUtilities.contains("abc", ""));
+		assertTrue(StringUtilities.contains("abc", "a"));
+		assertFalse(StringUtilities.contains("abc", "z"));
+	}
 }

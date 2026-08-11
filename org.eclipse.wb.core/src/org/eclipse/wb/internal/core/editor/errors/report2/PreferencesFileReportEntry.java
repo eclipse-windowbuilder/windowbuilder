@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.preferences.IPreferencesService;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.dialogs.ErrorDialog;
 
-import org.apache.commons.lang3.StringUtils;
 import org.osgi.service.prefs.BackingStoreException;
 
 import java.io.ByteArrayInputStream;
@@ -76,7 +75,7 @@ public final class PreferencesFileReportEntry extends FileReportEntry {
 						return true;
 					}
 					// exclude all which not relative do WindowBuilder
-					if (!StringUtils.contains(childNode.absolutePath(), PREFERENCES_PREFIX)) {
+					if (!childNode.absolutePath().contains(PREFERENCES_PREFIX)) {
 						excludesList.add(childNode.name());
 					}
 					return true;

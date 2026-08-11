@@ -496,4 +496,19 @@ public class StringUtilities {
 	public static String remove(final String str, final String remove) {
 		return Strings.CS.remove(str, remove);
 	}
+
+	/**
+	 * Tests if CharSequence contains a search CharSequence, handling {@code null}.
+	 *
+	 * <p>
+	 * A {@code null} CharSequence will return {@code false}.
+	 * </p>
+	 * @param seq       the CharSequence to check, may be null
+	 * @param searchSeq the CharSequence to find, may be null
+	 * @return true if the CharSequence contains the search CharSequence, false if
+	 *         not or {@code null} string input
+	 */
+	public static boolean contains(final CharSequence seq, final CharSequence searchSeq) {
+		return Strings.CS.contains(seq, searchSeq);
+	}
 }

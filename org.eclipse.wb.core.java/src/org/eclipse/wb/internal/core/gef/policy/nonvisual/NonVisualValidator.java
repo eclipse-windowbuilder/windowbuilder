@@ -22,12 +22,11 @@ import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.description.ComponentDescription;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
+import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -123,7 +122,7 @@ final class NonVisualValidator implements ILayoutRequestValidator {
 		}
 		// validate only java bean objects
 		String source = newInfo.getCreationSupport().add_getSource(null);
-		return !StringUtils.contains(source, "%parent%") && !StringUtils.contains(source, "%child%");
+		return !StringUtilities.contains(source, "%parent%") && !StringUtilities.contains(source, "%child%");
 	}
 
 	protected static boolean acceptDropNonVisualBeans() {
