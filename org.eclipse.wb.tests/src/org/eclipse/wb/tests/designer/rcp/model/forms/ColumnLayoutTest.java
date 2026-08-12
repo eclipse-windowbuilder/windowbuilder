@@ -52,51 +52,49 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_LayoutData_implicit() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new ColumnLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new ColumnLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		ColumnLayoutDataInfo columnData = ColumnLayoutInfo.getColumnData(button);
 		columnData.setWidthHint(100);
 		columnData.setHeightHint(200);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new ColumnLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        ColumnLayoutData columnLayoutData = new ColumnLayoutData();",
-				"        columnLayoutData.heightHint = 200;",
-				"        columnLayoutData.widthHint = 100;",
-				"        button.setLayoutData(columnLayoutData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new ColumnLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								ColumnLayoutData columnLayoutData = new ColumnLayoutData();
+								columnLayoutData.heightHint = 200;
+								columnLayoutData.widthHint = 100;
+								button.setLayoutData(columnLayoutData);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_LayoutData_explicit() throws Exception {
-		CompositeInfo shell =
-				parseJavaInfo(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new ColumnLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new ColumnLayoutData(100, 200));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseJavaInfo("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new ColumnLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new ColumnLayoutData(100, 200));
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		ColumnLayoutDataInfo columnData = ColumnLayoutInfo.getColumnData(button);
@@ -105,21 +103,20 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 
 	@Test
 	public void test_copyPaste() throws Exception {
-		CompositeInfo shell =
-				parseJavaInfo(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new ColumnLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        button.setLayoutData(new ColumnLayoutData(100, 200));",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseJavaInfo("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new ColumnLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new ColumnLayoutData(100, 200));
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
 		// do copy
@@ -134,48 +131,47 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 			fillLayout.command_CREATE(newComposite, null);
 			memento.apply();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      composite.setLayout(new ColumnLayout());",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"        button.setLayoutData(new ColumnLayoutData(100, 200));",
-				"      }",
-				"    }",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      composite.setLayout(new ColumnLayout());",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"        {",
-				"          button.setLayoutData(new ColumnLayoutData(100, 200));",
-				"        }",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new ColumnLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new ColumnLayoutData(100, 200));
+							}
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new ColumnLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								{
+									button.setLayoutData(new ColumnLayoutData(100, 200));
+								}
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_selectionActions_1() throws Exception {
-		CompositeInfo shell =
-				parseJavaInfo(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new ColumnLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        ColumnLayoutData columnLayoutData = new ColumnLayoutData();",
-						"        button.setLayoutData(columnLayoutData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseJavaInfo("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new ColumnLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								ColumnLayoutData columnLayoutData = new ColumnLayoutData();
+								button.setLayoutData(columnLayoutData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// prepare actions
@@ -195,20 +191,20 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 			//
 			leftAction.setChecked(true);
 			leftAction.run();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setLayout(new ColumnLayout());",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      {",
-					"        ColumnLayoutData columnLayoutData = new ColumnLayoutData();",
-					"        columnLayoutData.horizontalAlignment = ColumnLayoutData.LEFT;",
-					"        button.setLayoutData(columnLayoutData);",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							setLayout(new ColumnLayout());
+							{
+								Button button = new Button(this, SWT.NONE);
+								{
+									ColumnLayoutData columnLayoutData = new ColumnLayoutData();
+									columnLayoutData.horizontalAlignment = ColumnLayoutData.LEFT;
+									button.setLayoutData(columnLayoutData);
+								}
+							}
+						}
+					}""");
 		}
 	}
 
@@ -217,13 +213,12 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_selectionActions_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new ColumnLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new ColumnLayout());
+					}
+				}""");
 		shell.refresh();
 		// prepare actions
 		List<Object> actions = getSelectionActions();
@@ -236,14 +231,13 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_selectionActions_3() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new ColumnLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new ColumnLayout());
+						Button button = new Button(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// prepare actions
@@ -262,35 +256,34 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_convertFrom() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new ColumnLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        ColumnLayoutData columnLayoutData = new ColumnLayoutData();",
-						"        columnLayoutData.horizontalAlignment = ColumnLayoutData.RIGHT;",
-						"        button.setLayoutData(columnLayoutData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new ColumnLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								ColumnLayoutData columnLayoutData = new ColumnLayoutData();
+								columnLayoutData.horizontalAlignment = ColumnLayoutData.RIGHT;
+								button.setLayoutData(columnLayoutData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		//
 		LayoutInfo gridLayout = createJavaInfo("org.eclipse.swt.layout.GridLayout");
 		shell.setLayout(gridLayout);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout(1, false));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -298,35 +291,34 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_convertTo() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1, 1));
+						}
+					}
+				}""");
 		shell.refresh();
 		//
 		LayoutInfo columnLayout = createJavaInfo("org.eclipse.ui.forms.widgets.ColumnLayout");
 		shell.setLayout(columnLayout);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new ColumnLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        ColumnLayoutData columnLayoutData = new ColumnLayoutData();",
-				"        columnLayoutData.horizontalAlignment = ColumnLayoutData.RIGHT;",
-				"        button.setLayoutData(columnLayoutData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new ColumnLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								ColumnLayoutData columnLayoutData = new ColumnLayoutData();
+								columnLayoutData.horizontalAlignment = ColumnLayoutData.RIGHT;
+								button.setLayoutData(columnLayoutData);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -59,16 +59,15 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 
 	@Test
 	public void test_selectionActions_emptySelection() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      setLayout(layout);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							setLayout(layout);
+						}
+					}
+				}""");
 		shell.refresh();
 		// prepare actions
 		List<Object> actions;
@@ -83,19 +82,18 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 
 	@Test
 	public void test_selectionActions_invalidSelection() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      setLayout(layout);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							setLayout(layout);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// prepare actions
@@ -111,29 +109,28 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 
 	@Test
 	public void test_selectionActions_state() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      layout.numColumns = 2;",
-						"      setLayout(layout);",
-						"    }",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"      label.setText(\"Label:\");",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        tableWrapData.grabHorizontal = true;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setText("Label:");
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								tableWrapData.grabHorizontal = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo label = shell.getChildrenControls().get(0);
 		ControlInfo button = shell.getChildrenControls().get(1);
@@ -168,27 +165,26 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 
 	@Test
 	public void test_grabAction() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      setLayout(layout);",
-						"    }",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData();",
-						"        tableWrapData.grabHorizontal = true;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							setLayout(layout);
+						}
+						{
+							Label label = new Label(this, SWT.NONE);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.grabHorizontal = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(1);
 		// prepare actions
@@ -204,27 +200,27 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 			assertFalse(verticalGrab.isChecked());
 			verticalGrab.setChecked(true);
 			verticalGrab.run();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    {",
-					"      TableWrapLayout layout = new TableWrapLayout();",
-					"      setLayout(layout);",
-					"    }",
-					"    {",
-					"      Label label = new Label(this, SWT.NONE);",
-					"    }",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      {",
-					"        TableWrapData tableWrapData = new TableWrapData();",
-					"        tableWrapData.grabVertical = true;",
-					"        tableWrapData.grabHorizontal = true;",
-					"        button.setLayoutData(tableWrapData);",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								setLayout(layout);
+							}
+							{
+								Label label = new Label(this, SWT.NONE);
+							}
+							{
+								Button button = new Button(this, SWT.NONE);
+								{
+									TableWrapData tableWrapData = new TableWrapData();
+									tableWrapData.grabVertical = true;
+									tableWrapData.grabHorizontal = true;
+									button.setLayoutData(tableWrapData);
+								}
+							}
+						}
+					}""");
 		}
 		// use "horizontal grab" action
 		{
@@ -232,52 +228,51 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 			assertTrue(horizontalGrab.isChecked());
 			horizontalGrab.setChecked(false);
 			horizontalGrab.run();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    {",
-					"      TableWrapLayout layout = new TableWrapLayout();",
-					"      setLayout(layout);",
-					"    }",
-					"    {",
-					"      Label label = new Label(this, SWT.NONE);",
-					"    }",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      {",
-					"        TableWrapData tableWrapData = new TableWrapData();",
-					"        tableWrapData.grabVertical = true;",
-					"        button.setLayoutData(tableWrapData);",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								setLayout(layout);
+							}
+							{
+								Label label = new Label(this, SWT.NONE);
+							}
+							{
+								Button button = new Button(this, SWT.NONE);
+								{
+									TableWrapData tableWrapData = new TableWrapData();
+									tableWrapData.grabVertical = true;
+									button.setLayoutData(tableWrapData);
+								}
+							}
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_alignmentAction() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      layout.numColumns = 2;",
-						"      setLayout(layout);",
-						"    }",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						{
+							Label label = new Label(this, SWT.NONE);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(1);
 		// prepare actions
@@ -292,46 +287,46 @@ public class TableWrapLayoutSelectionActionsTest extends AbstractFormsTest {
 			IAction rightAlignment = findAction(actions, "Right");
 			rightAlignment.setChecked(true);
 			rightAlignment.run();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    {",
-					"      TableWrapLayout layout = new TableWrapLayout();",
-					"      layout.numColumns = 2;",
-					"      setLayout(layout);",
-					"    }",
-					"    {",
-					"      Label label = new Label(this, SWT.NONE);",
-					"    }",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      button.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP));",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								layout.numColumns = 2;
+								setLayout(layout);
+							}
+							{
+								Label label = new Label(this, SWT.NONE);
+							}
+							{
+								Button button = new Button(this, SWT.NONE);
+								button.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP));
+							}
+						}
+					}""");
 		}
 		// set "bottom" alignment
 		{
 			IAction bottomAction = findAction(actions, "Bottom");
 			bottomAction.setChecked(true);
 			bottomAction.run();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    {",
-					"      TableWrapLayout layout = new TableWrapLayout();",
-					"      layout.numColumns = 2;",
-					"      setLayout(layout);",
-					"    }",
-					"    {",
-					"      Label label = new Label(this, SWT.NONE);",
-					"    }",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      button.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.BOTTOM));",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								layout.numColumns = 2;
+								setLayout(layout);
+							}
+							{
+								Label label = new Label(this, SWT.NONE);
+							}
+							{
+								Button button = new Button(this, SWT.NONE);
+								button.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.BOTTOM));
+							}
+						}
+					}""");
 		}
 	}
 }

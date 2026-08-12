@@ -47,24 +47,23 @@ public class E4PartTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		E4PartInfo part =
-				parseJavaInfo(
-						"import jakarta.annotation.PostConstruct;",
-						"import jakarta.annotation.PreDestroy;",
-						"public class Test {",
-						"  public Test() {",
-						"  }",
-						"  @PostConstruct",
-						"  public void createControls(Composite parent) {",
-						"    parent.setLayout(new GridLayout(1, false));",
-						"    Button button = new Button(parent, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{parameter} {parent} {/parent.setLayout(new GridLayout(1, false))/ /new Button(parent, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.GridLayout} {empty} {/parent.setLayout(new GridLayout(1, false))/}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(parent, SWT.NONE)/}",
-				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		E4PartInfo part = parseJavaInfo("""
+				import jakarta.annotation.PostConstruct;
+				import jakarta.annotation.PreDestroy;
+				public class Test {
+					public Test() {
+					}
+					@PostConstruct
+					public void createControls(Composite parent) {
+						parent.setLayout(new GridLayout(1, false));
+						Button button = new Button(parent, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{parameter} {parent} {/parent.setLayout(new GridLayout(1, false))/ /new Button(parent, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.GridLayout} {empty} {/parent.setLayout(new GridLayout(1, false))/}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(parent, SWT.NONE)/}
+						{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 		part.refresh();
 		assertNoErrors(part);
 		// check bounds

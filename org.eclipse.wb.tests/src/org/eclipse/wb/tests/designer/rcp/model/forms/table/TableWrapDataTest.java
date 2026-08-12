@@ -52,16 +52,15 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getSmallAlignmentImage() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
@@ -118,20 +117,19 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_horizontalAlignment_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -142,54 +140,54 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		// set CENTER
 		tableWrapData.setHorizontalAlignment(TableWrapData.CENTER);
 		assertEquals(TableWrapData.CENTER, tableWrapData.getHorizontalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.CENTER, TableWrapData.TOP));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.CENTER, TableWrapData.TOP));
+						}
+					}
+				}""");
 		// set RIGHT
 		tableWrapData.setHorizontalAlignment(TableWrapData.RIGHT);
 		assertEquals(TableWrapData.RIGHT, tableWrapData.getHorizontalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP));
+						}
+					}
+				}""");
 		// set FILL
 		tableWrapData.setHorizontalAlignment(TableWrapData.FILL);
 		assertEquals(TableWrapData.FILL, tableWrapData.getHorizontalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP));
+						}
+					}
+				}""");
 		// set LEFT
 		tableWrapData.setHorizontalAlignment(TableWrapData.LEFT);
 		assertEquals(TableWrapData.LEFT, tableWrapData.getHorizontalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -197,21 +195,20 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_horizontalAlignment_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData();",
-						"        tableWrapData.align = TableWrapData.LEFT;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.align = TableWrapData.LEFT;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -222,66 +219,66 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		// set CENTER
 		tableWrapData.setHorizontalAlignment(TableWrapData.CENTER);
 		assertEquals(TableWrapData.CENTER, tableWrapData.getHorizontalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData();",
-				"        tableWrapData.align = TableWrapData.CENTER;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.align = TableWrapData.CENTER;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		// set RIGHT
 		tableWrapData.setHorizontalAlignment(TableWrapData.RIGHT);
 		assertEquals(TableWrapData.RIGHT, tableWrapData.getHorizontalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData();",
-				"        tableWrapData.align = TableWrapData.RIGHT;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.align = TableWrapData.RIGHT;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		// set FILL
 		tableWrapData.setHorizontalAlignment(TableWrapData.FILL);
 		assertEquals(TableWrapData.FILL, tableWrapData.getHorizontalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData();",
-				"        tableWrapData.align = TableWrapData.FILL;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.align = TableWrapData.FILL;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		// set LEFT
 		tableWrapData.setHorizontalAlignment(TableWrapData.LEFT);
 		assertEquals(TableWrapData.LEFT, tableWrapData.getHorizontalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -289,16 +286,15 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_horizontalGrab() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -308,32 +304,32 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		// grab := true
 		tableWrapData.setHorizontalGrab(true);
 		assertTrue(tableWrapData.getHorizontalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1);",
-				"        tableWrapData.grabHorizontal = true;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1);
+								tableWrapData.grabHorizontal = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		// grab := false
 		tableWrapData.setHorizontalGrab(false);
 		assertFalse(tableWrapData.getHorizontalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -343,20 +339,19 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_horizontalFillGrab_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.FILL, TableWrapData.TOP);",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.FILL, TableWrapData.TOP);
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -368,30 +363,30 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		tableWrapData.setHorizontalGrab(true);
 		assertEquals(TableWrapData.FILL, tableWrapData.getHorizontalAlignment());
 		assertTrue(tableWrapData.getHorizontalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
+						}
+					}
+				}""");
 		// grab := false
 		tableWrapData.setHorizontalGrab(false);
 		assertEquals(TableWrapData.FILL, tableWrapData.getHorizontalAlignment());
 		assertFalse(tableWrapData.getHorizontalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP));
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -403,21 +398,20 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_horizontalFillGrab_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        tableWrapData.grabHorizontal = true;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								tableWrapData.grabHorizontal = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -429,34 +423,34 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		ExecutionUtils.run(shell, () -> tableWrapData.setHorizontalAlignment(TableWrapData.FILL));
 		assertEquals(TableWrapData.FILL, tableWrapData.getHorizontalAlignment());
 		assertTrue(tableWrapData.getHorizontalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
+						}
+					}
+				}""");
 		// alignment := LEFT
 		ExecutionUtils.run(shell, () -> tableWrapData.setHorizontalAlignment(TableWrapData.LEFT));
 		assertEquals(TableWrapData.LEFT, tableWrapData.getHorizontalAlignment());
 		assertTrue(tableWrapData.getHorizontalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-				"        tableWrapData.grabHorizontal = true;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								tableWrapData.grabHorizontal = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -466,20 +460,19 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_horizontalFillGrab_3() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -491,20 +484,20 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		tableWrapData.setHorizontalGrab(true);
 		assertEquals(TableWrapData.LEFT, tableWrapData.getHorizontalAlignment());
 		assertTrue(tableWrapData.getHorizontalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-				"        tableWrapData.grabHorizontal = true;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								tableWrapData.grabHorizontal = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -512,24 +505,23 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_horizontalSpan_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      layout.numColumns = 2;",
-						"      setLayout(layout);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1);",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1);
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -539,35 +531,35 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		// horizontalSpan := 2
 		tableWrapData.setHorizontalSpan(2);
 		assertEquals(2, tableWrapData.getHorizontalSpan());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    {",
-				"      TableWrapLayout layout = new TableWrapLayout();",
-				"      layout.numColumns = 2;",
-				"      setLayout(layout);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 2));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 2));
+						}
+					}
+				}""");
 		// horizontalSpan := default
 		tableWrapData.getPropertyByTitle("colspan").setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    {",
-				"      TableWrapLayout layout = new TableWrapLayout();",
-				"      layout.numColumns = 2;",
-				"      setLayout(layout);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		{
 			tableWrapData = layout.getTableWrapData(button);
 			assertEquals(1, tableWrapData.getHorizontalSpan());
@@ -584,20 +576,19 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_verticalAlignment_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -608,54 +599,54 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		// set MIDDLE
 		tableWrapData.setVerticalAlignment(TableWrapData.MIDDLE);
 		assertEquals(TableWrapData.MIDDLE, tableWrapData.getVerticalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.MIDDLE));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.MIDDLE));
+						}
+					}
+				}""");
 		// set BOTTOM
 		tableWrapData.setVerticalAlignment(TableWrapData.BOTTOM);
 		assertEquals(TableWrapData.BOTTOM, tableWrapData.getVerticalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM));
+						}
+					}
+				}""");
 		// set FILL
 		tableWrapData.setVerticalAlignment(TableWrapData.FILL);
 		assertEquals(TableWrapData.FILL, tableWrapData.getVerticalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL));
+						}
+					}
+				}""");
 		// set TOP
 		tableWrapData.setVerticalAlignment(TableWrapData.TOP);
 		assertEquals(TableWrapData.TOP, tableWrapData.getVerticalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -663,21 +654,20 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_verticalAlignment_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData();",
-						"        tableWrapData.valign = TableWrapData.TOP;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.valign = TableWrapData.TOP;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -688,66 +678,66 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		// set MIDDLE
 		tableWrapData.setVerticalAlignment(TableWrapData.MIDDLE);
 		assertEquals(TableWrapData.MIDDLE, tableWrapData.getVerticalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData();",
-				"        tableWrapData.valign = TableWrapData.MIDDLE;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.valign = TableWrapData.MIDDLE;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		// set BOTTOM
 		tableWrapData.setVerticalAlignment(TableWrapData.BOTTOM);
 		assertEquals(TableWrapData.BOTTOM, tableWrapData.getVerticalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData();",
-				"        tableWrapData.valign = TableWrapData.BOTTOM;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.valign = TableWrapData.BOTTOM;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		// set FILL
 		tableWrapData.setVerticalAlignment(TableWrapData.FILL);
 		assertEquals(TableWrapData.FILL, tableWrapData.getVerticalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData();",
-				"        tableWrapData.valign = TableWrapData.FILL;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData();
+								tableWrapData.valign = TableWrapData.FILL;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		// set TOP
 		tableWrapData.setVerticalAlignment(TableWrapData.TOP);
 		assertEquals(TableWrapData.TOP, tableWrapData.getVerticalAlignment());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -755,21 +745,20 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_verticalAlignment_3() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        tableWrapData.grabVertical = true;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								tableWrapData.grabVertical = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -781,20 +770,20 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		tableWrapData.setVerticalAlignment(TableWrapData.MIDDLE);
 		assertEquals(TableWrapData.MIDDLE, tableWrapData.getVerticalAlignment());
 		assertTrue(tableWrapData.getVerticalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.MIDDLE);",
-				"        tableWrapData.grabVertical = true;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.MIDDLE);
+								tableWrapData.grabVertical = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -802,16 +791,15 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_verticalGrab() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -821,32 +809,32 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		// grab := true
 		tableWrapData.setVerticalGrab(true);
 		assertTrue(tableWrapData.getVerticalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1);",
-				"        tableWrapData.grabVertical = true;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1);
+								tableWrapData.grabVertical = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		// grab := false
 		tableWrapData.setVerticalGrab(false);
 		assertFalse(tableWrapData.getVerticalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -856,17 +844,16 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_verticalFillGrab_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL));
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -878,30 +865,30 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		tableWrapData.setVerticalGrab(true);
 		assertEquals(TableWrapData.FILL, tableWrapData.getVerticalAlignment());
 		assertTrue(tableWrapData.getVerticalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL_GRAB));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL_GRAB));
+						}
+					}
+				}""");
 		// grab := false
 		tableWrapData.setVerticalGrab(false);
 		assertEquals(TableWrapData.FILL, tableWrapData.getVerticalAlignment());
 		assertFalse(tableWrapData.getVerticalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL));
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -912,21 +899,20 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_verticalFillGrab_2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        tableWrapData.grabVertical = true;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								tableWrapData.grabVertical = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -938,34 +924,34 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		ExecutionUtils.run(shell, () -> tableWrapData.setVerticalAlignment(TableWrapData.FILL));
 		assertEquals(TableWrapData.FILL, tableWrapData.getVerticalAlignment());
 		assertTrue(tableWrapData.getVerticalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL_GRAB));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.FILL_GRAB));
+						}
+					}
+				}""");
 		// alignment := TOP
 		ExecutionUtils.run(shell, () -> tableWrapData.setVerticalAlignment(TableWrapData.TOP));
 		assertEquals(TableWrapData.TOP, tableWrapData.getVerticalAlignment());
 		assertTrue(tableWrapData.getVerticalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-				"        tableWrapData.grabVertical = true;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								tableWrapData.grabVertical = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -975,20 +961,19 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_verticalFillGrab_3() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -1000,20 +985,20 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		tableWrapData.setVerticalGrab(true);
 		assertEquals(TableWrapData.TOP, tableWrapData.getVerticalAlignment());
 		assertTrue(tableWrapData.getVerticalGrab());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);",
-				"        tableWrapData.grabVertical = true;",
-				"        button.setLayoutData(tableWrapData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP);
+								tableWrapData.grabVertical = true;
+								button.setLayoutData(tableWrapData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -1021,23 +1006,22 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_verticalSpan_1() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      layout.numColumns = 2;",
-						"      setLayout(layout);",
-						"    }",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1));",
-						"    }",
-						"    new Button(this, SWT.NONE);",
-						"    new Button(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1));
+						}
+						new Button(this, SWT.NONE);
+						new Button(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -1047,39 +1031,39 @@ public class TableWrapDataTest extends AbstractFormsTest {
 		// verticalSpan := 2
 		tableWrapData.setVerticalSpan(2);
 		assertEquals(2, tableWrapData.getVerticalSpan());
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    {",
-				"      TableWrapLayout layout = new TableWrapLayout();",
-				"      layout.numColumns = 2;",
-				"      setLayout(layout);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 2, 1));",
-				"    }",
-				"    new Button(this, SWT.NONE);",
-				"    new Button(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 2, 1));
+						}
+						new Button(this, SWT.NONE);
+						new Button(this, SWT.NONE);
+					}
+				}""");
 		// verticalSpan := default
 		tableWrapData.getPropertyByTitle("rowspan").setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    {",
-				"      TableWrapLayout layout = new TableWrapLayout();",
-				"      layout.numColumns = 2;",
-				"      setLayout(layout);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"    new Button(this, SWT.NONE);",
-				"    new Button(this, SWT.NONE);",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+						new Button(this, SWT.NONE);
+						new Button(this, SWT.NONE);
+					}
+				}""");
 		{
 			tableWrapData = layout.getTableWrapData(button);
 			assertEquals(1, tableWrapData.getVerticalSpan());
@@ -1093,16 +1077,15 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_contextMenu_horizontal() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
@@ -1131,50 +1114,49 @@ public class TableWrapDataTest extends AbstractFormsTest {
 			IAction action = findChildAction(manager2, "&Right");
 			action.setChecked(true);
 			action.run();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    setLayout(new TableWrapLayout());",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      button.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP, 1, 1));",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							setLayout(new TableWrapLayout());
+							{
+								Button button = new Button(this, SWT.NONE);
+								button.setLayoutData(new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP, 1, 1));
+							}
+						}
+					}""");
 		}
 		// use "Grab action"
 		{
 			IAction action = findChildAction(manager2, "&Grab excess space");
 			action.run();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    setLayout(new TableWrapLayout());",
-					"    {",
-					"      Button button = new Button(this, SWT.NONE);",
-					"      {",
-					"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP, 1, 1);",
-					"        tableWrapData.grabHorizontal = true;",
-					"        button.setLayoutData(tableWrapData);",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							setLayout(new TableWrapLayout());
+							{
+								Button button = new Button(this, SWT.NONE);
+								{
+									TableWrapData tableWrapData = new TableWrapData(TableWrapData.RIGHT, TableWrapData.TOP, 1, 1);
+									tableWrapData.grabHorizontal = true;
+									button.setLayoutData(tableWrapData);
+								}
+							}
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_contextMenu_vertical() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
 		TableWrapDataInfo layoutData = (TableWrapDataInfo) button.getChildrenJava().get(0);
@@ -1201,35 +1183,35 @@ public class TableWrapDataTest extends AbstractFormsTest {
 				IAction action = findChildAction(manager2, "&Bottom");
 				action.setChecked(true);
 				action.run();
-				assertEditor(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM, 1, 1));",
-						"    }",
-						"  }",
-						"}");
+				assertEditor("""
+						class Test extends Shell {
+							Test() {
+								setLayout(new TableWrapLayout());
+								{
+									Button button = new Button(this, SWT.NONE);
+									button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM, 1, 1));
+								}
+							}
+						}""");
 			}
 			// use "Grab action"
 			{
 				IAction action = findChildAction(manager2, "&Grab excess space");
 				action.run();
-				assertEditor(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM, 1, 1);",
-						"        tableWrapData.grabVertical = true;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+				assertEditor("""
+						class Test extends Shell {
+							Test() {
+								setLayout(new TableWrapLayout());
+								{
+									Button button = new Button(this, SWT.NONE);
+									{
+										TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM, 1, 1);
+										tableWrapData.grabVertical = true;
+										button.setLayoutData(tableWrapData);
+									}
+								}
+							}
+						}""");
 			}
 		} finally {
 			shell.refresh_dispose();
@@ -1243,194 +1225,187 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_deleteIfDefault_constructor0() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData());",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData());
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor1_yes() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor1_no() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.RIGHT));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.RIGHT));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.RIGHT));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.RIGHT));
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor2_yes() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor2_no() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM));
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor4_yes() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_deleteIfDefault_constructor4_no() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new TableWrapLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 2, 1));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 2, 1));
+						}
+					}
+				}""");
 		shell.refresh();
 		// refresh(), force check
 		ExecutionUtils.refresh(shell);
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new TableWrapLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 2, 1));",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new TableWrapLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 2, 1));
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1443,18 +1418,17 @@ public class TableWrapDataTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_hasParentLayout_notCompatible() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  public Test() {",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setLayoutData(new TableWrapData());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new Button(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new TableWrapData())/}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					public Test() {
+						Button button = new Button(this, SWT.NONE);
+						button.setLayoutData(new TableWrapData());
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new Button(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/ /button.setLayoutData(new TableWrapData())/}""");
 		//
 		shell.refresh();
 		assertNoErrors(shell);

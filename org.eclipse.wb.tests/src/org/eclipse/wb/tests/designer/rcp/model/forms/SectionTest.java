@@ -43,14 +43,13 @@ public class SectionTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_properties() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Section composite = new Section(this, Section.TWISTIE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Section composite = new Section(this, Section.TWISTIE);
+					}
+				}""");
 		shell.refresh();
 		SectionInfo composite = (SectionInfo) shell.getChildrenControls().get(0);
 		assertNotNull(composite.getPropertyByTitle("SectionStyle"));
@@ -62,14 +61,13 @@ public class SectionTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_getDescriptionControl() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Section composite = new Section(this, Section.DESCRIPTION);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Section composite = new Section(this, Section.DESCRIPTION);
+					}
+				}""");
 		shell.refresh();
 		SectionInfo composite = (SectionInfo) shell.getChildrenControls().get(0);
 		// no any children expected - only possible child is exposed using getDescriptionControl()
@@ -88,13 +86,12 @@ public class SectionTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_zeroSize_absoluteLayout() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    Section section = new Section(this, Section.TITLE_BAR);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						Section section = new Section(this, Section.TITLE_BAR);
+					}
+				}""");
 		shell.refresh();
 		assertNoErrors(shell);
 	}
@@ -106,22 +103,21 @@ public class SectionTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_zeroSize_GridLayout() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    setSize(450, 300);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(100, 500));",
-						"    }",
-						"    {",
-						"      Section section = new Section(this, Section.TITLE_BAR);",
-						"      section.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout(1, false));
+						setSize(450, 300);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(100, 500));
+						}
+						{
+							Section section = new Section(this, Section.TITLE_BAR);
+							section.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+						}
+					}
+				}""");
 		shell.refresh();
 		assertNoErrors(shell);
 	}

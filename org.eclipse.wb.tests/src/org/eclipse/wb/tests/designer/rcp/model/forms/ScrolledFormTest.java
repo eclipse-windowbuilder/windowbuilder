@@ -43,14 +43,13 @@ public class ScrolledFormTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    ScrolledForm form = new ScrolledForm(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						ScrolledForm form = new ScrolledForm(this, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+					}
+				}""");
 		shell.refresh();
 		ScrolledFormInfo form = (ScrolledFormInfo) shell.getChildrenControls().get(0);
 		// we use constructor with style, so we have "Style" property

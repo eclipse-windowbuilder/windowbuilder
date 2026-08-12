@@ -41,28 +41,27 @@ public class DetailsPageTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		DetailsPageInfo page =
-				parseJavaInfo(
-						"public abstract class Test implements IDetailsPage {",
-						"  private IManagedForm managedForm;",
-						"  public Test() {",
-						"  }",
-						"  public void initialize(IManagedForm form) {",
-						"    managedForm = form;",
-						"  }",
-						"  public void createContents(Composite parent) {",
-						"    parent.setLayout(new FillLayout());",
-						"    Composite composite = managedForm.getToolkit().createComposite(parent, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.ui.forms.IDetailsPage} {this} {}",
-				"  {parameter} {parent} {/parent.setLayout(new FillLayout())/ /managedForm.getToolkit().createComposite(parent, SWT.NONE)/}",
-				"    {new: org.eclipse.swt.layout.FillLayout} {empty} {/parent.setLayout(new FillLayout())/}",
-				"    {instance factory: {toolkitAccess} createComposite(org.eclipse.swt.widgets.Composite,int)} {local-unique: composite} {/managedForm.getToolkit().createComposite(parent, SWT.NONE)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}",
-				"  {instance factory container}",
-				"    {toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {/managedForm.getToolkit().createComposite(parent, SWT.NONE)/}");
+		DetailsPageInfo page = parseJavaInfo("""
+				public abstract class Test implements IDetailsPage {
+					private IManagedForm managedForm;
+					public Test() {
+					}
+					public void initialize(IManagedForm form) {
+						managedForm = form;
+					}
+					public void createContents(Composite parent) {
+						parent.setLayout(new FillLayout());
+						Composite composite = managedForm.getToolkit().createComposite(parent, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.ui.forms.IDetailsPage} {this} {}
+					{parameter} {parent} {/parent.setLayout(new FillLayout())/ /managedForm.getToolkit().createComposite(parent, SWT.NONE)/}
+						{new: org.eclipse.swt.layout.FillLayout} {empty} {/parent.setLayout(new FillLayout())/}
+						{instance factory: {toolkitAccess} createComposite(org.eclipse.swt.widgets.Composite,int)} {local-unique: composite} {/managedForm.getToolkit().createComposite(parent, SWT.NONE)/}
+							{implicit-layout: absolute} {implicit-layout} {}
+					{instance factory container}
+						{toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {/managedForm.getToolkit().createComposite(parent, SWT.NONE)/}""");
 		// refresh
 		page.refresh();
 		assertNoErrors(page);
@@ -82,28 +81,28 @@ public class DetailsPageTest extends AbstractFormsTest {
 
 	@Test
 	public void test_FormToolkit_inLocalVariable() throws Exception {
-		parseJavaInfo(
-				"public abstract class Test implements IDetailsPage {",
-				"  private IManagedForm managedForm;",
-				"  public Test() {",
-				"  }",
-				"  public void initialize(IManagedForm form) {",
-				"    managedForm = form;",
-				"  }",
-				"  public void createContents(Composite parent) {",
-				"    parent.setLayout(new FillLayout());",
-				"    FormToolkit toolkit = managedForm.getToolkit();",
-				"    Composite composite = toolkit.createComposite(parent, SWT.NONE);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.ui.forms.IDetailsPage} {this} {}",
-				"  {parameter} {parent} {/parent.setLayout(new FillLayout())/ /toolkit.createComposite(parent, SWT.NONE)/}",
-				"    {new: org.eclipse.swt.layout.FillLayout} {empty} {/parent.setLayout(new FillLayout())/}",
-				"    {instance factory: {toolkitAccess} createComposite(org.eclipse.swt.widgets.Composite,int)} {local-unique: composite} {/toolkit.createComposite(parent, SWT.NONE)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}",
-				"  {instance factory container}",
-				"    {toolkitAccess: toolkit} {toolkitAccess} {/toolkit.createComposite(parent, SWT.NONE)/}");
+		parseJavaInfo("""
+				public abstract class Test implements IDetailsPage {
+					private IManagedForm managedForm;
+					public Test() {
+					}
+					public void initialize(IManagedForm form) {
+						managedForm = form;
+					}
+					public void createContents(Composite parent) {
+						parent.setLayout(new FillLayout());
+						FormToolkit toolkit = managedForm.getToolkit();
+						Composite composite = toolkit.createComposite(parent, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.ui.forms.IDetailsPage} {this} {}
+					{parameter} {parent} {/parent.setLayout(new FillLayout())/ /toolkit.createComposite(parent, SWT.NONE)/}
+						{new: org.eclipse.swt.layout.FillLayout} {empty} {/parent.setLayout(new FillLayout())/}
+						{instance factory: {toolkitAccess} createComposite(org.eclipse.swt.widgets.Composite,int)} {local-unique: composite} {/toolkit.createComposite(parent, SWT.NONE)/}
+							{implicit-layout: absolute} {implicit-layout} {}
+					{instance factory container}
+						{toolkitAccess: toolkit} {toolkitAccess} {/toolkit.createComposite(parent, SWT.NONE)/}""");
 	}
 
 	/**
@@ -111,29 +110,28 @@ public class DetailsPageTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_callDefaultSuper() throws Exception {
-		DetailsPageInfo page =
-				parseJavaInfo(
-						"public abstract class Test implements IDetailsPage {",
-						"  private IManagedForm managedForm;",
-						"  public Test() {",
-						"    super();",
-						"  }",
-						"  public void initialize(IManagedForm form) {",
-						"    managedForm = form;",
-						"  }",
-						"  public void createContents(Composite parent) {",
-						"    parent.setLayout(new FillLayout());",
-						"    Composite composite = managedForm.getToolkit().createComposite(parent, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.ui.forms.IDetailsPage} {this} {}",
-				"  {parameter} {parent} {/parent.setLayout(new FillLayout())/ /managedForm.getToolkit().createComposite(parent, SWT.NONE)/}",
-				"    {new: org.eclipse.swt.layout.FillLayout} {empty} {/parent.setLayout(new FillLayout())/}",
-				"    {instance factory: {toolkitAccess} createComposite(org.eclipse.swt.widgets.Composite,int)} {local-unique: composite} {/managedForm.getToolkit().createComposite(parent, SWT.NONE)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}",
-				"  {instance factory container}",
-				"    {toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {/managedForm.getToolkit().createComposite(parent, SWT.NONE)/}");
+		DetailsPageInfo page = parseJavaInfo("""
+				public abstract class Test implements IDetailsPage {
+					private IManagedForm managedForm;
+					public Test() {
+						super();
+					}
+					public void initialize(IManagedForm form) {
+						managedForm = form;
+					}
+					public void createContents(Composite parent) {
+						parent.setLayout(new FillLayout());
+						Composite composite = managedForm.getToolkit().createComposite(parent, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.ui.forms.IDetailsPage} {this} {}
+					{parameter} {parent} {/parent.setLayout(new FillLayout())/ /managedForm.getToolkit().createComposite(parent, SWT.NONE)/}
+						{new: org.eclipse.swt.layout.FillLayout} {empty} {/parent.setLayout(new FillLayout())/}
+						{instance factory: {toolkitAccess} createComposite(org.eclipse.swt.widgets.Composite,int)} {local-unique: composite} {/managedForm.getToolkit().createComposite(parent, SWT.NONE)/}
+							{implicit-layout: absolute} {implicit-layout} {}
+					{instance factory container}
+						{toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {/managedForm.getToolkit().createComposite(parent, SWT.NONE)/}""");
 		// refresh
 		page.refresh();
 		assertNoErrors(page);
@@ -141,24 +139,23 @@ public class DetailsPageTest extends AbstractFormsTest {
 
 	@Test
 	public void test_parseNoUsingFormToolkit() throws Exception {
-		DetailsPageInfo page =
-				parseJavaInfo(
-						"public abstract class Test implements IDetailsPage {",
-						"  private IManagedForm managedForm;",
-						"  public Test() {",
-						"  }",
-						"  public void initialize(IManagedForm form) {",
-						"    managedForm = form;",
-						"  }",
-						"  public void createContents(Composite parent) {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.ui.forms.IDetailsPage} {this} {}",
-				"  {parameter} {parent} {}",
-				"    {implicit-layout: absolute} {implicit-layout} {}",
-				"  {instance factory container}",
-				"    {toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {}");
+		DetailsPageInfo page = parseJavaInfo("""
+				public abstract class Test implements IDetailsPage {
+					private IManagedForm managedForm;
+					public Test() {
+					}
+					public void initialize(IManagedForm form) {
+						managedForm = form;
+					}
+					public void createContents(Composite parent) {
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.ui.forms.IDetailsPage} {this} {}
+					{parameter} {parent} {}
+						{implicit-layout: absolute} {implicit-layout} {}
+					{instance factory container}
+						{toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {}""");
 		// refresh
 		page.refresh();
 		assertNoErrors(page);
@@ -166,25 +163,24 @@ public class DetailsPageTest extends AbstractFormsTest {
 
 	@Test
 	public void test_setLayout_forParent() throws Exception {
-		DetailsPageInfo page =
-				parseJavaInfo(
-						"public abstract class Test implements IDetailsPage {",
-						"  private IManagedForm managedForm;",
-						"  public Test() {",
-						"  }",
-						"  public void initialize(IManagedForm form) {",
-						"    managedForm = form;",
-						"  }",
-						"  public void createContents(Composite parent) {",
-						"    parent.setLayout(new GridLayout());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.ui.forms.IDetailsPage} {this} {}",
-				"  {parameter} {parent} {/parent.setLayout(new GridLayout())/}",
-				"    {new: org.eclipse.swt.layout.GridLayout} {empty} {/parent.setLayout(new GridLayout())/}",
-				"  {instance factory container}",
-				"    {toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {}");
+		DetailsPageInfo page = parseJavaInfo("""
+				public abstract class Test implements IDetailsPage {
+					private IManagedForm managedForm;
+					public Test() {
+					}
+					public void initialize(IManagedForm form) {
+						managedForm = form;
+					}
+					public void createContents(Composite parent) {
+						parent.setLayout(new GridLayout());
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.ui.forms.IDetailsPage} {this} {}
+					{parameter} {parent} {/parent.setLayout(new GridLayout())/}
+						{new: org.eclipse.swt.layout.GridLayout} {empty} {/parent.setLayout(new GridLayout())/}
+					{instance factory container}
+						{toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {}""");
 		// refresh
 		page.refresh();
 		assertNoErrors(page);
@@ -199,34 +195,31 @@ public class DetailsPageTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_extendAbstractClass() throws Exception {
-		setFileContentSrc(
-				"test/AbstractPage.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.forms.IDetailsPage;",
-						"public abstract class AbstractPage implements IDetailsPage {",
-						"}"));
+		setFileContentSrc("test/AbstractPage.java", """
+				package test;
+				import org.eclipse.ui.forms.IDetailsPage;
+				public abstract class AbstractPage implements IDetailsPage {
+				}""");
 		waitForAutoBuild();
 		// parse
-		DetailsPageInfo page =
-				parseJavaInfo(
-						"public abstract class Test extends AbstractPage {",
-						"  private IManagedForm managedForm;",
-						"  public Test() {",
-						"  }",
-						"  public void initialize(IManagedForm form) {",
-						"    managedForm = form;",
-						"  }",
-						"  public void createContents(Composite parent) {",
-						"    parent.setLayout(new GridLayout());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.AbstractPage} {this} {}",
-				"  {parameter} {parent} {/parent.setLayout(new GridLayout())/}",
-				"    {new: org.eclipse.swt.layout.GridLayout} {empty} {/parent.setLayout(new GridLayout())/}",
-				"  {instance factory container}",
-				"    {toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {}");
+		DetailsPageInfo page = parseJavaInfo("""
+				public abstract class Test extends AbstractPage {
+					private IManagedForm managedForm;
+					public Test() {
+					}
+					public void initialize(IManagedForm form) {
+						managedForm = form;
+					}
+					public void createContents(Composite parent) {
+						parent.setLayout(new GridLayout());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.AbstractPage} {this} {}
+					{parameter} {parent} {/parent.setLayout(new GridLayout())/}
+						{new: org.eclipse.swt.layout.GridLayout} {empty} {/parent.setLayout(new GridLayout())/}
+					{instance factory container}
+						{toolkitAccess: managedForm.getToolkit()} {toolkitAccess} {}""");
 		// refresh
 		page.refresh();
 		assertNoErrors(page);

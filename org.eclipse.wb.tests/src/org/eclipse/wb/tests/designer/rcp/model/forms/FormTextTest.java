@@ -48,16 +48,15 @@ public class FormTextTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_create() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private final FormToolkit m_toolkit = new FormToolkit(Display.getDefault());",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    FormText formText = m_toolkit.createFormText(this, true);",
-						"    formText.setText('abc', false, false);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private final FormToolkit m_toolkit = new FormToolkit(Display.getDefault());
+					public Test() {
+						setLayout(new RowLayout());
+						FormText formText = m_toolkit.createFormText(this, true);
+						formText.setText("abc", false, false);
+					}
+				}""");
 		shell.refresh();
 	}
 
@@ -66,13 +65,12 @@ public class FormTextTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_zeroSize() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    FormText formText = new FormText(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						FormText formText = new FormText(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		assertNoErrors(shell);
 	}

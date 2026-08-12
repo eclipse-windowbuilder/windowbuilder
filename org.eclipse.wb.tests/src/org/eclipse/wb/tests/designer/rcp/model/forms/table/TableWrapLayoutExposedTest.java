@@ -53,13 +53,12 @@ public class TableWrapLayoutExposedTest extends AbstractFormsTest {
 	public void test_deleteExposedComponent_noExplicitData() throws Exception {
 		configureForDelete();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) myComposite.getLayout();
@@ -76,12 +75,12 @@ public class TableWrapLayoutExposedTest extends AbstractFormsTest {
 			// delete, no visible change expected
 			assertTrue(button.canDelete());
 			button.delete();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}""");
 			assertFalse(button.isDeleted());
 			// check new TableWrapData
 			{
@@ -99,14 +98,13 @@ public class TableWrapLayoutExposedTest extends AbstractFormsTest {
 	public void test_deleteExposedComponent_withExplicitData() throws Exception {
 		configureForDelete();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"    myComposite.getButton().setLayoutData(new TableWrapData());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						myComposite.getButton().setLayoutData(new TableWrapData());
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		TableWrapLayoutInfo layout = (TableWrapLayoutInfo) myComposite.getLayout();
@@ -123,12 +121,12 @@ public class TableWrapLayoutExposedTest extends AbstractFormsTest {
 			// delete, "explicit" TableWrapData is gone
 			assertTrue(button.canDelete());
 			button.delete();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}""");
 			assertTrue(myComposite.getChildren().contains(button));
 			// check new TableWrapData
 			{
@@ -144,50 +142,46 @@ public class TableWrapLayoutExposedTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_deleteWhenTwoExposed() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  private Text m_text;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      setLayout(layout);",
-						"    }",
-						"    m_button = new Button(this, SWT.NONE);",
-						"    m_text = new Text(this, SWT.NONE);",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"  public Text getText() {",
-						"    return m_text;",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					private Text m_text;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							setLayout(layout);
+						}
+						m_button = new Button(this, SWT.NONE);
+						m_text = new Text(this, SWT.NONE);
+					}
+					public Button getButton() {
+						return m_button;
+					}
+					public Text getText() {
+						return m_text;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = myComposite.getChildrenControls().get(0);
 		// do operations
 		{
 			button.delete();
-			assertEditor(
-					"class Test extends Shell {",
-					"  Test() {",
-					"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					class Test extends Shell {
+						Test() {
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}""");
 		}
 	}
 
@@ -195,26 +189,23 @@ public class TableWrapLayoutExposedTest extends AbstractFormsTest {
 	 * Configures project for delete tests.
 	 */
 	private void configureForDelete() throws Exception {
-		createASTCompilationUnit(
-				"test",
-				"MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button m_button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      TableWrapLayout layout = new TableWrapLayout();",
-						"      layout.numColumns = 2;",
-						"      setLayout(layout);",
-						"    }",
-						"    m_button = new Button(this, SWT.NONE);",
-						"    m_button.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.MIDDLE));",
-						"  }",
-						"  public Button getButton() {",
-						"    return m_button;",
-						"  }",
-						"}"));
+		createASTCompilationUnit("test", "MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button m_button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						{
+							TableWrapLayout layout = new TableWrapLayout();
+							layout.numColumns = 2;
+							setLayout(layout);
+						}
+						m_button = new Button(this, SWT.NONE);
+						m_button.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.MIDDLE));
+					}
+					public Button getButton() {
+						return m_button;
+					}
+				}"""));
 		waitForAutoBuild();
 	}
 }

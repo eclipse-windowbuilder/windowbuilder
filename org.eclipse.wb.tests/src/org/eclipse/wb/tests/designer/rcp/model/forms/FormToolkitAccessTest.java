@@ -70,37 +70,31 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 
 	@Test
 	public void test_toolkitMethod_public() throws Exception {
-		setFileContentSrc(
-				"test/MyForm.java",
-				getSource(
-						"package test;",
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"public class MyForm {",
-						"  public FormToolkit getPublicToolkit() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyForm.java", getSource("""
+				package test;
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class MyForm {
+					public FormToolkit getPublicToolkit() {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration(
-						"test",
-						"Test.java",
-						getSource(
-								"package test;",
-								"import org.eclipse.ui.forms.*;",
-								"import org.eclipse.ui.forms.widgets.*;",
-								"public class Test extends MyForm {",
-								"  public void isToolkit_1() {",
-								"    int a;",
-								"  }",
-								"  public void isToolkit_2() {",
-								"    System.out.println();",
-								"  }",
-								"  public void isToolkit_3() {",
-								"    getPublicToolkit();",
-								"  }",
-								"}"));
+		TypeDeclaration typeDeclaration = createTypeDeclaration("test", "Test.java", getSource("""
+				package test;
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class Test extends MyForm {
+					public void isToolkit_1() {
+						int a;
+					}
+					public void isToolkit_2() {
+						System.out.println();
+					}
+					public void isToolkit_3() {
+						getPublicToolkit();
+					}
+				}"""));
 		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
 		assertEquals("getPublicToolkit()", toolkitAccess.getReferenceExpression());
 		assertToolkitNode(false, toolkitAccess, typeDeclaration, "isToolkit_1");
@@ -110,28 +104,22 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 
 	@Test
 	public void test_toolkitMethod_protected() throws Exception {
-		setFileContentSrc(
-				"test/MyForm.java",
-				getSource(
-						"package test;",
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"public class MyForm {",
-						"  public FormToolkit getProtectedToolkit() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyForm.java", getSource("""
+				package test;
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class MyForm {
+					public FormToolkit getProtectedToolkit() {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
-		TypeDeclaration typeDeclaration =
-				createTypeDeclaration(
-						"test",
-						"Test.java",
-						getSource(
-								"package test;",
-								"import org.eclipse.ui.forms.*;",
-								"import org.eclipse.ui.forms.widgets.*;",
-								"public class Test extends MyForm {",
-								"}"));
+		TypeDeclaration typeDeclaration = createTypeDeclaration("test", "Test.java", getSource("""
+				package test;
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class Test extends MyForm {
+				}"""));
 		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);
 		assertEquals("getProtectedToolkit()", toolkitAccess.getReferenceExpression());
 	}
@@ -193,17 +181,15 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 
 	@Test
 	public void test_formMethod() throws Exception {
-		setFileContentSrc(
-				"test/MyForm.java",
-				getSource(
-						"package test;",
-						"import org.eclipse.ui.forms.*;",
-						"import org.eclipse.ui.forms.widgets.*;",
-						"public class MyForm {",
-						"  public IManagedForm getMyForm() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyForm.java", getSource("""
+				package test;
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;
+				public class MyForm {
+					public IManagedForm getMyForm() {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
 		TypeDeclaration typeDeclaration = createTypeDeclaration_Test("""
 				import org.eclipse.ui.forms.*;
@@ -304,40 +290,35 @@ public class FormToolkitAccessTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_toolkitAccessSupports() throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource(
-						"public abstract class MyShell extends Shell {",
-						"  protected IManagedForm m_managedForm;",
-						"  public void initialize(IManagedForm form) {",
-						"    m_managedForm = form;",
-						"  }",
-						"  public abstract void createContents(Composite parent);",
-						"  protected void checkSubclass () {}",
-						"}"));
-		setFileContentSrc(
-				"test/MyShell.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='FormToolkit.configureMethod'>createContents(org.eclipse.swt.widgets.Composite)</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyShell.java", getTestSource("""
+				public abstract class MyShell extends Shell {
+					protected IManagedForm m_managedForm;
+					public void initialize(IManagedForm form) {
+						m_managedForm = form;
+					}
+					public abstract void createContents(Composite parent);
+					protected void checkSubclass () {}
+				}"""));
+		setFileContentSrc("test/MyShell.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="FormToolkit.configureMethod">createContents(org.eclipse.swt.widgets.Composite)</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends MyShell {",
-						"  public Test() {",
-						"    createContents(this);",
-						"  }",
-						"  public void createContents(Composite parent) {",
-						"  }",
-						"  private void isToolkit_1() {",
-						"    m_managedForm.getToolkit();",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends MyShell {
+					public Test() {
+						createContents(this);
+					}
+					public void createContents(Composite parent) {
+					}
+					private void isToolkit_1() {
+						m_managedForm.getToolkit();
+					}
+				}""");
 		TypeDeclaration typeDeclaration = JavaInfoUtils.getTypeDeclaration(shell);
 		// prepare toolkit, its creation/variable supports
 		FormToolkitAccess toolkitAccess = FormToolkitAccess.getOrFail(typeDeclaration);

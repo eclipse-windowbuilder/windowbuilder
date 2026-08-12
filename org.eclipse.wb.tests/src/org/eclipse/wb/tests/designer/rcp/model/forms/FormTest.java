@@ -56,14 +56,13 @@ public class FormTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_properties() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Form form = new Form(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Form form = new Form(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		assertNotNull(form.getPropertyByTitle("Style"));
@@ -79,14 +78,13 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_getHead_getBody() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Form form = new Form(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Form form = new Form(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		// getHead() and getBody() should be exposed
@@ -116,18 +114,17 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_head_getHeadClient() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Form form = new Form(this, SWT.NONE);",
-						"    {",
-						"      Button buttonHead = new Button(form.getHead(), SWT.NONE);",
-						"      form.setHeadClient(buttonHead);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Form form = new Form(this, SWT.NONE);
+						{
+							Button buttonHead = new Button(form.getHead(), SWT.NONE);
+							form.setHeadClient(buttonHead);
+						}
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		CompositeInfo head = (CompositeInfo) form.getChildrenControls().get(0);
@@ -144,32 +141,31 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_head_setHeadClient() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Form form = new Form(this, SWT.NONE);",
-						"    form.setEnabled(true);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Form form = new Form(this, SWT.NONE);
+						form.setEnabled(true);
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		// set "head client"
 		ControlInfo button = BTestUtils.createButton();
 		form.setHeadClient(button);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    Form form = new Form(this, SWT.NONE);",
-				"    form.setEnabled(true);",
-				"    {",
-				"      Button button = new Button(form.getHead(), SWT.NONE);",
-				"      form.setHeadClient(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Form form = new Form(this, SWT.NONE);
+						form.setEnabled(true);
+						{
+							Button button = new Button(form.getHead(), SWT.NONE);
+							form.setHeadClient(button);
+						}
+					}
+				}""");
 		assertSame(button, form.getHeadClient());
 	}
 
@@ -178,34 +174,33 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_head_MoveOut() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Form form = new Form(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(form.getHead(), SWT.NONE);",
-						"      form.setHeadClient(button);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Form form = new Form(this, SWT.NONE);
+						{
+							Button button = new Button(form.getHead(), SWT.NONE);
+							form.setHeadClient(button);
+						}
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = form.getHeadClient();
 		// do move
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		rowLayout.command_MOVE(button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    Form form = new Form(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Form form = new Form(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		assertNull(form.getHeadClient());
 	}
 
@@ -214,33 +209,32 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_head_MoveIn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    Form form = new Form(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Form form = new Form(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		ControlInfo button = shell.getChildrenControls().get(1);
 		// do move
 		form.setHeadClient(button);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new RowLayout());",
-				"    Form form = new Form(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(form.getHead(), SWT.NONE);",
-				"      form.setHeadClient(button);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						Form form = new Form(this, SWT.NONE);
+						{
+							Button button = new Button(form.getHead(), SWT.NONE);
+							form.setHeadClient(button);
+						}
+					}
+				}""");
 		assertSame(button, form.getHeadClient());
 	}
 
@@ -254,26 +248,25 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_exposedManagers_0() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.action.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Form form = new Form(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.action.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Form form = new Form(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Form(this, SWT.BORDER)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.ui.forms.widgets.Form} {local-unique: form} {/new Form(this, SWT.BORDER)/}",
-				"    {method: public org.eclipse.jface.action.IToolBarManager org.eclipse.ui.forms.widgets.Form.getToolBarManager()} {property} {}",
-				"    {method: public org.eclipse.jface.action.IMenuManager org.eclipse.ui.forms.widgets.Form.getMenuManager()} {property} {}",
-				"    {method: public org.eclipse.swt.widgets.Composite org.eclipse.ui.forms.widgets.Form.getHead()} {property} {}",
-				"    {method: public org.eclipse.swt.widgets.Composite org.eclipse.ui.forms.widgets.Form.getBody()} {property} {}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new Form(this, SWT.BORDER)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.ui.forms.widgets.Form} {local-unique: form} {/new Form(this, SWT.BORDER)/}
+						{method: public org.eclipse.jface.action.IToolBarManager org.eclipse.ui.forms.widgets.Form.getToolBarManager()} {property} {}
+						{method: public org.eclipse.jface.action.IMenuManager org.eclipse.ui.forms.widgets.Form.getMenuManager()} {property} {}
+						{method: public org.eclipse.swt.widgets.Composite org.eclipse.ui.forms.widgets.Form.getHead()} {property} {}
+						{method: public org.eclipse.swt.widgets.Composite org.eclipse.ui.forms.widgets.Form.getBody()} {property} {}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 	}
 
 	/**
@@ -281,15 +274,14 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_exposedManagers_toolBarManager() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.action.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Form form = new Form(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.action.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Form form = new Form(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		// exposed (and now empty) ToolBarManager should be not very wide, because Form has not so much space
@@ -305,16 +297,15 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_exposedManagers_menuManager() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.action.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Form form = new Form(this, SWT.BORDER);",
-						"    form.setText('Some text');",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.action.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Form form = new Form(this, SWT.BORDER);
+						form.setText("Some text");
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		// exposed MenuManager and its IMenuPopupInfo
@@ -333,37 +324,36 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_exposedManagers_createAction() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.action.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Form form = new Form(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.action.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Form form = new Form(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		// add new Action
 		ActionInfo newAction = ActionContainerInfo.createNew(shell);
 		form.getToolBarManager().command_CREATE(newAction, null);
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"public class Test extends Shell {",
-				"  private Action action;",
-				"  public Test() {",
-				"    createActions();",
-				"    setLayout(new FillLayout());",
-				"    Form form = new Form(this, SWT.BORDER);",
-				"    form.getToolBarManager().add(action);",
-				"  }",
-				"  private void createActions() {",
-				"    {",
-				"      action = new Action('New Action') {",
-				"      };",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				public class Test extends Shell {
+					private Action action;
+					public Test() {
+						createActions();
+						setLayout(new FillLayout());
+						Form form = new Form(this, SWT.BORDER);
+						form.getToolBarManager().add(action);
+					}
+					private void createActions() {
+						{
+							action = new Action("New Action") {
+							};
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -377,15 +367,14 @@ public class FormTest extends AbstractFormsTest {
 	 */
 	@Test
 	public void test_FormToolkit_decorateFormHeading() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private FormToolkit m_toolkit = new FormToolkit(Display.getCurrent());",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Form form = new Form(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private FormToolkit m_toolkit = new FormToolkit(Display.getCurrent());
+					public Test() {
+						setLayout(new FillLayout());
+						Form form = new Form(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		FormInfo form = (FormInfo) shell.getChildrenControls().get(0);
 		// decoration: false -> true
@@ -395,15 +384,15 @@ public class FormTest extends AbstractFormsTest {
 			// decorate := true
 			decorateAction.setChecked(true);
 			decorateAction.run();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  private FormToolkit m_toolkit = new FormToolkit(Display.getCurrent());",
-					"  public Test() {",
-					"    setLayout(new FillLayout());",
-					"    Form form = new Form(this, SWT.BORDER);",
-					"    m_toolkit.decorateFormHeading(form);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						private FormToolkit m_toolkit = new FormToolkit(Display.getCurrent());
+						public Test() {
+							setLayout(new FillLayout());
+							Form form = new Form(this, SWT.BORDER);
+							m_toolkit.decorateFormHeading(form);
+						}
+					}""");
 		}
 		// decoration: true -> false
 		{
@@ -412,14 +401,14 @@ public class FormTest extends AbstractFormsTest {
 			// decorate := false
 			decorateAction.setChecked(false);
 			decorateAction.run();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  private FormToolkit m_toolkit = new FormToolkit(Display.getCurrent());",
-					"  public Test() {",
-					"    setLayout(new FillLayout());",
-					"    Form form = new Form(this, SWT.BORDER);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						private FormToolkit m_toolkit = new FormToolkit(Display.getCurrent());
+						public Test() {
+							setLayout(new FillLayout());
+							Form form = new Form(this, SWT.BORDER);
+						}
+					}""");
 		}
 	}
 

@@ -42,24 +42,23 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_simpleSingleControl() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      {",
-						"        TableWrapLayout layout = new TableWrapLayout();",
-						"        layout.topMargin = 20;",
-						"        composite.setLayout(layout);",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								layout.topMargin = 20;
+								composite.setLayout(layout);
+							}
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		// prepare memento
@@ -72,65 +71,64 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 		CompositeInfo newComposite = (CompositeInfo) memento.create(shell);
 		rowLayout.command_CREATE(newComposite, null);
 		memento.apply();
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      {",
-				"        TableWrapLayout layout = new TableWrapLayout();",
-				"        layout.topMargin = 20;",
-				"        composite.setLayout(layout);",
-				"      }",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"      }",
-				"    }",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      {",
-				"        TableWrapLayout layout = new TableWrapLayout();",
-				"        layout.topMargin = 20;",
-				"        composite.setLayout(layout);",
-				"      }",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								layout.topMargin = 20;
+								composite.setLayout(layout);
+							}
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								layout.topMargin = 20;
+								composite.setLayout(layout);
+							}
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_grid2x2() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      {",
-						"        TableWrapLayout layout = new TableWrapLayout();",
-						"        layout.numColumns = 2;",
-						"        composite.setLayout(layout);",
-						"      }",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        {",
-						"          TableWrapData tableWrapData = new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP);",
-						"          button.setLayoutData(tableWrapData);",
-						"        }",
-						"      }",
-						"      new Label(composite, SWT.NONE);",
-						"      new Label(composite, SWT.NONE);",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								layout.numColumns = 2;
+								composite.setLayout(layout);
+							}
+							{
+								Button button = new Button(composite, SWT.NONE);
+								{
+									TableWrapData tableWrapData = new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP);
+									button.setLayoutData(tableWrapData);
+								}
+							}
+							new Label(composite, SWT.NONE);
+							new Label(composite, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		RowLayoutInfo rowLayout = (RowLayoutInfo) shell.getLayout();
 		// prepare memento
@@ -143,45 +141,45 @@ public class TableWrapLayoutClipboardTest extends AbstractFormsTest {
 		CompositeInfo newComposite = (CompositeInfo) memento.create(shell);
 		rowLayout.command_CREATE(newComposite, null);
 		memento.apply();
-		assertEditor(
-				"class Test extends Shell {",
-				"  Test() {",
-				"    setLayout(new RowLayout());",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      {",
-				"        TableWrapLayout layout = new TableWrapLayout();",
-				"        layout.numColumns = 2;",
-				"        composite.setLayout(layout);",
-				"      }",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"        button.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));",
-				"      }",
-				"      new Label(composite, SWT.NONE);",
-				"      new Label(composite, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"      }",
-				"    }",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      {",
-				"        TableWrapLayout layout = new TableWrapLayout();",
-				"        layout.numColumns = 2;",
-				"        composite.setLayout(layout);",
-				"      }",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"        button.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));",
-				"      }",
-				"      new Label(composite, SWT.NONE);",
-				"      new Label(composite, SWT.NONE);",
-				"      {",
-				"        Button button = new Button(composite, SWT.NONE);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new RowLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								layout.numColumns = 2;
+								composite.setLayout(layout);
+							}
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
+							}
+							new Label(composite, SWT.NONE);
+							new Label(composite, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								TableWrapLayout layout = new TableWrapLayout();
+								layout.numColumns = 2;
+								composite.setLayout(layout);
+							}
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB, TableWrapData.TOP));
+							}
+							new Label(composite, SWT.NONE);
+							new Label(composite, SWT.NONE);
+							{
+								Button button = new Button(composite, SWT.NONE);
+							}
+						}
+					}
+				}""");
 	}
 }
