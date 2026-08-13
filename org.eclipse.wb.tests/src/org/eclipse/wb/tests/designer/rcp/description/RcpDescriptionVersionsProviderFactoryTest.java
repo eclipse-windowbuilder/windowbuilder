@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,12 +18,12 @@ import org.eclipse.wb.internal.rcp.RcpDescriptionVersionsProviderFactory;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 import org.eclipse.wb.tests.designer.rcp.RcpModelTest;
 
-import static org.assertj.core.data.MapEntry.entry;
+import org.eclipse.swt.SWT;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,13 +32,20 @@ import java.util.List;
  * @author scheglov_ke
  */
 public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Exit zone :-) XXX
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public void _test_exit() throws Exception {
-		System.exit(0);
+	private List<String> m_versions;
+
+	@Override
+	@BeforeEach
+	public void setUp() throws Exception {
+		super.setUp();
+		m_versions = new ArrayList<>();
+		m_versions.addAll(List.of("4.9", "4.8", "4.7", "4.6", "4.5", "4.4", "4.3", "4.2", "3.8", "3.7"));
+		if (SWT.getVersion() > 4972) { // For compatibility with 2024-06 release
+			m_versions.add(0, "4.10");
+		}
+		if (SWT.getVersion() > 4973) {
+			m_versions.add(0, "4.11");
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -51,15 +58,12 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
 	public void test_notRCP() throws Exception {
 		do_projectDispose();
 		do_projectCreate();
-		parseSource(
-				"test",
-				"Test.java",
-				getSource(
-						"import javax.swing.*;",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}"));
+		parseSource("test", "Test.java", getSource("""
+				import javax.swing.*;
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}"""));
 		// check IDescriptionVersionsProviderFactory
 		IDescriptionVersionsProviderFactory providerFactory =
 				RcpDescriptionVersionsProviderFactory.INSTANCE;
@@ -68,18 +72,18 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
 		// not RCP project, so RCP factory returns no provider
 		assertNull(provider);
 		// also no versions
-		Assertions.assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).isEmpty();
+		assertTrue(providerFactory.getVersions(m_javaProject, m_lastLoader).isEmpty(),
+				"Component descriptions unsupported for non-RCP classes ");
 	}
 
-	@Disabled
 	@Test
-	public void test_37() throws Exception {
-		parseComposite(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"  }",
-				"}");
+	public void test_getDescriptionVersions() throws Exception {
+		parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// check IDescriptionVersionsProviderFactory
 		IDescriptionVersionsProviderFactory providerFactory =
 				RcpDescriptionVersionsProviderFactory.INSTANCE;
@@ -89,22 +93,21 @@ public class RcpDescriptionVersionsProviderFactoryTest extends RcpModelTest {
 		{
 			Class<?> componentClass = m_lastLoader.loadClass("org.eclipse.swt.widgets.Button");
 			List<String> versions = provider.getVersions(componentClass);
-			Assertions.assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
+			assertEquals(m_versions, versions);
 		}
 		// RCP class: TableViewer
 		{
 			Class<?> componentClass = m_lastLoader.loadClass("org.eclipse.jface.viewers.TableViewer");
 			List<String> versions = provider.getVersions(componentClass);
-			Assertions.assertThat(versions).containsExactly("3.7", "3.6", "3.5", "3.4", "3.3", "3.2");
+			assertEquals(m_versions, versions);
 		}
 		// not RCP class
 		{
 			List<String> versions = provider.getVersions(Object.class);
-			Assertions.assertThat(versions).isEmpty();
+			assertTrue(versions.isEmpty(), "Component descriptions unsupported for non-RCP classes ");
 		}
 		// check versions
-		Assertions.assertThat(providerFactory.getVersions(m_javaProject, m_lastLoader)).contains(
-				entry("rcp_version", "3.7"));
-		Assertions.assertThat(m_lastState.getVersions()).contains(entry("rcp_version", "3.7"));
+		assertEquals(m_versions.getFirst(), providerFactory.getVersions(m_javaProject, m_lastLoader).get("rcp_version"));
+		assertEquals(m_versions.getFirst(), m_lastState.getVersions().get("rcp_version"));
 	}
 }
