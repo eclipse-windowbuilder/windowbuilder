@@ -435,7 +435,7 @@ public class ActionGefTest extends SwingGefTest {
 	 * Creates class with <code>ExternalAction</code>.
 	 */
 	private void createExternalAction() throws Exception {
-		setFileContentSrc("test/ExternalAction.java", getTestSource("""
+		createASTCompilationUnit("test", "ExternalAction.java", getTestSource("""
 				public class ExternalAction extends AbstractAction {
 					public ExternalAction() {
 						putValue(NAME, "My name");
