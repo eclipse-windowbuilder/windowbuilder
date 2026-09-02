@@ -13,6 +13,7 @@
     <artifactId>org.eclipse.wb.os.macosx</artifactId>
     <version>1.10.100-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
+    <name>[bundle] WindowBuilder MacOS Cross-Platform Support</name>
 
     <build>
      <plugins>

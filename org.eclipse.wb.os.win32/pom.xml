@@ -13,6 +13,7 @@
     <artifactId>org.eclipse.wb.os.win32</artifactId>
     <version>1.11.0-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
+    <name>[bundle] WindowBuilder Win32 Cross-Platform Support</name>
 
     <build>
      <plugins>

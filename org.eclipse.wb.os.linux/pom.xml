@@ -13,6 +13,7 @@
     <artifactId>org.eclipse.wb.os.linux</artifactId>
     <version>1.12.100-SNAPSHOT</version>
     <packaging>eclipse-plugin</packaging>
+    <name>[bundle] WindowBuilder Linux Cross-Platform Support</name>
 
     <build>
      <plugins>

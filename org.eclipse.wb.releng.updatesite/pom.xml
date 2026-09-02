@@ -8,6 +8,7 @@
     <artifactId>org.eclipse.wb.releng.updatesite</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>eclipse-repository</packaging>
+    <name>[repository] WindowBuilder Update Site</name>
 
     <properties>
         <justj.tools.repo>https://download.eclipse.org/justj/tools/updates/nightly/latest</justj.tools.repo>

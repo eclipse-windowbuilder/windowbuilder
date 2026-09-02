@@ -20,6 +20,7 @@
   <artifactId>org.eclipse.wb.tests</artifactId>
   <version>1.8.0-SNAPSHOT</version>
   <packaging>eclipse-test-plugin</packaging>
+  <name>[bundle] WindowBuilder Tests</name>
 
 	<properties>
 		<uitest.vmparams>-Dorg.eclipse.swtbot.search.timeout=60000</uitest.vmparams>
