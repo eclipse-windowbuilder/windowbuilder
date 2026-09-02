@@ -1,0 +1,12 @@
+<ruleset xmlns="https://www.mojohaus.org/VERSIONS/RULE/3.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.mojohaus.org/VERSIONS/RULE/3.0.0 https://www.mojohaus.org/versions/versions-model/xsd/rule-3.0.0.xsd">
+    <rules>
+        <rule groupId="net.bytebuddy" artifactId="*">
+            <ignoreVersions>
+                <ignoreVersion type="regex">.+-jdk\d</ignoreVersion>
+            </ignoreVersions>
+        </rule>
+    </rules>
+    <ignoreVersions>
+        <ignoreVersion type="regex">(.+-SNAPSHOT|.+-M\d)</ignoreVersion>
+    </ignoreVersions>
+</ruleset>
