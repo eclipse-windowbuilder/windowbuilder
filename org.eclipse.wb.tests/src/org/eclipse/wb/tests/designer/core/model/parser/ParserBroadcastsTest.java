@@ -54,14 +54,13 @@ public class ParserBroadcastsTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_noExternalListener() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    Component notBoundComponentObject = new JTextField();",
-						"    add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						Component notBoundComponentObject = new JTextField();
+						add(new JButton());
+					}
+				}""");
 		panel.refresh();
 		// extension is not added yet, so...
 		assertEquals(0, MyParticipator.m_refreshCount);
@@ -75,14 +74,13 @@ public class ParserBroadcastsTest extends SwingModelTest {
 	public void test_extraListenersEvicted() throws Exception {
 		addParticipatorExtension(MyParticipator.class.getName());
 		try {
-			ContainerInfo panel =
-					parseContainer(
-							"public class Test extends JPanel {",
-							"  public Test() {",
-							"    Component notBoundComponentObject = new JTextField();",
-							"    add(new JButton());",
-							"  }",
-							"}");
+			ContainerInfo panel = parseContainer("""
+					public class Test extends JPanel {
+						public Test() {
+							Component notBoundComponentObject = new JTextField();
+							add(new JButton());
+						}
+					}""");
 			// no "JTextField" in "panel" hierarchy
 			panel.accept(new ObjectInfoVisitor() {
 				@Override

@@ -45,12 +45,12 @@ public class EditorStateTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getEditor() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		assertSame(m_lastEditor, m_lastState.getEditor());
 	}
 
@@ -59,12 +59,12 @@ public class EditorStateTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_isDisposed() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// remember to use after dispose
 		EditorState editorState = m_lastState;
 		// not disposed initially
@@ -81,36 +81,28 @@ public class EditorStateTest extends SwingModelTest {
 	@SuppressWarnings("rawtypes")
 	@Test
 	public void test_clearRegisteredEditors() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPanel extends JPanel {",
-						"}"));
-		setFileContentSrc(
-				"test/MyObject.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyObject {",
-						"  // filler",
-						"}"));
-		setFileContentSrc(
-				"test/MyPropertyEditor.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyPropertyEditor extends java.beans.PropertyEditorSupport {",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanelBeanInfo.java",
-				getTestSource(
-						"public class MyPanelBeanInfo extends java.beans.SimpleBeanInfo {",
-						"  public MyPanelBeanInfo() {",
-						"    java.beans.PropertyEditorManager.registerEditor(MyObject.class, MyPropertyEditor.class);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyPanel extends JPanel {
+				}"""));
+		setFileContentSrc("test/MyObject.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyObject {
+					// filler
+				}"""));
+		setFileContentSrc("test/MyPropertyEditor.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyPropertyEditor extends java.beans.PropertyEditorSupport {
+				}"""));
+		setFileContentSrc("test/MyPanelBeanInfo.java", getTestSource("""
+				public class MyPanelBeanInfo extends java.beans.SimpleBeanInfo {
+					public MyPanelBeanInfo() {
+						java.beans.PropertyEditorManager.registerEditor(MyObject.class, MyPropertyEditor.class);
+					}
+				}"""));
 		waitForAutoBuild();
 		// does not work for Java 7
 		if (EnvironmentUtils.getJavaVersion() >= 1.7) {
@@ -120,13 +112,12 @@ public class EditorStateTest extends SwingModelTest {
 		Map registry = (Map) ReflectionUtils.invokeMethod(PropertyEditorManager.class, "getRegistry()");
 		int initialEditors = registry.size();
 		// parse, one more editor in registry expected
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		// just couple checks for CompositeClassLoader
 		{
 			assertInstanceOf(CompositeClassLoader.class, m_lastLoader);
@@ -161,14 +152,12 @@ public class EditorStateTest extends SwingModelTest {
 	@Test
 	public void test_clearUIManager() throws Exception {
 		String key = "wbp.EditorStateTest";
-		setFileContentSrc(
-				"test/MyObject.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyObject {",
-						"  // filler filler filler",
-						"}"));
+		setFileContentSrc("test/MyObject.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyObject {
+					// filler filler filler
+				}"""));
 		waitForAutoBuild();
 		String[] lines = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
 		// parse, one more editor in registry expected

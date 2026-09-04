@@ -123,32 +123,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_1() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  protected void createContents() {",
-						"    super.createContents();",
-						"    add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					protected void createContents() {
+						super.createContents();
+						add(new JButton());
+					}
+				}""");
 		panel.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {/add(new JButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {/add(new JButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}""");
 	}
 
 	/**
@@ -156,36 +153,33 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_2() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  public Test() {",
-						"    add(new JLabel());",
-						"  }",
-						"  protected void createContents() {",
-						"    super.createContents();",
-						"    add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					public Test() {
+						add(new JLabel());
+					}
+					protected void createContents() {
+						super.createContents();
+						add(new JButton());
+					}
+				}""");
 		panel.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {/add(new JButton())/ /add(new JLabel())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}",
-				"  {new: javax.swing.JLabel} {empty} {/add(new JLabel())/}");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {/add(new JButton())/ /add(new JLabel())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}
+					{new: javax.swing.JLabel} {empty} {/add(new JLabel())/}""");
 	}
 
 	/**
@@ -194,32 +188,30 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_3() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel(boolean enabled) {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel(boolean enabled) {
+						createContents();
+					}
+					protected void createContents() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		parseContainer(
-				"public class Test extends BasePanel {",
-				"  public Test() {",
-				"    super(true);",
-				"  }",
-				"  protected void createContents() {",
-				"    super.createContents();",
-				"    add(new JButton());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {/add(new JButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}");
+		parseContainer("""
+				public class Test extends BasePanel {
+					public Test() {
+						super(true);
+					}
+					protected void createContents() {
+						super.createContents();
+						add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {/add(new JButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}""");
 	}
 
 	/**
@@ -234,35 +226,33 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_4() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel(boolean enabled) {",
-						"    if (enabled) {",
-						"      setEnabled(true);",
-						"    }",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel(boolean enabled) {
+						if (enabled) {
+							setEnabled(true);
+						}
+						createContents();
+					}
+					protected void createContents() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		parseContainer(
-				"public class Test extends BasePanel {",
-				"  public Test() {",
-				"    super(true);",
-				"  }",
-				"  protected void createContents() {",
-				"    super.createContents();",
-				"    add(new JButton());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {/add(new JButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}");
+		parseContainer("""
+				public class Test extends BasePanel {
+					public Test() {
+						super(true);
+					}
+					protected void createContents() {
+						super.createContents();
+						add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {/add(new JButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}""");
 	}
 
 	/**
@@ -271,27 +261,24 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_5() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    add(createClient());",
-						"  }",
-						"  protected abstract Component createClient();",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					public MyPanel() {
+						add(createClient());
+					}
+					protected abstract Component createClient();
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"  protected Component createClient() {",
-						"    JButton clientButton = new JButton();",
-						"    return clientButton;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+					}
+					protected Component createClient() {
+						JButton clientButton = new JButton();
+						return clientButton;
+					}
+				}""");
 		// "panel" should have one child component: JButton "clientButton", created in createClient()
 		List<ComponentInfo> components = panel.getChildrenComponents();
 		Assertions.assertThat(components).hasSize(1);
@@ -332,31 +319,28 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_6() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    add(createClient());",
-						"  }",
-						"  protected abstract Component createClient();",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					public MyPanel() {
+						add(createClient());
+					}
+					protected abstract Component createClient();
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton constructorButton = new JButton();",
-						"      add(constructorButton);",
-						"    }",
-						"  }",
-						"  protected Component createClient() {",
-						"    JButton clientButton = new JButton();",
-						"    return clientButton;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						{
+							JButton constructorButton = new JButton();
+							add(constructorButton);
+						}
+					}
+					protected Component createClient() {
+						JButton clientButton = new JButton();
+						return clientButton;
+					}
+				}""");
 		// "panel" should have two child components:
 		//    1. JButton "clientButton", created in createClient()
 		//    2. JButton "constructorButton", created in Test()
@@ -383,29 +367,26 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_7() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    add(createClient());",
-						"  }",
-						"  protected abstract Component createClient();",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					public MyPanel() {
+						add(createClient());
+					}
+					protected abstract Component createClient();
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  private final JButton fieldButton = new JButton();",
-						"  public Test() {",
-						"    add(fieldButton);",
-						"  }",
-						"  protected Component createClient() {",
-						"    JButton clientButton = new JButton();",
-						"    return clientButton;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					private final JButton fieldButton = new JButton();
+					public Test() {
+						add(fieldButton);
+					}
+					protected Component createClient() {
+						JButton clientButton = new JButton();
+						return clientButton;
+					}
+				}""");
 		// "panel" should have two child components:
 		//    1. JButton "clientButton", created in createClient()
 		//    2. JButton "fieldButton", created in field
@@ -432,32 +413,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_8() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    fillPanel();",
-						"  }",
-						"  protected void fillPanel() {",
-						"    add(new JLabel('super JLabel'));",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					public MyPanel() {
+						fillPanel();
+					}
+					protected void fillPanel() {
+						add(new JLabel("super JLabel"));
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"  protected void fillPanel() {",
-						"    super.fillPanel();",
-						"    {",
-						"      JButton button = new JButton('local JButton');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+					}
+					protected void fillPanel() {
+						super.fillPanel();
+						{
+							JButton button = new JButton("local JButton");
+							add(button);
+						}
+					}
+				}""");
 		panel.refresh();
 		// "panel" as JavaInfo has only one ComponentInfo
 		{
@@ -487,32 +465,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_9() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    fillPanel();",
-						"  }",
-						"  protected void fillPanel() {",
-						"    add(new JLabel('super JLabel'));",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					public MyPanel() {
+						fillPanel();
+					}
+					protected void fillPanel() {
+						add(new JLabel("super JLabel"));
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"  protected void fillPanel() {",
-						"    {",
-						"      JButton button = new JButton('local JButton');",
-						"      add(button);",
-						"    }",
-						"    super.fillPanel();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+					}
+					protected void fillPanel() {
+						{
+							JButton button = new JButton("local JButton");
+							add(button);
+						}
+						super.fillPanel();
+					}
+				}""");
 		panel.refresh();
 		// "panel" as JavaInfo has only one ComponentInfo
 		{
@@ -542,39 +517,36 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_10() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  private JPanel container = new JPanel();",
-						"  public MyPanel() {",
-						"    add(container);",
-						"    container.add(createClient());",
-						"  }",
-						"  public Container getContainer() {",
-						"    return container;",
-						"  }",
-						"  protected abstract Component createClient();",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					private JPanel container = new JPanel();
+					public MyPanel() {
+						add(container);
+						container.add(createClient());
+					}
+					public Container getContainer() {
+						return container;
+					}
+					protected abstract Component createClient();
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"  protected Component createClient() {",
-						"    JButton clientButton = new JButton();",
-						"    return clientButton;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+					}
+					protected Component createClient() {
+						JButton clientButton = new JButton();
+						return clientButton;
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: test.MyPanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {method: public java.awt.Container test.MyPanel.getContainer()} {property} {}",
-				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {local-unique: clientButton} {/new JButton()/ /clientButton/}");
+		assertHierarchy("""
+				{this: test.MyPanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{method: public java.awt.Container test.MyPanel.getContainer()} {property} {}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {local-unique: clientButton} {/new JButton()/ /clientButton/}""");
 		// check target for placing on "getContainer()"
 		{
 			ContainerInfo container = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -590,37 +562,34 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_11() throws Exception {
-		setFileContentSrc(
-				"test/MyDialog.java",
-				getTestSource(
-						"public abstract class MyDialog extends JPanel {",
-						"  public MyDialog() {",
-						"    setLayout(new BorderLayout());",
-						"    JPanel contentArea = new JPanel();",
-						"    add(contentArea);",
-						"    createDialogArea(contentArea);",
-						"  }",
-						"  protected abstract void createDialogArea(Container parent);",
-						"}"));
+		setFileContentSrc("test/MyDialog.java", getTestSource("""
+				public abstract class MyDialog extends JPanel {
+					public MyDialog() {
+						setLayout(new BorderLayout());
+						JPanel contentArea = new JPanel();
+						add(contentArea);
+						createDialogArea(contentArea);
+					}
+					protected abstract void createDialogArea(Container parent);
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyDialog {",
-						"  public Test() {",
-						"  }",
-						"  protected void createDialogArea(Container parent) {",
-						"    JButton button = new JButton();",
-						"    parent.add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyDialog {
+					public Test() {
+					}
+					protected void createDialogArea(Container parent) {
+						JButton button = new JButton();
+						parent.add(button);
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: test.MyDialog} {this} {}",
-				"  {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"  {parameter} {parent} {/parent.add(button)/}",
-				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /parent.add(button)/}");
+		assertHierarchy("""
+				{this: test.MyDialog} {this} {}
+					{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+					{parameter} {parent} {/parent.add(button)/}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /parent.add(button)/}""");
 		// prepare "parent" ContainerInfo
 		ContainerInfo parent;
 		{
@@ -655,60 +624,58 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_12() throws Exception {
-		setFileContentSrc(
-				"test/MyDialog.java",
-				getTestSource(
-						"public abstract class MyDialog extends JPanel {",
-						"  public MyDialog() {",
-						"    setLayout(new BorderLayout());",
-						"    configureShell(this);",
-						"    {",
-						"      JPanel contentArea = new JPanel();",
-						"      add(contentArea);",
-						"      createDialogArea(contentArea);",
-						"    }",
-						"    {",
-						"      JPanel buttonBar = new JPanel();",
-						"      add(buttonBar, BorderLayout.SOUTH);",
-						"      createButtonsForButtonBar(buttonBar);",
-						"    }",
-						"  }",
-						"  protected void configureShell(Container shell) {",
-						"  }",
-						"  protected void createDialogArea(Container parent) {",
-						"  }",
-						"  protected void createButtonsForButtonBar(Container parent) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyDialog.java", getTestSource("""
+				public abstract class MyDialog extends JPanel {
+					public MyDialog() {
+						setLayout(new BorderLayout());
+						configureShell(this);
+						{
+							JPanel contentArea = new JPanel();
+							add(contentArea);
+							createDialogArea(contentArea);
+						}
+						{
+							JPanel buttonBar = new JPanel();
+							add(buttonBar, BorderLayout.SOUTH);
+							createButtonsForButtonBar(buttonBar);
+						}
+					}
+					protected void configureShell(Container shell) {
+					}
+					protected void createDialogArea(Container parent) {
+					}
+					protected void createButtonsForButtonBar(Container parent) {
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends MyDialog {",
-				"  public Test() {",
-				"  }",
-				"  protected void configureShell(Container shell) {",
-				"    shell.setEnabled(true);",
-				"  }",
-				"  protected void createDialogArea(Container parent) {",
-				"    JButton button_1 = new JButton();",
-				"    parent.add(button_1);",
-				"  }",
-				"  protected void createButtonsForButtonBar(Container parent) {",
-				"    JButton button_2 = new JButton();",
-				"    parent.add(button_2);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.MyDialog} {this} {}",
-				"  {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"  {parameter} {shell} {/shell.setEnabled(true)/}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"    {parameter} {parent} {/parent.add(button_1)/}",
-				"      {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"      {new: javax.swing.JButton} {local-unique: button_1} {/new JButton()/ /parent.add(button_1)/}",
-				"    {parameter} {parent} {/parent.add(button_2)/}",
-				"      {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"      {new: javax.swing.JButton} {local-unique: button_2} {/new JButton()/ /parent.add(button_2)/}");
+		parseContainer("""
+				public class Test extends MyDialog {
+					public Test() {
+					}
+					protected void configureShell(Container shell) {
+						shell.setEnabled(true);
+					}
+					protected void createDialogArea(Container parent) {
+						JButton button_1 = new JButton();
+						parent.add(button_1);
+					}
+					protected void createButtonsForButtonBar(Container parent) {
+						JButton button_2 = new JButton();
+						parent.add(button_2);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyDialog} {this} {}
+					{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+					{parameter} {shell} {/shell.setEnabled(true)/}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+						{parameter} {parent} {/parent.add(button_1)/}
+							{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+							{new: javax.swing.JButton} {local-unique: button_1} {/new JButton()/ /parent.add(button_1)/}
+						{parameter} {parent} {/parent.add(button_2)/}
+							{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+							{new: javax.swing.JButton} {local-unique: button_2} {/new JButton()/ /parent.add(button_2)/}""");
 	}
 
 	/**
@@ -716,47 +683,44 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_13() throws Exception {
-		setFileContentSrc(
-				"test/MyDialog.java",
-				getTestSource(
-						"public abstract class MyDialog extends JPanel {",
-						"  public MyDialog() {",
-						"    setLayout(new BorderLayout());",
-						"    //",
-						"    JPanel contentArea = new JPanel();",
-						"    add(contentArea);",
-						"    //",
-						"    Component dialogArea = createDialogArea(contentArea);",
-						"  }",
-						"  protected Component createDialogArea(Container parent) {",
-						"    JPanel dialogArea = new JPanel();",
-						"    parent.add(dialogArea);",
-						"    return dialogArea;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyDialog.java", getTestSource("""
+				public abstract class MyDialog extends JPanel {
+					public MyDialog() {
+						setLayout(new BorderLayout());
+						//
+						JPanel contentArea = new JPanel();
+						add(contentArea);
+						//
+						Component dialogArea = createDialogArea(contentArea);
+					}
+					protected Component createDialogArea(Container parent) {
+						JPanel dialogArea = new JPanel();
+						parent.add(dialogArea);
+						return dialogArea;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyDialog {",
-						"  public Test() {",
-						"  }",
-						"  protected Component createDialogArea(Container parent) {",
-						"    Container container = (Container) super.createDialogArea(parent);",
-						"    JButton button = new JButton();",
-						"    container.add(button);",
-						"    return button;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyDialog {
+					public Test() {
+					}
+					protected Component createDialogArea(Container parent) {
+						Container container = (Container) super.createDialogArea(parent);
+						JButton button = new JButton();
+						container.add(button);
+						return button;
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: test.MyDialog} {this} {}",
-				"  {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"  {parameter} {parent} {/super.createDialogArea(parent)/}",
-				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"    {casted-superInvocation: (Container)super.createDialogArea(parent)} {local-unique: container} {/(Container) super.createDialogArea(parent)/ /container.add(button)/}",
-				"      {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"      {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /container.add(button)/ /button/}");
+		assertHierarchy("""
+				{this: test.MyDialog} {this} {}
+					{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+					{parameter} {parent} {/super.createDialogArea(parent)/}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+						{casted-superInvocation: (Container)super.createDialogArea(parent)} {local-unique: container} {/(Container) super.createDialogArea(parent)/ /container.add(button)/}
+							{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+							{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /container.add(button)/ /button/}""");
 		// check "container"
 		{
 			ContainerInfo createDialogAreaParent = (ContainerInfo) panel.getChildrenComponents().get(0);
@@ -782,29 +746,26 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_14() throws Exception {
-		setFileContentSrc(
-				"test/MyDialog.java",
-				getTestSource(
-						"public abstract class MyDialog extends JPanel {",
-						"  public MyDialog() {",
-						"    int sum = getSum(1, 2);",
-						"    if (sum != 3) {",
-						"      throw new IllegalStateException('3 expected, but ' + sum + ' found.');",
-						"    }",
-						"  }",
-						"  protected abstract int getSum(int a, int b);",
-						"}"));
+		setFileContentSrc("test/MyDialog.java", getTestSource("""
+				public abstract class MyDialog extends JPanel {
+					public MyDialog() {
+						int sum = getSum(1, 2);
+						if (sum != 3) {
+							throw new IllegalStateException("3 expected, but " + sum + " found.");
+						}
+					}
+					protected abstract int getSum(int a, int b);
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyDialog {",
-						"  public Test() {",
-						"  }",
-						"  protected int getSum(int a, int b) {",
-						"    return a + b;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyDialog {
+					public Test() {
+					}
+					protected int getSum(int a, int b) {
+						return a + b;
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -815,34 +776,31 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_15() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    method_1();",
-						"    method_2();",
-						"  }",
-						"  protected void method_1() {",
-						"  }",
-						"  protected void method_2() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						method_1();
+						method_2();
+					}
+					protected void method_1() {
+					}
+					protected void method_2() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  public Test() {",
-						"    super();",
-						"  }",
-						"  protected void method_1() {",
-						"    setEnabled(true);",
-						"  }",
-						"  protected void method_2() {",
-						"    setEnabled(false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					public Test() {
+						super();
+					}
+					protected void method_1() {
+						setEnabled(true);
+					}
+					protected void method_2() {
+						setEnabled(false);
+					}
+				}""");
 		// check execution flow
 		{
 			ExecutionFlowDescription flowDescription = m_lastState.getFlowDescription();
@@ -880,35 +838,32 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_16() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    method_1();",
-						"    method_2();",
-						"  }",
-						"  protected void method_1() {",
-						"  }",
-						"  protected void method_2() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						method_1();
+						method_2();
+					}
+					protected void method_1() {
+					}
+					protected void method_2() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  private JButton m_button;",
-						"  public Test() {",
-						"    super();",
-						"  }",
-						"  protected void method_1() {",
-						"    m_button = new JButton();",
-						"  }",
-						"  protected void method_2() {",
-						"    add(m_button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					private JButton m_button;
+					public Test() {
+						super();
+					}
+					protected void method_1() {
+						m_button = new JButton();
+					}
+					protected void method_2() {
+						add(m_button);
+					}
+				}""");
 		panel.refresh();
 		// check "m_button"
 		{
@@ -925,42 +880,38 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_17() throws Exception {
-		setFileContentSrc(
-				"test/MyDialog.java",
-				getTestSource(
-						"public abstract class MyDialog extends JPanel {",
-						"  public MyDialog() {",
-						"    setLayout(new BorderLayout());",
-						"    {",
-						"      JPanel contentArea = new JPanel();",
-						"      add(contentArea);",
-						"      configureContentArea(contentArea);",
-						"    }",
-						"  }",
-						"  protected void configureContentArea(Container contentArea) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyDialog.configureContentArea_java.awt.Container_.0.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='thisCreation.ignoreBind'>true</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyDialog.java", getTestSource("""
+				public abstract class MyDialog extends JPanel {
+					public MyDialog() {
+						setLayout(new BorderLayout());
+						{
+							JPanel contentArea = new JPanel();
+							add(contentArea);
+							configureContentArea(contentArea);
+						}
+					}
+					protected void configureContentArea(Container contentArea) {
+					}
+				}"""));
+		setFileContentSrc("test/MyDialog.configureContentArea_java.awt.Container_.0.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="thisCreation.ignoreBind">true</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends MyDialog {",
-				"  public Test() {",
-				"  }",
-				"  protected void configureContentArea(Container contentArea) {",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.MyDialog} {this} {}",
-				"  {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		parseContainer("""
+				public class Test extends MyDialog {
+					public Test() {
+					}
+					protected void configureContentArea(Container contentArea) {
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyDialog} {this} {}
+					{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -969,41 +920,37 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_18() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  public void add2(Component component) {",
-						"    add(component);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <methods>",
-						"    <method name='add2'>",
-						"      <parameter type='java.awt.Component'/>",
-						"    </method>",
-						"  </methods>",
-						"</component>"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					public void add2(Component component) {
+						add(component);
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<methods>
+						<method name="add2">
+							<parameter type="java.awt.Component"/>
+						</method>
+					</methods>
+				</component>""");
 		waitForAutoBuild();
 		// parse, JButton can be added before JCheckBox and JRadioButton, but correct - only before JCheckBox
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    add2(new JButton());",
-				"    add(new JCheckBox());",
-				"    add(new JRadioButton());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.MyPanel} {this} {/add2(new JButton())/ /add(new JCheckBox())/ /add(new JRadioButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add2(new JButton())/}",
-				"  {new: javax.swing.JCheckBox} {empty} {/add(new JCheckBox())/}",
-				"  {new: javax.swing.JRadioButton} {empty} {/add(new JRadioButton())/}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						add2(new JButton());
+						add(new JCheckBox());
+						add(new JRadioButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyPanel} {this} {/add2(new JButton())/ /add(new JCheckBox())/ /add(new JRadioButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add2(new JButton())/}
+					{new: javax.swing.JCheckBox} {empty} {/add(new JCheckBox())/}
+					{new: javax.swing.JRadioButton} {empty} {/add(new JRadioButton())/}""");
 	}
 
 	/**
@@ -1013,32 +960,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_duplicateMethodInvocation() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  public Test() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"    add(new JButton());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {/add(new JButton())/ /createContents()/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					public Test() {
+						createContents();
+					}
+					protected void createContents() {
+						add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {/add(new JButton())/ /createContents()/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1050,32 +994,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_duplicateMethodInvocation2() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    createButton(this);",
-						"    createButton(this);",
-						"  }",
-						"  protected void createButton(Container parent) {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						createButton(this);
+						createButton(this);
+					}
+					protected void createButton(Container parent) {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  public Test() {",
-						"  }",
-						"  protected void createButton(Container parent) {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {parameter} {parent} {}",
-				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					public Test() {
+					}
+					protected void createButton(Container parent) {
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{parameter} {parent} {}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1087,37 +1028,34 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_duplicateMethodInvocation3() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    if (getObj() == null) {",
-						"      throw new IllegalStateException();",
-						"    }",
-						"    if (getObj() == null) {",
-						"      throw new IllegalStateException();",
-						"    }",
-						"  }",
-						"  protected Object getObj() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						if (getObj() == null) {
+							throw new IllegalStateException();
+						}
+						if (getObj() == null) {
+							throw new IllegalStateException();
+						}
+					}
+					protected Object getObj() {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  private Object m_object = new Object();",
-						"  public Test() {",
-						"  }",
-						"  protected Object getObj() {",
-						"    return (m_object);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					private Object m_object = new Object();
+					public Test() {
+					}
+					protected Object getObj() {
+						return (m_object);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1128,41 +1066,38 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_duplicateMethodInvocation_lazy() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    if (getButton() == null) {",
-						"      throw new IllegalStateException();",
-						"    }",
-						"    if (getButton() == null) {",
-						"      throw new IllegalStateException();",
-						"    }",
-						"  }",
-						"  protected JButton getButton() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						if (getButton() == null) {
+							throw new IllegalStateException();
+						}
+						if (getButton() == null) {
+							throw new IllegalStateException();
+						}
+					}
+					protected JButton getButton() {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  private Object m_object = new Object();",
-						"  public Test() {",
-						"  }",
-						"  private JButton button;",
-						"  protected JButton getButton() {",
-						"    if (button == null) {",
-						"      button = new JButton();",
-						"    }",
-						"    return button;",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					private Object m_object = new Object();
+					public Test() {
+					}
+					private JButton button;
+					protected JButton getButton() {
+						if (button == null) {
+							button = new JButton();
+						}
+						return button;
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1173,32 +1108,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_infiniteRecursion() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  public Test() {",
-						"  }",
-						"  protected void createContents() {",
-						"    add(new JButton());",
-						"    createContents();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {/add(new JButton())/ /createContents()/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					public Test() {
+					}
+					protected void createContents() {
+						add(new JButton());
+						createContents();
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {/add(new JButton())/ /createContents()/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1210,37 +1142,34 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_callSuper_andIntercept() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"    JButton button = createButton();",
-						"    button.setEnabled(true); // should not cause NPE",
-						"  }",
-						"  protected JButton createButton() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+						JButton button = createButton();
+						button.setEnabled(true); // should not cause NPE
+					}
+					protected JButton createButton() {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  protected void createContents() {",
-						"    super.createContents();",
-						"  }",
-						"  protected JButton createButton() {",
-						"    return new JButton();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					protected void createContents() {
+						super.createContents();
+					}
+					protected JButton createButton() {
+						return new JButton();
+					}
+				}""");
 		assertNoErrors(panel);
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -1249,34 +1178,30 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_callSuper_whenBridgeMethod() throws Exception {
-		setFileContentSrc(
-				"test/PanelA.java",
-				getTestSource(
-						"public class PanelA extends JPanel {",
-						"  protected JComponent createButton() {",
-						"    return new JButton();",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/PanelB.java",
-				getTestSource(
-						"public class PanelB extends PanelA {",
-						"  protected JButton createButton() {",
-						"    return (JButton) super.createButton();",
-						"  }",
-						"}"));
+		setFileContentSrc("test/PanelA.java", getTestSource("""
+				public class PanelA extends JPanel {
+					protected JComponent createButton() {
+						return new JButton();
+					}
+				}"""));
+		setFileContentSrc("test/PanelB.java", getTestSource("""
+				public class PanelB extends PanelA {
+					protected JButton createButton() {
+						return (JButton) super.createButton();
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		parseContainer(
-				"public class Test extends PanelB {",
-				"  public Test() {",
-				"    JButton button = createButton();",
-				"    add(button);",
-				"  }",
-				"  protected JButton createButton() {",
-				"    return super.createButton();",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends PanelB {
+					public Test() {
+						JButton button = createButton();
+						add(button);
+					}
+					protected JButton createButton() {
+						return super.createButton();
+					}
+				}""");
 		refresh();
 		// check that "button" has object
 		JavaInfo button = getJavaInfoByName("button");
@@ -1288,38 +1213,35 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_exposedComponents_binaryExecutionFlow_noOverride() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  private JPanel m_inner;",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"    m_inner = new JPanel();",
-						"    add(m_inner);",
-						"  }",
-						"  public JPanel getInner() {",
-						"    return m_inner;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					private JPanel m_inner;
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+						m_inner = new JPanel();
+						add(m_inner);
+					}
+					public JPanel getInner() {
+						return m_inner;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends BasePanel {",
-						"  // no createContents()",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends BasePanel {
+					// no createContents()
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		// check hierarchy
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {method: public javax.swing.JPanel test.BasePanel.getInner()} {property} {}",
-				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{method: public javax.swing.JPanel test.BasePanel.getInner()} {property} {}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -1330,28 +1252,26 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_binaryExecutionFlow_setLayoutInSuper() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"    setLayout(new BorderLayout());",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+						setLayout(new BorderLayout());
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		parseContainer(
-				"public class Test extends BasePanel {",
-				"  protected void createContents() {",
-				"    super.createContents();",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		parseContainer("""
+				public class Test extends BasePanel {
+					protected void createContents() {
+						super.createContents();
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -1361,41 +1281,38 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_exposedComponents_binaryExecutionFlow_withOverride2() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  private JPanel m_inner;",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"    m_inner = new JPanel();",
-						"    add(m_inner);",
-						"  }",
-						"  public JPanel getInner() {",
-						"    return m_inner;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					private JPanel m_inner;
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+						m_inner = new JPanel();
+						add(m_inner);
+					}
+					public JPanel getInner() {
+						return m_inner;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  protected void createContents() {",
-						"    super.createContents();",
-						"    getInner().add(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					protected void createContents() {
+						super.createContents();
+						getInner().add(new JButton());
+					}
+				}""");
 		assert_creation(panel);
 		assertNoErrors(panel);
 		// check hierarchy
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {method: public javax.swing.JPanel test.BasePanel.getInner()} {property} {/getInner().add(new JButton())/}",
-				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {empty} {/getInner().add(new JButton())/}");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{method: public javax.swing.JPanel test.BasePanel.getInner()} {property} {/getInner().add(new JButton())/}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {empty} {/getInner().add(new JButton())/}""");
 	}
 
 	/**
@@ -1406,41 +1323,38 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	@Test
 	public void test_exposedComponents_binaryExecutionFlow_decideCreationByOverrideResult()
 			throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  private JPanel m_inner;",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"    if (shouldCreateInner()) {",
-						"      m_inner = new JPanel();",
-						"      add(m_inner);",
-						"    }",
-						"  }",
-						"  public JPanel getInner() {",
-						"    return m_inner;",
-						"  }",
-						"  public boolean shouldCreateInner() {",
-						"    return true;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					private JPanel m_inner;
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+						if (shouldCreateInner()) {
+							m_inner = new JPanel();
+							add(m_inner);
+						}
+					}
+					public JPanel getInner() {
+						return m_inner;
+					}
+					public boolean shouldCreateInner() {
+						return true;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  public boolean shouldCreateInner() {",
-						"    return true;",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {method: public javax.swing.JPanel test.BasePanel.getInner()} {property} {}",
-				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					public boolean shouldCreateInner() {
+						return true;
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{method: public javax.swing.JPanel test.BasePanel.getInner()} {property} {}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1453,39 +1367,35 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_exposedComponents_binaryExecutionFlow_dontVisit() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  private JPanel m_inner;",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/BasePanel.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <methods>",
-						"    <method name='createContents'>",
-						"      <tag name='binaryExecutionFlow.dontVisit' value='true'/>",
-						"    </method>",
-						"  </methods>",
-						"</component>"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					private JPanel m_inner;
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+					}
+				}"""));
+		setFileContentSrc("test/BasePanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<methods>
+						<method name="createContents">
+							<tag name="binaryExecutionFlow.dontVisit" value="true"/>
+						</method>
+					</methods>
+				</component>""");
 		waitForAutoBuild();
 		//
-		parseContainer(
-				"public class Test extends BasePanel {",
-				"  protected void createContents() {",
-				"    add(new JButton());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		parseContainer("""
+				public class Test extends BasePanel {
+					protected void createContents() {
+						add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -1494,50 +1404,46 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_binaryExecutionFlow_disableForPackage_withException() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  private JPanel m_inner;",
-						"  public BasePanel() {",
-						"    method_1();",
-						"    method_2();",
-						"    method_3();",
-						"  }",
-						"  protected void method_1() {",
-						"  }",
-						"  protected void method_2() {",
-						"  }",
-						"  protected void method_3() {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/BasePanel.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='binaryExecutionFlow.dontVisit.package test'>method_2()</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					private JPanel m_inner;
+					public BasePanel() {
+						method_1();
+						method_2();
+						method_3();
+					}
+					protected void method_1() {
+					}
+					protected void method_2() {
+					}
+					protected void method_3() {
+					}
+				}"""));
+		setFileContentSrc("test/BasePanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="binaryExecutionFlow.dontVisit.package test">method_2()</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		//
-		parseContainer(
-				"public class Test extends BasePanel {",
-				"  protected void method_1() {",
-				"    add(new JButton('1'));",
-				"  }",
-				"  protected void method_2() {",
-				"    add(new JButton('2'));",
-				"  }",
-				"  protected void method_3() {",
-				"    add(new JButton('3'));",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {/add(new JButton('2'))/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton('2'))/}");
+		parseContainer("""
+				public class Test extends BasePanel {
+					protected void method_1() {
+						add(new JButton("1"));
+					}
+					protected void method_2() {
+						add(new JButton("2"));
+					}
+					protected void method_3() {
+						add(new JButton("3"));
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {/add(new JButton("2"))/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton("2"))/}""");
 	}
 
 	/**
@@ -1546,49 +1452,45 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_binaryExecutionFlow_disableForPackage_noExceptions() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  private JPanel m_inner;",
-						"  public BasePanel() {",
-						"    method_1();",
-						"    method_2();",
-						"    method_3();",
-						"  }",
-						"  protected void method_1() {",
-						"  }",
-						"  protected void method_2() {",
-						"  }",
-						"  protected void method_3() {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/BasePanel.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='binaryExecutionFlow.dontVisit.package test'/>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					private JPanel m_inner;
+					public BasePanel() {
+						method_1();
+						method_2();
+						method_3();
+					}
+					protected void method_1() {
+					}
+					protected void method_2() {
+					}
+					protected void method_3() {
+					}
+				}"""));
+		setFileContentSrc("test/BasePanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="binaryExecutionFlow.dontVisit.package test"/>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		//
-		parseContainer(
-				"public class Test extends BasePanel {",
-				"  protected void method_1() {",
-				"    add(new JButton('1'));",
-				"  }",
-				"  protected void method_2() {",
-				"    add(new JButton('2'));",
-				"  }",
-				"  protected void method_3() {",
-				"    add(new JButton('3'));",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		parseContainer("""
+				public class Test extends BasePanel {
+					protected void method_1() {
+						add(new JButton("1"));
+					}
+					protected void method_2() {
+						add(new JButton("2"));
+					}
+					protected void method_3() {
+						add(new JButton("3"));
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -1597,39 +1499,34 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_disableForClass() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    createContents();",
-						"  }",
-						"  public void createContents() {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='binaryExecutionFlow.no'>true</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+						createContents();
+					}
+					public void createContents() {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="binaryExecutionFlow.no">true</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"  public void createContents() {",
-						"    add(new JButton());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.MyPanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+					}
+					public void createContents() {
+						add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyPanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1644,38 +1541,35 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	@Test
 	public void test_exposedComponents_binaryExecutionFlow_prepareObjectsForExposed()
 			throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public class BasePanel extends JPanel {",
-						"  protected JPanel m_inner;",
-						"  public BasePanel() {",
-						"    createContents();",
-						"  }",
-						"  protected void createContents() {",
-						"    m_inner = new JPanel();",
-						"    add(m_inner);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public class BasePanel extends JPanel {
+					protected JPanel m_inner;
+					public BasePanel() {
+						createContents();
+					}
+					protected void createContents() {
+						m_inner = new JPanel();
+						add(m_inner);
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  protected void createContents() {",
-						"    super.createContents();",
-						"    m_inner.add(new JButton());",
-						"  }",
-						"  public boolean shouldCreateInner() {",
-						"    return true;",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {field: javax.swing.JPanel} {m_inner} {/m_inner.add(new JButton())/}",
-				"    {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {empty} {/m_inner.add(new JButton())/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					protected void createContents() {
+						super.createContents();
+						m_inner.add(new JButton());
+					}
+					public boolean shouldCreateInner() {
+						return true;
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{field: javax.swing.JPanel} {m_inner} {/m_inner.add(new JButton())/}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {empty} {/m_inner.add(new JButton())/}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1686,28 +1580,25 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_whenSearchExposedChildren() throws Exception {
-		setFileContentSrc(
-				"test/BasePanel.java",
-				getTestSource(
-						"public abstract class BasePanel extends JPanel {",
-						"  public BasePanel() {",
-						"  }",
-						"  public abstract JButton getButton();",
-						"}"));
+		setFileContentSrc("test/BasePanel.java", getTestSource("""
+				public abstract class BasePanel extends JPanel {
+					public BasePanel() {
+					}
+					public abstract JButton getButton();
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends BasePanel {",
-						"  public Test() {",
-						"  }",
-						"  public JButton getButton() {",
-						"    return null;",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.BasePanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends BasePanel {
+					public Test() {
+					}
+					public JButton getButton() {
+						return null;
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.BasePanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		panel.refresh();
 	}
 
@@ -1717,25 +1608,23 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_ignoreSwingMethods() throws Exception {
-		setFileContentSrc(
-				"test/Super.java",
-				getTestSource(
-						"public class Super extends JFrame {",
-						"  public void setVisible(boolean b) {",
-						"    super.setVisible(b);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/Super.java", getTestSource("""
+				public class Super extends JFrame {
+					@Override
+					public void setVisible(boolean b) {
+						super.setVisible(b);
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo frame =
-				parseContainer(
-						"public class Test extends Super {",
-						"  public Test() {",
-						"  }",
-						"  public void setVisible(boolean b) {",
-						"    super.setVisible(b);",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				public class Test extends Super {
+					public Test() {
+					}
+					public void setVisible(boolean b) {
+						super.setVisible(b);
+					}
+				}""");
 		frame.refresh();
 		assertNoErrors(frame);
 		// one of the effects was keeping JFrame.visible in "true"
@@ -1748,26 +1637,23 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_ignoreSwingMethods2() throws Exception {
-		setFileContentSrc(
-				"test/Super.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class Super extends JPanel {",
-						"  // filler filler filler",
-						"}"));
+		setFileContentSrc("test/Super.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class Super extends JPanel {
+					// filler filler filler
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends Super {",
-						"  public Test() {",
-						"  }",
-						"  public void paint(Graphics g) {",
-						"    super.paint(g);",
-						"    setEnabled(false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends Super {
+					public Test() {
+					}
+					public void paint(Graphics g) {
+						super.paint(g);
+						setEnabled(false);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		// check that "setEnabled(false)" was not executes
@@ -1781,31 +1667,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_byteCodeExecutionFlow_anyParameterValue() throws Exception {
-		setFileContentSrc(
-				"test/Super.java",
-				getTestSource(
-						"public class Super extends JFrame {",
-						"  public Super() {",
-						"  }",
-						"  public void setVisible(boolean b) {",
-						"    super.setVisible(b);",
-						"    myMethod(123);",
-						"  }",
-						"  public void myMethod(int value) {",
-						"    if (value != 123) throw new Error('Invalid value.');",
-						"  }",
-						"}"));
+		setFileContentSrc("test/Super.java", getTestSource("""
+				public class Super extends JFrame {
+					public Super() {
+					}
+					@Override
+					public void setVisible(boolean b) {
+						super.setVisible(b);
+						myMethod(123);
+					}
+					public void myMethod(int value) {
+						if (value != 123) throw new Error("Invalid value.");
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends Super {",
-						"  public Test() {",
-						"  }",
-						"  public void myMethod(int value) {",
-						"    super.myMethod(value);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends Super {
+					public Test() {
+					}
+					public void myMethod(int value) {
+						super.myMethod(value);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1821,48 +1705,44 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_bindBinary_toDepth() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  private JPanel internalPanel;",
-						"  private JButton contentButton;",
-						"  public MyPanel(){",
-						"    internalPanel = new JPanel();",
-						"    add(internalPanel);",
-						"    contentButton = getContentButton();",
-						"  }",
-						"  abstract protected JButton getContentButton();",
-						"  // some internal actions for pending attach",
-						"  //   contentPanel to 'this'.",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <parameters>",
-						"    <parameter name='bindBinary.toDepth'>true</parameter>",
-						"  </parameters>",
-						"</component>"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					private JPanel internalPanel;
+					private JButton contentButton;
+					public MyPanel(){
+						internalPanel = new JPanel();
+						add(internalPanel);
+						contentButton = getContentButton();
+					}
+					abstract protected JButton getContentButton();
+					// some internal actions for pending attach
+					//   contentPanel to "this".
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<parameters>
+						<parameter name="bindBinary.toDepth">true</parameter>
+					</parameters>
+				</component>""");
 		waitForAutoBuild();
 		// contribute special {@link HierarchyProvider}
 		TestUtils.addDynamicExtension(COMPONENTS_HIERARCHY_PROVIDERS_POINT_ID, //
 				"  <provider class='" + Test_HierarchyProvider.class.getName() + "'/>");
 		//
 		try {
-			parseContainer(
-					"public class Test extends MyPanel {",
-					"  public Test() {",
-					"  }",
-					"  protected JButton getContentButton(){",
-					"    return new JButton();",
-					"  }",
-					"}");
-			assertHierarchy(
-					"{this: test.MyPanel} {this} {}",
-					"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-					"  {new: javax.swing.JButton} {empty} {/new JButton()/}");
+			parseContainer("""
+					public class Test extends MyPanel {
+						public Test() {
+						}
+						protected JButton getContentButton(){
+							return new JButton();
+						}
+					}""");
+			assertHierarchy("""
+					{this: test.MyPanel} {this} {}
+						{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {empty} {/new JButton()/}""");
 			// no errors during refresh
 			refresh();
 			assertNoErrors(m_lastParseInfo);
@@ -1909,17 +1789,16 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_layoutInSuperConstructor_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    super(new BorderLayout());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						super(new BorderLayout());
+					}
+				}""");
 		panel.refresh();
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {}",
-				"  {new: java.awt.BorderLayout} {empty} {/super(new BorderLayout());/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {}
+					{new: java.awt.BorderLayout} {empty} {/super(new BorderLayout());/}""");
 		// BorderLayout expected
 		BorderLayoutInfo layout = (BorderLayoutInfo) panel.getLayout();
 		assertInstanceOf(BorderLayout.class, layout.getObject());
@@ -1939,13 +1818,13 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	public void test_layoutInSuperConstructor_2() throws Exception {
 		// parsing will fail, if we don't set GribBagLayout instance after parsing super()
 		// (because we need GridBagLayout instance for virtual GridBagConstraints)
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    super(new GridBagLayout());",
-				"    add(new JButton());",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						super(new GridBagLayout());
+						add(new JButton());
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1959,13 +1838,12 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_evaluateBroadcast() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    setEnabled(false);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						setEnabled(false);
+					}
+				}""");
 		// listen for ASTNode evaluation
 		List<String> expectedNodes_before = List.of("setEnabled(false)", "setEnabled(false);");
 		List<String> expectedNodes_after = List.of("setEnabled(false)", "setEnabled(false);");
@@ -1993,17 +1871,16 @@ public class ExecuteOnParseTest extends SwingModelTest {
 
 	@Test
 	public void test_instanceMethod_simple() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton(getMyText());",
-						"    add(button);",
-						"  }",
-						"  private String getMyText() {",
-						"    return 'txt';",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton(getMyText());
+						add(button);
+					}
+					private String getMyText() {
+						return "txt";
+					}
+				}""");
 		panel.refresh();
 		//
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -2015,25 +1892,22 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_instanceMethod_abstractMethod() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public abstract class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    setName(getAbstractName());",
-						"  }",
-						"  protected abstract String getAbstractName();",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public abstract class MyPanel extends JPanel {
+					public MyPanel() {
+						setName(getAbstractName());
+					}
+					protected abstract String getAbstractName();
+				}"""));
 		waitForAutoBuild();
 		//
 		useStrictEvaluationMode(false);
-		ContainerInfo panel =
-				parseContainer(
-						"public abstract class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"  protected abstract String getAbstractName();",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public abstract class Test extends MyPanel {
+					public Test() {
+					}
+					protected abstract String getAbstractName();
+				}""");
 		panel.refresh();
 		//
 		assertEquals("<dynamic>", ((JPanel) panel.getObject()).getName());
@@ -2042,22 +1916,22 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	@Test
 	public void test_instanceMethod_complex() throws Exception {
 		try {
-			parseContainer(
-					"public class Test {",
-					"  public static void main(String[] args) {",
-					"    Test app = new Test();",
-					"    app.open();",
-					"  }",
-					"  public void open() {",
-					"    JPanel panel = new JPanel();",
-					"    JButton button = new JButton(getMyText());",
-					"    panel.add(button);",
-					"  }",
-					"  private String getMyText() {",
-					"    String result = 'txt';",
-					"    return result;",
-					"  }",
-					"}");
+			parseContainer("""
+					public class Test {
+						public static void main(String[] args) {
+							Test app = new Test();
+							app.open();
+						}
+						public void open() {
+							JPanel panel = new JPanel();
+							JButton button = new JButton(getMyText());
+							panel.add(button);
+						}
+						private String getMyText() {
+							String result = "txt";
+							return result;
+						}
+					}""");
 			fail();
 		} catch (Throwable e) {
 			Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
@@ -2073,21 +1947,20 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_duplicateMethodInvocation_1() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addButton();",
-						"    addButton();",
-						"  }",
-						"  private void addButton() {",
-						"    add(new JButton());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(new JButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						addButton();
+						addButton();
+					}
+					private void addButton() {
+						add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(new JButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}""");
 		//
 		panel.refresh();
 		assertNoErrors(panel);
@@ -2100,23 +1973,22 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_duplicateMethodInvocation_2() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addButton();",
-						"  }",
-						"  private void addButton() {",
-						"    add(new JButton());",
-						"  }",
-						"  private void disconnectedForExecutionFlow() {",
-						"    addButton();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(new JButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						addButton();
+					}
+					private void addButton() {
+						add(new JButton());
+					}
+					private void disconnectedForExecutionFlow() {
+						addButton();
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(new JButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}""");
 		//
 		panel.refresh();
 		assertNoErrors(panel);
@@ -2127,16 +1999,15 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_duplicateEvaluateExpression() throws Exception {
-		ContainerInfo toolBar =
-				parseContainer(
-						"public class Test extends JToolBar {",
-						"  public Test() {",
-						"    addSeparator();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JToolBar} {this} {/addSeparator()/}",
-				"  {void} {void} {/addSeparator()/}");
+		ContainerInfo toolBar = parseContainer("""
+				public class Test extends JToolBar {
+					public Test() {
+						addSeparator();
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JToolBar} {this} {/addSeparator()/}
+					{void} {void} {/addSeparator()/}""");
 		//
 		toolBar.refresh();
 		Container container = toolBar.getContainer();
@@ -2153,19 +2024,15 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_executeAssignment() throws Exception {
-		ContainerInfo panel =
-				(ContainerInfo) parseSource(
-						"test",
-						"Test.java",
-						getSource(
-								"package test;",
-								"import javax.swing.*;",
-								"class Test {",
-								"  public static void main(String[] args) {",
-								"    JPanel panel;",
-								"    panel = new JPanel();",
-								"  }",
-								"}"));
+		ContainerInfo panel = (ContainerInfo) parseSource("test", "Test.java", """
+				package test;
+				import javax.swing.*;
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel;
+						panel = new JPanel();
+					}
+				}""");
 		assert_creation(panel);
 	}
 
@@ -2174,35 +2041,30 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_executeAssignment_FieldAccess() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public int m_value;",
-						"  public MyButton(Container container) {",
-						"    container.add(this);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyButton.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <constructors>",
-						"    <constructor>",
-						"      <parameter type='java.awt.Container' parent='true'/>",
-						"    </constructor>",
-						"  </constructors>",
-						"</component>"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public int m_value;
+					public MyButton(Container container) {
+						container.add(this);
+					}
+				}"""));
+		setFileContentSrc("test/MyButton.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<constructors>
+						<constructor>
+							<parameter type="java.awt.Container" parent="true"/>
+						</constructor>
+					</constructors>
+				</component>""");
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    new MyButton(this).m_value = 1;",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						new MyButton(this).m_value = 1;
+					}
+				}""");
 		panel.refresh();
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		assertEquals(1, ReflectionUtils.getFieldInt(button.getObject(), "m_value"));
@@ -2215,32 +2077,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_Java5_varArgs() throws Exception {
-		setFileContentSrc(
-				"test/MyFactory.java",
-				getTestSource(
-						"public class MyFactory {",
-						"  public static JLabel createLabel(String text, Object... parameters) {",
-						"    return new JLabel(text);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyFactory.java", getTestSource("""
+				public class MyFactory {
+					public static JLabel createLabel(String text, Object... parameters) {
+						return new JLabel(text);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JLabel label = MyFactory.createLabel('text', 'p1', 'p2');",
-						"      add(label);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JLabel label = MyFactory.createLabel("text", "p1", "p2");
+							add(label);
+						}
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(label)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {static factory: test.MyFactory createLabel(java.lang.String,java.lang.Object[])} {local-unique: label} {/MyFactory.createLabel('text', 'p1', 'p2')/ /add(label)/}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(label)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{static factory: test.MyFactory createLabel(java.lang.String,java.lang.Object[])} {local-unique: label} {/MyFactory.createLabel("text", "p1", "p2")/ /add(label)/}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -2249,17 +2108,17 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private ContainerInfo parsePanelWithButton() throws Exception {
-		return parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    JPanel panel = new JPanel();",
-				"    {",
-				"      JButton button = new JButton();",
-				"      button.setText('New button');",
-				"      panel.add(button);",
-				"    }",
-				"  }",
-				"}");
+		return parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+						{
+							JButton button = new JButton();
+							button.setText("New button");
+							panel.add(button);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -2277,33 +2136,29 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	public void test_PanelButton_1a() throws Exception {
 		ContainerInfo panel = parsePanelWithButton();
 		assert_isCleanHierarchy(panel);
-		assertHierarchy(
-				"{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/ /panel.add(button)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText('New button')/ /panel.add(button)/}");
+		assertHierarchy("""
+				{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/ /panel.add(button)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText("New button")/ /panel.add(button)/}""");
 	}
 
 	@Test
 	public void test_Frame() throws Exception {
-		ContainerInfo frame =
-				(ContainerInfo) parseSource(
-						"test",
-						"Test.java",
-						getSource(
-								"package test;",
-								"import java.awt.*;",
-								"import javax.swing.*;",
-								"class Test {",
-								"  public static void main(String[] args) {",
-								"    JFrame frame = new JFrame();",
-								"    frame.setBackground(Color.YELLOW);",
-								"  }",
-								"}"));
+		ContainerInfo frame = (ContainerInfo) parseSource("test", "Test.java", """
+				package test;
+				import java.awt.*;
+				import javax.swing.*;
+				class Test {
+					public static void main(String[] args) {
+						JFrame frame = new JFrame();
+						frame.setBackground(Color.YELLOW);
+					}
+				}""");
 		assert_isCleanHierarchy(frame);
-		assertHierarchy(
-				"{new: javax.swing.JFrame} {local-unique: frame} {/new JFrame()/ /frame.setBackground(Color.YELLOW)/}",
-				"  {method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		assertHierarchy("""
+				{new: javax.swing.JFrame} {local-unique: frame} {/new JFrame()/ /frame.setBackground(Color.YELLOW)/}
+					{method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 		assertTrue(frame.getCreationSupport() instanceof ConstructorCreationSupport);
 		//
 		assertEquals(1, frame.getChildrenComponents().size());
@@ -2316,24 +2171,23 @@ public class ExecuteOnParseTest extends SwingModelTest {
 
 	@Test
 	public void test_FrameButton() throws Exception {
-		ContainerInfo frame =
-				parseContainer(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    JFrame frame = new JFrame();",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setText('JButton on JFrame');",
-						"      frame.getContentPane().add(button, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JFrame frame = new JFrame();
+						{
+							JButton button = new JButton();
+							button.setText("JButton on JFrame");
+							frame.getContentPane().add(button, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		assert_isCleanHierarchy(frame);
-		assertHierarchy(
-				"{new: javax.swing.JFrame} {local-unique: frame} {/new JFrame()/ /frame.getContentPane()/}",
-				"  {method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {/frame.getContentPane().add(button, BorderLayout.NORTH)/}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText('JButton on JFrame')/ /frame.getContentPane().add(button, BorderLayout.NORTH)/}");
+		assertHierarchy("""
+				{new: javax.swing.JFrame} {local-unique: frame} {/new JFrame()/ /frame.getContentPane()/}
+					{method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {/frame.getContentPane().add(button, BorderLayout.NORTH)/}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText("JButton on JFrame")/ /frame.getContentPane().add(button, BorderLayout.NORTH)/}""");
 		assertTrue(frame.getCreationSupport() instanceof ConstructorCreationSupport);
 		// prepare contentPane
 		assertEquals(1, frame.getChildrenComponents().size());
@@ -2409,23 +2263,22 @@ public class ExecuteOnParseTest extends SwingModelTest {
 
 	@Test
 	public void test_ThisFrameButton() throws Exception {
-		ContainerInfo frame =
-				parseContainer(
-						"class Test extends JFrame {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setText('JButton on this JFrame');",
-						"      getContentPane().add(button, BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				class Test extends JFrame {
+					public Test() {
+						{
+							JButton button = new JButton();
+							button.setText("JButton on this JFrame");
+							getContentPane().add(button, BorderLayout.NORTH);
+						}
+					}
+				}""");
 		assert_isCleanHierarchy(frame);
-		assertHierarchy(
-				"{this: javax.swing.JFrame} {this} {}",
-				"  {method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {/getContentPane().add(button, BorderLayout.NORTH)/}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}",
-				"    {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText('JButton on this JFrame')/ /getContentPane().add(button, BorderLayout.NORTH)/}");
+		assertHierarchy("""
+				{this: javax.swing.JFrame} {this} {}
+					{method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {/getContentPane().add(button, BorderLayout.NORTH)/}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}
+						{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText("JButton on this JFrame")/ /getContentPane().add(button, BorderLayout.NORTH)/}""");
 		//
 		assert_creation(frame);
 	}
@@ -2433,40 +2286,37 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	@Test
 	public void test_otherMethodInvocation() throws Exception {
 		m_waitForAutoBuild = true;
-		ContainerInfo panel =
-				parseContainer(
-						"class Test {",
-						"  static void foo() {",
-						"  }",
-						"  public static void main(String args[]) {",
-						"    JPanel panel = new JPanel();",
-						"    foo();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					static void foo() {
+					}
+					public static void main(String args[]) {
+						JPanel panel = new JPanel();
+						foo();
+					}
+				}""");
 		assertRelatedNodes(panel, new String[]{"new JPanel()"});
 	}
 
 	@Test
 	public void test_this_relatedNode_1() throws Exception {
-		JavaInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    setEnabled(true);",
-						"  }",
-						"}");
+		JavaInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						setEnabled(true);
+					}
+				}""");
 		assertRelatedNodes(panel, new String[]{"setEnabled(true)"});
 	}
 
 	@Test
 	public void test_this_relatedNode_2() throws Exception {
-		JavaInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    this.setEnabled(true);",
-						"  }",
-						"}");
+		JavaInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						this.setEnabled(true);
+					}
+				}""");
 		assertRelatedNodes(panel, new String[]{"this.setEnabled(true)"});
 	}
 
@@ -2476,25 +2326,25 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_localMethodInvocation() throws Exception {
-		parseContainer(
-				"class Test {",
-				"  public static void main(String[] args) {",
-				"    new Test();",
-				"  }",
-				"  public Test() {",
-				"    JPanel panel = new JPanel();",
-				"    JButton button = new JButton();",
-				"    button.setText(getMyText('some text'));",
-				"    panel.add(button);",
-				"  }",
-				"  public String getMyText(String s) {",
-				"    return s;",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/ /panel.add(button)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText(getMyText('some text'))/ /panel.add(button)/}");
+		parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						new Test();
+					}
+					public Test() {
+						JPanel panel = new JPanel();
+						JButton button = new JButton();
+						button.setText(getMyText("some text"));
+						panel.add(button);
+					}
+					public String getMyText(String s) {
+						return s;
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/ /panel.add(button)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /button.setText(getMyText("some text"))/ /panel.add(button)/}""");
 	}
 
 	/**
@@ -2502,12 +2352,12 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_isParsing() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		assertFalse(GlobalState.isParsing());
 	}
 
@@ -2516,24 +2366,22 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_ignoreNullSuperClass() throws Exception {
-		setFileContentSrc(
-				"test/NoClass.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class NoClass extends JPanel {",
-						"  // filler",
-						"}"));
+		setFileContentSrc("test/NoClass.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class NoClass extends JPanel {
+					// filler
+				}"""));
 		waitForAutoBuild();
 		getFile("bin/test/NoClass.class").delete(true, null);
 		//
 		try {
-			parseContainer(
-					"// filler filler filler",
-					"public class Test extends NoClass {",
-					"  public Test() {",
-					"  }",
-					"}");
+			parseContainer("""
+					// filler filler filler
+					public class Test extends NoClass {
+						public Test() {
+						}
+					}""");
 			fail();
 		} catch (Throwable e) {
 			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
@@ -2546,15 +2394,14 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_assignToThisField() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private JButton button;",
-						"  public Test() {",
-						"    this.button = new JButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private JButton button;
+					public Test() {
+						this.button = new JButton();
+						add(button);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -2568,24 +2415,24 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_assignToThisField_applicationPattern() throws Exception {
-		parseContainer(
-				"public class Test {",
-				"  private JPanel panel;",
-				"  private JButton button;",
-				"  public static void main(String[] args) {",
-				"    new Test();",
-				"  }",
-				"  public Test() {",
-				"    this.panel = new JPanel();",
-				"    ",
-				"    this.button = new JButton();",
-				"    this.panel.add(this.button);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: javax.swing.JPanel} {field-unique: panel} {/new JPanel()/ /this.panel.add(this.button)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {field-unique: button} {/new JButton()/ /this.panel.add(this.button)/}");
+		parseContainer("""
+				public class Test {
+					private JPanel panel;
+					private JButton button;
+					public static void main(String[] args) {
+						new Test();
+					}
+					public Test() {
+						this.panel = new JPanel();
+
+						this.button = new JButton();
+						this.panel.add(this.button);
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JPanel} {field-unique: panel} {/new JPanel()/ /this.panel.add(this.button)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {field-unique: button} {/new JButton()/ /this.panel.add(this.button)/}""");
 	}
 
 	/**
@@ -2593,33 +2440,32 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_useEmptyField() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private LayoutManager layout;",
-						"  public Test() {",
-						"    setLayout(layout);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private LayoutManager layout;
+					public Test() {
+						setLayout(layout);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		// may be Absolute?
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(layout)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(layout)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 	}
 
 	@Test
 	public void test_useUnknownParameter_inConstructor() throws Exception {
 		try {
-			parseContainer(
-					"public class Test extends JPanel {",
-					"  private String m_text;",
-					"  public Test(String text) {",
-					"    m_text = text;",
-					"    add(new JButton(m_text));",
-					"  }",
-					"}");
+			parseContainer("""
+					public class Test extends JPanel {
+						private String m_text;
+						public Test(String text) {
+							m_text = text;
+							add(new JButton(m_text));
+						}
+					}""");
 			fail();
 		} catch (Throwable e) {
 			DesignerException designerCause =
@@ -2632,21 +2478,21 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	@Test
 	public void test_useUnknownParameter_inLazy() throws Exception {
 		try {
-			parseContainer(
-					"public class Test extends JPanel {",
-					"  private String m_text;",
-					"  public Test(String text) {",
-					"    m_text = text;",
-					"    add(getButton());",
-					"  }",
-					"  private JButton button;",
-					"  private JButton getButton() {",
-					"    if (button == null) {",
-					"      button = new JButton(m_text);",
-					"    }",
-					"    return button;",
-					"  }",
-					"}");
+			parseContainer("""
+					public class Test extends JPanel {
+						private String m_text;
+						public Test(String text) {
+							m_text = text;
+							add(getButton());
+						}
+						private JButton button;
+						private JButton getButton() {
+							if (button == null) {
+								button = new JButton(m_text);
+							}
+							return button;
+						}
+					}""");
 			fail();
 		} catch (Throwable e) {
 			DesignerException designerCause =
@@ -2662,20 +2508,19 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_dontVisit_AnonymouseClassDeclaration() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    addKeyListener(new KeyAdapter() {",
-						"      public void keyPressed(KeyEvent e) {",
-						"        foo(e != null);",
-						"      }",
-						"    });",
-						"  }",
-						"  public void foo(boolean enabled) {",
-						"    setEnabled(enabled);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						addKeyListener(new KeyAdapter() {
+							public void keyPressed(KeyEvent e) {
+								foo(e != null);
+							}
+						});
+					}
+					public void foo(boolean enabled) {
+						setEnabled(enabled);
+					}
+				}""");
 		assertNoErrors(panel);
 	}
 
@@ -2700,17 +2545,16 @@ public class ExecuteOnParseTest extends SwingModelTest {
 					</constructors>
 				</component>""");
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    boolean enabled = new MyButton(this).isEnabled();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/new MyButton(this)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: test.MyButton} {empty} {/new MyButton(this).isEnabled()/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						boolean enabled = new MyButton(this).isEnabled();
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/new MyButton(this)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: test.MyButton} {empty} {/new MyButton(this).isEnabled()/}""");
 		// refresh
 		panel.refresh();
 		assertNoErrors(panel);
@@ -2774,12 +2618,12 @@ public class ExecuteOnParseTest extends SwingModelTest {
 
 	private Object getDefaultValue(String typeName) throws Exception {
 		try {
-			createTypeDeclaration(
-					"test",
-					"Test.java",
-					getSource("package test;", "public class Test {", "  public Test("
-							+ typeName
-							+ " parameter) {", "  }", "}"));
+			createTypeDeclaration("test", "Test.java", """
+					package test;
+					public class Test {
+						public Test(%s parameter) {
+						}
+					}""".formatted(typeName));
 			SingleVariableDeclaration parameter =
 					(SingleVariableDeclaration) m_lastEditor.getEnclosingNode("parameter").getParent();
 			ITypeBinding binding = AstNodeUtils.getTypeBinding(parameter);
@@ -2799,13 +2643,12 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	@Test
 	public void test_useUnknownParameter_nonStrictMode() throws Exception {
 		useStrictEvaluationMode(false);
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test(String text) {",
-						"    add(new JButton(text));",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test(String text) {
+						add(new JButton(text));
+					}
+				}""");
 		panel.refresh();
 		// default value (empty String) is used for unknown parameter
 		ComponentInfo button = panel.getChildrenComponents().get(0);
@@ -2818,22 +2661,20 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_exceptionIn_SuperMethodInvocation() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public String getFoo() {",
-						"    throw new IllegalStateException();",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public String getFoo() {
+						throw new IllegalStateException();
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setName(super.getFoo());",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setName(super.getFoo());
+					}
+				}""");
 		// one "bad" expected - for "super.getFoo()"
 		{
 			BadNodesCollection badParserNodes = m_lastState.getBadParserNodes();
@@ -2849,26 +2690,23 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_unknownVectorParameter() throws Exception {
-		setFileContentSrc(
-				"test/MyList.java",
-				getTestSource(
-						"public class MyList extends JList {",
-						"  public MyList(java.util.Vector values) {",
-						"    super(values);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyList.java", getTestSource("""
+				public class MyList extends JList {
+					public MyList(java.util.Vector values) {
+						super(values);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
 		useStrictEvaluationMode(false);
-		ContainerInfo panel =
-				parseContainer(
-						"import java.util.Vector;",
-						"public class Test extends JPanel {",
-						"  public Test(Vector values) {",
-						"    MyList list = new MyList(values);",
-						"    add(list);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				import java.util.Vector;
+				public class Test extends JPanel {
+					public Test(Vector values) {
+						MyList list = new MyList(values);
+						add(list);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -2880,24 +2718,21 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_disconnectedModel() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  private Object button;",
-						"  public MyPanel(JButton button) {",
-						"    this.button = button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					private Object button;
+					public MyPanel(JButton button) {
+						this.button = button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    super(new JButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						super(new JButton());
+					}
+				}""");
 		// first refresh();
 		refresh();
 		Object button_1 = ReflectionUtils.getFieldObject(panel.getObject(), "button");
@@ -2915,15 +2750,14 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_disconnectedModel_useItsVariable() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JLabel object = new JLabel();",
-						"    String text = object.toString();",
-						"    setName(text);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JLabel object = new JLabel();
+						String text = object.toString();
+						setName(text);
+					}
+				}""");
 		refresh();
 		// assert that "object" was evaluated
 		String name = panel.getComponent().getName();
@@ -2937,43 +2771,39 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_returnFromMethod_validJavaInfo() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    add(createInnerPanel());",
-						"  }",
-						"  private JPanel createInnerPanel() {",
-						"    return new JPanel();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						add(createInnerPanel());
+					}
+					private JPanel createInnerPanel() {
+						return new JPanel();
+					}
+				}""");
 		assertEquals(1, panel.getChildrenComponents().size());
 		assert_creation(panel);
 	}
 
 	@Test
 	public void test_returnFromMethod_invalidObject() throws Exception {
-		setFileContentSrc(
-				"test/MyBadObject.java",
-				getSource(
-						"package test;",
-						"public class MyBadObject {",
-						"  public MyBadObject() {",
-						"    throw new IllegalStateException();",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyBadObject.java", """
+				package test;
+				public class MyBadObject {
+					public MyBadObject() {
+						throw new IllegalStateException();
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  Test() {",
-						"    foo();",
-						"  }",
-						"  private Object foo() {",
-						"    return new MyBadObject();",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					Test() {
+						foo();
+					}
+					private Object foo() {
+						return new MyBadObject();
+					}
+				}""");
 		assertNoErrors(panel);
 	}
 
@@ -2988,26 +2818,23 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_isDesignTime_forComponent() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton() {",
-						"    if (!java.beans.Beans.isDesignTime()) {",
-						"      throw new IllegalStateException();",
-						"    }",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton() {
+						if (!java.beans.Beans.isDesignTime()) {
+							throw new IllegalStateException();
+						}
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse, no errors expected
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    MyButton button = new MyButton();",
-						"    add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						MyButton button = new MyButton();
+						add(button);
+					}
+				}""");
 		assertNoErrors(panel);
 		assertEquals(1, panel.getChildrenComponents().size());
 		// refresh, again no errors
@@ -3020,25 +2847,22 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_isDesignTime_forRoot() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"    if (!java.beans.Beans.isDesignTime()) {",
-						"      throw new IllegalStateException();",
-						"    }",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+						if (!java.beans.Beans.isDesignTime()) {
+							throw new IllegalStateException();
+						}
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse, no errors expected
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		assertNoErrors(panel);
 		// refresh, again no errors
 		panel.refresh();
@@ -3056,12 +2880,12 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	@Test
 	public void test_constructorParameters_real() throws Exception {
 		prepare_constructorParameters();
-		parseContainer(
-				"class Test extends SuperPanel {",
-				"  public Test(int _int, boolean _true, boolean _false, String _string, Object _null) {",
-				"    super(1, true, false, 'abc', null);",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test extends SuperPanel {
+					public Test(int _int, boolean _true, boolean _false, String _string, Object _null) {
+						super(1, true, false, "abc", null);
+					}
+				}""");
 	}
 
 	/**
@@ -3070,19 +2894,19 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	@Test
 	public void test_constructorParameters_parameters() throws Exception {
 		prepare_constructorParameters();
-		parseContainer(
-				"class Test extends SuperPanel {",
-				"  /**",
-				"  * @wbp.eval.method.parameter _int 1",
-				"  * @wbp.eval.method.parameter _true true",
-				"  * @wbp.eval.method.parameter _false false",
-				"  * @wbp.eval.method.parameter _string 'ab' + 'c'",
-				"  * @wbp.eval.method.parameter _null null",
-				"  */",
-				"  public Test(int _int, boolean _true, boolean _false, String _string, Object _null) {",
-				"    super(_int, _true, _false, _string, _null);",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test extends SuperPanel {
+					/**
+					* @wbp.eval.method.parameter _int 1
+					* @wbp.eval.method.parameter _true true
+					* @wbp.eval.method.parameter _false false
+					* @wbp.eval.method.parameter _string "ab" + "c"
+					* @wbp.eval.method.parameter _null null
+					*/
+					public Test(int _int, boolean _true, boolean _false, String _string, Object _null) {
+						super(_int, _true, _false, _string, _null);
+					}
+				}""");
 	}
 
 	/**
@@ -3092,12 +2916,12 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	public void test_constructorParameters_IThisMethodParameterEvaluator() throws Exception {
 		prepare_ThisEvaluatorObject();
 		// parse, if all good, it will be parsed
-		parseContainer(
-				"class Test extends ThisEvaluatorObject {",
-				"  public Test(JFrame parent, int style) {",
-				"    super(parent, style);",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test extends ThisEvaluatorObject {
+					public Test(JFrame parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		// check value for "style"
 		{
 			Expression styleExpression = (Expression) m_lastEditor.getEnclosingNode("style);");
@@ -3114,12 +2938,12 @@ public class ExecuteOnParseTest extends SwingModelTest {
 			throws Exception {
 		prepare_ThisEvaluatorObject();
 		// parse, if all good, it will be parsed
-		parseContainer(
-				"class Test extends ThisEvaluatorObject {",
-				"  public Test(JFrame parent, int style) {",
-				"    super(parent, 123);",
-				"  }",
-				"}");
+		parseContainer("""
+				class Test extends ThisEvaluatorObject {
+					public Test(JFrame parent, int style) {
+						super(parent, 123);
+					}
+				}""");
 		// check value for "style"
 		{
 			Expression styleExpression = (Expression) m_lastEditor.getEnclosingNode("123);");
@@ -3128,17 +2952,15 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	}
 
 	private void prepare_constructorParameters() throws Exception {
-		setFileContentSrc(
-				"test/SuperPanel.java",
-				getSourceDQ(
-						"package test;",
-						"public class SuperPanel extends javax.swing.JPanel {",
-						"  public SuperPanel(int _int, boolean _true, boolean _false, String _string, Object _null) {",
-						"    if (_int != 1 || !_true || _false || !'abc'.equals(_string) || _null != null) {",
-						"      throw new IllegalArgumentException();",
-						"    }",
-						"  }",
-						"}"));
+		setFileContentSrc("test/SuperPanel.java", """
+				package test;
+				public class SuperPanel extends javax.swing.JPanel {
+					public SuperPanel(int _int, boolean _true, boolean _false, String _string, Object _null) {
+						if (_int != 1 || !_true || _false || !"abc".equals(_string) || _null != null) {
+							throw new IllegalArgumentException();
+						}
+					}
+				}""");
 		waitForAutoBuild();
 	}
 
@@ -3148,20 +2970,16 @@ public class ExecuteOnParseTest extends SwingModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void prepare_ThisEvaluatorObject() throws Exception {
-		setFileContentSrc(
-				"test/ThisEvaluatorObject.java",
-				getTestSource(
-						"public class ThisEvaluatorObject extends JPanel {",
-						"  public ThisEvaluatorObject(JFrame parent, int style) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/ThisEvaluatorObject.wbp-component.xml",
-				getSource(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <model class='" + ThisEvaluatorJavaInfo.class.getName() + "'/>",
-						"</component>"));
+		setFileContentSrc("test/ThisEvaluatorObject.java", getTestSource("""
+				public class ThisEvaluatorObject extends JPanel {
+					public ThisEvaluatorObject(JFrame parent, int style) {
+					}
+				}"""));
+		setFileContentSrc("test/ThisEvaluatorObject.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<model class="%s"/>
+				</component>""".formatted(ThisEvaluatorJavaInfo.class.getName()));
 		waitForAutoBuild();
 	}
 

@@ -57,13 +57,12 @@ public class GenerationSettingsTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_compatibleStatements() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public final class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public final class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		GenerationSettings settings = panel.getDescription().getToolkit().getGenerationSettings();
 		// check variables
 		VariableSupportDescription[] variables = settings.getVariables();
@@ -125,13 +124,12 @@ public class GenerationSettingsTest extends SwingModelTest {
 		assertSame(BlockStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement());
 		// set new variable
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		assertSame(FieldUniqueVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 		assertSame(BlockStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement(panel));
 	}
@@ -149,12 +147,12 @@ public class GenerationSettingsTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_getVariable_useScript() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		// prepare new JavaInfo
 		JavaInfo newComponent = createJavaInfo("javax.swing.JButton");
 		// by default "local unique"
@@ -181,13 +179,12 @@ public class GenerationSettingsTest extends SwingModelTest {
 	public void test_noDeduce_noComponents() throws Exception {
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
 		assertSame(FieldUniqueVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 	}
 
@@ -198,20 +195,19 @@ public class GenerationSettingsTest extends SwingModelTest {
 	public void test_noDeduce_notEnoughComponents() throws Exception {
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton('1');",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton('2');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton("1");
+							add(button);
+						}
+						{
+							JButton button = new JButton("2");
+							add(button);
+						}
+					}
+				}""");
 		assertSame(FieldUniqueVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 	}
 
@@ -224,20 +220,19 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setStatement(LazyStatementGeneratorDescription.INSTANCE);
 		SWING_SETTINGS.setDeduceSettings(false);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button_1 = new JButton('1');",
-						"    add(button_1);",
-						"    //",
-						"    JButton button_2 = new JButton('2');",
-						"    add(button_2);",
-						"    //",
-						"    JButton button_3 = new JButton('3');",
-						"    add(button_3);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button_1 = new JButton("1");
+						add(button_1);
+						//
+						JButton button_2 = new JButton("2");
+						add(button_2);
+						//
+						JButton button_3 = new JButton("3");
+						add(button_3);
+					}
+				}""");
 		assertSame(LazyVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 		assertSame(LazyStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement(panel));
 	}
@@ -255,24 +250,23 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton('1');",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton('2');",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton('3');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton("1");
+							add(button);
+						}
+						{
+							JButton button = new JButton("2");
+							add(button);
+						}
+						{
+							JButton button = new JButton("3");
+							add(button);
+						}
+					}
+				}""");
 		assertSame(LocalUniqueVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 	}
 
@@ -285,24 +279,23 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setVariable(LazyVariableDescription.INSTANCE);
 		SWING_SETTINGS.setStatement(LazyStatementGeneratorDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+					}
+				}""");
 		assertSame(LocalUniqueVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 		assertSame(BlockStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement(panel));
 	}
@@ -315,30 +308,29 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setStatement(LazyStatementGeneratorDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      JButton button_2 = new JButton();",
-						"      add(button_1);",
-						"      add(button_2);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button_1 = new JButton();
+							JButton button_2 = new JButton();
+							add(button_1);
+							add(button_2);
+						}
+					}
+				}""");
 		assertSame(BlockStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement(panel));
 	}
 
@@ -350,34 +342,33 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setStatement(LazyStatementGeneratorDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton();",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button_1 = new JButton();",
-						"      JButton button_2 = new JButton();",
-						"      JButton button_3 = new JButton();",
-						"      JButton button_4 = new JButton();",
-						"      add(button_1);",
-						"      add(button_2);",
-						"      add(button_3);",
-						"      add(button_4);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button = new JButton();
+							add(button);
+						}
+						{
+							JButton button_1 = new JButton();
+							JButton button_2 = new JButton();
+							JButton button_3 = new JButton();
+							JButton button_4 = new JButton();
+							add(button_1);
+							add(button_2);
+							add(button_3);
+							add(button_4);
+						}
+					}
+				}""");
 		assertSame(FlatStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement(panel));
 	}
 
@@ -387,20 +378,19 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setVariable(LazyVariableDescription.INSTANCE);
 		SWING_SETTINGS.setStatement(LazyStatementGeneratorDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button_1 = new JButton();",
-						"    add(button_1);",
-						"    //",
-						"    JButton button_2 = new JButton();",
-						"    add(button_2);",
-						"    //",
-						"    JButton button_3 = new JButton();",
-						"    add(button_3);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button_1 = new JButton();
+						add(button_1);
+						//
+						JButton button_2 = new JButton();
+						add(button_2);
+						//
+						JButton button_3 = new JButton();
+						add(button_3);
+					}
+				}""");
 		assertSame(LocalUniqueVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 		assertSame(FlatStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement(panel));
 	}
@@ -413,25 +403,24 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private JButton button_1;",
-						"  public Test() {",
-						"    {",
-						"      button_1 = new JButton('1');",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton('2');",
-						"      add(button);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton('3');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private JButton button_1;
+					public Test() {
+						{
+							button_1 = new JButton("1");
+							add(button_1);
+						}
+						{
+							JButton button = new JButton("2");
+							add(button);
+						}
+						{
+							JButton button = new JButton("3");
+							add(button);
+						}
+					}
+				}""");
 		assertSame(LocalUniqueVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 	}
 
@@ -443,28 +432,27 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(FieldUniqueVariableDescription.INSTANCE);
 		//
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  private final JButton button_1 = new JButton('1');",
-						"  private final JButton button_2 = new JButton('2');",
-						"  private final JButton button_3 = new JButton('3');",
-						"  public Test() {",
-						"    {",
-						"      add(button_1);",
-						"    }",
-						"    {",
-						"      add(button_2);",
-						"    }",
-						"    {",
-						"      add(button_3);",
-						"    }",
-						"    {",
-						"      JButton button = new JButton('4');",
-						"      add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private final JButton button_1 = new JButton("1");
+					private final JButton button_2 = new JButton("2");
+					private final JButton button_3 = new JButton("3");
+					public Test() {
+						{
+							add(button_1);
+						}
+						{
+							add(button_2);
+						}
+						{
+							add(button_3);
+						}
+						{
+							JButton button = new JButton("4");
+							add(button);
+						}
+					}
+				}""");
 		assertSame(FieldInitializerVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 	}
 
@@ -476,38 +464,36 @@ public class GenerationSettingsTest extends SwingModelTest {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(LocalUniqueVariableDescription.INSTANCE);
 		SWING_SETTINGS.setStatement(FlatStatementGeneratorDescription.INSTANCE);
-		String[] lines =
-			{
-					"public class Test extends JPanel {",
-					"  private JButton button_1;",
-					"  private JButton button_2;",
-					"  private JButton button_3;",
-					"  public Test() {",
-					"    add(getButton_1());",
-					"    add(getButton_2());",
-					"    add(getButton_3());",
-					"  }",
-					"  private JButton getButton_1() {",
-					"    if (button_1 == null) {",
-					"      button_1 = new JButton();",
-					"    }",
-					"    return button_1;",
-					"  }",
-					"  private JButton getButton_2() {",
-					"    if (button_2 == null) {",
-					"      button_2 = new JButton();",
-					"    }",
-					"    return button_2;",
-					"  }",
-					"  private JButton getButton_3() {",
-					"    if (button_3 == null) {",
-					"      button_3 = new JButton();",
-					"    }",
-					"    return button_3;",
-					"  }",
-			"}"};
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					private JButton button_1;
+					private JButton button_2;
+					private JButton button_3;
+					public Test() {
+						add(getButton_1());
+						add(getButton_2());
+						add(getButton_3());
+					}
+					private JButton getButton_1() {
+						if (button_1 == null) {
+							button_1 = new JButton();
+						}
+						return button_1;
+					}
+					private JButton getButton_2() {
+						if (button_2 == null) {
+							button_2 = new JButton();
+						}
+						return button_2;
+					}
+					private JButton getButton_3() {
+						if (button_3 == null) {
+							button_3 = new JButton();
+						}
+						return button_3;
+					}
+				}""");
 		//
-		ContainerInfo panel = parseContainer(lines);
 		assertSame(LazyVariableDescription.INSTANCE, SWING_SETTINGS.getVariable(panel));
 		assertSame(LazyStatementGeneratorDescription.INSTANCE, SWING_SETTINGS.getStatement(panel));
 	}
@@ -520,9 +506,13 @@ public class GenerationSettingsTest extends SwingModelTest {
 	public void test_deduce_nullComponentClass() throws Exception {
 		SWING_SETTINGS.setDeduceSettings(true);
 		SWING_SETTINGS.setVariable(LocalUniqueVariableDescription.INSTANCE);
-		String[] lines = {"public class Test extends JPanel {", "  public Test() {", "  }", "}"};
 		// parse for context
-		parseContainer(lines);
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}
+				""");
 		// prepare JavaInfo with "null" component class
 		AbsoluteLayoutInfo componentNull = AbsoluteLayoutInfo.createExplicit(m_lastEditor);
 		// this should not throw exception

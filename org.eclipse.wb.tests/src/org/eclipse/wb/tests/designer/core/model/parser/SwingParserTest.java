@@ -80,12 +80,12 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_noToolkit() throws Exception {
 		try {
-			parseContainer(
-					"public class Test {",
-					"  public static void main(String[] args) {",
-					"    Object justSomeCreation = new Object();",
-					"  }",
-					"}");
+			parseContainer("""
+					public class Test {
+						public static void main(String[] args) {
+							Object justSomeCreation = new Object();
+						}
+					}""");
 			fail();
 		} catch (DesignerException e) {
 			assertEquals(ICoreExceptionConstants.PARSER_NO_TOOLKIT, e.getCode());
@@ -98,16 +98,16 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_bad_DataBean() throws Exception {
 		try {
-			parseContainer(
-					"public class Test {",
-					"  private String m_name;",
-					"  public String getName() {",
-					"    return m_name;",
-					"  }",
-					"  public void setName(String name) {",
-					"    m_name = name;",
-					"  }",
-					"}");
+			parseContainer("""
+					public class Test {
+						private String m_name;
+						public String getName() {
+							return m_name;
+						}
+						public void setName(String name) {
+							m_name = name;
+						}
+					}""");
 			fail();
 		} catch (DesignerException e) {
 			assertEquals(ICoreExceptionConstants.PARSER_NOT_GUI, e.getCode());
@@ -121,12 +121,12 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_emptyMain() throws Exception {
 		try {
-			parseContainer(
-					"class Test {",
-					"  JButton button; // just to have reference on Swing",
-					"  public static void main(String[] args) {",
-					"  }",
-					"}");
+			parseContainer("""
+					class Test {
+						JButton button; // just to have reference on Swing
+						public static void main(String[] args) {
+						}
+					}""");
 			fail();
 		} catch (Throwable e_) {
 			NoEntryPointError e = (NoEntryPointError) DesignerExceptionUtils.getRootCause(e_);
@@ -141,11 +141,11 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_noMain() throws Exception {
 		try {
-			parseContainer(
-					"// filler filler filler",
-					"public class Test {",
-					"  JButton button; // just to have reference on Swing",
-					"}");
+			parseContainer("""
+					// filler filler filler
+					public class Test {
+						JButton button; // just to have reference on Swing
+					}""");
 			fail();
 		} catch (NoEntryPointError e) {
 			assertNotNull(e.getEditor());
@@ -161,14 +161,14 @@ public class SwingParserTest extends SwingModelTest {
 	public void test_noRootComponent_withCompilationErrors() throws Exception {
 		try {
 			m_ignoreCompilationProblems = true;
-			parseContainer(
-					"// filler filler filler",
-					"public class Test {",
-					"  JPanel panel; // just to have reference on Swing",
-					"  public static void main(String[] args) {",
-					"    JButton button = new JButton() // note, no ';' at the end",
-					"  }",
-					"}");
+			parseContainer("""
+					// filler filler filler
+					public class Test {
+						JPanel panel; // just to have reference on Swing
+						public static void main(String[] args) {
+							JButton button = new JButton() // note, no ";" at the end
+						}
+					}""");
 			fail();
 		} catch (Throwable e) {
 			DesignerException de = DesignerExceptionUtils.getDesignerException(e);
@@ -181,16 +181,15 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_goodSuperClass_useConstructor() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler",
-						"public class Test extends JPanel {",
-						"  public void Test() {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler
+				public class Test extends JPanel {
+					public void Test() {
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -198,13 +197,12 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_parse_unknownSuperClassForAnonymous() throws Exception {
 		m_ignoreCompilationProblems = true;
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public void Test() {",
-						"    new UnknownType() {};",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public void Test() {
+						new UnknownType() {};
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -214,13 +212,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_severalConstructors_useDefault() throws Exception {
-		parseContainer(
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"  }",
-				"  public Test(int a) {",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+					}
+					public Test(int a) {
+					}
+				}""");
 	}
 
 	/**
@@ -229,13 +227,13 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_severalConstructors_noDefault() throws Exception {
 		try {
-			parseContainer(
-					"public class Test extends JPanel {",
-					"  public Test(double a) {",
-					"  }",
-					"  public Test(int a) {",
-					"  }",
-					"}");
+			parseContainer("""
+					public class Test extends JPanel {
+						public Test(double a) {
+						}
+						public Test(int a) {
+						}
+					}""");
 			fail();
 		} catch (MultipleConstructorsError e) {
 			assertNotNull(e.getEditor());
@@ -248,19 +246,19 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_EventQueue_invokeLater() throws Exception {
-		parseContainer(
-				"public class Test {",
-				"  public static void main(String[] args) {",
-				"    EventQueue.invokeLater(new Runnable() {",
-				"      public void run() {",
-				"        new Test();",
-				"      }",
-				"    });",
-				"  }",
-				"  public Test() {",
-				"    JFrame frame = new JFrame();",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test {
+					public static void main(String[] args) {
+						EventQueue.invokeLater(new Runnable() {
+							public void run() {
+								new Test();
+							}
+						});
+					}
+					public Test() {
+						JFrame frame = new JFrame();
+					}
+				}""");
 	}
 
 	/**
@@ -268,19 +266,19 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_SwingUtilities_invokeLater() throws Exception {
-		parseContainer(
-				"public class Test {",
-				"  public static void main(String[] args) {",
-				"    SwingUtilities.invokeLater(new Runnable() {",
-				"      public void run() {",
-				"        new Test();",
-				"      }",
-				"    });",
-				"  }",
-				"  public Test() {",
-				"    JFrame frame = new JFrame();",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test {
+					public static void main(String[] args) {
+						SwingUtilities.invokeLater(new Runnable() {
+							public void run() {
+								new Test();
+							}
+						});
+					}
+					public Test() {
+						JFrame frame = new JFrame();
+					}
+				}""");
 	}
 
 	/**
@@ -288,23 +286,23 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_EventQueue_invokeAndWait() throws Exception {
-		parseContainer(
-				"public class Test {",
-				"  public static void main(String[] args) throws Exception {",
-				"    EventQueue.invokeAndWait(new Runnable() {",
-				"      public void run() {",
-				"        new Test();",
-				"      }",
-				"    });",
-				"  }",
-				"  public Test() {",
-				"    JFrame frame = new JFrame();",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: javax.swing.JFrame} {local-unique: frame} {/new JFrame()/}",
-				"  {method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		parseContainer("""
+				public class Test {
+					public static void main(String[] args) throws Exception {
+						EventQueue.invokeAndWait(new Runnable() {
+							public void run() {
+								new Test();
+							}
+						});
+					}
+					public Test() {
+						JFrame frame = new JFrame();
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JFrame} {local-unique: frame} {/new JFrame()/}
+					{method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -312,23 +310,23 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_SwingUtilities_invokeAndWait() throws Exception {
-		parseContainer(
-				"public class Test {",
-				"  public static void main(String[] args) throws Exception {",
-				"    SwingUtilities.invokeAndWait(new Runnable() {",
-				"      public void run() {",
-				"        new Test();",
-				"      }",
-				"    });",
-				"  }",
-				"  public Test() {",
-				"    JFrame frame = new JFrame();",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: javax.swing.JFrame} {local-unique: frame} {/new JFrame()/}",
-				"  {method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}",
-				"    {implicit-layout: java.awt.BorderLayout} {implicit-layout} {}");
+		parseContainer("""
+				public class Test {
+					public static void main(String[] args) throws Exception {
+						SwingUtilities.invokeAndWait(new Runnable() {
+							public void run() {
+								new Test();
+							}
+						});
+					}
+					public Test() {
+						JFrame frame = new JFrame();
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JFrame} {local-unique: frame} {/new JFrame()/}
+					{method: public java.awt.Container javax.swing.JFrame.getContentPane()} {property} {}
+						{implicit-layout: java.awt.BorderLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -337,19 +335,18 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_entryPointTag_forConstructor() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test {",
-						"  /**",
-						"  * @wbp.parser.entryPoint",
-						"  */",
-						"  public Test() {",
-						"    JPanel panel = new JPanel();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test {
+					/**
+					* @wbp.parser.entryPoint
+					*/
+					public Test() {
+						JPanel panel = new JPanel();
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -359,33 +356,32 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_entryPointTag_forMethod() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test {",
-						"  /**",
-						"  * @wbp.parser.entryPoint",
-						"  */",
-						"  public void foo() {",
-						"    JPanel panel = new JPanel();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test {
+					/**
+					* @wbp.parser.entryPoint
+					*/
+					public void foo() {
+						JPanel panel = new JPanel();
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		// try to set property, just to see that it goes into correct method
 		panel.getPropertyByTitle("enabled").setValue(false);
-		assertEditor(
-				"public class Test {",
-				"  /**",
-				"  * @wbp.parser.entryPoint",
-				"  */",
-				"  public void foo() {",
-				"    JPanel panel = new JPanel();",
-				"    panel.setEnabled(false);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test {
+					/**
+					* @wbp.parser.entryPoint
+					*/
+					public void foo() {
+						JPanel panel = new JPanel();
+						panel.setEnabled(false);
+					}
+				}""");
 	}
 
 	/**
@@ -393,16 +389,15 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_alwaysTryConstructor_success() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test {",
-						"  public Test() {",
-						"    JPanel panel = new JPanel();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		ContainerInfo panel = parseContainer("""
+				public class Test {
+					public Test() {
+						JPanel panel = new JPanel();
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JPanel} {local-unique: panel} {/new JPanel()/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -413,12 +408,12 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_alwaysTryConstructor_fail() throws Exception {
 		try {
-			parseContainer(
-					"public class Test {",
-					"  JButton button; // just to have reference on Swing",
-					"  public Test() {",
-					"  }",
-					"}");
+			parseContainer("""
+					public class Test {
+						JButton button; // just to have reference on Swing
+						public Test() {
+						}
+					}""");
 			fail();
 		} catch (Throwable e_) {
 			Throwable e = DesignerExceptionUtils.getRootCause(e_);
@@ -439,18 +434,17 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_panelButton_1a() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    JPanel panel = new JPanel();",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setText(\"New button\");",
-						"      panel.add(button);",
-						"    }",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+						{
+							JButton button = new JButton();
+							button.setText(\"New button\");
+							panel.add(button);
+						}
+					}
+				}""");
 		// check JPanel itself
 		{
 			assertInstanceOf(ConstructorCreationSupport.class, panel.getCreationSupport());
@@ -488,19 +482,18 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_panelButton_1b() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test {",
-						"  public static void main(String[] args) {",
-						"    JPanel panel = new JPanel();",
-						"    createButton(panel);",
-						"  }",
-						"  private static void createButton(Container parent) {",
-						"    JButton button = new JButton();",
-						"    button.setText(\"New button\");",
-						"    parent.add(button);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+						createButton(panel);
+					}
+					private static void createButton(Container parent) {
+						JButton button = new JButton();
+						button.setText(\"New button\");
+						parent.add(button);
+					}
+				}""");
 		// check JPanel itself
 		{
 			// check nodes
@@ -529,19 +522,18 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_panelButton_2() throws Exception {
-		final ContainerInfo panel =
-				parseContainer(
-						"class Test {",
-						"  public static void main(String[] args) {",
-						"    JPanel panel = new JPanel();",
-						"    panel.setLayout(new BorderLayout());",
-						"    {",
-						"      JButton button = new JButton();",
-						"      button.setText(\"New button\");",
-						"      panel.add(button, BorderLayout.WEST);",
-						"    }",
-						"  }",
-						"}");
+		final ContainerInfo panel = parseContainer("""
+				class Test {
+					public static void main(String[] args) {
+						JPanel panel = new JPanel();
+						panel.setLayout(new BorderLayout());
+						{
+							JButton button = new JButton();
+							button.setText(\"New button\");
+							panel.add(button, BorderLayout.WEST);
+						}
+					}
+				}""");
 		//
 		assertEquals(2, panel.getChildrenJava().size());
 		assertTrue(panel.getChildrenJava().get(0) instanceof BorderLayoutInfo);
@@ -569,29 +561,23 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_parse_defaultPackage() throws Exception {
-		setFileContentSrc(
-				"MyButton.java",
-				getSource(
-						"// filler filler filler",
-						"// filler filler filler",
-						"public class MyButton extends javax.swing.JButton {",
-						"}"));
+		setFileContentSrc("MyButton.java", """
+				// filler filler filler
+				// filler filler filler
+				public class MyButton extends javax.swing.JButton {
+				}""");
 		waitForAutoBuild();
 		//
-		ContainerInfo panel =
-				(ContainerInfo) parseSource(
-						"",
-						"Test.java",
-						getSource(
-								"public class Test extends javax.swing.JPanel {",
-								"  public Test() {",
-								"    add(new MyButton());",
-								"  }",
-								"}"));
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(new MyButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: MyButton} {empty} {/add(new MyButton())/}");
+		ContainerInfo panel = (ContainerInfo) parseSource("", "Test.java", """
+				public class Test extends javax.swing.JPanel {
+					public Test() {
+						add(new MyButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(new MyButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: MyButton} {empty} {/add(new MyButton())/}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -606,14 +592,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_canBeRoot() throws Exception {
-		ContainerInfo frame =
-				parseContainer(
-						"class Test extends JFrame {",
-						"  public Test() {",
-						"    setBackground(Color.green);",
-						"    Button button = new Button(\"My button\");",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				class Test extends JFrame {
+					public Test() {
+						setBackground(Color.green);
+						Button button = new Button(\"My button\");
+					}
+				}""");
 		assertTrue(frame.getCreationSupport() instanceof ThisCreationSupport);
 	}
 
@@ -622,36 +607,34 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_severalRoots() throws Exception {
-		ContainerInfo frame =
-				parseContainer(
-						"class Test extends JFrame {",
-						"  public Test() {",
-						"    setBackground(Color.green);",
-						"    JButton button = new JButton(\"My button\");",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				class Test extends JFrame {
+					public Test() {
+						setBackground(Color.green);
+						JButton button = new JButton(\"My button\");
+					}
+				}""");
 		assertTrue(frame.getCreationSupport() instanceof ThisCreationSupport);
 	}
 
 	@Test
 	public void test_localConstructor() throws Exception {
 		m_waitForAutoBuild = true;
-		ContainerInfo frame =
-				parseContainer(
-						"class Test {",
-						"  private JFrame frame;",
-						"  public static void main(String[] args) {",
-						"    Test window = new Test();",
-						"    window.frame.setVisible(true);",
-						"  }",
-						"  public Test() {",
-						"    initialize();",
-						"  }",
-						"  private void initialize() {",
-						"    frame = new JFrame();",
-						"    frame.setEnabled(false);",
-						"  }",
-						"}");
+		ContainerInfo frame = parseContainer("""
+				class Test {
+					private JFrame frame;
+					public static void main(String[] args) {
+						Test window = new Test();
+						window.frame.setVisible(true);
+					}
+					public Test() {
+						initialize();
+					}
+					private void initialize() {
+						frame = new JFrame();
+						frame.setEnabled(false);
+					}
+				}""");
 		frame.refresh();
 		assertFalse(((JFrame) frame.getObject()).isEnabled());
 	}
@@ -666,30 +649,27 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_goodActual_success() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton() {",
-						"    setText('A');",
-						"  }",
-						"  public MyButton(int value) {",
-						"    setText('B');",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton() {
+						setText("A");
+					}
+					public MyButton(int value) {
+						setText("B");
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyButton(0));",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(new MyButton(0))/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: test.MyButton} {empty} {/add(new MyButton(0))/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyButton(0));
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(new MyButton(0))/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: test.MyButton} {empty} {/add(new MyButton(0))/}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// refresh
 		panel.refresh();
@@ -708,31 +688,28 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_exceptionActual_goodDefault_success() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton() {",
-						"    setText('A');",
-						"  }",
-						"  public MyButton(int value) {",
-						"    setText('B');",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton() {
+						setText("A");
+					}
+					public MyButton(int value) {
+						setText("B");
+						throw new IllegalStateException("actual");
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyButton(0));",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(new MyButton(0))/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: test.MyButton} {empty} {/add(new MyButton(0))/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyButton(0));
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(new MyButton(0))/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: test.MyButton} {empty} {/add(new MyButton(0))/}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// refresh
 		panel.refresh();
@@ -761,23 +738,20 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_exceptionActual_sameDefault() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton() {",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton() {
+						throw new IllegalStateException("actual");
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyButton());",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyButton());
+					}
+				}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// refresh
 		panel.refresh();
@@ -806,30 +780,27 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_exceptionActual_exceptionDefault() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends JButton {",
-						"  public MyButton() {",
-						"    throw new IllegalStateException('default');",
-						"  }",
-						"  public MyButton(int value) {",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends JButton {
+					public MyButton() {
+						throw new IllegalStateException("default");
+					}
+					public MyButton(int value) {
+						throw new IllegalStateException("actual");
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyButton(0));",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(new MyButton(0))/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: test.MyButton} {empty} {/add(new MyButton(0))/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyButton(0));
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(new MyButton(0))/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: test.MyButton} {empty} {/add(new MyButton(0))/}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// refresh
 		panel.refresh();
@@ -865,17 +836,16 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_constructorEvaluation_standardComponent() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new JButton('abc'));",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(new JButton('abc'))/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton('abc'))/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new JButton("abc"));
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(new JButton("abc"))/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton("abc"))/}""");
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		panel.refresh();
 		// JButton was evaluated using actual constructor
@@ -892,13 +862,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_windowsDisposing() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"class Test extends JFrame {",
-				"  Test() {",
-				"    setVisible(true);",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				class Test extends JFrame {
+					Test() {
+						setVisible(true);
+					}
+				}""");
 		{
 			Frame[] frames = Frame.getFrames();
 			for (int i = 0; i < frames.length; i++) {
@@ -920,13 +890,12 @@ public class SwingParserTest extends SwingModelTest {
 	public void test_compilationErrors_undefinedMethod() throws Exception {
 		m_ignoreCompilationProblems = true;
 		try {
-			ContainerInfo panel =
-					parseContainer(
-							"public class Test extends JPanel {",
-							"  public Test() {",
-							"    initData();",
-							"  }",
-							"}");
+			ContainerInfo panel = parseContainer("""
+					public class Test extends JPanel {
+						public Test() {
+							initData();
+						}
+					}""");
 			assertNotNull(panel);
 		} finally {
 			m_ignoreCompilationProblems = false;
@@ -941,13 +910,12 @@ public class SwingParserTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_unknownClass() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    Integer integer = new Integer(0);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						Integer integer = new Integer(0);
+					}
+				}""");
 		Assertions.assertThat(panel.getChildrenComponents()).isEmpty();
 	}
 
@@ -958,15 +926,14 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_nonStaticInnerClass() throws Exception {
 		m_waitForAutoBuild = true;
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    add(new MyPanel());",
-						"  }",
-						"  public class MyPanel extends JPanel {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						add(new MyPanel());
+					}
+					public class MyPanel extends JPanel {
+					}
+				}""");
 		Assertions.assertThat(panel.getChildrenComponents()).isEmpty();
 	}
 
@@ -976,13 +943,12 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_abstractStandardSwingClass() throws Exception {
-		ContainerInfo component =
-				parseContainer(
-						"public class Test extends JComponent {",
-						"  public Test() {",
-						"    // filler filler filler",
-						"  }",
-						"}");
+		ContainerInfo component = parseContainer("""
+				public class Test extends JComponent {
+					public Test() {
+						// filler filler filler
+					}
+				}""");
 		assertSame(component.getDescription().getComponentClass(), Container.class);
 		//
 		component.refresh();
@@ -995,16 +961,15 @@ public class SwingParserTest extends SwingModelTest {
 	@WaitForAutoBuildAfter
 	@Test
 	public void test_ignoreInterfaces() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    Border border = BorderFactory.createEtchedBorder();",
-						"    setBorder(border);",
-						"  }",
-						"  public class MyPanel extends JPanel {",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						Border border = BorderFactory.createEtchedBorder();
+						setBorder(border);
+					}
+					public class MyPanel extends JPanel {
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1015,18 +980,17 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_newAnonymousClass() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton() {};",
-						"    add(button);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/add(button)/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button)/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton() {};
+						add(button);
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/add(button)/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {local-unique: button} {/new JButton()/ /add(button)/}""");
 		//
 		panel.refresh();
 		assertNoErrors(panel);
@@ -1038,27 +1002,24 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_execute_addMethod() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void add(Container container) {",
-						"    super.add(container);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void add(Container container) {
+						super.add(container);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends MyPanel {",
-						"  public Test() {",
-						"    add(new JButton());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.MyPanel} {this} {/add(new JButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton())/}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyPanel} {this} {/add(new JButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton())/}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1069,26 +1030,24 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_execute_addMethod_withConstraints() throws Exception {
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public void add(Component component, String title) {",
-						"    super.add(component);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public void add(Component component, String title) {
+						super.add(component);
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    add(new JButton(), 'title');",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: test.MyPanel} {this} {/add(new JButton(), 'title')/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/add(new JButton(), 'title')/}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						add(new JButton(), "title");
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyPanel} {this} {/add(new JButton(), "title")/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/add(new JButton(), "title")/}""");
 	}
 
 	/**
@@ -1097,28 +1056,27 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_SuperMethodInvocation_association() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"// filler filler filler filler filler",
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    super.setLayout(new GridBagLayout());",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: javax.swing.JPanel} {this} {/setLayout(new GridBagLayout())/}",
-				"  {new: java.awt.GridBagLayout} {empty} {/setLayout(new GridBagLayout())/}");
+		ContainerInfo panel = parseContainer("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						super.setLayout(new GridBagLayout());
+					}
+				}""");
+		assertHierarchy("""
+				{this: javax.swing.JPanel} {this} {/setLayout(new GridBagLayout())/}
+					{new: java.awt.GridBagLayout} {empty} {/setLayout(new GridBagLayout())/}""");
 		refresh();
 		// GridBagLayout is set
 		assertInstanceOf("java.awt.GridBagLayout", panel.getContainer().getLayout());
 		// source rewritten as needed
-		assertEditor(
-				"// filler filler filler filler filler",
-				"public class Test extends JPanel {",
-				"  public Test() {",
-				"    setLayout(new GridBagLayout());",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						setLayout(new GridBagLayout());
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1131,14 +1089,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JList_new_ObjectArray() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JList list = new JList((Object[]) null);",
-						"    add(list);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList((Object[]) null);
+						add(list);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1148,14 +1105,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JList_new_Vector() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JList list = new JList((java.util.Vector) null);",
-						"    add(list);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList((java.util.Vector) null);
+						add(list);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1165,15 +1121,14 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JList_setListData_ObjectArray() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JList list = new JList();",
-						"    list.setListData((Object[]) null);",
-						"    add(list);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						list.setListData((Object[]) null);
+						add(list);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1183,15 +1138,14 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JList_setListData_Vector() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JList list = new JList();",
-						"    list.setListData((java.util.Vector) null);",
-						"    add(list);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						list.setListData((java.util.Vector) null);
+						add(list);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1207,15 +1161,14 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JComboBox_setModel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JComboBox combo = new JComboBox();",
-						"    combo.setModel(null);",
-						"    add(combo);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComboBox combo = new JComboBox();
+						combo.setModel(null);
+						add(combo);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1226,14 +1179,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JComboBox_constructor_ComboBoxModel() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JComboBox combo = new JComboBox((javax.swing.ComboBoxModel) null);",
-						"    add(combo);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComboBox combo = new JComboBox((javax.swing.ComboBoxModel) null);
+						add(combo);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1243,14 +1195,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JComboBox_constructor_Objects() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JComboBox combo = new JComboBox((Object[]) null);",
-						"    add(combo);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComboBox combo = new JComboBox((Object[]) null);
+						add(combo);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1260,14 +1211,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JComboBox_constructor_Generic() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JComboBox<String> combo = new JComboBox<>((String[]) null);",
-						"    add(combo);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComboBox<String> combo = new JComboBox<>((String[]) null);
+						add(combo);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1278,14 +1228,13 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_JComboBox_constructor_Vector() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JComboBox combo = new JComboBox((java.util.Vector) null);",
-						"    add(combo);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComboBox combo = new JComboBox((java.util.Vector) null);
+						add(combo);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1297,20 +1246,18 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_JComboBox_setRenderer_anonymous() throws Exception {
 		useStrictEvaluationMode(false);
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JComboBox combo = new JComboBox();",
-						"    add(combo);",
-						"    combo.setRenderer(new ListCellRenderer() {",
-						"      public Component getListCellRendererComponent(JList list, Object value,"
-								+ " int index, boolean isSelected, boolean cellHasFocus) {",
-								"        return null;",
-								"      }",
-								"    });",
-								"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComboBox combo = new JComboBox();
+						add(combo);
+						combo.setRenderer(new ListCellRenderer() {
+							public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+								return null;
+							}
+						});
+					}
+				}""");
 		panel.refresh();
 		// evaluation of anonymous "new ListCellRenderer() {}" causes exception, replaced with "null"
 		{
@@ -1333,15 +1280,14 @@ public class SwingParserTest extends SwingModelTest {
 	@Test
 	public void test_JComboBox_setRenderer_null() throws Exception {
 		useStrictEvaluationMode(false);
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JComboBox combo = new JComboBox();",
-						"    add(combo);",
-						"    combo.setRenderer(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JComboBox combo = new JComboBox();
+						add(combo);
+						combo.setRenderer(null);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 		//
@@ -1355,15 +1301,14 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_AbstractButton_setModel_null() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JButton button = new JButton();",
-						"    add(button);",
-						"    button.setModel(null);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JButton button = new JButton();
+						add(button);
+						button.setModel(null);
+					}
+				}""");
 		panel.refresh();
 		assertNoErrors(panel);
 	}
@@ -1390,20 +1335,20 @@ public class SwingParserTest extends SwingModelTest {
 					</parameters>
 				</component>""");
 		// standard JPanel has bigger hierarchy, so without "parser.preferredRoot" is would be selected
-		parseContainer(
-				"public class Test {",
-				"  public static void main(String[] args) {",
-				"    MyPanel myPanel = new MyPanel();",
-				"    //",
-				"    JPanel panel = new JPanel();",
-				"    panel.add(new JButton());",
-				"    panel.add(new JButton());",
-				"    panel.add(new JButton());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: test.MyPanel} {local-unique: myPanel} {/new MyPanel()/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		parseContainer("""
+				public class Test {
+					public static void main(String[] args) {
+						MyPanel myPanel = new MyPanel();
+						//
+						JPanel panel = new JPanel();
+						panel.add(new JButton());
+						panel.add(new JButton());
+						panel.add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{new: test.MyPanel} {local-unique: myPanel} {/new MyPanel()/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -1422,19 +1367,19 @@ public class SwingParserTest extends SwingModelTest {
 						<parameter name="parser.preferredRoot">true</parameter>
 					</parameters>
 				</component>""");
-		parseContainer(
-				"public class Test {",
-				"  public static void main(String[] args) {",
-				"    MyPanel panel_1 = new MyPanel();",
-				"    //",
-				"    MyPanel panel_2 = new MyPanel();",
-				"    panel_2.add(new JButton());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: test.MyPanel} {local-unique: panel_2} {/new MyPanel()/ /panel_2.add(new JButton())/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}",
-				"  {new: javax.swing.JButton} {empty} {/panel_2.add(new JButton())/}");
+		parseContainer("""
+				public class Test {
+					public static void main(String[] args) {
+						MyPanel panel_1 = new MyPanel();
+						//
+						MyPanel panel_2 = new MyPanel();
+						panel_2.add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{new: test.MyPanel} {local-unique: panel_2} {/new MyPanel()/ /panel_2.add(new JButton())/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}
+					{new: javax.swing.JButton} {empty} {/panel_2.add(new JButton())/}""");
 	}
 
 	/**
@@ -1442,20 +1387,20 @@ public class SwingParserTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_preferredRoot_useEndOfLineComment() throws Exception {
-		parseContainer(
-				"public class Test {",
-				"  public static void main(String[] args) {",
-				"    JPanel myPanel = new JPanel(); // @wbp.parser.preferredRoot",
-				"    //",
-				"    JPanel panel = new JPanel();",
-				"    panel.add(new JButton());",
-				"    panel.add(new JButton());",
-				"    panel.add(new JButton());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{new: javax.swing.JPanel} {local-unique: myPanel} {/new JPanel()/}",
-				"  {implicit-layout: java.awt.FlowLayout} {implicit-layout} {}");
+		parseContainer("""
+				public class Test {
+					public static void main(String[] args) {
+						JPanel myPanel = new JPanel(); // @wbp.parser.preferredRoot
+						//
+						JPanel panel = new JPanel();
+						panel.add(new JButton());
+						panel.add(new JButton());
+						panel.add(new JButton());
+					}
+				}""");
+		assertHierarchy("""
+				{new: javax.swing.JPanel} {local-unique: myPanel} {/new JPanel()/}
+					{implicit-layout: java.awt.FlowLayout} {implicit-layout} {}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1465,13 +1410,12 @@ public class SwingParserTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_eventListeners() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"class Test extends JPanel {",
-						"  Test() {",
-						"    addKeyListener(new KeyAdapter() {});",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				class Test extends JPanel {
+					Test() {
+						addKeyListener(new KeyAdapter() {});
+					}
+				}""");
 		assertEquals(1, panel.getRelatedNodes().size());
 		ASTNode relatedNode = panel.getRelatedNodes().get(0);
 		assertTrue(m_lastEditor.getSource(relatedNode).contains("addKeyListener"));
