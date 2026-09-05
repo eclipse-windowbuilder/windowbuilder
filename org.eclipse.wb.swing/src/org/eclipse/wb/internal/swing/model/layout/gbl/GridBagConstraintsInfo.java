@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,6 +36,8 @@ import java.text.MessageFormat;
  * @coverage swing.model.layout
  */
 public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo {
+	private static final Rectangle TMP_RECTANGLE = new Rectangle();
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -70,19 +72,63 @@ public final class GridBagConstraintsInfo extends AbstractGridBagConstraintsInfo
 				return;
 			}
 			// get constraints
-			GridBagLayout gridBagLayout = gridBagLayoutInfo.getLayoutManager();
-			constraints = gridBagLayout.getConstraints(component);
+			constraints = gridBagLayoutInfo.getLayoutManager().getConstraints(component);
 			// location
-			Rectangle gridBounds = gridBagLayoutInfo.getGridBounds(componentInfo);
-			x = gridBounds.x;
-			y = gridBounds.y;
-			width = gridBounds.width;
-			height = gridBounds.height;
+			getLogicalGridBounds(gridBagLayoutInfo, componentInfo);
+			x = TMP_RECTANGLE.x;
+			y = TMP_RECTANGLE.y;
+			width = TMP_RECTANGLE.width;
+			height = TMP_RECTANGLE.height;
 		}
 		// fetch fields
 		insets = CoordinateUtils.get(constraints.insets);
 		anchor = constraints.anchor;
 		fill = constraints.fill;
+	}
+
+	/**
+	 * A simplified algorithm which calculates the cells occupied by the given
+	 * component in the grid-bag layout. The cell bounds are stored in
+	 * {@link #TMP_RECTANGLE}.
+	 */
+	private void getLogicalGridBounds(GridBagLayoutInfo gridBagLayoutInfo, ComponentInfo componentInfo) {
+		GridBagLayout gridBagLayout = gridBagLayoutInfo.getLayoutManager();
+		Component component = componentInfo.getComponent();
+
+		GridBagConstraints c = gridBagLayout.getConstraints(component);
+		int gridx = c.gridx;
+		int gridy = c.gridy;
+		int gridwidth = c.gridwidth;
+		int gridheight = c.gridheight;
+
+		// No RELATIVE or REMAINDER
+		if (gridx >= 0 && gridy >= 0 && gridwidth > 0 && gridheight > 0) {
+			TMP_RECTANGLE.setBounds(gridx, gridy, gridwidth, gridheight);
+			return;
+
+		}
+
+		java.awt.Rectangle bounds = componentInfo.getComponent().getBounds();
+		java.awt.Point topLeft = gridBagLayout.location(bounds.x, bounds.y);
+		java.awt.Point bottomRight = gridBagLayout.location(bounds.x + bounds.width - 1, bounds.y + bounds.height - 1);
+
+		if (gridx < 0) {
+			gridx = topLeft.x;
+		}
+
+		if (gridy < 0) {
+			gridy = topLeft.y;
+		}
+
+		if (gridwidth <= 0) {
+			gridwidth = bottomRight.x - topLeft.x + 1;
+		}
+
+		if (gridheight <= 0) {
+			gridheight = bottomRight.x - topLeft.x + 1;
+		}
+
+		TMP_RECTANGLE.setBounds(gridx, gridy, gridwidth, gridheight);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
