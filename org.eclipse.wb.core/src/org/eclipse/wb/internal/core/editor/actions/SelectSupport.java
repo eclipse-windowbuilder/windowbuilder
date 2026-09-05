@@ -116,7 +116,7 @@ public final class SelectSupport {
 	 */
 	private void removeKeyDownListener(EditPartViewer viewer) {
 		Control control = viewer.getControl();
-		if (!control.isDisposed()) {
+		if (control != null && !control.isDisposed()) {
 			control.removeListener(SWT.KeyDown, m_keyListener);
 		}
 	}

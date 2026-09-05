@@ -266,7 +266,7 @@ public final class ComponentsTreePage implements IPage {
 		// refresh objects viewer
 		m_viewer.removeSelectionChangedListener(m_selectionListener_Tree);
 		try {
-			m_viewer.setInput(m_rootObject == null ? null : new ObjectInfoContainer(m_rootObject));
+			m_viewer.setContents(m_rootObject == null ? null : new ObjectInfoContainer(m_rootObject));
 		} finally {
 			m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
 		}

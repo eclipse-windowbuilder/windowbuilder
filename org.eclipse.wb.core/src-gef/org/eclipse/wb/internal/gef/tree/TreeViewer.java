@@ -12,19 +12,16 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.tree;
 
-import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
-
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.editparts.RootTreeEditPart;
+import org.eclipse.gef.ui.parts.AbstractEditPartViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -40,24 +37,39 @@ import java.util.List;
  * @coverage gef.tree
  */
 public class TreeViewer extends AbstractEditPartViewer {
-	private Tree m_tree;
-	private RootTreeEditPart m_rootEditPart;
 	private TreeEventManager m_eventManager;
+
+	public TreeViewer() {
+		// create root EditPart
+		RootTreeEditPart m_rootEditPart = new RootTreeEditPart();
+		setRootEditPart(m_rootEditPart);
+	}
 
 	@Override
 	public Control createControl(Composite parent) {
-		m_tree = new Tree(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		// create widget
+		Tree tree = new Tree(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
+		setControl(tree);
+		return tree;
+	}
+
+	@Override
+	protected void hookControl() {
+		if (getControl() == null) {
+			return;
+		}
 		// handle SWT events
-		m_eventManager = new TreeEventManager(m_tree, this);
-		// create root EditPart
-		m_rootEditPart = new RootTreeEditPart();
-		m_rootEditPart.setWidget(m_tree);
-		m_rootEditPart.setViewer(this);
-		m_rootEditPart.activate();
-		setRootEditPart(m_rootEditPart);
+		m_eventManager = new TreeEventManager(getControl(), this);
 		// handle selection events
 		synchronizeSelection();
-		return m_tree;
+		((RootTreeEditPart) getRootEditPart()).setWidget(getControl());
+		super.hookControl();
+	}
+
+	@Override
+	protected void unhookControl() {
+		super.unhookControl();
+		((RootTreeEditPart) getRootEditPart()).setWidget(null);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -66,20 +78,9 @@ public class TreeViewer extends AbstractEditPartViewer {
 	//
 	////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * Returns the SWT <code>Control</code> for this viewer.
-	 */
 	@Override
 	public Tree getControl() {
-		return m_tree;
-	}
-
-	/**
-	 * Returns root {@link EditPart}.
-	 */
-	@Override
-	public RootEditPart getRootEditPart() {
-		return m_rootEditPart;
+		return (Tree) super.getControl();
 	}
 
 	/**
@@ -90,14 +91,6 @@ public class TreeViewer extends AbstractEditPartViewer {
 	public void setEditDomain(EditDomain domain) {
 		super.setEditDomain(domain);
 		m_eventManager.setDomain(domain);
-	}
-
-	/**
-	 * Set the Cursor.
-	 */
-	@Override
-	public void setCursor(Cursor cursor) {
-		m_tree.setCursor(cursor);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -112,13 +105,13 @@ public class TreeViewer extends AbstractEditPartViewer {
 	private void synchronizeSelection() {
 		final boolean[] inTreeSelectionListener = new boolean[1];
 		// listener for Tree widget selection
-		m_tree.addSelectionListener(new SelectionListener() {
+		getControl().addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				// prepare selected EditPart's
 				EditPart[] selection;
 				{
-					TreeItem[] items = m_tree.getSelection();
+					TreeItem[] items = getControl().getSelection();
 					selection = new EditPart[items.length];
 					for (int i = 0; i < selection.length; i++) {
 						selection[i] = (EditPart) items[i].getData();
@@ -157,7 +150,7 @@ public class TreeViewer extends AbstractEditPartViewer {
 			treeItems.add((TreeItem) treeEditPart.getWidget());
 		}
 		// set selection in tree
-		m_tree.setSelection(treeItems.toArray(new TreeItem[treeItems.size()]));
+		getControl().setSelection(treeItems.toArray(new TreeItem[treeItems.size()]));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -175,15 +168,15 @@ public class TreeViewer extends AbstractEditPartViewer {
 			@SuppressWarnings("rawtypes") Collection exclude,
 			Conditional conditional) {
 		// simple check location
-		Rectangle clientArea = m_tree.getClientArea();
+		Rectangle clientArea = getControl().getClientArea();
 		if (location.x < 0 || location.y < 0 || location.x > clientArea.width || location.y > clientArea.height) {
 			return null;
 		}
 		// find EditPart
 		EditPart result = null;
-		TreeItem item = m_tree.getItem(new org.eclipse.swt.graphics.Point(location.x, location.y));
+		TreeItem item = getControl().getItem(new org.eclipse.swt.graphics.Point(location.x, location.y));
 		if (item == null) {
-			result = m_rootEditPart;
+			result = getRootEditPart();
 		} else {
 			result = (EditPart) item.getData();
 		}
@@ -194,15 +187,6 @@ public class TreeViewer extends AbstractEditPartViewer {
 			}
 			result = result.getParent();
 		}
-		return null;
-	}
-
-	@Override
-	public EditPart findObjectAtExcluding(Point location,
-			// TODO Draw2D - Typify once lower bound is 3.22
-			@SuppressWarnings("rawtypes") Collection exclude,
-			Conditional conditional,
-			String layer) {
 		return null;
 	}
 }
