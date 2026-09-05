@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.ContextMenuProvider;
 import org.eclipse.wb.internal.gef.core.MultiSelectionContextMenuProvider;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.IMenuManager;
@@ -99,10 +98,8 @@ IContextMenuConstants {
 	@Override
 	protected void buildContextMenu(final EditPart editPart, final IMenuManager manager) {
 		addGroups(manager);
-		boolean wbBasic = InstanceScope.INSTANCE.getNode(
-				IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).getBoolean(
-						IEditorPreferenceConstants.WB_BASIC_UI,
-						false);
+		boolean wbBasic = IEditorPreferenceConstants.getPreferences() //
+				.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
 		// edit
 		{
 			manager.appendToGroup(IContextMenuConstants.GROUP_EDIT, m_pageActions.getCutAction());

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,7 +34,6 @@ import org.eclipse.wb.internal.gef.core.EditDomain;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.swt.SWT;
@@ -43,8 +42,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.IEditorPart;
-
-import org.osgi.service.prefs.Preferences;
 
 /**
  * {@link Composite} with GUI for visual design, i.e. properties table, palette, GEF.
@@ -105,10 +102,8 @@ public abstract class DesignComposite extends Composite {
 	private void createEditorComposite(Composite parent) {
 		Composite editorComposite = new Composite(parent, SWT.NONE);
 		GridLayoutFactory.create(editorComposite).noMargins().spacingV(0);
-		Preferences preferences =
-				InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE);
-		boolean windowbuilderBasic =
-				preferences.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
+		boolean windowbuilderBasic = IEditorPreferenceConstants.getPreferences()
+				.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
 		// toolbar
 		{
 			m_toolBar = new ToolBar(editorComposite, SWT.FLAT | SWT.RIGHT);

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,7 +38,6 @@ import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
@@ -170,7 +169,7 @@ public final class ComponentsPropertiesPage implements IPage {
 			// update toolbar
 			Control toolBarControl = ((ToolBarManager) m_toolBarManager).getControl();
 
-			boolean wbBasic = InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE)
+			boolean wbBasic = IEditorPreferenceConstants.getPreferences()
 					.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
 
 			try {

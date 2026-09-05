@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2022 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.II
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 
@@ -53,10 +52,8 @@ public final class ClasspathImageRoot implements IImageRoot {
 				try {
 					if (root.isArchive()) {
 						JarImageContainer jarContainer = new JarImageContainer(id, root);
-						String iconClasspaths = InstanceScope.INSTANCE.getNode(
-								IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).get(
-										IEditorPreferenceConstants.WB_CLASSPATH_ICONS,
-										null);
+						String iconClasspaths = IEditorPreferenceConstants.getPreferences()
+								.get(IEditorPreferenceConstants.WB_CLASSPATH_ICONS, null);
 						if (iconClasspaths == null || jarContainer.getName().equals(iconClasspaths)) {
 							if (!jarContainer.isEmpty()) {
 								containers.add(jarContainer);

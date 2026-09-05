@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -54,10 +53,7 @@ public abstract class WarningComposite extends Composite {
 	////////////////////////////////////////////////////////////////////////////
 	public WarningComposite(Composite parent, int style) {
 		super(parent, style);
-		wbBasic = InstanceScope.INSTANCE.getNode(
-				IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE).getBoolean(
-						IEditorPreferenceConstants.WB_BASIC_UI,
-						false);
+		wbBasic = IEditorPreferenceConstants.getPreferences().getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
 		GridLayoutFactory.create(this);
 		{
 			Composite titleComposite = new Composite(this, SWT.NONE);

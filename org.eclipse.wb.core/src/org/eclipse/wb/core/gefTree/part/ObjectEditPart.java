@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.TreeEditPart;
@@ -143,8 +142,7 @@ public class ObjectEditPart extends DesignTreeEditPart {
 	@Override
 	protected final String getText() {
 		//Obtain the preference specifying the root object name. If no name is specified then the default is used
-		String rootObjectName = InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE) //
-				.get(IEditorPreferenceConstants.WB_ROOT_OBJ_NAME, null);
+		String rootObjectName = IEditorPreferenceConstants.getPreferences().get(IEditorPreferenceConstants.WB_ROOT_OBJ_NAME, null);
 
 		if (getModel().isRoot() && rootObjectName != null) {
 			return rootObjectName;

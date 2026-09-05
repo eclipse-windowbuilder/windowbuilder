@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -39,8 +38,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
-
-import org.osgi.service.prefs.Preferences;
 
 import java.text.MessageFormat;
 
@@ -109,9 +106,8 @@ final class DesignerPalettePopupActions {
 
 	private void addPopupActions_edit(IMenuManager menuManager, Object target, int type) {
 
-		Preferences preferences = InstanceScope.INSTANCE
-				.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE);
-		boolean windowbuilderBasic = preferences.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
+		boolean windowbuilderBasic = IEditorPreferenceConstants.getPreferences()
+				.getBoolean(IEditorPreferenceConstants.WB_BASIC_UI, false);
 
 		if (!windowbuilderBasic) {
 			addPopupActions_edit_unUsed(menuManager, target);
