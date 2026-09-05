@@ -157,6 +157,14 @@ public final class SwingUtils {
 		return (T) result[0];
 	}
 
+	/**
+	 * Runs given {@link Callable} synchronously in the event dispatcher thread and
+	 * re-throws exceptions using {@link RuntimeException}.
+	 */
+	public static <T> T runObject(final Callable<T> runnableEx) {
+		return ExecutionUtils.runObject(runnableEx::call);
+	}
+
 	private static void invokeLaterAndWait(final AtomicBoolean done, Runnable job) {
 		Display display = Display.getCurrent();
 		/*
@@ -279,15 +287,14 @@ public final class SwingUtils {
 	 * @return location of given {@code child} {@link Component} relative to the
 	 *         {@code parent} {@link Component}.
 	 */
-	public static Point getRelativeLocation(final Component parentComponent, final Component childComponent)
-			throws Exception {
+	public static Point getRelativeLocation(final Component parentComponent, final Component childComponent) {
 		if (EnvironmentUtils.IS_LINUX) {
 			return internalGetRelativeLocationLinux(parentComponent, childComponent);
 		}
 		return internalGetRelativeLocation(parentComponent, childComponent);
 	}
 
-	private static Point internalGetRelativeLocationLinux(final Component parentComponent, final Component childComponent) throws Exception {
+	private static Point internalGetRelativeLocationLinux(final Component parentComponent, final Component childComponent) {
 		long end = System.currentTimeMillis() + 1000;
 		Point p;
 		do {
@@ -302,8 +309,8 @@ public final class SwingUtils {
 
 	}
 
-	private static Point internalGetRelativeLocation(final Component parentComponent, final Component childComponent) throws Exception {
-		return runObjectLaterAndWait(() -> SwingUtilities.convertPoint(childComponent.getParent(), childComponent.getLocation(), parentComponent));
+	private static Point internalGetRelativeLocation(final Component parentComponent, final Component childComponent) {
+		return runObject(() -> SwingUtilities.convertPoint(childComponent.getParent(), childComponent.getLocation(), parentComponent));
 	}
 
 	/**
