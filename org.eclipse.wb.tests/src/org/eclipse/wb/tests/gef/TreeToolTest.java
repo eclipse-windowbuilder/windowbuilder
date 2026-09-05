@@ -28,6 +28,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.editparts.AbstractTreeEditPart;
 import org.eclipse.gef.requests.SelectionRequest;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -47,6 +48,7 @@ public abstract class TreeToolTest extends GefTestCase {
 	protected EditDomain m_domain;
 	protected TreeViewer m_viewer;
 	protected EventSender m_sender;
+	protected TreeEditPart m_contents;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -66,11 +68,14 @@ public abstract class TreeToolTest extends GefTestCase {
 				return null;
 			}
 		};
+		// create contents
+		m_contents = new RequestContentsTreeEditPart();
 		// create viewer
 		m_viewer = new TreeViewer();
 		m_viewer.createControl(m_shell);
 		m_viewer.getControl().setSize(500, 400);
 		m_viewer.setEditDomain(m_domain);
+		m_viewer.setContents(m_contents);
 		// create sender
 		m_sender = new EventSender(m_viewer.getControl());
 	}
@@ -144,11 +149,7 @@ public abstract class TreeToolTest extends GefTestCase {
 			RequestsLogger actualLogger,
 			ILayoutEditPolicy ipolicy) throws Exception {
 		RequestTreeEditPart editPart = new RequestTreeEditPart(name, actualLogger, ipolicy);
-		if (m_viewer.getRootEditPart() == parentEditPart) {
-			m_viewer.getRootEditPart().setContents(editPart);
-		} else {
-			addChildEditPart(parentEditPart, editPart);
-		}
+		addChildEditPart(parentEditPart, editPart);
 		return editPart;
 	}
 
@@ -168,6 +169,10 @@ public abstract class TreeToolTest extends GefTestCase {
 	// EditPart implementation
 	//
 	////////////////////////////////////////////////////////////////////////////
+	private static final class RequestContentsTreeEditPart extends AbstractTreeEditPart {
+		// Stub
+	}
+
 	private static final class RequestTreeEditPart extends DesignTreeEditPart {
 		private final String m_name;
 		private final RequestsLogger m_logger;

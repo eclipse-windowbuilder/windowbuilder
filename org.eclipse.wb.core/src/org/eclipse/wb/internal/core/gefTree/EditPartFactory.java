@@ -16,8 +16,10 @@ import org.eclipse.wb.core.gef.IEditPartConfigurator;
 import org.eclipse.wb.core.gefTree.part.ObjectEditPart;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.IEditPartFactory;
+import org.eclipse.wb.internal.core.gefTree.part.ObjectContainerEditPart;
 import org.eclipse.wb.internal.core.gefTree.part.menu.MenuEditPart;
 import org.eclipse.wb.internal.core.gefTree.part.menu.MenuItemEditPart;
+import org.eclipse.wb.internal.core.model.ObjectInfoContainer;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
@@ -103,6 +105,9 @@ public final class EditPartFactory implements IEditPartFactory {
 		//    }
 		if (model instanceof ObjectInfo) {
 			return new ObjectEditPart((ObjectInfo) model);
+		}
+		if (model instanceof ObjectInfoContainer) {
+			return new ObjectContainerEditPart((ObjectInfoContainer) model);
 		}
 		// no EditPart found
 		return null;

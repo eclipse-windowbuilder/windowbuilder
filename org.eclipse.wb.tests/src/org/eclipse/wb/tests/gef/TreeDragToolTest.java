@@ -53,7 +53,7 @@ public class TreeDragToolTest extends TreeToolTest {
 		RequestsLogger actualLogger = new RequestsLogger();
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
-		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, ipolicy);
+		TreeEditPart parent = addEditPart(m_contents, "parent", actualLogger, ipolicy);
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
 		//
 		refreshTreeParst(parent);
@@ -94,7 +94,7 @@ public class TreeDragToolTest extends TreeToolTest {
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
-		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, ipolicy);
+		TreeEditPart parent = addEditPart(m_contents, "parent", actualLogger, ipolicy);
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
 		TreeEditPart child2 = addEditPart(parent, "child2", actualLogger, ipolicy);
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
@@ -196,7 +196,7 @@ public class TreeDragToolTest extends TreeToolTest {
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
-		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, ipolicy);
+		TreeEditPart parent = addEditPart(m_contents, "parent", actualLogger, ipolicy);
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, null);
 		addEditPart(parent, "child2", actualLogger, ipolicy);
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);
@@ -244,7 +244,7 @@ public class TreeDragToolTest extends TreeToolTest {
 		//
 		ILayoutEditPolicy ipolicy = (request, editPart) -> true;
 		//
-		TreeEditPart parent = addEditPart(m_viewer.getRootEditPart(), "parent", actualLogger, (request, editPart) -> !"child1".equals(editPart.getModel()));
+		TreeEditPart parent = addEditPart(m_contents, "parent", actualLogger, (request, editPart) -> !"child1".equals(editPart.getModel()));
 		TreeEditPart child1 = addEditPart(parent, "child1", actualLogger, ipolicy);
 		addEditPart(parent, "child2", actualLogger, ipolicy);
 		TreeEditPart child3 = addEditPart(parent, "child3", actualLogger, ipolicy);

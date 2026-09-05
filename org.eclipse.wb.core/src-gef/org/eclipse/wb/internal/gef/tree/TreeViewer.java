@@ -17,7 +17,9 @@ import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.RootEditPart;
 import org.eclipse.gef.TreeEditPart;
+import org.eclipse.gef.editparts.RootTreeEditPart;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class TreeViewer extends AbstractEditPartViewer {
 	private Tree m_tree;
-	private RootEditPart m_rootEditPart;
+	private RootTreeEditPart m_rootEditPart;
 	private TreeEventManager m_eventManager;
 
 	@Override
@@ -48,7 +50,8 @@ public class TreeViewer extends AbstractEditPartViewer {
 		// handle SWT events
 		m_eventManager = new TreeEventManager(m_tree, this);
 		// create root EditPart
-		m_rootEditPart = new RootEditPart();
+		m_rootEditPart = new RootTreeEditPart();
+		m_rootEditPart.setWidget(m_tree);
 		m_rootEditPart.setViewer(this);
 		m_rootEditPart.activate();
 		setRootEditPart(m_rootEditPart);

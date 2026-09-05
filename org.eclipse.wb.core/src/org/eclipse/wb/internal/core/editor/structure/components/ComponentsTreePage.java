@@ -20,6 +20,7 @@ import org.eclipse.wb.internal.core.editor.DesignPageSite;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.structure.IPage;
 import org.eclipse.wb.internal.core.gefTree.EditPartFactory;
+import org.eclipse.wb.internal.core.model.ObjectInfoContainer;
 import org.eclipse.wb.internal.core.model.ObjectReferenceInfo;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -265,7 +266,7 @@ public final class ComponentsTreePage implements IPage {
 		// refresh objects viewer
 		m_viewer.removeSelectionChangedListener(m_selectionListener_Tree);
 		try {
-			m_viewer.setInput(m_rootObject);
+			m_viewer.setInput(m_rootObject == null ? null : new ObjectInfoContainer(m_rootObject));
 		} finally {
 			m_viewer.addSelectionChangedListener(m_selectionListener_Tree);
 		}
