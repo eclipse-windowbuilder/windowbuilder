@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 
@@ -27,9 +26,11 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.requests.SelectionRequest;
+import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.swt.SWT;
 
 import org.junit.jupiter.api.Assertions;
@@ -205,13 +206,9 @@ public class RequestsTest extends Assertions {
 
 	@Test
 	public void test_CreateRequest() throws Exception {
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new SimpleFactory<>(Integer.class) {
 			@Override
-			public void activate() {
-			}
-
-			@Override
-			public Object getNewObject() {
+			public Integer getNewObject() {
 				// Has to be larger than then integer cache from [-128, 127]
 				return Integer.valueOf(273);
 			}

@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.gef.core.SharedCursors;
@@ -20,6 +19,8 @@ import org.eclipse.wb.internal.gef.core.SharedCursors;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.swt.graphics.Cursor;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -55,13 +56,9 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 		// create test factory
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new SimpleFactory<>(String.class) {
 			@Override
-			public void activate() {
-			}
-
-			@Override
-			public Object getNewObject() {
+			public String getNewObject() {
 				return "_NewObject_";
 			}
 

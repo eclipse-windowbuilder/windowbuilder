@@ -18,7 +18,6 @@ import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -31,6 +30,7 @@ import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Composite;
@@ -89,7 +89,7 @@ public final class TableViewerCompositeEntryInfo extends ToolEntryInfo {
 		m_rootJavaInfo.addBroadcastListener(new JavaEventListener() {
 			@Override
 			public void addAfter(JavaInfo parent, JavaInfo child) throws Exception {
-				ICreationFactory creationFactory = creationTool.getFactory();
+				CreationFactory creationFactory = creationTool.getFactory();
 				CompositeInfo composite = (CompositeInfo) creationFactory.getNewObject();
 				if (child == composite) {
 					composite.removeBroadcastListener(this);

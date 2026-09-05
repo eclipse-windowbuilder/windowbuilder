@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swing.palette;
 
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.swing.Activator;
@@ -22,6 +21,8 @@ import org.eclipse.wb.internal.swing.model.ModelMessages;
 import org.eclipse.wb.internal.swing.model.bean.ActionInfo;
 
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.apache.commons.lang3.ObjectUtils;
@@ -80,13 +81,9 @@ public final class ActionUseEntryInfo extends ToolEntryInfo {
 	 */
 	static Tool createActionTool(final ActionInfo action) {
 		// prepare factory
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new SimpleFactory<>(ActionInfo.class) {
 			@Override
-			public void activate() throws Exception {
-			}
-
-			@Override
-			public Object getNewObject() {
+			public ActionInfo getNewObject() {
 				return action;
 			}
 		};

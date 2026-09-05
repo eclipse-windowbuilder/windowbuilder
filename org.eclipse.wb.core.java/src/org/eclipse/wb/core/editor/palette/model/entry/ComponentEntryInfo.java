@@ -17,7 +17,7 @@ import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
@@ -47,6 +47,7 @@ import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.window.Window;
@@ -427,7 +428,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 			return null;
 		}
 		// prepare factory
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new DesignCreationFactory() {
 			private JavaInfo m_javaInfo;
 
 			@Override
@@ -440,7 +441,7 @@ public final class ComponentEntryInfo extends ToolEntryInfo {
 			}
 
 			@Override
-			public Object getNewObject() {
+			public JavaInfo getNewObject() {
 				return m_javaInfo;
 			}
 		};

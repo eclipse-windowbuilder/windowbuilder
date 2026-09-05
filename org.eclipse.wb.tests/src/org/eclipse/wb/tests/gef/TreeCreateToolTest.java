@@ -12,11 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.TreeEditPart;
+import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.gef.requests.SimpleFactory;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,13 +37,9 @@ public class TreeCreateToolTest extends TreeToolTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		// create test factory
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new SimpleFactory<>(String.class) {
 			@Override
-			public void activate() {
-			}
-
-			@Override
-			public Object getNewObject() {
+			public String getNewObject() {
 				return "_NewObject_";
 			}
 

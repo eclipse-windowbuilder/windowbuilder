@@ -16,7 +16,7 @@ import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
@@ -30,6 +30,7 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo;
 
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.awt.SWT_AWT;
@@ -78,7 +79,7 @@ public final class SwingCompositeEntryInfo extends ToolEntryInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Tool createTool() throws Exception {
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new DesignCreationFactory() {
 			private JavaInfo m_javaInfo;
 
 			@Override
@@ -87,7 +88,7 @@ public final class SwingCompositeEntryInfo extends ToolEntryInfo {
 			}
 
 			@Override
-			public Object getNewObject() {
+			public JavaInfo getNewObject() {
 				return m_javaInfo;
 			}
 		};

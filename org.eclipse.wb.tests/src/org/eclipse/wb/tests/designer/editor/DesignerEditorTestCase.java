@@ -15,7 +15,6 @@ package org.eclipse.wb.tests.designer.editor;
 import org.eclipse.wb.core.editor.IDesignPage;
 import org.eclipse.wb.core.editor.IDesignerEditor;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.databinding.parser.DatabindingRootProcessor;
@@ -47,6 +46,8 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.gef.requests.SimpleFactory;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jface.action.IAction;
@@ -335,13 +336,9 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoTest {
 			newComponent.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
 		}
 		// load CreationTool
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new SimpleFactory<>(JavaInfo.class) {
 			@Override
-			public void activate() {
-			}
-
-			@Override
-			public Object getNewObject() {
+			public JavaInfo getNewObject() {
 				return newComponent;
 			}
 		};

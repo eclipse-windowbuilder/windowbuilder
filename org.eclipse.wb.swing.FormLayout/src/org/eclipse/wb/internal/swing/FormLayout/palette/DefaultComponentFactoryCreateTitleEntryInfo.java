@@ -14,13 +14,14 @@ package org.eclipse.wb.internal.swing.FormLayout.palette;
 
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.swing.FormLayout.Activator;
 import org.eclipse.wb.internal.swing.FormLayout.parser.DefaultComponentFactoryCreationSupport;
 
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
@@ -64,7 +65,7 @@ DefaultComponentFactoryEntryInfo {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Tool createTool() throws Exception {
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new DesignCreationFactory() {
 			private JavaInfo m_javaInfo;
 
 			@Override
@@ -79,7 +80,7 @@ DefaultComponentFactoryEntryInfo {
 			}
 
 			@Override
-			public Object getNewObject() {
+			public JavaInfo getNewObject() {
 				return m_javaInfo;
 			}
 		};

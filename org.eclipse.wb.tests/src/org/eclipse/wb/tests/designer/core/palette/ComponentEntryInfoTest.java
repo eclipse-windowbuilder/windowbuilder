@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,7 @@ import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ComponentEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.palette.PaletteManager;
@@ -393,7 +393,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// check tool
 		{
 			CreationTool creationTool = (CreationTool) componentEntry.createTool();
-			ICreationFactory creationFactory = creationTool.getFactory();
+			DesignCreationFactory creationFactory = (DesignCreationFactory) creationTool.getFactory();
 			creationFactory.activate();
 			// check new object
 			JavaInfo javaInfo = (JavaInfo) creationFactory.getNewObject();
@@ -482,7 +482,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		assertTrue(componentEntry.initialize(null, m_lastParseInfo));
 		// check tool
 		CreationTool creationTool = (CreationTool) componentEntry.createTool();
-		ICreationFactory creationFactory = creationTool.getFactory();
+		DesignCreationFactory creationFactory = (DesignCreationFactory) creationTool.getFactory();
 		creationFactory.activate();
 		// check new object
 		JavaInfo javaInfo = (JavaInfo) creationFactory.getNewObject();
@@ -660,10 +660,10 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 				// do initialize
 				assertTrue(componentEntry.initialize(null, panel));
 				// create tool
-				ICreationFactory creationFactory;
+				DesignCreationFactory creationFactory;
 				{
 					CreationTool creationTool = (CreationTool) componentEntry.createTool();
-					creationFactory = creationTool.getFactory();
+					creationFactory = (DesignCreationFactory) creationTool.getFactory();
 					creationFactory.activate();
 				}
 				// check new object
@@ -736,10 +736,10 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 				// do initialize
 				assertTrue(componentEntry.initialize(null, panel));
 				// create tool
-				ICreationFactory creationFactory;
+				DesignCreationFactory creationFactory;
 				{
 					CreationTool creationTool = (CreationTool) componentEntry.createTool();
-					creationFactory = creationTool.getFactory();
+					creationFactory = (DesignCreationFactory) creationTool.getFactory();
 					creationFactory.activate();
 				}
 				// check new object
@@ -1137,7 +1137,7 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// prepare new component
 		ComponentInfo newComponent;
 		{
-			ICreationFactory creationFactory = creationTool.getFactory();
+			DesignCreationFactory creationFactory = (DesignCreationFactory) creationTool.getFactory();
 			creationFactory.activate();
 			newComponent = (ComponentInfo) creationFactory.getNewObject();
 		}

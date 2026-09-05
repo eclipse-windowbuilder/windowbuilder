@@ -15,7 +15,7 @@ package org.eclipse.wb.internal.rcp.palette;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.BundleResourceProvider;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
@@ -25,6 +25,7 @@ import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.rcp.Activator;
 
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
@@ -63,7 +64,7 @@ public final class DoubleFieldEditorEntryInfo extends ToolEntryInfo {
 	public Tool createTool() throws Exception {
 		ProjectUtils.ensureResourceType(m_javaProject, Activator.getDefault().getBundle(), TYPE_NAME);
 		// create tool
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new DesignCreationFactory() {
 			private JavaInfo m_javaInfo;
 
 			@Override
@@ -74,7 +75,7 @@ public final class DoubleFieldEditorEntryInfo extends ToolEntryInfo {
 			}
 
 			@Override
-			public Object getNewObject() {
+			public JavaInfo getNewObject() {
 				return m_javaInfo;
 			}
 		};

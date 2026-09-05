@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,7 +17,7 @@ import org.eclipse.wb.core.editor.palette.model.IPaletteSite;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.core.editor.palette.model.entry.ChooseComponentEntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.DesignPageSite;
@@ -190,7 +190,7 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 		}
 		// check tool
 		{
-			ICreationFactory creationFactory = creationTool.getFactory();
+			DesignCreationFactory creationFactory = (DesignCreationFactory) creationTool.getFactory();
 			creationFactory.activate();
 			// check new object
 			JavaInfo javaInfo = (JavaInfo) creationFactory.getNewObject();

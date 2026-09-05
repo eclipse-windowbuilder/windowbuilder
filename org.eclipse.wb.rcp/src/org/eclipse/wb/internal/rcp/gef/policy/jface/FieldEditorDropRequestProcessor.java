@@ -15,13 +15,13 @@ package org.eclipse.wb.internal.rcp.gef.policy.jface;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.RequestProcessor;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.internal.rcp.model.jface.FieldEditorInfo;
 import org.eclipse.wb.internal.rcp.model.jface.FieldLayoutPreferencePageInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.SimpleFactory;
 
 /**
  * Implementation of {@link RequestProcessor} for dropping {@link FieldEditorInfo} on
@@ -56,13 +56,9 @@ public final class FieldEditorDropRequestProcessor extends RequestProcessor {
 				// after CREATE select "composite"
 				editorCreateRequest.setSelectObject(composite);
 				// prepare CreateRequest, that creates our ActionInfo
-				CreateRequest createRequest = new CreateRequest(new ICreationFactory() {
+				CreateRequest createRequest = new CreateRequest(new SimpleFactory<>(CompositeInfo.class) {
 					@Override
-					public void activate() throws Exception {
-					}
-
-					@Override
-					public Object getNewObject() {
+					public CompositeInfo getNewObject() {
 						return composite;
 					}
 				});

@@ -13,12 +13,13 @@
 package org.eclipse.wb.internal.swing.palette;
 
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.swing.model.layout.absolute.AbsoluteLayoutInfo;
 
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**
@@ -56,7 +57,7 @@ public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
 	@Override
 	public Tool createTool() throws Exception {
 		// prepare factory
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new DesignCreationFactory() {
 			private AbsoluteLayoutInfo m_layout;
 
 			@Override
@@ -66,7 +67,7 @@ public final class AbsoluteLayoutEntryInfo extends ToolEntryInfo {
 			}
 
 			@Override
-			public Object getNewObject() {
+			public AbsoluteLayoutInfo getNewObject() {
 				return m_layout;
 			}
 		};

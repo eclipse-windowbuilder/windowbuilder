@@ -13,7 +13,7 @@
 package org.eclipse.wb.tests.designer.rcp.model.widgets;
 
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.rcp.swtawt.palette.SwingCompositeEntryInfo;
 import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
@@ -186,7 +186,7 @@ public class SwtAwtTest extends RcpModelTest {
 		CompositeInfo composite;
 		{
 			CreationTool creationTool = (CreationTool) entry.createTool();
-			ICreationFactory creationFactory = creationTool.getFactory();
+			DesignCreationFactory creationFactory = (DesignCreationFactory) creationTool.getFactory();
 			creationFactory.activate();
 			composite = (CompositeInfo) creationFactory.getNewObject();
 		}

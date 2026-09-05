@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,7 @@ package org.eclipse.wb.tests.designer.core.palette;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.InstanceFactoryEntryInfo;
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryCreationSupport;
@@ -147,7 +147,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 		InstanceFactoryInfo instanceFactory = getTestInstanceFactories().get(0);
 		// check factory
 		{
-			ICreationFactory factory = creationTool.getFactory();
+			DesignCreationFactory factory = (DesignCreationFactory) creationTool.getFactory();
 			factory.activate();
 			// check JavaInfo
 			JavaInfo javaInfo = (JavaInfo) factory.getNewObject();
@@ -201,7 +201,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 		assertEditor(initialSource, m_lastEditor);
 		// check factory
 		{
-			ICreationFactory factory = creationTool.getFactory();
+			DesignCreationFactory factory = (DesignCreationFactory) creationTool.getFactory();
 			factory.activate();
 			// check JavaInfo
 			JavaInfo javaInfo = (JavaInfo) factory.getNewObject();
@@ -279,7 +279,7 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 		assertEditor(initialSource, m_lastEditor);
 		// check factory
 		{
-			ICreationFactory factory = creationTool.getFactory();
+			DesignCreationFactory factory = (DesignCreationFactory) creationTool.getFactory();
 			factory.activate();
 			// check JavaInfo
 			JavaInfo javaInfo = (JavaInfo) factory.getNewObject();

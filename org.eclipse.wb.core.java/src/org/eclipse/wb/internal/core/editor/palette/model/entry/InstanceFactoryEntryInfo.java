@@ -15,7 +15,7 @@ package org.eclipse.wb.internal.core.editor.palette.model.entry;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
@@ -28,6 +28,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
@@ -97,7 +98,7 @@ public final class InstanceFactoryEntryInfo extends FactoryEntryInfo {
 			}
 		}
 		// prepare creation factory
-		ICreationFactory creationFactory = new ICreationFactory() {
+		CreationFactory creationFactory = new DesignCreationFactory() {
 			private JavaInfo m_javaInfo;
 
 			@Override
@@ -110,7 +111,7 @@ public final class InstanceFactoryEntryInfo extends FactoryEntryInfo {
 			}
 
 			@Override
-			public Object getNewObject() {
+			public JavaInfo getNewObject() {
 				return m_javaInfo;
 			}
 		};

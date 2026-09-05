@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,6 +13,7 @@
 package org.eclipse.wb.gef.core.requests;
 
 import org.eclipse.gef.RequestConstants;
+import org.eclipse.gef.requests.CreationFactory;
 
 /**
  * A {@link Request} to create a new object.
@@ -22,7 +23,7 @@ import org.eclipse.gef.RequestConstants;
  */
 public class CreateRequest extends AbstractCreateRequest {
 	private static final int SNAP_TO = 16;
-	private final ICreationFactory m_factory;
+	private final CreationFactory m_factory;
 	private Object m_newObject;
 	private Object m_selectObject;
 	private int m_flags = 0;
@@ -35,7 +36,7 @@ public class CreateRequest extends AbstractCreateRequest {
 	/**
 	 * Constructs a {@link CreateRequest} with the specified <i>type</i> and <i>factory</i>.
 	 */
-	public CreateRequest(ICreationFactory factory) {
+	public CreateRequest(CreationFactory factory) {
 		super(RequestConstants.REQ_CREATE);
 		m_factory = factory;
 	}

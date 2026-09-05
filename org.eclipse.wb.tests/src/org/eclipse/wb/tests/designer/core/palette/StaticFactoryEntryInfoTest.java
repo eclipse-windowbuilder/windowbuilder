@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -15,7 +15,7 @@ package org.eclipse.wb.tests.designer.core.palette;
 import org.eclipse.wb.core.editor.palette.model.CategoryInfo;
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.core.model.JavaInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.StaticFactoryEntryInfo;
 import org.eclipse.wb.internal.core.model.creation.factory.StaticFactoryCreationSupport;
@@ -425,7 +425,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 		assertTrue(entry.initialize(null, panel));
 		// create tool
 		CreationTool creationTool = (CreationTool) entry.createTool();
-		ICreationFactory factory = creationTool.getFactory();
+		DesignCreationFactory factory = (DesignCreationFactory) creationTool.getFactory();
 		factory.activate();
 		// check JavaInfo
 		JavaInfo javaInfo = (JavaInfo) factory.getNewObject();
@@ -467,7 +467,7 @@ public class StaticFactoryEntryInfoTest extends AbstractPaletteTest {
 		assertTrue(entry.initialize(null, panel));
 		// create tool
 		CreationTool creationTool = (CreationTool) entry.createTool();
-		ICreationFactory factory = creationTool.getFactory();
+		DesignCreationFactory factory = (DesignCreationFactory) creationTool.getFactory();
 		factory.activate();
 		// check JavaInfo
 		JavaInfo javaInfo = (JavaInfo) factory.getNewObject();

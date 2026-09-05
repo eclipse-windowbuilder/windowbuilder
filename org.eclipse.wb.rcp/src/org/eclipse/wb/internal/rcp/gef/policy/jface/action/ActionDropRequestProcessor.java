@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.gef.core.RequestProcessor;
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContributionItemInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ContributionItemInfo;
@@ -24,6 +23,7 @@ import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.SimpleFactory;
 
 /**
  * Implementation of {@link RequestProcessor} for dropping {@link ActionInfo} on
@@ -56,13 +56,9 @@ public final class ActionDropRequestProcessor extends RequestProcessor {
 			final ActionInfo action = actionDropRequest.getAction();
 			scheduleActionItemSelection(actionDropRequest);
 			// prepare CreateRequest, that creates our ActionInfo
-			CreateRequest createRequest = new CreateRequest(new ICreationFactory() {
+			CreateRequest createRequest = new CreateRequest(new SimpleFactory<>(ActionInfo.class) {
 				@Override
-				public void activate() throws Exception {
-				}
-
-				@Override
-				public Object getNewObject() {
+				public ActionInfo getNewObject() {
 					return action;
 				}
 			});

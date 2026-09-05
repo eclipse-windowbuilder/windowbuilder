@@ -13,7 +13,7 @@
 package org.eclipse.wb.tests.designer.swing.model.layout.FormLayout;
 
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.swing.FormLayout.palette.DefaultComponentFactoryCreateLabelEntryInfo;
@@ -126,7 +126,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		assertTrue(entry.initialize(null, m_lastParseInfo));
 		// check tool
 		CreationTool creationTool = (CreationTool) entry.createTool();
-		ICreationFactory creationFactory = creationTool.getFactory();
+		DesignCreationFactory creationFactory = (DesignCreationFactory) creationTool.getFactory();
 		creationFactory.activate();
 		// get object
 		ComponentInfo newComponent = (ComponentInfo) creationFactory.getNewObject();
@@ -218,7 +218,7 @@ public class DefaultComponentFactoryTest extends AbstractFormLayoutTest {
 		assertTrue(entry.initialize(null, m_lastParseInfo));
 		// check tool
 		CreationTool creationTool = (CreationTool) entry.createTool();
-		ICreationFactory creationFactory = creationTool.getFactory();
+		DesignCreationFactory creationFactory = (DesignCreationFactory) creationTool.getFactory();
 		creationFactory.activate();
 		// get object
 		ComponentInfo newComponent = (ComponentInfo) creationFactory.getNewObject();

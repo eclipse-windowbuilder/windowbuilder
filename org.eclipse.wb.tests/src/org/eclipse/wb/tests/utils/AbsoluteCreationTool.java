@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.utils;
 
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.gef.graphical.GraphicalViewer;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.requests.CreationFactory;
 
 import java.util.Collection;
 import java.util.function.Supplier;
@@ -31,7 +31,7 @@ import java.util.function.Supplier;
  */
 public class AbsoluteCreationTool extends CreationTool {
 
-	public AbsoluteCreationTool(ICreationFactory factory) {
+	public AbsoluteCreationTool(CreationFactory factory) {
 		super(factory);
 	}
 

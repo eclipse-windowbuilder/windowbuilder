@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,7 @@
 package org.eclipse.wb.tests.designer.rcp.model.jface;
 
 import org.eclipse.wb.core.editor.palette.model.entry.ToolEntryInfo;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
+import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.rcp.model.jface.FieldEditorInfo;
 import org.eclipse.wb.internal.rcp.model.jface.FieldEditorPreferencePageInfo;
@@ -65,7 +65,7 @@ public class DoubleFieldEditorEntryInfoTest extends RcpModelTest {
 		FieldEditorInfo newField;
 		{
 			CreationTool creationTool = (CreationTool) entry.createTool();
-			ICreationFactory creationFactory = creationTool.getFactory();
+			DesignCreationFactory creationFactory = (DesignCreationFactory) creationTool.getFactory();
 			creationFactory.activate();
 			newField = (FieldEditorInfo) creationFactory.getNewObject();
 		}

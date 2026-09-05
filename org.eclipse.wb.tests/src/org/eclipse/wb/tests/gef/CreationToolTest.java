@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,8 +13,10 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.requests.CreateRequest;
-import org.eclipse.wb.gef.core.requests.ICreationFactory;
 import org.eclipse.wb.gef.core.tools.CreationTool;
+
+import org.eclipse.gef.requests.CreationFactory;
+import org.eclipse.gef.requests.SimpleFactory;
 
 /**
  * @author lobas_av
@@ -30,13 +32,9 @@ public class CreationToolTest extends AbstractCreationToolTest {
 	@Override
 	protected void configureTestCase() {
 		// create test factory
-		ICreationFactory factory = new ICreationFactory() {
+		CreationFactory factory = new SimpleFactory<>(String.class) {
 			@Override
-			public void activate() {
-			}
-
-			@Override
-			public Object getNewObject() {
+			public String getNewObject() {
 				return "_NewObject_";
 			}
 
