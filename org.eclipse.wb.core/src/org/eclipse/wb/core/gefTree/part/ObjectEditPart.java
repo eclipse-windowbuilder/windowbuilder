@@ -30,7 +30,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -147,8 +146,7 @@ public class ObjectEditPart extends DesignTreeEditPart {
 		String rootObjectName = InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.WB_BASIC_UI_PREFERENCE_NODE) //
 				.get(IEditorPreferenceConstants.WB_ROOT_OBJ_NAME, null);
 
-		TreeItem treeItem = (TreeItem) getWidget();
-		if (treeItem.getParentItem() == null && rootObjectName != null) {
+		if (getModel().isRoot() && rootObjectName != null) {
 			return rootObjectName;
 		}
 
@@ -201,6 +199,14 @@ public class ObjectEditPart extends DesignTreeEditPart {
 	@Override
 	protected List<?> getModelChildren() {
 		return ExecutionUtils.runObjectLog(() -> m_object.getPresentation().getChildrenTree(), Collections.emptyList());
+	}
+
+	/**
+	 * @since 1.26
+	 */
+	@Override
+	public ObjectInfo getModel() {
+		return (ObjectInfo) super.getModel();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
