@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -119,19 +119,15 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 	 */
 	public final void delete(final int index) throws Exception {
 		// delete components, update constraints
-		m_layout.visitComponents(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				int location = getLocation(constraints);
-				int size = getSize(constraints);
-				if (location == index) {
-					component.delete();
-				} else if (location > index) {
-					setLocation(constraints, location - 1);
-				} else if (location + size > index) {
-					setSize(constraints, size - 1);
-				}
+		m_layout.visitComponents((component, constraints) -> {
+			int location = getLocation(constraints);
+			int size = getSize(constraints);
+			if (location == index) {
+				component.delete();
+			} else if (location > index) {
+				setLocation(constraints, location - 1);
+			} else if (location + size > index) {
+				setSize(constraints, size - 1);
 			}
 		});
 		// remove dimension
@@ -149,13 +145,9 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 	 * delete {@link DimensionInfo} itself.
 	 */
 	public final void clear(final int index) throws Exception {
-		m_layout.visitComponents(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				if (getLocation(constraints) == index) {
-					component.delete();
-				}
+		m_layout.visitComponents((component, constraints) -> {
+			if (getLocation(constraints) == index) {
+				component.delete();
 			}
 		});
 	}
@@ -176,15 +168,11 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 			newDimension.setWeight(dimension.getWeight());
 		}
 		// span components
-		m_layout.visitComponents(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				int location = getLocation(constraints);
-				int size = getSize(constraints);
-				if (location + size - 1 == index) {
-					setSize(constraints, size + 1);
-				}
+		m_layout.visitComponents((component, constraints) -> {
+			int location = getLocation(constraints);
+			int size = getSize(constraints);
+			if (location + size - 1 == index) {
+				setSize(constraints, size + 1);
 			}
 		});
 	}
@@ -207,14 +195,10 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 			dimensions.set(targetIndex, sourceDimension);
 		}
 		// move components
-		m_layout.visitComponents(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				if (getLocation(constraints) == sourceIndex) {
-					moveComponent(component, constraints, targetIndex);
-					setSize(constraints, 1);
-				}
+		m_layout.visitComponents((component, constraints) -> {
+			if (getLocation(constraints) == sourceIndex) {
+				moveComponent(component, constraints, targetIndex);
+				setSize(constraints, 1);
 			}
 		});
 		// delete old dimension
@@ -230,13 +214,9 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 		LinkedList<T> dimensions = getDimensions();
 		// prepare filled dimensions
 		final boolean[] filledDimensions = new boolean[dimensions.size()];
-		m_layout.visitComponents(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				int location = getLocation(constraints);
-				filledDimensions[location] = true;
-			}
+		m_layout.visitComponents((component, constraints) -> {
+			int location = getLocation(constraints);
+			filledDimensions[location] = true;
 		});
 		// remove empty dimensions
 		for (int index = dimensions.size() - 1; index >= 0; index--) {
@@ -298,17 +278,13 @@ public abstract class DimensionOperations<T extends DimensionInfo> {
 		}
 		// move components
 		if (insert) {
-			m_layout.visitComponents(new IComponentVisitor() {
-				@Override
-				public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-						throws Exception {
-					int location = getLocation(constraints);
-					int size = getSize(constraints);
-					if (location >= index) {
-						setLocation(constraints, location + 1);
-					} else if (location + size > index) {
-						setSize(constraints, size + 1);
-					}
+			m_layout.visitComponents((component, constraints) -> {
+				int location = getLocation(constraints);
+				int size = getSize(constraints);
+				if (location >= index) {
+					setLocation(constraints, location + 1);
+				} else if (location + size > index) {
+					setSize(constraints, size + 1);
 				}
 			});
 		}

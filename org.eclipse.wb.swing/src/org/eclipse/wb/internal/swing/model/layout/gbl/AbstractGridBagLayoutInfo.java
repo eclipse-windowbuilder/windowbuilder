@@ -256,16 +256,12 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 		{
 			// prepare columns/rows with components
 			beforeRefreshFilled();
-			visitComponents(new IComponentVisitor() {
-				@Override
-				public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-						throws Exception {
-					if (constraints.width == 1) {
-						m_refreshFilledColumns.add(constraints.x);
-					}
-					if (constraints.height == 1) {
-						m_refreshFilledRows.add(constraints.y);
-					}
+			visitComponents((component, constraints) -> {
+				if (constraints.width == 1) {
+					m_refreshFilledColumns.add(constraints.x);
+				}
+				if (constraints.height == 1) {
+					m_refreshFilledRows.add(constraints.y);
 				}
 			});
 			// we changed minimum size for columns/rows, force layout
@@ -615,13 +611,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 	 */
 	void prepareCell(int column, boolean insertColumn, int row, boolean insertRow) throws Exception {
 		// as first step: materialize locations
-		visitComponents(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				constraints.materializeLocation();
-			}
-		});
+		visitComponents((component, constraints) -> constraints.materializeLocation());
 		// prepare dimensions
 		m_columnOperations.prepare(column, insertColumn);
 		m_rowOperations.prepare(row, insertRow);
@@ -854,19 +844,14 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 		// prepare cells
 		final Map<ComponentInfo, Rectangle> componentToCells = new HashMap<>();
 		final Map<Point, ComponentInfo> occupiedCells = new HashMap<>();
-		visitComponents(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				Rectangle cells =
-						new Rectangle(constraints.x, constraints.y, constraints.width, constraints.height);
-				// fill map: ComponentInfo -> cells Rectangle
-				componentToCells.put(component, cells);
-				// fill map: occupied cells
-				for (int x = cells.x; x < cells.right(); x++) {
-					for (int y = cells.y; y < cells.bottom(); y++) {
-						occupiedCells.put(new Point(x, y), component);
-					}
+		visitComponents((component, constraints) -> {
+			Rectangle cells = new Rectangle(constraints.x, constraints.y, constraints.width, constraints.height);
+			// fill map: ComponentInfo -> cells Rectangle
+			componentToCells.put(component, cells);
+			// fill map: occupied cells
+			for (int x = cells.x; x < cells.right(); x++) {
+				for (int y = cells.y; y < cells.bottom(); y++) {
+					occupiedCells.put(new Point(x, y), component);
 				}
 			}
 		});

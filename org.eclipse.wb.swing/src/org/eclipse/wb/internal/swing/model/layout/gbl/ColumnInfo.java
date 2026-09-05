@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -50,13 +50,7 @@ public final class ColumnInfo extends DimensionInfo {
 	 */
 	public Alignment getAlignment() {
 		final EnumSet<Alignment> alignments = EnumSet.noneOf(Alignment.class);
-		visit(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				alignments.add(constraints.getHorizontalAlignment());
-			}
-		});
+		visit((component, constraints) -> alignments.add(constraints.getHorizontalAlignment()));
 		return alignments.size() == 1 ? alignments.iterator().next() : Alignment.UNKNOWN;
 	}
 
@@ -64,13 +58,7 @@ public final class ColumnInfo extends DimensionInfo {
 	 * Sets alignment for all {@link ComponentInfo}'s in this {@link ColumnInfo}.
 	 */
 	public void setAlignment(final ColumnInfo.Alignment alignment) throws Exception {
-		visit(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints)
-					throws Exception {
-				constraints.setHorizontalAlignment(alignment);
-			}
-		});
+		visit((component, constraints) -> constraints.setHorizontalAlignment(alignment));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

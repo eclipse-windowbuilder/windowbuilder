@@ -41,13 +41,10 @@ public final class DimensionOperationsRow extends DimensionOperations<RowInfo> {
 	@Override
 	public boolean isEmpty(final int index) {
 		final boolean[] filled = new boolean[1];
-		ExecutionUtils.runLog(() -> m_layout.visitComponents(new IComponentVisitor() {
-			@Override
-			public void visit(ComponentInfo component, AbstractGridBagConstraintsInfo constraints) throws Exception {
-				int y = constraints.getY();
-				int height = constraints.getHeight();
-				filled[0] |= y <= index && index < y + height;
-			}
+		ExecutionUtils.runLog(() -> m_layout.visitComponents((component, constraints) -> {
+			int y = constraints.getY();
+			int height = constraints.getHeight();
+			filled[0] |= y <= index && index < y + height;
 		}));
 		return !filled[0];
 	}
