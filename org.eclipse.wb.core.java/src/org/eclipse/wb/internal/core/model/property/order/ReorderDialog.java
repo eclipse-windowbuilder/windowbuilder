@@ -25,9 +25,7 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -89,12 +87,7 @@ final class ReorderDialog extends ResizableDialog {
 		GridDataFactory.create(title).spanH(2);
 		// reorder viewer
 		m_viewer = CheckboxTableViewer.newCheckList(container, SWT.FULL_SELECTION | SWT.BORDER);
-		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent e) {
-				do_viewer_selectionChanged();
-			}
-		});
+		m_viewer.addSelectionChangedListener(e -> do_viewer_selectionChanged());
 		m_viewer.setContentProvider(new ArrayContentProvider());
 		m_viewer.setLabelProvider(new ObjectsLabelProvider());
 		//

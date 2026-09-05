@@ -35,12 +35,7 @@ import java.util.List;
 public final class EditPartsSelectionProvider implements ISelectionProvider {
 	private final EditPartViewer m_viewer;
 	private final EventListenerList m_eventTable = new EventListenerList();
-	private final ISelectionChangedListener m_selectionListener = new ISelectionChangedListener() {
-		@Override
-		public void selectionChanged(SelectionChangedEvent event) {
-			fireSelectionChanged();
-		}
-	};
+	private final ISelectionChangedListener m_selectionListener = event -> fireSelectionChanged();
 
 	////////////////////////////////////////////////////////////////////////////
 	//

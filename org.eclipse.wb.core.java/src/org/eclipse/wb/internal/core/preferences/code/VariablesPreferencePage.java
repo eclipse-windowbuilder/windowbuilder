@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -33,11 +33,9 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
@@ -317,12 +315,7 @@ IPreferenceConstants {
 					});
 					// enable/disable
 					removeButton.setEnabled(false);
-					m_namesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-						@Override
-						public void selectionChanged(SelectionChangedEvent event) {
-							removeButton.setEnabled(!event.getSelection().isEmpty());
-						}
-					});
+					m_namesViewer.addSelectionChangedListener(event -> removeButton.setEnabled(!event.getSelection().isEmpty()));
 				}
 			}
 			// set initial descriptions

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -29,12 +29,10 @@ import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -170,18 +168,15 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
 		m_sourcesViewer.setComparator(new ViewerComparator());
 		m_sourcesViewer.setInput(m_editableSupport.getEditableSources());
 		// selection listener
-		m_sourcesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				if (!selection.isEmpty()) {
-					m_selectedSource = (IEditableSource) selection.getFirstElement();
-					m_valuesViewer.setInput(m_selectedSource.getKeys());
-				} else {
-					m_valuesViewer.setInput(null);
-				}
-				updateOkButton();
+		m_sourcesViewer.addSelectionChangedListener(event -> {
+			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+			if (!selection.isEmpty()) {
+				m_selectedSource = (IEditableSource) selection.getFirstElement();
+				m_valuesViewer.setInput(m_selectedSource.getKeys());
+			} else {
+				m_valuesViewer.setInput(null);
 			}
+			updateOkButton();
 		});
 	}
 
@@ -223,13 +218,10 @@ final class StringPropertyKeyDialog extends ResizableTitleAreaDialog {
 			m_valuesViewer.setLabelProvider(new ValuesLabelProvider());
 			m_valuesViewer.setComparator(new ViewerComparator());
 			// listeners
-			m_valuesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-				@Override
-				public void selectionChanged(SelectionChangedEvent event) {
-					IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-					m_selectedKey = (String) selection.getFirstElement();
-					getButton(IDialogConstants.OK_ID).setEnabled(true);
-				}
+			m_valuesViewer.addSelectionChangedListener(event -> {
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				m_selectedKey = (String) selection.getFirstElement();
+				getButton(IDialogConstants.OK_ID).setEnabled(true);
 			});
 			m_valuesViewer.addDoubleClickListener(new IDoubleClickListener() {
 				@Override

@@ -27,7 +27,6 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.Tool;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 
 import java.util.List;
 
@@ -132,12 +131,7 @@ public abstract class MenuObjectEditPart extends DesignEditPart implements IMenu
 			return;
 		}
 		// selection
-		m_selectionListener = new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				refresh();
-			}
-		};
+		m_selectionListener = event -> refresh();
 		// active tool
 		m_activeToolListener = new IActiveToolListener() {
 			@Override

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.jface.resource.FontDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
@@ -113,12 +112,7 @@ public class ObserveElementsWizardPage extends WizardPage {
 			return text;
 		}, "<exception, see log>"));
 		//
-		ISelectionChangedListener listener = new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				handleObserveSelection();
-			}
-		};
+		ISelectionChangedListener listener = event -> handleObserveSelection();
 		//
 		m_composite =
 				new ObserveElementsComposite(container,

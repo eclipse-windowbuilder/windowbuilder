@@ -18,8 +18,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.TreeEditPart;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -138,12 +136,9 @@ public class TreeViewer extends AbstractEditPartViewer {
 			}
 		});
 		// listener for this viewer selection
-		addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				if (!inTreeSelectionListener[0]) {
-					setSelectionToTreeWidget();
-				}
+		addSelectionChangedListener(event -> {
+			if (!inTreeSelectionListener[0]) {
+				setSelectionToTreeWidget();
 			}
 		});
 	}

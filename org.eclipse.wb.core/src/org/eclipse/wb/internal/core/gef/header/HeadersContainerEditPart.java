@@ -30,8 +30,6 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.widgets.Control;
 
 import java.util.Collections;
@@ -60,12 +58,7 @@ IHeaderMenuProvider {
 		m_viewer = viewer;
 		m_horizontal = horizontal;
 		//
-		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				refreshHeaders();
-			}
-		});
+		m_viewer.addSelectionChangedListener(event -> refreshHeaders());
 	}
 
 	////////////////////////////////////////////////////////////////////////////

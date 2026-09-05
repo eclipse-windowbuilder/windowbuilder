@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,10 +28,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ListViewer;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.window.Window;
@@ -342,12 +340,9 @@ IPreferenceConstants {
 							}
 						});
 						// selection listener
-						m_listViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-							@Override
-							public void selectionChanged(SelectionChangedEvent event) {
-								boolean enabled = event != null && !event.getSelection().isEmpty();
-								itemRemove.setEnabled(enabled);
-							}
+						m_listViewer.addSelectionChangedListener(event -> {
+							boolean enabled = event != null && !event.getSelection().isEmpty();
+							itemRemove.setEnabled(enabled);
 						});
 					}
 				}

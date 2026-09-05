@@ -30,9 +30,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
@@ -144,12 +142,9 @@ public final class BindingElementsComposite extends Composite {
 		m_bindingViewer.setContentProvider(new ArrayContentProvider());
 		m_databindingsProvider.configureBindingViewer(settings, m_bindingViewer);
 		// viewer events
-		m_bindingViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
-				handleBindingSelection(selection);
-			}
+		m_bindingViewer.addPostSelectionChangedListener(event -> {
+			IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+			handleBindingSelection(selection);
 		});
 		m_bindingViewer.addDoubleClickListener(new IDoubleClickListener() {
 			@Override

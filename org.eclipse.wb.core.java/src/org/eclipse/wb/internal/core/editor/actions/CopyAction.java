@@ -21,8 +21,6 @@ import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
@@ -48,12 +46,7 @@ public class CopyAction extends Action {
 	////////////////////////////////////////////////////////////////////////////
 	public CopyAction(EditPartViewer viewer) {
 		m_viewer = viewer;
-		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE);
-			}
-		});
+		m_viewer.addSelectionChangedListener(event -> firePropertyChange(ENABLED, null, isEnabled() ? Boolean.TRUE : Boolean.FALSE));
 		// copy presentation
 		ActionUtils.copyPresentation(this, ActionFactory.COPY);
 	}

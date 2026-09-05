@@ -35,7 +35,6 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ISelectionProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -119,23 +118,11 @@ public final class ComponentsTreePage implements IPage {
 	/**
 	 * Listener for selection in {@link #m_viewer}.
 	 */
-	private final ISelectionChangedListener m_selectionListener_Tree =
-			new ISelectionChangedListener() {
-		@Override
-		public void selectionChanged(SelectionChangedEvent event) {
-			selectGraphicalViewer();
-		}
-	};
+	private final ISelectionChangedListener m_selectionListener_Tree = event -> selectGraphicalViewer();
 	/**
 	 * Listener for selection in {@link #m_graphicalViewer}.
 	 */
-	private final ISelectionChangedListener m_selectionListener_Graphical =
-			new ISelectionChangedListener() {
-		@Override
-		public void selectionChanged(SelectionChangedEvent event) {
-			selectTreeViewer();
-		}
-	};
+	private final ISelectionChangedListener m_selectionListener_Graphical = event -> selectTreeViewer();
 
 	/**
 	 * Selects {@link ObjectInfo}'s in {@link #m_viewer} using selection in {@link #m_graphicalViewer}

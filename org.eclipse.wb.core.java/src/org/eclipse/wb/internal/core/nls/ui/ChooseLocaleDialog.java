@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,12 +22,10 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -221,14 +219,11 @@ public class ChooseLocaleDialog extends TitleAreaDialog {
 				// fill viewer
 				m_localesViewer.setInput(this);
 				// add selection listener that updates separate language/country combo's
-				m_localesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-					@Override
-					public void selectionChanged(SelectionChangedEvent event) {
-						IStructuredSelection selection = (IStructuredSelection) m_localesViewer.getSelection();
-						Locale locale = (Locale) selection.getFirstElement();
-						if (locale != null) {
-							onLocaleSelected(locale);
-						}
+				m_localesViewer.addSelectionChangedListener(event -> {
+					IStructuredSelection selection = (IStructuredSelection) m_localesViewer.getSelection();
+					Locale locale = (Locale) selection.getFirstElement();
+					if (locale != null) {
+						onLocaleSelected(locale);
 					}
 				});
 				// add double click listener for fast select/close

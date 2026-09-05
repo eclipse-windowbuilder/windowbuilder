@@ -53,11 +53,9 @@ import org.eclipse.jdt.ui.JavaElementLabelProvider;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IOpenListener;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -490,12 +488,7 @@ IConfigurablePropertyObject {
 					m_typesViewer.setContentProvider(new TypeContentProvider());
 					m_typesViewer.setInput(new Object());
 					// set listeners
-					m_typesViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-						@Override
-						public void selectionChanged(SelectionChangedEvent e) {
-							onTypeSelected();
-						}
-					});
+					m_typesViewer.addSelectionChangedListener(e -> onTypeSelected());
 				}
 			}
 			{

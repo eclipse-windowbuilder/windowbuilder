@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -38,10 +38,8 @@ import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.IFontProvider;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TableViewer;
@@ -104,14 +102,11 @@ org.eclipse.wb.internal.core.databinding.ui.editor.contentproviders.ChooseClassA
 				return adapter.fullName;
 			}
 		});
-		m_orderPropertiesViewer.addPostSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				if (!event.getSelection().isEmpty()) {
-					m_treeViewer.setSelection(event.getSelection(), true);
-				}
-				calculateUpDowButtons();
+		m_orderPropertiesViewer.addPostSelectionChangedListener(event -> {
+			if (!event.getSelection().isEmpty()) {
+				m_treeViewer.setSelection(event.getSelection(), true);
 			}
+			calculateUpDowButtons();
 		});
 		m_orderPropertiesViewer.setInput(m_orderProperties);
 		//

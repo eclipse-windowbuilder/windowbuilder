@@ -24,8 +24,6 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
@@ -107,12 +105,7 @@ public class DesignToolbarHelper {
 		createHierarchyGroups();
 		createSelectionGroups();
 		// track dynamic actions
-		m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				refreshDynamicActions(false, true);
-			}
-		});
+		m_viewer.addSelectionChangedListener(event -> refreshDynamicActions(false, true));
 		refreshDynamicActions(false, false);
 	}
 

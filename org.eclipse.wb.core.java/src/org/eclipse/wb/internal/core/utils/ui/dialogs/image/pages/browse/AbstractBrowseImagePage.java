@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -25,11 +25,9 @@ import org.eclipse.wb.internal.core.utils.ui.dialogs.image.pages.browse.model.II
 
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -79,16 +77,13 @@ public abstract class AbstractBrowseImagePage extends AbstractImagePage {
 			m_viewer.setContentProvider(new ImageContentProvider());
 			m_viewer.setLabelProvider(new ImageLabelProvider());
 			// add listeners
-			m_viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-				@Override
-				public void selectionChanged(SelectionChangedEvent event) {
-					IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
-					if (selection.getFirstElement() instanceof IImageResource) {
-						IImageResource resource = (IImageResource) selection.getFirstElement();
-						m_imageDialog.setResultImageInfo(resource.getImageInfo());
-					} else {
-						m_imageDialog.setResultImageInfo(null);
-					}
+			m_viewer.addSelectionChangedListener(event -> {
+				IStructuredSelection selection = (IStructuredSelection) m_viewer.getSelection();
+				if (selection.getFirstElement() instanceof IImageResource) {
+					IImageResource resource = (IImageResource) selection.getFirstElement();
+					m_imageDialog.setResultImageInfo(resource.getImageInfo());
+				} else {
+					m_imageDialog.setResultImageInfo(null);
 				}
 			});
 			m_viewer.addDoubleClickListener(new IDoubleClickListener() {

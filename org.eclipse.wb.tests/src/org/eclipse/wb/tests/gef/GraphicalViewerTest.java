@@ -180,12 +180,7 @@ public class GraphicalViewerTest extends GefTestCase {
 	@Test
 	public void test_Invoke_SelectionListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
-		ISelectionChangedListener listener = new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(SelectionChangedEvent event) {
-				actualLogger.log("selectionChanged(" + event + ")");
-			}
-		};
+		ISelectionChangedListener listener = event -> actualLogger.log("selectionChanged(" + event + ")");
 		//
 		// check not invoke during addSelectionListener()
 		m_viewer.addSelectionChangedListener(listener);
