@@ -15,9 +15,9 @@ package org.eclipse.wb.internal.core.editor.structure.components;
 import org.eclipse.wb.internal.core.utils.gef.EditPartsContentProvider;
 import org.eclipse.wb.internal.core.utils.gef.EditPartsSelectionProvider;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.swt.events.TreeEvent;

@@ -17,7 +17,6 @@ import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -26,6 +25,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;

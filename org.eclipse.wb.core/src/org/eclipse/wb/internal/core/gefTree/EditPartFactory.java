@@ -24,9 +24,9 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 import org.eclipse.wb.internal.core.model.menu.MenuObjectInfoUtils;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ui.parts.TreeViewer;
 
 import java.util.List;
 

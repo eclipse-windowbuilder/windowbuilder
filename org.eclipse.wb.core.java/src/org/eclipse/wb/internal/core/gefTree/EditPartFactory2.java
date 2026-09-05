@@ -19,9 +19,9 @@ import org.eclipse.wb.internal.core.gefTree.part.ArrayObjectEditPart;
 import org.eclipse.wb.internal.core.gefTree.part.FlowContainerGroupEditPart;
 import org.eclipse.wb.internal.core.model.nonvisual.AbstractArrayObjectInfo;
 import org.eclipse.wb.internal.core.model.nonvisual.FlowContainerGroupInfo;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.ui.parts.TreeViewer;
 
 /**
  * Generic implementation of {@link IEditPartFactory} for {@link TreeViewer} that redirects

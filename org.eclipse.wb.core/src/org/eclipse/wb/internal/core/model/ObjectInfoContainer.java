@@ -13,7 +13,8 @@
 package org.eclipse.wb.internal.core.model;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
+
+import org.eclipse.gef.ui.parts.TreeViewer;
 
 /**
  * Container for an {@link ObjectInfo} to be used as input for the

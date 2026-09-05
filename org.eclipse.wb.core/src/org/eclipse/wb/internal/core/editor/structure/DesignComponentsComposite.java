@@ -18,9 +18,9 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.structure.components.ComponentsTreePage;
 import org.eclipse.wb.internal.core.editor.structure.property.ComponentsPropertiesPage;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.gef.EditPartViewer;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;

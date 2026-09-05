@@ -18,13 +18,13 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.tree.DesignTreeEditPart;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 import org.eclipse.wb.internal.gef.tree.policies.AutoExpandEditPolicy;
 import org.eclipse.wb.internal.gef.tree.policies.SelectionEditPolicy;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.TreeEditPart;
+import org.eclipse.gef.ui.parts.TreeViewer;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.graphics.Image;
@@ -79,7 +79,6 @@ public class ObjectEditPart extends DesignTreeEditPart {
 							setSelectionIfAllEditParts(m_delayedSelectionObjects);
 							m_delayedSelectionObjects = null;
 						}
-						viewer.setSelectionToTreeWidget();
 					} finally {
 						tree.setRedraw(true);
 					}

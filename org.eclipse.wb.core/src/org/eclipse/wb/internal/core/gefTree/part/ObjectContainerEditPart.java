@@ -13,9 +13,9 @@
 package org.eclipse.wb.internal.core.gefTree.part;
 
 import org.eclipse.wb.internal.core.model.ObjectInfoContainer;
-import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
 import org.eclipse.gef.editparts.AbstractTreeEditPart;
+import org.eclipse.gef.ui.parts.TreeViewer;
 
 import java.util.Collections;
 import java.util.List;
