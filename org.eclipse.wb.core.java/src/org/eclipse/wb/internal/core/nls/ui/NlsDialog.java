@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSupport;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSupportListener;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableDialog;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -77,12 +76,9 @@ public final class NlsDialog extends ResizableDialog {
 		m_editableSupport.addListener(new IEditableSupportListener() {
 			@Override
 			public void sourceAdded(final IEditableSource source) {
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						int tabIndex = m_tabFolder.getItemCount() - 1;
-						createStringsTab(source, tabIndex);
-					}
+				ExecutionUtils.runLog(() -> {
+					int tabIndex = m_tabFolder.getItemCount() - 1;
+					createStringsTab(source, tabIndex);
 				});
 			}
 		});
@@ -101,15 +97,12 @@ public final class NlsDialog extends ResizableDialog {
 		m_tabFolder = new TabFolder(area, SWT.NONE);
 		m_tabFolder.setLayoutData(new GridData(GridData.FILL_BOTH));
 		//
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				createStringsTabs();
-				createPropertiesTab();
-				// if there are no "real" sources, open "Properties" tab
-				if (!m_editableSupport.hasExistingSources()) {
-					m_tabFolder.setSelection(m_tabFolder.getItemCount() - 1);
-				}
+		ExecutionUtils.runLog(() -> {
+			createStringsTabs();
+			createPropertiesTab();
+			// if there are no "real" sources, open "Properties" tab
+			if (!m_editableSupport.hasExistingSources()) {
+				m_tabFolder.setSelection(m_tabFolder.getItemCount() - 1);
 			}
 		});
 		//
@@ -206,12 +199,7 @@ public final class NlsDialog extends ResizableDialog {
 	protected void okPressed() {
 		getButton(IDialogConstants.OK_ID).setEnabled(false);
 		try {
-			ExecutionUtils.run(m_root, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_support.applyEditable(m_editableSupport);
-				}
-			});
+			ExecutionUtils.run(m_root, () -> m_support.applyEditable(m_editableSupport));
 		} finally {
 			getButton(IDialogConstants.OK_ID).setEnabled(true);
 		}

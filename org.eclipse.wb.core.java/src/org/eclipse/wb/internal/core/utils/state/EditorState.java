@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.utils.IDisposable;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.CompositeClassLoader;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -217,12 +216,7 @@ public final class EditorState {
 		dispose_PropertyEditorManager();
 		dispose_UIManager();
 		// dispose class loader
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				AbstractParseFactory.deinitializeClassLoader(m_editorLoader, m_toolkitId);
-			}
-		});
+		ExecutionUtils.runIgnore(() -> AbstractParseFactory.deinitializeClassLoader(m_editorLoader, m_toolkitId));
 		// done
 		m_disposed = true;
 	}
@@ -234,17 +228,14 @@ public final class EditorState {
 	 * <code>super()</code>.
 	 */
 	private void dispose_UIManager() {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				UIDefaults defaults = UIManager.getDefaults();
-				Collection<Object> values = defaults.values();
-				for (Iterator<?> I = values.iterator(); I.hasNext();) {
-					Object value = I.next();
-					if (value instanceof Class<?>) {
-						if (isLoadedFrom((Class<?>) value)) {
-							I.remove();
-						}
+		ExecutionUtils.runIgnore(() -> {
+			UIDefaults defaults = UIManager.getDefaults();
+			Collection<Object> values = defaults.values();
+			for (Iterator<?> I = values.iterator(); I.hasNext();) {
+				Object value = I.next();
+				if (value instanceof Class<?>) {
+					if (isLoadedFrom((Class<?>) value)) {
+						I.remove();
 					}
 				}
 			}
@@ -255,20 +246,16 @@ public final class EditorState {
 	 * Clear {@link PropertyEditorManager} cache to prevent {@link Class} and {@link ClassLoader}
 	 * leaks.
 	 */
+	@SuppressWarnings("rawtypes")
 	private void dispose_PropertyEditorManager() {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			@SuppressWarnings("rawtypes")
-			public void run() throws Exception {
-				Map registry =
-						(Map) ReflectionUtils.getFieldObject(PropertyEditorManager.class, "registry");
-				if (registry != null) {
-					for (Iterator I = registry.entrySet().iterator(); I.hasNext();) {
-						Map.Entry entry = (Map.Entry) I.next();
-						Class editorClass = (Class) entry.getValue();
-						if (isLoadedFrom(editorClass)) {
-							I.remove();
-						}
+		ExecutionUtils.runIgnore(() -> {
+			Map registry = (Map) ReflectionUtils.getFieldObject(PropertyEditorManager.class, "registry");
+			if (registry != null) {
+				for (Iterator I = registry.entrySet().iterator(); I.hasNext();) {
+					Map.Entry entry = (Map.Entry) I.next();
+					Class editorClass = (Class) entry.getValue();
+					if (isLoadedFrom(editorClass)) {
+						I.remove();
 					}
 				}
 			}

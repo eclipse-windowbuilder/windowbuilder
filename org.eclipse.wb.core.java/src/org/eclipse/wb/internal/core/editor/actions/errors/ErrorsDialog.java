@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.editor.errors.report2.CreateReportDialog;
 import org.eclipse.wb.internal.core.editor.errors.report2.ZipFileErrorReport;
 import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.ResizableTitleAreaDialog;
@@ -134,12 +133,7 @@ public final class ErrorsDialog extends ResizableTitleAreaDialog {
 	protected void buttonPressed(int buttonId) {
 		close();
 		if (CONTACT_SUPPORT_ID == buttonId) {
-			ExecutionUtils.runLogLater(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					handleContactSupport();
-				}
-			});
+			ExecutionUtils.runLogLater(this::handleContactSupport);
 		}
 	}
 

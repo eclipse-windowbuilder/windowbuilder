@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,7 +22,6 @@ import org.eclipse.wb.internal.core.model.variable.description.LocalUniqueVariab
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
@@ -409,21 +408,18 @@ public final class NamesManager {
 			}
 		}
 		// read descriptions
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				XMLMemento rootMemento = XMLMemento.createReadRoot(new StringReader(settingsString));
-				IMemento[] mementos = rootMemento.getChildren(TYPE_DESCRIPTION_ID);
-				for (int i = 0; i < mementos.length; i++) {
-					IMemento memento = mementos[i];
-					// prepare description parameters
-					String className = memento.getString("class");
-					String name = memento.getString("name");
-					String acronym = memento.getString("acronym");
-					boolean asField = "true".equals(memento.getString("asField"));
-					// add description
-					descriptions.add(new ComponentNameDescription(className, name, acronym, asField));
-				}
+		ExecutionUtils.runLog(() -> {
+			XMLMemento rootMemento = XMLMemento.createReadRoot(new StringReader(settingsString));
+			IMemento[] mementos = rootMemento.getChildren(TYPE_DESCRIPTION_ID);
+			for (int i = 0; i < mementos.length; i++) {
+				IMemento memento = mementos[i];
+				// prepare description parameters
+				String className = memento.getString("class");
+				String name = memento.getString("name");
+				String acronym = memento.getString("acronym");
+				boolean asField = "true".equals(memento.getString("asField"));
+				// add description
+				descriptions.add(new ComponentNameDescription(className, name, acronym, asField));
 			}
 		});
 		return descriptions;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.dom.Assignment;
@@ -107,31 +106,16 @@ public final class FieldAccessor extends ExpressionAccessor {
 		boolean hasAssignment = !javaInfo.getFieldAssignments(m_fieldName).isEmpty();
 		if (source == null) {
 			if (hasAssignment) {
-				ExecutionUtils.run(javaInfo, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						javaInfo.removeFieldAssignments(m_fieldName);
-					}
-				});
+				ExecutionUtils.run(javaInfo, () -> javaInfo.removeFieldAssignments(m_fieldName));
 			}
 		} else if (hasAssignment) {
 			Assignment assignment = getFieldAssignmentForUpdate(javaInfo);
 			final Expression oldExpression = getExpression(assignment);
 			if (!javaInfo.getEditor().getSource(oldExpression).equals(source)) {
-				ExecutionUtils.run(javaInfo, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						javaInfo.getEditor().replaceExpression(oldExpression, source);
-					}
-				});
+				ExecutionUtils.run(javaInfo, () -> javaInfo.getEditor().replaceExpression(oldExpression, source));
 			}
 		} else {
-			ExecutionUtils.run(javaInfo, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					javaInfo.addFieldAssignment(m_fieldName, source);
-				}
-			});
+			ExecutionUtils.run(javaInfo, () -> javaInfo.addFieldAssignment(m_fieldName, source));
 		}
 		// success
 		return true;

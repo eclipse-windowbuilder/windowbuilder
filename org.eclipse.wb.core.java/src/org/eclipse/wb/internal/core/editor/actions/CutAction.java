@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.editor.actions;
 
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
@@ -54,18 +53,15 @@ public class CutAction extends Action {
 
 	@Override
 	public void run() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// copy
-				{
-					List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
-					List<JavaInfoMemento> m_mementos = CopyAction.getMementos(editParts);
-					CopyAction.doCopy(m_mementos);
-				}
-				// delete
-				m_viewer.getEditDomain().getCommandStack().execute(m_command);
+		ExecutionUtils.runLog(() -> {
+			// copy
+			{
+				List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
+				List<JavaInfoMemento> m_mementos = CopyAction.getMementos(editParts);
+				CopyAction.doCopy(m_mementos);
 			}
+			// delete
+			m_viewer.getEditDomain().getCommandStack().execute(m_command);
 		});
 	}
 

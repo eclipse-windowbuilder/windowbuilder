@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.SuperConstructorInvocation;
@@ -70,12 +69,7 @@ public final class SuperConstructorAccessor extends ExpressionAccessor {
 			final AstEditor editor = javaInfo.getEditor();
 			final Expression oldExpression = getExpression(javaInfo);
 			if (!editor.getSource(oldExpression).equals(source)) {
-				ExecutionUtils.run(javaInfo, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						editor.replaceExpression(oldExpression, newSource);
-					}
-				});
+				ExecutionUtils.run(javaInfo, () -> editor.replaceExpression(oldExpression, newSource));
 				return true;
 			}
 		}

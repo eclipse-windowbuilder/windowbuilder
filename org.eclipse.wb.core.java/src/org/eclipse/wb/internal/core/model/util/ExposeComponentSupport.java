@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,7 +28,6 @@ import org.eclipse.wb.internal.core.utils.dialogfields.DialogFieldUtils;
 import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFieldGroup;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -172,12 +171,8 @@ public final class ExposeComponentSupport {
 		public void run() {
 			final ExposeDialog dialog = new ExposeDialog(m_component);
 			if (dialog.open() == Window.OK) {
-				ExecutionUtils.run(m_component, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						expose(m_component, dialog.getName(), dialog.isPublic() ? "public" : "protected");
-					}
-				});
+				ExecutionUtils.run(m_component,
+						() -> expose(m_component, dialog.getName(), dialog.isPublic() ? "public" : "protected"));
 			}
 		}
 	}

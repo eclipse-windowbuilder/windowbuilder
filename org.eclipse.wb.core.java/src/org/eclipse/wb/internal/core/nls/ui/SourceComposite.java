@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.edit.IEditableSourceListener;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 import org.eclipse.wb.internal.core.utils.ui.PixelConverter;
@@ -397,12 +396,7 @@ public final class SourceComposite extends Composite {
 									return;
 								}
 								// do internalize
-								ExecutionUtils.runLog(new RunnableEx() {
-									@Override
-									public void run() throws Exception {
-										m_source.internalizeKey(key);
-									}
-								});
+								ExecutionUtils.runLog(() -> m_source.internalizeKey(key));
 							}
 						});
 					}
@@ -437,13 +431,10 @@ public final class SourceComposite extends Composite {
 								return;
 							}
 							// do remove
-							ExecutionUtils.runLog(new RunnableEx() {
-								@Override
-								public void run() throws Exception {
-									m_source.removeLocale(locale);
-									createLocaleColumns();
-									m_viewer.refresh();
-								}
+							ExecutionUtils.runLog(() -> {
+								m_source.removeLocale(locale);
+								createLocaleColumns();
+								m_viewer.refresh();
 							});
 						}
 					};

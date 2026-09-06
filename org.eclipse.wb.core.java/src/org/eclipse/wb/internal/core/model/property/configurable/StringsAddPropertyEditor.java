@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.model.property.editor.TextDialogPropertyEdit
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.ui.dialogs.StringsDialog;
 
@@ -102,12 +101,7 @@ IConfigurablePropertyObject {
 	 */
 	void setItems(Property _property, final String[] items) throws Exception {
 		final JavaInfo javaInfo = ((JavaProperty) _property).getJavaInfo();
-		ExecutionUtils.run(javaInfo, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				setItems0(items, javaInfo);
-			}
-		});
+		ExecutionUtils.run(javaInfo, () -> setItems0(items, javaInfo));
 	}
 
 	private void setItems0(String[] items, JavaInfo javaInfo) throws Exception {

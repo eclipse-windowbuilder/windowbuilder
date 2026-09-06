@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -30,7 +30,6 @@ import org.eclipse.wb.internal.core.model.variable.LazyVariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.dialogfields.StatusUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jdt.core.dom.Expression;
@@ -170,12 +169,7 @@ IComplexPropertyEditor {
 	 */
 	public void setComponent(final GenericProperty property, final JavaInfo component)
 			throws Exception {
-		ExecutionUtils.run(property.getJavaInfo(), new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				setComponent0(property, component);
-			}
-		});
+		ExecutionUtils.run(property.getJavaInfo(), () -> setComponent0(property, component));
 	}
 
 	/**

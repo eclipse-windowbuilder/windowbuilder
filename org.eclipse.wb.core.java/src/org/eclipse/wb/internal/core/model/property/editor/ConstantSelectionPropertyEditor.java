@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -530,15 +529,12 @@ IConfigurablePropertyObject {
 				}
 			}
 			// initialize selection in viewer's
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					if (m_currentType != null) {
-						m_typesViewer.setSelection(new StructuredSelection(m_currentType));
-					} else {
-						m_typesViewer.getTable().select(0);
-						onTypeSelected();
-					}
+			ExecutionUtils.runLog(() -> {
+				if (m_currentType != null) {
+					m_typesViewer.setSelection(new StructuredSelection(m_currentType));
+				} else {
+					m_typesViewer.getTable().select(0);
+					onTypeSelected();
 				}
 			});
 			// set field filter
@@ -614,20 +610,17 @@ IConfigurablePropertyObject {
 			IType type = (IType) selection.getFirstElement();
 			m_fieldsViewer.setInput(type);
 			// select current IField
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					if (m_currentField != null) {
-						m_fieldsViewer.setSelection(new StructuredSelection(m_currentField));
-						Table table = m_fieldsViewer.getTable();
-						// it is good to set focus to "fields", so allow instantly use up/down keys
-						table.setFocus();
-						// tweak selection, because setSelection() should be used, not just select()
-						{
-							int selectionIndex = table.getSelectionIndex();
-							if (selectionIndex != -1) {
-								table.setSelection(selectionIndex);
-							}
+			ExecutionUtils.runLog(() -> {
+				if (m_currentField != null) {
+					m_fieldsViewer.setSelection(new StructuredSelection(m_currentField));
+					Table table = m_fieldsViewer.getTable();
+					// it is good to set focus to "fields", so allow instantly use up/down keys
+					table.setFocus();
+					// tweak selection, because setSelection() should be used, not just select()
+					{
+						int selectionIndex = table.getSelectionIndex();
+						if (selectionIndex != -1) {
+							table.setSelection(selectionIndex);
 						}
 					}
 				}
@@ -638,16 +631,13 @@ IConfigurablePropertyObject {
 		 * Adds new {@link IType} into {@link #m_typesViewer}.
 		 */
 		private void onAddType() {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					IJavaProject javaProject = m_javaInfo.getEditor().getJavaProject();
-					IType type = JdtUiUtils.selectType(getShell(), javaProject);
-					if (type != null) {
-						m_additionalTypes.add(type);
-						m_typesViewer.refresh();
-						m_typesViewer.setSelection(new StructuredSelection(type));
-					}
+			ExecutionUtils.runLog(() -> {
+				IJavaProject javaProject = m_javaInfo.getEditor().getJavaProject();
+				IType type = JdtUiUtils.selectType(getShell(), javaProject);
+				if (type != null) {
+					m_additionalTypes.add(type);
+					m_typesViewer.refresh();
+					m_typesViewer.setSelection(new StructuredSelection(type));
 				}
 			});
 		}

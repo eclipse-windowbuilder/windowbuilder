@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -79,13 +79,10 @@ public final class MethodInvocationArgumentAccessor extends ExpressionAccessor {
 			final Expression oldArgumentExpression = getArgumentExpression(invocation);
 			final String argumentSource = source != null ? source : defaultArguments.get(m_index);
 			if (!isSameSource(editor, oldArgumentExpression, argumentSource)) {
-				ExecutionUtils.run(javaInfo, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						editor.replaceExpression(oldArgumentExpression, argumentSource);
-						if (isDefaultArguments(javaInfo, invocation)) {
-							editor.removeEnclosingStatement(invocation);
-						}
+				ExecutionUtils.run(javaInfo, () -> {
+					editor.replaceExpression(oldArgumentExpression, argumentSource);
+					if (isDefaultArguments(javaInfo, invocation)) {
+						editor.removeEnclosingStatement(invocation);
 					}
 				});
 			}

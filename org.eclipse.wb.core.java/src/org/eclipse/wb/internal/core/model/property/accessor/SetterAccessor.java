@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.property.table.PropertyTooltipProvider;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.jdt.core.dom.Expression;
@@ -124,30 +123,15 @@ public final class SetterAccessor extends ExpressionAccessor {
 		if (invocation != null) {
 			final AstEditor editor = javaInfo.getEditor();
 			if (source == null) {
-				ExecutionUtils.run(javaInfo, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						editor.removeEnclosingStatement(invocation);
-					}
-				});
+				ExecutionUtils.run(javaInfo, () -> editor.removeEnclosingStatement(invocation));
 			} else {
 				final Expression oldExpression = getExpression(invocation);
 				if (!editor.getSource(oldExpression).equals(source)) {
-					ExecutionUtils.run(javaInfo, new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							javaInfo.replaceExpression(oldExpression, source);
-						}
-					});
+					ExecutionUtils.run(javaInfo, () -> javaInfo.replaceExpression(oldExpression, source));
 				}
 			}
 		} else if (source != null) {
-			ExecutionUtils.run(javaInfo, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					javaInfo.addMethodInvocation(m_setterSignature, source);
-				}
-			});
+			ExecutionUtils.run(javaInfo, () -> javaInfo.addMethodInvocation(m_setterSignature, source));
 		}
 		// success
 		return true;

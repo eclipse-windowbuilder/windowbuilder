@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -28,7 +28,6 @@ import org.eclipse.wb.internal.core.utils.binding.providers.BooleanPreferencePro
 import org.eclipse.wb.internal.core.utils.binding.providers.StringPreferenceProvider;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
@@ -358,29 +357,21 @@ IWorkbenchPreferencePage {
 		if (m_previewViewer == null) {
 			return;
 		}
-		ExecutionUtils.runRethrow(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// prepare descriptions
-				VariableSupportDescription variableDescription = getSelectedVariable();
-				StatementGeneratorDescription statementDescription = getSelectedStatement();
-				// prepare properties for descriptions
-				GenerationPropertiesComposite variableComposite =
-						getDescriptionPropertiesComposite(variableDescription);
-				GenerationPropertiesComposite statementComposite =
-						getDescriptionPropertiesComposite(statementDescription);
-				// do update
-				GenerationPreview preview =
-						m_settings.getPreview(variableDescription, statementDescription);
-				if (preview != null) {
-					JdtUiUtils.setJavaSourceForViewer(
-							m_previewViewer,
-							preview.getPreview(variableComposite, statementComposite));
-				} else {
-					JdtUiUtils.setJavaSourceForViewer(
-							m_previewViewer,
-							Messages.CodeGenerationPreferencePage_noPreviewMessage);
-				}
+		ExecutionUtils.runRethrow(() -> {
+			// prepare descriptions
+			VariableSupportDescription variableDescription = getSelectedVariable();
+			StatementGeneratorDescription statementDescription = getSelectedStatement();
+			// prepare properties for descriptions
+			GenerationPropertiesComposite variableComposite = getDescriptionPropertiesComposite(variableDescription);
+			GenerationPropertiesComposite statementComposite = getDescriptionPropertiesComposite(statementDescription);
+			// do update
+			GenerationPreview preview = m_settings.getPreview(variableDescription, statementDescription);
+			if (preview != null) {
+				JdtUiUtils.setJavaSourceForViewer(m_previewViewer,
+						preview.getPreview(variableComposite, statementComposite));
+			} else {
+				JdtUiUtils.setJavaSourceForViewer(m_previewViewer,
+						Messages.CodeGenerationPreferencePage_noPreviewMessage);
 			}
 		});
 	}

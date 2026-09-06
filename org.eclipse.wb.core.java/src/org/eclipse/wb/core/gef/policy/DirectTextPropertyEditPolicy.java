@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.model.util.PropertyUtils;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -68,12 +67,7 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
 	 * property.
 	 */
 	public static void install(final EditPart editPart, final AbstractComponentInfo component) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				installEx(editPart, component);
-			}
-		});
+		ExecutionUtils.runLog(() -> installEx(editPart, component));
 	}
 
 	/**
@@ -138,12 +132,7 @@ public final class DirectTextPropertyEditPolicy extends DirectTextEditPolicy {
 
 	@Override
 	protected void setText(final String text) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				m_property.setValue(text);
-			}
-		});
+		ExecutionUtils.runLog(() -> m_property.setValue(text));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

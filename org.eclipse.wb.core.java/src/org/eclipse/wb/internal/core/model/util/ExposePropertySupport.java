@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.utils.dialogfields.DialogFieldUtils;
 import org.eclipse.wb.internal.core.utils.dialogfields.SelectionButtonDialogFieldGroup;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -121,12 +120,7 @@ public final class ExposePropertySupport implements IPropertiesMenuContributor {
 		public void run() {
 			final ExposeDialog dialog = new ExposeDialog();
 			if (dialog.open() == Window.OK) {
-				ExecutionUtils.run(m_javaInfo, new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						expose(dialog.isPublic());
-					}
-				});
+				ExecutionUtils.run(m_javaInfo, () -> expose(dialog.isPublic()));
 			}
 		}
 

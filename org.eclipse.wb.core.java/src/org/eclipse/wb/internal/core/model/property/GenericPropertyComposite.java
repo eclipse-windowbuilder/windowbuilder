@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.model.property;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.Expression;
 
@@ -134,12 +133,9 @@ public final class GenericPropertyComposite extends GenericProperty {
 
 	@Override
 	public void setValue(final Object value) throws Exception {
-		ExecutionUtils.run(m_javaInfo, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				for (GenericProperty property : m_properties) {
-					property.setValue(value);
-				}
+		ExecutionUtils.run(m_javaInfo, () -> {
+			for (GenericProperty property : m_properties) {
+				property.setValue(value);
 			}
 		});
 	}
@@ -197,12 +193,9 @@ public final class GenericPropertyComposite extends GenericProperty {
 
 	@Override
 	public void setExpression(final String source, final Object value) throws Exception {
-		ExecutionUtils.run(m_javaInfo, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				for (GenericProperty property : m_properties) {
-					property.setExpression(source, value);
-				}
+		ExecutionUtils.run(m_javaInfo, () -> {
+			for (GenericProperty property : m_properties) {
+				property.setExpression(source, value);
 			}
 		});
 	}

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -26,7 +26,6 @@ import org.eclipse.wb.internal.core.model.description.helpers.ComponentDescripti
 import org.eclipse.wb.internal.core.model.description.helpers.DescriptionPropertiesHelper;
 import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
@@ -230,14 +229,11 @@ public final class GlobalStateJava {
 			final List<JavaInfoMemento> mementos = (List<JavaInfoMemento>) request.getMemento();
 			final List<IObjectInfo> components = new ArrayList<>();
 			// prepare models
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					JavaInfo hierarchyModel = (JavaInfo) GlobalState.getActiveObject();
-					for (JavaInfoMemento memento : mementos) {
-						JavaInfo component = memento.create(hierarchyModel);
-						components.add(component);
-					}
+			ExecutionUtils.runLog(() -> {
+				JavaInfo hierarchyModel = (JavaInfo) GlobalState.getActiveObject();
+				for (JavaInfoMemento memento : mementos) {
+					JavaInfo component = memento.create(hierarchyModel);
+					components.add(component);
 				}
 			});
 			// set objects for selection

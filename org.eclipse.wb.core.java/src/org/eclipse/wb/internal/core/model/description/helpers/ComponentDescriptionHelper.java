@@ -88,7 +88,6 @@ import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.exception.DesignerException;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ClassMap;
@@ -506,19 +505,16 @@ public final class ComponentDescriptionHelper {
 		if (!methodDescription.isInitialized()) {
 			methodDescription.setInitialized(true);
 			// do initialize
-			ExecutionUtils.runIgnore(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					IMethod method = CodeUtils.findMethod(javaProject, methodDescription.getDeclaringClass().getName(),
-							methodDescription.getSignature());
-					if (method != null) {
-						String[] parameterNames = method.getParameterNames();
-						for (ParameterDescription parameter : methodDescription.getParameters()) {
-							if (parameter.getName() == null) {
-								int parameterIndex = parameter.getIndex();
-								String parameterName = parameterNames[parameterIndex];
-								parameter.setName(parameterName);
-							}
+			ExecutionUtils.runIgnore(() -> {
+				IMethod method = CodeUtils.findMethod(javaProject, methodDescription.getDeclaringClass().getName(),
+						methodDescription.getSignature());
+				if (method != null) {
+					String[] parameterNames = method.getParameterNames();
+					for (ParameterDescription parameter : methodDescription.getParameters()) {
+						if (parameter.getName() == null) {
+							int parameterIndex = parameter.getIndex();
+							String parameterName = parameterNames[parameterIndex];
+							parameter.setName(parameterName);
 						}
 					}
 				}

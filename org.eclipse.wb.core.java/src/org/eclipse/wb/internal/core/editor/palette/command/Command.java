@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.editor.palette.command;
 
 import org.eclipse.wb.core.editor.palette.model.PaletteInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.apache.commons.text.StringEscapeUtils;
@@ -56,12 +55,9 @@ public abstract class Command {
 		m_stringBuffer = new StringBuffer();
 		m_stringBuffer.append("\t<");
 		// use ID as tag
-		ExecutionUtils.runRethrow(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				String id = (String) Command.this.getClass().getField("ID").get(null);
-				m_stringBuffer.append(id);
-			}
+		ExecutionUtils.runRethrow(() -> {
+			String id = (String) Command.this.getClass().getField("ID").get(null);
+			m_stringBuffer.append(id);
 		});
 		//
 		addAttributes();

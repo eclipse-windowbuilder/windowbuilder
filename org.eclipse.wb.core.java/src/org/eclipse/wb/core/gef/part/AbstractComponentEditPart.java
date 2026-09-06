@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.gef.policy.OpenErrorLogEditPolicy;
 import org.eclipse.wb.internal.core.gef.policy.OpenListenerEditPolicy;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 
@@ -273,13 +272,10 @@ public abstract class AbstractComponentEditPart extends DesignEditPart implement
 				}
 
 				private void runDelayedEvents() {
-					ExecutionUtils.runLogLater(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							if (isEnabled()) {
-								Control viewerControl = getViewer().getControl();
-								EventManager.runDelayedEvents(viewerControl);
-							}
+					ExecutionUtils.runLogLater(() -> {
+						if (isEnabled()) {
+							Control viewerControl = getViewer().getControl();
+							EventManager.runDelayedEvents(viewerControl);
 						}
 					});
 				}

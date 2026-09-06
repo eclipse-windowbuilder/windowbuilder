@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.model.variable.LocalVariableSupport;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.dialogfields.AbstractValidationTitleAreaDialog;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -186,12 +185,9 @@ public final class RenameConvertSupport {
 	private void executeCommands() {
 		if (!m_commands.isEmpty()) {
 			JavaInfo anyComponent = m_components.iterator().next();
-			ExecutionUtils.run(anyComponent, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					for (RenameCommand command : m_commands.values()) {
-						command.execute();
-					}
+			ExecutionUtils.run(anyComponent, () -> {
+				for (RenameCommand command : m_commands.values()) {
+					command.execute();
 				}
 			});
 		}

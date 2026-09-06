@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -36,7 +36,6 @@ import org.eclipse.wb.internal.core.model.variable.EmptyVariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import org.eclipse.draw2d.geometry.Point;
@@ -264,37 +263,32 @@ IConfigurablePropertyObject {
 	 */
 	private void setValueSource(final GenericProperty property, final String source) throws Exception {
 		final JavaInfo javaInfo = property.getJavaInfo();
-		ExecutionUtils.run(javaInfo, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// remove old instance info
-				{
-					JavaInfo oldInstanceInfo = getInstanceInfo(property);
-					if (oldInstanceInfo != null) {
-						oldInstanceInfo.delete();
-						property.removeArbitraryValue(INSTANCE_JAVA_INFO_KEY);
-					}
+		ExecutionUtils.run(javaInfo, () -> {
+			// remove old instance info
+			{
+				JavaInfo oldInstanceInfo = getInstanceInfo(property);
+				if (oldInstanceInfo != null) {
+					oldInstanceInfo.delete();
+					property.removeArbitraryValue(INSTANCE_JAVA_INFO_KEY);
 				}
-				// evaluate new expression
-				String evaluateSource =
-						TemplateUtils.evaluate(source, javaInfo, Collections.emptyMap());
-				property.setExpression(evaluateSource, Property.UNKNOWN_VALUE);
-				// create new instance info
-				{
-					Expression expression = getInstanceExpression(property);
-					Assert.isNotNull(expression, "setting expression failed.");
-					if (expression instanceof ClassInstanceCreation creation) {
-						if (creation.getAnonymousClassDeclaration() == null) {
-							JavaInfo newInstanceInfo =
-									JavaInfoUtils.createJavaInfo(
-											javaInfo.getEditor(),
-											AstNodeUtils.getFullyQualifiedName(expression, true),
-											new ConstructorCreationSupport(creation));
-							newInstanceInfo.bindToExpression(expression);
-							newInstanceInfo.setVariableSupport(new EmptyVariableSupport(newInstanceInfo, creation));
-							newInstanceInfo.setAssociation(new InvocationChildAssociation((MethodInvocation) creation.getParent()));
-							javaInfo.addChild(newInstanceInfo);
-						}
+			}
+			// evaluate new expression
+			String evaluateSource = TemplateUtils.evaluate(source, javaInfo, Collections.emptyMap());
+			property.setExpression(evaluateSource, Property.UNKNOWN_VALUE);
+			// create new instance info
+			{
+				Expression expression = getInstanceExpression(property);
+				Assert.isNotNull(expression, "setting expression failed.");
+				if (expression instanceof ClassInstanceCreation creation) {
+					if (creation.getAnonymousClassDeclaration() == null) {
+						JavaInfo newInstanceInfo = JavaInfoUtils.createJavaInfo(javaInfo.getEditor(),
+								AstNodeUtils.getFullyQualifiedName(expression, true),
+								new ConstructorCreationSupport(creation));
+						newInstanceInfo.bindToExpression(expression);
+						newInstanceInfo.setVariableSupport(new EmptyVariableSupport(newInstanceInfo, creation));
+						newInstanceInfo.setAssociation(
+								new InvocationChildAssociation((MethodInvocation) creation.getParent()));
+						javaInfo.addChild(newInstanceInfo);
 					}
 				}
 			}

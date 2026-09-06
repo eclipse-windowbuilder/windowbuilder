@@ -72,7 +72,6 @@ import org.eclipse.wb.internal.core.utils.exception.DesignerExceptionUtils;
 import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.exception.NoEntryPointError;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
@@ -554,12 +553,8 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		@Override
 		public boolean enterFrame(final ASTNode node) {
 			// send broadcast
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_editorState.getBroadcast().getListener(ExecutionFlowEnterFrame.class).invoke(node);
-				}
-			});
+			ExecutionUtils.runRethrow(
+					() -> m_editorState.getBroadcast().getListener(ExecutionFlowEnterFrame.class).invoke(node));
 			// enter in "lazy creation" methods, but only one time
 			if (node instanceof MethodDeclaration method) {
 				if (m_visitedLazyMethods.contains(method)) {
@@ -584,12 +579,8 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		public void leaveFrame(final ASTNode node) {
 			super.leaveFrame(node);
 			// send broadcast
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_editorState.getBroadcast().getListener(EvaluationEventListener.class).leaveFrame(node);
-				}
-			});
+			ExecutionUtils.runRethrow(
+					() -> m_editorState.getBroadcast().getListener(EvaluationEventListener.class).leaveFrame(node));
 		}
 
 		////////////////////////////////////////////////////////////////////////////
@@ -599,19 +590,15 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		////////////////////////////////////////////////////////////////////////////
 		@Override
 		public void postVisit(final ASTNode node) {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					// try to create JavaInfo using generic Expression
-					if (node instanceof Expression
-							&& !(node instanceof ClassInstanceCreation)
-							&& !(node instanceof MethodInvocation)
-							/*&& !(node instanceof ArrayCreation)*/) {
-						endVisit((Expression) node);
-					}
-					// process related JavaInfo's
-					evaluateNode(node);
+			ExecutionUtils.runRethrow(() -> {
+				// try to create JavaInfo using generic Expression
+				if (node instanceof Expression && !(node instanceof ClassInstanceCreation)
+						&& !(node instanceof MethodInvocation)
+				/* && !(node instanceof ArrayCreation) */) {
+					endVisit((Expression) node);
 				}
+				// process related JavaInfo's
+				evaluateNode(node);
 			});
 		}
 
@@ -1118,46 +1105,43 @@ public final class JavaInfoParser implements IJavaInfoParseResolver {
 		}
 
 		private void createVariableSupport(final Expression variable, final Expression initializer) {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					JavaInfo javaInfo = getJavaInfo(initializer);
-					if (javaInfo != null) {
-						// check if there is already variable support
-						boolean noVariableSupport;
-						{
-							VariableSupport support = javaInfo.getVariableSupport();
-							noVariableSupport = support == null || support.isDefault();
-						}
-						// only first assignment is variable
-						if (noVariableSupport) {
-							VariableSupport support;
-							// prepare assignments and binding
-							List<Expression> assignments =
-									ExecutionFlowUtils.getAssignments(m_editorState.getFlowDescription(), variable);
-							IVariableBinding variableBinding = AstNodeUtils.getVariableBinding(variable);
-							// local or field
-							if (variableBinding.isField()) {
-								if (assignments.size() == 1) {
-									if (variable.getParent() instanceof VariableDeclarationFragment) {
-										support = new FieldInitializerVariableSupport(javaInfo, variable);
-									} else {
-										support = new FieldUniqueVariableSupport(javaInfo, variable);
-									}
+			ExecutionUtils.runRethrow(() -> {
+				JavaInfo javaInfo = getJavaInfo(initializer);
+				if (javaInfo != null) {
+					// check if there is already variable support
+					boolean noVariableSupport;
+					{
+						VariableSupport support = javaInfo.getVariableSupport();
+						noVariableSupport = support == null || support.isDefault();
+					}
+					// only first assignment is variable
+					if (noVariableSupport) {
+						VariableSupport support;
+						// prepare assignments and binding
+						List<Expression> assignments = ExecutionFlowUtils
+								.getAssignments(m_editorState.getFlowDescription(), variable);
+						IVariableBinding variableBinding = AstNodeUtils.getVariableBinding(variable);
+						// local or field
+						if (variableBinding.isField()) {
+							if (assignments.size() == 1) {
+								if (variable.getParent() instanceof VariableDeclarationFragment) {
+									support = new FieldInitializerVariableSupport(javaInfo, variable);
 								} else {
-									support = new FieldReuseVariableSupport(javaInfo, variable);
+									support = new FieldUniqueVariableSupport(javaInfo, variable);
 								}
 							} else {
-								SimpleName simpleVariable = (SimpleName) variable;
-								if (assignments.size() == 1) {
-									support = new LocalUniqueVariableSupport(javaInfo, simpleVariable);
-								} else {
-									support = new LocalReuseVariableSupport(javaInfo, simpleVariable);
-								}
+								support = new FieldReuseVariableSupport(javaInfo, variable);
 							}
-							// set variable support
-							javaInfo.setVariableSupport(support);
+						} else {
+							SimpleName simpleVariable = (SimpleName) variable;
+							if (assignments.size() == 1) {
+								support = new LocalUniqueVariableSupport(javaInfo, simpleVariable);
+							} else {
+								support = new LocalReuseVariableSupport(javaInfo, simpleVariable);
+							}
 						}
+						// set variable support
+						javaInfo.setVariableSupport(support);
 					}
 				}
 			});

@@ -17,7 +17,6 @@ import org.eclipse.wb.gef.core.policies.IRequestEditPolicy;
 import org.eclipse.wb.internal.core.model.JavaInfoUtils;
 import org.eclipse.wb.internal.core.model.property.event.EventsProperty;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
@@ -70,12 +69,9 @@ public final class OpenListenerEditPolicy extends AbstractEditPolicy implements 
 	@Override
 	public void performRequest(Request request) {
 		if (!StringUtils.isEmpty(m_listenerName) && RequestConstants.REQ_OPEN.equals(request.getType())) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					EventsProperty eventsProperty = (EventsProperty) m_javaInfo.getPropertyByTitle("Events");
-					eventsProperty.openStubMethod(m_listenerName);
-				}
+			ExecutionUtils.runLog(() -> {
+				EventsProperty eventsProperty = (EventsProperty) m_javaInfo.getPropertyByTitle("Events");
+				eventsProperty.openStubMethod(m_listenerName);
 			});
 		}
 	}

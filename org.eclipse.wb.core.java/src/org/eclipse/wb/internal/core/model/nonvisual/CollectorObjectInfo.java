@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.model.presentation.DefaultObjectPresentation
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -143,15 +142,12 @@ public abstract class CollectorObjectInfo extends ObjectInfo {
 
 	@Override
 	public void delete() throws Exception {
-		ExecutionUtils.run(this, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				List<ObjectInfo> items = getItems();
-				for (int i = 0; i < items.size(); i++) {
-					ObjectInfo itemInfo = items.get(i);
-					if (!itemInfo.isDeleted()) {
-						itemInfo.delete();
-					}
+		ExecutionUtils.run(this, () -> {
+			List<ObjectInfo> items = getItems();
+			for (int i = 0; i < items.size(); i++) {
+				ObjectInfo itemInfo = items.get(i);
+				if (!itemInfo.isDeleted()) {
+					itemInfo.delete();
 				}
 			}
 		});

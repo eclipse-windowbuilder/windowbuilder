@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryCreati
 import org.eclipse.wb.internal.core.model.creation.factory.InstanceFactoryInfo;
 import org.eclipse.wb.internal.core.model.util.ObjectsLabelProvider;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.requests.CreationFactory;
@@ -137,12 +136,8 @@ public final class InstanceFactoryEntryInfo extends FactoryEntryInfo {
 		// no factories
 		if (factories.size() == 0) {
 			final InstanceFactoryInfo[] result = new InstanceFactoryInfo[1];
-			ExecutionUtils.run(m_rootJavaInfo, new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					result[0] = InstanceFactoryInfo.add(m_rootJavaInfo, m_factoryClass);
-				}
-			});
+			ExecutionUtils.run(m_rootJavaInfo,
+					() -> result[0] = InstanceFactoryInfo.add(m_rootJavaInfo, m_factoryClass));
 			return result[0];
 		}
 		// more than one factory

@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.editor.palette.DesignerPalette.DesignerPaletteOperations;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.FactoryEntryInfo;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.ui.palette.PaletteViewerPreferences;
 import org.eclipse.jface.action.Action;
@@ -399,24 +398,14 @@ final class DesignerPalettePopupActions {
 	private void exportPalette() {
 		final String path = getImportExportPath(SWT.SAVE);
 		if (path != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_operations.exportPalette(path);
-				}
-			});
+			ExecutionUtils.runLog(() -> m_operations.exportPalette(path));
 		}
 	}
 
 	private void importPalette() {
 		final String path = getImportExportPath(SWT.OPEN);
 		if (path != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_operations.importPalette(path);
-				}
-			});
+			ExecutionUtils.runLog(() -> m_operations.importPalette(path));
 		}
 	}
 

@@ -40,7 +40,6 @@ import org.eclipse.wb.internal.core.utils.exception.ICoreExceptionConstants;
 import org.eclipse.wb.internal.core.utils.exception.MultipleConstructorsError;
 import org.eclipse.wb.internal.core.utils.exception.NoEntryPointError;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
@@ -110,12 +109,9 @@ public final class DesignPage implements IDesignPage {
 	@Override
 	public void initialize(IDesignerEditor designerEditor) {
 		m_designerEditor = (DesignerEditor) designerEditor;
-		ExecutionUtils.runRethrow(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				m_compilationUnit = m_designerEditor.getCompilationUnit();
-				m_undoManager = new UndoManager(DesignPage.this, m_compilationUnit);
-			}
+		ExecutionUtils.runRethrow(() -> {
+			m_compilationUnit = m_designerEditor.getCompilationUnit();
+			m_undoManager = new UndoManager(DesignPage.this, m_compilationUnit);
 		});
 		// reparse on external modification
 		m_designerEditor.getEditorSite().getPage().addPartListener(m_partListener);
@@ -282,16 +278,13 @@ public final class DesignPage implements IDesignPage {
 	 */
 	private void checkDependenciesOnDesignPageActivation() {
 		if (m_rootObject != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					EditorActivatedRequest request = new EditorActivatedRequest();
-					m_rootObject.getBroadcast(EditorActivatedListener.class).invoke(request);
-					if (request.isReparseRequested()) {
-						refreshGEF();
-					} else if (request.isRefreshRequested()) {
-						m_rootObject.refresh();
-					}
+			ExecutionUtils.runLog(() -> {
+				EditorActivatedRequest request = new EditorActivatedRequest();
+				m_rootObject.getBroadcast(EditorActivatedListener.class).invoke(request);
+				if (request.isReparseRequested()) {
+					refreshGEF();
+				} else if (request.isRefreshRequested()) {
+					m_rootObject.refresh();
 				}
 			});
 		}
@@ -349,14 +342,11 @@ public final class DesignPage implements IDesignPage {
 		}
 		// dispose model
 		if (m_rootObject != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_rootObject.refresh_dispose();
-					m_rootObject.getBroadcastObject().dispose();
-					disposeContext(force);
-					GlobalStateJava.deactivate(m_rootObject);
-				}
+			ExecutionUtils.runLog(() -> {
+				m_rootObject.refresh_dispose();
+				m_rootObject.getBroadcastObject().dispose();
+				disposeContext(force);
+				GlobalStateJava.deactivate(m_rootObject);
 			});
 			m_rootObject = null;
 		}
@@ -367,12 +357,7 @@ public final class DesignPage implements IDesignPage {
 	 */
 	private void dispose_beforePresentation() {
 		if (m_rootObject != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_rootObject.getBroadcastObject().dispose_beforePresentation();
-				}
-			});
+			ExecutionUtils.runLog(() -> m_rootObject.getBroadcastObject().dispose_beforePresentation());
 		}
 	}
 
@@ -384,12 +369,7 @@ public final class DesignPage implements IDesignPage {
 	 */
 	protected void disposeContext(final boolean force) {
 		for (final EditorLifeCycleListener listener : getLifeCycleListeners()) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					listener.disposeContext(DesignPage.this, force);
-				}
-			});
+			ExecutionUtils.runLog(() -> listener.disposeContext(DesignPage.this, force));
 		}
 	}
 
@@ -600,12 +580,7 @@ public final class DesignPage implements IDesignPage {
 		new Thread("WindowBuilder dependency search") {
 			@Override
 			public void run() {
-				ExecutionUtils.runIgnore(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						JavaInfoUtils.rememberDependency(m_rootObject);
-					}
-				});
+				ExecutionUtils.runIgnore(() -> JavaInfoUtils.rememberDependency(m_rootObject));
 			}
 		}.start();
 	}

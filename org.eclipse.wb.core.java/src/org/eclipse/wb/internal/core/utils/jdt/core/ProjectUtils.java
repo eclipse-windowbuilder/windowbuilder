@@ -17,7 +17,6 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.utils.IOUtils2;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.execution.NoOpProgressMonitor;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.pde.ReflectivePDE;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -139,15 +138,12 @@ public final class ProjectUtils {
 	 */
 	public static void waitForAutoBuild() {
 		while (true) {
-			boolean success = ExecutionUtils.runIgnore(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					IJobManager jobManager = Job.getJobManager();
-					jobManager.wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
-					jobManager.wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
-					jobManager.wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
-					jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new NoOpProgressMonitor());
-				}
+			boolean success = ExecutionUtils.runIgnore(() -> {
+				IJobManager jobManager = Job.getJobManager();
+				jobManager.wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
+				jobManager.wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
+				jobManager.wakeUp(ResourcesPlugin.FAMILY_AUTO_BUILD);
+				jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, new NoOpProgressMonitor());
 			});
 			if (success) {
 				break;

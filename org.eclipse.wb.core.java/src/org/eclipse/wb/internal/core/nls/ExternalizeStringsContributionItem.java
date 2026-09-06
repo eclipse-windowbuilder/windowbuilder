@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.internal.core.nls.ui.LocaleUtils;
 import org.eclipse.wb.internal.core.nls.ui.NlsDialog;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.ContributionItem;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -95,18 +94,15 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
 	 * Handles click on {@link #m_toolItem}, select {@link LocaleInfo} or open {@link NlsDialog}.
 	 */
 	private void handleClick(final ToolBar parent, final Event event) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				if (event.detail == SWT.ARROW && !ArrayUtils.isEmpty(getLocales())) {
-					Rectangle bounds = m_toolItem.getBounds();
-					Point point = parent.toDisplay(bounds.x, bounds.y + bounds.height);
-					createMenu(parent);
-					m_menu.setLocation(point);
-					m_menu.setVisible(true);
-				} else {
-					openNLSDialog();
-				}
+		ExecutionUtils.runLog(() -> {
+			if (event.detail == SWT.ARROW && !ArrayUtils.isEmpty(getLocales())) {
+				Rectangle bounds = m_toolItem.getBounds();
+				Point point = parent.toDisplay(bounds.x, bounds.y + bounds.height);
+				createMenu(parent);
+				m_menu.setLocation(point);
+				m_menu.setVisible(true);
+			} else {
+				openNLSDialog();
 			}
 		});
 	}
@@ -188,17 +184,14 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
 	 * Displays current locale on {@link #m_toolItem}.
 	 */
 	private void displayCurrentLocale() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				if (NlsSupport.get(m_root).getLocales().length == 0) {
-					m_toolItem.setImage(DesignerPlugin.getImage("nls/globe3.png"));
-					m_toolItem.setText("");
-				} else {
-					LocaleInfo locale = AbstractSource.getLocaleInfo(m_root);
-					m_toolItem.setImage(LocaleUtils.getImage(locale));
-					m_toolItem.setText(locale.getTitle());
-				}
+		ExecutionUtils.runLog(() -> {
+			if (NlsSupport.get(m_root).getLocales().length == 0) {
+				m_toolItem.setImage(DesignerPlugin.getImage("nls/globe3.png"));
+				m_toolItem.setText("");
+			} else {
+				LocaleInfo locale = AbstractSource.getLocaleInfo(m_root);
+				m_toolItem.setImage(LocaleUtils.getImage(locale));
+				m_toolItem.setText(locale.getTitle());
 			}
 		});
 	}
@@ -207,24 +200,21 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
 	 * Ensures that current locale exists (uses first locale, if current one does not exist).
 	 */
 	private void updateCurrentLocale() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				NlsSupport support = NlsSupport.get(m_root);
-				// do nothing, if no sources/locales
-				if (support.getSources().length == 0) {
-					return;
-				}
-				// prepare current locale
-				LocaleInfo locale = AbstractSource.getLocaleInfo(m_root);
-				// check that current locale is still alive
-				LocaleInfo[] locales = support.getLocales();
-				if (!ArrayUtils.contains(locales, locale)) {
-					locale = locales[0];
-				}
-				// in any case, show with current locale
-				setCurrentLocale(locale);
+		ExecutionUtils.runLog(() -> {
+			NlsSupport support = NlsSupport.get(m_root);
+			// do nothing, if no sources/locales
+			if (support.getSources().length == 0) {
+				return;
 			}
+			// prepare current locale
+			LocaleInfo locale = AbstractSource.getLocaleInfo(m_root);
+			// check that current locale is still alive
+			LocaleInfo[] locales = support.getLocales();
+			if (!ArrayUtils.contains(locales, locale)) {
+				locale = locales[0];
+			}
+			// in any case, show with current locale
+			setCurrentLocale(locale);
 		});
 	}
 
@@ -232,13 +222,10 @@ public final class ExternalizeStringsContributionItem extends ContributionItem {
 	 * Sets new current locale.
 	 */
 	private void setCurrentLocale(final LocaleInfo locale) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				AbstractSource.setLocaleInfo(m_root, locale);
-				displayCurrentLocale();
-				m_root.refresh();
-			}
+		ExecutionUtils.runLog(() -> {
+			AbstractSource.setLocaleInfo(m_root, locale);
+			displayCurrentLocale();
+			m_root.refresh();
 		});
 	}
 }

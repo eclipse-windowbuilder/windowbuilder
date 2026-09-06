@@ -20,7 +20,6 @@ import org.eclipse.wb.internal.core.editor.DesignComposite;
 import org.eclipse.wb.internal.core.editor.DesignPage;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.views.IDesignCompositeProvider;
 
 import org.eclipse.core.runtime.CoreException;
@@ -197,24 +196,16 @@ IDesignCompositeProvider {
 	 * Moves cursor to given position in Java editor.
 	 */
 	public void showSourcePosition(final int position) {
-		ExecutionUtils.runLogLater(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				selectAndReveal(position, 0);
-			}
-		});
+		ExecutionUtils.runLogLater(() -> selectAndReveal(position, 0));
 	}
 
 	/**
 	 * Highlight lines with visited {@link ASTNode}s.
 	 */
 	public void highlightVisitedNodes(final Collection<ASTNode> nodes) {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				if (m_linesHighlighter != null) {
-					m_linesHighlighter.setVisitedNodes(nodes);
-				}
+		ExecutionUtils.runIgnore(() -> {
+			if (m_linesHighlighter != null) {
+				m_linesHighlighter.setVisitedNodes(nodes);
 			}
 		});
 	}

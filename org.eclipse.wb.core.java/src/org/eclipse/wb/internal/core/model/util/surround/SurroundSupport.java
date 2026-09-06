@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.model.ModelMessages;
 import org.eclipse.wb.internal.core.model.util.ObjectInfoAction;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.ui.IActionSingleton;
 import org.eclipse.wb.internal.core.utils.ui.MenuManagerEx;
@@ -197,12 +196,7 @@ public abstract class SurroundSupport<C extends AbstractComponentInfo, T extends
 			// do move
 			moveComponents(container);
 			moveDone(container, m_components);
-			ExecutionUtils.runLogLater(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					container.getBroadcastObject().select(List.of(container));
-				}
-			});
+			ExecutionUtils.runLogLater(() -> container.getBroadcastObject().select(List.of(container)));
 		}
 
 		private void moveComponents(C container) throws Exception {

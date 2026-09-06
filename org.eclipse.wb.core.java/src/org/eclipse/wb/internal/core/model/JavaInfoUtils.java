@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,7 +64,6 @@ import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
@@ -175,12 +174,7 @@ public class JavaInfoUtils {
 		DesignerPlugin.getStandardDisplay().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						info.getEditor().getModelUnit().getBuffer().save(null, false);
-					}
-				});
+				ExecutionUtils.runLog(() -> info.getEditor().getModelUnit().getBuffer().save(null, false));
 			}
 		});
 	}
@@ -227,12 +221,8 @@ public class JavaInfoUtils {
 		{
 			final boolean[] forceMoveEnable = new boolean[1];
 			final boolean[] forceMoveDisable = new boolean[1];
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					javaInfo.getBroadcastJava().canMove(javaInfo, forceMoveEnable, forceMoveDisable);
-				}
-			});
+			ExecutionUtils.runLog(//
+					() -> javaInfo.getBroadcastJava().canMove(javaInfo, forceMoveEnable, forceMoveDisable));
 			if (forceMoveEnable[0]) {
 				return true;
 			}
@@ -2146,16 +2136,13 @@ public class JavaInfoUtils {
 					if (binding == null) {
 						return;
 					}
-					ExecutionUtils.runIgnore(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							String typeName = AstNodeUtils.getFullyQualifiedName(binding, false);
-							if (typeName.indexOf('.') != -1 && !checkedTypes.contains(typeName)) {
-								checkedTypes.add(typeName);
-								IType type = javaProject.findType(typeName);
-								if (type != null && !type.isBinary()) {
-									addDependencies(dependencies, checkedTypes, type.getCompilationUnit(), level + 1);
-								}
+					ExecutionUtils.runIgnore(() -> {
+						String typeName = AstNodeUtils.getFullyQualifiedName(binding, false);
+						if (typeName.indexOf('.') != -1 && !checkedTypes.contains(typeName)) {
+							checkedTypes.add(typeName);
+							IType type = javaProject.findType(typeName);
+							if (type != null && !type.isBinary()) {
+								addDependencies(dependencies, checkedTypes, type.getCompilationUnit(), level + 1);
 							}
 						}
 					});

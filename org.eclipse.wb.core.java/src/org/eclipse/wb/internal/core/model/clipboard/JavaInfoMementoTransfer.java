@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.model.clipboard;
 
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.swt.dnd.ByteArrayTransfer;
@@ -82,12 +81,9 @@ public class JavaInfoMementoTransfer extends ByteArrayTransfer {
 	@Override
 	public void javaToNative(final Object object, final TransferData transferData) {
 		if (isSupportedType(transferData)) {
-			ExecutionUtils.runRethrow(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					byte[] bytes = convertObjectToBytes(object);
-					JavaInfoMementoTransfer.super.javaToNative(bytes, transferData);
-				}
+			ExecutionUtils.runRethrow(() -> {
+				byte[] bytes = convertObjectToBytes(object);
+				JavaInfoMementoTransfer.super.javaToNative(bytes, transferData);
 			});
 		}
 	}

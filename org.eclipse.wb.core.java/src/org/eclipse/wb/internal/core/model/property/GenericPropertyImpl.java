@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,7 +34,6 @@ import org.eclipse.wb.internal.core.nls.model.AbstractSource;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.Expression;
 
@@ -207,12 +206,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 			return;
 		}
 		// "normal" property
-		ExecutionUtils.run(m_javaInfo, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				setValueEx(value);
-			}
-		});
+		ExecutionUtils.run(m_javaInfo, () -> setValueEx(value));
 	}
 
 	private boolean process_NLSSupport_specialFunctionality(final Object value) throws Exception {
@@ -232,12 +226,7 @@ public final class GenericPropertyImpl extends GenericProperty {
 				final String key = stringValue.substring(keyPrefix.length());
 				final AbstractSource source = support.getKeySource(key);
 				if (source != null) {
-					ExecutionUtils.run(m_javaInfo, new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							source.useKey(m_this, key);
-						}
-					});
+					ExecutionUtils.run(m_javaInfo, () -> source.useKey(m_this, key));
 					return true;
 				}
 			}
@@ -247,12 +236,9 @@ public final class GenericPropertyImpl extends GenericProperty {
 			final Expression expression = getExpression();
 			if (expression != null) {
 				if (support.isExternalized(expression)) {
-					ExecutionUtils.run(m_javaInfo, new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							String string = value == UNKNOWN_VALUE ? null : (String) value;
-							support.setValue(expression, string);
-						}
+					ExecutionUtils.run(m_javaInfo, () -> {
+						String string = value == UNKNOWN_VALUE ? null : (String) value;
+						support.setValue(expression, string);
 					});
 					return true;
 				}

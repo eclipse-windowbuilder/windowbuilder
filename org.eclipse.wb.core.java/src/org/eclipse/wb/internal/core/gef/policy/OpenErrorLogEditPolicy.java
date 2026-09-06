@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.graphical.handles.DesignHandle;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.actions.errors.ErrorsAction;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -135,12 +134,7 @@ public final class OpenErrorLogEditPolicy extends AbstractEditPolicy {
 	 * Schedules showing error log later. We do this to allow normal "click" processing first.
 	 */
 	private void scheduleOpenErrorLog() {
-		ExecutionUtils.runLogLater(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				openErrorLog();
-			}
-		});
+		ExecutionUtils.runLogLater(this::openErrorLog);
 	}
 
 	/**

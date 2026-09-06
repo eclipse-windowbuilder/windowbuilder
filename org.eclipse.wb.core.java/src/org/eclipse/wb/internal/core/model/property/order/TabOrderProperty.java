@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.ArrayInitializer;
 import org.eclipse.jdt.core.dom.Expression;
@@ -148,12 +147,7 @@ public abstract class TabOrderProperty extends Property {
 
 	@Override
 	public final void setValue(final Object value) throws Exception {
-		ExecutionUtils.run(m_container, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				setValueEx(value);
-			}
-		});
+		ExecutionUtils.run(m_container, () -> setValueEx(value));
 	}
 
 	private void setValueEx(final Object value) throws Exception {

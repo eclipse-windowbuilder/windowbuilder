@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.editor.multi;
 
 import org.eclipse.wb.core.editor.IEditorPage;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.TabFolderDecorator;
 
@@ -77,16 +76,13 @@ abstract class DefaultMultiMode extends MultiMode {
 					e.doit = true;
 					e.detail = SWT.TRAVERSE_NONE;
 					// 3.6+
-					ExecutionUtils.runIgnore(new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							Control control = m_folder.getParent();
-							ReflectionUtils.invokeMethod(
-									control,
-									"traverse(int,org.eclipse.swt.widgets.Event)",
-									detail,
-									new Event());
-						}
+					ExecutionUtils.runIgnore(() -> {
+						Control control = m_folder.getParent();
+						ReflectionUtils.invokeMethod(
+								control,
+								"traverse(int,org.eclipse.swt.widgets.Event)",
+								detail,
+								new Event());
 					});
 				}
 			}

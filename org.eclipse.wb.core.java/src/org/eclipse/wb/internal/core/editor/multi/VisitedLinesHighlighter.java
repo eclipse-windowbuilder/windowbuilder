@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ package org.eclipse.wb.internal.core.editor.multi;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -129,12 +128,7 @@ public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener
 			m_positionManager.managePosition(position);
 		}
 		// paint
-		ExecutionUtils.runLogLater(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				m_textWidget.redraw();
-			}
-		});
+		ExecutionUtils.runLogLater(m_textWidget::redraw);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

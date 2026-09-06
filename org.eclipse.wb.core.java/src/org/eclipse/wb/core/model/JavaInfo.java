@@ -63,7 +63,6 @@ import org.eclipse.wb.internal.core.utils.ast.AstNodeUtils;
 import org.eclipse.wb.internal.core.utils.ast.StatementTarget;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
@@ -795,26 +794,23 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 	public void delete() throws Exception {
 		final ObjectInfo parent = getParent();
 		ObjectInfo hierarchyObject = parent != null ? parent : this;
-		ExecutionUtils.run(hierarchyObject, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				putArbitraryValue(FLAG_DELETING, Boolean.TRUE);
-				try {
-					// broadcast "before"
-					ObjectInfoDelete deleteBroadcast = getBroadcast(ObjectInfoDelete.class);
-					deleteBroadcast.before(parent, m_this);
-					// delete association
-					m_association.remove();
-					// delete creation/variable
-					VariableSupport variableSupport = m_variableSupport;
-					variableSupport.deleteBefore();
-					m_creationSupport.delete();
-					variableSupport.deleteAfter();
-					// broadcast "after"
-					deleteBroadcast.after(parent, m_this);
-				} finally {
-					removeArbitraryValue(FLAG_DELETING);
-				}
+		ExecutionUtils.run(hierarchyObject, () -> {
+			putArbitraryValue(FLAG_DELETING, Boolean.TRUE);
+			try {
+				// broadcast "before"
+				ObjectInfoDelete deleteBroadcast = getBroadcast(ObjectInfoDelete.class);
+				deleteBroadcast.before(parent, m_this);
+				// delete association
+				m_association.remove();
+				// delete creation/variable
+				VariableSupport variableSupport = m_variableSupport;
+				variableSupport.deleteBefore();
+				m_creationSupport.delete();
+				variableSupport.deleteAfter();
+				// broadcast "after"
+				deleteBroadcast.after(parent, m_this);
+			} finally {
+				removeArbitraryValue(FLAG_DELETING);
 			}
 		});
 	}
@@ -1160,12 +1156,8 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 			@Override
 			public boolean enterFrame(final ASTNode node) {
 				// send broadcast
-				ExecutionUtils.runRethrow(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						editorState.getBroadcast().getListener(ExecutionFlowEnterFrame.class).invoke(node);
-					}
-				});
+				ExecutionUtils.runRethrow(
+						() -> editorState.getBroadcast().getListener(ExecutionFlowEnterFrame.class).invoke(node));
 				// MethodDeclaration
 				if (node instanceof MethodDeclaration methodDeclaration) {
 					// don't visit local factory methods
@@ -1180,12 +1172,8 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 			public void leaveFrame(final ASTNode node) {
 				super.leaveFrame(node);
 				// send broadcast
-				ExecutionUtils.runRethrow(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						editorState.getBroadcast().getListener(EvaluationEventListener.class).leaveFrame(node);
-					}
-				});
+				ExecutionUtils.runRethrow(
+						() -> editorState.getBroadcast().getListener(EvaluationEventListener.class).leaveFrame(node));
 			}
 		};
 		// evaluate "this"

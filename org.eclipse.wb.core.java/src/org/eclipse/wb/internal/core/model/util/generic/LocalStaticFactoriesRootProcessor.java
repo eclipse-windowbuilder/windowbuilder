@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.model.description.factory.FactoryMethodDescr
 import org.eclipse.wb.internal.core.model.description.helpers.FactoryDescriptionHelper;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import java.util.Collections;
 import java.util.List;
@@ -63,12 +62,7 @@ public final class LocalStaticFactoriesRootProcessor implements IRootProcessor {
 	 * Configures given parent to copy properties of children according parameters in description.
 	 */
 	private static void processRoot(final JavaInfo rootJavaInfo) {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				installPaletteBroadcastEx(rootJavaInfo);
-			}
-		});
+		ExecutionUtils.runIgnore(() -> installPaletteBroadcastEx(rootJavaInfo));
 	}
 
 	private static void installPaletteBroadcastEx(JavaInfo rootJavaInfo) throws Exception {

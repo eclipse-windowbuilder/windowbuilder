@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -27,7 +27,6 @@ import org.eclipse.wb.internal.core.model.util.TemplateUtils;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
 import org.eclipse.wb.internal.core.utils.ast.DomGenerics;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 
 import org.eclipse.jdt.core.dom.BooleanLiteral;
@@ -65,17 +64,12 @@ public final class FactoryApplyAction extends Action {
 		m_description = description;
 		m_editor = m_component.getEditor();
 		// configure presentation
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ComponentDescription componentDescription =
-						ComponentDescriptionHelper.getDescription(m_editor, m_description.getReturnClass());
-				setImageDescriptor(componentDescription.getIcon());
-				setText(CodeUtils.getShortClass(m_description.getDeclaringClass().getName())
-						+ "."
-						+ m_description.getName()
-						+ "(...)");
-			}
+		ExecutionUtils.runLog(() -> {
+			ComponentDescription componentDescription = ComponentDescriptionHelper.getDescription(m_editor,
+					m_description.getReturnClass());
+			setImageDescriptor(componentDescription.getIcon());
+			setText(CodeUtils.getShortClass(m_description.getDeclaringClass().getName()) + "." + m_description.getName()
+					+ "(...)");
 		});
 	}
 
@@ -86,13 +80,10 @@ public final class FactoryApplyAction extends Action {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void run() {
-		ExecutionUtils.run(m_component, new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				prepareGenericProperties();
-				if (m_component.getCreationSupport() instanceof ConstructorCreationSupport) {
-					runConstructor();
-				}
+		ExecutionUtils.run(m_component, () -> {
+			prepareGenericProperties();
+			if (m_component.getCreationSupport() instanceof ConstructorCreationSupport) {
+				runConstructor();
 			}
 		});
 	}

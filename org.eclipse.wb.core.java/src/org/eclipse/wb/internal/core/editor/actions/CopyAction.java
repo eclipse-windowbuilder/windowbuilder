@@ -16,7 +16,6 @@ import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMementoTransfer;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
@@ -60,13 +59,10 @@ public class CopyAction extends Action {
 
 	@Override
 	public void run() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
-				m_mementos = getMementos(editParts);
-				doCopy(m_mementos);
-			}
+		ExecutionUtils.runLog(() -> {
+			List<? extends EditPart> editParts = m_viewer.getSelectedEditParts();
+			m_mementos = getMementos(editParts);
+			doCopy(m_mementos);
 		});
 	}
 

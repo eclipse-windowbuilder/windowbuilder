@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -42,7 +42,6 @@ import org.eclipse.wb.internal.core.model.util.ScriptUtils;
 import org.eclipse.wb.internal.core.utils.Pair;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
@@ -138,15 +137,12 @@ public final class PaletteManager {
 	public void reloadPalette() {
 		m_paletteInfo = new PaletteInfo();
 		if (m_toolkitId != null) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					parseExtensionPalette();
-					parseCustomPalette();
-					processReorderRequests();
-					// apply commands
-					commands_apply();
-				}
+			ExecutionUtils.runLog(() -> {
+				parseExtensionPalette();
+				parseCustomPalette();
+				processReorderRequests();
+				// apply commands
+				commands_apply();
 			});
 		}
 	}
@@ -224,12 +220,7 @@ public final class PaletteManager {
 
 	private void commandsRead_fromStream(final InputStream inputStream) throws Exception {
 		try {
-			ExecutionUtils.runIgnore(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					commandsRead_fromStream0(inputStream);
-				}
-			});
+			ExecutionUtils.runIgnore(() -> commandsRead_fromStream0(inputStream));
 		} finally {
 			IOUtils.closeQuietly(inputStream);
 		}
@@ -243,12 +234,7 @@ public final class PaletteManager {
 					String localName,
 					final String name,
 					final Attributes attributes) {
-				ExecutionUtils.runIgnore(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						commandsRead_singleCommand(name, attributes);
-					}
-				});
+				ExecutionUtils.runIgnore(() -> commandsRead_singleCommand(name, attributes));
 			}
 		});
 	}
@@ -284,12 +270,9 @@ public final class PaletteManager {
 	 * Adds given {@link Command} to the list (and executes it).
 	 */
 	public void commands_add(final Command command) {
-		ExecutionUtils.runIgnore(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				command.execute(m_paletteInfo);
-				command.addToCommandList(m_commands);
-			}
+		ExecutionUtils.runIgnore(() -> {
+			command.execute(m_paletteInfo);
+			command.addToCommandList(m_commands);
 		});
 	}
 
@@ -297,26 +280,23 @@ public final class PaletteManager {
 	 * Stores current {@link Command}'s {@link List}.
 	 */
 	public void commands_write() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				File commandsFile = commands_getFile();
-				PrintWriter writer = new PrintWriter(new FileOutputStream(commandsFile));
-				try {
-					writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-					writer.println("<commands>");
-					// write separate commands
-					for (Command command : m_commands) {
-						writer.println(command.toString());
-					}
-					// close
-					writer.println("</commands>");
-				} finally {
-					writer.close();
+		ExecutionUtils.runLog(() -> {
+			File commandsFile = commands_getFile();
+			PrintWriter writer = new PrintWriter(new FileOutputStream(commandsFile));
+			try {
+				writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+				writer.println("<commands>");
+				// write separate commands
+				for (Command command : m_commands) {
+					writer.println(command.toString());
 				}
-				// we may be saved something in "wbp-meta", so refresh it
-				m_project.getFolder("wbp-meta").refreshLocal(IResource.DEPTH_INFINITE, null);
+				// close
+				writer.println("</commands>");
+			} finally {
+				writer.close();
 			}
+			// we may be saved something in "wbp-meta", so refresh it
+			m_project.getFolder("wbp-meta").refreshLocal(IResource.DEPTH_INFINITE, null);
 		});
 	}
 
@@ -435,71 +415,66 @@ public final class PaletteManager {
 	private void processCategoryChild(final PaletteInfo paletteInfo,
 			final CategoryInfo _categoryInfo,
 			final IConfigurationElement element) {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				// prepare category
-				CategoryInfo categoryInfo = _categoryInfo;
-				if (categoryInfo == null) {
-					String categoryId = element.getAttribute("category");
-					Assert.isNotNull(
-							categoryId,
-							"Element defined outside of category, so requires 'category' attribute.");
-					categoryInfo = paletteInfo.getCategory(categoryId);
-					if (categoryId.equals("org.eclipse.wb.rcp.layouts")) {
-						if (InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
-								.getBoolean(categoryId, true)) {
-							categoryInfo = filterPaletteLayouts(categoryInfo);
-						}
+		ExecutionUtils.runLog(() -> {
+			// prepare category
+			CategoryInfo categoryInfo = _categoryInfo;
+			if (categoryInfo == null) {
+				String categoryId = element.getAttribute("category");
+				Assert.isNotNull(categoryId, "Element defined outside of category, so requires 'category' attribute.");
+				categoryInfo = paletteInfo.getCategory(categoryId);
+				if (categoryId.equals("org.eclipse.wb.rcp.layouts")) {
+					if (InstanceScope.INSTANCE.getNode(IEditorPreferenceConstants.P_AVAILABLE_LAYOUTS_NODE)
+							.getBoolean(categoryId, true)) {
+						categoryInfo = filterPaletteLayouts(categoryInfo);
 					}
-					Assert.isNotNull(categoryInfo, "No category with id '" + categoryId + "' found.");
 				}
-				// generic entry
-				if ("entry".equals(element.getName())) {
-					EntryInfo entryInfo = (EntryInfo) element.createExecutableExtension("class");
-					// set id
-					{
-						String id = element.getAttribute("id");
-						if (id != null) {
-							entryInfo.setId(id);
-						}
+				Assert.isNotNull(categoryInfo, "No category with id '" + categoryId + "' found.");
+			}
+			// generic entry
+			if ("entry".equals(element.getName())) {
+				EntryInfo entryInfo = (EntryInfo) element.createExecutableExtension("class");
+				// set id
+				{
+					String id = element.getAttribute("id");
+					if (id != null) {
+						entryInfo.setId(id);
 					}
-					// set optional name
-					{
-						String name = element.getAttribute("name");
-						if (name != null) {
-							entryInfo.setName(name);
-						}
+				}
+				// set optional name
+				{
+					String name = element.getAttribute("name");
+					if (name != null) {
+						entryInfo.setName(name);
 					}
-					// add
+				}
+				// add
+				categoryInfo.addEntry(entryInfo);
+			}
+			// component entry
+			if ("component".equals(element.getName())) {
+				if (isConditionTrue(element)) {
+					EntryInfo entryInfo = new ComponentEntryInfo(categoryInfo, element);
 					categoryInfo.addEntry(entryInfo);
 				}
-				// component entry
-				if ("component".equals(element.getName())) {
-					if (isConditionTrue(element)) {
-						EntryInfo entryInfo = new ComponentEntryInfo(categoryInfo, element);
-						categoryInfo.addEntry(entryInfo);
-					}
+			}
+			// static factory
+			if ("static-factory".equals(element.getName())) {
+				String factoryClassName = ExternalFactoriesHelper.getRequiredAttribute(element, "class");
+				for (IConfigurationElement methodElement : element.getChildren("method")) {
+					AttributesProvider attributes = AttributesProviders.get(methodElement);
+					StaticFactoryEntryInfo entryInfo = new StaticFactoryEntryInfo(categoryInfo, factoryClassName,
+							attributes);
+					categoryInfo.addEntry(entryInfo);
 				}
-				// static factory
-				if ("static-factory".equals(element.getName())) {
-					String factoryClassName = ExternalFactoriesHelper.getRequiredAttribute(element, "class");
-					for (IConfigurationElement methodElement : element.getChildren("method")) {
-						AttributesProvider attributes = AttributesProviders.get(methodElement);
-						StaticFactoryEntryInfo entryInfo =
-								new StaticFactoryEntryInfo(categoryInfo, factoryClassName, attributes);
-						categoryInfo.addEntry(entryInfo);
-					}
-				}
-				// instance factory
-				if ("instance-factory".equals(element.getName())) {
-					String factoryClassName = ExternalFactoriesHelper.getRequiredAttribute(element, "class");
-					for (IConfigurationElement methodElement : element.getChildren("method")) {
-						AttributesProvider attributes = AttributesProviders.get(methodElement);
-						InstanceFactoryEntryInfo entryInfo =
-								new InstanceFactoryEntryInfo(categoryInfo, factoryClassName, attributes);
-						categoryInfo.addEntry(entryInfo);
-					}
+			}
+			// instance factory
+			if ("instance-factory".equals(element.getName())) {
+				String factoryClassName = ExternalFactoriesHelper.getRequiredAttribute(element, "class");
+				for (IConfigurationElement methodElement : element.getChildren("method")) {
+					AttributesProvider attributes = AttributesProviders.get(methodElement);
+					InstanceFactoryEntryInfo entryInfo = new InstanceFactoryEntryInfo(categoryInfo, factoryClassName,
+							attributes);
+					categoryInfo.addEntry(entryInfo);
 				}
 			}
 		});

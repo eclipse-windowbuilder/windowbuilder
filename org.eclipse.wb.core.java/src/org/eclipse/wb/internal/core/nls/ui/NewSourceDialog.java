@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSource;
 import org.eclipse.wb.internal.core.nls.model.AbstractSource;
 import org.eclipse.wb.internal.core.utils.dialogfields.StatusUtils;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 
@@ -119,12 +118,7 @@ public class NewSourceDialog extends TitleAreaDialog {
 	 */
 	private void createTypeGroup(final Composite container) {
 		// fill typeGroup with SourceDescription's
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				createDescriptionsControls(container);
-			}
-		});
+		ExecutionUtils.runLog(() -> createDescriptionsControls(container));
 		// create sample viewer
 		{
 			Group exampleGroup = new Group(container, SWT.NONE);
@@ -171,12 +165,7 @@ public class NewSourceDialog extends TitleAreaDialog {
 				sourceButton.addSelectionListener(new SelectionAdapter() {
 					@Override
 					public void widgetSelected(SelectionEvent e) {
-						ExecutionUtils.runLog(new RunnableEx() {
-							@Override
-							public void run() throws Exception {
-								populateForSourceIndex(index);
-							}
-						});
+						ExecutionUtils.runLog(() -> populateForSourceIndex(index));
 					}
 				});
 			}
@@ -196,12 +185,7 @@ public class NewSourceDialog extends TitleAreaDialog {
 		String title = m_currentSourceDescription.getTitle();
 		setTitle(title);
 		// show source in async, because Dialog itself manages size during create
-		ExecutionUtils.runLogLater(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				populateForSourceIndex(0);
-			}
-		});
+		ExecutionUtils.runLogLater(() -> populateForSourceIndex(0));
 	}
 
 	private void populateForSourceIndex(int index) throws Exception {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,7 +41,6 @@ import org.eclipse.wb.internal.core.utils.dialogfields.IStringButtonAdapter;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringButtonDialogField;
 import org.eclipse.wb.internal.core.utils.dialogfields.StringDialogField;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.jdt.core.ProjectUtils;
 import org.eclipse.wb.internal.core.utils.jdt.ui.JdtUiUtils;
@@ -110,12 +109,7 @@ public final class FactoryCreateAction extends Action {
 		setImageDescriptor(DesignerPlugin.getImageDescriptor("actions/factory/factory_new.png"));
 		setText(ModelMessages.FactoryCreateAction_text);
 		// prepare collections for creation/invocations
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				fillCollections();
-			}
-		});
+		ExecutionUtils.runLog(this::fillCollections);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -260,12 +254,9 @@ public final class FactoryCreateAction extends Action {
 	public void run() {
 		FactoryCreateDialog dialog = new FactoryCreateDialog();
 		if (dialog.open() == Window.OK) {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					generate(true);
-					m_editor.commitChanges();
-				}
+			ExecutionUtils.runLog(() -> {
+				generate(true);
+				m_editor.commitChanges();
 			});
 			// force reparse
 			{
@@ -736,15 +727,12 @@ public final class FactoryCreateAction extends Action {
 				m_classField = new StringButtonDialogField(new IStringButtonAdapter() {
 					@Override
 					public void changeControlPressed(DialogField field) {
-						ExecutionUtils.runLog(new RunnableEx() {
-							@Override
-							public void run() throws Exception {
-								IType type = JdtUiUtils.selectClassType(getShell(), m_editor.getJavaProject());
-								if (type != null) {
-									ICompilationUnit compilationUnit = type.getCompilationUnit();
-									m_classField.setTextWithoutUpdate(type.getElementName());
-									m_packageField.setPackage((IPackageFragment) compilationUnit.getParent());
-								}
+						ExecutionUtils.runLog(() -> {
+							IType type = JdtUiUtils.selectClassType(getShell(), m_editor.getJavaProject());
+							if (type != null) {
+								ICompilationUnit compilationUnit = type.getCompilationUnit();
+								m_classField.setTextWithoutUpdate(type.getElementName());
+								m_packageField.setPackage((IPackageFragment) compilationUnit.getParent());
 							}
 						});
 					}
@@ -752,15 +740,12 @@ public final class FactoryCreateAction extends Action {
 				m_classField.setButtonLabel(ModelMessages.FactoryCreateAction_classBrowse);
 				doCreateField(m_classField, ModelMessages.FactoryCreateAction_classLabel);
 				// try to use existing factory
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						ICompilationUnit factoryUnit = findFactoryUnit();
-						if (factoryUnit != null) {
-							m_classField.setText(factoryUnit.findPrimaryType().getElementName());
-						} else {
-							m_classField.setFocus();
-						}
+				ExecutionUtils.runLog(() -> {
+					ICompilationUnit factoryUnit = findFactoryUnit();
+					if (factoryUnit != null) {
+						m_classField.setText(factoryUnit.findPrimaryType().getElementName());
+					} else {
+						m_classField.setFocus();
 					}
 				});
 			}
@@ -964,12 +949,9 @@ public final class FactoryCreateAction extends Action {
 		protected void buttonPressed(int buttonId) {
 			super.buttonPressed(buttonId);
 			if (buttonId == CREATE_ID) {
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						generate(false);
-						validateAll();
-					}
+				ExecutionUtils.runLog(() -> {
+					generate(false);
+					validateAll();
 				});
 			}
 		}
@@ -992,12 +974,8 @@ public final class FactoryCreateAction extends Action {
 			}
 			// update preview
 			if (m_canPreview) {
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						JdtUiUtils.setJavaSourceForViewer(m_previewViewer, getFactoryPreviewSource());
-					}
-				});
+				ExecutionUtils.runLog( //
+						() -> JdtUiUtils.setJavaSourceForViewer(m_previewViewer, getFactoryPreviewSource()));
 			} else {
 				JdtUiUtils.setJavaSourceForViewer(
 						m_previewViewer,

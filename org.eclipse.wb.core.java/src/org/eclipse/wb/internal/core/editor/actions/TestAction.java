@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.constants.CoreImages;
 import org.eclipse.wb.internal.core.model.TopBoundsSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.Action;
 
@@ -62,17 +61,7 @@ public final class TestAction extends Action {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void run() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				ExecutionUtils.runDesignTime(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						run0();
-					}
-				});
-			}
-		});
+		ExecutionUtils.runLog(() -> ExecutionUtils.runDesignTime(this::run0));
 	}
 
 	private void run0() throws Exception {

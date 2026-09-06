@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.model.property.editor.PropertyEditor;
 import org.eclipse.wb.internal.core.model.property.editor.StringListPropertyEditor;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorWarning;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
@@ -63,12 +62,7 @@ abstract class ModelMethodPropertyAbstractSupport {
 	 * Configures given {@link ObjectInfo} to create properties.
 	 */
 	protected final void install() {
-		ExecutionUtils.runLog(new RunnableEx() {
-			@Override
-			public void run() throws Exception {
-				installEx();
-			}
-		});
+		ExecutionUtils.runLog(this::installEx);
 	}
 
 	private void installEx() throws Exception {

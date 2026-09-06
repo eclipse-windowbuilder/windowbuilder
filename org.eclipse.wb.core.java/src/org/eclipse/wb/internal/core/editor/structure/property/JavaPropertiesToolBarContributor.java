@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.model.variable.VariableSupport;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
@@ -82,14 +81,11 @@ public final class JavaPropertiesToolBarContributor implements IPropertiesToolBa
 			IAction variableConvertAction = new Action() {
 				@Override
 				public void run() {
-					ExecutionUtils.run(javaInfo, new RunnableEx() {
-						@Override
-						public void run() throws Exception {
-							if (variableSupport.canConvertLocalToField()) {
-								variableSupport.convertLocalToField();
-							} else if (variableSupport.canConvertFieldToLocal()) {
-								variableSupport.convertFieldToLocal();
-							}
+					ExecutionUtils.run(javaInfo, () -> {
+						if (variableSupport.canConvertLocalToField()) {
+							variableSupport.convertLocalToField();
+						} else if (variableSupport.canConvertFieldToLocal()) {
+							variableSupport.convertFieldToLocal();
 						}
 					});
 				}

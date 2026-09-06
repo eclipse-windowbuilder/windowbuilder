@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -139,13 +139,10 @@ public final class StringPropertyDialog extends ResizableDialog {
 			m_valueText = new Text(area, SWT.BORDER | SWT.MULTI | SWT.WRAP);
 			GridDataFactory.create(m_valueText).grab().hintC(80, 8).fill();
 			// initial value
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					Object value = m_property.getValue();
-					if (value instanceof String) {
-						m_valueText.setText((String) value);
-					}
+			ExecutionUtils.runLog(() -> {
+				Object value = m_property.getValue();
+				if (value instanceof String) {
+					m_valueText.setText((String) value);
 				}
 			});
 			// handle Ctrl+Enter as OK
@@ -170,12 +167,8 @@ public final class StringPropertyDialog extends ResizableDialog {
 				m_nlsButton.setText(ModelMessages.StringPropertyDialog_localizationUseExisting);
 				m_nlsButton.setEnabled(!m_editableSupport.getEditableSources().isEmpty());
 				// initial state
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						m_nlsButton.setSelection(m_support.isExternalized(m_genericProperty.getExpression()));
-					}
-				});
+				ExecutionUtils.runLog(
+						() -> m_nlsButton.setSelection(m_support.isExternalized(m_genericProperty.getExpression())));
 				// add selection listener
 				m_nlsButton.addListener(SWT.Selection, new Listener() {
 					@Override
@@ -308,12 +301,7 @@ public final class StringPropertyDialog extends ResizableDialog {
 				}
 			});
 		} else {
-			ExecutionUtils.runLog(new RunnableEx() {
-				@Override
-				public void run() throws Exception {
-					m_property.setValue(value);
-				}
-			});
+			ExecutionUtils.runLog(() -> m_property.setValue(value));
 		}
 		// close dialog
 		super.okPressed();

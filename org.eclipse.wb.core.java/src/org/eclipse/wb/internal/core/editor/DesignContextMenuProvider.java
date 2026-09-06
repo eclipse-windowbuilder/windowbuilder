@@ -18,7 +18,6 @@ import org.eclipse.wb.core.editor.constants.IEditorPreferenceConstants;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.internal.core.editor.actions.DesignPageActions;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.gef.core.ContextMenuProvider;
 import org.eclipse.wb.internal.gef.core.MultiSelectionContextMenuProvider;
 
@@ -117,12 +116,9 @@ IContextMenuConstants {
 		// send notification
 		if (!wbBasic) {
 			if (editPart.getModel() instanceof ObjectInfo) {
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						ObjectInfo object = (ObjectInfo) editPart.getModel();
-						object.getBroadcastObject().addContextMenu(m_selectedObjects, object, manager);
-					}
+				ExecutionUtils.runLog(() -> {
+					ObjectInfo object = (ObjectInfo) editPart.getModel();
+					object.getBroadcastObject().addContextMenu(m_selectedObjects, object, manager);
 				});
 			}
 		}

@@ -23,7 +23,6 @@ import org.eclipse.wb.internal.core.nls.edit.IEditableSupportListener;
 import org.eclipse.wb.internal.core.nls.edit.StringPropertyInfo;
 import org.eclipse.wb.internal.core.utils.check.Assert;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
-import org.eclipse.wb.internal.core.utils.execution.RunnableEx;
 import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.core.utils.ui.GridLayoutFactory;
 
@@ -407,13 +406,10 @@ public final class PropertiesComposite extends Composite {
 				// add properties
 				children.addAll(m_support.getProperties(component));
 				// add children with properties
-				ExecutionUtils.runLog(new RunnableEx() {
-					@Override
-					public void run() throws Exception {
-						for (JavaInfo child : m_support.getTreeChildren(component)) {
-							if (m_support.hasPropertiesInTree(child)) {
-								children.add(child);
-							}
+				ExecutionUtils.runLog(() -> {
+					for (JavaInfo child : m_support.getTreeChildren(component)) {
+						if (m_support.hasPropertiesInTree(child)) {
+							children.add(child);
 						}
 					}
 				});
