@@ -60,6 +60,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -541,11 +542,11 @@ public final class DesignPage implements IDesignPage {
 					m_designerEditor.getMultiMode().showSource();
 				}
 
-				// TODO(scheglov)
-				//        @Override
-				//        public void highlightVisitedNodes(Collection<ASTNode> nodes) {
-				//          m_designerEditor.highlightVisitedNodes(nodes);
-				//        }
+				@Override
+				public void highlightVisitedLines(Collection<Integer> lines) {
+					m_designerEditor.highlightVisitedLines(lines);
+				}
+
 				@Override
 				public void handleException(Throwable e) {
 					handleDesignException(e);

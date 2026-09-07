@@ -92,11 +92,13 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 /**
  * Abstract model for any Java-based model object. It has some presentation in AST.
@@ -1199,8 +1201,11 @@ public class JavaInfo extends ObjectInfo implements HasSourcePosition {
 			String unitSource = editor.getModelUnit().getSource();
 			boolean isCommitted = editorSource.equals(unitSource);
 			if (isCommitted) {
-				// TODO(scheglov)
-				//        site.highlightVisitedNodes(visitedNodes.getNodes());
+				Set<Integer> lines = new HashSet<>();
+				for (ASTNode node : visitedNodes.getNodes()) {
+					lines.add(editor.getLineNumber(node.getStartPosition()));
+				}
+				site.highlightVisitedLines(lines);
 			}
 		}
 	}

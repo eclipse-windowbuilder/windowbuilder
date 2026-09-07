@@ -19,7 +19,6 @@ import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
-import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.jface.text.IDocument;
@@ -39,9 +38,7 @@ import org.eclipse.swt.graphics.RGB;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Helper for highlighting lines visited during rendering.
@@ -108,16 +105,10 @@ public class VisitedLinesHighlighter implements IPainter, LineBackgroundListener
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public void setVisitedNodes(Collection<ASTNode> nodes) throws Exception {
+	public void setVisitedLines(Collection<Integer> lines) throws Exception {
 		// unmanage previous positions
 		for (Position position : m_linePositions) {
 			m_positionManager.unmanagePosition(position);
-		}
-		// prepare lines
-		Set<Integer> lines = new HashSet<>();
-		for (ASTNode node : nodes) {
-			int line = m_document.getLineOfOffset(node.getStartPosition());
-			lines.add(line);
 		}
 		// create new positions
 		m_linePositions.clear();
