@@ -20,6 +20,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.TreeViewer;
 
+import java.util.Collection;
+
 /**
  * Provides access to the {@link DesignPage}.
  *
@@ -49,12 +51,12 @@ public abstract class DesignPageSite implements IDesignPageSite {
 	public void openSourcePosition(int position) {
 	}
 
-	// TODO(scheglov)
-	//  /**
-	//   * Highlight in editor lines with visited {@link ASTNode}s.
-	//   */
-	//  public void highlightVisitedNodes(Collection<ASTNode> nodes) {
-	//  }
+	/**
+	 * Highlight in editor the given lines, which were visited while evaluating the components.
+	 */
+	public void highlightVisitedLines(Collection<Integer> lines) {
+	}
+
 	/**
 	 * Handles any unexpected {@link Exception}.
 	 */

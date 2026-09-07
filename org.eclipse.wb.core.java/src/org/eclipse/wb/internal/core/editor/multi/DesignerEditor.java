@@ -25,7 +25,6 @@ import org.eclipse.wb.internal.core.views.IDesignCompositeProvider;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 import org.eclipse.jdt.ui.IWorkingCopyManager;
 import org.eclipse.jdt.ui.JavaUI;
@@ -200,12 +199,12 @@ IDesignCompositeProvider {
 	}
 
 	/**
-	 * Highlight lines with visited {@link ASTNode}s.
+	 * Highlight the given lines, which were visited while evaluating the components.
 	 */
-	public void highlightVisitedNodes(final Collection<ASTNode> nodes) {
+	public void highlightVisitedLines(final Collection<Integer> lines) {
 		ExecutionUtils.runIgnore(() -> {
 			if (m_linesHighlighter != null) {
-				m_linesHighlighter.setVisitedNodes(nodes);
+				m_linesHighlighter.setVisitedLines(lines);
 			}
 		});
 	}
