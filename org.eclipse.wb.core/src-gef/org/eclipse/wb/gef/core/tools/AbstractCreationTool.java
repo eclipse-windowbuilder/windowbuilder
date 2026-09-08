@@ -18,6 +18,8 @@ import org.eclipse.draw2d.Cursors;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.SharedCursors;
+import org.eclipse.gef.requests.CreateRequest;
+import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.TargetingTool;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -47,7 +49,7 @@ public abstract class AbstractCreationTool extends TargetingTool {
 		if (button == 1) {
 			if (isInState(STATE_INITIAL)) {
 				setState(STATE_DRAG);
-				((AbstractCreateRequest) getTargetRequest()).setLocation(getLocation());
+				((LocationRequest) getTargetRequest()).setLocation(getLocation());
 				lockTargetEditPart(getTargetEditPart());
 			}
 		} else {
@@ -115,13 +117,26 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	@Override
 	protected void updateTargetRequest() {
 		super.updateTargetRequest();
-		AbstractCreateRequest request = (AbstractCreateRequest) getTargetRequest();
 		if (isInState(STATE_DRAG_IN_PROGRESS)) {
-			request.setLocation(getStartLocation());
-			request.setSize(getDragMoveDelta());
+			// TODO - can be removed once we use the GEF CreationTool
+			if (getTargetRequest() instanceof CreateRequest request) {
+				request.setLocation(getStartLocation());
+				request.setSize(getDragMoveDelta());
+			}
+			if (getTargetRequest() instanceof AbstractCreateRequest request) {
+				request.setLocation(getStartLocation());
+				request.setSize(getDragMoveDelta());
+			}
 		} else {
-			request.setSize(null);
-			request.setLocation(getLocation());
+			// TODO - can be removed once we use the GEF CreationTool
+			if (getTargetRequest() instanceof CreateRequest request) {
+				request.setSize(null);
+				request.setLocation(getLocation());
+			}
+			if (getTargetRequest() instanceof AbstractCreateRequest request) {
+				request.setSize(null);
+				request.setLocation(getLocation());
+			}
 		}
 	}
 
