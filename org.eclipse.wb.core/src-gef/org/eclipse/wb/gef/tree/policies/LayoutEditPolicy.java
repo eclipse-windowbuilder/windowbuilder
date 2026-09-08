@@ -14,7 +14,6 @@ package org.eclipse.wb.gef.tree.policies;
 
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.gef.tree.TreeViewer;
 
@@ -28,6 +27,7 @@ import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;

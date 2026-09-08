@@ -15,7 +15,6 @@ package org.eclipse.wb.core.gef.policy.validator;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.utils.state.GlobalState;
 import org.eclipse.wb.internal.core.utils.state.IParametersProvider;
@@ -26,6 +25,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.DropRequest;
 
 import java.util.List;
@@ -57,9 +57,17 @@ public final class BorderOfChildLayoutRequestValidator implements ILayoutRequest
 	// ILayoutRequestValidator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @since 1.26
+	 */
 	@Override
 	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
 		return isTargetingToHost_containerSelected(host, request);
+	}
+
+	@Deprecated(since = "2026-12", forRemoval = true)
+	public boolean validateCreateRequest(EditPart host, org.eclipse.wb.gef.core.requests.CreateRequest request) {
+		return validateCreateRequest(host, (CreateRequest) request);
 	}
 
 	@Override

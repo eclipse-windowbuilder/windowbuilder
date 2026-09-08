@@ -13,7 +13,6 @@
 package org.eclipse.wb.core.gef.policy.validator;
 
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.model.description.IComponentDescription;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.core.utils.state.ILayoutRequestValidatorHelper;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateRequest;
 
 import java.util.List;
 
@@ -38,9 +38,17 @@ public abstract class AbstractLayoutRequestValidator implements ILayoutRequestVa
 	// ILayoutRequestValidator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @since 1.26
+	 */
 	@Override
 	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
 		return validate(host, request.getNewObject());
+	}
+
+	@Deprecated(since = "2026-12", forRemoval = true)
+	public boolean validateCreateRequest(EditPart host, org.eclipse.wb.gef.core.requests.CreateRequest request) {
+		return validateCreateRequest(host, (CreateRequest) request);
 	}
 
 	@Override

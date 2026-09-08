@@ -15,7 +15,6 @@ package org.eclipse.wb.core.gef.policy.layout.flow;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -31,6 +30,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.DropRequest;
 
 import java.util.ArrayList;
@@ -133,8 +133,16 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 	// Commands: create
 	//
 	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @since 1.26
+	 */
 	@Override
 	protected final Command getCreateCommand(CreateRequest request) {
+		return getCreateCommand(request.getNewObject(), getReferenceObject(request));
+	}
+
+	@Deprecated(since = "2026-12", forRemoval = true)
+	protected final Command getCreateCommand(org.eclipse.wb.gef.core.requests.CreateRequest request) {
 		return getCreateCommand(request.getNewObject(), getReferenceObject(request));
 	}
 
@@ -489,7 +497,7 @@ public abstract class AbstractFlowLayoutEditPolicy extends LayoutEditPolicy {
 			reference = GenericsUtils.getNextOrNull(children, m_reference);
 		}
 		// skip moving children
-		if (request instanceof AbstractCreateRequest) {
+		if (request instanceof AbstractCreateRequest || request instanceof CreateRequest) {
 			return reference;
 		} else {
 			List<? extends EditPart> selectedEditParts = getHost().getViewer().getSelectedEditParts();

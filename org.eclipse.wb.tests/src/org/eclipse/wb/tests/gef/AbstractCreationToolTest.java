@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,11 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
-import org.eclipse.wb.gef.core.tools.AbstractCreationTool;
-
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.tools.TargetingTool;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,8 +25,8 @@ import org.junit.jupiter.api.Test;
  *
  */
 public abstract class AbstractCreationToolTest extends RequestTestCase {
-	protected AbstractCreateRequest m_request;
-	protected AbstractCreationTool m_tool;
+	protected Request m_request;
+	protected TargetingTool m_tool;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -43,6 +42,10 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 	}
 
 	protected abstract void configureTestCase();
+
+	protected abstract void setSize(Dimension d);
+
+	protected abstract void setLocation(Point p);
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -70,20 +73,20 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		// enter in "editPart"
 		{
 			m_sender.moveTo(60, 60);
-			m_request.setLocation(new Point(60, 60));
+			setLocation(new Point(60, 60));
 			//
 			expectedLogger.log(editPart, new String[]{
 					"getTargetEditPart",
 					"getTargetEditPart",
 					"showTargetFeedback",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// exit from "editPart" and enter in "childEditPart1"
 		{
 			m_sender.moveTo(120, 120);
-			m_request.setLocation(new Point(120, 120));
+			setLocation(new Point(120, 120));
 			//
 			expectedLogger.log(
 					childEditPart1,
@@ -92,21 +95,21 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 			expectedLogger.log(editPart, "eraseTargetFeedback", m_request);
 			expectedLogger.log(childEditPart1, new String[]{
 					"showTargetFeedback",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// move into "childEditPart1"
 		{
 			m_sender.moveTo(130, 130);
 			//
-			m_request.setLocation(new Point(130, 130));
+			setLocation(new Point(130, 130));
 			//
 			expectedLogger.log(childEditPart1, new String[]{
 					"getTargetEditPart",
 					"getTargetEditPart",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// start drag process
@@ -118,23 +121,23 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(200, 200);
 			//
-			m_request.setLocation(new Point(130, 130));
-			m_request.setSize(new Dimension(70, 70));
+			setLocation(new Point(130, 130));
+			setSize(new Dimension(70, 70));
 			//
 			expectedLogger.log(
 					childEditPart1,
-					new String[]{"showTargetFeedback", "getCommand"},
+					new String[] { "getCommand", "showTargetFeedback" },
 					m_request);
 			assertLoggers(expectedLogger, actualLogger);
 			////////////////////////////////////////////////////////////////
 			m_sender.dragTo(330, 140);
 			//
-			m_request.setLocation(new Point(130, 130));
-			m_request.setSize(new Dimension(200, 10));
+			setLocation(new Point(130, 130));
+			setSize(new Dimension(200, 10));
 			//
 			expectedLogger.log(
 					childEditPart1,
-					new String[]{"showTargetFeedback", "getCommand"},
+					new String[] { "getCommand", "showTargetFeedback" },
 					m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
@@ -142,8 +145,8 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		{
 			m_sender.endDrag();
 			//
-			m_request.setLocation(new Point(130, 130));
-			m_request.setSize(new Dimension(200, 10));
+			setLocation(new Point(130, 130));
+			setSize(new Dimension(200, 10));
 			//
 			expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
 			expectedLogger.log(childEditPart2, new String[]{
@@ -178,21 +181,21 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		{
 			m_sender.moveTo(70, 70);
 			//
-			m_request.setLocation(new Point(70, 70));
+			setLocation(new Point(70, 70));
 			//
 			expectedLogger.log(editPart, new String[]{
 					"getTargetEditPart",
 					"getTargetEditPart",
 					"showTargetFeedback",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// click into "editPart" invalid button
 		{
 			m_sender.click(70, 70, 2);
 			//
-			m_request.setLocation(new Point(70, 70));
+			setLocation(new Point(70, 70));
 			//
 			expectedLogger.log(editPart, "eraseTargetFeedback", m_request);
 			assertLoggers(expectedLogger, actualLogger);
@@ -207,14 +210,14 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 			m_domain.setActiveTool(m_tool);
 			m_sender.moveTo(90, 90);
 			//
-			m_request.setLocation(new Point(90, 90));
+			setLocation(new Point(90, 90));
 			//
 			expectedLogger.log(editPart, new String[]{
 					"getTargetEditPart",
 					"getTargetEditPart",
 					"showTargetFeedback",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// start drag process
@@ -226,17 +229,17 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 		{
 			m_sender.dragTo(100, 100);
 			//
-			m_request.setLocation(new Point(90, 90));
-			m_request.setSize(new Dimension(10, 10));
+			setLocation(new Point(90, 90));
+			setSize(new Dimension(10, 10));
 			//
-			expectedLogger.log(editPart, new String[]{"showTargetFeedback", "getCommand"}, m_request);
+			expectedLogger.log(editPart, new String[] { "getCommand", "showTargetFeedback" }, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// click invalid button during drag process
 		{
 			m_sender.click(100, 100, 3);
-			m_request.setLocation(new Point(90, 90));
-			m_request.setSize(new Dimension(10, 10));
+			setLocation(new Point(90, 90));
+			setSize(new Dimension(10, 10));
 			//
 			expectedLogger.log(editPart, "eraseTargetFeedback", m_request);
 			assertLoggers(expectedLogger, actualLogger);

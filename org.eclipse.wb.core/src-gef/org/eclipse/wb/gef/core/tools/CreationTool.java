@@ -12,12 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.CreationFactory;
 
 /**
@@ -29,8 +26,7 @@ import org.eclipse.gef.requests.CreationFactory;
  * @author lobas_av
  * @coverage gef.core
  */
-public class CreationTool extends AbstractCreationTool {
-	private final CreationFactory m_factory;
+public class CreationTool extends org.eclipse.gef.tools.CreationTool {
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -38,7 +34,7 @@ public class CreationTool extends AbstractCreationTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public CreationTool(CreationFactory factory) {
-		m_factory = factory;
+		super(factory);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -50,7 +46,7 @@ public class CreationTool extends AbstractCreationTool {
 	public void activate() {
 		super.activate();
 		try {
-			if (m_factory instanceof DesignCreationFactory factory) {
+			if (getFactory() instanceof DesignCreationFactory factory) {
 				factory.activate();
 			}
 		} catch (Throwable e) {
@@ -61,45 +57,8 @@ public class CreationTool extends AbstractCreationTool {
 	/**
 	 * @return the {@link CreationFactory} used to create the new {@link EditPart}'s.
 	 */
+	@Override
 	public final CreationFactory getFactory() {
-		return m_factory;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Request
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Creates a {@link CreateRequest} and sets this tool's factory on the request.
-	 */
-	@Override
-	protected Request createTargetRequest() {
-		return new CreateRequest(m_factory);
-	}
-
-	@Override
-	protected String getCommandName() {
-		return REQ_CREATE;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Selection
-	//
-	////////////////////////////////////////////////////////////////////////////
-	@Override
-	protected void selectAddedObjects() {
-		CreateRequest request = (CreateRequest) getTargetRequest();
-		Object model = request.getSelectObject();
-		if (model != null) {
-			EditPartViewer viewer = getCurrentViewer();
-			if (viewer != null) {
-				EditPart editPart = viewer.getEditPartRegistry().get(model);
-				if (editPart != null) {
-					viewer.select(editPart);
-				}
-			}
-		}
+		return super.getFactory();
 	}
 }

@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.core.gef.policy.layout.generic;
 
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.tree.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.generic.AbstractContainer;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.core.utils.state.GlobalState;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateRequest;
 
 import java.util.List;
 
