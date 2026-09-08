@@ -13,20 +13,16 @@
 package org.eclipse.wb.gef.core.requests;
 
 import org.eclipse.gef.RequestConstants;
-import org.eclipse.gef.requests.CreationFactory;
 
 /**
  * A {@link Request} to create a new object.
  *
  * @author lobas_av
  * @coverage gef.core
+ * @deprecated Use the GEF request directly.
  */
-public class CreateRequest extends AbstractCreateRequest {
-	private static final int SNAP_TO = 16;
-	private CreationFactory m_factory;
-	private Object m_newObject;
-	private int m_flags = 0;
-
+@Deprecated(forRemoval = true, since = "2026-12")
+public class CreateRequest extends org.eclipse.gef.requests.CreateRequest {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -35,67 +31,9 @@ public class CreateRequest extends AbstractCreateRequest {
 	/**
 	 * Constructs a {@link CreateRequest} with the specified <i>type</i> and <i>factory</i>.
 	 */
+	@Deprecated(forRemoval = true, since="2026-12")
 	public CreateRequest() {
 		super(RequestConstants.REQ_CREATE);
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Access
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Gets the new object from the factory and returns that object.
-	 */
-	public Object getNewObject() {
-		if (m_newObject == null) {
-			m_newObject = m_factory.getNewObject();
-		}
-		return m_newObject;
-	}
-
-	/**
-	 * Returns the CreationFactory for this request.
-	 *
-	 * @return the CreationFactory
-	 */
-	protected CreationFactory getFactory() {
-		return m_factory;
-	}
-
-	/**
-	 * Sets the factory to be used when creating the new object.
-	 *
-	 * @param factory the factory
-	 */
-	public void setFactory(CreationFactory factory) {
-		m_factory = factory;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Snap to horizontal axis
-	//
-	////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Used to set whether snap-to is being performed.
-	 *
-	 * @param value <code>true</code> if the request is for a creation with snap-to
-	 *              enabled
-	 */
-	public void setSnapToEnabled(boolean value) {
-		m_flags = value ? m_flags | SNAP_TO : m_flags & ~SNAP_TO;
-	}
-
-	/**
-	 * Returns <code>true</code> if snap-to is enabled
-	 *
-	 * @return <code>true</code> if the request is for a creation with snap-to
-	 *         enabled
-	 */
-	public boolean isSnapToEnabled() {
-		return (m_flags & SNAP_TO) != 0;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -103,21 +41,20 @@ public class CreateRequest extends AbstractCreateRequest {
 	// Object
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(forRemoval = true, since="2026-12")
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer("CreateRequest(type=");
 		buffer.append(getType());
-		buffer.append(", flags=");
-		buffer.append(m_flags);
 		buffer.append(", location=");
 		buffer.append(getLocation());
 		buffer.append(", size=");
 		buffer.append(getSize());
 		buffer.append(", factory=");
-		buffer.append(m_factory);
-		if (m_factory != null) {
+		buffer.append(getFactory());
+		if (getFactory() != null) {
 			buffer.append("[object=");
-			buffer.append(safeToString(m_factory.getNewObject()));
+			buffer.append(safeToString(getFactory().getNewObject()));
 			buffer.append("]");
 		}
 		buffer.append(")");
@@ -128,6 +65,7 @@ public class CreateRequest extends AbstractCreateRequest {
 	 * @return the string presentation of given {@link Object} or "<exception>" if
 	 *         any exception happened.
 	 */
+	@Deprecated(forRemoval = true, since="2026-12")
 	protected static String safeToString(Object o) {
 		try {
 			return o == null ? null : o.toString();

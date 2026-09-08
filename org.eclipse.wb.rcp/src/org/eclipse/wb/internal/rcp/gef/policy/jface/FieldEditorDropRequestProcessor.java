@@ -14,13 +14,13 @@ package org.eclipse.wb.internal.rcp.gef.policy.jface;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.gef.core.RequestProcessor;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.internal.rcp.model.jface.FieldEditorInfo;
 import org.eclipse.wb.internal.rcp.model.jface.FieldLayoutPreferencePageInfo;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.SimpleFactory;
 
 /**

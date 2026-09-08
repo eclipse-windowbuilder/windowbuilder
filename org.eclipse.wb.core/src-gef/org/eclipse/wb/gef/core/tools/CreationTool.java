@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.core.tools;
 
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.DesignCreationFactory;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.CreationFactory;
 
 /**
