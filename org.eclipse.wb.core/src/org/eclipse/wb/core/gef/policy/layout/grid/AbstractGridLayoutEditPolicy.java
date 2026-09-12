@@ -23,6 +23,7 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.gef.core.IEditPartViewer;
+import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.draw2d.SemiTransparentFigure;
@@ -35,6 +36,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartListener;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.swt.graphics.Color;
 
@@ -120,6 +122,15 @@ IHeadersProvider {
 	private static final Color m_goodTargetBorderColor = new Color(192, 255, 192);
 	private static final Color m_badTargetFillColor = new Color(255, 0, 0);
 	private static final Color m_badTargetBorderColor = new Color(255, 192, 192);
+
+	@Override
+	public EditPart getTargetEditPart(Request request) {
+		if (RequestConstants.REQ_CREATE.equals(request.getType()) || PasteRequest.REQ_PASTE.equals(request.getType())) {
+			Point location = PolicyUtils.getAbsoluteLocation(getHost(), (DropRequest) request);
+			updateGridTarget(location);
+		}
+		return super.getTargetEditPart(request);
+	}
 
 	@Override
 	protected final void showLayoutTargetFeedback(Request request) {
@@ -368,5 +379,5 @@ IHeadersProvider {
 	 * @param mouseLocation
 	 *          the location of mouse in absolute coordinates.
 	 */
-	protected abstract void updateGridTarget(Point mouseLocation) throws Exception;
+	protected abstract void updateGridTarget(Point mouseLocation);
 }
