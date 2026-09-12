@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -16,7 +16,6 @@ import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 /**
@@ -41,14 +40,13 @@ public final class MacMenuImageFigure extends MenuImageFigure {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void paintClientArea(Graphics graphics) {
-		super.paintClientArea(graphics);
+	protected void paintFigure(Graphics graphics) {
+		super.paintFigure(graphics);
 		// draw border on MacOSX because the fill color of menu is the same as fill color of window client area
 		{
-			Rectangle clientArea = getClientArea();
 			graphics.setForegroundColor(ColorConstants.buttonLightest);
 			graphics.setLineStyle(SWT.LINE_DASH);
-			graphics.drawRectangle(0, 0, clientArea.width - 1, clientArea.height - 1);
+			graphics.drawRectangle(bounds.x, bounds.y, bounds.width - 1, bounds.height - 1);
 		}
 	}
 }
