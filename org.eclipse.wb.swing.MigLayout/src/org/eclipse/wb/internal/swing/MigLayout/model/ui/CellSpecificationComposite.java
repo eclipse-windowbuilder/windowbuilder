@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -60,7 +60,7 @@ public final class CellSpecificationComposite extends Composite {
 		setLayout(new FillLayout());
 		// prepare field/widget
 		m_field = new ErrorMessageTextField(this, SWT.BORDER);
-		m_textWidget = (Text) m_field.getControl();
+		m_textWidget = m_field.getControl();
 		// listen for modification
 		m_textWidget.addListener(SWT.Modify, m_listener);
 	}
