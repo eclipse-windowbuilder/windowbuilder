@@ -506,13 +506,7 @@ public class PropertyTest extends SwingModelTest {
 				}""");
 		Property enabledProperty = panel.getPropertyByTitle("enabled");
 		// add listener that prevents "enabled" modification
-		panel.addBroadcastListener(new GenericPropertySetValue() {
-			@Override
-			public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
-					throws Exception {
-				shouldSetValue[0] &= !"enabled".equals(property.getTitle());
-			}
-		});
+		panel.addBroadcastListener((GenericPropertySetValue) (property, value, shouldSetValue) -> shouldSetValue[0] &= !"enabled".equals(property.getTitle()));
 		// try to set value
 		enabledProperty.setValue(Boolean.FALSE);
 		assertEditor("""
@@ -538,13 +532,9 @@ public class PropertyTest extends SwingModelTest {
 				}""");
 		Property enabledProperty = panel.getPropertyByTitle("enabled");
 		// add listener that on "enabled" modification modifies also "visible"
-		panel.addBroadcastListener(new GenericPropertySetValue() {
-			@Override
-			public void invoke(GenericPropertyImpl property, Object[] value, boolean[] shouldSetValue)
-					throws Exception {
-				if ("enabled".equals(property.getTitle())) {
-					property.getJavaInfo().getPropertyByTitle("visible").setValue(value[0]);
-				}
+		panel.addBroadcastListener((GenericPropertySetValue) (property, value, shouldSetValue) -> {
+			if ("enabled".equals(property.getTitle())) {
+				property.getJavaInfo().getPropertyByTitle("visible").setValue(value[0]);
 			}
 		});
 		// try to set value
@@ -676,13 +666,9 @@ public class PropertyTest extends SwingModelTest {
 		// initially normal, boolean value
 		assertEquals(Boolean.TRUE, enabledProperty.getValue());
 		// add listener that forces "enabled" value
-		panel.addBroadcastListener(new GenericPropertyGetValueEx() {
-			@Override
-			public void invoke(GenericPropertyImpl property, Expression expression, Object[] value)
-					throws Exception {
-				if (property == enabledProperty) {
-					value[0] = "String, not boolean";
-				}
+		panel.addBroadcastListener((GenericPropertyGetValueEx) (property, expression, value) -> {
+			if (property == enabledProperty) {
+				value[0] = "String, not boolean";
 			}
 		});
 		// ask for value
@@ -707,13 +693,10 @@ public class PropertyTest extends SwingModelTest {
 		// initially normal, boolean value
 		assertEquals(Boolean.TRUE, enabledProperty.getValue());
 		// add listener that forces "enabled" value
-		panel.addBroadcastListener(new GenericPropertyGetValue() {
-			@Override
-			public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
-				if (property == enabledProperty) {
-					assertSame(Property.UNKNOWN_VALUE, value[0]);
-					value[0] = "String, not boolean";
-				}
+		panel.addBroadcastListener((GenericPropertyGetValue) (property, value) -> {
+			if (property == enabledProperty) {
+				assertSame(Property.UNKNOWN_VALUE, value[0]);
+				value[0] = "String, not boolean";
 			}
 		});
 		// ask for value
@@ -738,13 +721,10 @@ public class PropertyTest extends SwingModelTest {
 		// initially normal, boolean value
 		assertEquals(Boolean.TRUE, enabledProperty.getValue());
 		// add listener that forces "enabled" value
-		panel.addBroadcastListener(new GenericPropertyGetValue() {
-			@Override
-			public void invoke(GenericPropertyImpl property, Object[] value) throws Exception {
-				if (property == enabledProperty) {
-					assertSame(Property.UNKNOWN_VALUE, value[0]);
-					value[0] = null;
-				}
+		panel.addBroadcastListener((GenericPropertyGetValue) (property, value) -> {
+			if (property == enabledProperty) {
+				assertSame(Property.UNKNOWN_VALUE, value[0]);
+				value[0] = null;
 			}
 		});
 		// ask for value

@@ -21,7 +21,6 @@ import org.eclipse.wb.internal.core.nls.ui.SourceComposite;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils.ITableTooltipProvider;
 import org.eclipse.wb.tests.gef.EventSender;
-import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.wb.tests.utils.SWTBotCTableCombo;
 import org.eclipse.wb.tests.utils.SWTBotEditableSource;
 
@@ -47,8 +46,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
-import org.apache.commons.lang3.function.FailableBiConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 import java.io.Closeable;
@@ -81,36 +78,33 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				assertTrue(shell.tabItem("test.messages").isActive());
-				// check items
-				SWTBotTable table = shell.table();
-				assertItems(
-						table,
-						new String[] { "frame.name", "My name" },
-						new String[] { "frame.title", "My JFrame" });
-				//
-				try (SWTBotTableTooltipProvider provider = getTableToolTipProvider(shell)) {
-					// not first column
-					{
-						Control control = provider.createTooltipControl(table.getTableItem(1), 1);
-						assertNull(control);
-					}
-					// no components
-					{
-						Control control = provider.createTooltipControl(table.getTableItem(0), 0);
-						assertNull(control);
-					}
-					// one component
-					{
-						Control control = provider.createTooltipControl(table.getTableItem(1), 0);
-						assertNotNull(control);
-						assertTrue(provider.getChildren().length > 0);
-					}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			assertTrue(shell.tabItem("test.messages").isActive());
+			// check items
+			SWTBotTable table = shell.table();
+			assertItems(
+					table,
+					new String[] { "frame.name", "My name" },
+					new String[] { "frame.title", "My JFrame" });
+			//
+			try (SWTBotTableTooltipProvider provider = getTableToolTipProvider(shell)) {
+				// not first column
+				{
+					Control control = provider.createTooltipControl(table.getTableItem(1), 1);
+					assertNull(control);
+				}
+				// no components
+				{
+					Control control = provider.createTooltipControl(table.getTableItem(0), 0);
+					assertNull(control);
+				}
+				// one component
+				{
+					Control control = provider.createTooltipControl(table.getTableItem(1), 0);
+					assertNotNull(control);
+					assertTrue(provider.getChildren().length > 0);
 				}
 			}
 		});
@@ -138,55 +132,42 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				assertTrue(shell.tabItem("test.messages").isActive());
-				SWTBotTable table = shell.table();
-				table.getTableItem(0).click(2);
-				// Workaround to make sure the context menu for the 2nd column is opened
-				SWTBotRootMenu tableMenu = new SWTBotRootMenu(UIThreadRunnable.syncExec(() -> {
-					Menu menu = table.widget.getMenu();
-					menu.setVisible(true);
-					return menu;
-				}));
-				final SWTBotMenu removeLocaleItem = tableMenu.menu("Remove locale...");
-				// don't confirm, no changes expected
-				{
-					context.execute(new FailableRunnable<Exception>() {
-						@Override
-						public void run() {
-							removeLocaleItem.click();
-						}
-					});
-					bot.waitUntil(waitForShell(withText("Confirm")));
-					bot.shell("Confirm").bot().button("Cancel").click();
-					// check items
-					assertItems(
-							table,
-							new String[] { "frame.name", "My name", "My name IT" },
-							new String[] { "frame.title", "My JFrame", "My JFrame IT" });
-				}
-				// confirm
-				{
-					context.execute(new FailableRunnable<Exception>() {
-						@Override
-						public void run() {
-							removeLocaleItem.click();
-						}
-					});
-					bot.waitUntil(waitForShell(withText("Confirm")));
-					bot.shell("Confirm").bot().button("OK").click();
-					// check items
-					assertItems(
-							table,
-							new String[] { "frame.name", "My name" },
-							new String[] { "frame.title", "My JFrame" });
-				}
-				shell.button("OK").click();
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			assertTrue(shell.tabItem("test.messages").isActive());
+			SWTBotTable table = shell.table();
+			table.getTableItem(0).click(2);
+			// Workaround to make sure the context menu for the 2nd column is opened
+			SWTBotRootMenu tableMenu = new SWTBotRootMenu(UIThreadRunnable.syncExec(() -> {
+				Menu menu = table.widget.getMenu();
+				menu.setVisible(true);
+				return menu;
+			}));
+			final SWTBotMenu removeLocaleItem = tableMenu.menu("Remove locale...");
+			// don't confirm, no changes expected
+			{
+				context.execute(() -> removeLocaleItem.click());
+				bot.waitUntil(waitForShell(withText("Confirm")));
+				bot.shell("Confirm").bot().button("Cancel").click();
+				// check items
+				assertItems(
+						table,
+						new String[] { "frame.name", "My name", "My name IT" },
+						new String[] { "frame.title", "My JFrame", "My JFrame IT" });
 			}
+			// confirm
+			{
+				context.execute(() -> removeLocaleItem.click());
+				bot.waitUntil(waitForShell(withText("Confirm")));
+				bot.shell("Confirm").bot().button("OK").click();
+				// check items
+				assertItems(
+						table,
+						new String[] { "frame.name", "My name" },
+						new String[] { "frame.title", "My JFrame" });
+			}
+			shell.button("OK").click();
 		});
 		// 'it' properties should be deleted
 		assertFalse(getFileSrc("test/messages_it.properties").exists());
@@ -204,40 +185,27 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				assertTrue(shell.tabItem("test.messages").isActive());
-				SWTBotTable table = shell.table();
-				SWTBotRootMenu tableMenu = table.getTableItem(0).contextMenu();
-				final SWTBotMenu internalizeItem = tableMenu.contextMenu("Internalize key...");
-				// don't confirm, no changes expected
-				{
-					context.execute(new FailableRunnable<Exception>() {
-						@Override
-						public void run() {
-							internalizeItem.click();
-						}
-					});
-					bot.shell("Confirm").bot().button("Cancel").click();
-					// check items
-					assertItems(table, new String[] { "frame.title", "My JFrame" });
-				}
-				// confirm
-				{
-					context.execute(new FailableRunnable<Exception>() {
-						@Override
-						public void run() {
-							internalizeItem.click();
-						}
-					});
-					bot.shell("Confirm").bot().button("OK").click();
-					// check items
-					assertItems(table /* , <no elements> */);
-					shell.button("OK").click();
-				}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			assertTrue(shell.tabItem("test.messages").isActive());
+			SWTBotTable table = shell.table();
+			SWTBotRootMenu tableMenu = table.getTableItem(0).contextMenu();
+			final SWTBotMenu internalizeItem = tableMenu.contextMenu("Internalize key...");
+			// don't confirm, no changes expected
+			{
+				context.execute(() -> internalizeItem.click());
+				bot.shell("Confirm").bot().button("Cancel").click();
+				// check items
+				assertItems(table, new String[] { "frame.title", "My JFrame" });
+			}
+			// confirm
+			{
+				context.execute(() -> internalizeItem.click());
+				bot.shell("Confirm").bot().button("OK").click();
+				// check items
+				assertItems(table /* , <no elements> */);
+				shell.button("OK").click();
 			}
 		});
 		// check source
@@ -263,41 +231,33 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				assertTrue(shell.tabItem("test.messages").isActive());
-				SWTBotTable table = shell.table();
-				SWTBotRootMenu tableMenu = table.getTableItem(0).click().contextMenu();
-				final SWTBotMenu addLocaleItem = tableMenu.menu("Add locale...");
-				//
-				context.execute(new FailableRunnable<Exception>() {
-					@Override
-					public void run() {
-						addLocaleItem.click();
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			assertTrue(shell.tabItem("test.messages").isActive());
+			SWTBotTable table = shell.table();
+			SWTBotRootMenu tableMenu = table.getTableItem(0).click().contextMenu();
+			final SWTBotMenu addLocaleItem = tableMenu.menu("Add locale...");
+			//
+			context.execute(() -> addLocaleItem.click());
+			{
+				SWTBot shell2 = bot.shell("Choose Locale").bot();
+				// select 'it' language
+				SWTBotCTableCombo languagesCombo = getLanguageCombo(shell2);
+				for (int i = 0; i < languagesCombo.getItemCount(); i++) {
+					String item = languagesCombo.getItem(i);
+					if (item.startsWith("it - ")) {
+						languagesCombo.select(i);
+						break;
 					}
-				});
-				{
-					SWTBot shell2 = bot.shell("Choose Locale").bot();
-					// select 'it' language
-					SWTBotCTableCombo languagesCombo = getLanguageCombo(shell2);
-					for (int i = 0; i < languagesCombo.getItemCount(); i++) {
-						String item = languagesCombo.getItem(i);
-						if (item.startsWith("it - ")) {
-							languagesCombo.select(i);
-							break;
-						}
-					}
-					// click "OK"
-					shell2.button("OK").click();
 				}
-				// check items
-				assertColumns(table, "Key", "(default)", "it");
-				assertItems(table, new String[] { "frame.title", "My JFrame", "My JFrame" });
-				shell.button("OK").click();
+				// click "OK"
+				shell2.button("OK").click();
 			}
+			// check items
+			assertColumns(table, "Key", "(default)", "it");
+			assertItems(table, new String[] { "frame.title", "My JFrame", "My JFrame" });
+			shell.button("OK").click();
 		});
 		// we should have new locale - 'it'
 		assertTrue(getFileSrc("test/messages_it.properties").exists());
@@ -315,18 +275,10 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				context.execute(new FailableRunnable<Exception>() {
-					@Override
-					public void run() {
-						shell.button("New locale...").click();
-					}
-				});
-				bot.shell("Choose Locale").bot().button("Cancel").click();
-			}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			context.execute(() -> shell.button("New locale...").click());
+			bot.shell("Choose Locale").bot().button("Cancel").click();
 		});
 	}
 
@@ -348,81 +300,78 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				assertTrue(shell.tabItem("test.messages").isActive());
-				//
-				SWTBotEditableSource editableSource = getEditableSource(shell);
-				SWTBotTable table = shell.table();
-				// check initial items
-				{
-					assertColumns(table, "Key", "(default)", "it");
-					assertItems(table, new String[] { "frame.title", "My JFrame", "" });
-				}
-				// click to activate cell editor
-				{
-					// click on value to start edit
-					table.click(0, 1);
-					// send new text and CR
-					{
-						SWTBotText text = shell.text();
-						text.setText("New title");
-						closeCellEditor(shell);
-						waitEventLoop(10);
-					}
-				}
-				// check after edit
-				{
-					assertTrue(editableSource.getKeys().contains("frame.title"));
-					assertEquals("New title", editableSource.getValue(LocaleInfo.DEFAULT, "frame.title"));
-					//
-					assertItems(table, new String[] { "frame.title", "New title", "" });
-				}
-				// rename key
-				{
-					table.click(0, 0);
-					{
-						SWTBotText text = shell.text();
-						text.setText("frame.title2");
-						closeCellEditor(shell);
-						waitEventLoop(10);
-					}
-					// check
-					{
-						assertFalse(editableSource.getKeys().contains("frame.title"));
-						assertTrue(editableSource.getKeys().contains("frame.title2"));
-						assertEquals("New title", editableSource.getValue(LocaleInfo.DEFAULT, "frame.title2"));
-						//
-						assertItems(table, new String[] { "frame.title2", "New title", "" });
-					}
-				}
-				// update 'it'
-				{
-					LocaleInfo localeInfo = new LocaleInfo(Locale.ITALIAN);
-					assertNull(editableSource.getValue(localeInfo, "frame.title2"));
-					// modify
-					{
-						table.click(0, 2);
-						SWTBotText text = shell.text();
-						text.setText("title IT");
-						closeCellEditor(shell);
-						waitEventLoop(10);
-					}
-					// check
-					{
-						assertEquals("title IT", editableSource.getValue(localeInfo, "frame.title2"));
-						assertItems(
-								table,
-								new String[] { "frame.title2", "New title", "title IT" });
-					}
-					shell.button("OK").click();
-				}
-				// wait UI
-				//waitEventLoop(5000);
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			assertTrue(shell.tabItem("test.messages").isActive());
+			//
+			SWTBotEditableSource editableSource = getEditableSource(shell);
+			SWTBotTable table = shell.table();
+			// check initial items
+			{
+				assertColumns(table, "Key", "(default)", "it");
+				assertItems(table, new String[] { "frame.title", "My JFrame", "" });
 			}
+			// click to activate cell editor
+			{
+				// click on value to start edit
+				table.click(0, 1);
+				// send new text and CR
+				{
+					SWTBotText text = shell.text();
+					text.setText("New title");
+					closeCellEditor(shell);
+					waitEventLoop(10);
+				}
+			}
+			// check after edit
+			{
+				assertTrue(editableSource.getKeys().contains("frame.title"));
+				assertEquals("New title", editableSource.getValue(LocaleInfo.DEFAULT, "frame.title"));
+				//
+				assertItems(table, new String[] { "frame.title", "New title", "" });
+			}
+			// rename key
+			{
+				table.click(0, 0);
+				{
+					SWTBotText text = shell.text();
+					text.setText("frame.title2");
+					closeCellEditor(shell);
+					waitEventLoop(10);
+				}
+				// check
+				{
+					assertFalse(editableSource.getKeys().contains("frame.title"));
+					assertTrue(editableSource.getKeys().contains("frame.title2"));
+					assertEquals("New title", editableSource.getValue(LocaleInfo.DEFAULT, "frame.title2"));
+					//
+					assertItems(table, new String[] { "frame.title2", "New title", "" });
+				}
+			}
+			// update 'it'
+			{
+				LocaleInfo localeInfo = new LocaleInfo(Locale.ITALIAN);
+				assertNull(editableSource.getValue(localeInfo, "frame.title2"));
+				// modify
+				{
+					table.click(0, 2);
+					SWTBotText text = shell.text();
+					text.setText("title IT");
+					closeCellEditor(shell);
+					waitEventLoop(10);
+				}
+				// check
+				{
+					assertEquals("title IT", editableSource.getValue(localeInfo, "frame.title2"));
+					assertItems(
+							table,
+							new String[] { "frame.title2", "New title", "title IT" });
+				}
+				shell.button("OK").click();
+			}
+			// wait UI
+			//waitEventLoop(5000);
 		});
 	}
 
@@ -439,34 +388,31 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setName("My name");
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				assertTrue(shell.tabItem("test.messages").isActive());
-				//
-				SWTBotEditableSource editableSource = getEditableSource(shell);
-				SWTBotTable table = shell.table();
-				// check initial items
-				{
-					assertColumns(table, "Key", "(default)");
-					assertItems(table, new String[] { "frame.title", "My JFrame" });
-				}
-				// externalize "name"
-				{
-					GenericProperty nameProperty =
-							(GenericProperty) m_contentJavaInfo.getPropertyByTitle("name");
-					editableSource.externalize(new StringPropertyInfo(nameProperty), true);
-				}
-				// check items
-				{
-					assertColumns(table, "Key", "(default)");
-					assertItems(
-							table,
-							new String[] { "frame.title", "My JFrame" },
-							new String[] { "Test.this.name", "My name" });
-				}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			assertTrue(shell.tabItem("test.messages").isActive());
+			//
+			SWTBotEditableSource editableSource = getEditableSource(shell);
+			SWTBotTable table = shell.table();
+			// check initial items
+			{
+				assertColumns(table, "Key", "(default)");
+				assertItems(table, new String[] { "frame.title", "My JFrame" });
+			}
+			// externalize "name"
+			{
+				GenericProperty nameProperty =
+						(GenericProperty) m_contentJavaInfo.getPropertyByTitle("name");
+				editableSource.externalize(new StringPropertyInfo(nameProperty), true);
+			}
+			// check items
+			{
+				assertColumns(table, "Key", "(default)");
+				assertItems(
+						table,
+						new String[] { "frame.title", "My JFrame" },
+						new String[] { "Test.this.name", "My name" });
 			}
 		});
 	}
@@ -486,31 +432,28 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setName(ResourceBundle.getBundle("test.messages").getString("frame.name")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				assertTrue(shell.tabItem("test.messages").isActive());
-				//
-				final SWTBotEditableSource editableSource = getEditableSource(shell);
-				SWTBotTable table = shell.table();
-				// check initial items
-				{
-					assertColumns(table, "Key", "(default)");
-					assertItems(
-							table,
-							new String[] { "frame.name", "My name" },
-							new String[] { "frame.title", "My JFrame" });
-				}
-				// rename "frame.name" -> "frame.title"
-				editableSource.renameKey("frame.name", "frame.title");
-				bot.shell("Confirm").bot().button("Yes, keep existing value").click();
-				// check items
-				{
-					assertColumns(table, "Key", "(default)");
-					assertItems(table, new String[] { "frame.title", "My JFrame" });
-				}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			assertTrue(shell.tabItem("test.messages").isActive());
+			//
+			final SWTBotEditableSource editableSource = getEditableSource(shell);
+			SWTBotTable table = shell.table();
+			// check initial items
+			{
+				assertColumns(table, "Key", "(default)");
+				assertItems(
+						table,
+						new String[] { "frame.name", "My name" },
+						new String[] { "frame.title", "My JFrame" });
+			}
+			// rename "frame.name" -> "frame.title"
+			editableSource.renameKey("frame.name", "frame.title");
+			bot.shell("Confirm").bot().button("Yes, keep existing value").click();
+			// check items
+			{
+				assertColumns(table, "Key", "(default)");
+				assertItems(table, new String[] { "frame.title", "My JFrame" });
 			}
 		});
 	}
@@ -529,28 +472,25 @@ public class SourceCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				assertTrue(shell.tabItem("test.messages").isActive());
-				//
-				//waitEventLoop(5000);
-				SWTBotTable table = shell.table();
-				// check initial items
-				assertItems(
-						table,
-						new String[] { "frame.name", "My name" },
-						new String[] { "frame.title", "My JFrame" });
-				// check "Show strings only for current form"
-				{
-					SWTBotCheckBox onlyFormButton = shell.checkBox("Show strings only for current form");
-					onlyFormButton.click();
-				}
-				// only 'frame.title' expected
-				assertItems(table, new String[] { "frame.title", "My JFrame" });
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			assertTrue(shell.tabItem("test.messages").isActive());
+			//
+			//waitEventLoop(5000);
+			SWTBotTable table = shell.table();
+			// check initial items
+			assertItems(
+					table,
+					new String[] { "frame.name", "My name" },
+					new String[] { "frame.title", "My JFrame" });
+			// check "Show strings only for current form"
+			{
+				SWTBotCheckBox onlyFormButton = shell.checkBox("Show strings only for current form");
+				onlyFormButton.click();
 			}
+			// only 'frame.title' expected
+			assertItems(table, new String[] { "frame.title", "My JFrame" });
 		});
 	}
 
@@ -570,76 +510,73 @@ public class SourceCompositeTest extends AbstractDialogTest {
 					public Test() {
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws InterruptedException {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				// No externalizable strings
-				assertFalse(shell.tabItem("test.messages").isActive());
-				shell.tabItem("test.messages").activate();
-				SWTBotTable table = shell.table();
-				// check initial items
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			// No externalizable strings
+			assertFalse(shell.tabItem("test.messages").isActive());
+			shell.tabItem("test.messages").activate();
+			SWTBotTable table = shell.table();
+			// check initial items
+			assertItems(
+					table,
+					new String[] { "key.1", "1 1", "1 2" },
+					new String[] { "key.2", "2 1", "2 2" });
+			// check next column
+			{
+				// activate editor at (1, 0)
+				table.click(0, 1);
+				// navigate next column - (1, 2)
+				shell.text().traverse(Traverse.TAB_NEXT);
+				// set text
+				SWTBotText text = shell.text();
+				text.setText("a b");
+				closeCellEditor(shell);
+				waitEventLoop(10);
+				// check
 				assertItems(
 						table,
-						new String[] { "key.1", "1 1", "1 2" },
+						new String[] { "key.1", "1 1", "a b" },
 						new String[] { "key.2", "2 1", "2 2" });
-				// check next column
-				{
-					// activate editor at (1, 0)
-					table.click(0, 1);
-					// navigate next column - (1, 2)
-					shell.text().traverse(Traverse.TAB_NEXT);
-					// set text
-					SWTBotText text = shell.text();
-					text.setText("a b");
-					closeCellEditor(shell);
-					waitEventLoop(10);
-					// check
-					assertItems(
-							table,
-							new String[] { "key.1", "1 1", "a b" },
-							new String[] { "key.2", "2 1", "2 2" });
-				}
-				// check next row
-				{
-					// activate editor at (2, 0)
-					table.click(0, 2);
-					// navigate next row - (2, 2)
-					keyDown(shell.text(), SWT.ARROW_DOWN, (char)0);
-					waitEventLoop(10);
-					// set text
-					SWTBotText text = shell.text();
-					text.setText("b b");
-					closeCellEditor(shell);
-					waitEventLoop(10);
-					// check
-					assertItems(
-							table,
-							new String[] { "key.1", "1 1", "a b" },
-							new String[] { "key.2", "2 1", "b b" });
-				}
-				// prev column/row
-				{
-					// activate editor at (2, 1)
-					table.click(1, 2);
-					// prev column
-					shell.text().traverse(Traverse.TAB_PREVIOUS);
-					waitEventLoop(10);
-					shell.text().setText("b a");
-					// prev row
-					keyDown(shell.text(), SWT.ARROW_UP, (char)0);
-					waitEventLoop(10);
-					SWTBotText text = shell.text();
-					text.setText("a a");
-					closeCellEditor(shell);
-					// check
-					waitEventLoop(10);
-					assertItems(
-							table,
-							new String[] { "key.1", "a a", "a b" },
-							new String[] { "key.2", "b a", "b b" });
-				}
+			}
+			// check next row
+			{
+				// activate editor at (2, 0)
+				table.click(0, 2);
+				// navigate next row - (2, 2)
+				keyDown(shell.text(), SWT.ARROW_DOWN, (char)0);
+				waitEventLoop(10);
+				// set text
+				SWTBotText text = shell.text();
+				text.setText("b b");
+				closeCellEditor(shell);
+				waitEventLoop(10);
+				// check
+				assertItems(
+						table,
+						new String[] { "key.1", "1 1", "a b" },
+						new String[] { "key.2", "2 1", "b b" });
+			}
+			// prev column/row
+			{
+				// activate editor at (2, 1)
+				table.click(1, 2);
+				// prev column
+				shell.text().traverse(Traverse.TAB_PREVIOUS);
+				waitEventLoop(10);
+				shell.text().setText("b a");
+				// prev row
+				keyDown(shell.text(), SWT.ARROW_UP, (char)0);
+				waitEventLoop(10);
+				SWTBotText text = shell.text();
+				text.setText("a a");
+				closeCellEditor(shell);
+				// check
+				waitEventLoop(10);
+				assertItems(
+						table,
+						new String[] { "key.1", "a a", "a b" },
+						new String[] { "key.2", "b a", "b b" });
 			}
 		});
 	}

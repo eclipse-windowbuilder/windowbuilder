@@ -27,8 +27,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -56,22 +54,14 @@ public class NewSourceDialogTest extends SwingModelTest {
 						"}");
 		final NewSourceDialog newSourceDialog = new NewSourceDialog(null, frame);
 		//
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				newSourceDialog.open();
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("New source").bot();
-				assertTrue(shell.radio("Classic Eclipse messages class").isEnabled());
-				assertTrue(shell.radio("Modern Eclipse messages class").isEnabled());
-				assertTrue(shell.radio("Direct ResourceBundle usage").isEnabled());
-				assertTrue(shell.radio("ResourceBundle in field").isEnabled());
-				// close dialog
-				shell.button("Cancel").click();
-			}
+		new UiContext().executeAndCheck(() -> newSourceDialog.open(), bot -> {
+			SWTBot shell = bot.shell("New source").bot();
+			assertTrue(shell.radio("Classic Eclipse messages class").isEnabled());
+			assertTrue(shell.radio("Modern Eclipse messages class").isEnabled());
+			assertTrue(shell.radio("Direct ResourceBundle usage").isEnabled());
+			assertTrue(shell.radio("ResourceBundle in field").isEnabled());
+			// close dialog
+			shell.button("Cancel").click();
 		});
 	}
 
@@ -89,61 +79,53 @@ public class NewSourceDialogTest extends SwingModelTest {
 						"}");
 		final NewSourceDialog newSourceDialog = new NewSourceDialog(null, frame);
 		//
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				newSourceDialog.open();
+		new UiContext().executeAndCheck(() -> newSourceDialog.open(), bot -> {
+			SWTBot shell = bot.shell("New source").bot();
+			SWTBotButton okButton = shell.button("OK");
+			shell.radio("Direct ResourceBundle usage").click();
+			{
+				SWTBotStyledText styledText = shell.styledText();
+				assertEquals(
+						"button.setText( ResourceBundle.getBundle(\"full.bundle.name\").getString(\"some.key\") );",
+						styledText.getText());
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("New source").bot();
-				SWTBotButton okButton = shell.button("OK");
-				shell.radio("Direct ResourceBundle usage").click();
-				{
-					SWTBotStyledText styledText = shell.styledText();
-					assertEquals(
-							"button.setText( ResourceBundle.getBundle(\"full.bundle.name\").getString(\"some.key\") );",
-							styledText.getText());
-				}
-				Widget widget = shell.getFinder().findControls(withText("Property file location and name")).getFirst();
-				SWTBot group = new SWTBot(widget);
-				// source folder
-				{
-					SWTBotText sourceFolderText = group.textWithLabel("Source folder: ");
-					assertEquals("TestProject/src", sourceFolderText.getText());
-					// set bad folder - "OK" button disabled
-					sourceFolderText.setText("no-such-folder");
-					assertFalse(okButton.isEnabled());
-					// restore good folder - "OK" button enabled
-					sourceFolderText.setText("TestProject/src");
-					assertTrue(okButton.isEnabled());
-				}
-				// package
-				{
-					SWTBotText packageText = group.textWithLabel("Package:");
-					assertEquals("test", packageText.getText());
-					// set bad - "OK" button disabled
-					packageText.setText("no-such-package");
-					assertFalse(okButton.isEnabled());
-					// restore good - "OK" button enabled
-					packageText.setText("test");
-					assertTrue(okButton.isEnabled());
-				}
-				// properties file
-				{
-					SWTBotText fileText = group.textWithLabel("Property file name:");
-					assertEquals("messages.properties", fileText.getText());
-					// set bad - "OK" button disabled
-					fileText.setText("bad-file-name");
-					assertFalse(okButton.isEnabled());
-					// restore good - "OK" button enabled
-					fileText.setText("messages.properties");
-					assertTrue(okButton.isEnabled());
-				}
-				// close dialog
-				okButton.click();
+			Widget widget = shell.getFinder().findControls(withText("Property file location and name")).getFirst();
+			SWTBot group = new SWTBot(widget);
+			// source folder
+			{
+				SWTBotText sourceFolderText = group.textWithLabel("Source folder: ");
+				assertEquals("TestProject/src", sourceFolderText.getText());
+				// set bad folder - "OK" button disabled
+				sourceFolderText.setText("no-such-folder");
+				assertFalse(okButton.isEnabled());
+				// restore good folder - "OK" button enabled
+				sourceFolderText.setText("TestProject/src");
+				assertTrue(okButton.isEnabled());
 			}
+			// package
+			{
+				SWTBotText packageText = group.textWithLabel("Package:");
+				assertEquals("test", packageText.getText());
+				// set bad - "OK" button disabled
+				packageText.setText("no-such-package");
+				assertFalse(okButton.isEnabled());
+				// restore good - "OK" button enabled
+				packageText.setText("test");
+				assertTrue(okButton.isEnabled());
+			}
+			// properties file
+			{
+				SWTBotText fileText = group.textWithLabel("Property file name:");
+				assertEquals("messages.properties", fileText.getText());
+				// set bad - "OK" button disabled
+				fileText.setText("bad-file-name");
+				assertFalse(okButton.isEnabled());
+				// restore good - "OK" button enabled
+				fileText.setText("messages.properties");
+				assertTrue(okButton.isEnabled());
+			}
+			// close dialog
+			okButton.click();
 		});
 		// result
 		/*System.out.println(newSourceDialog.getNewSourceDescription());

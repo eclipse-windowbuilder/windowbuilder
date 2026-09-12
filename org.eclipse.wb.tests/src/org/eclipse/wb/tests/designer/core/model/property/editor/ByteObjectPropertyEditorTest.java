@@ -19,8 +19,6 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -185,17 +183,9 @@ public class ByteObjectPropertyEditorTest extends AbstractTextPropertyEditorTest
 		panel.refresh();
 		//
 		final Property property = panel.getPropertyByTitle("foo");
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				setTextEditorText(property, "notByte");
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("foo").bot();
-				shell.button("OK").click();
-			}
+		new UiContext().executeAndCheck(() -> setTextEditorText(property, "notByte"), bot -> {
+			SWTBot shell = bot.shell("foo").bot();
+			shell.button("OK").click();
 		});
 		assertEditor("""
 				// filler filler filler

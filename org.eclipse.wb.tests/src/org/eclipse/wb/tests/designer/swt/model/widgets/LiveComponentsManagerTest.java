@@ -245,14 +245,11 @@ public class LiveComponentsManagerTest extends RcpModelTest {
 				}""");
 		// add log listener for exception validation
 		ILog log = DesignerPlugin.getDefault().getLog();
-		ILogListener logListener = new ILogListener() {
-			@Override
-			public void logging(IStatus status, String plugin) {
-				assertEquals(IStatus.ERROR, status.getSeverity());
-				Throwable exception = status.getException();
-				Assertions.assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
-				assertEquals("Problem in getClientArea()", exception.getMessage());
-			}
+		ILogListener logListener = (status, plugin) -> {
+			assertEquals(IStatus.ERROR, status.getSeverity());
+			Throwable exception = status.getException();
+			Assertions.assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
+			assertEquals("Problem in getClientArea()", exception.getMessage());
 		};
 		// temporary intercept logging
 		try {

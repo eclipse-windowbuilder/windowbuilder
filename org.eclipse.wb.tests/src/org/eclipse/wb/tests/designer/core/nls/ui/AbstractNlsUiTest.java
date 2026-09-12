@@ -23,8 +23,6 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
 import org.apache.commons.lang3.function.FailableBiConsumer;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -79,17 +77,7 @@ public abstract class AbstractNlsUiTest extends SwingGefTest {
 		openDesign(unit);
 		// click on "Externalize strings" item
 		UiContext context = new UiContext();
-		context.executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				m_dialogItem.click();
-			}
-		}, new FailableConsumer<SWTBot, Exception> () {
-			@Override
-			public void accept(SWTBot bot) throws Exception {
-				consumer.accept(context, bot);
-			}
-		});
+		context.executeAndCheck(() -> m_dialogItem.click(), bot -> consumer.accept(context, bot));
 	}
 
 	////////////////////////////////////////////////////////////////////////////

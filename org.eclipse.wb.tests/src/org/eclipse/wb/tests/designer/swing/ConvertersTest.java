@@ -81,14 +81,11 @@ public class ConvertersTest extends DesignerTestCase {
 				"java.awt.SystemColor.textHighlight", 
 				converter.toJavaSource(null, java.awt.SystemColor.textHighlight));
 		//
-		EventQueue.invokeAndWait(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-				} catch (Throwable e) {
-					e.printStackTrace();
-				}
+		EventQueue.invokeAndWait(() -> {
+			try {
+				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			} catch (Throwable e) {
+				e.printStackTrace();
 			}
 		});
 		assertEquals(

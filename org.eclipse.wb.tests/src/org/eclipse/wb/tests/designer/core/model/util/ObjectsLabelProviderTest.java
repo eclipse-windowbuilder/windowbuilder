@@ -63,18 +63,8 @@ public class ObjectsLabelProviderTest extends DesignerTestCase {
 	@Test
 	public void test_decorateImageText() throws Exception {
 		TestObjectInfo theObject = new MyObjectInfo();
-		theObject.addBroadcastListener(new ObjectInfoPresentationDecorateIcon() {
-			@Override
-			public void invoke(ObjectInfo object, ImageDescriptor[] icon) throws Exception {
-				icon[0] = new DecorationOverlayIcon(icon[0], DOWN_ICON, IDecoration.BOTTOM_RIGHT);
-			}
-		});
-		theObject.addBroadcastListener(new ObjectInfoPresentationDecorateText() {
-			@Override
-			public void invoke(ObjectInfo object, String[] text) throws Exception {
-				text[0] = "A: " + text[0] + " :B";
-			}
-		});
+		theObject.addBroadcastListener((ObjectInfoPresentationDecorateIcon) (object, icon) -> icon[0] = new DecorationOverlayIcon(icon[0], DOWN_ICON, IDecoration.BOTTOM_RIGHT));
+		theObject.addBroadcastListener((ObjectInfoPresentationDecorateText) (object, text) -> text[0] = "A: " + text[0] + " :B");
 		// do checks
 		assertNotSame(DEF_ICON, ObjectInfo.getImageDescriptor(theObject));
 		assertEquals("A: " + DEF_TEXT + " :B", ObjectInfo.getText(theObject));

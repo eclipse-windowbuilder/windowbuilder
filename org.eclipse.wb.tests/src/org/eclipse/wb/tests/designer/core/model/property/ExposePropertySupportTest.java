@@ -32,8 +32,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -396,40 +394,32 @@ public class ExposePropertySupportTest extends SwingModelTest {
 		// prepare action
 		final IAction action = getExposeAction(button, "text");
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				action.run();
+		new UiContext().executeAndCheck(() -> action.run(), bot -> {
+			SWTBot shell = bot.shell("Expose property").bot();
+			// prepare widgets
+			SWTBotText textWidget = shell.textWithLabel("Property name:");
+			SWTBotStyledText previewWidget = bot.styledTextWithLabel("Preview:");
+			SWTBotButton okButton = shell.button("OK");
+			// initial state
+			{
+				assertEquals("buttonText", textWidget.getText());
+				Assertions.assertThat(previewWidget.getText()).contains("getButtonText()");
+				assertTrue(okButton.isEnabled());
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Expose property").bot();
-				// prepare widgets
-				SWTBotText textWidget = shell.textWithLabel("Property name:");
-				SWTBotStyledText previewWidget = bot.styledTextWithLabel("Preview:");
-				SWTBotButton okButton = shell.button("OK");
-				// initial state
-				{
-					assertEquals("buttonText", textWidget.getText());
-					Assertions.assertThat(previewWidget.getText()).contains("getButtonText()");
-					assertTrue(okButton.isEnabled());
-				}
-				// set wrong property name
-				{
-					textWidget.setText("wrong name");
-					assertEquals(previewWidget.getText(), "No preview");
-					assertFalse(okButton.isEnabled());
-				}
-				// set good name again
-				{
-					textWidget.setText("myText");
-					Assertions.assertThat(previewWidget.getText()).contains("getMyText()");
-					assertTrue(okButton.isEnabled());
-				}
-				// OK
-				okButton.click();
+			// set wrong property name
+			{
+				textWidget.setText("wrong name");
+				assertEquals(previewWidget.getText(), "No preview");
+				assertFalse(okButton.isEnabled());
 			}
+			// set good name again
+			{
+				textWidget.setText("myText");
+				Assertions.assertThat(previewWidget.getText()).contains("getMyText()");
+				assertTrue(okButton.isEnabled());
+			}
+			// OK
+			okButton.click();
 		});
 		assertEditor("""
 				public class Test extends JPanel {

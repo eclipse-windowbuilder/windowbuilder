@@ -19,8 +19,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourceAttributes;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -389,18 +387,15 @@ public class TestProject {
 	 */
 	private void clearReadOnlyFlag() throws CoreException {
 		if (m_project.isOpen()) {
-			m_project.accept(new IResourceVisitor() {
-				@Override
-				public boolean visit(IResource resource) throws CoreException {
-					if (resource instanceof IFile file) {
-						ResourceAttributes resourceAttributes = file.getResourceAttributes();
-						if (resourceAttributes != null) {
-							resourceAttributes.setReadOnly(false);
-							file.setResourceAttributes(resourceAttributes);
-						}
+			m_project.accept(resource -> {
+				if (resource instanceof IFile file) {
+					ResourceAttributes resourceAttributes = file.getResourceAttributes();
+					if (resourceAttributes != null) {
+						resourceAttributes.setReadOnly(false);
+						file.setResourceAttributes(resourceAttributes);
 					}
-					return true;
 				}
+				return true;
 			});
 		}
 	}

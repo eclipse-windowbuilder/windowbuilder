@@ -62,8 +62,6 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.ide.IDE;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -153,18 +151,10 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoTest {
 	protected final void openDesign(IWizard wizard, IPackageFragment packageFragment, String fileName)
 			throws Exception {
 		new UiContext().executeAndCheck(
-				new FailableRunnable<>() {
-					@Override
-					public void run() {
-						TestUtils.runWizard(wizard, new StructuredSelection(packageFragment));
-					}
-				}, new FailableConsumer<>() {
-					@Override
-					public void accept(SWTBot bot) {
-						SWTBot shell = bot.shell(wizard.getWindowTitle()).bot();
-						shell.textWithLabel("Name:").setText(fileName);
-						shell.button("Finish").click();
-					}
+				() -> TestUtils.runWizard(wizard, new StructuredSelection(packageFragment)), bot -> {
+					SWTBot shell = bot.shell(wizard.getWindowTitle()).bot();
+					shell.textWithLabel("Name:").setText(fileName);
+					shell.button("Finish").click();
 				});
 		ICompilationUnit cu = packageFragment.getCompilationUnit(fileName + ".java");
 		openDesign(cu);

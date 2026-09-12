@@ -79,12 +79,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		// initially has property
 		Assertions.assertThat(object.getProperties()).containsOnly(someProperty);
 		// add broadcast to remove all properties
-		object.addBroadcastListener(new ObjectInfoAllProperties() {
-			@Override
-			public void invoke(ObjectInfo o, List<Property> properties) throws Exception {
-				properties.clear();
-			}
-		});
+		object.addBroadcastListener((ObjectInfoAllProperties) (o, properties) -> properties.clear());
 		Assertions.assertThat(object.getProperties()).isEmpty();
 	}
 
@@ -362,18 +357,8 @@ public class ObjectInfoTest extends DesignerTestCase {
 		ObjectInfo child_2 = new TestObjectInfo("child_2");
 		// add listener
 		final StringBuffer buffer = new StringBuffer();
-		parent.addBroadcastListener(new ObjectInfoChildAddBefore() {
-			@Override
-			public void invoke(ObjectInfo _parent, ObjectInfo _child, ObjectInfo[] nextChild) {
-				buffer.append("childAddBefore " + _parent + " " + _child + "\n");
-			}
-		});
-		parent.addBroadcastListener(new ObjectInfoChildAddAfter() {
-			@Override
-			public void invoke(ObjectInfo _parent, ObjectInfo _child) {
-				buffer.append("childAddAfter " + _parent + " " + _child + "\n");
-			}
-		});
+		parent.addBroadcastListener((ObjectInfoChildAddBefore) (_parent, _child, nextChild) -> buffer.append("childAddBefore " + _parent + " " + _child + "\n"));
+		parent.addBroadcastListener((ObjectInfoChildAddAfter) (_parent, _child) -> buffer.append("childAddAfter " + _parent + " " + _child + "\n"));
 		// build hierarchy
 		parent.addChild(child_1);
 		parent.addChild(child_2);
@@ -683,18 +668,8 @@ public class ObjectInfoTest extends DesignerTestCase {
 		TestObjectInfo child_2 = new TestObjectInfo("child_2");
 		// add listener
 		final StringBuffer buffer = new StringBuffer();
-		parent.addBroadcastListener(new ObjectInfoChildAddBefore() {
-			@Override
-			public void invoke(ObjectInfo _parent, ObjectInfo _child, ObjectInfo[] nextChild) {
-				buffer.append("childAddBefore " + _parent + " " + _child + "\n");
-			}
-		});
-		parent.addBroadcastListener(new ObjectInfoChildAddAfter() {
-			@Override
-			public void invoke(ObjectInfo _parent, ObjectInfo _child) {
-				buffer.append("childAddAfter " + _parent + " " + _child + "\n");
-			}
-		});
+		parent.addBroadcastListener((ObjectInfoChildAddBefore) (_parent, _child, nextChild) -> buffer.append("childAddBefore " + _parent + " " + _child + "\n"));
+		parent.addBroadcastListener((ObjectInfoChildAddAfter) (_parent, _child) -> buffer.append("childAddAfter " + _parent + " " + _child + "\n"));
 		ObjectEventListener listener = new ObjectEventListener() {
 			@Override
 			public void childRemoveBefore(ObjectInfo _parent, ObjectInfo _child) throws Exception {
@@ -731,12 +706,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		TestObjectInfo child = new TestObjectInfo("child");
 		// add listener (2 times!)
 		final StringBuffer buffer = new StringBuffer();
-		ObjectInfoChildAddBefore listener = new ObjectInfoChildAddBefore() {
-			@Override
-			public void invoke(ObjectInfo _parent, ObjectInfo _child, ObjectInfo[] nextChild) {
-				buffer.append("childAddBefore " + _parent + " " + _child + "\n");
-			}
-		};
+		ObjectInfoChildAddBefore listener = (_parent, _child, nextChild) -> buffer.append("childAddBefore " + _parent + " " + _child + "\n");
 		parent.addBroadcastListener(listener);
 		parent.addBroadcastListener(listener);
 		// do operations, only one record expected
@@ -831,12 +801,9 @@ public class ObjectInfoTest extends DesignerTestCase {
 		parent.addChild(child_1, null);
 		parent.addChild(child_2, null);
 		// add listener for re-targeting, instead of "last" add as "first"
-		ObjectInfoChildAddBefore listener = new ObjectInfoChildAddBefore() {
-			@Override
-			public void invoke(ObjectInfo _parent, ObjectInfo _child, ObjectInfo[] nextChild) {
-				if (nextChild[0] == null) {
-					nextChild[0] = child_1;
-				}
+		ObjectInfoChildAddBefore listener = (_parent, _child, nextChild) -> {
+			if (nextChild[0] == null) {
+				nextChild[0] = child_1;
 			}
 		};
 		parent.addBroadcastListener(listener);
@@ -862,12 +829,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		// add child and listener (bound to child)
 		parent.addChild(child);
 		final StringBuffer buffer = new StringBuffer();
-		ObjectInfoChildAddBefore listener = new ObjectInfoChildAddBefore() {
-			@Override
-			public void invoke(ObjectInfo _parent, ObjectInfo _child, ObjectInfo[] nextChild) {
-				buffer.append("childAddBefore " + _parent + " " + _child + "\n");
-			}
-		};
+		ObjectInfoChildAddBefore listener = (_parent, _child, nextChild) -> buffer.append("childAddBefore " + _parent + " " + _child + "\n");
 		child.addBroadcastListener(listener);
 		// re-target listener to "parent"
 		child.targetBroadcastListener(parent);
@@ -896,12 +858,7 @@ public class ObjectInfoTest extends DesignerTestCase {
 		TestObjectInfo parent = new TestObjectInfo("parent");
 		// add listener
 		final StringBuffer buffer = new StringBuffer();
-		BroadcastTestInterface listener = new BroadcastTestInterface() {
-			@Override
-			public void invoke() {
-				buffer.append("invoke");
-			}
-		};
+		BroadcastTestInterface listener = () -> buffer.append("invoke");
 		parent.addBroadcastListener(listener);
 		// send broadcast
 		parent.getBroadcast(BroadcastTestInterface.class).invoke();

@@ -47,8 +47,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -430,17 +428,9 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 	 * Deletes value of given {@link Property} and clicks "OK" in confirmation dialog.
 	 */
 	private static void deleteEventPropertyWithGUI(final Property property) throws Exception {
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				property.setValue(Property.UNKNOWN_VALUE);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Confirm").bot();
-				shell.button("OK").click();
-			}
+		new UiContext().executeAndCheck(() -> property.setValue(Property.UNKNOWN_VALUE), bot -> {
+			SWTBot shell = bot.shell("Confirm").bot();
+			shell.button("OK").click();
 		});
 	}
 
@@ -502,17 +492,9 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		final Property keyPressedProperty = getEventsListenerMethod(panel, "key", "pressed");
 		String expectedSource = m_lastEditor.getSource();
 		// press "Cancel", so don't delete
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				keyPressedProperty.setValue(Property.UNKNOWN_VALUE);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Confirm").bot();
-				shell.button("Cancel").click();
-			}
+		new UiContext().executeAndCheck(() -> keyPressedProperty.setValue(Property.UNKNOWN_VALUE), bot -> {
+			SWTBot shell = bot.shell("Confirm").bot();
+			shell.button("Cancel").click();
 		});
 		// no change expected
 		assertEditor(expectedSource, m_lastEditor);
@@ -858,18 +840,10 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 
 	private static void deleteInnerListener_twoUsages(final Property property,
 			final String multiButton) throws Exception {
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				property.setValue(Property.UNKNOWN_VALUE);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Confirm").bot();
-				shell.button("OK").click();
-				bot.shell("Confirm").bot().button(multiButton).click();
-			}
+		new UiContext().executeAndCheck(() -> property.setValue(Property.UNKNOWN_VALUE), bot -> {
+			SWTBot shell = bot.shell("Confirm").bot();
+			shell.button("OK").click();
+			bot.shell("Confirm").bot().button(multiButton).click();
 		});
 	}
 
@@ -1902,12 +1876,7 @@ public class EventsPropertyTest extends SwingModelTest implements IPreferenceCon
 		DesignPageSite.Helper.setSite(panel, DesignPageSite.EMPTY);
 		//
 		final AtomicReference<String> broSpec = new AtomicReference<>();
-		panel.addBroadcastListener(new JavaInfoEventOpen() {
-			@Override
-			public void invoke(JavaInfo javaInfo, String spec) throws Exception {
-				broSpec.set(spec);
-			}
-		});
+		panel.addBroadcastListener((JavaInfoEventOpen) (javaInfo, spec) -> broSpec.set(spec));
 		// call open()
 		EventsProperty eventsProperty = (EventsProperty) panel.getPropertyByTitle("Events");
 		eventsProperty.openStubMethod(name);

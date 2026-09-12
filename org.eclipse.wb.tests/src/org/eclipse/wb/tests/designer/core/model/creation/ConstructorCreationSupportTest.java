@@ -664,12 +664,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 		// do copy/paste
 		{
 			ComponentInfo button = getJavaInfoByName("button");
-			doCopyPaste(button, new PasteProcedure<ComponentInfo>() {
-				@Override
-				public void run(ComponentInfo copy) throws Exception {
-					((FlowLayoutInfo) panel.getLayout()).add(copy, null);
-				}
-			});
+			doCopyPaste(button, copy -> ((FlowLayoutInfo) panel.getLayout()).add(copy, null));
 			assertEditor(
 					"public class Test extends JPanel {",
 					"  public Test() {",
@@ -726,12 +721,7 @@ public class ConstructorCreationSupportTest extends SwingModelTest {
 		// do copy/paste
 		{
 			ComponentInfo button = getJavaInfoByName("button");
-			doCopyPaste(button, new PasteProcedure<ComponentInfo>() {
-				@Override
-				public void run(ComponentInfo copy) throws Exception {
-					((FlowLayoutInfo) panel.getLayout()).add(copy, null);
-				}
-			});
+			doCopyPaste(button, copy -> ((FlowLayoutInfo) panel.getLayout()).add(copy, null));
 			assertEditor(
 					"public class Test extends JPanel {",
 					"  public Test() {",

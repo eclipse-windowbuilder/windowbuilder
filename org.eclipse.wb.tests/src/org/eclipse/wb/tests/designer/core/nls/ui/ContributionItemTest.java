@@ -17,11 +17,9 @@ import org.eclipse.wb.internal.core.nls.model.AbstractSource;
 import org.eclipse.wb.internal.core.nls.model.LocaleInfo;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotRootMenu;
 
-import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -102,12 +100,6 @@ public class ContributionItemTest extends AbstractNlsUiTest {
 						"    setTitle('My JFrame');",
 						"  }",
 						"}");
-		openDialogNLS("", initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				// click "OK"
-				bot.shell("Can't Externalize").bot().button("OK").click();
-			}
-		});
+		openDialogNLS("", initialSource, (context, bot) -> bot.shell("Can't Externalize").bot().button("OK").click());
 	}
 }

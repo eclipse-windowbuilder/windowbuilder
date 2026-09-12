@@ -31,8 +31,6 @@ import org.eclipse.swtbot.swt.finder.utils.TableCollection;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotButton;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -113,44 +111,36 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		final PropertyEditor propertyEditor = property.getEditor();
 		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				openPropertyDialog(property);
+		new UiContext().executeAndCheck(() -> openPropertyDialog(property), bot -> {
+			SWTBot shell = bot.shell("value").bot();
+			SWTBotTreeItem panelItem = shell.tree().expandNode("(javax.swing.JPanel)");
+			SWTBotButton okButton = shell.button("OK");
+			// initially "panel" selected, so invalid
+			assertFalse(okButton.isEnabled());
+			// prepare "non-visual beans" item
+			SWTBotTreeItem beansContainer;
+			{
+				SWTBotTreeItem[] childItems = panelItem.getItems();
+				Assertions.assertThat(childItems).hasSize(1);
+				assertEquals("(non-visual beans)", childItems[0].getText());
+				beansContainer = childItems[0];
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("value").bot();
-				SWTBotTreeItem panelItem = shell.tree().expandNode("(javax.swing.JPanel)");
-				SWTBotButton okButton = shell.button("OK");
-				// initially "panel" selected, so invalid
-				assertFalse(okButton.isEnabled());
-				// prepare "non-visual beans" item
-				SWTBotTreeItem beansContainer;
-				{
-					SWTBotTreeItem[] childItems = panelItem.getItems();
-					Assertions.assertThat(childItems).hasSize(1);
-					assertEquals("(non-visual beans)", childItems[0].getText());
-					beansContainer = childItems[0];
-				}
-				// prepare "object_1"
-				SWTBotTreeItem myObjectItem;
-				{
-					SWTBotTreeItem[] beanItems = beansContainer.getItems();
-					Assertions.assertThat(beanItems).hasSize(1);
-					assertEquals("object_1", beanItems[0].getText());
-					myObjectItem = beanItems[0];
-				}
-				// container - invalid
-				beansContainer.select();
-				assertFalse(okButton.isEnabled());
-				// "object_1" - valid
-				myObjectItem.select();
-				assertTrue(okButton.isEnabled());
-				// click OK
-				okButton.click();
+			// prepare "object_1"
+			SWTBotTreeItem myObjectItem;
+			{
+				SWTBotTreeItem[] beanItems = beansContainer.getItems();
+				Assertions.assertThat(beanItems).hasSize(1);
+				assertEquals("object_1", beanItems[0].getText());
+				myObjectItem = beanItems[0];
 			}
+			// container - invalid
+			beansContainer.select();
+			assertFalse(okButton.isEnabled());
+			// "object_1" - valid
+			myObjectItem.select();
+			assertTrue(okButton.isEnabled());
+			// click OK
+			okButton.click();
 		});
 		// check
 		assertEditor("""
@@ -204,29 +194,21 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		final PropertyEditor propertyEditor = property.getEditor();
 		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				openPropertyDialog(property);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("button").bot();
-				SWTBotTreeItem panelItem = shell.tree().expandNode("(javax.swing.JPanel)");
-				SWTBotButton okButton = shell.button("OK");
-				// initially "panel" selected, so invalid
-				assertFalse(okButton.isEnabled());
-				// prepare items
-				SWTBotTreeItem[] childItems = panelItem.getItems();
-				Assertions.assertThat(childItems).hasSize(1);
-				assertEquals("button", childItems[0].getText());
-				// JButton - valid
-				childItems[0].click();
-				assertTrue(okButton.isEnabled());
-				// click OK
-				okButton.click();
-			}
+		new UiContext().executeAndCheck(() -> openPropertyDialog(property), bot -> {
+			SWTBot shell = bot.shell("button").bot();
+			SWTBotTreeItem panelItem = shell.tree().expandNode("(javax.swing.JPanel)");
+			SWTBotButton okButton = shell.button("OK");
+			// initially "panel" selected, so invalid
+			assertFalse(okButton.isEnabled());
+			// prepare items
+			SWTBotTreeItem[] childItems = panelItem.getItems();
+			Assertions.assertThat(childItems).hasSize(1);
+			assertEquals("button", childItems[0].getText());
+			// JButton - valid
+			childItems[0].click();
+			assertTrue(okButton.isEnabled());
+			// click OK
+			okButton.click();
 		});
 		// check
 		assertEditor("""
@@ -276,21 +258,13 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		final PropertyEditor propertyEditor = property.getEditor();
 		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				openPropertyDialog(property);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("button").bot();
-				// "button_2" is selected
-				TableCollection selection = shell.tree().selection();
-				assertEquals(selection.rowCount(), 1);
-				assertEquals(selection.get(0, 0), "button_2");
-				shell.button("Cancel").click();
-			}
+		new UiContext().executeAndCheck(() -> openPropertyDialog(property), bot -> {
+			SWTBot shell = bot.shell("button").bot();
+			// "button_2" is selected
+			TableCollection selection = shell.tree().selection();
+			assertEquals(selection.rowCount(), 1);
+			assertEquals(selection.get(0, 0), "button_2");
+			shell.button("Cancel").click();
 		});
 	}
 
@@ -376,17 +350,9 @@ public class ObjectPropertyEditorTest extends SwingModelTest {
 		final PropertyEditor propertyEditor = property.getEditor();
 		assertSame(propertyEditor, ObjectPropertyEditor.INSTANCE);
 		// animate - just open and ensure that dialog opened (no exception during this)
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				openPropertyDialog(property);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("labelFor").bot();
-				shell.button("Cancel").click();
-			}
+		new UiContext().executeAndCheck(() -> openPropertyDialog(property), bot -> {
+			SWTBot shell = bot.shell("labelFor").bot();
+			shell.button("Cancel").click();
 		});
 	}
 

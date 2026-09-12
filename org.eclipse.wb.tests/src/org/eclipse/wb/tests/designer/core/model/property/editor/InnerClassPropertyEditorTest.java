@@ -22,14 +22,10 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -135,17 +131,7 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		// use GUI to set "ExternalLabelProvider"
 		{
 			// open dialog and animate it
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					openPropertyDialog(property);
-				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					animateOpenTypeSelection(bot, "ExternalLabelPro", "OK");
-				}
-			});
+			new UiContext().executeAndCheck(() -> openPropertyDialog(property), bot -> animateOpenTypeSelection(bot, "ExternalLabelPro", "OK"));
 			// check source
 			assertEditor("""
 					public class Test extends JPanel {
@@ -192,18 +178,10 @@ public class InnerClassPropertyEditorTest extends SwingModelTest {
 		// use GUI to set "ExternalLabelProvider"
 		{
 			// open dialog and animate it
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					openPropertyDialog(property);
-				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					animateOpenTypeSelection(bot, "AbstractLabelPro", "OK");
-					// shows Error, close it
-					bot.shell("Error").bot().button("OK").click();
-				}
+			new UiContext().executeAndCheck(() -> openPropertyDialog(property), bot -> {
+				animateOpenTypeSelection(bot, "AbstractLabelPro", "OK");
+				// shows Error, close it
+				bot.shell("Error").bot().button("OK").click();
 			});
 		}
 	}

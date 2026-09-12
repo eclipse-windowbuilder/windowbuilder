@@ -38,8 +38,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
 import net.miginfocom.layout.LC;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Container;
@@ -936,23 +934,15 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		assertEquals("", constraints.getString());
 		// open dialog, but cancel
 		{
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() {
-					action.run();
+			new UiContext().executeAndCheck(() -> action.run(), bot -> {
+				SWTBot shell = bot.shell("Cell properties").bot();
+				{
+					SWTBotText text = shell.textWithLabel("Specification:");
+					text.setText("width 100px");
 				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					SWTBot shell = bot.shell("Cell properties").bot();
-					{
-						SWTBotText text = shell.textWithLabel("Specification:");
-						text.setText("width 100px");
-					}
-					// changes applied into "constraints"
-					assertEquals("width 100px", constraints.getString());
-					shell.button("Cancel").click();
-				}
+				// changes applied into "constraints"
+				assertEquals("width 100px", constraints.getString());
+				shell.button("Cancel").click();
 			});
 			// changes of "constraints" rolled back
 			assertEquals("", constraints.getString());
@@ -967,21 +957,13 @@ public class MigLayoutConstraintsTest extends AbstractMigLayoutTest {
 		}
 		waitEventLoop(5);
 		// open dialog, commit changes
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				action.run();
+		new UiContext().executeAndCheck(() -> action.run(), bot -> {
+			SWTBot shell = bot.shell("Cell properties").bot();
+			{
+				SWTBotText text = shell.textWithLabel("Specification:");
+				text.setText("width 100px");
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Cell properties").bot();
-				{
-					SWTBotText text = shell.textWithLabel("Specification:");
-					text.setText("width 100px");
-				}
-				shell.button("OK").click();
-			}
+			shell.button("OK").click();
 		});
 		assertEditor("""
 				public class Test extends JPanel {

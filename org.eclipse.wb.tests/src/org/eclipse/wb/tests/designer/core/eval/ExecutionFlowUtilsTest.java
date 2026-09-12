@@ -930,14 +930,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	@Test
 	public void test_findLastAssignment_variable() throws Exception {
 		String code = "void root() {int value = 0; System.out.println(value);}";
-		check_findLastAssignment(code, 1, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) ((VariableDeclarationStatement) statements[0]).fragments().get(0);
-			}
-		});
+		check_findLastAssignment(code, 1, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) ((VariableDeclarationStatement) statements[0]).fragments().get(0));
 	}
 
 	/**
@@ -1001,68 +994,33 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	@Test
 	public void test_findLastAssignment_variable_reassign() throws Exception {
 		String code = "void root() {int value = 0; value = 1; System.out.println(value);}";
-		check_findLastAssignment(code, 2, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return ((ExpressionStatement) statements[1]).getExpression();
-			}
-		});
+		check_findLastAssignment(code, 2, (typeDeclaration, methodDeclaration, statements) -> ((ExpressionStatement) statements[1]).getExpression());
 	}
 
 	@Test
 	public void test_findLastAssignment_variable_reassign2() throws Exception {
 		String code =
 				"void root() {int value; value = 0; System.out.println(value); value = 1; System.out.println(value);}";
-		check_findLastAssignment(code, 4, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return ((ExpressionStatement) statements[3]).getExpression();
-			}
-		});
+		check_findLastAssignment(code, 4, (typeDeclaration, methodDeclaration, statements) -> ((ExpressionStatement) statements[3]).getExpression());
 	}
 
 	@Test
 	public void test_findLastAssignment_variable_reassign_later() throws Exception {
 		String code = "void root() {int value = 0; System.out.println(value); value = 1;}";
-		check_findLastAssignment(code, 1, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) ((VariableDeclarationStatement) statements[0]).fragments().get(0);
-			}
-		});
+		check_findLastAssignment(code, 1, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) ((VariableDeclarationStatement) statements[0]).fragments().get(0));
 	}
 
 	@Test
 	public void test_findLastAssignment_variable_sameInDifferentMethod() throws Exception {
 		String code =
 				"void root() {int value = 0; foo(); System.out.println(value);} void foo() {int value = 1;}";
-		check_findLastAssignment(code, 2, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) ((VariableDeclarationStatement) statements[0]).fragments().get(0);
-			}
-		});
+		check_findLastAssignment(code, 2, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) ((VariableDeclarationStatement) statements[0]).fragments().get(0));
 	}
 
 	@Test
 	public void test_findLastAssignment_FieldDeclaration() throws Exception {
 		String code = "int value = 0; void root() {System.out.println(value);}";
-		check_findLastAssignment(code, 0, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) typeDeclaration.getFields()[0].fragments().get(0);
-			}
-		});
+		check_findLastAssignment(code, 0, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) typeDeclaration.getFields()[0].fragments().get(0));
 	}
 
 	/**
@@ -1181,42 +1139,22 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	@Test
 	public void test_findLastAssignment_FieldDeclaration_variable_thisMethod() throws Exception {
 		String code = "int value = 0; void root() {int value = 1; System.out.println(value);}";
-		check_findLastAssignment(code, 1, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) ((VariableDeclarationStatement) statements[0]).fragments().get(0);
-			}
-		});
+		check_findLastAssignment(code, 1, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) ((VariableDeclarationStatement) statements[0]).fragments().get(0));
 	}
 
 	@Test
 	public void test_findLastAssignment_FieldDeclaration_reassign_thisMethod() throws Exception {
 		String code = "int value = 0; void root() {value = 1; System.out.println(value);}";
-		check_findLastAssignment(code, 1, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return ((ExpressionStatement) statements[0]).getExpression();
-			}
-		});
+		check_findLastAssignment(code, 1, (typeDeclaration, methodDeclaration, statements) -> ((ExpressionStatement) statements[0]).getExpression());
 	}
 
 	@Test
 	public void test_findLastAssignment_FieldDeclaration_reassign_otherMethod() throws Exception {
 		String code =
 				"int value = 0; void root() {foo(); System.out.println(value);} void foo() {value = 1;}";
-		check_findLastAssignment(code, 1, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				Statement statement =
-						(Statement) typeDeclaration.getMethods()[1].getBody().statements().get(0);
-				return ((ExpressionStatement) statement).getExpression();
-			}
+		check_findLastAssignment(code, 1, (typeDeclaration, methodDeclaration, statements) -> {
+			Statement statement = (Statement) typeDeclaration.getMethods()[1].getBody().statements().get(0);
+			return ((ExpressionStatement) statement).getExpression();
 		});
 	}
 
@@ -1224,55 +1162,27 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	public void test_findLastAssignment_FieldDeclaration_reassign_otherMethod2() throws Exception {
 		String code =
 				"int value = 0; void root() {System.out.println(value); foo();} void foo() {value = 1;}";
-		check_findLastAssignment(code, 0, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) typeDeclaration.getFields()[0].fragments().get(0);
-			}
-		});
+		check_findLastAssignment(code, 0, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) typeDeclaration.getFields()[0].fragments().get(0));
 	}
 
 	@Test
 	public void test_findLastAssignment_FieldDeclaration_reassign_otherMethod3() throws Exception {
 		String code =
 				"int value = 0; void foo() {value = 1;} void root() {System.out.println(value); foo();}";
-		check_findLastAssignment(code, 0, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) typeDeclaration.getFields()[0].fragments().get(0);
-			}
-		});
+		check_findLastAssignment(code, 0, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) typeDeclaration.getFields()[0].fragments().get(0));
 	}
 
 	@Test
 	public void test_findLastAssignment_FieldDeclaration_reassign_otherMethod4() throws Exception {
 		String code =
 				"int value = 0; void root() {foo(); System.out.println(value);} void foo() {int value = 1;}";
-		check_findLastAssignment(code, 1, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) typeDeclaration.getFields()[0].fragments().get(0);
-			}
-		});
+		check_findLastAssignment(code, 1, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) typeDeclaration.getFields()[0].fragments().get(0));
 	}
 
 	@Test
 	public void test_findLastAssignment_parameters() throws Exception {
 		String code = "void root(int value) {System.out.println(value);}";
-		check_findLastAssignment(code, "root(int)", 0, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) methodDeclaration.parameters().get(0);
-			}
-		});
+		check_findLastAssignment(code, "root(int)", 0, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) methodDeclaration.parameters().get(0));
 	}
 
 	@Test
@@ -1320,14 +1230,7 @@ public class ExecutionFlowUtilsTest extends AbstractEngineTest {
 	@Test
 	public void test_findLastAssignment_parameters_hide_field() throws Exception {
 		String code = "int value = 1; void root(int value) {System.out.println(value);}";
-		check_findLastAssignment(code, "root(int)", 0, new I_findLastAssignment() {
-			@Override
-			public ASTNode getExpected(TypeDeclaration typeDeclaration,
-					MethodDeclaration methodDeclaration,
-					Statement[] statements) {
-				return (ASTNode) methodDeclaration.parameters().get(0);
-			}
-		});
+		check_findLastAssignment(code, "root(int)", 0, (typeDeclaration, methodDeclaration, statements) -> (ASTNode) methodDeclaration.parameters().get(0));
 	}
 
 	/**

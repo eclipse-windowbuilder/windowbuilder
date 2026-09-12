@@ -52,8 +52,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 import static org.assertj.core.data.MapEntry.entry;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.osgi.framework.Bundle;
@@ -528,18 +526,12 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		// do initialize
 		assertTrue(componentEntry.initialize(null, m_lastParseInfo));
 		// create tool
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				CreationTool creationTool = (CreationTool) componentEntry.createTool();
-				assertNull(creationTool);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Error").bot();
-				shell.button("OK").click();
-			}
+		new UiContext().executeAndCheck(() -> {
+			CreationTool creationTool = (CreationTool) componentEntry.createTool();
+			assertNull(creationTool);
+		}, bot -> {
+			SWTBot shell = bot.shell("Error").bot();
+			shell.button("OK").click();
 		});
 	}
 
@@ -1107,29 +1099,23 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final AtomicReference<CreationTool> creationToolResult = new AtomicReference<>();
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					CreationTool result = (CreationTool) componentEntry.createTool();
-					creationToolResult.set(result);
+			new UiContext().executeAndCheck(() -> {
+				CreationTool result = (CreationTool) componentEntry.createTool();
+				creationToolResult.set(result);
+			}, bot -> {
+				SWTBot shell = bot.shell("Generic component creation").bot();
+				// initial type
+				SWTBotText textWidget = shell.textWithLabel("Row type:");
+				assertEquals("java.lang.Object", textWidget.getText());
+				// animate "..." button
+				{
+					shell.button("...").click();
+					animateOpenTypeSelection(bot, "java.lang.String", "OK");
 				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					SWTBot shell = bot.shell("Generic component creation").bot();
-					// initial type
-					SWTBotText textWidget = shell.textWithLabel("Row type:");
-					assertEquals("java.lang.Object", textWidget.getText());
-					// animate "..." button
-					{
-						shell.button("...").click();
-						animateOpenTypeSelection(bot, "java.lang.String", "OK");
-					}
-					// chosen type
-					assertEquals("java.lang.String", textWidget.getText());
-					// OK
-					shell.button("OK").click();
-				}
+				// chosen type
+				assertEquals("java.lang.String", textWidget.getText());
+				// OK
+				shell.button("OK").click();
 			});
 			creationTool = creationToolResult.get();
 			assertNotNull(creationTool);
@@ -1160,29 +1146,23 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final AtomicReference<CreationTool> creationToolResult = new AtomicReference<>();
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					CreationTool result = (CreationTool) componentEntry.createTool();
-					creationToolResult.set(result);
+			new UiContext().executeAndCheck(() -> {
+				CreationTool result = (CreationTool) componentEntry.createTool();
+				creationToolResult.set(result);
+			}, bot -> {
+				SWTBot shell = bot.shell("Generic component creation").bot();
+				// initial type
+				SWTBotText textWidget = shell.textWithLabel("Row type:");
+				assertEquals("java.lang.Object", textWidget.getText());
+				// animate "..." button
+				{
+					shell.button("...").click();
+					animateOpenTypeSelection(bot, "java.lang.String", "Cancel");
 				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					SWTBot shell = bot.shell("Generic component creation").bot();
-					// initial type
-					SWTBotText textWidget = shell.textWithLabel("Row type:");
-					assertEquals("java.lang.Object", textWidget.getText());
-					// animate "..." button
-					{
-						shell.button("...").click();
-						animateOpenTypeSelection(bot, "java.lang.String", "Cancel");
-					}
-					// no changes
-					assertEquals("java.lang.Object", textWidget.getText());
-					// cancel
-					shell.button("Cancel").click();
-				}
+				// no changes
+				assertEquals("java.lang.Object", textWidget.getText());
+				// cancel
+				shell.button("Cancel").click();
 			});
 			creationTool = creationToolResult.get();
 		}
@@ -1203,24 +1183,16 @@ public class ComponentEntryInfoTest extends AbstractPaletteTest {
 			componentEntry = prepare_typeParameters(line);
 		}
 		// animate createTool()
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				componentEntry.createTool();
+		new UiContext().executeAndCheck(() -> componentEntry.createTool(), bot -> {
+			SWTBot shell = bot.shell("Generic component creation").bot();
+			// animate "..." button
+			{
+				shell.button("...").click();
+				animateOpenTypeSelection(bot, "java.lang.String", "OK");
+				bot.shell("Error").bot().button("OK").click();
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Generic component creation").bot();
-				// animate "..." button
-				{
-					shell.button("...").click();
-					animateOpenTypeSelection(bot, "java.lang.String", "OK");
-					bot.shell("Error").bot().button("OK").click();
-				}
-				// Cancel
-				shell.button("Cancel").click();
-			}
+			// Cancel
+			shell.button("Cancel").click();
 		});
 	}
 

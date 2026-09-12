@@ -524,15 +524,11 @@ public class JavaInfoTest extends SwingModelTest {
 		}
 		//
 		final AtomicInteger count = new AtomicInteger();
-		button.addBroadcastListener(new JavaInfoSetVariable() {
-			@Override
-			public void invoke(JavaInfo javaInfo, VariableSupport oldVariable, VariableSupport newVariable)
-					throws Exception {
-				assertSame(button, javaInfo);
-				assertSame(expected_oldVariable, oldVariable);
-				assertSame(expected_newVariable, newVariable);
-				count.incrementAndGet();
-			}
+		button.addBroadcastListener((JavaInfoSetVariable) (javaInfo, oldVariable, newVariable) -> {
+			assertSame(button, javaInfo);
+			assertSame(expected_oldVariable, oldVariable);
+			assertSame(expected_newVariable, newVariable);
+			count.incrementAndGet();
 		});
 		button.setVariableSupport(expected_newVariable);
 		assertEquals(1, count.get());
@@ -1438,12 +1434,9 @@ public class JavaInfoTest extends SwingModelTest {
 		// initially "panel" has properties
 		Assertions.assertThat(panel.getProperties()).isNotEmpty();
 		// add allProperties() listener
-		panel.addBroadcastListener(new ObjectInfoAllProperties() {
-			@Override
-			public void invoke(ObjectInfo object, List<Property> properties) throws Exception {
-				if (object == panel) {
-					properties.clear();
-				}
+		panel.addBroadcastListener((ObjectInfoAllProperties) (object, properties) -> {
+			if (object == panel) {
+				properties.clear();
 			}
 		});
 		Assertions.assertThat(panel.getProperties()).isEmpty();

@@ -166,14 +166,11 @@ public class SwingLiveManagerTest extends SwingModelTest {
 		// ask "live" first time
 		{
 			ILog log = DesignerPlugin.getDefault().getLog();
-			ILogListener logListener = new ILogListener() {
-				@Override
-				public void logging(IStatus status, String plugin) {
-					assertEquals(IStatus.ERROR, status.getSeverity());
-					Throwable exception = status.getException();
-					Assertions.assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
-					assertEquals("Problem in constructor", exception.getMessage());
-				}
+			ILogListener logListener = (status, plugin) -> {
+				assertEquals(IStatus.ERROR, status.getSeverity());
+				Throwable exception = status.getException();
+				Assertions.assertThat(exception).isExactlyInstanceOf(IllegalStateException.class);
+				assertEquals("Problem in constructor", exception.getMessage());
 			};
 			// temporary intercept logging
 			try {
@@ -202,12 +199,7 @@ public class SwingLiveManagerTest extends SwingModelTest {
 		// second request for some component class does not cause any exception, we use cached result
 		{
 			ILog log = DesignerPlugin.getDefault().getLog();
-			ILogListener logListener = new ILogListener() {
-				@Override
-				public void logging(IStatus status, String plugin) {
-					fail();
-				}
-			};
+			ILogListener logListener = (status, plugin) -> fail();
 			// temporary intercept logging
 			try {
 				log.addLogListener(logListener);

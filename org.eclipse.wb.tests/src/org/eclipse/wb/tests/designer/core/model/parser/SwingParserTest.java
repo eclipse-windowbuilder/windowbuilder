@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.core.model.parser;
 
-import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.association.RootAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaInfoSetObjectAfter;
 import org.eclipse.wb.internal.core.eval.evaluators.AnonymousEvaluationError;
@@ -541,12 +540,9 @@ public class SwingParserTest extends SwingModelTest {
 		assertTrue(panel.getChildrenJava().get(1) instanceof ContainerInfo);
 		// check that JavaEventListener works
 		final boolean objectWasSet[] = new boolean[1];
-		panel.addBroadcastListener(new JavaInfoSetObjectAfter() {
-			@Override
-			public void invoke(JavaInfo target, Object o) throws Exception {
-				if (target == panel) {
-					objectWasSet[0] = true;
-				}
+		panel.addBroadcastListener((JavaInfoSetObjectAfter) (target, o) -> {
+			if (target == panel) {
+				objectWasSet[0] = true;
 			}
 		});
 		// check creation

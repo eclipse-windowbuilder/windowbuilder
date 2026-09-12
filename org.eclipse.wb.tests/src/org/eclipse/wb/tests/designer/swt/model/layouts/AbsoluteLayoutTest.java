@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.swt.model.layouts;
 
-import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
 import org.eclipse.wb.core.model.association.InvocationChildAssociation;
 import org.eclipse.wb.core.model.broadcast.JavaInfoSetObjectAfter;
@@ -47,8 +46,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -189,13 +186,10 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 		// listen for AbsoluteLayoutInfo setObject() during refresh
 		{
 			final boolean[] absoluteLayout_objectSet = new boolean[1];
-			shell.addBroadcastListener(new JavaInfoSetObjectAfter() {
-				@Override
-				public void invoke(JavaInfo target, Object o) throws Exception {
-					if (target == absoluteLayout) {
-						assertNull(o);
-						absoluteLayout_objectSet[0] = true;
-					}
+			shell.addBroadcastListener((JavaInfoSetObjectAfter) (target, o) -> {
+				if (target == absoluteLayout) {
+					assertNull(o);
+					absoluteLayout_objectSet[0] = true;
 				}
 			});
 			// do refresh
@@ -266,19 +260,13 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 				}""");
 		refresh();
 		// set RowLayout for "inner"
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				CompositeInfo inner = getJavaInfoByName("inner");
-				LayoutInfo rowLayout = createJavaInfo("org.eclipse.swt.layout.RowLayout");
-				inner.setLayout(rowLayout);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Confirm").bot();
-				shell.button("No, keep 'null' layout").click();
-			}
+		new UiContext().executeAndCheck(() -> {
+			CompositeInfo inner = getJavaInfoByName("inner");
+			LayoutInfo rowLayout = createJavaInfo("org.eclipse.swt.layout.RowLayout");
+			inner.setLayout(rowLayout);
+		}, bot -> {
+			SWTBot shell = bot.shell("Confirm").bot();
+			shell.button("No, keep 'null' layout").click();
 		});
 		assertEditor("""
 				public class Test extends Shell {
@@ -309,19 +297,13 @@ public class AbsoluteLayoutTest extends RcpModelTest {
 				}""");
 		refresh();
 		// set RowLayout for "inner"
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				CompositeInfo inner = getJavaInfoByName("inner");
-				LayoutInfo rowLayout = createJavaInfo("org.eclipse.swt.layout.RowLayout");
-				inner.setLayout(rowLayout);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Confirm").bot();
-				shell.button("Yes, use FormLayout").click();
-			}
+		new UiContext().executeAndCheck(() -> {
+			CompositeInfo inner = getJavaInfoByName("inner");
+			LayoutInfo rowLayout = createJavaInfo("org.eclipse.swt.layout.RowLayout");
+			inner.setLayout(rowLayout);
+		}, bot -> {
+			SWTBot shell = bot.shell("Confirm").bot();
+			shell.button("Yes, use FormLayout").click();
 		});
 		assertEditor("""
 				public class Test extends Shell {

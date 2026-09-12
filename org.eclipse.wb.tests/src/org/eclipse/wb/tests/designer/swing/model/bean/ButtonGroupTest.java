@@ -26,8 +26,6 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -567,17 +565,7 @@ public class ButtonGroupTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set new ButtonGroup
 		final IAction newGroupAction = getButtonGroupAction("New custom...", button);
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				newGroupAction.run();
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				animateOpenTypeSelection(bot, "MyButtonGroup", "OK");
-			}
-		});
+		new UiContext().executeAndCheck(() -> newGroupAction.run(), bot -> animateOpenTypeSelection(bot, "MyButtonGroup", "OK"));
 		assertEditor("""
 				public class Test extends JPanel {
 					private final MyButtonGroup myButtonGroup = new MyButtonGroup();
@@ -610,17 +598,7 @@ public class ButtonGroupTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set new ButtonGroup
 		final IAction newGroupAction = getButtonGroupAction("New custom...", button);
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				newGroupAction.run();
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				animateOpenTypeSelection(bot, "java.lang.Object", "OK");
-			}
-		});
+		new UiContext().executeAndCheck(() -> newGroupAction.run(), bot -> animateOpenTypeSelection(bot, "java.lang.Object", "OK"));
 		assertEditor("""
 				public class Test extends JPanel {
 					public Test() {
@@ -651,17 +629,9 @@ public class ButtonGroupTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// set new ButtonGroup
 		final IAction newGroupAction = getButtonGroupAction("New custom...", button);
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				newGroupAction.run();
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Open type").bot();
-				shell.button("Cancel").click();
-			}
+		new UiContext().executeAndCheck(() -> newGroupAction.run(), bot -> {
+			SWTBot shell = bot.shell("Open type").bot();
+			shell.button("Cancel").click();
 		});
 		assertEditor("""
 				public class Test extends JPanel {

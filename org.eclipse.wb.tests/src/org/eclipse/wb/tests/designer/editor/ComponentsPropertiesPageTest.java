@@ -55,12 +55,7 @@ public class ComponentsPropertiesPageTest extends SwingGefTest {
 	public static class CategoryProvider2 implements PropertyCategoryProviderProvider {
 		@Override
 		public PropertyCategoryProvider get(List<ObjectInfo> objects) {
-			return new PropertyCategoryProvider() {
-				@Override
-				public PropertyCategory getCategory(Property property) {
-					return PropertyCategory.NORMAL;
-				}
-			};
+			return property -> PropertyCategory.NORMAL;
 		}
 	}
 

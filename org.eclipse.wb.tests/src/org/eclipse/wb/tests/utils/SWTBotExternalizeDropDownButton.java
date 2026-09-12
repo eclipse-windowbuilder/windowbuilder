@@ -44,12 +44,9 @@ public class SWTBotExternalizeDropDownButton extends SWTBotToolbarDropDownButton
 		// Set-up
 		Menu[] menu = new Menu[1];
 
-		Listener l = new Listener() {
-			@Override
-			public void handleEvent(Event event) {
-				if (event.widget instanceof Menu m) {
-					menu[0] = m;
-				}
+		Listener l = event -> {
+			if (event.widget instanceof Menu m) {
+				menu[0] = m;
 			}
 		};
 		// Open menu

@@ -22,10 +22,6 @@ import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.wb.tests.gef.UiContext;
 
-import org.eclipse.swtbot.swt.finder.SWTBot;
-
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -161,17 +157,7 @@ public class InstanceObjectPropertyEditorTest extends SwingModelTest {
 		// use GUI to set "ExternalLabelProvider"
 		{
 			// open dialog and animate it
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					openPropertyDialog(property);
-				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					animateOpenTypeSelection(bot, "JButton", "OK");
-				}
-			});
+			new UiContext().executeAndCheck(() -> openPropertyDialog(property), bot -> animateOpenTypeSelection(bot, "JButton", "OK"));
 			// check source
 			assertEditor("""
 					// filler filler filler

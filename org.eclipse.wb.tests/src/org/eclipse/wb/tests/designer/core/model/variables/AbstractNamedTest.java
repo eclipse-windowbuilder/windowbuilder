@@ -31,8 +31,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -228,17 +226,9 @@ public class AbstractNamedTest extends AbstractVariableTest {
 		}
 		// duplicate name
 
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				setTextEditorText(variableProperty, "button_2");
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Variable").bot();
-				shell.button("OK").click();
-			}
+		new UiContext().executeAndCheck(() -> setTextEditorText(variableProperty, "button_2"), bot -> {
+			SWTBot shell = bot.shell("Variable").bot();
+			shell.button("OK").click();
 		});
 		// no changes
 		{
