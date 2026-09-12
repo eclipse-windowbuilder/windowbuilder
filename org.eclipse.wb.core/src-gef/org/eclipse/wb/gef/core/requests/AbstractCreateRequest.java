@@ -13,7 +13,6 @@
 package org.eclipse.wb.gef.core.requests;
 
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.DropRequest;
 import org.eclipse.gef.requests.LocationRequest;
 
@@ -53,20 +52,5 @@ public abstract class AbstractCreateRequest extends LocationRequest implements D
 	 */
 	public void setSize(Dimension size) {
 		m_size = size;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// State
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Copies state from given {@link Request} into this one.
-	 */
-	public void copyStateFrom(Request _source) {
-		if (_source instanceof AbstractCreateRequest source) {
-			setLocation(source.getLocation());
-			setSize(source.getSize());
-		}
 	}
 }

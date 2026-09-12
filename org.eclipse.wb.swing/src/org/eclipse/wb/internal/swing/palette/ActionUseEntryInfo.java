@@ -87,10 +87,11 @@ public final class ActionUseEntryInfo extends ToolEntryInfo {
 				return action;
 			}
 		};
-		// return tool
+		// return custom creation tool which prevents selection of ActionInfo edit-part
 		return new CreationTool(factory) {
 			@Override
-			protected void selectAddedObjects() {
+			protected void performCreation(int button) {
+				executeCurrentCommand();
 			}
 		};
 	}

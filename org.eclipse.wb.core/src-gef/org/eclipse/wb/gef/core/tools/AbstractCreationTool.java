@@ -75,8 +75,8 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	protected boolean handleMove() {
 		updateTargetRequest();
 		updateTargetUnderMouse();
-		showTargetFeedback();
 		setCurrentCommand(getCommand());
+		showTargetFeedback();
 		return true;
 	}
 
@@ -92,8 +92,8 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	protected boolean handleDragInProgress() {
 		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			updateTargetRequest();
-			showTargetFeedback();
 			setCurrentCommand(getCommand());
+			showTargetFeedback();
 		}
 		return true;
 	}

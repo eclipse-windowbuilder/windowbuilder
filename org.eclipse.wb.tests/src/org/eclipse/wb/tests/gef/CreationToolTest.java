@@ -12,9 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
 
@@ -47,6 +49,17 @@ public class CreationToolTest extends AbstractCreationToolTest {
 		m_tool = new CreationTool(factory);
 		m_domain.setActiveTool(m_tool);
 		// create request
-		m_request = new CreateRequest(factory);
+		m_request = new CreateRequest();
+		((CreateRequest) m_request).setFactory(factory);
+	}
+
+	@Override
+	protected void setSize(Dimension d) {
+		((CreateRequest) m_request).setSize(d);
+	}
+
+	@Override
+	protected void setLocation(Point p) {
+		((CreateRequest) m_request).setLocation(p);
 	}
 }

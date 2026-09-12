@@ -13,12 +13,12 @@
 package org.eclipse.wb.core.gef.policy.validator;
 
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +46,9 @@ public final class CachingLayoutRequestValidator implements ILayoutRequestValida
 	// ILayoutRequestValidator
 	//
 	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @since 1.26
+	 */
 	@Override
 	public boolean validateCreateRequest(EditPart host, CreateRequest request) {
 		Map<EditPart, Boolean> cache = getCache(request);
@@ -55,6 +58,11 @@ public final class CachingLayoutRequestValidator implements ILayoutRequestValida
 			cache.put(host, cachedResult);
 		}
 		return cachedResult;
+	}
+
+	@Deprecated(since = "2026-12", forRemoval = true)
+	public boolean validateCreateRequest(EditPart host, org.eclipse.wb.gef.core.requests.CreateRequest request) {
+		return validateCreateRequest(host, (CreateRequest) request);
 	}
 
 	@Override

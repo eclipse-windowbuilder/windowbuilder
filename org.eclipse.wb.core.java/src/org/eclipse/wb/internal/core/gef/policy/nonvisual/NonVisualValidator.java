@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.core.gef.policy.nonvisual;
 
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.policies.ILayoutRequestValidator;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.NonVisualBeanEditPart;
@@ -27,6 +26,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateRequest;
 
 import java.util.List;
 

@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.gef.core.requests.PasteRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -29,6 +28,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.DropRequest;
 
 import java.util.ArrayList;
@@ -200,12 +200,20 @@ public abstract class AbstractPositionLayoutEditPolicy extends LayoutEditPolicy 
 	// Commands: create
 	//
 	////////////////////////////////////////////////////////////////////////////
+	/**
+	 * @since 1.26
+	 */
 	@Override
 	protected final Command getCreateCommand(CreateRequest request) {
 		if (m_activeFeedback != null) {
 			return getCreateCommand(request.getNewObject(), m_activeFeedback.getData());
 		}
 		return null;
+	}
+
+	@Deprecated(since = "2026-12", forRemoval = true)
+	protected final Command getCreateCommand(org.eclipse.wb.gef.core.requests.CreateRequest request) {
+		return getCreateCommand((CreateRequest) request);
 	}
 
 	/**

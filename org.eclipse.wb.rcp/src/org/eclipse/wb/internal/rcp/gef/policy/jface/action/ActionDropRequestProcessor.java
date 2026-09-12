@@ -15,7 +15,6 @@ package org.eclipse.wb.internal.rcp.gef.policy.jface.action;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.JavaEventListener;
 import org.eclipse.wb.gef.core.RequestProcessor;
-import org.eclipse.wb.gef.core.requests.CreateRequest;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContributionItemInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ContributionItemInfo;
@@ -23,6 +22,7 @@ import org.eclipse.wb.internal.rcp.model.jface.action.MenuManagerInfo;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.SimpleFactory;
 
 /**
@@ -56,14 +56,16 @@ public final class ActionDropRequestProcessor extends RequestProcessor {
 			final ActionInfo action = actionDropRequest.getAction();
 			scheduleActionItemSelection(actionDropRequest);
 			// prepare CreateRequest, that creates our ActionInfo
-			CreateRequest createRequest = new CreateRequest(new SimpleFactory<>(ActionInfo.class) {
+			CreateRequest createRequest = new CreateRequest();
+			createRequest.setFactory(new SimpleFactory<>(ActionInfo.class) {
 				@Override
 				public ActionInfo getNewObject() {
 					return action;
 				}
 			});
 			// OK, we have CreateRequest
-			createRequest.copyStateFrom(actionDropRequest);
+			createRequest.setLocation(actionDropRequest.getLocation());
+			createRequest.setSize(actionDropRequest.getSize());
 			return createRequest;
 		}
 		// no, we don't know this request
