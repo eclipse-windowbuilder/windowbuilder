@@ -226,7 +226,7 @@ public final class FormLayoutEditPolicy extends AbstractGridLayoutEditPolicy {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected void updateGridTarget(Point mouseLocation) throws Exception {
+	protected void updateGridTarget(Point mouseLocation) {
 		m_target = new GridTarget();
 		//
 		mouseLocation = mouseLocation.getCopy();

@@ -76,8 +76,8 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 					"getTargetEditPart",
 					"getTargetEditPart",
 					"showTargetFeedback",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// exit from "editPart" and enter in "childEditPart1"
@@ -92,8 +92,8 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 			expectedLogger.log(editPart, "eraseTargetFeedback", m_request);
 			expectedLogger.log(childEditPart1, new String[]{
 					"showTargetFeedback",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// move into "childEditPart1"
@@ -105,8 +105,8 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 			expectedLogger.log(childEditPart1, new String[]{
 					"getTargetEditPart",
 					"getTargetEditPart",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// start drag process
@@ -184,8 +184,8 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 					"getTargetEditPart",
 					"getTargetEditPart",
 					"showTargetFeedback",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// click into "editPart" invalid button
@@ -213,8 +213,8 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 					"getTargetEditPart",
 					"getTargetEditPart",
 					"showTargetFeedback",
-					"showTargetFeedback",
-			"getCommand"}, m_request);
+					"getCommand",
+			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// start drag process
