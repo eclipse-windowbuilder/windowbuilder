@@ -20,7 +20,6 @@ import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.IEditPartViewer;
-import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.handles.SquareHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
@@ -40,6 +39,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.handles.MoveHandle;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.swt.graphics.Color;
 
@@ -127,6 +127,7 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return the {@link MoveHandle} for host component.
+	 * @since 1.25
 	 */
 	protected final MoveHandle createMoveHandle() {
 		MoveHandle moveHandle = new MoveHandle(getHost(), target -> target.setBounds(getComponentCellBounds_atFeedback()));
