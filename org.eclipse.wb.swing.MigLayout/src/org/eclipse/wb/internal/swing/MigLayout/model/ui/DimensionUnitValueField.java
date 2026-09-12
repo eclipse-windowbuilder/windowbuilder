@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,10 +13,10 @@
 package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.internal.core.utils.ui.GridDataFactory;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -83,8 +83,8 @@ public final class DimensionUnitValueField {
 		}
 		// prepare field/widget
 		m_field = new ErrorMessageTextField(parent, SWT.BORDER);
-		GridDataFactory.create(m_field.getLayoutControl()).grabH().fillH();
-		m_textWidget = (Text) m_field.getControl();
+		m_textWidget = m_field.getControl();
+		m_textWidget.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, false));
 		// listen for modification
 		m_textWidget.addListener(SWT.Modify, m_modifyListener);
 	}

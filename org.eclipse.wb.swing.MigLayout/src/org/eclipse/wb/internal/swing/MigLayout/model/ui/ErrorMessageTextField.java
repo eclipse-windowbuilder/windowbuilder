@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,24 +12,22 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.swing.MigLayout.model.ui;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Text;
 
 /**
- * Special {@link org.eclipse.jface.fieldassist.DecoratedField} that can show optional error message
- * in top-right corner.
+ * Special text field that can show optional error message in top-right corner.
  *
  * @author scheglov_ke
  * @coverage swing.MigLayout.ui
  */
-@SuppressWarnings("deprecation")
-public class ErrorMessageTextField extends org.eclipse.jface.fieldassist.DecoratedField {
-	private final FieldDecoration m_fieldDecoration;
+public class ErrorMessageTextField {
+	private final ControlDecoration m_controlDecoration;
+	private final Text m_control;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -37,13 +35,12 @@ public class ErrorMessageTextField extends org.eclipse.jface.fieldassist.Decorat
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public ErrorMessageTextField(Composite parent, int style) {
-		super(parent, style, new org.eclipse.jface.fieldassist.TextControlCreator());
+		m_control = new Text(parent, style);
 		// prepare decoration
-		{
-			FieldDecoration standardDecoration =
-					FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR);
-			m_fieldDecoration = new FieldDecoration(standardDecoration.getImage(), "");
-		}
+		FieldDecoration standardDecoration = FieldDecorationRegistry.getDefault().getFieldDecoration(FieldDecorationRegistry.DEC_ERROR);
+		m_controlDecoration = new ControlDecoration(m_control, SWT.TOP | SWT.RIGHT);
+		m_controlDecoration.setImage(standardDecoration.getImage());
+		m_controlDecoration.hide();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -51,14 +48,9 @@ public class ErrorMessageTextField extends org.eclipse.jface.fieldassist.Decorat
 	// Access
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	public Control getLayoutControl() {
-		return super.getLayoutControl();
-	}
 
-	@Override
-	public Control getControl() {
-		return super.getControl();
+	public Text getControl() {
+		return m_control;
 	}
 
 	/**
@@ -69,16 +61,11 @@ public class ErrorMessageTextField extends org.eclipse.jface.fieldassist.Decorat
 	 */
 	public void setErrorMessage(String message) {
 		if (message != null) {
-			addFieldDecoration(m_fieldDecoration, SWT.TOP | SWT.RIGHT, false);
-			m_fieldDecoration.setDescription(message);
+			m_controlDecoration.setDescriptionText(message);
+			m_controlDecoration.show();
 		} else {
-			hideDecoration(m_fieldDecoration);
-			// note, that we use knowledge about implementation of DecoratedField (that it uses FormLayout)
-			{
-				FormData data = (FormData) getControl().getLayoutData();
-				data.right = new FormAttachment(100, 0);
-			}
-			getControl().getParent().layout();
+			m_controlDecoration.setDescriptionText(null);
+			m_controlDecoration.hide();
 		}
 	}
 }
