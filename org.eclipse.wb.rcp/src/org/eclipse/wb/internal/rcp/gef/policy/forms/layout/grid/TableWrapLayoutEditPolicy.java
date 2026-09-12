@@ -244,7 +244,7 @@ AbstractGridLayoutEditPolicy {
 	}
 
 	@Override
-	protected void updateGridTarget(Point mouseLocation) throws Exception {
+	protected void updateGridTarget(Point mouseLocation) {
 		m_target = new GridTarget();
 		// prepare location in model
 		Point location = mouseLocation.getCopy();
