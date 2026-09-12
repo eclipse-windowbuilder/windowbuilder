@@ -54,12 +54,9 @@ public class DefaultObjectPresentationTest extends DesignerTestCase {
 		parent.addChild(child_2);
 		parent.addChild(child_3);
 		// filter out "child_2" from "tree children"
-		parent.addBroadcastListener(new ObjectInfoChildTree() {
-			@Override
-			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-				if (object == child_2) {
-					visible[0] = false;
-				}
+		parent.addBroadcastListener((ObjectInfoChildTree) (object, visible) -> {
+			if (object == child_2) {
+				visible[0] = false;
 			}
 		});
 		// check "tree children"
@@ -84,12 +81,9 @@ public class DefaultObjectPresentationTest extends DesignerTestCase {
 		parent.addChild(child_2);
 		parent.addChild(child_3);
 		// move "child_1" to the end
-		parent.addBroadcastListener(new ObjectInfoChildrenTree() {
-			@Override
-			public void invoke(ObjectInfo p, List<ObjectInfo> children) throws Exception {
-				children.remove(child_1);
-				children.add(child_1);
-			}
+		parent.addBroadcastListener((ObjectInfoChildrenTree) (p, children) -> {
+			children.remove(child_1);
+			children.add(child_1);
 		});
 		// check "tree children"
 		List<ObjectInfo> children = parent.getPresentation().getChildrenTree();
@@ -109,12 +103,9 @@ public class DefaultObjectPresentationTest extends DesignerTestCase {
 		parent.addChild(child_2);
 		parent.addChild(child_3);
 		// filter out "child_2" from "graphical children"
-		parent.addBroadcastListener(new ObjectInfoChildGraphical() {
-			@Override
-			public void invoke(ObjectInfo object, boolean[] visible) throws Exception {
-				if (object == child_2) {
-					visible[0] = false;
-				}
+		parent.addBroadcastListener((ObjectInfoChildGraphical) (object, visible) -> {
+			if (object == child_2) {
+				visible[0] = false;
 			}
 		});
 		// check "graphical children"
@@ -139,12 +130,9 @@ public class DefaultObjectPresentationTest extends DesignerTestCase {
 		parent.addChild(child_2);
 		parent.addChild(child_3);
 		// move "child_1" to the end
-		parent.addBroadcastListener(new ObjectInfoChildrenGraphical() {
-			@Override
-			public void invoke(List<ObjectInfo> children) throws Exception {
-				children.remove(child_1);
-				children.add(child_1);
-			}
+		parent.addBroadcastListener((ObjectInfoChildrenGraphical) children -> {
+			children.remove(child_1);
+			children.add(child_1);
 		});
 		// check "graphical children"
 		List<ObjectInfo> children = parent.getPresentation().getChildrenGraphical();

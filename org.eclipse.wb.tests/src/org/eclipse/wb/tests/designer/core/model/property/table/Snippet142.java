@@ -17,7 +17,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 public class Snippet142 {
@@ -29,24 +28,9 @@ public class Snippet142 {
 		button.setText("Click");
 		shell.pack();
 		shell.open();
-		button.addListener(SWT.MouseEnter, new Listener() {
-			@Override
-			public void handleEvent(Event e) {
-				System.out.println("enter: " + e);
-			}
-		});
-		button.addListener(SWT.MouseExit, new Listener() {
-			@Override
-			public void handleEvent(Event e) {
-				System.out.println("exit: " + e);
-			}
-		});
-		button.addListener(SWT.MouseDown, new Listener() {
-			@Override
-			public void handleEvent(Event e) {
-				System.out.println("Mouse Down (button: " + e.button + " x: " + e.x + " y: " + e.y + ")");
-			}
-		});
+		button.addListener(SWT.MouseEnter, e -> System.out.println("enter: " + e));
+		button.addListener(SWT.MouseExit, e -> System.out.println("exit: " + e));
+		button.addListener(SWT.MouseDown, e -> System.out.println("Mouse Down (button: " + e.button + " x: " + e.x + " y: " + e.y + ")"));
 		final Point pt = display.map(shell, null, 50, 50);
 		new Thread() {
 			Event event;

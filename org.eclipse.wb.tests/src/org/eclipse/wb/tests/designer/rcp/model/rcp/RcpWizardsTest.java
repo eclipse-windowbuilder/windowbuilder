@@ -27,8 +27,6 @@ import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.ui.part.ViewPart;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -98,20 +96,12 @@ public class RcpWizardsTest extends RcpModelTest {
 	}
 
 	private void animate_ViewPart() throws Exception {
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				TestUtils.runWizard(new ViewPartWizard(), new StructuredSelection(m_packageFragment));
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBotShell botShell = bot.shell("New Eclipse RCP ViewPart");
-				SWTBot shell = botShell.bot();
-				shell.textWithLabel("Name:").setText("MyViewPart");
-				shell.button("Finish").click();
-				bot.waitUntil(Conditions.shellCloses(botShell));
-			}
+		new UiContext().executeAndCheck(() -> TestUtils.runWizard(new ViewPartWizard(), new StructuredSelection(m_packageFragment)), bot -> {
+			SWTBotShell botShell = bot.shell("New Eclipse RCP ViewPart");
+			SWTBot shell = botShell.bot();
+			shell.textWithLabel("Name:").setText("MyViewPart");
+			shell.button("Finish").click();
+			bot.waitUntil(Conditions.shellCloses(botShell));
 		});
 	}
 
@@ -143,20 +133,12 @@ public class RcpWizardsTest extends RcpModelTest {
 	}
 
 	private void animate_EditorPart() throws Exception {
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				TestUtils.runWizard(new EditorPartWizard(), new StructuredSelection(m_packageFragment));
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBotShell botShell = bot.shell("New Eclipse RCP EditorPart");
-				SWTBot shell = botShell.bot();
-				shell.textWithLabel("Name:").setText("MyEditorPart");
-				shell.button("Finish").click();
-				bot.waitUntil(Conditions.shellCloses(botShell));
-			}
+		new UiContext().executeAndCheck(() -> TestUtils.runWizard(new EditorPartWizard(), new StructuredSelection(m_packageFragment)), bot -> {
+			SWTBotShell botShell = bot.shell("New Eclipse RCP EditorPart");
+			SWTBot shell = botShell.bot();
+			shell.textWithLabel("Name:").setText("MyEditorPart");
+			shell.button("Finish").click();
+			bot.waitUntil(Conditions.shellCloses(botShell));
 		});
 	}
 }

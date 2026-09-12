@@ -31,8 +31,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotToolbarButton;
 
 import static org.mockito.Mockito.mock;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -177,17 +175,9 @@ public class RenameConvertSupportTest extends SwingModelTest {
 				"}");
 		final ComponentInfo button = getJavaInfoByName("button");
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				RenameConvertSupport.rename(List.of(button));
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Rename/convert").bot();
-				shell.button("Cancel").click();
-			}
+		new UiContext().executeAndCheck(() -> RenameConvertSupport.rename(List.of(button)), bot -> {
+			SWTBot shell = bot.shell("Rename/convert").bot();
+			shell.button("Cancel").click();
 		});
 		waitEventLoop(10);
 	}
@@ -209,21 +199,13 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		final IAction renameAction = getRenameAction(button);
 		assertNotNull(renameAction);
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				renameAction.run();
+		new UiContext().executeAndCheck(() -> renameAction.run(), bot -> {
+			SWTBot shell = bot.shell("Rename/convert").bot();
+			{
+				SWTBotText nameField = shell.text("button");
+				nameField.setText("myButton");
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Rename/convert").bot();
-				{
-					SWTBotText nameField = shell.text("button");
-					nameField.setText("myButton");
-				}
-				shell.button("OK").click();
-			}
+			shell.button("OK").click();
 		});
 		waitEventLoop(10);
 		assertEditor(
@@ -252,21 +234,13 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		final IAction renameAction = getRenameAction(button);
 		assertNotNull(renameAction);
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				renameAction.run();
+		new UiContext().executeAndCheck(() -> renameAction.run(), bot -> {
+			SWTBot shell = bot.shell("Rename/convert").bot();
+			{
+				SWTBotToolbarButton item = shell.toolbarRadioButtonWithTooltip("Be field");
+				item.click();
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Rename/convert").bot();
-				{
-					SWTBotToolbarButton item = shell.toolbarRadioButtonWithTooltip("Be field");
-					item.click();
-				}
-				shell.button("OK").click();
-			}
+			shell.button("OK").click();
 		});
 		waitEventLoop(10);
 		assertEditor(
@@ -302,24 +276,16 @@ public class RenameConvertSupportTest extends SwingModelTest {
 		final IAction renameAction = getRenameAction(button);
 		assertNotNull(renameAction);
 		// animate
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				renameAction.run();
+		new UiContext().executeAndCheck(() -> renameAction.run(), bot -> {
+			SWTBot shell = bot.shell("Rename/convert").bot();
+			{
+				SWTBotText nameField = shell.text("button");
+				nameField.setText("myButton");
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Rename/convert").bot();
-				{
-					SWTBotText nameField = shell.text("button");
-					nameField.setText("myButton");
-				}
-				// "lazy" can not be converted to local/field
-				assertFalse(shell.toolbarRadioButtonWithTooltip("Be local").isEnabled());
-				assertFalse(shell.toolbarRadioButtonWithTooltip("Be field").isEnabled());
-				shell.button("OK").click();
-			}
+			// "lazy" can not be converted to local/field
+			assertFalse(shell.toolbarRadioButtonWithTooltip("Be local").isEnabled());
+			assertFalse(shell.toolbarRadioButtonWithTooltip("Be field").isEnabled());
+			shell.button("OK").click();
 		});
 		waitEventLoop(10);
 		assertEditor(

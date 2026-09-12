@@ -396,12 +396,7 @@ public class JSplitPaneTest extends SwingModelTest {
 		//
 		{
 			ComponentInfo split = getJavaInfoByName("split");
-			doCopyPaste(split, new PasteProcedure<ComponentInfo>() {
-				@Override
-				public void run(ComponentInfo copy) throws Exception {
-					((FlowLayoutInfo) panel.getLayout()).add(copy, null);
-				}
-			});
+			doCopyPaste(split, copy -> ((FlowLayoutInfo) panel.getLayout()).add(copy, null));
 		}
 		assertEditor("""
 				class Test extends JPanel {

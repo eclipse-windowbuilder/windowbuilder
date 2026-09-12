@@ -709,12 +709,9 @@ public class LayoutManagersTest extends AbstractLayoutTest {
 				}""");
 		// set logger for adding layouts
 		final StringBuffer buffer = new StringBuffer();
-		panel.addBroadcastListener(new ObjectInfoChildAddAfter() {
-			@Override
-			public void invoke(ObjectInfo parent, ObjectInfo child) throws Exception {
-				if (parent == panel && child instanceof LayoutInfo newLayout) {
-					buffer.append("layout added: " + newLayout.getDescription().getComponentClass().getName());
-				}
+		panel.addBroadcastListener((ObjectInfoChildAddAfter) (parent, child) -> {
+			if (parent == panel && child instanceof LayoutInfo newLayout) {
+				buffer.append("layout added: " + newLayout.getDescription().getComponentClass().getName());
 			}
 		});
 		// set GridLayout

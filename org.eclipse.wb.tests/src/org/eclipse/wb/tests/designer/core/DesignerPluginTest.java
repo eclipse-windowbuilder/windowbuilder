@@ -56,15 +56,12 @@ public class DesignerPluginTest extends DesignerTestCase {
 	public void test_log_message() {
 		final String message = "Information message";
 		ILog log = DesignerPlugin.getDefault().getLog();
-		ILogListener logListener = new ILogListener() {
-			@Override
-			public void logging(IStatus status, String plugin) {
-				assertEquals(IStatus.INFO, status.getSeverity());
-				assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
-				assertEquals(IStatus.INFO, status.getCode());
-				assertEquals(message, status.getMessage());
-				assertNull(status.getException());
-			}
+		ILogListener logListener = (status, plugin) -> {
+			assertEquals(IStatus.INFO, status.getSeverity());
+			assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
+			assertEquals(IStatus.INFO, status.getCode());
+			assertEquals(message, status.getMessage());
+			assertNull(status.getException());
 		};
 		//
 		try {
@@ -79,14 +76,11 @@ public class DesignerPluginTest extends DesignerTestCase {
 	public void test_log_Exception() {
 		final Exception exception = new Exception();
 		ILog log = DesignerPlugin.getDefault().getLog();
-		ILogListener logListener = new ILogListener() {
-			@Override
-			public void logging(IStatus status, String plugin) {
-				assertEquals(IStatus.ERROR, status.getSeverity());
-				assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
-				assertEquals(IStatus.ERROR, status.getCode());
-				assertSame(exception, status.getException());
-			}
+		ILogListener logListener = (status, plugin) -> {
+			assertEquals(IStatus.ERROR, status.getSeverity());
+			assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
+			assertEquals(IStatus.ERROR, status.getCode());
+			assertSame(exception, status.getException());
 		};
 		//
 		try {

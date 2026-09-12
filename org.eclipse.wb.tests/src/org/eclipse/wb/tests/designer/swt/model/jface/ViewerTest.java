@@ -48,10 +48,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -675,17 +672,7 @@ public class ViewerTest extends RcpModelTest {
 		{
 			String expectedSource = m_lastEditor.getSource().replace("new ContentProvider", "new ArrayContentProvider");
 			// open dialog and animate it
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					openPropertyDialog(property);
-				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					animateOpenTypeSelection(bot, "ArrayContentPro", "OK");
-				}
-			});
+			new UiContext().executeAndCheck(() -> openPropertyDialog(property), bot -> animateOpenTypeSelection(bot, "ArrayContentPro", "OK"));
 			// check source
 			assertEditor(expectedSource, m_lastEditor);
 		}

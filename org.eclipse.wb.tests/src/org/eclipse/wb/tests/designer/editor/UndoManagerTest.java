@@ -49,8 +49,6 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -557,17 +555,9 @@ public class UndoManagerTest extends SwingGefTest {
 				new ArrayList<>(),
 				new BodyDeclarationTarget(typeDeclaration, false));
 		// do commit changes
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				m_lastEditor.commitChanges();
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Read-only File Encountered").bot();
-				shell.button(buttonId).click();
-			}
+		new UiContext().executeAndCheck(() -> m_lastEditor.commitChanges(), bot -> {
+			SWTBot shell = bot.shell("Read-only File Encountered").bot();
+			shell.button(buttonId).click();
 		});
 		//
 		waitEventLoop(0);

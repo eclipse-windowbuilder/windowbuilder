@@ -36,7 +36,6 @@ import org.eclipse.swt.graphics.Font;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
-import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 
@@ -752,10 +751,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		// check init state of listener for new Figure
 		assertFalse(testFigure.getListeners(FigureListener.class).hasNext());
 		//
-		FigureListener listener1 = new FigureListener() {
-			@Override
-			public void figureMoved(IFigure source) {
-			}
+		FigureListener listener1 = source -> {
 		};
 		testFigure.addFigureListener(listener1);
 		//
@@ -765,10 +761,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 		assertEquals(1, list.size());
 		assertSame(listener1, list.get(0));
 		//
-		FigureListener listener2 = new FigureListener() {
-			@Override
-			public void figureMoved(IFigure source) {
-			}
+		FigureListener listener2 = source -> {
 		};
 		testFigure.addFigureListener(listener2);
 		//
@@ -797,12 +790,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 	public void test_invoke_FigureListener() throws Exception {
 		final TestLogger actualLogger = new TestLogger();
 		//
-		FigureListener listener = new FigureListener() {
-			@Override
-			public void figureMoved(IFigure source) {
-				actualLogger.log("figureMoved(" + source + ")");
-			}
-		};
+		FigureListener listener = source -> actualLogger.log("figureMoved(" + source + ")");
 		//
 		TestLogger expectedLogger = new TestLogger();
 		//
@@ -812,12 +800,7 @@ public class FigureTest extends Draw2dFigureTestCase {
 				return "__testFigure_";
 			}
 		};
-		PropertyChangeListener listener1 = new PropertyChangeListener() {
-			@Override
-			public void propertyChange(PropertyChangeEvent event) {
-				actualLogger.log("figureReparent(" + event.getOldValue() + ", " + event.getNewValue() + ")");
-			}
-		};
+		PropertyChangeListener listener1 = event -> actualLogger.log("figureReparent(" + event.getOldValue() + ", " + event.getNewValue() + ")");
 		//
 		// check not invoke during addFigureListener()
 		testFigure.addFigureListener(listener);

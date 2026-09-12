@@ -18,7 +18,6 @@ import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.SharedCursors;
-import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
@@ -414,12 +413,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		//
-		m_defaultToolProvider = new IDefaultToolProvider() {
-			@Override
-			public Tool getDefaultTool() {
-				return new SelectionTool();
-			}
-		};
+		m_defaultToolProvider = SelectionTool::new;
 		// click to "ShellEditPart"
 		{
 			m_sender.click(60, 60, 1);
@@ -455,12 +449,7 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 		}
 		//
 		m_tool = new CreationTool(m_tool.getFactory());
-		m_defaultToolProvider = new IDefaultToolProvider() {
-			@Override
-			public Tool getDefaultTool() {
-				return m_tool;
-			}
-		};
+		m_defaultToolProvider = () -> m_tool;
 		// click to "ShellEditPart"
 		{
 			m_sender.click(60, 60, 1);

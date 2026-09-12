@@ -18,7 +18,6 @@ import org.eclipse.wb.internal.core.nls.ui.NewSourceDialog;
 import org.eclipse.wb.internal.core.nls.ui.PropertiesComposite;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
-import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.wb.tests.utils.SWTBotEditableSource;
 
 import static org.eclipse.swtbot.swt.finder.matchers.WidgetOfType.widgetOfType;
@@ -32,7 +31,6 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotList;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTree;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTreeItem;
 
-import org.apache.commons.lang3.function.FailableBiConsumer;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -54,13 +52,10 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 					public Test() {
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "Properties");
-				assertEquals(0, shell.list().itemCount());
-			}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "Properties");
+			assertEquals(0, shell.list().itemCount());
 		});
 	}
 
@@ -81,19 +76,16 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 					public Test() {
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "test.messages2", "Properties");
-				shell.tabItem("Properties").activate();
-				SWTBotList sourcesList = shell.list();
-				//
-				assertItems(
-						sourcesList,
-						"test.messages (Direct ResourceBundle usage)",
-						"test.messages2 (Direct ResourceBundle usage)");
-			}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "test.messages2", "Properties");
+			shell.tabItem("Properties").activate();
+			SWTBotList sourcesList = shell.list();
+			//
+			assertItems(
+					sourcesList,
+					"test.messages (Direct ResourceBundle usage)",
+					"test.messages2 (Direct ResourceBundle usage)");
 		});
 	}
 
@@ -112,16 +104,13 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 						setTitle(ResourceBundle.getBundle("test.messages").getString("frame.title")); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				shell.tabItem("Properties").activate();
-				SWTBotList sourcesList = shell.list();
-				//
-				assertItems(sourcesList, "test.messages (Direct ResourceBundle usage)");
-			}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			shell.tabItem("Properties").activate();
+			SWTBotList sourcesList = shell.list();
+			//
+			assertItems(sourcesList, "test.messages (Direct ResourceBundle usage)");
 		});
 	}
 
@@ -142,99 +131,96 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 						}
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "test.messages", "Properties");
-				shell.tabItem("Properties").activate();
-				// sources list
-				SWTBotList sourcesList = shell.list();
-				// properties tree
-				SWTBotTree propertiesTree = shell.tree();
-				// "Externalize" button
-				SWTBotButton externalizeButton = shell.button("Externalize");
-				// check content on properties tree
-				{
-					assertNotNull(
-							getItem(propertiesTree, "(javax.swing.JFrame)", "title: My JFrame"));
-					assertNotNull(
-							getItem(
-									propertiesTree,
-									"(javax.swing.JFrame)",
-									"getContentPane()",
-									"button",
-									"text: New button"));
-					assertNull(
-							getItem(
-									propertiesTree,
-									"(javax.swing.JFrame)", "getContentPane()", "textField"));
-				}
-				// prepare TreeItem's
-				SWTBotTreeItem buttonItem = getItem(
-						propertiesTree,
-						"(javax.swing.JFrame)", "getContentPane()", "button");
-				SWTBotTreeItem buttonTextItem = getItem(buttonItem, "text: New button");
-				// set checked "button" item
-				{
-					// check initial states
-					assertFalse(externalizeButton.isEnabled());
-					assertTrue(buttonItem.isGrayed());
-					assertFalse(buttonItem.isChecked());
-					assertFalse(buttonTextItem.isChecked());
-					// check "button" item
-					buttonItem.check();
-					// check state
-					assertTrue(buttonItem.isChecked());
-					assertTrue(buttonTextItem.isChecked());
-					assertTrue(externalizeButton.isEnabled());
-				}
-				// clear selection in sources - "Externalize" button should be disabled
-				{
-					assertTrue(externalizeButton.isEnabled());
-					UIThreadRunnable.syncExec(() -> {
-						sourcesList.widget.deselectAll();
-						sourcesList.widget.notifyListeners(SWT.Selection, null);
-					});
-					assertFalse(externalizeButton.isEnabled());
-				}
-				// select sole source - "Externalize" button should be enabled
-				{
-					sourcesList.select(0);
-					assertTrue(externalizeButton.isEnabled());
-				}
-				// check "&Enable all"
-				{
-					shell.button("&Enable all").click();
-					assertTrue(buttonTextItem.isChecked());
-				}
-				// check "D&isable all"
-				{
-					shell.button("D&isable all").click();
-					assertFalse(buttonTextItem.isChecked());
-				}
-				// do externalize
-				{
-					buttonItem.check();
-					shell.button("E&xternalize").click();
-					// items for "button" and its "text" property should be removed
-					assertNull(
-							getItem(
-									propertiesTree,
-									"(javax.swing.JFrame)",
-									"getContentPane()",
-									"button", 
-									"text: New button"));
-					assertNull(
-							getItem(
-									propertiesTree,
-									"(javax.swing.JFrame)", "getContentPane()", "button"));
-					assertNull(
-							getItem(propertiesTree, "(javax.swing.JFrame)", "getContentPane()"));
-					// check IEditableSource
-					SWTBotEditableSource editableSource = getEditableSource(shell);
-					assertEquals("New button", editableSource.getValue(LocaleInfo.DEFAULT, "Test.button.text"));
-				}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "test.messages", "Properties");
+			shell.tabItem("Properties").activate();
+			// sources list
+			SWTBotList sourcesList = shell.list();
+			// properties tree
+			SWTBotTree propertiesTree = shell.tree();
+			// "Externalize" button
+			SWTBotButton externalizeButton = shell.button("Externalize");
+			// check content on properties tree
+			{
+				assertNotNull(
+						getItem(propertiesTree, "(javax.swing.JFrame)", "title: My JFrame"));
+				assertNotNull(
+						getItem(
+								propertiesTree,
+								"(javax.swing.JFrame)",
+								"getContentPane()",
+								"button",
+								"text: New button"));
+				assertNull(
+						getItem(
+								propertiesTree,
+								"(javax.swing.JFrame)", "getContentPane()", "textField"));
+			}
+			// prepare TreeItem's
+			SWTBotTreeItem buttonItem = getItem(
+					propertiesTree,
+					"(javax.swing.JFrame)", "getContentPane()", "button");
+			SWTBotTreeItem buttonTextItem = getItem(buttonItem, "text: New button");
+			// set checked "button" item
+			{
+				// check initial states
+				assertFalse(externalizeButton.isEnabled());
+				assertTrue(buttonItem.isGrayed());
+				assertFalse(buttonItem.isChecked());
+				assertFalse(buttonTextItem.isChecked());
+				// check "button" item
+				buttonItem.check();
+				// check state
+				assertTrue(buttonItem.isChecked());
+				assertTrue(buttonTextItem.isChecked());
+				assertTrue(externalizeButton.isEnabled());
+			}
+			// clear selection in sources - "Externalize" button should be disabled
+			{
+				assertTrue(externalizeButton.isEnabled());
+				UIThreadRunnable.syncExec(() -> {
+					sourcesList.widget.deselectAll();
+					sourcesList.widget.notifyListeners(SWT.Selection, null);
+				});
+				assertFalse(externalizeButton.isEnabled());
+			}
+			// select sole source - "Externalize" button should be enabled
+			{
+				sourcesList.select(0);
+				assertTrue(externalizeButton.isEnabled());
+			}
+			// check "&Enable all"
+			{
+				shell.button("&Enable all").click();
+				assertTrue(buttonTextItem.isChecked());
+			}
+			// check "D&isable all"
+			{
+				shell.button("D&isable all").click();
+				assertFalse(buttonTextItem.isChecked());
+			}
+			// do externalize
+			{
+				buttonItem.check();
+				shell.button("E&xternalize").click();
+				// items for "button" and its "text" property should be removed
+				assertNull(
+						getItem(
+								propertiesTree,
+								"(javax.swing.JFrame)",
+								"getContentPane()",
+								"button", 
+								"text: New button"));
+				assertNull(
+						getItem(
+								propertiesTree,
+								"(javax.swing.JFrame)", "getContentPane()", "button"));
+				assertNull(
+						getItem(propertiesTree, "(javax.swing.JFrame)", "getContentPane()"));
+				// check IEditableSource
+				SWTBotEditableSource editableSource = getEditableSource(shell);
+				assertEquals("New button", editableSource.getValue(LocaleInfo.DEFAULT, "Test.button.text"));
 			}
 		});
 	}
@@ -255,17 +241,14 @@ public class PropertiesCompositeTest extends AbstractDialogTest {
 					public Test() {
 					}
 				}""");
-		openDialogNLS(initialSource, new FailableBiConsumer<UiContext, SWTBot, Exception>() {
-			@Override
-			public void accept(UiContext context, SWTBot bot) throws Exception {
-				SWTBot shell = bot.shell("Externalize strings").bot();
-				assertItems(shell, "Properties");
-				SWTBotList sourcesList = shell.list();
-				assertEquals(0, sourcesList.itemCount());
-				//
-				shell.button("&New...").click();
-				bot.shell("New source").bot().button("Cancel").click();
-			}
+		openDialogNLS(initialSource, (context, bot) -> {
+			SWTBot shell = bot.shell("Externalize strings").bot();
+			assertItems(shell, "Properties");
+			SWTBotList sourcesList = shell.list();
+			assertEquals(0, sourcesList.itemCount());
+			//
+			shell.button("&New...").click();
+			bot.shell("New source").bot().button("Cancel").click();
 		});
 	}
 

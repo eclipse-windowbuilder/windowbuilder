@@ -25,7 +25,6 @@ import org.eclipse.wb.tests.designer.TestUtils;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.internal.corext.util.OpenTypeHistory;
 import org.eclipse.jface.action.Action;
@@ -187,12 +186,7 @@ public abstract class DesignerTestCase extends Assertions {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private int m_numberOfExceptionsDuringThisEditorSession = 0;
-	private final ILogListener m_logListener = new ILogListener() {
-		@Override
-		public void logging(IStatus status, String plugin) {
-			m_numberOfExceptionsDuringThisEditorSession++;
-		}
-	};
+	private final ILogListener m_logListener = (status, plugin) -> m_numberOfExceptionsDuringThisEditorSession++;
 
 	/**
 	 * Adds listener for log.

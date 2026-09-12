@@ -105,12 +105,7 @@ public class BorderPropertyEditorTest extends SwingModelTest {
 					((IClipboardSourceProvider) propertyEditor).getClipboardSource(borderProperty));
 		}
 		// do copy/paste
-		doCopyPaste(button, new PasteProcedure<ComponentInfo>() {
-			@Override
-			public void run(ComponentInfo copy) throws Exception {
-				((FlowLayoutInfo) panel.getLayout()).add(copy, null);
-			}
-		});
+		doCopyPaste(button, copy -> ((FlowLayoutInfo) panel.getLayout()).add(copy, null));
 		assertEditor("""
 				public class Test extends JPanel {
 					public Test() {

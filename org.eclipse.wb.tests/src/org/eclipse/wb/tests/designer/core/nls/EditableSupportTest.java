@@ -35,10 +35,7 @@ import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -934,17 +931,7 @@ public class EditableSupportTest extends AbstractNlsTest {
 					new JavaInfo[][]{new JavaInfo[]{frame}, new JavaInfo[]{frame}});
 		}
 		// dispose shell, so cancel dialog
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				editableSource.renameKey("frame.name", "frame.title");
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) throws Exception {
-				bot.shell("Confirm").close();
-			}
-		});
+		new UiContext().executeAndCheck(() -> editableSource.renameKey("frame.name", "frame.title"), bot -> bot.shell("Confirm").close());
 		// no changes expected
 		{
 			assertStringSet(editableSource.getKeys(), new String[]{"frame.title", "frame.name"});
@@ -977,17 +964,7 @@ public class EditableSupportTest extends AbstractNlsTest {
 		IEditableSupport editableSupport = support.getEditable();
 		final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
 		// yes, keep existing value
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				editableSource.renameKey("frame.name", "frame.title");
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) throws Exception {
-				bot.shell("Confirm").bot().button("Yes, keep existing value").click();
-			}
-		});
+		new UiContext().executeAndCheck(() -> editableSource.renameKey("frame.name", "frame.title"), bot -> bot.shell("Confirm").bot().button("Yes, keep existing value").click());
 		{
 			assertStringSet(editableSource.getKeys(), new String[]{"frame.title"});
 			assertEquals("title", editableSource.getValue(LocaleInfo.DEFAULT, "frame.title"));
@@ -1018,17 +995,7 @@ public class EditableSupportTest extends AbstractNlsTest {
 		IEditableSupport editableSupport = support.getEditable();
 		final IEditableSource editableSource = editableSupport.getEditableSources().get(0);
 		// no, use value of renaming key
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				editableSource.renameKey("frame.name", "frame.title");
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) throws Exception {
-				bot.shell("Confirm").bot().button("No, use value of renaming key").click();
-			}
-		});
+		new UiContext().executeAndCheck(() -> editableSource.renameKey("frame.name", "frame.title"), bot -> bot.shell("Confirm").bot().button("No, use value of renaming key").click());
 		{
 			assertStringSet(editableSource.getKeys(), new String[]{"frame.title"});
 			assertEquals("name", editableSource.getValue(LocaleInfo.DEFAULT, "frame.title"));

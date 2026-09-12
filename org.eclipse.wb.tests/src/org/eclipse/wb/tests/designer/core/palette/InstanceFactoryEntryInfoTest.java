@@ -26,8 +26,6 @@ import org.eclipse.wb.tests.gef.UiContext;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -257,20 +255,12 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 		InstanceFactoryInfo instanceFactory;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					tools[0] = (CreationTool) entry.createTool();
-				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					SWTBot shell = bot.shell("Select factory").bot();
-					SWTBotTable table = shell.table();
-					table.select(1);
-					// click OK
-					shell.button("OK").click();
-				}
+			new UiContext().executeAndCheck(() -> tools[0] = (CreationTool) entry.createTool(), bot -> {
+				SWTBot shell = bot.shell("Select factory").bot();
+				SWTBotTable table = shell.table();
+				table.select(1);
+				// click OK
+				shell.button("OK").click();
 			});
 			creationTool = tools[0];
 			instanceFactory = getTestInstanceFactories().get(1);
@@ -331,17 +321,9 @@ public class InstanceFactoryEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					tools[0] = (CreationTool) entry.createTool();
-				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					SWTBot shell = bot.shell("Select factory").bot();
-					shell.button("Cancel").click();
-				}
+			new UiContext().executeAndCheck(() -> tools[0] = (CreationTool) entry.createTool(), bot -> {
+				SWTBot shell = bot.shell("Select factory").bot();
+				shell.button("Cancel").click();
 			});
 			creationTool = tools[0];
 		}

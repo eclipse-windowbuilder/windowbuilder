@@ -27,10 +27,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.wb.tests.gef.UiContext;
 
 import org.eclipse.gef.Tool;
-import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.JButton;
@@ -252,20 +249,12 @@ public class ActionGefTest extends SwingGefTest {
 		waitEventLoop(100);
 		JToolBarInfo toolBar = (JToolBarInfo) panel.getChildrenComponents().get(0);
 		// load "action" tool
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() throws Exception {
-				ActionExternalEntryInfo entry = new ActionExternalEntryInfo();
-				entry.initialize(m_viewerCanvas, panel);
-				Tool tool = entry.createTool();
-				m_viewerCanvas.getEditDomain().setActiveTool(tool);
-			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				animateOpenTypeSelection(bot, "ExternalAction", "OK");
-			}
-		});
+		new UiContext().executeAndCheck(() -> {
+			ActionExternalEntryInfo entry = new ActionExternalEntryInfo();
+			entry.initialize(m_viewerCanvas, panel);
+			Tool tool = entry.createTool();
+			m_viewerCanvas.getEditDomain().setActiveTool(tool);
+		}, bot -> animateOpenTypeSelection(bot, "ExternalAction", "OK"));
 		// drop new "action" on "toolBar"...
 		canvas.target(toolBar).in(10, 5).move();
 		canvas.click();

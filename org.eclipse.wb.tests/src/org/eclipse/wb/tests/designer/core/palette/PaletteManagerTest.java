@@ -562,14 +562,11 @@ public class PaletteManagerTest extends AbstractPaletteTest {
 		PaletteInfo palette;
 		{
 			final boolean[] exceptionHappened = new boolean[1];
-			ILogListener logListener = new ILogListener() {
-				@Override
-				public void logging(IStatus status, String plugin) {
-					exceptionHappened[0] = true;
-					assertEquals(IStatus.ERROR, status.getSeverity());
-					assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
-					assertEquals(IStatus.ERROR, status.getCode());
-				}
+			ILogListener logListener = (status, plugin) -> {
+				exceptionHappened[0] = true;
+				assertEquals(IStatus.ERROR, status.getSeverity());
+				assertEquals(DesignerPlugin.PLUGIN_ID, status.getPlugin());
+				assertEquals(IStatus.ERROR, status.getCode());
 			};
 			//
 			ILog log = DesignerPlugin.getDefault().getLog();

@@ -40,8 +40,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -1438,22 +1436,14 @@ public class FactoryCreateActionTest extends SwingModelTest {
 		ComponentInfo button = panel.getChildrenComponents().get(0);
 		// animate UI
 		final IAction createAction = getCreateFactoryAction(button);
-		new UiContext().executeAndCheck(new FailableRunnable<>() {
-			@Override
-			public void run() {
-				createAction.run();
+		new UiContext().executeAndCheck(() -> createAction.run(), bot -> {
+			SWTBot shell = bot.shell("Create factory").bot();
+			shell.textWithLabel("&Class:").setText("StaticFactory");
+			{
+				SWTBotTreeItem treeItem = shell.tree().expandNode("Invocations", "setSelected(boolean)");
+				treeItem.uncheck();
 			}
-		}, new FailableConsumer<>() {
-			@Override
-			public void accept(SWTBot bot) {
-				SWTBot shell = bot.shell("Create factory").bot();
-				shell.textWithLabel("&Class:").setText("StaticFactory");
-				{
-					SWTBotTreeItem treeItem = shell.tree().expandNode("Invocations", "setSelected(boolean)");
-					treeItem.uncheck();
-				}
-				shell.button("OK").click();
-			}
+			shell.button("OK").click();
 		});
 		// verify
 		m_getSource_ignoreSpacesCheck = true;

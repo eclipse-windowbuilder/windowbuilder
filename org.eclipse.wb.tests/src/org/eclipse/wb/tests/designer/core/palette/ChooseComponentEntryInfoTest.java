@@ -31,8 +31,6 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.swt.finder.SWTBot;
 
-import org.apache.commons.lang3.function.FailableConsumer;
-import org.apache.commons.lang3.function.FailableRunnable;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -116,17 +114,9 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					tools[0] = (CreationTool) entry.createTool();
-				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					SWTBot shell = bot.shell("Open type").bot();
-					shell.button("Cancel").click();
-				}
+			new UiContext().executeAndCheck(() -> tools[0] = (CreationTool) entry.createTool(), bot -> {
+				SWTBot shell = bot.shell("Open type").bot();
+				shell.button("Cancel").click();
 			});
 			creationTool = tools[0];
 		}
@@ -175,17 +165,7 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 		CreationTool creationTool;
 		{
 			final CreationTool[] tools = new CreationTool[1];
-			new UiContext().executeAndCheck(new FailableRunnable<>() {
-				@Override
-				public void run() throws Exception {
-					tools[0] = (CreationTool) entry.createTool();
-				}
-			}, new FailableConsumer<>() {
-				@Override
-				public void accept(SWTBot bot) {
-					animateOpenTypeSelection(bot, "JButton", "OK");
-				}
-			});
+			new UiContext().executeAndCheck(() -> tools[0] = (CreationTool) entry.createTool(), bot -> animateOpenTypeSelection(bot, "JButton", "OK"));
 			creationTool = tools[0];
 		}
 		// check tool
@@ -260,17 +240,9 @@ public class ChooseComponentEntryInfoTest extends AbstractPaletteTest {
 			// create tool
 			{
 				final CreationTool[] tools = new CreationTool[1];
-				new UiContext().executeAndCheck(new FailableRunnable<>() {
-					@Override
-					public void run() throws Exception {
-						tools[0] = (CreationTool) entry.createTool();
-					}
-				}, new FailableConsumer<>() {
-					@Override
-					public void accept(SWTBot bot) {
-						animateOpenTypeSelection(bot, "MyClass", "OK");
-						bot.shell("Unable to load component").bot().button("Yes").click();
-					}
+				new UiContext().executeAndCheck(() -> tools[0] = (CreationTool) entry.createTool(), bot -> {
+					animateOpenTypeSelection(bot, "MyClass", "OK");
+					bot.shell("Unable to load component").bot().button("Yes").click();
 				});
 			}
 		} finally {
