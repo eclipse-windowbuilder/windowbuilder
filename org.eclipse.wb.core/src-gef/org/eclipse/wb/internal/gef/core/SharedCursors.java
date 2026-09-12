@@ -51,9 +51,11 @@ public class SharedCursors extends Cursors {
 		return CURSOR_AT_200_ZOOM.getImageData(100);
 	});
 
-	public static final Cursor CURSOR_ADD = createCursor("icons/add_cursor.svg");
+	/**
+	 * TODO gef - Remove together with DragEditPartTracker
+	 */
+	@Deprecated
 	public static final Cursor CURSOR_MOVE = createCursor("icons/move_cursor.svg");
-	public static final Cursor CURSOR_NO = createCursor("icons/no_cursor.svg");
 
 	private static Cursor createCursor(String sourceName) {
 		if (DesignerPlugin.isSvgSupported()) {

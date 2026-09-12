@@ -13,10 +13,11 @@
 package org.eclipse.wb.gef.core.tools;
 
 import org.eclipse.wb.gef.core.requests.AbstractCreateRequest;
-import org.eclipse.wb.internal.gef.core.SharedCursors;
 
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.SharedCursors;
 import org.eclipse.gef.tools.TargetingTool;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
@@ -32,8 +33,8 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	public AbstractCreationTool() {
-		setDefaultCursor(SharedCursors.CURSOR_ADD);
-		setDisabledCursor(SharedCursors.CURSOR_NO);
+		setDefaultCursor(SharedCursors.CURSOR_TREE_ADD);
+		setDisabledCursor(Cursors.NO);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

@@ -16,6 +16,7 @@ import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 import org.eclipse.wb.internal.gef.core.SharedCursors;
 
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
@@ -50,10 +51,11 @@ public class DragEditPartTracker extends SelectEditPartTracker {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings("deprecation")
 	public DragEditPartTracker(EditPart sourceEditPart) {
 		super(sourceEditPart);
 		setDefaultCursor(SharedCursors.CURSOR_MOVE);
-		setDisabledCursor(SharedCursors.CURSOR_NO);
+		setDisabledCursor(Cursors.NO);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
