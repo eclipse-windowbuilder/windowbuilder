@@ -75,8 +75,8 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	protected boolean handleMove() {
 		updateTargetRequest();
 		updateTargetUnderMouse();
-		showTargetFeedback();
 		setCurrentCommand(getCommand());
+		showTargetFeedback();
 		return true;
 	}
 
