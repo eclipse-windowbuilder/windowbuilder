@@ -263,6 +263,7 @@
           <target>
             <file>${target-platform}</file>
           </target>
+          <executionEnvironment>JavaSE-25</executionEnvironment>
           <environments>
             <environment>
               <os>linux</os>

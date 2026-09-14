@@ -23,12 +23,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        java: [ 24, 25 ]
-        include:
-          - java: 24
-            target: 2024-06
-          - java: 25
-            target: master
+        java: [ 25 ]
+        target: [ 2024-06, master ]
     runs-on: ${{ matrix.os }}   
     name: OS ${{ matrix.os }} Java ${{ matrix.java }} ${{ matrix.target }} compile
     timeout-minutes: 90
