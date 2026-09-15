@@ -21,7 +21,6 @@ import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
-import org.eclipse.wb.gef.graphical.handles.SquareHandle;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
 
@@ -36,10 +35,12 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.handles.SquareHandle;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.swt.graphics.Color;
 
@@ -409,6 +410,11 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 		protected Color getBorderColor() {
 			return ColorConstants.white;
 		}
+
+		@Override
+		protected DragTracker createDragTracker() {
+			return null;
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -578,6 +584,11 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 		protected Color getBorderColor() {
 			return ColorConstants.black;
 		}
+
+		@Override
+		protected DragTracker createDragTracker() {
+			return null;
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -591,13 +602,13 @@ public abstract class AbstractGridSelectionEditPolicy extends SelectionEditPolic
 	protected final Locator createComponentLocator(int direction, double percent) {
 		IFigure reference = getHostFigure();
 		if (direction == PositionConstants.WEST) {
-			return new org.eclipse.wb.draw2d.RelativeLocator(reference, 0, percent);
+			return new RelativeLocator(reference, 0, percent);
 		} else if (direction == PositionConstants.EAST) {
-			return new org.eclipse.wb.draw2d.RelativeLocator(reference, 1, percent);
+			return new RelativeLocator(reference, 1, percent);
 		} else if (direction == PositionConstants.NORTH) {
-			return new org.eclipse.wb.draw2d.RelativeLocator(reference, percent, percent);
+			return new RelativeLocator(reference, percent, percent);
 		} else if (direction == PositionConstants.SOUTH) {
-			return new org.eclipse.wb.draw2d.RelativeLocator(reference, percent, 1);
+			return new RelativeLocator(reference, percent, 1);
 		}
 		throw new IllegalArgumentException("Unknown direction: " + direction);
 	}
