@@ -14,9 +14,8 @@ package org.eclipse.wb.gef.graphical.handles;
 
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
 
-import org.eclipse.draw2d.Cursors;
-import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.Locator;
+import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 
@@ -26,7 +25,7 @@ import org.eclipse.gef.GraphicalEditPart;
  * @author lobas_av
  * @coverage gef.graphical
  */
-public class MoveHandle extends DesignHandle {
+public class MoveHandle extends org.eclipse.gef.handles.MoveHandle {
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructors
@@ -46,26 +45,12 @@ public class MoveHandle extends DesignHandle {
 	 */
 	public MoveHandle(GraphicalEditPart owner, Locator locator) {
 		super(owner, locator);
-		setBorder(new LineBorder(1));
-		setCursor(Cursors.SIZEALL);
-		// set drag tracker
-		{
-			DragEditPartTracker tracker = new DragEditPartTracker(owner);
-			tracker.setDefaultCursor(getCursor());
-			setDragTracker(tracker);
-		}
 	}
 
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Figure
-	//
-	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public boolean containsPoint(int x, int y) {
-		if (!super.containsPoint(x, y)) {
-			return false;
-		}
-		return !getBounds().getCopy().shrink(2, 2).contains(x, y);
+	protected DragTracker createDragTracker() {
+		DragEditPartTracker tracker = new DragEditPartTracker(getOwner());
+		tracker.setDefaultCursor(getCursor());
+		return tracker;
 	}
 }
