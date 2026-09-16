@@ -14,7 +14,7 @@ package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
+import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.LayerConstants;
@@ -22,11 +22,10 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.SelectionRequest;
+import org.eclipse.gef.tools.SelectionTool;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.lang.reflect.Field;
 
 /**
  * @author lobas_av
@@ -87,6 +86,7 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(editPart, new String[]{
 					"getTargetEditPart",
+					"getTargetEditPart",
 					"showTargetFeedback",
 			"showTargetFeedback"}, m_request);
 			assertLoggers(expectedLogger, actualLogger);
@@ -99,7 +99,7 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(
 					editPart,
-					new String[]{"getTargetEditPart", "showTargetFeedback"},
+					new String[] { "getTargetEditPart", "getTargetEditPart", "showTargetFeedback" },
 					m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
@@ -109,7 +109,7 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			m_request.setLocation(new Point(120, 120));
 			//
-			expectedLogger.log(childEditPart1, "getTargetEditPart", m_request);
+			expectedLogger.log(childEditPart1, new String[] { "getTargetEditPart", "getTargetEditPart" }, m_request);
 			expectedLogger.log(editPart, "eraseTargetFeedback", m_request);
 			expectedLogger.log(
 					childEditPart1,
@@ -123,7 +123,7 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			m_request.setLocation(new Point(320, 90));
 			//
-			expectedLogger.log(childEditPart2, "getTargetEditPart", m_request);
+			expectedLogger.log(childEditPart2, new String[] { "getTargetEditPart", "getTargetEditPart" }, m_request);
 			expectedLogger.log(childEditPart1, "eraseTargetFeedback", m_request);
 			expectedLogger.log(
 					childEditPart2,
@@ -161,7 +161,7 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(
 					childEditPart,
-					new String[]{"getTargetEditPart", "showTargetFeedback"},
+					new String[] { "getTargetEditPart", "getTargetEditPart", "showTargetFeedback" },
 					m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
@@ -209,10 +209,11 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			m_request.setLastButtonPressed(0);
 			//
-			expectedLogger.log(editPart, "getTargetEditPart", m_request);
+			expectedLogger.log(editPart, new String[] { "getTargetEditPart", "getTargetEditPart" }, m_request);
 			expectedLogger.log(childEditPart, "eraseTargetFeedback", m_request);
 			//
 			m_request.setLocation(new Point(150, 150));
+			m_request.setModifiers(0x80000);
 			//
 			expectedLogger.log(editPart, "showTargetFeedback", m_request);
 			assertLoggers(expectedLogger, actualLogger);
@@ -293,9 +294,10 @@ public class SelectionToolTest extends RequestTestCase {
 			//
 			m_request.setLastButtonPressed(0);
 			//
-			expectedLogger.log(editPart, "getTargetEditPart", m_request);
+			expectedLogger.log(editPart, new String[] { "getTargetEditPart", "getTargetEditPart" }, m_request);
 			//
 			m_request.setLocation(new Point(150, 150));
+			m_request.setModifiers(0x80000);
 			//
 			expectedLogger.log(editPart, "showTargetFeedback", m_request);
 			assertLoggers(expectedLogger, actualLogger);
@@ -308,8 +310,6 @@ public class SelectionToolTest extends RequestTestCase {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private static final RequestDragTracker getDragTracker(SelectionTool tool) throws Exception {
-		Field field = SelectionTool.class.getDeclaredField("m_dragTracker");
-		field.setAccessible(true);
-		return (RequestDragTracker) field.get(tool);
+		return (RequestDragTracker) ReflectionUtils.invokeMethod(tool, "getDragTracker()");
 	}
 }

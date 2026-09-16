@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.gef.core.tools.CreationTool;
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.Cursors;
 import org.eclipse.gef.EditPart;
@@ -21,6 +20,7 @@ import org.eclipse.gef.SharedCursors;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreationFactory;
 import org.eclipse.gef.requests.SimpleFactory;
+import org.eclipse.gef.tools.SelectionTool;
 import org.eclipse.swt.graphics.Cursor;
 
 import org.junit.jupiter.api.BeforeEach;

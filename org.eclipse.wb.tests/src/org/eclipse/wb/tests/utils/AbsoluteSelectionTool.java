@@ -13,12 +13,12 @@
 package org.eclipse.wb.tests.utils;
 
 import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.tools.SelectionTool;
 
 /**
  * Subclass of the selection tool that also supports figures outside the visible
