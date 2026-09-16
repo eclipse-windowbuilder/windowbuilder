@@ -20,15 +20,21 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.internal.swing.model.component.menu.JPopupMenuInfo;
 import org.eclipse.wb.internal.swing.model.layout.LayoutInfo;
+import org.eclipse.wb.internal.swing.model.layout.gbl.ColumnInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.GridBagLayoutInfo;
 import org.eclipse.wb.os.OSSupport;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
+import org.eclipse.wb.tests.gef.GraphicalRobot;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.swt.graphics.Image;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 /**
  * Test {@link GridBagLayoutInfo} in GEF.
@@ -185,6 +191,10 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 	ContainerInfo panel_1;
 	ComponentInfo button;
 
+	GraphicalRobot horizontalRobot;
+	GraphicalRobot verticalRobot;
+	GridBagLayoutInfo layout;
+
 	@Test
 	public void test_CREATE_inTree_empty() throws Exception {
 		mainPanel = openContainer("""
@@ -274,5 +284,65 @@ public class GridBagLayoutGefTest extends SwingGefTest {
 					}
 				}
 				""");
+	}
+
+	/**
+	 * Tests that the resize hint is shown correctly, even when the viewer is
+	 * scrolled. I.e. the ruler coordinates are correctly translated to canvas
+	 * coordinates. See {@code DimensionSelectionEditPolicy}.
+	 */
+	@Test
+	public void test_resizeColumn_feedbackHint() throws Exception {
+		openPanel("""
+				public class Test extends JPanel {
+					public Test() {
+						setSize(1000, 1000);
+						setLayout(new GridBagLayout());
+						{
+							JButton button = new JButton("New JButton 1");
+							add(button);
+						}
+						{
+							JButton button = new JButton("New JButton 2");
+							add(button);
+						}
+					}
+				}""");
+		button = getJavaInfoByName("button");
+
+		m_viewerCanvas.getControl().scrollTo(50, 50);
+
+		// select "composite" to show headers
+		canvas.select(mainPanel);
+		// animate headers
+		{
+			List<ColumnInfo> columns = layout.getColumns();
+			ColumnInfo sourceColumn = columns.get(0);
+			ColumnInfo targetColumn = columns.get(1);
+			horizontalRobot.select(sourceColumn);
+
+			horizontalRobot.beginDrag(sourceColumn, -3, 3).dragTo(targetColumn, 10, 0);
+			horizontalRobot.assertCommandNotNull();
+
+			List<? extends IFigure> feedback = canvas.getFeedbackFigures();
+
+			assertEquals(1, feedback.size());
+			// (relative coordinates should be (510, 10), but we care about absolute coordinates
+			assertEquals(new Point(590, 60), feedback.get(0).getLocation());
+
+			horizontalRobot.endDrag();
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	//
+	// Utils
+	//
+	////////////////////////////////////////////////////////////////////////////
+	private void openPanel(String lines) throws Exception {
+		mainPanel = openContainer(lines);
+		layout = (GridBagLayoutInfo) mainPanel.getLayout();
+		horizontalRobot = new GraphicalRobot(m_headerHorizontal);
+		verticalRobot = new GraphicalRobot(m_headerVertical);
 	}
 }

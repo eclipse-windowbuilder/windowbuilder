@@ -26,6 +26,7 @@ Export-Package: org.eclipse.wb.internal.swing;
  org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit;x-internal:=true,
  org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.layout;x-internal:=true,
  org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection;x-internal:=true,
+ org.eclipse.wb.internal.swing.gef.policy.layout.header.selection;x-friends:="org.eclipse.wb.swing.FormLayout,org.eclipse.wb.swing.MigLayout",
  org.eclipse.wb.internal.swing.gef.policy.menu;x-internal:=true,
  org.eclipse.wb.internal.swing.gefTree;x-internal:=true,
  org.eclipse.wb.internal.swing.gefTree.part;x-internal:=true,
