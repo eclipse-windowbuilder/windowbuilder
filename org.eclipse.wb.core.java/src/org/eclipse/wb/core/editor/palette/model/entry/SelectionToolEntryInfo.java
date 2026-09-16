@@ -13,12 +13,12 @@
 package org.eclipse.wb.core.editor.palette.model.entry;
 
 import org.eclipse.wb.core.editor.palette.model.EntryInfo;
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.editor.Messages;
 import org.eclipse.wb.internal.core.editor.palette.model.entry.IDefaultEntryInfo;
 
 import org.eclipse.gef.Tool;
+import org.eclipse.gef.tools.SelectionTool;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 /**

@@ -19,7 +19,6 @@ import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.gef.core.tools.PasteTool;
 import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.tools.ResizeTracker;
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.gef.core.EditDomain;
@@ -44,6 +43,7 @@ import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.LayerManager;
 import org.eclipse.gef.handles.ResizeHandle;
+import org.eclipse.gef.tools.SelectionTool;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
@@ -932,7 +932,7 @@ public final class GraphicalRobot {
 		Tool tool = m_viewer.getEditDomain().getActiveTool();
 		// when drag is in progress, ask command from "drag tracker"
 		if (tool instanceof SelectionTool) {
-			Tool dragTracker = (Tool) ReflectionUtils.getFieldObject(tool, "m_dragTracker");
+			Tool dragTracker = (Tool) ReflectionUtils.invokeMethod(tool, "getDragTracker()");
 			if (dragTracker != null) {
 				tool = dragTracker;
 			}

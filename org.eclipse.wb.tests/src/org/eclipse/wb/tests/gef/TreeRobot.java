@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.gef;
 
 import org.eclipse.wb.core.model.ObjectInfo;
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
@@ -26,6 +25,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.tools.SelectionTool;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
@@ -338,7 +338,7 @@ public final class TreeRobot {
 		}
 		// when drag is in progress, ask command from "drag tracker"
 		if (tool instanceof SelectionTool) {
-			Tool dragTracker = (Tool) ReflectionUtils.getFieldObject(tool, "m_dragTracker");
+			Tool dragTracker = (Tool) ReflectionUtils.invokeMethod(tool, "getDragTracker()");
 			if (dragTracker != null) {
 				tool = dragTracker;
 			}

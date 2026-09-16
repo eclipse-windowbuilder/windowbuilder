@@ -12,11 +12,11 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.gef;
 
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.TreeEditPart;
+import org.eclipse.gef.tools.SelectionTool;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.widgets.Display;

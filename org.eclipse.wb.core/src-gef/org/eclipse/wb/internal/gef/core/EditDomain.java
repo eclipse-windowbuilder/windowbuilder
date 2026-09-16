@@ -13,12 +13,12 @@
 package org.eclipse.wb.internal.gef.core;
 
 import org.eclipse.wb.gef.core.ICommandExceptionHandler;
-import org.eclipse.wb.gef.graphical.tools.SelectionTool;
 
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.gef.Tool;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.tools.SelectionTool;
 
 /**
  * @author lobas_av

@@ -13,6 +13,7 @@
 package org.eclipse.wb.internal.gef.graphical;
 
 import org.eclipse.wb.draw2d.Layer;
+import org.eclipse.wb.internal.core.gef.DesignKeyHandler;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 import org.eclipse.wb.internal.draw2d.RootFigure;
@@ -68,6 +69,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 		m_rootEditPart.setViewer(this);
 		m_rootEditPart.activate();
 		setRootEditPart(m_rootEditPart);
+		setKeyHandler(new DesignKeyHandler(this));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
