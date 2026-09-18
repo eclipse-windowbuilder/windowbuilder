@@ -134,7 +134,7 @@ abstract class DimensionSelectionEditPolicy<T extends DimensionInfo> extends Abs
 	}
 
 	@Override
-	protected void showTextFeedback(ChangeBoundsRequest changeBoundsRequest, Point feedbackLocation) {
+	protected void showTextFeedback(ChangeBoundsRequest request, Point location) {
 		Layer feedbackLayer = getMainLayer(LayerConstants.FEEDBACK_LAYER);
 		// add feedback
 		if (m_feedback == null) {
@@ -142,9 +142,9 @@ abstract class DimensionSelectionEditPolicy<T extends DimensionInfo> extends Abs
 			m_feedback.add();
 		}
 		// set feedback bounds
-		m_feedback.setLocation(feedbackLocation);
+		m_feedback.setLocation(location);
 		// set text
-		m_feedback.setText(getFeedbackText(changeBoundsRequest));
+		m_feedback.setText(getFeedbackText(request));
 	}
 
 	@Override

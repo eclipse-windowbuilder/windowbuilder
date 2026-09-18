@@ -159,7 +159,7 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo> extends 
 	}
 
 	@Override
-	protected void showTextFeedback(ChangeBoundsRequest changeBoundsRequest, Point feedbackLocation) {
+	protected void showTextFeedback(ChangeBoundsRequest request, Point location) {
 		Layer feedbackLayer = getMainLayer(LayerConstants.FEEDBACK_LAYER);
 		// add feedback
 		if (m_feedback == null) {
@@ -169,10 +169,10 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo> extends 
 			prepareDefaultResizeElements();
 		}
 		// set feedback bounds
-		m_feedback.setLocation(feedbackLocation);
+		m_feedback.setLocation(location);
 		// set text
-		m_lastResizeRequest = changeBoundsRequest;
-		updateFeedbackText(changeBoundsRequest);
+		m_lastResizeRequest = request;
+		updateFeedbackText(request);
 	}
 
 	/**
