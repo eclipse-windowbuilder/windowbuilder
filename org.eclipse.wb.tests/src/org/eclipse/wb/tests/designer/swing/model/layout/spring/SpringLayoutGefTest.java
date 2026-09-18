@@ -291,7 +291,8 @@ public class SpringLayoutGefTest extends SwingGefTest {
 	public void test_CREATE_ansoluteNoSnap_andResize_absoluteNoSnap() throws Exception {
 		prepare_CREATE_emptyPanel();
 		canvas.target(panel).inX(30).inY(50).move();
-		canvas.beginDrag().dragOn(100, 50).endDrag();
+		// Cursor location is included in target request
+		canvas.beginDrag().dragOn(99, 49).endDrag();
 		assertEditor("""
 				public class Test extends JPanel {
 					public Test() {

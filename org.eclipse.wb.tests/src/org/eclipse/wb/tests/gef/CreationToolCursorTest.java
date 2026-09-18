@@ -200,8 +200,6 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.endDrag();
 			//
-			// during executeCommand ivoke setCommand(null) then cursor == NO
-			expectedLogger.setCursor(CURSOR_NO());
 			expectedLogger.setCursor(null);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
@@ -418,9 +416,6 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.click(60, 60, 1);
 			//
-			// during executeCommand ivoke setCommand(null) then cursor == NO
-			expectedLogger.setCursor(CURSOR_NO());
-			//
 			expectedLogger.setCursor(null);
 			//
 			m_actualLogger.assertEquals(expectedLogger);
@@ -454,9 +449,6 @@ public class CreationToolCursorTest extends GefCursorTestCase {
 		{
 			m_sender.click(60, 60, 1);
 			//
-			// during executeCommand ivoke setCommand(null) then cursor == NO
-			expectedLogger.setCursor(CURSOR_NO());
-			// cursor is cleared when switching back to default tool
 			expectedLogger.setCursor(null);
 			//
 			m_actualLogger.assertEquals(expectedLogger);
