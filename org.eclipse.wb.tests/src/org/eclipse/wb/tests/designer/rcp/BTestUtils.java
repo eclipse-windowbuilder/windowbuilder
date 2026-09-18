@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp;
 
-import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.swt.model.layout.LayoutInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
 import org.eclipse.wb.tests.designer.core.TestProject;
@@ -30,15 +29,10 @@ public final class BTestUtils {
 	 * Configures given {@link TestProject} for using RCP.
 	 */
 	public static void configureSWT(TestProject testProject) throws Exception {
-		if (EnvironmentUtils.IS_WINDOWS) {
-			testProject.addPlugin("org.eclipse.swt.win32.win32.x86_64");
-		} else if (EnvironmentUtils.IS_LINUX) {
-			testProject.addPlugin("org.eclipse.swt.gtk.linux.x86_64");
-		} else if (EnvironmentUtils.IS_MAC) {
-			testProject.addPlugin("org.eclipse.swt.cocoa.macosx.x86_64");
-		} else {
-			throw new UnsupportedOperationException("Unsupported platform.");
-		}
+		String ws = System.getProperty("osgi.ws");
+		String os = System.getProperty("osgi.os");
+		String arch = System.getProperty("osgi.arch");
+		testProject.addPlugin("org.eclipse.swt.%s.%s.%s".formatted(ws, os, arch));
 	}
 
 	public static void configure(TestProject testProject) throws Exception {
