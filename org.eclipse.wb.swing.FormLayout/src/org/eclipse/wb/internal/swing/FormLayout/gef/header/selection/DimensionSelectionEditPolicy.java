@@ -154,7 +154,7 @@ abstract class DimensionSelectionEditPolicy<T extends FormDimensionInfo> extends
 	}
 
 	@Override
-	protected void showTextFeedback(ChangeBoundsRequest changeBoundsRequest, Point feedbackLocation) {
+	protected void showTextFeedback(ChangeBoundsRequest request, Point location) {
 		Layer feedbackLayer = getMainLayer(LayerConstants.FEEDBACK_LAYER);
 		// add feedback
 		if (m_feedback == null) {
@@ -162,10 +162,10 @@ abstract class DimensionSelectionEditPolicy<T extends FormDimensionInfo> extends
 			feedbackLayer.add(m_feedback);
 		}
 		// set feedback bounds
-		m_feedback.setLocation(feedbackLocation);
+		m_feedback.setLocation(location);
 		// set text
-		m_lastResizeRequest = changeBoundsRequest;
-		updateFeedbackText(changeBoundsRequest, changeBoundsRequest.isSnapToEnabled());
+		m_lastResizeRequest = request;
+		updateFeedbackText(request, request.isSnapToEnabled());
 		// set hint
 		String hintSize;
 		if (getDimension().getSize().getComponentSize() == null) {
