@@ -53,16 +53,16 @@ public final class FieldEditorDropRequestProcessor extends RequestProcessor {
 			if (editorCreateRequest.getNewObject() instanceof FieldEditorInfo) {
 				final FieldEditorInfo editor = (FieldEditorInfo) editorCreateRequest.getNewObject();
 				final CompositeInfo composite = page.schedule_CREATE(editor);
-				// after CREATE select "composite"
-				editorCreateRequest.setSelectObject(composite);
 				// prepare CreateRequest, that creates our ActionInfo
-				CreateRequest createRequest = new CreateRequest(new SimpleFactory<>(CompositeInfo.class) {
+				CreateRequest createRequest = new CreateRequest();
+				createRequest.setFactory(new SimpleFactory<>(CompositeInfo.class) {
 					@Override
 					public CompositeInfo getNewObject() {
 						return composite;
 					}
 				});
-				createRequest.copyStateFrom(editorCreateRequest);
+				createRequest.setLocation(editorCreateRequest.getLocation());
+				createRequest.setSize(editorCreateRequest.getSize());
 				return createRequest;
 			}
 		}

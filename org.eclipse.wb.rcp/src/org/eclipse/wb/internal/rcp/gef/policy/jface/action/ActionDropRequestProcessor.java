@@ -56,14 +56,16 @@ public final class ActionDropRequestProcessor extends RequestProcessor {
 			final ActionInfo action = actionDropRequest.getAction();
 			scheduleActionItemSelection(actionDropRequest);
 			// prepare CreateRequest, that creates our ActionInfo
-			CreateRequest createRequest = new CreateRequest(new SimpleFactory<>(ActionInfo.class) {
+			CreateRequest createRequest = new CreateRequest();
+			createRequest.setFactory(new SimpleFactory<>(ActionInfo.class) {
 				@Override
 				public ActionInfo getNewObject() {
 					return action;
 				}
 			});
 			// OK, we have CreateRequest
-			createRequest.copyStateFrom(actionDropRequest);
+			createRequest.setLocation(actionDropRequest.getLocation());
+			createRequest.setSize(actionDropRequest.getSize());
 			return createRequest;
 		}
 		// no, we don't know this request

@@ -23,9 +23,8 @@ import org.eclipse.gef.requests.CreationFactory;
  */
 public class CreateRequest extends AbstractCreateRequest {
 	private static final int SNAP_TO = 16;
-	private final CreationFactory m_factory;
+	private CreationFactory m_factory;
 	private Object m_newObject;
-	private Object m_selectObject;
 	private int m_flags = 0;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -36,9 +35,8 @@ public class CreateRequest extends AbstractCreateRequest {
 	/**
 	 * Constructs a {@link CreateRequest} with the specified <i>type</i> and <i>factory</i>.
 	 */
-	public CreateRequest(CreationFactory factory) {
+	public CreateRequest() {
 		super(RequestConstants.REQ_CREATE);
-		m_factory = factory;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -52,24 +50,26 @@ public class CreateRequest extends AbstractCreateRequest {
 	public Object getNewObject() {
 		if (m_newObject == null) {
 			m_newObject = m_factory.getNewObject();
-			m_selectObject = m_newObject;
 		}
 		return m_newObject;
 	}
 
 	/**
-	 * @return the object that should be selected after finishing create operation. By default return
-	 *         same as {@link #getNewObject()}.
+	 * Returns the CreationFactory for this request.
+	 *
+	 * @return the CreationFactory
 	 */
-	public Object getSelectObject() {
-		return m_selectObject;
+	protected CreationFactory getFactory() {
+		return m_factory;
 	}
 
 	/**
-	 * Sets the object that should be selected after finishing create operation.
+	 * Sets the factory to be used when creating the new object.
+	 *
+	 * @param factory the factory
 	 */
-	public void setSelectObject(Object object) {
-		m_selectObject = object;
+	public void setFactory(CreationFactory factory) {
+		m_factory = factory;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
