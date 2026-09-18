@@ -18,7 +18,6 @@ import org.eclipse.draw2d.Cursors;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.SharedCursors;
-import org.eclipse.gef.requests.CreateRequest;
 import org.eclipse.gef.requests.LocationRequest;
 import org.eclipse.gef.tools.TargetingTool;
 import org.eclipse.swt.SWT;
@@ -94,8 +93,8 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	protected boolean handleDragInProgress() {
 		if (isInState(STATE_DRAG_IN_PROGRESS)) {
 			updateTargetRequest();
-			showTargetFeedback();
 			setCurrentCommand(getCommand());
+			showTargetFeedback();
 		}
 		return true;
 	}
@@ -117,26 +116,13 @@ public abstract class AbstractCreationTool extends TargetingTool {
 	@Override
 	protected void updateTargetRequest() {
 		super.updateTargetRequest();
+		AbstractCreateRequest request = (AbstractCreateRequest) getTargetRequest();
 		if (isInState(STATE_DRAG_IN_PROGRESS)) {
-			// TODO - can be removed once we use the GEF CreationTool
-			if (getTargetRequest() instanceof CreateRequest request) {
-				request.setLocation(getStartLocation());
-				request.setSize(getDragMoveDelta());
-			}
-			if (getTargetRequest() instanceof AbstractCreateRequest request) {
-				request.setLocation(getStartLocation());
-				request.setSize(getDragMoveDelta());
-			}
+			request.setLocation(getStartLocation());
+			request.setSize(getDragMoveDelta());
 		} else {
-			// TODO - can be removed once we use the GEF CreationTool
-			if (getTargetRequest() instanceof CreateRequest request) {
-				request.setSize(null);
-				request.setLocation(getLocation());
-			}
-			if (getTargetRequest() instanceof AbstractCreateRequest request) {
-				request.setSize(null);
-				request.setLocation(getLocation());
-			}
+			request.setSize(null);
+			request.setLocation(getLocation());
 		}
 	}
 

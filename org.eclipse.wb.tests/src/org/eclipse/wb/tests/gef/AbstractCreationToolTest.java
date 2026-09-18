@@ -126,7 +126,7 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(
 					childEditPart1,
-					new String[]{"showTargetFeedback", "getCommand"},
+					new String[] { "getCommand", "showTargetFeedback" },
 					m_request);
 			assertLoggers(expectedLogger, actualLogger);
 			////////////////////////////////////////////////////////////////
@@ -137,7 +137,7 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 			//
 			expectedLogger.log(
 					childEditPart1,
-					new String[]{"showTargetFeedback", "getCommand"},
+					new String[] { "getCommand", "showTargetFeedback" },
 					m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
@@ -232,7 +232,7 @@ public abstract class AbstractCreationToolTest extends RequestTestCase {
 			setLocation(new Point(90, 90));
 			setSize(new Dimension(10, 10));
 			//
-			expectedLogger.log(editPart, new String[]{"showTargetFeedback", "getCommand"}, m_request);
+			expectedLogger.log(editPart, new String[] { "getCommand", "showTargetFeedback" }, m_request);
 			assertLoggers(expectedLogger, actualLogger);
 		}
 		// click invalid button during drag process
