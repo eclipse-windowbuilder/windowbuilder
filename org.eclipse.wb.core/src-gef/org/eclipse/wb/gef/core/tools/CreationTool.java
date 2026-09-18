@@ -75,7 +75,9 @@ public class CreationTool extends AbstractCreationTool {
 	 */
 	@Override
 	protected Request createTargetRequest() {
-		return new CreateRequest(m_factory);
+		CreateRequest request = new CreateRequest();
+		request.setFactory(getFactory());
+		return request;
 	}
 
 	@Override
@@ -91,7 +93,7 @@ public class CreationTool extends AbstractCreationTool {
 	@Override
 	protected void selectAddedObjects() {
 		CreateRequest request = (CreateRequest) getTargetRequest();
-		Object model = request.getSelectObject();
+		Object model = request.getNewObject();
 		if (model != null) {
 			EditPartViewer viewer = getCurrentViewer();
 			if (viewer != null) {
