@@ -31,9 +31,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Helper for creating temporary {@link Bundle}.
@@ -166,13 +168,21 @@ public final class TestBundle {
 	}
 
 	private void waitForExtensionsInstalled() {
+		Instant timeout = Instant.now().plusSeconds(5);
 		while (!areAllExtensionsInstalled()) {
+			if (Instant.now().isAfter(timeout)) {
+				throw new IllegalStateException("Unable to install extensions after 5 seconds");
+			}
 			TestUtils.waitEventLoop(1);
 		}
 	}
 
 	private void waitForExtensionsUnInstalled() {
+		Instant timeout = Instant.now().plusSeconds(5);
 		while (!areAllExtensionsUnInstalled()) {
+			if (Instant.now().isAfter(timeout)) {
+				throw new IllegalStateException("Unable to uninstall extensions after 5 seconds");
+			}
 			TestUtils.waitEventLoop(1);
 		}
 	}
@@ -283,12 +293,12 @@ public final class TestBundle {
 	public void uninstall() throws Exception {
 		Assert.isNotNull(m_bundle, "Bundle %s is not installed.", m_id);
 		// we should wait until OSGi framework notifies all listeners that Bundle was uninstalled
-		final AtomicBoolean uninstallEventProcessed = new AtomicBoolean();
+		final CountDownLatch uninstalled = new CountDownLatch(1);
 		m_context.addBundleListener(new BundleListener() {
 			@Override
 			public void bundleChanged(BundleEvent event) {
 				if (event.getType() == BundleEvent.UNINSTALLED && event.getBundle() == m_bundle) {
-					uninstallEventProcessed.set(true);
+					uninstalled.countDown();
 					m_context.removeBundleListener(this);
 				}
 			}
@@ -296,11 +306,8 @@ public final class TestBundle {
 		// request uninstalling
 		m_bundle.uninstall();
 		// wait for Bundle uninstalling event
-		while (!uninstallEventProcessed.get()) {
-			try {
-				Thread.sleep(0);
-			} catch (Throwable e) {
-			}
+		if (uninstalled.await(5, TimeUnit.SECONDS)) {
+			throw new IllegalStateException("Unable to fully uninstall bundle " + m_bundle.getSymbolicName());
 		}
 		// wait for uninstalling extensions
 		waitForExtensionsUnInstalled();
