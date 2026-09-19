@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -52,24 +52,24 @@ public class ApplicationWindowTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_0() throws Exception {
-		parseJavaInfo(
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Control createContents(Composite parent) {",
-				"    Composite container = (Composite) super.createContents(parent);",
-				"    Button button = new Button(container, SWT.NONE);",
-				"    return container;",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {}",
-				"  {parameter} {parent} {/super.createContents(parent)/}",
-				"    {casted-superInvocation: (Composite)super.createContents(parent)} {local-unique: container} {/(Composite) super.createContents(parent)/ /new Button(container, SWT.NONE)/ /container/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}",
-				"      {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(container, SWT.NONE)/}");
+		parseJavaInfo("""
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createContents(Composite parent) {
+						Composite container = (Composite) super.createContents(parent);
+						Button button = new Button(container, SWT.NONE);
+						return container;
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {}
+					{parameter} {parent} {/super.createContents(parent)/}
+						{casted-superInvocation: (Composite)super.createContents(parent)} {local-unique: container} {/(Composite) super.createContents(parent)/ /new Button(container, SWT.NONE)/ /container/}
+							{implicit-layout: absolute} {implicit-layout} {}
+							{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(container, SWT.NONE)/}""");
 	}
 
 	/**
@@ -77,18 +77,14 @@ public class ApplicationWindowTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_1() throws Exception {
-		ApplicationWindowInfo window =
-				(ApplicationWindowInfo) parseSource(
-						"test",
-						"Test.java",
-						getSourceDQ(
-								"import org.eclipse.jface.action.*;",
-								"import org.eclipse.jface.window.*;",
-								"public class Test extends ApplicationWindow {",
-								"  public Test() {",
-								"    super(null);",
-								"  }",
-								"}"));
+		ApplicationWindowInfo window = (ApplicationWindowInfo) parseSource("test", "Test.java", """
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+					}
+				}""");
 		assertNoErrors(window);
 	}
 
@@ -97,21 +93,17 @@ public class ApplicationWindowTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ignoreMethod_close() throws Exception {
-		ApplicationWindowInfo window =
-				(ApplicationWindowInfo) parseSource(
-						"test",
-						"Test.java",
-						getSource(
-								"import org.eclipse.jface.action.*;",
-								"import org.eclipse.jface.window.*;",
-								"public class Test extends ApplicationWindow {",
-								"  public Test() {",
-								"    super(null);",
-								"  }",
-								"  public boolean close() {",
-								"    return false;",
-								"  }",
-								"}"));
+		ApplicationWindowInfo window = (ApplicationWindowInfo) parseSource("test", "Test.java", getSource("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+					}
+					public boolean close() {
+						return false;
+					}
+				}"""));
 		window.refresh();
 		// ask close()
 		Shell shell = (Shell) window.getComponentObject();
@@ -130,25 +122,24 @@ public class ApplicationWindowTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_managers_ToolBarManager() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test() {",
-						"    super(null);",
-						"    addToolBar(SWT.FLAT);",
-						"  }",
-						"  protected ToolBarManager createToolBarManager(int style) {",
-						"    ToolBarManager toolBarManager = super.createToolBarManager(style);",
-						"    return toolBarManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addToolBar(SWT.FLAT);
+					}
+					protected ToolBarManager createToolBarManager(int style) {
+						ToolBarManager toolBarManager = super.createToolBarManager(style);
+						return toolBarManager;
+					}
+				}""");
 		window.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addToolBar(SWT.FLAT)/}",
-				"  {superInvocation: super.createToolBarManager(style)} {local-unique: toolBarManager} {/super.createToolBarManager(style)/ /toolBarManager/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addToolBar(SWT.FLAT)/}
+					{superInvocation: super.createToolBarManager(style)} {local-unique: toolBarManager} {/super.createToolBarManager(style)/ /toolBarManager/}""");
 		// check ToolBarManager
 		ToolBarManagerInfo toolBarManager = window.getChildren(ToolBarManagerInfo.class).get(0);
 		assertEquals(
@@ -169,23 +160,23 @@ public class ApplicationWindowTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_managers_ignoreDangling() throws Exception {
-		parseJavaInfo(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  public Test() {",
-				"    super(null);",
-				"    addMenuBar();",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = new MenuManager();",
-				"    MenuManager dangling = new MenuManager();",
-				"    return menuManager;",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addMenuBar()/}",
-				"  {new: org.eclipse.jface.action.MenuManager} {local-unique: menuManager} {/new MenuManager()/ /menuManager/}");
+		parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = new MenuManager();
+						MenuManager dangling = new MenuManager();
+						return menuManager;
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addMenuBar()/}
+					{new: org.eclipse.jface.action.MenuManager} {local-unique: menuManager} {/new MenuManager()/ /menuManager/}""");
 		refresh();
 	}
 }

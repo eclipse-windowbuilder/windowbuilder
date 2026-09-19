@@ -44,17 +44,16 @@ public class ChangeLayoutTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_removeSelectionPolicy_whenDropFillLayout() throws Exception {
-		CompositeInfo composite =
-				openComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setBounds(0, 0, 100, 20);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo composite = openComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setBounds(0, 0, 100, 20);
+						}
+					}
+				}""");
 		ControlInfo button = composite.getChildrenControls().get(0);
 		GraphicalEditPart buttonPart = canvas.getEditPart(button);
 		// initially Button has "absolute" selection policy
@@ -68,16 +67,16 @@ public class ChangeLayoutTest extends RcpGefTest {
 		canvas.create();
 		canvas.target(composite).in(10, 10).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout(SWT.HORIZONTAL));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout(SWT.HORIZONTAL));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		// FillLayout uses "non-resizable" selection policy
 		{
 			EditPolicy policy = buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE);

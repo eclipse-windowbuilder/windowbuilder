@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,13 +48,12 @@ public class TableViewerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_properties() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo table = shell.getChildrenControls().get(0);
 		ViewerInfo viewer = (ViewerInfo) table.getChildren().get(0);
@@ -74,19 +73,18 @@ public class TableViewerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CheckboxTableViewer() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    TableViewer tableViewer = CheckboxTableViewer.newCheckList(this, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /CheckboxTableViewer.newCheckList(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}",
-				"    {static factory: org.eclipse.jface.viewers.CheckboxTableViewer newCheckList(org.eclipse.swt.widgets.Composite,int)} {local-unique: tableViewer} {/CheckboxTableViewer.newCheckList(this, SWT.NONE)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						TableViewer tableViewer = CheckboxTableViewer.newCheckList(this, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /CheckboxTableViewer.newCheckList(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}
+						{static factory: org.eclipse.jface.viewers.CheckboxTableViewer newCheckList(org.eclipse.swt.widgets.Composite,int)} {local-unique: tableViewer} {/CheckboxTableViewer.newCheckList(this, SWT.NONE)/}""");
 		// refresh()
 		shell.refresh();
 		assertNoErrors(shell);
@@ -97,29 +95,26 @@ public class TableViewerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_GridLayout_andExposedViewer() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private TableViewer viewer;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    viewer = new TableViewer(this, SWT.NONE);",
-						"  }",
-						"  public TableViewer getViewer() {",
-						"    return viewer;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private TableViewer viewer;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						viewer = new TableViewer(this, SWT.NONE);
+					}
+					public TableViewer getViewer() {
+						return viewer;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+					}
+				}""");
 		shell.refresh();
 		GridLayoutInfo gridLayout = (GridLayoutInfo) shell.getLayout();
 		// add MyComposite, there was error
@@ -127,22 +122,22 @@ public class TableViewerTest extends RcpModelTest {
 			CompositeInfo myComposite = createJavaInfo("test.MyComposite");
 			gridLayout.command_CREATE(myComposite, 0, false, 0, false);
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new MyComposite(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}",
-				"  {new: test.MyComposite} {local-unique: myComposite} {/new MyComposite(this, SWT.NONE)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}",
-				"    {viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}",
-				"      {method: public org.eclipse.jface.viewers.TableViewer test.MyComposite.getViewer()} {property} {}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new MyComposite(this, SWT.NONE)/}
+					{new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}
+					{new: test.MyComposite} {local-unique: myComposite} {/new MyComposite(this, SWT.NONE)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+						{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}
+						{viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}
+							{method: public org.eclipse.jface.viewers.TableViewer test.MyComposite.getViewer()} {property} {}""");
 	}
 }

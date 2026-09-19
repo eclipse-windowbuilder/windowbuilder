@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,12 +47,12 @@ public class ViewCategoryPropertyEditorTest extends RcpModelTest {
 	@Test
 	public void test_existingAttribute() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		AbstractPdeTest.createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' class='test.Test' category='category_1'/>",
-				"  </extension>",
-		"</plugin>"});
+		AbstractPdeTest.createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" class="test.Test" category="category_1"/>
+					</extension>
+				</plugin>""");
 		// parse
 		Property categoryProperty = parseAndGetCategoryProperty();
 		assertTrue(categoryProperty.isModified());
@@ -65,12 +65,12 @@ public class ViewCategoryPropertyEditorTest extends RcpModelTest {
 	@Test
 	public void test_noAttribute() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		AbstractPdeTest.createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' class='test.Test'/>",
-				"  </extension>",
-		"</plugin>"});
+		AbstractPdeTest.createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" class="test.Test"/>
+					</extension>
+				</plugin>""");
 		// parse
 		Property categoryProperty = parseAndGetCategoryProperty();
 		assertFalse(categoryProperty.isModified());
@@ -81,16 +81,15 @@ public class ViewCategoryPropertyEditorTest extends RcpModelTest {
 	}
 
 	private Property parseAndGetCategoryProperty() throws Exception {
-		ViewPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends ViewPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		ViewPartInfo part = parseJavaInfo("""
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		// "category" property
 		Property extensionProperty = part.getPropertyByTitle("Extension");
 		Property categoryProperty = getSubProperties(extensionProperty)[2];

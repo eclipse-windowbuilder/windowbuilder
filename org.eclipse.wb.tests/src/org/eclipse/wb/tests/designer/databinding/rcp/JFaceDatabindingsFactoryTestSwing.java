@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,14 +39,13 @@ public class JFaceDatabindingsFactoryTestSwing extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_createProvider() throws Exception {
-		ContainerInfo panel =
-				parseContainer(
-						"public class Test extends JPanel {",
-						"  public Test() {",
-						"    JList list = new JList();",
-						"    add(list);",
-						"  }",
-						"}");
+		ContainerInfo panel = parseContainer("""
+				public class Test extends JPanel {
+					public Test() {
+						JList list = new JList();
+						add(list);
+					}
+				}""");
 		assertNotNull(panel);
 		//
 		JFaceDatabindingsFactory factory = new JFaceDatabindingsFactory();

@@ -43,18 +43,16 @@ public class ResourceManagerTest extends RcpModelTest {
 	@Override
 	protected void configureNewProject() throws Exception {
 		// make plugin
-		setFileContentSrc(
-				"testplugin/Activator.java",
-				getSourceDQ(
-						"package testplugin;",
-						"import org.eclipse.ui.plugin.AbstractUIPlugin;",
-						"public class Activator extends AbstractUIPlugin {",
-						"  public Activator() {",
-						"  }",
-						"  public static Activator getDefault() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("testplugin/Activator.java", """
+				package testplugin;
+				import org.eclipse.ui.plugin.AbstractUIPlugin;
+				public class Activator extends AbstractUIPlugin {
+					public Activator() {
+					}
+					public static Activator getDefault() {
+						return null;
+					}
+				}""");
 		((List<?>) ReflectionUtils.getFieldObject(this, "m_createdResources")).clear();
 		waitForAutoBuild();
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
@@ -71,13 +69,12 @@ public class ResourceManagerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// add ResourceManager
 		ManagerUtils.ensure_ResourceManager(shell);
 		// "shell" JavaInfo will be disposed, but ResourceManager still will be available
@@ -93,33 +90,30 @@ public class ResourceManagerTest extends RcpModelTest {
 	public void test_getPluginImage_StringString() throws Exception {
 		ensureFolderExists("icons");
 		TestUtils.createImagePNG(m_testProject, "icons/1.png", 10, 20);
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private Button button;",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      button = new Button(this, SWT.NONE);",
-						"      button.setImage(org.eclipse.wb.swt.ResourceManager.getPluginImage('TestProject', 'icons/1.png'));",
-						"    }",
-						"  }",
-						"  public Button getButton() {",
-						"    return button;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private Button button;
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout());
+						{
+							button = new Button(this, SWT.NONE);
+							button.setImage(org.eclipse.wb.swt.ResourceManager.getPluginImage("TestProject", "icons/1.png"));
+						}
+					}
+					public Button getButton() {
+						return button;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    MyComposite myComposite = new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						MyComposite myComposite = new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		CompositeInfo myComposite = (CompositeInfo) shell.getChildrenControls().get(0);
 		ButtonInfo button = (ButtonInfo) myComposite.getChildrenControls().get(0);
@@ -141,18 +135,17 @@ public class ResourceManagerTest extends RcpModelTest {
 		TestUtils.createImagePNG(m_testProject, "icons/2.png", 10, 20);
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"import testplugin.Activator;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new RowLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setImage(org.eclipse.wb.swt.ResourceManager.getPluginImage(Activator.getDefault(), 'icons/2.png'));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import testplugin.Activator;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new RowLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setImage(org.eclipse.wb.swt.ResourceManager.getPluginImage(Activator.getDefault(), "icons/2.png"));
+						}
+					}
+				}""");
 		shell.refresh();
 		ButtonInfo button = (ButtonInfo) shell.getChildrenControls().get(0);
 		// test property

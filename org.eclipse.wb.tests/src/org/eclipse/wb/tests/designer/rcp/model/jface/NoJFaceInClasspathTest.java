@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -132,17 +132,13 @@ public class NoJFaceInClasspathTest extends AbstractJavaInfoTest {
 	}
 
 	private void check_entryActivation(EntryInfo entry, boolean expected) throws Exception {
-		JavaInfo shell =
-				parseSource(
-						"test",
-						"Test.java",
-						getSource(
-								"package test;",
-								"import org.eclipse.swt.widgets.*;",
-								"public class Test extends Shell {",
-								"  public Test() {",
-								"  }",
-								"}"));
+		JavaInfo shell = parseSource("test", "Test.java", getSource("""
+				package test;
+				import org.eclipse.swt.widgets.*;
+				public class Test extends Shell {
+					public Test() {
+					}
+				}"""));
 		//
 		boolean success = entry.initialize(null, shell);
 		assertEquals(expected, success);

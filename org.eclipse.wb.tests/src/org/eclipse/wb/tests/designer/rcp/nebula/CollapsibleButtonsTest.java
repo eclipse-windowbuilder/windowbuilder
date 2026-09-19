@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,23 +48,22 @@ public class CollapsibleButtonsTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_General() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.collapsiblebuttons.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);",
-						"    {",
-						"    	CustomButton customButton = collapsibleButtons.addButton('Copy', 'New CollapsibleButton', null, null);",
-						"    }",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons} {local-unique: collapsibleButtons} {/new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/ /collapsibleButtons.addButton('Copy', 'New CollapsibleButton', null, null)/}",
-				"    {implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton('Copy', 'New CollapsibleButton', null, null)/}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.collapsiblebuttons.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);
+						{
+							CustomButton customButton = collapsibleButtons.addButton("Copy", "New CollapsibleButton", null, null);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons} {local-unique: collapsibleButtons} {/new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/ /collapsibleButtons.addButton("Copy", "New CollapsibleButton", null, null)/}
+						{implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton("Copy", "New CollapsibleButton", null, null)/}""");
 		shell.refresh();
 		CollapsibleButtonsInfo collapsibleButtons =
 				shell.getChildren(CollapsibleButtonsInfo.class).get(0);
@@ -90,44 +89,43 @@ public class CollapsibleButtonsTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_createButton() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.collapsiblebuttons.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);",
-						"    {",
-						"    	CustomButton customButton = collapsibleButtons.addButton('Copy', 'New CollapsibleButton', null, null);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.collapsiblebuttons.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);
+						{
+							CustomButton customButton = collapsibleButtons.addButton("Copy", "New CollapsibleButton", null, null);
+						}
+					}
+				}""");
 		CollapsibleButtonsInfo collapsibleButtons =
 				shell.getChildren(CollapsibleButtonsInfo.class).get(0);
 		assertEquals(1, collapsibleButtons.getChildrenControls().size());
 		// add new button
 		ControlInfo button_new = CollapsibleButtonsInfo.createButton(collapsibleButtons, null);
 		// check source
-		assertEditor(
-				"import org.eclipse.nebula.widgets.collapsiblebuttons.*;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);",
-				"    {",
-				"    	CustomButton customButton = collapsibleButtons.addButton('Copy', 'New CollapsibleButton', null, null);",
-				"    }",
-				"    {",
-				"    	CustomButton customButton = collapsibleButtons.addButton('New Button', 'New CollapsibleButton', null, null);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons} {local-unique: collapsibleButtons} {/new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/ /collapsibleButtons.addButton('Copy', 'New CollapsibleButton', null, null)/ /collapsibleButtons.addButton('New Button', 'New CollapsibleButton', null, null)/}",
-				"    {implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton('Copy', 'New CollapsibleButton', null, null)/}",
-				"    {implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton('New Button', 'New CollapsibleButton', null, null)/}");
+		assertEditor("""
+				import org.eclipse.nebula.widgets.collapsiblebuttons.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);
+						{
+							CustomButton customButton = collapsibleButtons.addButton("Copy", "New CollapsibleButton", null, null);
+						}
+						{
+							CustomButton customButton = collapsibleButtons.addButton("New Button", "New CollapsibleButton", null, null);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons} {local-unique: collapsibleButtons} {/new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/ /collapsibleButtons.addButton("Copy", "New CollapsibleButton", null, null)/ /collapsibleButtons.addButton("New Button", "New CollapsibleButton", null, null)/}
+						{implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton("Copy", "New CollapsibleButton", null, null)/}
+						{implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton("New Button", "New CollapsibleButton", null, null)/}""");
 		// check new button
 		assertInstanceOf(ImplicitFactoryCreationSupport.class, button_new.getCreationSupport());
 		assertInstanceOf(InvocationVoidAssociation.class, button_new.getAssociation());
@@ -138,27 +136,26 @@ public class CollapsibleButtonsTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_moveButton() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.collapsiblebuttons.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);",
-						"    {",
-						"    	CustomButton customButton = collapsibleButtons.addButton('B1', 'New CollapsibleButton', null, null);",
-						"    }",
-						"    {",
-						"    	CustomButton customButton = collapsibleButtons.addButton('B2', 'New CollapsibleButton', null, null);",
-						"    }",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons} {local-unique: collapsibleButtons} {/new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/ /collapsibleButtons.addButton('B1', 'New CollapsibleButton', null, null)/ /collapsibleButtons.addButton('B2', 'New CollapsibleButton', null, null)/}",
-				"    {implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton('B1', 'New CollapsibleButton', null, null)/}",
-				"    {implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton('B2', 'New CollapsibleButton', null, null)/}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.collapsiblebuttons.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);
+						{
+							CustomButton customButton = collapsibleButtons.addButton("B1", "New CollapsibleButton", null, null);
+						}
+						{
+							CustomButton customButton = collapsibleButtons.addButton("B2", "New CollapsibleButton", null, null);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons} {local-unique: collapsibleButtons} {/new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/ /collapsibleButtons.addButton("B1", "New CollapsibleButton", null, null)/ /collapsibleButtons.addButton("B2", "New CollapsibleButton", null, null)/}
+						{implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton("B1", "New CollapsibleButton", null, null)/}
+						{implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton("B2", "New CollapsibleButton", null, null)/}""");
 		CollapsibleButtonsInfo collapsibleButtons =
 				shell.getChildren(CollapsibleButtonsInfo.class).get(0);
 		// extract buttons
@@ -169,25 +166,25 @@ public class CollapsibleButtonsTest extends AbstractNebulaTest {
 		CollapsibleButtonsInfo.moveButton(button_2, button_1);
 		assertEquals(0, collapsibleButtons.getChildrenControls().indexOf(button_2));
 		assertEquals(1, collapsibleButtons.getChildrenControls().indexOf(button_1));
-		assertEditor(
-				"import org.eclipse.nebula.widgets.collapsiblebuttons.*;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);",
-				"    {",
-				"    	CustomButton customButton = collapsibleButtons.addButton('B2', 'New CollapsibleButton', null, null);",
-				"    }",
-				"    {",
-				"    	CustomButton customButton = collapsibleButtons.addButton('B1', 'New CollapsibleButton', null, null);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/}",
-				"  {new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}",
-				"  {new: org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons} {local-unique: collapsibleButtons} {/new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/ /collapsibleButtons.addButton('B1', 'New CollapsibleButton', null, null)/ /collapsibleButtons.addButton('B2', 'New CollapsibleButton', null, null)/}",
-				"    {implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton('B2', 'New CollapsibleButton', null, null)/}",
-				"    {implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton('B1', 'New CollapsibleButton', null, null)/}");
+		assertEditor("""
+				import org.eclipse.nebula.widgets.collapsiblebuttons.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						CollapsibleButtons collapsibleButtons = new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT);
+						{
+							CustomButton customButton = collapsibleButtons.addButton("B2", "New CollapsibleButton", null, null);
+						}
+						{
+							CustomButton customButton = collapsibleButtons.addButton("B1", "New CollapsibleButton", null, null);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FillLayout())/ /new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/}
+					{new: org.eclipse.swt.layout.FillLayout} {empty} {/setLayout(new FillLayout())/}
+					{new: org.eclipse.nebula.widgets.collapsiblebuttons.CollapsibleButtons} {local-unique: collapsibleButtons} {/new CollapsibleButtons(this, SWT.NONE, IColorManager.SKIN_AUTO_DETECT)/ /collapsibleButtons.addButton("B1", "New CollapsibleButton", null, null)/ /collapsibleButtons.addButton("B2", "New CollapsibleButton", null, null)/}
+						{implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton("B2", "New CollapsibleButton", null, null)/}
+						{implicit-factory} {local-unique: customButton} {/collapsibleButtons.addButton("B1", "New CollapsibleButton", null, null)/}""");
 	}
 }

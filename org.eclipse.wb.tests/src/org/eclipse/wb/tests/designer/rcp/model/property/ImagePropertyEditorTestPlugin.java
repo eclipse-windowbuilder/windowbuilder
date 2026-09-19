@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -64,18 +64,16 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 	protected void configureNewProject() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
 		// create activator
-		setFileContentSrc(
-				"testplugin/Activator.java",
-				getSourceDQ(
-						"package testplugin;",
-						"import org.eclipse.ui.plugin.AbstractUIPlugin;",
-						"public class Activator extends AbstractUIPlugin {",
-						"  public Activator() {",
-						"  }",
-						"  public static Activator getDefault() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("testplugin/Activator.java", """
+				package testplugin;
+				import org.eclipse.ui.plugin.AbstractUIPlugin;
+				public class Activator extends AbstractUIPlugin {
+					public Activator() {
+					}
+					public static Activator getDefault() {
+						return null;
+					}
+				}""");
 		// copy some image to test
 		{
 			IFile file = getFile("icons", "1.png");
@@ -266,9 +264,11 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 			assertPluginElement(elements[3], PluginBundleContainer.class, "org.eclipse.ui.forms");
 			//
 			IFile pluginXmlFile = getFile(testProject.getProject(), "plugin.xml");
-			setFileContent(
-					pluginXmlFile,
-					"<?xml version='1.0' encoding='UTF-8'?>\r\n<?eclipse version='3.0'?>\r\n<plugin/>");
+			setFileContent(pluginXmlFile, """
+					<?xml version="1.0" encoding="UTF-8"?>
+					<?eclipse version="3.0"?>
+					<plugin/>
+					""");
 			getFile(testProject.getProject(), "META-INF/MANIFEST.MF").delete(true, null);
 			waitForAutoBuild();
 			// we can get IPluginModelBase using IProject, but it has no ID
@@ -299,10 +299,10 @@ public class ImagePropertyEditorTestPlugin extends ImagePropertyEditorTest {
 		do_projectCreate();
 		try {
 			ProjectUtils.addNature(m_testProject.getProject(), "org.eclipse.pde.PluginNature");
-			AbstractPdeTest.createPluginXML(new String[]{
-					"<?xml version='1.0' encoding='UTF-8'?>",
-					"<?eclipse version='3.0'?>",
-			"<plugin/>"});
+			AbstractPdeTest.createPluginXML("""
+					<?xml version="1.0" encoding="UTF-8"?>
+					<?eclipse version="3.0"?>
+					<plugin/>""");
 			waitForAutoBuild();
 			// we can get IPluginModelBase using IProject, but it has no ID
 			IPluginModelBase plugin = PluginRegistry.findModel(m_testProject.getProject());

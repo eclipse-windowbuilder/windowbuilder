@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -45,18 +45,17 @@ public class GanttChartTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_General() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.ganttchart.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    GanttChart chart = new GanttChart(this, SWT.NONE);",
-						"    {",
-						"      GanttGroup group = new GanttGroup(chart);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.ganttchart.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						GanttChart chart = new GanttChart(this, SWT.NONE);
+						{
+							GanttGroup group = new GanttGroup(chart);
+						}
+					}
+				}""");
 		// refresh() also should be successful
 		shell.refresh();
 		// info

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,18 +41,17 @@ public class FlowLayoutTest extends AbstractSwing2SwtTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.FlowLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.FlowLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+					}
+				}""");
 		shell.refresh();
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5))/}",
-				"  {new: swing2swt.layout.FlowLayout} {empty} {/setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5))/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5))/}
+					{new: swing2swt.layout.FlowLayout} {empty} {/setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5))/}""");
 		FlowLayoutInfo layout = (FlowLayoutInfo) shell.getLayout();
 		// FlowLayout is "flow container"
 		Assertions.assertThat(new FlowContainerFactory(layout, true).get()).isNotEmpty();

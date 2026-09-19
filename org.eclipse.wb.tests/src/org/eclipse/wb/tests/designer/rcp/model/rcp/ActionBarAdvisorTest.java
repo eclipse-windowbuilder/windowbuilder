@@ -14,7 +14,6 @@ package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
 import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.model.property.Property;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionInfo;
@@ -58,24 +57,23 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_0() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  protected void fillCoolBar(ICoolBarManager coolBar) {",
-						"  }",
-						"  protected void fillMenuBar(IMenuManager menuBar) {",
-						"  }",
-						"  protected void makeActions(IWorkbenchWindow window) {",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void fillCoolBar(ICoolBarManager coolBar) {
+					}
+					protected void fillMenuBar(IMenuManager menuBar) {
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.ui.application.ActionBarAdvisor} {this} {}",
-				"  {parameter} {menuBar} {}",
-				"  {parameter} {coolBar} {}");
+		assertHierarchy("""
+				{this: org.eclipse.ui.application.ActionBarAdvisor} {this} {}
+					{parameter} {menuBar} {}
+					{parameter} {coolBar} {}""");
 		{
 			MenuManagerInfo menuBar = (MenuManagerInfo) advisor.getChildren().get(0);
 			assertEquals("menuBar", menuBar.getVariableSupport().getName());
@@ -111,13 +109,12 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ActionBarAdvisor_TopBoundsSupport() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+				}""");
 		// refresh
 		{
 			advisor.refresh();
@@ -144,46 +141,45 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addAction() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  protected void fillMenuBar(IMenuManager menuBar) {",
-						"  }",
-						"  protected void makeActions(IWorkbenchWindow window) {",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void fillMenuBar(IMenuManager menuBar) {
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+					}
+				}""");
 		advisor.refresh();
 		assertNoErrors(advisor);
 		//
 		ActionInfo action = ActionContainerInfo.createNew(advisor);
 		MenuManagerInfo menuManager = advisor.getMenuManager();
 		menuManager.command_CREATE(action, null);
-		assertEditor(
-				"public class Test extends ActionBarAdvisor {",
-				"  private Action action;",
-				"  public Test(IActionBarConfigurer configurer) {",
-				"    super(configurer);",
-				"  }",
-				"  protected void fillMenuBar(IMenuManager menuBar) {",
-				"    menuBar.add(action);",
-				"  }",
-				"  protected void makeActions(IWorkbenchWindow window) {",
-				"    {",
-				"      action = new Action('New Action') {",
-				"      };",
-				"      register(action);",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.ui.application.ActionBarAdvisor} {this} {/register(action)/}",
-				"  {parameter} {menuBar} {/menuBar.add(action)/}",
-				"    {void} {void} {/menuBar.add(action)/}",
-				"  {org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo}",
-				"    {new: org.eclipse.jface.action.Action} {field-unique: action} {/new Action('New Action')/ /register(action)/ /menuBar.add(action)/}");
+		assertEditor("""
+				public class Test extends ActionBarAdvisor {
+					private Action action;
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void fillMenuBar(IMenuManager menuBar) {
+						menuBar.add(action);
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+						{
+							action = new Action("New Action") {
+							};
+							register(action);
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.ui.application.ActionBarAdvisor} {this} {/register(action)/}
+					{parameter} {menuBar} {/menuBar.add(action)/}
+						{void} {void} {/menuBar.add(action)/}
+					{org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo}
+						{new: org.eclipse.jface.action.Action} {field-unique: action} {/new Action("New Action")/ /register(action)/ /menuBar.add(action)/}""");
 		// refresh
 		advisor.refresh();
 		assertNoErrors(advisor);
@@ -194,22 +190,21 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getWorkbench_getSharedImages() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  private Action action;",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  protected void makeActions(IWorkbenchWindow window) {",
-						"    ISharedImages images = window.getWorkbench().getSharedImages();",
-						"    {",
-						"      action = new Action() {",
-						"      };",
-						"      action.setImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_BACK));",
-						"    }",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					private Action action;
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+						ISharedImages images = window.getWorkbench().getSharedImages();
+						{
+							action = new Action() {
+							};
+							action.setImageDescriptor(images.getImageDescriptor(ISharedImages.IMG_TOOL_BACK));
+						}
+					}
+				}""");
 		advisor.refresh();
 		assertNoErrors(advisor);
 	}
@@ -219,17 +214,16 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_newToolBarContributionItem() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  protected void fillCoolBar(ICoolBarManager coolBar) {",
-						"    IToolBarManager toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);",
-						"    coolBar.add(new ToolBarContributionItem(toolBar));",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void fillCoolBar(ICoolBarManager coolBar) {
+						IToolBarManager toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+						coolBar.add(new ToolBarContributionItem(toolBar));
+					}
+				}""");
 		advisor.refresh();
 		assertNoErrors(advisor);
 	}
@@ -244,29 +238,25 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_WorkbenchWindowAdvisor_properties_allNames() throws Exception {
-		setFileContentSrc(
-				"test/ApplicationWorkbenchWindowAdvisor.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/Test.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ApplicationWorkbenchWindowAdvisor.java", """
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+				}""");
+		setFileContentSrc("test/Test.java", """
+				package test;
+				import org.eclipse.ui.application.*;
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+				}""");
 		waitForAutoBuild();
 		//
 		ICompilationUnit unit =
@@ -290,33 +280,29 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_WorkbenchWindowAdvisor_properties_showStatusLine() throws Exception {
-		setFileContentSrc(
-				"test/ApplicationWorkbenchWindowAdvisor.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"  public void preWindowOpen() {",
-						"    IWorkbenchWindowConfigurer configurer = getWindowConfigurer();",
-						"    configurer.setShowStatusLine(false);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/Test.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ApplicationWorkbenchWindowAdvisor.java", """
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+					public void preWindowOpen() {
+						IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+						configurer.setShowStatusLine(false);
+					}
+				}""");
+		setFileContentSrc("test/Test.java", """
+				package test;
+				import org.eclipse.ui.application.*;
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+				}""");
 		waitForAutoBuild();
 		ActionBarAdvisorInfo advisor =
 				(ActionBarAdvisorInfo) parseCompilationUnit(m_testProject.getCompilationUnit("test.Test"));
@@ -326,22 +312,20 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 		assertEquals(Boolean.FALSE, propertySL.getValue());
 		// set value
 		propertySL.setValue(true);
-		assertUnitContents(
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"  public void preWindowOpen() {",
-						"    IWorkbenchWindowConfigurer configurer = getWindowConfigurer();",
-						"  }",
-						"}"),
-				"test.ApplicationWorkbenchWindowAdvisor");
+		assertUnitContents("""
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+					public void preWindowOpen() {
+						IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+					}
+				}""", "test.ApplicationWorkbenchWindowAdvisor");
 	}
 
 	/**
@@ -349,33 +333,29 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_WorkbenchWindowAdvisor_properties_title() throws Exception {
-		setFileContentSrc(
-				"test/ApplicationWorkbenchWindowAdvisor.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"  public void preWindowOpen() {",
-						"    IWorkbenchWindowConfigurer configurer = getWindowConfigurer();",
-						"    configurer.setTitle('A');",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/Test.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ApplicationWorkbenchWindowAdvisor.java", """
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+					public void preWindowOpen() {
+						IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+						configurer.setTitle("A");
+					}
+				}""");
+		setFileContentSrc("test/Test.java", """
+				package test;
+				import org.eclipse.ui.application.*;
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+				}""");
 		waitForAutoBuild();
 		ActionBarAdvisorInfo advisor =
 				(ActionBarAdvisorInfo) parseCompilationUnit(m_testProject.getCompilationUnit("test.Test"));
@@ -385,64 +365,58 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 		assertEquals("A", propertyTitle.getValue());
 		// set value "B"
 		propertyTitle.setValue("B");
-		assertUnitContents(
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"  public void preWindowOpen() {",
-						"    IWorkbenchWindowConfigurer configurer = getWindowConfigurer();",
-						"    configurer.setTitle('B');",
-						"  }",
-						"}"),
-				"test.ApplicationWorkbenchWindowAdvisor");
+		assertUnitContents("""
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+					public void preWindowOpen() {
+						IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+						configurer.setTitle("B");
+					}
+				}""", "test.ApplicationWorkbenchWindowAdvisor");
 		assertTrue(propertyTitle.isModified());
 		assertEquals("B", propertyTitle.getValue());
 		// remove value
 		propertyTitle.setValue(Property.UNKNOWN_VALUE);
-		assertUnitContents(
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"  public void preWindowOpen() {",
-						"    IWorkbenchWindowConfigurer configurer = getWindowConfigurer();",
-						"  }",
-						"}"),
-				"test.ApplicationWorkbenchWindowAdvisor");
+		assertUnitContents("""
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+					public void preWindowOpen() {
+						IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+					}
+				}""", "test.ApplicationWorkbenchWindowAdvisor");
 		assertFalse(propertyTitle.isModified());
 		assertEquals(Property.UNKNOWN_VALUE, propertyTitle.getValue());
 		// set value "C"
 		propertyTitle.setValue("C");
-		assertUnitContents(
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"  public void preWindowOpen() {",
-						"    IWorkbenchWindowConfigurer configurer = getWindowConfigurer();",
-						"    configurer.setTitle('C');",
-						"  }",
-						"}"),
-				"test.ApplicationWorkbenchWindowAdvisor");
+		assertUnitContents("""
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+					public void preWindowOpen() {
+						IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+						configurer.setTitle("C");
+					}
+				}""", "test.ApplicationWorkbenchWindowAdvisor");
 		assertTrue(propertyTitle.isModified());
 		assertEquals("C", propertyTitle.getValue());
 	}
@@ -452,52 +426,46 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_WorkbenchWindowAdvisor_properties_newMethod() throws Exception {
-		setFileContentSrc(
-				"test/ApplicationWorkbenchWindowAdvisor.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/Test.java",
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"}"));
+		setFileContentSrc("test/ApplicationWorkbenchWindowAdvisor.java", """
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+				}""");
+		setFileContentSrc("test/Test.java", """
+				package test;
+				import org.eclipse.ui.application.*;
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+				}""");
 		waitForAutoBuild();
 		ActionBarAdvisorInfo advisor =
 				(ActionBarAdvisorInfo) parseCompilationUnit(m_testProject.getCompilationUnit("test.Test"));
 		Property propertyTitle = advisor.getPropertyByTitle("title");
 		// set value "B"
 		propertyTitle.setValue("B");
-		assertUnitContents(
-				getSourceDQ(
-						"package test;",
-						"import org.eclipse.ui.application.*;",
-						"public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {",
-						"  public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {",
-						"    return new Test(configurer);",
-						"  }",
-						"  public void preWindowOpen() {",
-						"    IWorkbenchWindowConfigurer configurer = getWindowConfigurer();",
-						"    configurer.setTitle('B');",
-						"  }",
-						"}"),
-				"test.ApplicationWorkbenchWindowAdvisor");
+		assertUnitContents("""
+				package test;
+				import org.eclipse.ui.application.*;
+				public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+					public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+						super(configurer);
+					}
+					public ActionBarAdvisor createActionBarAdvisor(IActionBarConfigurer configurer) {
+						return new Test(configurer);
+					}
+					public void preWindowOpen() {
+						IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
+						configurer.setTitle("B");
+					}
+				}""", "test.ApplicationWorkbenchWindowAdvisor");
 		assertTrue(propertyTitle.isModified());
 		assertEquals("B", propertyTitle.getValue());
 	}
@@ -512,14 +480,12 @@ public class ActionBarAdvisorTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected String[] getTestSource_decorate(String... lines) {
-		lines =
-				CodeUtils.join(new String[]{
-						"package test;",
-						"import org.eclipse.swt.SWT;",
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-				"import org.eclipse.ui.application.*;"}, lines);
-		return lines;
+	protected String getTestSource_decorate(String lines) {
+		return getSource("""
+				package test;
+				import org.eclipse.swt.SWT;
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.application.*;""", lines);
 	}
 }

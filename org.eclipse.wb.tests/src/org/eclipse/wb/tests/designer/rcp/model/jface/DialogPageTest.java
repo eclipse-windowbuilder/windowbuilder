@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,19 +48,18 @@ public class DialogPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_empty() throws Exception {
-		DialogPageInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.DialogPage {",
-						"  public Test() {",
-						"    setTitle('My title');",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.DialogPage} {this} {/setTitle('My title')/}",
-				"  {parameter} {parent} {}");
+		DialogPageInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.DialogPage {
+					public Test() {
+						setTitle("My title");
+					}
+					public void createControl(Composite parent) {
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.DialogPage} {this} {/setTitle("My title")/}
+					{parameter} {parent} {}""");
 		// refresh() also should be successful
 		dialog.refresh();
 		assertNotNull(dialog.getImage());
@@ -70,23 +69,22 @@ public class DialogPageTest extends RcpModelTest {
 
 	@Test
 	public void test_emptyContainer() throws Exception {
-		DialogPageInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.DialogPage {",
-						"  public Test() {",
-						"    setTitle('My title');",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NONE);",
-						"    setControl(container);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.DialogPage} {this} {/setTitle('My title')/ /setControl(container)/}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NONE)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NONE)/ /setControl(container)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		DialogPageInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.DialogPage {
+					public Test() {
+						setTitle("My title");
+					}
+					public void createControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NONE);
+						setControl(container);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.DialogPage} {this} {/setTitle("My title")/ /setControl(container)/}
+					{parameter} {parent} {/new Composite(parent, SWT.NONE)/}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NONE)/ /setControl(container)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		// refresh() also should be successful
 		dialog.refresh();
 		assertNotNull(dialog.getImage());
@@ -102,18 +100,18 @@ public class DialogPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_containerLayoutData() throws Exception {
-		parseJavaInfo(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.DialogPage {",
-				"  public Test() {",
-				"    setTitle('My title');",
-				"  }",
-				"  public void createControl(Composite parent) {",
-				"    Composite container = new Composite(parent, SWT.NONE);",
-				"    container.setLayoutData(new GridData());",
-				"    setControl(container);",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.DialogPage {
+					public Test() {
+						setTitle("My title");
+					}
+					public void createControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NONE);
+						container.setLayoutData(new GridData());
+						setControl(container);
+					}
+				}""");
 		refresh();
 	}
 }

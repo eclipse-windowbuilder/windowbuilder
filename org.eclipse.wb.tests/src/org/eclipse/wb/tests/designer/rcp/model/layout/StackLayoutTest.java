@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -52,33 +52,31 @@ public class StackLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		assertInstanceOf(StackLayoutInfo.class, shell.getLayout());
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new StackLayout())/ /new Button(this, SWT.NONE)/}",
-				"  {new: org.eclipse.swt.custom.StackLayout} {empty} {/setLayout(new StackLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new StackLayout())/ /new Button(this, SWT.NONE)/}
+					{new: org.eclipse.swt.custom.StackLayout} {empty} {/setLayout(new StackLayout())/}
+					{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(this, SWT.NONE)/}""");
 	}
 
 	@Test
 	public void test_parseEmpty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+					}
+				}""");
 		shell.refresh();
 	}
 
@@ -87,24 +85,23 @@ public class StackLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setLayout_wasGridLayout() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+					}
+				}""");
 		shell.refresh();
 		//
 		StackLayoutInfo layout =
 				(StackLayoutInfo) BTestUtils.createLayout("org.eclipse.swt.custom.StackLayout");
 		shell.setLayout(layout);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new StackLayout());",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+					}
+				}""");
 		assertActiveControl(layout, null);
 	}
 
@@ -113,22 +110,21 @@ public class StackLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_visibilityGraphical() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_3 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
 		ControlInfo button_1 = getJavaInfoByName("button_1");
@@ -148,13 +144,12 @@ public class StackLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_flowContainer() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+					}
+				}""");
 		StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
 		// StackLayout is "flow container"
 		List<FlowContainer> canvasContainers = new FlowContainerFactory(layout, true).get();
@@ -165,137 +160,133 @@ public class StackLayoutTest extends RcpModelTest {
 
 	@Test
 	public void test_flowContainer_CREATE_asFirst() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+					}
+				}""");
 		StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
 		//
 		ControlInfo button = BTestUtils.createButton();
 		flowContainer_CREATE(layout, button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new StackLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		assertActiveControl(layout, button);
 	}
 
 	@Test
 	public void test_flowContainer_CREATE_andActivate() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
 		// initially "button_1" is active
 		assertActiveControl(layout, shell.getChildrenControls().get(0));
 		//
 		ControlInfo button = BTestUtils.createButton();
 		flowContainer_CREATE(layout, button, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new StackLayout());",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		assertActiveControl(layout, button);
 	}
 
 	@Test
 	public void test_flowContainer_MOVE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
 		ControlInfo button_1 = shell.getChildrenControls().get(0);
 		ControlInfo button_2 = shell.getChildrenControls().get(1);
 		//
 		flowContainer_MOVE(layout, button_2, button_1);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new StackLayout());",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		assertActiveControl(layout, button_2);
 	}
 
 	@Test
 	public void test_flowContainer_ADD() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayout(new StackLayout());",
-						"      {",
-						"        Button button_1 = new Button(composite, SWT.NONE);",
-						"      }",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new StackLayout());
+							{
+								Button button_1 = new Button(composite, SWT.NONE);
+							}
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(0);
 		StackLayoutInfo stackLayout = (StackLayoutInfo) composite.getLayout();
 		ControlInfo button_2 = shell.getChildrenControls().get(1);
 		//
 		flowContainer_MOVE(stackLayout, button_2, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"      composite.setLayout(new StackLayout());",
-				"      {",
-				"        Button button_1 = new Button(composite, SWT.NONE);",
-				"      }",
-				"      {",
-				"        Button button_2 = new Button(composite, SWT.NONE);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new StackLayout());
+							{
+								Button button_1 = new Button(composite, SWT.NONE);
+							}
+							{
+								Button button_2 = new Button(composite, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		assertActiveControl(stackLayout, button_2);
 	}
 
@@ -306,23 +297,22 @@ public class StackLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_clipboard() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Composite c = new Composite(this, SWT.NONE);",
-						"      c.setLayout(new StackLayout());",
-						"      {",
-						"        Button button_1 = new Button(c, SWT.NONE);",
-						"      }",
-						"      {",
-						"        Button button_2 = new Button(c, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite c = new Composite(this, SWT.NONE);
+							c.setLayout(new StackLayout());
+							{
+								Button button_1 = new Button(c, SWT.NONE);
+							}
+							{
+								Button button_2 = new Button(c, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		FillLayoutInfo fillLayout = (FillLayoutInfo) shell.getLayout();
 		// prepare memento
@@ -336,32 +326,32 @@ public class StackLayoutTest extends RcpModelTest {
 		fillLayout.command_CREATE(newComposite, null);
 		memento.apply();
 		//
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    {",
-				"      Composite c = new Composite(this, SWT.NONE);",
-				"      c.setLayout(new StackLayout());",
-				"      {",
-				"        Button button_1 = new Button(c, SWT.NONE);",
-				"      }",
-				"      {",
-				"        Button button_2 = new Button(c, SWT.NONE);",
-				"      }",
-				"    }",
-				"    {",
-				"      Composite c = new Composite(this, SWT.NONE);",
-				"      c.setLayout(new StackLayout());",
-				"      {",
-				"        Button button_1 = new Button(c, SWT.NONE);",
-				"      }",
-				"      {",
-				"        Button button_2 = new Button(c, SWT.NONE);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite c = new Composite(this, SWT.NONE);
+							c.setLayout(new StackLayout());
+							{
+								Button button_1 = new Button(c, SWT.NONE);
+							}
+							{
+								Button button_2 = new Button(c, SWT.NONE);
+							}
+						}
+						{
+							Composite c = new Composite(this, SWT.NONE);
+							c.setLayout(new StackLayout());
+							{
+								Button button_1 = new Button(c, SWT.NONE);
+							}
+							{
+								Button button_2 = new Button(c, SWT.NONE);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -371,19 +361,18 @@ public class StackLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_activeControl() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
 		List<ControlInfo> buttons = shell.getChildrenControls();
@@ -408,22 +397,21 @@ public class StackLayoutTest extends RcpModelTest {
 
 	@Test
 	public void test_activeControl_whenDelete() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_3 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
 		List<ControlInfo> buttons = shell.getChildrenControls();
@@ -449,22 +437,21 @@ public class StackLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_activeControl_showPrevNext() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new StackLayout());",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_3 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new StackLayout());
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_3 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		StackLayoutInfo layout = (StackLayoutInfo) shell.getLayout();
 		ControlInfo button_1 = getJavaInfoByName("button_1");

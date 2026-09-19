@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -51,27 +51,26 @@ public class ControlDecorationTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.fieldassist.ControlDecoration;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    Text text = new Text(this, SWT.BORDER);",
-						"    {",
-						"      ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);",
-						"      controlDecoration.setDescriptionText(\"My description\");",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.fieldassist.ControlDecoration;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						Text text = new Text(this, SWT.BORDER);
+						{
+							ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);
+							controlDecoration.setDescriptionText("My description");
+						}
+					}
+				}""");
 		shell.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Text(this, SWT.BORDER)/}",
-				"  {new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Text} {local-unique: text} {/new Text(this, SWT.BORDER)/ /new ControlDecoration(text, SWT.LEFT | SWT.TOP)/}",
-				"    {new: org.eclipse.jface.fieldassist.ControlDecoration} {local-unique: controlDecoration} {/new ControlDecoration(text, SWT.LEFT | SWT.TOP)/ /controlDecoration.setDescriptionText('My description')/}",
-				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Text(this, SWT.BORDER)/}
+					{new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}
+					{new: org.eclipse.swt.widgets.Text} {local-unique: text} {/new Text(this, SWT.BORDER)/ /new ControlDecoration(text, SWT.LEFT | SWT.TOP)/}
+						{new: org.eclipse.jface.fieldassist.ControlDecoration} {local-unique: controlDecoration} {/new ControlDecoration(text, SWT.LEFT | SWT.TOP)/ /controlDecoration.setDescriptionText("My description")/}
+						{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 		ControlInfo text = shell.getChildrenControls().get(0);
 		ControlDecorationInfo decoration = text.getChildren(ControlDecorationInfo.class).get(0);
 		assertSame(text, decoration.getControl());
@@ -83,18 +82,17 @@ public class ControlDecorationTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_existingImage() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.fieldassist.ControlDecoration;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    Text text = new Text(this, SWT.BORDER);",
-						"    {",
-						"      ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.fieldassist.ControlDecoration;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						Text text = new Text(this, SWT.BORDER);
+						{
+							ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo text = shell.getChildrenControls().get(0);
 		ControlDecorationInfo decoration = text.getChildren(ControlDecorationInfo.class).get(0);
@@ -122,18 +120,17 @@ public class ControlDecorationTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_virtualImage() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.fieldassist.ControlDecoration;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    Text text = new Text(this, SWT.BORDER);",
-						"    {",
-						"      ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.fieldassist.ControlDecoration;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						Text text = new Text(this, SWT.BORDER);
+						{
+							ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo text = shell.getChildrenControls().get(0);
 		ControlDecorationInfo decoration = text.getChildren(ControlDecorationInfo.class).get(0);
@@ -160,39 +157,38 @@ public class ControlDecorationTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.fieldassist.ControlDecoration;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    Text text = new Text(this, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.fieldassist.ControlDecoration;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						Text text = new Text(this, SWT.BORDER);
+					}
+				}""");
 		shell.refresh();
 		ControlInfo text = shell.getChildrenControls().get(0);
 		//
 		ControlDecorationInfo decoration =
 				createJavaInfo("org.eclipse.jface.fieldassist.ControlDecoration");
 		decoration.command_CREATE(text);
-		assertEditor(
-				"import org.eclipse.jface.fieldassist.ControlDecoration;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    Text text = new Text(this, SWT.BORDER);",
-				"    {",
-				"      ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);",
-				"      controlDecoration.setDescriptionText('Some description');",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Text(this, SWT.BORDER)/}",
-				"  {new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Text} {local-unique: text} {/new Text(this, SWT.BORDER)/ /new ControlDecoration(text, SWT.LEFT | SWT.TOP)/}",
-				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}",
-				"    {new: org.eclipse.jface.fieldassist.ControlDecoration} {local-unique: controlDecoration} {/new ControlDecoration(text, SWT.LEFT | SWT.TOP)/ /controlDecoration.setDescriptionText('Some description')/}");
+		assertEditor("""
+				import org.eclipse.jface.fieldassist.ControlDecoration;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						Text text = new Text(this, SWT.BORDER);
+						{
+							ControlDecoration controlDecoration = new ControlDecoration(text, SWT.LEFT | SWT.TOP);
+							controlDecoration.setDescriptionText("Some description");
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Text(this, SWT.BORDER)/}
+					{new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}
+					{new: org.eclipse.swt.widgets.Text} {local-unique: text} {/new Text(this, SWT.BORDER)/ /new ControlDecoration(text, SWT.LEFT | SWT.TOP)/}
+						{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}
+						{new: org.eclipse.jface.fieldassist.ControlDecoration} {local-unique: controlDecoration} {/new ControlDecoration(text, SWT.LEFT | SWT.TOP)/ /controlDecoration.setDescriptionText("Some description")/}""");
 	}
 
 	/**
@@ -200,52 +196,51 @@ public class ControlDecorationTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ADD() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.fieldassist.ControlDecoration;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Text text_1 = new Text(this, SWT.BORDER);",
-						"      {",
-						"        ControlDecoration controlDecoration = new ControlDecoration(text_1, SWT.LEFT | SWT.TOP);",
-						"      }",
-						"    }",
-						"    {",
-						"      Text text_2 = new Text(this, SWT.BORDER);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.fieldassist.ControlDecoration;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							Text text_1 = new Text(this, SWT.BORDER);
+							{
+								ControlDecoration controlDecoration = new ControlDecoration(text_1, SWT.LEFT | SWT.TOP);
+							}
+						}
+						{
+							Text text_2 = new Text(this, SWT.BORDER);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo text_1 = shell.getChildrenControls().get(0);
 		ControlInfo text_2 = shell.getChildrenControls().get(1);
 		ControlDecorationInfo decoration = text_1.getChildren(ControlDecorationInfo.class).get(0);
 		//
 		decoration.command_ADD(text_2);
-		assertEditor(
-				"import org.eclipse.jface.fieldassist.ControlDecoration;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new GridLayout());",
-				"    {",
-				"      Text text_1 = new Text(this, SWT.BORDER);",
-				"    }",
-				"    {",
-				"      Text text_2 = new Text(this, SWT.BORDER);",
-				"      {",
-				"        ControlDecoration controlDecoration = new ControlDecoration(text_2, SWT.LEFT | SWT.TOP);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Text(this, SWT.BORDER)/ /new Text(this, SWT.BORDER)/}",
-				"  {new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}",
-				"  {new: org.eclipse.swt.widgets.Text} {local-unique: text_1} {/new Text(this, SWT.BORDER)/}",
-				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}",
-				"  {new: org.eclipse.swt.widgets.Text} {local-unique: text_2} {/new Text(this, SWT.BORDER)/}",
-				"    {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}",
-				"    {new: org.eclipse.jface.fieldassist.ControlDecoration} {local-unique: controlDecoration} {/new ControlDecoration(text_2, SWT.LEFT | SWT.TOP)/}");
+		assertEditor("""
+				import org.eclipse.jface.fieldassist.ControlDecoration;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							Text text_1 = new Text(this, SWT.BORDER);
+						}
+						{
+							Text text_2 = new Text(this, SWT.BORDER);
+							{
+								ControlDecoration controlDecoration = new ControlDecoration(text_2, SWT.LEFT | SWT.TOP);
+							}
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new GridLayout())/ /new Text(this, SWT.BORDER)/ /new Text(this, SWT.BORDER)/}
+					{new: org.eclipse.swt.layout.GridLayout} {empty} {/setLayout(new GridLayout())/}
+					{new: org.eclipse.swt.widgets.Text} {local-unique: text_1} {/new Text(this, SWT.BORDER)/}
+						{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}
+					{new: org.eclipse.swt.widgets.Text} {local-unique: text_2} {/new Text(this, SWT.BORDER)/}
+						{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}
+						{new: org.eclipse.jface.fieldassist.ControlDecoration} {local-unique: controlDecoration} {/new ControlDecoration(text_2, SWT.LEFT | SWT.TOP)/}""");
 	}
 }

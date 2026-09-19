@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,18 +43,17 @@ public class BoxLayoutTest extends AbstractSwing2SwtTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BoxLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BoxLayout(BoxLayout.X_AXIS));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BoxLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BoxLayout(BoxLayout.X_AXIS));
+					}
+				}""");
 		shell.refresh();
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new BoxLayout(BoxLayout.X_AXIS))/}",
-				"  {new: swing2swt.layout.BoxLayout} {empty} {/setLayout(new BoxLayout(BoxLayout.X_AXIS))/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new BoxLayout(BoxLayout.X_AXIS))/}
+					{new: swing2swt.layout.BoxLayout} {empty} {/setLayout(new BoxLayout(BoxLayout.X_AXIS))/}""");
 		BoxLayoutInfo layout = (BoxLayoutInfo) shell.getLayout();
 		// BoxLayout is "flow container"
 		Assertions.assertThat(new FlowContainerFactory(layout, true).get()).isNotEmpty();
@@ -66,27 +65,26 @@ public class BoxLayoutTest extends AbstractSwing2SwtTest {
 	 */
 	@Test
 	public void test_axis() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BoxLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BoxLayout(BoxLayout.X_AXIS));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BoxLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BoxLayout(BoxLayout.X_AXIS));
+					}
+				}""");
 		shell.refresh();
 		BoxLayoutInfo layout = (BoxLayoutInfo) shell.getLayout();
 		// X_AXIS, so horizontal
 		assertTrue(layout.isHorizontal());
 		// set Y_AXIS
 		layout.getPropertyByTitle("axis").setValue(BoxLayout.Y_AXIS);
-		assertEditor(
-				"import swing2swt.layout.BoxLayout;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new BoxLayout(BoxLayout.Y_AXIS));",
-				"  }",
-				"}");
+		assertEditor("""
+				import swing2swt.layout.BoxLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+					}
+				}""");
 		// Y_AXIS, so vertical
 		assertFalse(layout.isHorizontal());
 	}

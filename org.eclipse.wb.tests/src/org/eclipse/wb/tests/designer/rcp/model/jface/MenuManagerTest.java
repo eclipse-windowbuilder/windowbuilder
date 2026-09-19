@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -65,18 +65,17 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_standalone() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    MenuManager menuManager = new MenuManager();",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {}",
-				"  {implicit-layout: absolute} {implicit-layout} {}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends Shell {
+					public Test() {
+						MenuManager menuManager = new MenuManager();
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {}
+					{implicit-layout: absolute} {implicit-layout} {}""");
 		// even empty "menuManager" has non-zero size
 		shell.refresh();
 		assertNoErrors(shell);
@@ -87,24 +86,23 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_empty() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    addMenuBar();",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						return menuManager;
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addMenuBar()/}",
-				"  {superInvocation: super.createMenuManager()} {local-unique: menuManager} {/super.createMenuManager()/ /menuManager/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addMenuBar()/}
+					{superInvocation: super.createMenuManager()} {local-unique: menuManager} {/super.createMenuManager()/ /menuManager/}""");
 		MenuManagerInfo menuManager = window.getChildren(MenuManagerInfo.class).get(0);
 		IMenuInfo menuObject = MenuObjectInfoUtils.getMenuInfo(menuManager);
 		// even empty "menuManager" has non-zero size
@@ -118,32 +116,31 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_itemBounds() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action_1;",
-						"  private IAction action_2;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action_1 = new Action('Action 1') {",
-						"    };",
-						"    action_2 = new Action('Action 2') {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    menuManager.add(action_1);",
-						"    menuManager.add(action_2);",
-						"    menuManager.add(action_1);",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action_1;
+					private IAction action_2;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action_1 = new Action("Action 1") {
+						};
+						action_2 = new Action("Action 2") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						menuManager.add(action_1);
+						menuManager.add(action_2);
+						menuManager.add(action_1);
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		// prepare Action's
 		ActionInfo action_1;
@@ -188,24 +185,23 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_emptySubMenu() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    addMenuBar();",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    {",
-						"      MenuManager subMenuManager = new MenuManager('Sub-menu');",
-						"      menuManager.add(subMenuManager);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager subMenuManager = new MenuManager("Sub-menu");
+							menuManager.add(subMenuManager);
+						}
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		// prepare components
 		MenuManagerInfo menuInfo;
@@ -229,25 +225,24 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ignore_setVisible() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    addMenuBar();",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    {",
-						"      MenuManager subMenuManager = new MenuManager('Sub-menu');",
-						"      menuManager.add(subMenuManager);",
-						"      subMenuManager.setVisible(false);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager subMenuManager = new MenuManager("Sub-menu");
+							menuManager.add(subMenuManager);
+							subMenuManager.setVisible(false);
+						}
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		assertNoErrors(window);
 	}
@@ -258,25 +253,24 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ignore_setRemoveAllWhenShown_true_() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    addMenuBar();",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    {",
-						"      MenuManager subMenuManager = new MenuManager('Sub-menu');",
-						"      subMenuManager.setRemoveAllWhenShown(true);",
-						"      menuManager.add(subMenuManager);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager subMenuManager = new MenuManager("Sub-menu");
+							subMenuManager.setRemoveAllWhenShown(true);
+							menuManager.add(subMenuManager);
+						}
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		assertNoErrors(window);
 	}
@@ -288,32 +282,31 @@ public class MenuManagerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_IMenuInfo_0() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action_1;",
-						"  private IAction action_2;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action_1 = new Action('Action 1') {",
-						"    };",
-						"    action_2 = new Action('Action 2') {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    menuManager.add(action_1);",
-						"    menuManager.add(action_2);",
-						"    menuManager.add(action_1);",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action_1;
+					private IAction action_2;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action_1 = new Action("Action 1") {
+						};
+						action_2 = new Action("Action 2") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						menuManager.add(action_1);
+						menuManager.add(action_2);
+						menuManager.add(action_1);
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		// prepare Item's
 		MenuManagerInfo menuInfo = window.getChildren(MenuManagerInfo.class).get(0);
@@ -351,46 +344,45 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_1() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action_1;",
-						"  private IAction action_2;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action_1 = new Action('Action 1') {",
-						"    };",
-						"    action_2 = new Action('Action 2') {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    menuManager.add(action_1);",
-						"    {",
-						"      MenuManager subMenuManager = new MenuManager('Sub-menu');",
-						"      subMenuManager.add(action_2);",
-						"      menuManager.add(subMenuManager);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action_1;
+					private IAction action_2;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action_1 = new Action("Action 1") {
+						};
+						action_2 = new Action("Action 2") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						menuManager.add(action_1);
+						{
+							MenuManager subMenuManager = new MenuManager("Sub-menu");
+							subMenuManager.add(action_2);
+							menuManager.add(subMenuManager);
+						}
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addMenuBar()/}",
-				"  {superInvocation: super.createMenuManager()} {local-unique: menuManager} {/super.createMenuManager()/ /menuManager.add(action_1)/ /menuManager.add(subMenuManager)/ /menuManager/}",
-				"    {void} {void} {/menuManager.add(action_1)/}",
-				"    {new: org.eclipse.jface.action.MenuManager} {local-unique: subMenuManager} {/new MenuManager('Sub-menu')/ /subMenuManager.add(action_2)/ /menuManager.add(subMenuManager)/}",
-				"      {void} {void} {/subMenuManager.add(action_2)/}",
-				"  {org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo}",
-				"    {new: org.eclipse.jface.action.Action} {field-unique: action_1} {/new Action('Action 1')/ /menuManager.add(action_1)/}",
-				"    {new: org.eclipse.jface.action.Action} {field-unique: action_2} {/new Action('Action 2')/ /subMenuManager.add(action_2)/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addMenuBar()/}
+					{superInvocation: super.createMenuManager()} {local-unique: menuManager} {/super.createMenuManager()/ /menuManager.add(action_1)/ /menuManager.add(subMenuManager)/ /menuManager/}
+						{void} {void} {/menuManager.add(action_1)/}
+						{new: org.eclipse.jface.action.MenuManager} {local-unique: subMenuManager} {/new MenuManager("Sub-menu")/ /subMenuManager.add(action_2)/ /menuManager.add(subMenuManager)/}
+							{void} {void} {/subMenuManager.add(action_2)/}
+					{org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo}
+						{new: org.eclipse.jface.action.Action} {field-unique: action_1} {/new Action("Action 1")/ /menuManager.add(action_1)/}
+						{new: org.eclipse.jface.action.Action} {field-unique: action_2} {/new Action("Action 2")/ /subMenuManager.add(action_2)/}""");
 		// prepare components
 		MenuManagerInfo menuInfo;
 		MenuManagerInfo subMenuInfo;
@@ -488,26 +480,25 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_CREATE_action() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action = new Action('Action') {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action("Action") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		// prepare components
 		MenuManagerInfo menuInfo = window.getChildren(MenuManagerInfo.class).get(0);
@@ -521,26 +512,26 @@ public class MenuManagerTest extends RcpModelTest {
 		assertSame(
 				actionInfo,
 				((ActionContributionItemInfo) MenuObjectInfoUtils.m_selectingObject.getToolkitModel()).getAction());
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  private IAction action;",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    createActions();",
-				"    addMenuBar();",
-				"  }",
-				"  private void createActions() {",
-				"    action = new Action('Action') {",
-				"    };",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    menuManager.add(action);",
-				"    return menuManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action("Action") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						menuManager.add(action);
+						return menuManager;
+					}
+				}""");
 	}
 
 	/**
@@ -548,30 +539,29 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_CREATE_actionIntoSubMenu() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action = new Action('Action') {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    {",
-						"      MenuManager subMenuManager = new MenuManager('Sub-menu');",
-						"      menuManager.add(subMenuManager);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action("Action") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager subMenuManager = new MenuManager("Sub-menu");
+							menuManager.add(subMenuManager);
+						}
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		// prepare components
 		MenuManagerInfo menuInfo = window.getChildren(MenuManagerInfo.class).get(0);
@@ -586,30 +576,30 @@ public class MenuManagerTest extends RcpModelTest {
 		assertSame(
 				actionInfo,
 				((ActionContributionItemInfo) MenuObjectInfoUtils.m_selectingObject.getToolkitModel()).getAction());
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  private IAction action;",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    createActions();",
-				"    addMenuBar();",
-				"  }",
-				"  private void createActions() {",
-				"    action = new Action('Action') {",
-				"    };",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    {",
-				"      MenuManager subMenuManager = new MenuManager('Sub-menu');",
-				"      menuManager.add(subMenuManager);",
-				"      subMenuManager.add(action);",
-				"    }",
-				"    return menuManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action("Action") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager subMenuManager = new MenuManager("Sub-menu");
+							menuManager.add(subMenuManager);
+							subMenuManager.add(action);
+						}
+						return menuManager;
+					}
+				}""");
 	}
 
 	/**
@@ -617,20 +607,19 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_CREATE_menuManager() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    addMenuBar();",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		MenuManagerInfo menuInfo = window.getChildren(MenuManagerInfo.class).get(0);
 		// use IMenuInfo for "menuInfo"
@@ -641,23 +630,23 @@ public class MenuManagerTest extends RcpModelTest {
 		assertTrue(menuPolicy.validateCreate(newManager));
 		menuPolicy.commandCreate(newManager, null);
 		assertSame(newManager, MenuObjectInfoUtils.m_selectingObject.getToolkitModel());
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    addMenuBar();",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    {",
-				"      MenuManager menuManager_1 = new MenuManager('New MenuManager');",
-				"      menuManager.add(menuManager_1);",
-				"    }",
-				"    return menuManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager menuManager_1 = new MenuManager("New MenuManager");
+							menuManager.add(menuManager_1);
+						}
+						return menuManager;
+					}
+				}""");
 	}
 
 	/**
@@ -665,20 +654,19 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_CREATE_separator() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    addMenuBar();",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		MenuManagerInfo menuInfo = window.getChildren(MenuManagerInfo.class).get(0);
 		// use IMenuInfo for "menuInfo"
@@ -693,20 +681,20 @@ public class MenuManagerTest extends RcpModelTest {
 		assertTrue(menuPolicy.validateCreate(separator));
 		menuPolicy.commandCreate(separator, null);
 		assertSame(separator, MenuObjectInfoUtils.m_selectingObject.getToolkitModel());
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    addMenuBar();",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    menuManager.add(new Separator());",
-				"    return menuManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						menuManager.add(new Separator());
+						return menuManager;
+					}
+				}""");
 	}
 
 	/**
@@ -714,26 +702,25 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_MOVE_1() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    addMenuBar();",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    menuManager.add(new Separator('Item 1'));",
-						"    menuManager.add(new Separator('Item 2'));",
-						"    return menuManager;",
-						"  }",
-						"  protected Control createContents(Composite parent) {",
-						"    Composite container = (Composite) super.createContents(parent);",
-						"    return container;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						menuManager.add(new Separator("Item 1"));
+						menuManager.add(new Separator("Item 2"));
+						return menuManager;
+					}
+					protected Control createContents(Composite parent) {
+						Composite container = (Composite) super.createContents(parent);
+						return container;
+					}
+				}""");
 		window.refresh();
 		// prepare components
 		MenuManagerInfo menuInfo;
@@ -761,25 +748,25 @@ public class MenuManagerTest extends RcpModelTest {
 		assertTrue(menuPolicy.validateMove(itemInfo_2));
 		menuPolicy.commandMove(itemInfo_2, itemInfo_1);
 		assertSame(itemInfo_2, MenuObjectInfoUtils.m_selectingObject.getToolkitModel());
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    addMenuBar();",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    menuManager.add(new Separator('Item 2'));",
-				"    menuManager.add(new Separator('Item 1'));",
-				"    return menuManager;",
-				"  }",
-				"  protected Control createContents(Composite parent) {",
-				"    Composite container = (Composite) super.createContents(parent);",
-				"    return container;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						menuManager.add(new Separator("Item 2"));
+						menuManager.add(new Separator("Item 1"));
+						return menuManager;
+					}
+					protected Control createContents(Composite parent) {
+						Composite container = (Composite) super.createContents(parent);
+						return container;
+					}
+				}""");
 	}
 
 	/**
@@ -788,32 +775,31 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_MOVE_2() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action;",
-						"  private IAction action_2;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action = new Action() {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    menuManager.add(action);",
-						"    {",
-						"      MenuManager subMenuManager = new MenuManager('Sub-menu');",
-						"      menuManager.add(subMenuManager);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					private IAction action_2;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action() {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						menuManager.add(action);
+						{
+							MenuManager subMenuManager = new MenuManager("Sub-menu");
+							menuManager.add(subMenuManager);
+						}
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		// prepare components
 		MenuManagerInfo menuInfo;
@@ -836,31 +822,31 @@ public class MenuManagerTest extends RcpModelTest {
 		}
 		// do move
 		subMenuInfo.command_MOVE(itemInfo, null);
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  private IAction action;",
-				"  private IAction action_2;",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    createActions();",
-				"    addMenuBar();",
-				"  }",
-				"  private void createActions() {",
-				"    action = new Action() {",
-				"    };",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    {",
-				"      MenuManager subMenuManager = new MenuManager('Sub-menu');",
-				"      menuManager.add(subMenuManager);",
-				"      subMenuManager.add(action);",
-				"    }",
-				"    return menuManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					private IAction action_2;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action() {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager subMenuManager = new MenuManager("Sub-menu");
+							menuManager.add(subMenuManager);
+							subMenuManager.add(action);
+						}
+						return menuManager;
+					}
+				}""");
 		// check new association
 		{
 			InvocationVoidAssociation association = (InvocationVoidAssociation) itemInfo.getAssociation();
@@ -878,68 +864,67 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_MOVE_3() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action = new Action() {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    {",
-						"      MenuManager menuManager_1 = new MenuManager('111');",
-						"      menuManager.add(menuManager_1);",
-						"      menuManager_1.add(action);",
-						"    }",
-						"    {",
-						"      MenuManager menuManager_2 = new MenuManager('222');",
-						"      menuManager.add(menuManager_2);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action() {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager menuManager_1 = new MenuManager("111");
+							menuManager.add(menuManager_1);
+							menuManager_1.add(action);
+						}
+						{
+							MenuManager menuManager_2 = new MenuManager("222");
+							menuManager.add(menuManager_2);
+						}
+						return menuManager;
+					}
+				}""");
 		window.refresh();
 		// prepare components
 		MenuManagerInfo menuManager = window.getChildren(MenuManagerInfo.class).get(0);
 		MenuManagerInfo menuManager_1 = (MenuManagerInfo) menuManager.getItems().get(0);
 		menuManager.command_MOVE(menuManager_1, null);
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  private IAction action;",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    createActions();",
-				"    addMenuBar();",
-				"  }",
-				"  private void createActions() {",
-				"    action = new Action() {",
-				"    };",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    {",
-				"      MenuManager menuManager_2 = new MenuManager('222');",
-				"      menuManager.add(menuManager_2);",
-				"    }",
-				"    {",
-				"      MenuManager menuManager_1 = new MenuManager('111');",
-				"      menuManager.add(menuManager_1);",
-				"      menuManager_1.add(action);",
-				"    }",
-				"    return menuManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action() {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager menuManager_2 = new MenuManager("222");
+							menuManager.add(menuManager_2);
+						}
+						{
+							MenuManager menuManager_1 = new MenuManager("111");
+							menuManager.add(menuManager_1);
+							menuManager_1.add(action);
+						}
+						return menuManager;
+					}
+				}""");
 	}
 
 	/**
@@ -947,24 +932,23 @@ public class MenuManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IMenuInfo_PASTE() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    addMenuBar();",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    return menuManager;",
-						"  }",
-						"  protected Control createContents(Composite parent) {",
-						"    Composite container = (Composite) super.createContents(parent);",
-						"    return container;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+						addMenuBar();
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						return menuManager;
+					}
+					protected Control createContents(Composite parent) {
+						Composite container = (Composite) super.createContents(parent);
+						return container;
+					}
+				}""");
 		window.refresh();
 		// prepare components
 		MenuManagerInfo menuInfo = window.getChildren(MenuManagerInfo.class).get(0);

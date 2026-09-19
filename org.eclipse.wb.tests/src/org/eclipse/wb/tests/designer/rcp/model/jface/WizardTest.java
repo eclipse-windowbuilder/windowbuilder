@@ -43,17 +43,17 @@ public class WizardTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parsingException() throws Exception {
-		DesignerException e = assertThrows(DesignerException.class, () -> parseJavaInfo(
-				"import org.eclipse.jface.wizard.*;",
-				"public class Test extends Wizard {",
-				"  public Test() {",
-				"  }",
-				"  public void addPages() {",
-				"  }",
-				"  public boolean performFinish() {",
-				"    return true;",
-				"  }",
-				"}"));
+		DesignerException e = assertThrows(DesignerException.class, () -> parseJavaInfo("""
+				import org.eclipse.jface.wizard.*;
+				public class Test extends Wizard {
+					public Test() {
+					}
+					public void addPages() {
+					}
+					public boolean performFinish() {
+						return true;
+					}
+				}"""));
 		assertEquals(IExceptionConstants.NO_DESIGN_WIZARD, e.getCode());
 		assertTrue(DesignerExceptionUtils.isWarning(e));
 	}

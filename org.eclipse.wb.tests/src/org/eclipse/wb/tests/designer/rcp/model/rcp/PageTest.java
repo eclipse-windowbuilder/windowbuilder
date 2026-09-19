@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -49,46 +49,45 @@ public class PageTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_Page() throws Exception {
-		PageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public class Test extends Page {",
-						"  private Composite m_container;",
-						"  public Test() {",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"    m_container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"  public Control getControl() {",
-						"    return m_container;",
-						"  }",
-						"  public void setFocus() {",
-						"  }",
-						"  public void init(IPageSite site) {",
-						"    super.init(site);",
-						"    createActions();",
-						"    initializeToolBar();",
-						"    initializeMenu();",
-						"  }",
-						"  private void createActions() {",
-						"  }",
-						"  private void initializeToolBar() {",
-						"    IToolBarManager toolbarManager = getSite().getActionBars().getToolBarManager();",
-						"  }",
-						"  private void initializeMenu() {",
-						"    IMenuManager menuManager = getSite().getActionBars().getMenuManager();",
-						"  }",
-						"}");
+		PageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public class Test extends Page {
+					private Composite m_container;
+					public Test() {
+					}
+					public void createControl(Composite parent) {
+						m_container = new Composite(parent, SWT.NULL);
+					}
+					public Control getControl() {
+						return m_container;
+					}
+					public void setFocus() {
+					}
+					public void init(IPageSite site) {
+						super.init(site);
+						createActions();
+						initializeToolBar();
+						initializeMenu();
+					}
+					private void createActions() {
+					}
+					private void initializeToolBar() {
+						IToolBarManager toolbarManager = getSite().getActionBars().getToolBarManager();
+					}
+					private void initializeMenu() {
+						IMenuManager menuManager = getSite().getActionBars().getMenuManager();
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.ui.part.Page} {this} {/getSite().getActionBars()/ /getSite().getActionBars()/}",
-				"  {invocationChain: getSite().getActionBars().getToolBarManager()} {local-unique: toolbarManager} {/getSite().getActionBars().getToolBarManager()/}",
-				"  {invocationChain: getSite().getActionBars().getMenuManager()} {local-unique: menuManager} {/getSite().getActionBars().getMenuManager()/}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {field-unique: m_container} {/new Composite(parent, SWT.NULL)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: org.eclipse.ui.part.Page} {this} {/getSite().getActionBars()/ /getSite().getActionBars()/}
+					{invocationChain: getSite().getActionBars().getToolBarManager()} {local-unique: toolbarManager} {/getSite().getActionBars().getToolBarManager()/}
+					{invocationChain: getSite().getActionBars().getMenuManager()} {local-unique: menuManager} {/getSite().getActionBars().getMenuManager()/}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{new: org.eclipse.swt.widgets.Composite} {field-unique: m_container} {/new Composite(parent, SWT.NULL)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		CompositeInfo parentComposite = page.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo container = (CompositeInfo) parentComposite.getChildrenControls().get(0);
 		// refresh()
@@ -124,20 +123,19 @@ public class PageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ContentOutlinePage() throws Exception {
-		PageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.ui.views.contentoutline.ContentOutlinePage;",
-						"public class Test extends ContentOutlinePage {",
-						"  public Test() {",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"  }",
-						"}");
+		PageInfo page = parseJavaInfo("""
+				import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
+				public class Test extends ContentOutlinePage {
+					public Test() {
+					}
+					public void createControl(Composite parent) {
+					}
+				}""");
 		page.refresh();
 		assertNoErrors(page);
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.ui.views.contentoutline.ContentOutlinePage} {this} {}",
-				"  {parameter} {parent} {}");
+		assertHierarchy("""
+				{this: org.eclipse.ui.views.contentoutline.ContentOutlinePage} {this} {}
+					{parameter} {parent} {}""");
 	}
 }

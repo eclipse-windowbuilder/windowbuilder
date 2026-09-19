@@ -607,30 +607,29 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_BeanObservebleInfo() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test {",
-						"  private String m_bean;",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test {
+					private String m_bean;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -665,31 +664,30 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_CollectionObservableInfo() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test {",
-						"  private java.util.List m_bean0;",
-						"  private java.util.Set m_bean1;",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test {
+					private java.util.List m_bean0;
+					private java.util.Set m_bean1;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -735,30 +733,29 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_BeanObservableInfo_observeDetail() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test {",
-						"  private String m_bean;",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test {
+					private String m_bean;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -852,31 +849,30 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_DirectPropertyObservableInfo() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  private DataBindingContext m_context;",
-						"  private String m_bean;",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_context;
+					private String m_bean;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -905,31 +901,30 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_DirectObservableInfo() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  private WritableValue m_value;",
-						"  private String m_bean;",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private WritableValue m_value;
+					private String m_bean;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -957,36 +952,35 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_SWTObservableInfo() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private Spinner m_spinner;",
-						"  private Text m_text;",
-						"  private Combo m_combo;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_spinner = new Spinner(m_shell, SWT.NONE);",
-						"    m_text = new Text(m_shell, SWT.NONE);",
-						"    m_combo = new Combo(m_shell, SWT.NONE);",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Spinner m_spinner;
+					private Text m_text;
+					private Combo m_combo;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_spinner = new Spinner(m_shell, SWT.NONE);
+						m_text = new Text(m_shell, SWT.NONE);
+						m_combo = new Combo(m_shell, SWT.NONE);
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1175,32 +1169,31 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_ViewerObservableInfo() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private CheckboxTableViewer m_viewer;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_viewer = new CheckboxTableViewer(m_shell, SWT.NONE);",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private CheckboxTableViewer m_viewer;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_viewer = new CheckboxTableViewer(m_shell, SWT.NONE);
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1243,29 +1236,28 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_DataBindingContextInfo() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1352,38 +1344,37 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_BindingInfo() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private Combo m_combo0;",
-						"  private Combo m_combo1;",
-						"  private CheckboxTableViewer m_viewer0;",
-						"  private CheckboxTableViewer m_viewer1;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_combo0 = new Combo(m_shell, SWT.BORDER);",
-						"    m_combo1 = new Combo(m_shell, SWT.BORDER);",
-						"    m_viewer0 = new CheckboxTableViewer(m_shell, SWT.NONE);",
-						"    m_viewer1 = new CheckboxTableViewer(m_shell, SWT.NONE);",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Combo m_combo0;
+					private Combo m_combo1;
+					private CheckboxTableViewer m_viewer0;
+					private CheckboxTableViewer m_viewer1;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_combo0 = new Combo(m_shell, SWT.BORDER);
+						m_combo1 = new Combo(m_shell, SWT.BORDER);
+						m_viewer0 = new CheckboxTableViewer(m_shell, SWT.NONE);
+						m_viewer1 = new CheckboxTableViewer(m_shell, SWT.NONE);
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1497,38 +1488,37 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_BindingInfo_setVariableIdentifier() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private DataBindingContext m_bindingContext;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_bindingContext = initDataBindings();",
-						"  }",
-						"  private DataBindingContext initDataBindings() {",
-						"    IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);",
-						"    IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);",
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
-						"    return bindingContext;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);
+						IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget0, observeWidget1, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1541,109 +1531,109 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		binding.setVariableIdentifier(shell.getRootJava(), "m_binding", true);
 		assertEquals("m_binding", binding.getVariableIdentifier());
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private Binding m_binding;",
-				"  protected Shell m_shell;",
-				"  private DataBindingContext m_bindingContext;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  private DataBindingContext initDataBindings() {",
-				"    IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);",
-				"    IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private Binding m_binding;
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);
+						IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget0, observeWidget1, null, null);
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		binding.setVariableIdentifier(shell.getRootJava(), "_binding", true);
 		assertEquals("_binding", binding.getVariableIdentifier());
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private Binding _binding;",
-				"  protected Shell m_shell;",
-				"  private DataBindingContext m_bindingContext;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  private DataBindingContext initDataBindings() {",
-				"    IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);",
-				"    IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private Binding _binding;
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);
+						IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget0, observeWidget1, null, null);
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		binding.setVariableIdentifier(shell.getRootJava(), null, false);
 		assertNull(binding.getVariableIdentifier());
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  protected Shell m_shell;",
-				"  private DataBindingContext m_bindingContext;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  private DataBindingContext initDataBindings() {",
-				"    IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);",
-				"    IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    bindingContext.bindValue(observeWidget0, observeWidget1, null, null);",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeWidget0 = WidgetProperties.visible().observe(m_shell);
+						IObservableValue observeWidget1 = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget0, observeWidget1, null, null);
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
@@ -1744,138 +1734,136 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_DataBindingsCodeUtils_ensureEnclosingRealmOfMain_1() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DataBindingsCodeUtils.ensureEnclosingRealmOfMain(m_lastEditor);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  protected Shell m_shell;",
-				"  public static void main(String[] args) {",
-				"    Display display = Display.getDefault();",
-				"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-				"      public void run() {",
-				"        Test test = new Test();",
-				"        test.open();",
-				"      }",
-				"    });",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}"""), m_lastEditor);
 		//
 		DataBindingsCodeUtils.ensureEnclosingRealmOfMain(m_lastEditor);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  protected Shell m_shell;",
-				"  public static void main(String[] args) {",
-				"    Display display = Display.getDefault();",
-				"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-				"      public void run() {",
-				"        Test test = new Test();",
-				"        test.open();",
-				"      }",
-				"    });",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_DataBindingsCodeUtils_ensureEnclosingRealmOfMain_2() throws Exception {
-		CompositeInfo composite =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-				"}"});
+		CompositeInfo composite = DatabindingTestUtils.parseTestSource(this, """
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		assertNotNull(composite);
 		//
 		DataBindingsCodeUtils.ensureEnclosingRealmOfMain(m_lastEditor);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_DataBindingsCodeUtils_getLastInfoDeclaration_1() throws Exception {
 		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-				"}"});
+				DatabindingTestUtils.parseTestSource(this, """
+						public class Test {
+							protected Shell m_shell;
+							public static void main(String[] args) {
+								Test test = new Test();
+								test.open();
+							}
+							public void open() {
+								Display display = new Display();
+								createContents();
+								m_shell.open();
+								m_shell.layout();
+								while (!m_shell.isDisposed()) {
+									if (!display.readAndDispatch()) {
+										display.sleep();
+									}
+								}
+							}
+							protected void createContents() {
+								m_shell = new Shell();
+							}
+				}""");
 		assertNotNull(shell);
 		//
 		TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
@@ -1888,26 +1876,25 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_DataBindingsCodeUtils_getLastInfoDeclaration_2() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    m_shell = new Shell();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						m_shell = new Shell();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
@@ -1919,21 +1906,20 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_DataBindingsCodeUtils_getLastInfoDeclaration_3() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  public static void main(String[] args) {",
-						"    Display display = new Display();",
-						"    Shell shell = new Shell();",
-						"    shell.open();",
-						"    shell.layout();",
-						"    while (!shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					public static void main(String[] args) {
+						Display display = new Display();
+						Shell shell = new Shell();
+						shell.open();
+						shell.layout();
+						while (!shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
@@ -1946,24 +1932,23 @@ public class CodeGenerationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_ensureInvokeInitDataBindings_1() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  public static void main(String[] args) {",
-						"    Display display = new Display();",
-						"    Shell shell = new Shell();",
-						"    shell.open();",
-						"    shell.layout();",
-						"    while (!shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected static DataBindingContext initDataBindings() {",
-						"    return null;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					public static void main(String[] args) {
+						Display display = new Display();
+						Shell shell = new Shell();
+						shell.open();
+						shell.layout();
+						while (!shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected static DataBindingContext initDataBindings() {
+						return null;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
@@ -1978,51 +1963,50 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				type,
 				lastInfoDeclaration);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  public static void main(String[] args) {",
-				"    Display display = new Display();",
-				"    Shell shell = new Shell();",
-				"    initDataBindings();",
-				"    shell.open();",
-				"    shell.layout();",
-				"    while (!shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected static DataBindingContext initDataBindings() {",
-				"    return null;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					public static void main(String[] args) {
+						Display display = new Display();
+						Shell shell = new Shell();
+						initDataBindings();
+						shell.open();
+						shell.layout();
+						while (!shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected static DataBindingContext initDataBindings() {
+						return null;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_ensureInvokeInitDataBindings_2() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    m_shell = new Shell();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected DataBindingContext initDataBindings() {",
-						"    return null;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						m_shell = new Shell();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
@@ -2037,60 +2021,59 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				type,
 				lastInfoDeclaration);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    m_shell = new Shell();",
-				"    m_bindingContext = initDataBindings();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    return null;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_ensureInvokeInitDataBindings_3() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-						"  protected DataBindingContext initDataBindings() {",
-						"    return null;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
@@ -2105,33 +2088,33 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				type,
 				lastInfoDeclaration);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    return null;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}"""), m_lastEditor);
 		// -------------
 		type = JavaInfoUtils.getTypeDeclaration(shell);
 		lastInfoDeclaration =
@@ -2145,64 +2128,63 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				type,
 				lastInfoDeclaration);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    return null;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_ensureInvokeInitDataBindings_4() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected boolean createContents() {",
-						"    m_shell = new Shell();",
-						"    return true;",
-						"  }",
-						"  protected DataBindingContext initDataBindings() {",
-						"    return null;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected boolean createContents() {
+						m_shell = new Shell();
+						return true;
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(shell);
@@ -2217,34 +2199,34 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				type,
 				lastInfoDeclaration);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected boolean createContents() {",
-				"    m_shell = new Shell();",
-				"    m_bindingContext = initDataBindings();",
-				"    return true;",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    return null;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected boolean createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+						return true;
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}"""), m_lastEditor);
 		// -------------
 		type = JavaInfoUtils.getTypeDeclaration(shell);
 		lastInfoDeclaration =
@@ -2258,48 +2240,47 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				type,
 				lastInfoDeclaration);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected boolean createContents() {",
-				"    m_shell = new Shell();",
-				"    m_bindingContext = initDataBindings();",
-				"    return true;",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    return null;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected boolean createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+						return true;
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_ensureInvokeInitDataBindings_5() throws Exception {
-		CompositeInfo composite =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  protected DataBindingContext initDataBindings() {",
-						"    return null;",
-						"  }",
-				"}"});
+		CompositeInfo composite = DatabindingTestUtils.parseTestSource(this, """
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}""");
 		assertNotNull(composite);
 		//
 		TypeDeclaration type = JavaInfoUtils.getTypeDeclaration(composite);
@@ -2314,17 +2295,17 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				type,
 				lastInfoDeclaration);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test extends Composite {",
-				"  private DataBindingContext m_bindingContext;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    return null;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test extends Composite {
+					private DataBindingContext m_bindingContext;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}"""), m_lastEditor);
 		// -------------
 		type = JavaInfoUtils.getTypeDeclaration(composite);
 		lastInfoDeclaration =
@@ -2338,174 +2319,172 @@ public class CodeGenerationTest extends AbstractBindingTest {
 				type,
 				lastInfoDeclaration);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test extends Composite {",
-				"  private DataBindingContext m_bindingContext;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    return null;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test extends Composite {
+					private DataBindingContext m_bindingContext;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						return null;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_JavaInfoDeleteManager() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private Spinner m_spinner;",
-						"  private Text m_text;",
-						"  private Combo m_combo;",
-						"  private DataBindingContext m_bindingContext;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_spinner = new Spinner(m_shell, SWT.NONE);",
-						"    m_text = new Text(m_shell, SWT.NONE);",
-						"    m_combo = new Combo(m_shell, SWT.NONE);",
-						"    m_bindingContext = initDataBindings();",
-						"  }",
-						"  protected DataBindingContext initDataBindings() {",
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    //",
-						"    IObservableValue widget0 = WidgetProperties.enabled().observe(m_text);",
-						"    IObservableValue widget1 = WidgetProperties.enabled().observe(m_combo);",
-						"    bindingContext.bindValue(widget0, widget1, null, null);",
-						"    //",
-						"    return bindingContext;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Spinner m_spinner;
+					private Text m_text;
+					private Combo m_combo;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_spinner = new Spinner(m_shell, SWT.NONE);
+						m_text = new Text(m_shell, SWT.NONE);
+						m_combo = new Combo(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue widget0 = WidgetProperties.enabled().observe(m_text);
+						IObservableValue widget1 = WidgetProperties.enabled().observe(m_combo);
+						bindingContext.bindValue(widget0, widget1, null, null);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		shell.getChildrenControls().get(0).delete();
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  protected Shell m_shell;",
-				"  private Text m_text;",
-				"  private Combo m_combo;",
-				"  private DataBindingContext m_bindingContext;",
-				"  public static void main(String[] args) {",
-				"    Test test = new Test();",
-				"    test.open();",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_shell.setLayout(new FillLayout());",
-				"    m_text = new Text(m_shell, SWT.NONE);",
-				"    m_combo = new Combo(m_shell, SWT.NONE);",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    //",
-				"    IObservableValue widget0 = WidgetProperties.enabled().observe(m_text);",
-				"    IObservableValue widget1 = WidgetProperties.enabled().observe(m_combo);",
-				"    bindingContext.bindValue(widget0, widget1, null, null);",
-				"    //",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					protected Shell m_shell;
+					private Text m_text;
+					private Combo m_combo;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_combo = new Combo(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue widget0 = WidgetProperties.enabled().observe(m_text);
+						IObservableValue widget1 = WidgetProperties.enabled().observe(m_combo);
+						bindingContext.bindValue(widget0, widget1, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		shell.getChildrenControls().get(0).delete();
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  protected Shell m_shell;",
-				"  private Combo m_combo;",
-				"  private DataBindingContext m_bindingContext;",
-				"  public static void main(String[] args) {",
-				"    Display display = Display.getDefault();",
-				"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-				"      public void run() {",
-				"        Test test = new Test();",
-				"        test.open();",
-				"      }",
-				"    });",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_shell.setLayout(new FillLayout());",
-				"    m_combo = new Combo(m_shell, SWT.NONE);",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    //",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					protected Shell m_shell;
+					private Combo m_combo;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_combo = new Combo(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_totalCodeGeneration_1() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private Text m_text;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_text = new Text(m_shell, SWT.NONE);",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Text m_text;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2529,163 +2508,160 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		ValueBindingInfo binding = new ValueBindingInfo(target, model);
 		provider.addBinding(binding);
 		//
-		assertEditor(
-				DatabindingTestUtils.getTestSource(
-						"public class Test {",
-						"  private DataBindingContext m_bindingContext;",
-						"  protected Shell m_shell;",
-						"  private Text m_text;",
-						"  public static void main(String[] args) {",
-						"    Display display = Display.getDefault();",
-						"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-						"      public void run() {",
-						"        Test test = new Test();",
-						"        test.open();",
-						"      }",
-						"    });",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_text = new Text(m_shell, SWT.NONE);",
-						"    m_bindingContext = initDataBindings();",
-						"  }",
-						"  protected DataBindingContext initDataBindings() {",
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    //",
-						"    IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);",
-						"    IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
-						"    bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);",
-						"    //",
-						"    return bindingContext;",
-						"  }",
-						"}"),
-				m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private Text m_text;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);
+						IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);
+						bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		target.setVariableIdentifier("target");
 		model.setVariableIdentifier("model");
 		//
 		provider.editBinding(binding);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  private Text m_text;",
-				"  public static void main(String[] args) {",
-				"    Display display = Display.getDefault();",
-				"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-				"      public void run() {",
-				"        Test test = new Test();",
-				"        test.open();",
-				"      }",
-				"    });",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_shell.setLayout(new FillLayout());",
-				"    m_text = new Text(m_shell, SWT.NONE);",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    //",
-				"    IObservableValue target = WidgetProperties.text().observe(m_shell);",
-				"    IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);",
-				"    bindingContext.bindValue(target, model, null, null);",
-				"    //",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private Text m_text;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue target = WidgetProperties.text().observe(m_shell);
+						IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);
+						bindingContext.bindValue(target, model, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		provider.deleteBinding(binding);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  private Text m_text;",
-				"  public static void main(String[] args) {",
-				"    Display display = Display.getDefault();",
-				"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-				"      public void run() {",
-				"        Test test = new Test();",
-				"        test.open();",
-				"      }",
-				"    });",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    createContents();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected void createContents() {",
-				"    m_shell = new Shell();",
-				"    m_shell.setLayout(new FillLayout());",
-				"    m_text = new Text(m_shell, SWT.NONE);",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    //",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private Text m_text;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_totalCodeGeneration_2() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private Text m_text;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_text = new Text(m_shell, SWT.NONE);",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Text m_text;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2709,150 +2685,147 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		ValueBindingInfo binding = new ValueBindingInfo(target, model);
 		provider.addBinding(binding);
 		//
-		assertEditor(
-				DatabindingTestUtils.getTestSource(
-						"public class Test {",
-						"  private DataBindingContext m_bindingContext;",
-						"  protected Shell m_shell;",
-						"  private Text m_text;",
-						"  public static void main(String[] args) {",
-						"    Display display = Display.getDefault();",
-						"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-						"      public void run() {",
-						"        Test test = new Test();",
-						"        test.open();",
-						"      }",
-						"    });",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_text = new Text(m_shell, SWT.NONE);",
-						"    m_bindingContext = initDataBindings();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected DataBindingContext initDataBindings() {",
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    //",
-						"    IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);",
-						"    IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
-						"    bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);",
-						"    //",
-						"    return bindingContext;",
-						"  }",
-						"}"),
-				m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private Text m_text;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);
+						IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);
+						bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		target.setVariableIdentifier("target");
 		model.setVariableIdentifier("model");
 		//
 		provider.editBinding(binding);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  private Text m_text;",
-				"  public static void main(String[] args) {",
-				"    Display display = Display.getDefault();",
-				"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-				"      public void run() {",
-				"        Test test = new Test();",
-				"        test.open();",
-				"      }",
-				"    });",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    m_shell = new Shell();",
-				"    m_shell.setLayout(new FillLayout());",
-				"    m_text = new Text(m_shell, SWT.NONE);",
-				"    m_bindingContext = initDataBindings();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    //",
-				"    IObservableValue target = WidgetProperties.text().observe(m_shell);",
-				"    IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);",
-				"    bindingContext.bindValue(target, model, null, null);",
-				"    //",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private Text m_text;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue target = WidgetProperties.text().observe(m_shell);
+						IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);
+						bindingContext.bindValue(target, model, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		provider.deleteAllBindings();
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private DataBindingContext m_bindingContext;",
-				"  protected Shell m_shell;",
-				"  private Text m_text;",
-				"  public static void main(String[] args) {",
-				"    Display display = Display.getDefault();",
-				"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-				"      public void run() {",
-				"        Test test = new Test();",
-				"        test.open();",
-				"      }",
-				"    });",
-				"  }",
-				"  public void open() {",
-				"    Display display = new Display();",
-				"    m_shell = new Shell();",
-				"    m_shell.setLayout(new FillLayout());",
-				"    m_text = new Text(m_shell, SWT.NONE);",
-				"    m_bindingContext = initDataBindings();",
-				"    m_shell.open();",
-				"    m_shell.layout();",
-				"    while (!m_shell.isDisposed()) {",
-				"      if (!display.readAndDispatch()) {",
-				"        display.sleep();",
-				"      }",
-				"    }",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    //",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private Text m_text;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Test test = new Test();
+								test.open();
+							}
+						});
+					}
+					public void open() {
+						Display display = new Display();
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_bindingContext = initDataBindings();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_totalCodeGeneration_3() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  private static Shell m_shell;",
-						"  private static Text m_text;",
-						"  public static void main(String[] args) {",
-						"    Display display = new Display();",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new FillLayout());",
-						"    m_text = new Text(m_shell, SWT.NONE);",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private static Shell m_shell;
+					private static Text m_text;
+					public static void main(String[] args) {
+						Display display = new Display();
+						m_shell = new Shell();
+						m_shell.setLayout(new FillLayout());
+						m_text = new Text(m_shell, SWT.NONE);
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2876,94 +2849,91 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		ValueBindingInfo binding = new ValueBindingInfo(target, model);
 		provider.addBinding(binding);
 		//
-		assertEditor(
-				DatabindingTestUtils.getTestSource(
-						"public class Test {",
-						"  private static Shell m_shell;",
-						"  private static Text m_text;",
-						"  public static void main(String[] args) {",
-						"    Display display = Display.getDefault();",
-						"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-						"      public void run() {",
-						"        Display display = new Display();",
-						"        m_shell = new Shell();",
-						"        m_shell.setLayout(new FillLayout());",
-						"        m_text = new Text(m_shell, SWT.NONE);",
-						"        initDataBindings();",
-						"        m_shell.open();",
-						"        m_shell.layout();",
-						"        while (!m_shell.isDisposed()) {",
-						"          if (!display.readAndDispatch()) {",
-						"            display.sleep();",
-						"          }",
-						"        }",
-						"      }",
-						"    });",
-						"  }",
-						"  protected static DataBindingContext initDataBindings() {",
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    //",
-						"    IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);",
-						"    IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
-						"    bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);",
-						"    //",
-						"    return bindingContext;",
-						"  }",
-						"}"),
-				m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private static Shell m_shell;
+					private static Text m_text;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Display display = new Display();
+								m_shell = new Shell();
+								m_shell.setLayout(new FillLayout());
+								m_text = new Text(m_shell, SWT.NONE);
+								initDataBindings();
+								m_shell.open();
+								m_shell.layout();
+								while (!m_shell.isDisposed()) {
+									if (!display.readAndDispatch()) {
+										display.sleep();
+									}
+								}
+							}
+						});
+					}
+					protected static DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue observeTextShellObserveWidget = WidgetProperties.text().observe(m_shell);
+						IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);
+						bindingContext.bindValue(observeTextShellObserveWidget, observeTextTextObserveWidget, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		target.setVariableIdentifier("target");
 		model.setVariableIdentifier("model");
 		//
 		provider.editBinding(binding);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test {",
-				"  private static Shell m_shell;",
-				"  private static Text m_text;",
-				"  public static void main(String[] args) {",
-				"    Display display = Display.getDefault();",
-				"    Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {",
-				"      public void run() {",
-				"        Display display = new Display();",
-				"        m_shell = new Shell();",
-				"        m_shell.setLayout(new FillLayout());",
-				"        m_text = new Text(m_shell, SWT.NONE);",
-				"        initDataBindings();",
-				"        m_shell.open();",
-				"        m_shell.layout();",
-				"        while (!m_shell.isDisposed()) {",
-				"          if (!display.readAndDispatch()) {",
-				"            display.sleep();",
-				"          }",
-				"        }",
-				"      }",
-				"    });",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    //",
-				"    IObservableValue target = WidgetProperties.text().observe(m_shell);",
-				"    IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);",
-				"    bindingContext.bindValue(target, model, null, null);",
-				"    //",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test {
+					private static Shell m_shell;
+					private static Text m_text;
+					public static void main(String[] args) {
+						Display display = Display.getDefault();
+						Realm.runWithDefault(DisplayRealm.getRealm(display), new Runnable() {
+							public void run() {
+								Display display = new Display();
+								m_shell = new Shell();
+								m_shell.setLayout(new FillLayout());
+								m_text = new Text(m_shell, SWT.NONE);
+								initDataBindings();
+								m_shell.open();
+								m_shell.layout();
+								while (!m_shell.isDisposed()) {
+									if (!display.readAndDispatch()) {
+										display.sleep();
+									}
+								}
+							}
+						});
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue target = WidgetProperties.text().observe(m_shell);
+						IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);
+						bindingContext.bindValue(target, model, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 	}
 
 	@Test
 	public void test_totalCodeGeneration_4() throws Exception {
-		CompositeInfo composite =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test extends Composite {",
-						"  private Text m_text;",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    m_text = new Text(this, SWT.NONE);",
-						"  }",
-				"}"});
+		CompositeInfo composite = DatabindingTestUtils.parseTestSource(this, """
+				public class Test extends Composite {
+					private Text m_text;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						m_text = new Text(this, SWT.NONE);
+					}
+				}""");
 		assertNotNull(composite);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -2988,54 +2958,52 @@ public class CodeGenerationTest extends AbstractBindingTest {
 		ValueBindingInfo binding = new ValueBindingInfo(target, model);
 		provider.addBinding(binding);
 		//
-		assertEditor(
-				DatabindingTestUtils.getTestSource(
-						"public class Test extends Composite {",
-						"  private DataBindingContext m_bindingContext;",
-						"  private Text m_text;",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    m_text = new Text(this, SWT.NONE);",
-						"    m_bindingContext = initDataBindings();",
-						"  }",
-						"  protected DataBindingContext initDataBindings() {",
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    //",
-						"    IObservableValue observeEnabledThisObserveWidget = WidgetProperties.enabled().observe(this);",
-						"    IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);",
-						"    bindingContext.bindValue(observeEnabledThisObserveWidget, observeTextTextObserveWidget, null, null);",
-						"    //",
-						"    return bindingContext;",
-						"  }",
-						"}"),
-				m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test extends Composite {
+					private DataBindingContext m_bindingContext;
+					private Text m_text;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						m_text = new Text(this, SWT.NONE);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue observeEnabledThisObserveWidget = WidgetProperties.enabled().observe(this);
+						IObservableValue observeTextTextObserveWidget = WidgetProperties.text(SWT.Modify).observe(m_text);
+						bindingContext.bindValue(observeEnabledThisObserveWidget, observeTextTextObserveWidget, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 		//
 		target.setVariableIdentifier("target");
 		model.setVariableIdentifier("model");
 		//
 		provider.editBinding(binding);
 		//
-		assertEditor(DatabindingTestUtils.getTestSource(
-				"public class Test extends Composite {",
-				"  private DataBindingContext m_bindingContext;",
-				"  private Text m_text;",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FillLayout());",
-				"    m_text = new Text(this, SWT.NONE);",
-				"    m_bindingContext = initDataBindings();",
-				"  }",
-				"  protected DataBindingContext initDataBindings() {",
-				"    DataBindingContext bindingContext = new DataBindingContext();",
-				"    //",
-				"    IObservableValue target = WidgetProperties.enabled().observe(this);",
-				"    IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);",
-				"    bindingContext.bindValue(target, model, null, null);",
-				"    //",
-				"    return bindingContext;",
-				"  }",
-				"}"), m_lastEditor);
+		assertEditor(DatabindingTestUtils.getTestSource("""
+				public class Test extends Composite {
+					private DataBindingContext m_bindingContext;
+					private Text m_text;
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						m_text = new Text(this, SWT.NONE);
+						m_bindingContext = initDataBindings();
+					}
+					protected DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						IObservableValue target = WidgetProperties.enabled().observe(this);
+						IObservableValue model = WidgetProperties.text(SWT.Modify).observe(m_text);
+						bindingContext.bindValue(target, model, null, null);
+						//
+						return bindingContext;
+					}
+				}"""), m_lastEditor);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

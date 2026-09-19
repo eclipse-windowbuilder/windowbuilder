@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -48,14 +48,13 @@ public class WindowTopBoundsSupportTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_apply_defaultSize() throws Exception {
-		WindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends Window {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"}");
+		WindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.window.*;
+				public class Test extends Window {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+				}""");
 		window.refresh();
 		// check size
 		assertEquals(new Dimension(450, 300), window.getBounds().getSize());
@@ -68,17 +67,16 @@ public class WindowTopBoundsSupportTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_apply_getInitialSize() throws Exception {
-		WindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends Window {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Point getInitialSize() {",
-						"    return new Point(500, 300);",
-						"  }",
-						"}");
+		WindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.window.*;
+				public class Test extends Window {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Point getInitialSize() {
+						return new Point(500, 300);
+					}
+				}""");
 		window.refresh();
 		// check size
 		assertEquals(new Dimension(500, 300), window.getBounds().getSize());
@@ -96,14 +94,13 @@ public class WindowTopBoundsSupportTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setSize_defaultSize() throws Exception {
-		WindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends Window {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"}");
+		WindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.window.*;
+				public class Test extends Window {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+				}""");
 		window.refresh();
 		assertEquals(new Dimension(450, 300), window.getBounds().getSize());
 		// set size
@@ -119,32 +116,31 @@ public class WindowTopBoundsSupportTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setSize_getInitialSize() throws Exception {
-		WindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends Window {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Point getInitialSize() {",
-						"    return new Point(500, 300);",
-						"  }",
-						"}");
+		WindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.window.*;
+				public class Test extends Window {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Point getInitialSize() {
+						return new Point(500, 300);
+					}
+				}""");
 		window.refresh();
 		assertEquals(new Dimension(500, 300), window.getBounds().getSize());
 		// set size
 		window.getTopBoundsSupport().setSize(200, 200);
 		window.refresh();
 		assertEquals(new Dimension(200, 200), window.getBounds().getSize());
-		assertEditor(
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends Window {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Point getInitialSize() {",
-				"    return new Point(200, 200);",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.window.*;
+				public class Test extends Window {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Point getInitialSize() {
+						return new Point(200, 200);
+					}
+				}""");
 	}
 }

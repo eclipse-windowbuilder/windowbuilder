@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,12 +34,12 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_existingProperty() throws Exception {
-		createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' value='some value' class='C_1'/>",
-				"  </extension>",
-		"</plugin>"});
+		createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" value="some value" class="C_1"/>
+					</extension>
+				</plugin>""");
 		// listener
 		final int[] setValueCount = new int[]{0};
 		RunnableEx setValueListener = () -> setValueCount[0]++;
@@ -78,22 +78,22 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 		// modify value
 		property.setValue("new value");
 		assertEquals(1, setValueCount[0]);
-		assertPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' value='new value' class='C_1'/>",
-				"  </extension>",
-		"</plugin>"});
+		assertPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" value="new value" class="C_1"/>
+					</extension>
+				</plugin>""");
 	}
 
 	@Test
 	public void test_noValue_setNew() throws Exception {
-		createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' class='C_1'/>",
-				"  </extension>",
-		"</plugin>"});
+		createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" class="C_1"/>
+					</extension>
+				</plugin>""");
 		// check property
 		ExtensionElementProperty<String> property = createPropertyWithDefaults();
 		assertTrue(property.hasElement());
@@ -113,12 +113,12 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 
 	@Test
 	public void test_remoteAttribute_whenSetDefaultValue() throws Exception {
-		createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' class='C_1' value='some value'/>",
-				"  </extension>",
-		"</plugin>"});
+		createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" class="C_1" value="some value"/>
+					</extension>
+				</plugin>""");
 		// check property
 		ExtensionElementProperty<String> property = createPropertyWithDefaults();
 		assertTrue(property.hasElement());
@@ -148,12 +148,12 @@ public class ExtensionElementPropertyTest extends AbstractPdeTest {
 
 	@Test
 	public void test_booleanValue() throws Exception {
-		createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' class='C_1' value='false'/>",
-				"  </extension>",
-		"</plugin>"});
+		createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" class="C_1" value="false"/>
+					</extension>
+				</plugin>""");
 		// check property
 		ExtensionElementProperty<Boolean> property =
 				new ExtensionElementProperty<>(null,

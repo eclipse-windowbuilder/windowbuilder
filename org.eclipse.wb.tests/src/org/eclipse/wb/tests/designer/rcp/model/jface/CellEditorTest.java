@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -44,18 +44,17 @@ public class CellEditorTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_TextCellEditor() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TextCellEditor textCellEditor = new TextCellEditor(this, SWT.BORDER);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new TextCellEditor(this, SWT.BORDER)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {viewer: public org.eclipse.swt.widgets.Control org.eclipse.jface.viewers.CellEditor.getControl()} {viewer} {}",
-				"    {new: org.eclipse.jface.viewers.TextCellEditor} {local-unique: textCellEditor} {/new TextCellEditor(this, SWT.BORDER)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TextCellEditor textCellEditor = new TextCellEditor(this, SWT.BORDER);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new TextCellEditor(this, SWT.BORDER)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{viewer: public org.eclipse.swt.widgets.Control org.eclipse.jface.viewers.CellEditor.getControl()} {viewer} {}
+						{new: org.eclipse.jface.viewers.TextCellEditor} {local-unique: textCellEditor} {/new TextCellEditor(this, SWT.BORDER)/}""");
 		// refresh()
 		shell.refresh();
 		assertNoErrors(shell);
@@ -66,16 +65,15 @@ public class CellEditorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CheckboxCellEditor() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    CheckboxCellEditor cellEditor = new CheckboxCellEditor(this, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new CheckboxCellEditor(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						CheckboxCellEditor cellEditor = new CheckboxCellEditor(this, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new CheckboxCellEditor(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}""");
 		// refresh()
 		shell.refresh();
 		assertNoErrors(shell);
@@ -86,18 +84,17 @@ public class CellEditorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ComboBoxCellEditor() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    ComboBoxCellEditor cellEditor = new ComboBoxCellEditor(this, null);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new ComboBoxCellEditor(this, null)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {viewer: public org.eclipse.swt.widgets.Control org.eclipse.jface.viewers.CellEditor.getControl()} {viewer} {}",
-				"    {new: org.eclipse.jface.viewers.ComboBoxCellEditor} {local-unique: cellEditor} {/new ComboBoxCellEditor(this, null)/}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						ComboBoxCellEditor cellEditor = new ComboBoxCellEditor(this, null);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new ComboBoxCellEditor(this, null)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{viewer: public org.eclipse.swt.widgets.Control org.eclipse.jface.viewers.CellEditor.getControl()} {viewer} {}
+						{new: org.eclipse.jface.viewers.ComboBoxCellEditor} {local-unique: cellEditor} {/new ComboBoxCellEditor(this, null)/}""");
 		// refresh()
 		shell.refresh();
 		assertNoErrors(shell);

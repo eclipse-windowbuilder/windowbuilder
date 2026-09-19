@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,22 +41,21 @@ public class AbstractSplashHandlerTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		AbstractSplashHandlerInfo splash =
-				parseJavaInfo(
-						"import org.eclipse.ui.splash.AbstractSplashHandler;",
-						"public class Test extends AbstractSplashHandler {",
-						"  public Test() {",
-						"  }",
-						"  public void init(Shell splash) {",
-						"    super.init(splash);",
-						"    Composite container = new Composite(getSplash(), SWT.NULL);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.ui.splash.AbstractSplashHandler} {this} {/new Composite(getSplash(), SWT.NULL)/}",
-				"  {parameter} {splash} {/super.init(splash)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(getSplash(), SWT.NULL)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		AbstractSplashHandlerInfo splash = parseJavaInfo("""
+				import org.eclipse.ui.splash.AbstractSplashHandler;
+				public class Test extends AbstractSplashHandler {
+					public Test() {
+					}
+					public void init(Shell splash) {
+						super.init(splash);
+						Composite container = new Composite(getSplash(), SWT.NULL);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.ui.splash.AbstractSplashHandler} {this} {/new Composite(getSplash(), SWT.NULL)/}
+					{parameter} {splash} {/super.init(splash)/}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(getSplash(), SWT.NULL)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		// refresh()
 		splash.refresh();
 		assertNoErrors(splash);
@@ -69,17 +68,16 @@ public class AbstractSplashHandlerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_topBoundsSupport() throws Exception {
-		AbstractSplashHandlerInfo splash =
-				parseJavaInfo(
-						"import org.eclipse.ui.splash.AbstractSplashHandler;",
-						"public class Test extends AbstractSplashHandler {",
-						"  public Test() {",
-						"  }",
-						"  public void init(Shell splash) {",
-						"    super.init(splash);",
-						"    Composite container = new Composite(getSplash(), SWT.NULL);",
-						"  }",
-						"}");
+		AbstractSplashHandlerInfo splash = parseJavaInfo("""
+				import org.eclipse.ui.splash.AbstractSplashHandler;
+				public class Test extends AbstractSplashHandler {
+					public Test() {
+					}
+					public void init(Shell splash) {
+						super.init(splash);
+						Composite container = new Composite(getSplash(), SWT.NULL);
+					}
+				}""");
 		splash.refresh();
 		CompositeInfo container = getJavaInfoByName("container");
 		// check bounds

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -42,32 +42,31 @@ public class BeanBindableTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_fields_methods() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import java.io.File;",
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private String m_name;",
-						"  private File m_file;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import java.io.File;
+				public class Test {
+					protected Shell m_shell;
+					private String m_name;
+					private File m_file;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -101,32 +100,31 @@ public class BeanBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_children_properties() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import java.util.ArrayList;",
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private String m_name;",
-						"  private ArrayList m_list;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import java.util.ArrayList;
+				public class Test {
+					protected Shell m_shell;
+					private String m_name;
+					private ArrayList m_list;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -262,43 +260,40 @@ public class BeanBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_superClass_thisMethods() throws Exception {
-		setFileContentSrc(
-				"test/TestSuper.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestSuper {",
-						"  public String getBean() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestSuper.java", """
+				package test;
+				public class TestSuper {
+					public String getBean() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
-		CompositeInfo shell =
-				parseComposite(
-						"import java.io.File;",
-						"public class Test extends TestSuper {",
-						"  protected Shell m_shell;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import java.io.File;
+				public class Test extends TestSuper {
+					protected Shell m_shell;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+					public String getName() {
+						return null;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -328,31 +323,30 @@ public class BeanBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_viewer() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private ISelectionProvider m_selection;",
-						"  private ICheckable m_checkable;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test {
+					protected Shell m_shell;
+					private ISelectionProvider m_selection;
+					private ICheckable m_checkable;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();

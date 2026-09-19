@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -46,24 +46,23 @@ public class GalleryTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_General() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.gallery.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Gallery gallery = new Gallery(this, SWT.NONE);",
-						"    gallery.setGroupRenderer(new DefaultGalleryGroupRenderer());",
-						"    gallery.setItemRenderer(new DefaultGalleryItemRenderer());",
-						"    {",
-						"        GalleryItem galleryGroup = new GalleryItem(gallery, SWT.NONE);",
-						"        galleryGroup.setExpanded(true);",
-						"        {",
-						"            GalleryItem galleryItem = new GalleryItem(galleryGroup, SWT.NONE);",
-						"        }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.gallery.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Gallery gallery = new Gallery(this, SWT.NONE);
+						gallery.setGroupRenderer(new DefaultGalleryGroupRenderer());
+						gallery.setItemRenderer(new DefaultGalleryItemRenderer());
+						{
+								GalleryItem galleryGroup = new GalleryItem(gallery, SWT.NONE);
+								galleryGroup.setExpanded(true);
+								{
+										GalleryItem galleryItem = new GalleryItem(galleryGroup, SWT.NONE);
+								}
+						}
+					}
+				}""");
 		// refresh() also should be successful
 		shell.refresh();
 		// info
@@ -101,25 +100,24 @@ public class GalleryTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_isHorizontal() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.gallery.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Gallery gallery = new Gallery(this, SWT.NONE);",
-						"    gallery.setGroupRenderer(new DefaultGalleryGroupRenderer());",
-						"    gallery.setItemRenderer(new DefaultGalleryItemRenderer());",
-						"    gallery.setVertical(true);",
-						"    {",
-						"        GalleryItem galleryGroup = new GalleryItem(gallery, SWT.NONE);",
-						"        galleryGroup.setExpanded(true);",
-						"        {",
-						"            GalleryItem subGalleryItem = new GalleryItem(galleryGroup, SWT.NONE);",
-						"        }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.gallery.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Gallery gallery = new Gallery(this, SWT.NONE);
+						gallery.setGroupRenderer(new DefaultGalleryGroupRenderer());
+						gallery.setItemRenderer(new DefaultGalleryItemRenderer());
+						gallery.setVertical(true);
+						{
+								GalleryItem galleryGroup = new GalleryItem(gallery, SWT.NONE);
+								galleryGroup.setExpanded(true);
+								{
+										GalleryItem subGalleryItem = new GalleryItem(galleryGroup, SWT.NONE);
+								}
+						}
+					}
+				}""");
 		// info
 		GalleryInfo gallery = shell.getChildren(GalleryInfo.class).get(0);
 		// check orientation

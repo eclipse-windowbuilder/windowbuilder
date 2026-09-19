@@ -63,43 +63,42 @@ public class ViewPartTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_0() throws Exception {
-		ViewPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public class Test extends ViewPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"  public void setFocus() {",
-						"  }",
-						"  public void init(IViewSite site) throws PartInitException {",
-						"    super.init(site);",
-						"    createActions();",
-						"    initializeToolBar();",
-						"    initializeMenu();",
-						"  }",
-						"  private void createActions() {",
-						"  }",
-						"  private void initializeToolBar() {",
-						"    IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();",
-						"  }",
-						"  private void initializeMenu() {",
-						"    IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();",
-						"  }",
-						"}");
+		ViewPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+					public void setFocus() {
+					}
+					public void init(IViewSite site) throws PartInitException {
+						super.init(site);
+						createActions();
+						initializeToolBar();
+						initializeMenu();
+					}
+					private void createActions() {
+					}
+					private void initializeToolBar() {
+						IToolBarManager toolbarManager = getViewSite().getActionBars().getToolBarManager();
+					}
+					private void initializeMenu() {
+						IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.ui.part.ViewPart} {this} {/getViewSite().getActionBars()/ /getViewSite().getActionBars()/}",
-				"  {invocationChain: getViewSite().getActionBars().getToolBarManager()} {local-unique: toolbarManager} {/getViewSite().getActionBars().getToolBarManager()/}",
-				"  {invocationChain: getViewSite().getActionBars().getMenuManager()} {local-unique: menuManager} {/getViewSite().getActionBars().getMenuManager()/}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: org.eclipse.ui.part.ViewPart} {this} {/getViewSite().getActionBars()/ /getViewSite().getActionBars()/}
+					{invocationChain: getViewSite().getActionBars().getToolBarManager()} {local-unique: toolbarManager} {/getViewSite().getActionBars().getToolBarManager()/}
+					{invocationChain: getViewSite().getActionBars().getMenuManager()} {local-unique: menuManager} {/getViewSite().getActionBars().getMenuManager()/}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		CompositeInfo parentComposite = part.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo container = (CompositeInfo) parentComposite.getChildrenControls().get(0);
 		// refresh()
@@ -144,27 +143,26 @@ public class ViewPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IViewSite() throws Exception {
-		ViewPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public class Test extends ViewPart {",
-						"  public static final String ID = 'some.view.Identifier';",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"  public void setFocus() {",
-						"  }",
-						"}");
+		ViewPartInfo part = parseJavaInfo("""
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public class Test extends ViewPart {
+					public static final String ID = "some.view.Identifier";
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+					public void setFocus() {
+					}
+				}""");
 		part.refresh();
-		assertHierarchy(
-				"{this: org.eclipse.ui.part.ViewPart} {this} {}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: org.eclipse.ui.part.ViewPart} {this} {}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		//
 		IViewSite viewSite = (IViewSite) ReflectionUtils.invokeMethod(part.getObject(), "getViewSite()");
 		assertThrows(NotImplementedException.class, viewSite::getShell);
@@ -183,28 +181,28 @@ public class ViewPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noContributionManegers() throws Exception {
-		parseJavaInfo(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.ui.*;",
-				"import org.eclipse.ui.part.*;",
-				"public class Test extends ViewPart {",
-				"  public Test() {",
-				"  }",
-				"  public void createPartControl(Composite parent) {",
-				"    Composite container = new Composite(parent, SWT.NULL);",
-				"  }",
-				"  public void setFocus() {",
-				"  }",
-				"  public void init(IViewSite site) throws PartInitException {",
-				"    super.init(site);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.ui.part.ViewPart} {this} {}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+					public void setFocus() {
+					}
+					public void init(IViewSite site) throws PartInitException {
+						super.init(site);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.ui.part.ViewPart} {this} {}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 	}
 
 	/**
@@ -212,50 +210,49 @@ public class ViewPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_normalProperties() throws Exception {
-		ViewPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public class Test extends ViewPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"  public void setFocus() {",
-						"  }",
-						"  public void init(IViewSite site) throws PartInitException {",
-						"    super.init(site);",
-						"    createActions();",
-						"  }",
-						"  private void createActions() {",
-						"  }",
-						"}");
+		ViewPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+					public void setFocus() {
+					}
+					public void init(IViewSite site) throws PartInitException {
+						super.init(site);
+						createActions();
+					}
+					private void createActions() {
+					}
+				}""");
 		// try to set "partName" and  "contentDescription"
 		part.getPropertyByTitle("partName").setValue("The name");
 		part.getPropertyByTitle("contentDescription").setValue("The description");
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.ui.*;",
-				"import org.eclipse.ui.part.*;",
-				"public class Test extends ViewPart {",
-				"  public Test() {",
-				"  }",
-				"  public void createPartControl(Composite parent) {",
-				"    Composite container = new Composite(parent, SWT.NULL);",
-				"  }",
-				"  public void setFocus() {",
-				"  }",
-				"  public void init(IViewSite site) throws PartInitException {",
-				"    super.init(site);",
-				"    setContentDescription('The description');",
-				"    setPartName('The name');",
-				"    createActions();",
-				"  }",
-				"  private void createActions() {",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+					public void setFocus() {
+					}
+					public void init(IViewSite site) throws PartInitException {
+						super.init(site);
+						setContentDescription("The description");
+						setPartName("The name");
+						createActions();
+					}
+					private void createActions() {
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -268,18 +265,17 @@ public class ViewPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_extensionProperties_notPlugin() throws Exception {
-		ViewPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends ViewPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		ViewPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		assertNull(part.getPropertyByTitle("Extension"));
 	}
 
@@ -289,25 +285,24 @@ public class ViewPartTest extends RcpModelTest {
 	@Test
 	public void test_extensionProperties_noExtension() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		AbstractPdeTest.createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' name='name 1' class='C_1'/>",
-				"  </extension>",
-		"</plugin>"});
+		AbstractPdeTest.createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" name="name 1" class="C_1"/>
+					</extension>
+				</plugin>""");
 		// parse
-		ViewPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends ViewPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		ViewPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		assertNull(part.getPropertyByTitle("Extension"));
 	}
 
@@ -320,26 +315,24 @@ public class ViewPartTest extends RcpModelTest {
 		do_projectDispose();
 		do_projectCreate();
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		AbstractPdeTest.createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' name='name 1' icon='icons/false.gif' class='test.Test'"
-						+ " category='category_1'/>",
-						"  </extension>",
-		"</plugin>"});
+		AbstractPdeTest.createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" name="name 1" icon="icons/false.gif" class="test.Test" category="category_1"/>
+					</extension>
+				</plugin>""");
 		// parse
-		ViewPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends ViewPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		ViewPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		// "Extension" property
 		Property extensionProperty = part.getPropertyByTitle("Extension");
 		assertNotNull(extensionProperty);
@@ -393,23 +386,22 @@ public class ViewPartTest extends RcpModelTest {
 		do_projectDispose();
 		do_projectCreate();
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		AbstractPdeTest.createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.views'>",
-				"    <view id='id_1' class='test.Test' category='category_1'/>",
-				"  </extension>",
-		"</plugin>"});
+		AbstractPdeTest.createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.views">
+						<view id="id_1" class="test.Test" category="category_1"/>
+					</extension>
+				</plugin>""");
 		// parse
-		ViewPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends ViewPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		ViewPartInfo part = parseJavaInfo("""
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		// "category" property
 		Property extensionProperty = part.getPropertyByTitle("Extension");
 		Property categoryProperty = getSubProperties(extensionProperty)[2];

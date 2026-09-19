@@ -58,24 +58,23 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_0() throws Exception {
-		WizardPageInfo wizardPage =
-				parseJavaInfo(
-						"import org.eclipse.jface.wizard.*;",
-						"public class Test extends WizardPage {",
-						"  public Test() {",
-						"    super('pageName');",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"    setControl(container);",
-						"  }",
-						"}");
+		WizardPageInfo wizardPage = parseJavaInfo("""
+				import org.eclipse.jface.wizard.*;
+				public class Test extends WizardPage {
+					public Test() {
+						super("pageName");
+					}
+					public void createControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						setControl(container);
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(container)/}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /setControl(container)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(container)/}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /setControl(container)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		CompositeInfo parentComposite = wizardPage.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo container = (CompositeInfo) parentComposite.getChildrenControls().get(0);
 		// refresh()
@@ -100,18 +99,17 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_refresh_whenAlreadyDisposed() throws Exception {
-		WizardPageInfo wizardPage =
-				parseJavaInfo(
-						"import org.eclipse.jface.wizard.*;",
-						"public class Test extends WizardPage {",
-						"  public Test() {",
-						"    super('pageName');",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"    setControl(container);",
-						"  }",
-						"}");
+		WizardPageInfo wizardPage = parseJavaInfo("""
+				import org.eclipse.jface.wizard.*;
+				public class Test extends WizardPage {
+					public Test() {
+						super("pageName");
+					}
+					public void createControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						setControl(container);
+					}
+				}""");
 		wizardPage.refresh();
 		// dispose Shell
 		Shell shell = (Shell) wizardPage.getComponentObject();
@@ -126,27 +124,26 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_override_getControl() throws Exception {
-		WizardPageInfo wizardPage =
-				parseJavaInfo(
-						"import org.eclipse.jface.wizard.*;",
-						"public class Test extends WizardPage {",
-						"  Composite container;",
-						"  public Test() {",
-						"    super('pageName');",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"    container = new Composite(parent, SWT.NULL);",
-						"    setControl(container);",
-						"  }",
-						"  public Control getControl() {",
-						"    return (container);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(container)/}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {field-unique: container} {/new Composite(parent, SWT.NULL)/ /setControl(container)/ /(container)/ /container/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		WizardPageInfo wizardPage = parseJavaInfo("""
+				import org.eclipse.jface.wizard.*;
+				public class Test extends WizardPage {
+					Composite container;
+					public Test() {
+						super("pageName");
+					}
+					public void createControl(Composite parent) {
+						container = new Composite(parent, SWT.NULL);
+						setControl(container);
+					}
+					public Control getControl() {
+						return (container);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(container)/}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{new: org.eclipse.swt.widgets.Composite} {field-unique: container} {/new Composite(parent, SWT.NULL)/ /setControl(container)/ /(container)/ /container/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		// refresh()
 		wizardPage.refresh();
 		assertNoErrors(wizardPage);
@@ -158,15 +155,15 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_noControl() throws Exception {
-		Throwable e = assertThrows(Throwable.class, () -> parseJavaInfo(
-				"import org.eclipse.jface.wizard.*;",
-				"public class Test extends WizardPage {",
-				"  public Test() {",
-				"    super('pageName');",
-				"  }",
-				"  public void createControl(Composite parent) {",
-				"  }",
-				"}"));
+		Throwable e = assertThrows(Throwable.class, () -> parseJavaInfo("""
+				import org.eclipse.jface.wizard.*;
+				public class Test extends WizardPage {
+					public Test() {
+						super("pageName");
+					}
+					public void createControl(Composite parent) {
+					}
+				}"""));
 		DesignerException de = DesignerExceptionUtils.getDesignerException(e);
 		assertEquals(IExceptionConstants.NO_CONTROL_IN_WIZARD_PAGE, de.getCode());
 		assertTrue(DesignerExceptionUtils.isWarning(e));
@@ -177,17 +174,17 @@ public class WizardPageTest extends RcpModelTest {
 		String key = "__wbp_WizardPage_simulateException";
 		try {
 			System.setProperty(key, "true");
-			Throwable e = assertThrows(Throwable.class, () -> parseJavaInfo(
-					"import org.eclipse.jface.wizard.*;",
-					"public class Test extends WizardPage {",
-					"  public Test() {",
-					"    super('pageName');",
-					"  }",
-					"  public void createControl(Composite parent) {",
-					"    Composite container = new Composite(parent, SWT.NULL);",
-					"    setControl(container);",
-					"  }",
-					"}"));
+			Throwable e = assertThrows(Throwable.class, () -> parseJavaInfo("""
+					import org.eclipse.jface.wizard.*;
+					public class Test extends WizardPage {
+						public Test() {
+							super("pageName");
+						}
+						public void createControl(Composite parent) {
+							Composite container = new Composite(parent, SWT.NULL);
+							setControl(container);
+						}
+					}"""));
 			Throwable rootCause = DesignerExceptionUtils.getRootCause(e);
 			assertEquals("Simulated exception", rootCause.getMessage());
 		} finally {
@@ -200,35 +197,32 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_exceptionInCreate() throws Exception {
-		setFileContentSrc(
-				"test/MyButton.java",
-				getTestSource(
-						"public class MyButton extends Button {",
-						"  public MyButton(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    throw new IllegalStateException('actual');",
-						"  }",
-						"  protected void checkSubclass() {",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyButton.java", getTestSource("""
+				public class MyButton extends Button {
+					public MyButton(Composite parent, int style) {
+						super(parent, style);
+						throw new IllegalStateException("actual");
+					}
+					protected void checkSubclass() {
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		WizardPageInfo wizardPage =
-				parseJavaInfo(
-						"import org.eclipse.jface.wizard.*;",
-						"public class Test extends WizardPage {",
-						"  public Test() {",
-						"    super('pageName');",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"    setControl(new MyButton(parent, SWT.NONE));",
-						"  }",
-						"}");
+		WizardPageInfo wizardPage = parseJavaInfo("""
+				import org.eclipse.jface.wizard.*;
+				public class Test extends WizardPage {
+					public Test() {
+						super("pageName");
+					}
+					public void createControl(Composite parent) {
+						setControl(new MyButton(parent, SWT.NONE));
+					}
+				}""");
 		wizardPage.refresh();
-		assertHierarchy(
-				"{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(new MyButton(parent, SWT.NONE))/}",
-				"  {parameter} {parent} {/new MyButton(parent, SWT.NONE)/}",
-				"    {new: test.MyButton} {empty} {/setControl(new MyButton(parent, SWT.NONE))/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(new MyButton(parent, SWT.NONE))/}
+					{parameter} {parent} {/new MyButton(parent, SWT.NONE)/}
+						{new: test.MyButton} {empty} {/setControl(new MyButton(parent, SWT.NONE))/}""");
 		// check logged exceptions
 		List<BadNodeInformation> badNodes = m_lastState.getBadRefreshNodes().nodes();
 		Assertions.assertThat(badNodes).hasSize(1);
@@ -240,30 +234,29 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_duplicateMethodInvocation() throws Exception {
-		WizardPageInfo wizardPage =
-				parseJavaInfo(
-						"import org.eclipse.jface.wizard.*;",
-						"public class Test extends WizardPage {",
-						"  public Test() {",
-						"    super('pageName');",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"    setControl(container);",
-						"    createButton(container, SWT.NONE);",
-						"    createButton(container, SWT.CHECK);",
-						"  }",
-						"  private Button createButton(Composite parent, int style) {",
-						"    Button button = new Button(parent, style);",
-						"    return button;",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(container)/}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /setControl(container)/ /new Button(parent, style)/ /createButton(container, SWT.NONE)/ /createButton(container, SWT.CHECK)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}",
-				"      {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(parent, style)/ /button/ /createButton(container, SWT.NONE)/ /createButton(container, SWT.CHECK)/}");
+		WizardPageInfo wizardPage = parseJavaInfo("""
+				import org.eclipse.jface.wizard.*;
+				public class Test extends WizardPage {
+					public Test() {
+						super("pageName");
+					}
+					public void createControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						setControl(container);
+						createButton(container, SWT.NONE);
+						createButton(container, SWT.CHECK);
+					}
+					private Button createButton(Composite parent, int style) {
+						Button button = new Button(parent, style);
+						return button;
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(container)/}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /setControl(container)/ /new Button(parent, style)/ /createButton(container, SWT.NONE)/ /createButton(container, SWT.CHECK)/}
+							{implicit-layout: absolute} {implicit-layout} {}
+							{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(parent, style)/ /button/ /createButton(container, SWT.NONE)/ /createButton(container, SWT.CHECK)/}""");
 		//
 		wizardPage.refresh();
 		assertNoErrors(wizardPage);
@@ -274,27 +267,26 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_specialRendering_andAssignmentInConstructor() throws Exception {
-		WizardPageInfo wizardPage =
-				parseJavaInfo(
-						"import java.util.*;",
-						"import org.eclipse.jface.wizard.*;",
-						"public class Test extends WizardPage {",
-						"  private Map m_map;",
-						"  public Test() {",
-						"    super('pageName');",
-						"    m_map = new HashMap();",
-						"  }",
-						"  public void createControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"    setControl(container);",
-						"    container.setEnabled(m_map == null);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(container)/}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /setControl(container)/ /container.setEnabled(m_map == null)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		WizardPageInfo wizardPage = parseJavaInfo("""
+				import java.util.*;
+				import org.eclipse.jface.wizard.*;
+				public class Test extends WizardPage {
+					private Map m_map;
+					public Test() {
+						super("pageName");
+						m_map = new HashMap();
+					}
+					public void createControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						setControl(container);
+						container.setEnabled(m_map == null);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.wizard.WizardPage} {this} {/setControl(container)/}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /setControl(container)/ /container.setEnabled(m_map == null)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		wizardPage.refresh();
 		//
 		ASTNode containerNode = m_lastEditor.getEnclosingNode("container =");
@@ -308,31 +300,29 @@ public class WizardPageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ISelection_constructorArgument() throws Exception {
-		setFileContentSrc(
-				"test/MyWizardPage.java",
-				getTestSource(
-						"import org.eclipse.jface.wizard.*;",
-						"public abstract class MyWizardPage extends WizardPage {",
-						"  public MyWizardPage(ISelection selection) {",
-						"    super('pageName');",
-						"    if (selection == null) {",
-						"      throw new IllegalArgumentException();",
-						"    }",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyWizardPage.java", getTestSource("""
+				import org.eclipse.jface.wizard.*;
+				public abstract class MyWizardPage extends WizardPage {
+					public MyWizardPage(ISelection selection) {
+						super("pageName");
+						if (selection == null) {
+							throw new IllegalArgumentException();
+						}
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
 		useStrictEvaluationMode(false);
-		parseJavaInfo(
-				"public class Test extends MyWizardPage {",
-				"  public Test(ISelection selection) {",
-				"    super(selection);",
-				"  }",
-				"  public void createControl(Composite parent) {",
-				"    Composite container = new Composite(parent, SWT.NULL);",
-				"    setControl(container);",
-				"  }",
-				"}");
+		parseJavaInfo("""
+				public class Test extends MyWizardPage {
+					public Test(ISelection selection) {
+						super(selection);
+					}
+					public void createControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						setControl(container);
+					}
+				}""");
 		refresh();
 		// no exceptions
 		assertNoErrors(m_lastParseInfo);

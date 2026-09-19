@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,25 +39,21 @@ public class AcceleratorPropertyEditorTest extends RcpModelTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare Control with "accelerator" property
-		setFileContentSrc(
-				"test/MyControl.java",
-				getTestSource(
-						"public class MyControl extends Composite {",
-						"  public MyControl(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public void setAccelerator(int accelerator) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyControl.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setAccelerator(int)'>",
-						"    <editor id='swtAccelerator'/>",
-						"  </property>",
-						"</component>"));
+		setFileContentSrc("test/MyControl.java", getTestSource("""
+				public class MyControl extends Composite {
+					public MyControl(Composite parent, int style) {
+						super(parent, style);
+					}
+					public void setAccelerator(int accelerator) {
+					}
+				}"""));
+		setFileContentSrc("test/MyControl.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setAccelerator(int)">
+						<editor id="swtAccelerator"/>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 	}
 
@@ -71,13 +67,12 @@ public class AcceleratorPropertyEditorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getText_0() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends MyControl {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends MyControl {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+					}
+				}""");
 		Property property = composite.getPropertyByTitle("accelerator");
 		assertEquals(null, getPropertyText(property));
 	}
@@ -87,14 +82,13 @@ public class AcceleratorPropertyEditorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getText_1() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends MyControl {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setAccelerator(SWT.CTRL | SWT.F2);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends MyControl {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setAccelerator(SWT.CTRL | SWT.F2);
+					}
+				}""");
 		Property property = composite.getPropertyByTitle("accelerator");
 		assertEquals("CTRL+F2", getPropertyText(property));
 	}
@@ -104,15 +98,13 @@ public class AcceleratorPropertyEditorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getText_2() throws Exception {
-		dontConvertSingleQuotesToDouble();
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends MyControl {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setAccelerator(SWT.CTRL | SWT.SHIFT | 'T');",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends MyControl {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setAccelerator(SWT.CTRL | SWT.SHIFT | 'T');
+					}
+				}""");
 		Property property = composite.getPropertyByTitle("accelerator");
 		assertEquals("CTRL+SHIFT+T", getPropertyText(property));
 	}
@@ -122,15 +114,13 @@ public class AcceleratorPropertyEditorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getText_3() throws Exception {
-		dontConvertSingleQuotesToDouble();
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends MyControl {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setAccelerator(SWT.SHIFT | SWT.CTRL | 'T');",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends MyControl {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setAccelerator(SWT.SHIFT | SWT.CTRL | 'T');
+					}
+				}""");
 		Property property = composite.getPropertyByTitle("accelerator");
 		assertEquals("CTRL+SHIFT+T", getPropertyText(property));
 	}
@@ -140,14 +130,13 @@ public class AcceleratorPropertyEditorTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getText_4() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"public class Test extends MyControl {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setAccelerator(SWT.CTRL | SWT.ALT | SWT.SHIFT | SWT.DEL);",
-						"  }",
-						"}");
+		CompositeInfo composite = parseComposite("""
+				public class Test extends MyControl {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setAccelerator(SWT.CTRL | SWT.ALT | SWT.SHIFT | SWT.DEL);
+					}
+				}""");
 		Property property = composite.getPropertyByTitle("accelerator");
 		assertEquals("ALT+CTRL+SHIFT+DEL", getPropertyText(property));
 	}
