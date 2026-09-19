@@ -89,27 +89,33 @@ import java.util.TreeSet;
  */
 public final class PageLayoutInfo extends AbstractComponentInfo {
 	private final EditorAreaInfo m_editorArea = new EditorAreaInfo(this);
-	private final ViewShortcutContainerInfo m_viewShortcutContainer =
-			new ViewShortcutContainerInfo(this);
-	private final PerspectiveShortcutContainerInfo m_perspectiveShortcutContainer =
-			new PerspectiveShortcutContainerInfo(this);
-	@SuppressWarnings({ "removal", "deprecation" })
-	private final FastViewContainerInfo m_fastViewContainer = new FastViewContainerInfo(this);
+	private final ViewShortcutContainerInfo m_viewShortcutContainer;
+	private final PerspectiveShortcutContainerInfo m_perspectiveShortcutContainer;
+	@SuppressWarnings({ "removal" })
+	private FastViewContainerInfo m_fastViewContainer;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@SuppressWarnings({ "deprecation", "removal" })
 	public PageLayoutInfo(AstEditor editor,
 			ComponentDescription description,
 			CreationSupport creationSupport) throws Exception {
 		super(editor, description, creationSupport);
+		m_viewShortcutContainer = new ViewShortcutContainerInfo(this);
+		m_perspectiveShortcutContainer = new PerspectiveShortcutContainerInfo(this);
+		if (supportsFastView()) {
+			m_fastViewContainer = new FastViewContainerInfo(this);
+		}
 		// move non-visual containers to the end
 		addBroadcastListener(new JavaInfoTreeAlmostComplete() {
 			@Override
 			public void invoke(JavaInfo root, List<JavaInfo> components) throws Exception {
-				moveChild(m_fastViewContainer, null);
+				if (m_fastViewContainer != null) {
+					moveChild(m_fastViewContainer, null);
+				}
 				moveChild(m_viewShortcutContainer, null);
 				moveChild(m_perspectiveShortcutContainer, null);
 				removeBroadcastListener(this);
@@ -340,7 +346,7 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 			}
 		}
 		// create fast views
-		{
+		if (m_fastViewContainer != null) {
 			Control control = m_fastViewContainer.render(m_composite);
 			GridDataFactory.create(control).grabH().fillH();
 		}
@@ -838,6 +844,10 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 			return "org.eclipse.ui.IPageLayout.RIGHT";
 		}
 		throw new IllegalArgumentException("Unknown relationship: " + relation);
+	}
+
+	private static boolean supportsFastView() {
+		return ReflectionUtils.getMethodBySignature(IPageLayout.class, "addFastView(java.lang.String)") != null;
 	}
 
 	/**
