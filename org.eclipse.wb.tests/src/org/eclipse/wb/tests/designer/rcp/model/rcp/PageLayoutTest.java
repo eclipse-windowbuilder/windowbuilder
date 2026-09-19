@@ -124,17 +124,29 @@ public class PageLayoutTest extends RcpModelTest {
 					private void addPerspectiveShortcuts(IPageLayout layout) {
 					}
 				}""");
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.getEditorArea()/ /addFastViews(layout)/ /addViewShortcuts(layout)/ /addPerspectiveShortcuts(layout)/ /layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea)/ /layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea)/}
-					(editor area)
-					{void} {void} {/layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea)/}
-					{void} {void} {/layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea)/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /addFastViews(layout)/ /addViewShortcuts(layout)/ /addPerspectiveShortcuts(layout)/ /layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea)/ /layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea)/}
+						(editor area)
+						{void} {void} {/layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea)/}
+						{void} {void} {/layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea)/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /addFastViews(layout)/ /addViewShortcuts(layout)/ /addPerspectiveShortcuts(layout)/ /layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea)/ /layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea)/}
+						(editor area)
+						{void} {void} {/layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea)/}
+						{void} {void} {/layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea)/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		// check containers
 		assertEquals("(editor area)", page.getEditorArea().toString());
-		assertEquals("(fast views)", page.getFastViewContainer().toString());
+		if (SWT.getVersion() < 4972) {
+			assertEquals("(fast views)", page.getFastViewContainer().toString());
+		}
 		assertEquals("(view shortcuts)", page.getViewShortcutContainer().toString());
 		assertEquals("(perspective shortcuts)", page.getPerspectiveShortcutContainer().toString());
 		// check parts
@@ -644,15 +656,26 @@ public class PageLayoutTest extends RcpModelTest {
 						layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1");
 					}
 				}""");
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1")/}
-					(editor area)
-					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView("view.1")/}
-						{void} {void} {/folder.addView("view.1")/}
-					{void} {void} {/layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1")/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1")/}
+						(editor area)
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView("view.1")/}
+							{void} {void} {/folder.addView("view.1")/}
+						{void} {void} {/layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1")/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1")/}
+						(editor area)
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView("view.1")/}
+							{void} {void} {/folder.addView("view.1")/}
+						{void} {void} {/layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1")/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		page.refresh();
 		// "folder"
 		{
@@ -1566,14 +1589,24 @@ public class PageLayoutTest extends RcpModelTest {
 						layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA);
 					}
 				}""");
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
-					(editor area)
-					{void} {void} {/layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
-					{void} {void} {/layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+						(editor area)
+						{void} {void} {/layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+						(editor area)
+						{void} {void} {/layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		assertSame(newView, page.getParts().get(1));
 	}
 
@@ -1638,15 +1671,26 @@ public class PageLayoutTest extends RcpModelTest {
 						layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea());
 					}
 				}""");
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.getEditorArea()/ /layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1")/}
-					(editor area)
-					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
-					{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1")/}
-					{void} {void} {/layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.getEditorArea()/ /layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1")/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1")/}
+						{void} {void} {/layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.getEditorArea()/ /layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1")/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1")/}
+						{void} {void} {/layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		assertSame(newView, page.getParts().get(1));
 	}
 
@@ -1899,15 +1943,26 @@ public class PageLayoutTest extends RcpModelTest {
 						layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3");
 					}
 				}""");
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3")/ /layout.getEditorArea()/ /layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
-					(editor area)
-					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
-					{void} {void} {/layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
-					{void} {void} {/layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3")/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3")/ /layout.getEditorArea()/ /layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3")/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3")/ /layout.getEditorArea()/ /layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3")/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		assertSame(view_3, page.getParts().get(1));
 		assertSame(view_2, page.getParts().get(2));
 	}
@@ -1944,15 +1999,26 @@ public class PageLayoutTest extends RcpModelTest {
 						layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea());
 					}
 				}""");
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1")/ /layout.getEditorArea()/ /layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
-					(editor area)
-					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
-					{void} {void} {/layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1")/}
-					{void} {void} {/layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1")/ /layout.getEditorArea()/ /layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1")/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1")/ /layout.getEditorArea()/ /layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+						{void} {void} {/layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1")/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		assertSame(view_1, page.getParts().get(0));
 		assertSame(view_2, page.getParts().get(1));
 	}
@@ -2013,17 +2079,30 @@ public class PageLayoutTest extends RcpModelTest {
 				}""");
 		page.refresh();
 		// check hierarchy
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
-					(editor area)
-					{void} {void} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView("view.2")/ /folder.addView("view.3")/}
-						{void} {void} {/folder.addView("view.2")/}
-						{void} {void} {/folder.addView("view.3")/}
-					{void} {void} {/layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+						(editor area)
+						{void} {void} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView("view.2")/ /folder.addView("view.3")/}
+							{void} {void} {/folder.addView("view.2")/}
+							{void} {void} {/folder.addView("view.3")/}
+						{void} {void} {/layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+						(editor area)
+						{void} {void} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView("view.2")/ /folder.addView("view.3")/}
+							{void} {void} {/folder.addView("view.2")/}
+							{void} {void} {/folder.addView("view.3")/}
+						{void} {void} {/layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		// prepare "view_4"
 		PageLayoutAddViewInfo view_4 = (PageLayoutAddViewInfo) page.getParts().get(2);
 		assertEquals("view.4", view_4.getId());
@@ -2044,17 +2123,30 @@ public class PageLayoutTest extends RcpModelTest {
 						}
 					}
 				}""");
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4")/ /layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
-					(editor area)
-					{void} {void} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					{void} {void} {/layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
-					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4")/ /folder.addView("view.2")/ /folder.addView("view.3")/}
-						{void} {void} {/folder.addView("view.2")/}
-						{void} {void} {/folder.addView("view.3")/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4")/ /layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+						(editor area)
+						{void} {void} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {void} {/layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4")/ /folder.addView("view.2")/ /folder.addView("view.3")/}
+							{void} {void} {/folder.addView("view.2")/}
+							{void} {void} {/folder.addView("view.3")/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4")/ /layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+						(editor area)
+						{void} {void} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {void} {/layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4")/ /folder.addView("view.2")/ /folder.addView("view.3")/}
+							{void} {void} {/folder.addView("view.2")/}
+							{void} {void} {/folder.addView("view.3")/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 	}
 
 	/**
@@ -2076,14 +2168,24 @@ public class PageLayoutTest extends RcpModelTest {
 				}""");
 		page.refresh();
 		// check hierarchy
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					(editor area)
-					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView("view")/}
-						{void} {void} {/folder.addView("view")/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						(editor area)
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView("view")/}
+							{void} {void} {/folder.addView("view")/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						(editor area)
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView("view")/}
+							{void} {void} {/folder.addView("view")/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		// prepare models
 		PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) page.getParts().get(0);
 		FolderViewInfo folderView = folder.getViews().get(0);
@@ -2101,14 +2203,24 @@ public class PageLayoutTest extends RcpModelTest {
 						layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1");
 					}
 				}""");
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1")/}
-					(editor area)
-					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					{void} {void} {/layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1")/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1")/}
+						(editor area)
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {void} {/layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1")/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1")/}
+						(editor area)
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {void} {/layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1")/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		assertSame(topView, page.getParts().get(1));
 	}
 
@@ -2147,15 +2259,26 @@ public class PageLayoutTest extends RcpModelTest {
 					}
 				}""");
 		// check hierarchy
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
-					(editor area)
-					{void} {empty} {/layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					{void} {empty} {/layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					{void} {local-unique: folderLayout} {/layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+						(editor area)
+						{void} {empty} {/layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {empty} {/layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {local-unique: folderLayout} {/layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+						(editor area)
+						{void} {empty} {/layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {empty} {/layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {local-unique: folderLayout} {/layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 	}
 
 	/**
@@ -2194,16 +2317,28 @@ public class PageLayoutTest extends RcpModelTest {
 					}
 				}""");
 		// check hierarchy
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					(editor area)
-					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					{void} {local-unique: folderLayout} {/layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folderLayout.addView("view_2")/}
-						{void} {void} {/folderLayout.addView("view_2")/}
-					{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {local-unique: folderLayout} {/layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folderLayout.addView("view_2")/}
+							{void} {void} {/folderLayout.addView("view_2")/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {local-unique: folderLayout} {/layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folderLayout.addView("view_2")/}
+							{void} {void} {/folderLayout.addView("view_2")/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		assertSame(view_1, page.getParts().get(0));
 		assertSame(newFolder, page.getParts().get(1));
 		assertSame(view_3, page.getParts().get(2));
@@ -2244,16 +2379,28 @@ public class PageLayoutTest extends RcpModelTest {
 					}
 				}""");
 		// check hierarchy
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1")/ /layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1")/}
-					(editor area)
-					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
-					{void} {local-unique: folderLayout} {/layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1")/ /folderLayout.addView("view_2")/}
-						{void} {void} {/folderLayout.addView("view_2")/}
-					{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1")/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1")/ /layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1")/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {local-unique: folderLayout} {/layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1")/ /folderLayout.addView("view_2")/}
+							{void} {void} {/folderLayout.addView("view_2")/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1")/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1")/ /layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1")/}
+						(editor area)
+						{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+						{void} {local-unique: folderLayout} {/layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1")/ /folderLayout.addView("view_2")/}
+							{void} {void} {/folderLayout.addView("view_2")/}
+						{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1")/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		assertSame(view_1, page.getParts().get(0));
 		assertSame(newFolder, page.getParts().get(1));
 	}
@@ -2280,15 +2427,26 @@ public class PageLayoutTest extends RcpModelTest {
 					}
 				}""");
 		// check hierarchy
-		assertHierarchy("""
-				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/}
-					(editor area)
-					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView("view.1")/ /folder.addView("view.2")/}
-						{void} {void} {/folder.addView("view.1")/}
-						{void} {void} {/folder.addView("view.2")/}
-					(fast views)
-					(view shortcuts)
-					(perspective shortcuts)""");
+		if (SWT.getVersion() < 4972) {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/}
+						(editor area)
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView("view.1")/ /folder.addView("view.2")/}
+							{void} {void} {/folder.addView("view.1")/}
+							{void} {void} {/folder.addView("view.2")/}
+						(fast views)
+						(view shortcuts)
+						(perspective shortcuts)""");
+		} else {
+			assertHierarchy("""
+					{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/}
+						(editor area)
+						{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView("view.1")/ /folder.addView("view.2")/}
+							{void} {void} {/folder.addView("view.1")/}
+							{void} {void} {/folder.addView("view.2")/}
+						(view shortcuts)
+						(perspective shortcuts)""");
+		}
 		// prepare IFolderLayout
 		PageLayoutCreateFolderInfo folder;
 		{
