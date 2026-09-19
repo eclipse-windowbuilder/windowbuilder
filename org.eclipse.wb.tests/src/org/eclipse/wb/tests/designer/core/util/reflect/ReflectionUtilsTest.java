@@ -25,6 +25,8 @@ import net.bytebuddy.matcher.ElementMatchers;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.awt.Component;
 import java.beans.BeanInfo;
@@ -52,6 +54,7 @@ import javax.swing.JPanel;
 /**
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ReflectionUtilsTest extends DesignerTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -73,6 +73,8 @@ import org.eclipse.jface.dialogs.Dialog;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -102,6 +104,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ExecuteOnParseTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

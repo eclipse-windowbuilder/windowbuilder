@@ -195,7 +195,7 @@ public class RequestsTest extends Assertions {
 		assertEquals(3, request.getLastButtonPressed());
 		//
 		// check set key state mask and help methods is...
-		request.setModifiers(SWT.CONTROL | SWT.SHIFT);
+		request.setModifiers(SWT.MOD1 | SWT.MOD2);
 		assertFalse(request.isAltKeyPressed());
 		assertTrue(request.isControlKeyPressed());
 		assertTrue(request.isShiftKeyPressed());

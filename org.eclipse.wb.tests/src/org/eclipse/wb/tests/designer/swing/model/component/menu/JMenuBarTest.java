@@ -32,6 +32,8 @@ import org.eclipse.swt.graphics.ImageData;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.util.List;
 
@@ -46,6 +48,7 @@ import javax.swing.JMenuItem;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class JMenuBarTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

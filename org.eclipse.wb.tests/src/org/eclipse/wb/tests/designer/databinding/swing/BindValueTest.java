@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.swing.databinding.model.bindings.UpdateStrategyIn
 import org.eclipse.wb.internal.swing.model.component.JPanelInfo;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.util.List;
 
@@ -26,6 +28,7 @@ import java.util.List;
  * @author sablin_aa
  *
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class BindValueTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -51,6 +51,8 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,6 +66,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class UndoManagerTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

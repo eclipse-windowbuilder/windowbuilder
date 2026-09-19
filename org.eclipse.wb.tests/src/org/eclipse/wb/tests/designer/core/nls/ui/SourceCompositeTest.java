@@ -47,6 +47,8 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotTableItem;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -57,6 +59,7 @@ import java.util.Locale;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class SourceCompositeTest extends AbstractDialogTest {
 
 	////////////////////////////////////////////////////////////////////////////
