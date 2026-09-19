@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -57,34 +57,33 @@ public class BeanObservableTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_direct() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"import java.util.ArrayList;",
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private IObservableValue m_value;",
-						"  private IObservableList m_list;",
-						"  private IObservableSet m_set;",
-						"  private IObservableMap m_map;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import java.util.ArrayList;
+				public class Test {
+					protected Shell m_shell;
+					private IObservableValue m_value;
+					private IObservableList m_list;
+					private IObservableSet m_set;
+					private IObservableMap m_map;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -322,30 +321,29 @@ public class BeanObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_directObservable_1() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private WritableValue m_value;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private WritableValue m_value;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -424,38 +422,37 @@ public class BeanObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_directObservable_2() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private DataBindingContext m_bindingContext;",
-						"  private WritableValue m_value;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_bindingContext = initDataBindings();",
-						"  }",
-						"  private DataBindingContext initDataBindings() {",
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-						"    bindingContext.bindValue(observeWidget, m_value, null, null);",
-						"    return bindingContext;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private WritableValue m_value;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						bindingContext.bindValue(observeWidget, m_value, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -483,41 +480,38 @@ public class BeanObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_directObservable_detail() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  private WritableValue m_value;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    IObservableValue observeDetail = BeanProperties.value(\"name\", String.class).observeDetail(m_value);",
-								"    bindingContext.bindValue(observeWidget, observeDetail, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private WritableValue m_value;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						IObservableValue observeDetail = BeanProperties.value("name", String.class).observeDetail(m_value);
+						bindingContext.bindValue(observeWidget, observeDetail, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -562,30 +556,29 @@ public class BeanObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_directObservableProperties_1() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private Binding m_binding;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Binding m_binding;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -668,40 +661,37 @@ public class BeanObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_directObservableProperties_2() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  private Binding m_binding0;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    bindingContext.bindValue(observeWidget, m_binding0.getValidationStatus(), null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private Binding m_binding0;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						bindingContext.bindValue(observeWidget, m_binding0.getValidationStatus(), null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -737,68 +727,65 @@ public class BeanObservableTest extends AbstractBindingTest {
 	@Test
 	public void test_observeValue_1() throws Exception {
 		observeValue(
-				"    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
-				"    IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(getBean1());");
+				"		IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
+				"		IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(getBean1());");
 	}
 
 	@Test
 	public void test_observeValue_2() throws Exception {
 		observeValue(
-				"    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(Realm.getDefault(), m_bean0);",
-				"    IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(Realm.getDefault(), getBean1());");
+				"		IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(Realm.getDefault(), m_bean0);",
+				"		IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(Realm.getDefault(), getBean1());");
 	}
 
 	private void observeValue(String line0, String line1) throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public int getValue() {",
-						"    return 0;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public int getValue() {
+						return 0;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private DataBindingContext m_bindingContext;",
-						"  private TestBean m_bean0;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_bindingContext = initDataBindings();",
-						"  }",
-						"  private DataBindingContext initDataBindings() {",
-						line0,
-						line1,
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    bindingContext.bindValue(observeValue0, observeValue1, null, null);",
-						"    return bindingContext;",
-						"  }",
-						"  public TestBean getBean1() {",
-						"    return null;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private TestBean m_bean0;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+				%s
+				%s
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeValue0, observeValue1, null, null);
+						return bindingContext;
+					}
+					public TestBean getBean1() {
+						return null;
+					}
+				}""".formatted(line0, line1));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -851,65 +838,62 @@ public class BeanObservableTest extends AbstractBindingTest {
 	@Test
 	public void test_observeList_1() throws Exception {
 		observeList(
-				"    IObservableList observeList0 = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean0);",
-				"    IObservableList observeList1 = BeanProperties.list(\"names\").observe(Realm.getDefault(), getBean1());");
+				"		IObservableList observeList0 = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean0);",
+				"		IObservableList observeList1 = BeanProperties.list(\"names\").observe(Realm.getDefault(), getBean1());");
 	}
 
 	@Test
 	public void test_observeList_2() throws Exception {
 		observeList(
-				"    IObservableList observeList0 = BeanProperties.list(\"names\", java.lang.String.class).observe(Realm.getDefault(),m_bean0);",
-				"    IObservableList observeList1 = BeanProperties.list(\"names\", String.class).observe(Realm.getDefault(), getBean1());");
+				"		IObservableList observeList0 = BeanProperties.list(\"names\", java.lang.String.class).observe(Realm.getDefault(),m_bean0);",
+				"		IObservableList observeList1 = BeanProperties.list(\"names\", String.class).observe(Realm.getDefault(), getBean1());");
 	}
 
 	private void observeList(String line0, String line1) throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.List getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.List getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private DataBindingContext m_bindingContext;",
-						"  private TestBean m_bean0;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_bindingContext = initDataBindings();",
-						"  }",
-						"  private DataBindingContext initDataBindings() {",
-						line0,
-						line1,
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    bindingContext.bindList(observeList0, observeList1, null, null);",
-						"    return bindingContext;",
-						"  }",
-						"  public TestBean getBean1() {",
-						"    return null;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private TestBean m_bean0;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+				%s
+				%s
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindList(observeList0, observeList1, null, null);
+						return bindingContext;
+					}
+					public TestBean getBean1() {
+						return null;
+					}
+				}""".formatted(line0, line1));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -963,65 +947,62 @@ public class BeanObservableTest extends AbstractBindingTest {
 	@Test
 	public void test_observeSet_1() throws Exception {
 		observeSet(
-				"    IObservableSet observeSet0 = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean0);",
-				"    IObservableSet observeSet1 = BeanProperties.set(\"names\").observe(Realm.getDefault(), getBean1());");
+				"		IObservableSet observeSet0 = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean0);",
+				"		IObservableSet observeSet1 = BeanProperties.set(\"names\").observe(Realm.getDefault(), getBean1());");
 	}
 
 	@Test
 	public void test_observeSet_2() throws Exception {
 		observeSet(
-				"    IObservableSet observeSet0 = BeanProperties.set(\"names\", java.lang.String.class).observe(Realm.getDefault(), m_bean0);",
-				"    IObservableSet observeSet1 = BeanProperties.set(\"names\", String.class).observe(Realm.getDefault(), getBean1());");
+				"		IObservableSet observeSet0 = BeanProperties.set(\"names\", java.lang.String.class).observe(Realm.getDefault(), m_bean0);",
+				"		IObservableSet observeSet1 = BeanProperties.set(\"names\", String.class).observe(Realm.getDefault(), getBean1());");
 	}
 
 	private void observeSet(String line0, String line1) throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.Set getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.Set getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(this, new String[]{
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private DataBindingContext m_bindingContext;",
-						"  private TestBean m_bean0;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_bindingContext = initDataBindings();",
-						"  }",
-						"  private DataBindingContext initDataBindings() {",
-						line0,
-						line1,
-						"    DataBindingContext bindingContext = new DataBindingContext();",
-						"    bindingContext.bindSet(observeSet0, observeSet1, null, null);",
-						"    return bindingContext;",
-						"  }",
-						"  public TestBean getBean1() {",
-						"    return null;",
-						"  }",
-				"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private TestBean m_bean0;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+				%s
+				%s
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindSet(observeSet0, observeSet1, null, null);
+						return bindingContext;
+					}
+					public TestBean getBean1() {
+						return null;
+					}
+				}""".formatted(line0, line1));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1073,68 +1054,63 @@ public class BeanObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_observeDetailValue_1() throws Exception {
-		observeDetailValue("    IObservableValue observeDetailsValue = BeanProperties.value(\"empty\", boolean.class).observeDetail(observeValue0);");
+		observeDetailValue("		IObservableValue observeDetailsValue = BeanProperties.value(\"empty\", boolean.class).observeDetail(observeValue0);");
 	}
 
 	@Test
 	public void test_observeDetailValue_2() throws Exception {
-		observeDetailValue("    IObservableValue observeDetailsValue = BeanProperties.value(String.class, \"empty\", boolean.class).observeDetail(observeValue0);");
+		observeDetailValue("		IObservableValue observeDetailsValue = BeanProperties.value(String.class, \"empty\", boolean.class).observeDetail(observeValue0);");
 	}
 
 	private void observeDetailValue(String line) throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public int getValue() {",
-						"    return 0;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public int getValue() {
+						return 0;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  private TestBean m_bean0;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
-								line,
-								"    IObservableValue observeValue1 = BeanProperties.value(\"value\").observe(getBean1());",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindValue(observeDetailsValue, observeValue1, null, null);",
-								"    return bindingContext;",
-								"  }",
-								"  public TestBean getBean1() {",
-								"    return null;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private TestBean m_bean0;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue0 = BeanProperties.value("name").observe(m_bean0);
+				%s
+						IObservableValue observeValue1 = BeanProperties.value("value").observe(getBean1());
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeDetailsValue, observeValue1, null, null);
+						return bindingContext;
+					}
+					public TestBean getBean1() {
+						return null;
+					}
+				}""".formatted(line));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1184,59 +1160,54 @@ public class BeanObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_observeDetailList() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.List getValues() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.List getValues() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  private TestBean m_bean0;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
-								"    IObservableList observeDetailsList = BeanProperties.list(\"empty\", boolean.class).observeDetail(observeValue0);",
-								"    IObservableList observeList1 = BeanProperties.list(\"values\").observe(getBean1());",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindList(observeDetailsList, observeList1, null, null);",
-								"    return bindingContext;",
-								"  }",
-								"  public TestBean getBean1() {",
-								"    return null;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private TestBean m_bean0;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue0 = BeanProperties.value("name").observe(m_bean0);
+						IObservableList observeDetailsList = BeanProperties.list("empty", boolean.class).observeDetail(observeValue0);
+						IObservableList observeList1 = BeanProperties.list("values").observe(getBean1());
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindList(observeDetailsList, observeList1, null, null);
+						return bindingContext;
+					}
+					public TestBean getBean1() {
+						return null;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1300,59 +1271,54 @@ public class BeanObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_observeDetailSet() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.Set getValues() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.Set getValues() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  private TestBean m_bean0;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue0 = BeanProperties.value(\"name\").observe(m_bean0);",
-								"    IObservableSet observeDetailsSet = BeanProperties.set(\"empty\", boolean.class).observeDetail(observeValue0);",
-								"    IObservableSet observeSet1 = BeanProperties.set(\"values\").observe(getBean1());",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindSet(observeDetailsSet, observeSet1, null, null);",
-								"    return bindingContext;",
-								"  }",
-								"  public TestBean getBean1() {",
-								"    return null;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private TestBean m_bean0;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue0 = BeanProperties.value("name").observe(m_bean0);
+						IObservableSet observeDetailsSet = BeanProperties.set("empty", boolean.class).observeDetail(observeValue0);
+						IObservableSet observeSet1 = BeanProperties.set("values").observe(getBean1());
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindSet(observeDetailsSet, observeSet1, null, null);
+						return bindingContext;
+					}
+					public TestBean getBean1() {
+						return null;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1411,56 +1377,51 @@ public class BeanObservableTest extends AbstractBindingTest {
 	}
 
 	private void test_WritableList(String line) throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.List getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.List getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  private TestBean m_bean0;",
-								"  private java.util.ArrayList m_list;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableList observeList = BeanProperties.list(\"names\", java.lang.String.class).observe(Realm.getDefault(), m_bean0);",
-								line,
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindList(observeList, writableList, null, null);",
-								"    return bindingContext;",
-								"  }",
-								"  public TestBean getBean1() {",
-								"    return null;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private TestBean m_bean0;
+					private java.util.ArrayList m_list;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableList observeList = BeanProperties.list("names", java.lang.String.class).observe(Realm.getDefault(), m_bean0);
+				%s
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindList(observeList, writableList, null, null);
+						return bindingContext;
+					}
+					public TestBean getBean1() {
+						return null;
+					}
+				}""".formatted(line));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1527,56 +1488,51 @@ public class BeanObservableTest extends AbstractBindingTest {
 	}
 
 	private void test_WritableSet(String line) throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.Set getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.Set getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  private TestBean m_bean0;",
-								"  private java.util.HashSet m_set;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableSet observeSet = BeanProperties.set(\"names\", java.lang.String.class).observe(m_bean0);",
-								line,
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindSet(observeSet, writableSet, null, null);",
-								"    return bindingContext;",
-								"  }",
-								"  public TestBean getBean1() {",
-								"    return null;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					private TestBean m_bean0;
+					private java.util.HashSet m_set;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableSet observeSet = BeanProperties.set("names", java.lang.String.class).observe(m_bean0);
+				%s
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindSet(observeSet, writableSet, null, null);
+						return bindingContext;
+					}
+					public TestBean getBean1() {
+						return null;
+					}
+				}""".formatted(line));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();

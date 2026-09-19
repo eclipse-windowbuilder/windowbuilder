@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
 
@@ -31,25 +30,25 @@ public class PageLayoutGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_normal() throws Exception {
-		openJavaInfo(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    String editorArea = layout.getEditorArea();",
-				"    addFastViews(layout);",
-				"    addViewShortcuts(layout);",
-				"    addPerspectiveShortcuts(layout);",
-				"    layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.LEFT, 0.3f, editorArea);",
-				"    layout.addView('org.eclipse.jdt.ui.TypeHierarchy', IPageLayout.BOTTOM, 0.7f, editorArea);",
-				"  }",
-				"  private void addFastViews(IPageLayout layout) {",
-				"  }",
-				"  private void addViewShortcuts(IPageLayout layout) {",
-				"  }",
-				"  private void addPerspectiveShortcuts(IPageLayout layout) {",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						addFastViews(layout);
+						addViewShortcuts(layout);
+						addPerspectiveShortcuts(layout);
+						layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea);
+						layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea);
+					}
+					private void addFastViews(IPageLayout layout) {
+					}
+					private void addViewShortcuts(IPageLayout layout) {
+					}
+					private void addPerspectiveShortcuts(IPageLayout layout) {
+					}
+				}""");
 	}
 
 	/**
@@ -57,14 +56,14 @@ public class PageLayoutGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_referenceUnknownView() throws Exception {
-		openJavaInfo(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('my.View', IPageLayout.LEFT, 0.3f, 'unknownID');",
-				"  }",
-				"}");
+		openJavaInfo("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("my.View", IPageLayout.LEFT, 0.3f, "unknownID");
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -73,8 +72,9 @@ public class PageLayoutGefTest extends RcpGefTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected String[] getTestSource_decorate(String... lines) {
-		lines = CodeUtils.join(new String[]{"package test;", "import org.eclipse.ui.*;"}, lines);
-		return lines;
+	protected String getTestSource_decorate(String lines) {
+		return getSource("""
+				package test;
+				import org.eclipse.ui.*;""", lines);
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -51,60 +51,59 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_trailing_change_alignment_2component() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Button button1;",
-						"  private Button button2;",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      button1 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data1 = new FormData();",
-						"        data1.left = new FormAttachment(0, 20);",
-						"        button1.setLayoutData(data1);",
-						"      }",
-						"    }",
-						"    {",
-						"      button2 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data2 = new FormData();",
-						"        data2.left = new FormAttachment(0, 200);",
-						"        button2.setLayoutData(data2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								FormData data1 = new FormData();
+								data1.left = new FormAttachment(0, 20);
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							{
+								FormData data2 = new FormData();
+								data2.left = new FormAttachment(0, 200);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button1 = shell.getChildrenControls().get(0);
 		int x = 200 - button1.getModelBounds().width;
 		moveTo(shell, button1, x - 30, PlacementInfo.TRAILING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private Button button1;",
-				"  private Button button2;",
-				"  private FormData data1;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button1 = new Button(this, SWT.NONE);",
-				"      {",
-				"        data1 = new FormData();",
-				"        button1.setLayoutData(data1);",
-				"      }",
-				"    }",
-				"    {",
-				"      button2 = new Button(this, SWT.NONE);",
-				"      data1.right = new FormAttachment(button2, -30);",
-				"      {",
-				"        FormData data2 = new FormData();",
-				"        data2.left = new FormAttachment(0, 200);",
-				"        button2.setLayoutData(data2);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					private FormData data1;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								data1 = new FormData();
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							data1.right = new FormAttachment(button2, -30);
+							{
+								FormData data2 = new FormData();
+								data2.left = new FormAttachment(0, 200);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -113,58 +112,57 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_leading_change_alignment_2component() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Button button1;",
-						"  private Button button2;",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      button1 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data1 = new FormData();",
-						"        data1.left = new FormAttachment(0, 20);",
-						"        button1.setLayoutData(data1);",
-						"      }",
-						"    }",
-						"    {",
-						"      button2 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data2 = new FormData();",
-						"        data2.right = new FormAttachment(100, -20);",
-						"        button2.setLayoutData(data2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								FormData data1 = new FormData();
+								data1.left = new FormAttachment(0, 20);
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							{
+								FormData data2 = new FormData();
+								data2.right = new FormAttachment(100, -20);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button2 = shell.getChildrenControls().get(1);
 		moveTo(shell, button2, 110, PlacementInfo.LEADING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"	private Button button1;",
-				"	private Button button2;",
-				"	public Test() {",
-				"		setLayout(new FormLayout());",
-				"		{",
-				"			button1 = new Button(this, SWT.NONE);",
-				"			{",
-				"				FormData data1 = new FormData();",
-				"				data1.left = new FormAttachment(0, 20);",
-				"				button1.setLayoutData(data1);",
-				"			}",
-				"		}",
-				"		{",
-				"			button2 = new Button(this, SWT.NONE);",
-				"			{",
-				"				FormData data2 = new FormData();",
-				"				data2.left = new FormAttachment(button1, 15);",
-				"				button2.setLayoutData(data2);",
-				"			}",
-				"		}",
-				"	}",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								FormData data1 = new FormData();
+								data1.left = new FormAttachment(0, 20);
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							{
+								FormData data2 = new FormData();
+								data2.left = new FormAttachment(button1, 15);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -173,61 +171,60 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_trailing_keep_alignment_2component() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Button button1;",
-						"  private Button button2;",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      button1 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data1 = new FormData();",
-						"        data1.right = new FormAttachment(100, -320);",
-						"        button1.setLayoutData(data1);",
-						"      }",
-						"    }",
-						"    {",
-						"      button2 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data2 = new FormData();",
-						"        data2.right = new FormAttachment(100, -20);",
-						"        button2.setLayoutData(data2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								FormData data1 = new FormData();
+								data1.right = new FormAttachment(100, -320);
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							{
+								FormData data2 = new FormData();
+								data2.right = new FormAttachment(100, -20);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button1 = shell.getChildrenControls().get(0);
 		ControlInfo button2 = shell.getChildrenControls().get(1);
 		int x = button2.getModelBounds().x - button1.getModelBounds().width;
 		moveTo(shell, button1, x - 20, PlacementInfo.TRAILING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private Button button1;",
-				"  private Button button2;",
-				"  private FormData data1;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button1 = new Button(this, SWT.NONE);",
-				"      {",
-				"        data1 = new FormData();",
-				"        button1.setLayoutData(data1);",
-				"      }",
-				"    }",
-				"    {",
-				"      button2 = new Button(this, SWT.NONE);",
-				"      data1.right = new FormAttachment(button2, -20);",
-				"      {",
-				"        FormData data2 = new FormData();",
-				"        data2.right = new FormAttachment(100, -20);",
-				"        button2.setLayoutData(data2);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					private FormData data1;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								data1 = new FormData();
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							data1.right = new FormAttachment(button2, -20);
+							{
+								FormData data2 = new FormData();
+								data2.right = new FormAttachment(100, -20);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -236,58 +233,57 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_leading_keep_alignment_2component() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Button button1;",
-						"  private Button button2;",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      button1 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data1 = new FormData();",
-						"        data1.left = new FormAttachment(0, 20);",
-						"        button1.setLayoutData(data1);",
-						"      }",
-						"    }",
-						"    {",
-						"      button2 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data2 = new FormData();",
-						"        data2.left = new FormAttachment(0, 200);",
-						"        button2.setLayoutData(data2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								FormData data1 = new FormData();
+								data1.left = new FormAttachment(0, 20);
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							{
+								FormData data2 = new FormData();
+								data2.left = new FormAttachment(0, 200);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button2 = shell.getChildrenControls().get(1);
 		moveTo(shell, button2, 120, PlacementInfo.LEADING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private Button button1;",
-				"  private Button button2;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button1 = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData data1 = new FormData();",
-				"        data1.left = new FormAttachment(0, 20);",
-				"        button1.setLayoutData(data1);",
-				"      }",
-				"    }",
-				"    {",
-				"      button2 = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData data2 = new FormData();",
-				"        data2.left = new FormAttachment(button1, 25);",
-				"        button2.setLayoutData(data2);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								FormData data1 = new FormData();
+								data1.left = new FormAttachment(0, 20);
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							{
+								FormData data2 = new FormData();
+								data2.left = new FormAttachment(button1, 25);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -297,58 +293,57 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_trailing_no_constraints_2component() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  private Button button1;",
-						"  private Button button2;",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      button1 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data1 = new FormData();",
-						"        button1.setLayoutData(data1);",
-						"      }",
-						"    }",
-						"    {",
-						"      button2 = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData data2 = new FormData();",
-						"        data2.left = new FormAttachment(0, 200);",
-						"        button2.setLayoutData(data2);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								FormData data1 = new FormData();
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							{
+								FormData data2 = new FormData();
+								data2.left = new FormAttachment(0, 200);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button1 = shell.getChildrenControls().get(0);
 		moveTo(shell, button1, 100, PlacementInfo.TRAILING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private Button button1;",
-				"  private Button button2;",
-				"  private FormData data1;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button1 = new Button(this, SWT.NONE);",
-				"      {",
-				"        data1 = new FormData();",
-				"        button1.setLayoutData(data1);",
-				"      }",
-				"    }",
-				"    {",
-				"      button2 = new Button(this, SWT.NONE);",
-				"      data1.right = new FormAttachment(button2, -25);",
-				"      {",
-				"        FormData data2 = new FormData();",
-				"        data2.left = new FormAttachment(0, 200);",
-				"        button2.setLayoutData(data2);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private Button button1;
+					private Button button2;
+					private FormData data1;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button1 = new Button(this, SWT.NONE);
+							{
+								data1 = new FormData();
+								button1.setLayoutData(data1);
+							}
+						}
+						{
+							button2 = new Button(this, SWT.NONE);
+							data1.right = new FormAttachment(button2, -25);
+							{
+								FormData data2 = new FormData();
+								data2.left = new FormAttachment(0, 200);
+								button2.setLayoutData(data2);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -357,38 +352,37 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_trailing_no_constraints() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData formData = new FormData();",
-						"        button.setLayoutData(formData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		//
 		moveTo(shell, button, 50, PlacementInfo.TRAILING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData formData = new FormData();",
-				"        formData.left = new FormAttachment(0, 50);",
-				"        button.setLayoutData(formData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.left = new FormAttachment(0, 50);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -397,43 +391,42 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_trailing_change_alignment() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData formData = new FormData();",
-						"        formData.left = new FormAttachment(0, 20);",
-						"        button.setLayoutData(formData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.left = new FormAttachment(0, 20);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 		refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		//
 		int shellWidth = shell.getClientArea().width;
 		int x = shellWidth - button.getModelBounds().width;
 		moveTo(shell, button, x - 30, PlacementInfo.TRAILING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData formData = new FormData();",
-				"        formData.right = new FormAttachment(100, -30);",
-				"        button.setLayoutData(formData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.right = new FormAttachment(100, -30);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -442,39 +435,38 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_leading_change_alignment() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData formData = new FormData();",
-						"        formData.right = new FormAttachment(100, -10);",
-						"        button.setLayoutData(formData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.right = new FormAttachment(100, -10);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		//
 		moveTo(shell, button, 10, PlacementInfo.LEADING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData formData = new FormData();",
-				"        formData.left = new FormAttachment(0, 10);",
-				"        button.setLayoutData(formData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.left = new FormAttachment(0, 10);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -483,43 +475,42 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_trailing_keep_alignment() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData formData = new FormData();",
-						"        formData.right = new FormAttachment(100, -60);",
-						"        button.setLayoutData(formData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.right = new FormAttachment(100, -60);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		//
 		int shellWidth = shell.getClientArea().width;
 		int x = shellWidth - button.getModelBounds().width;
 		moveTo(shell, button, x - 10, PlacementInfo.TRAILING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData formData = new FormData();",
-				"        formData.right = new FormAttachment(100, -10);",
-				"        button.setLayoutData(formData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.right = new FormAttachment(100, -10);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -528,39 +519,38 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	@Test
 	public void test_move_to_leading_keep_alignment() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        FormData formData = new FormData();",
-						"        formData.left = new FormAttachment(0, 60);",
-						"        button.setLayoutData(formData);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.left = new FormAttachment(0, 60);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = getJavaInfoByName("button");
 		//
 		moveTo(shell, button, 10, PlacementInfo.LEADING);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData formData = new FormData();",
-				"        formData.left = new FormAttachment(0, 10);",
-				"        button.setLayoutData(formData);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData formData = new FormData();
+								formData.left = new FormAttachment(0, 10);
+								button.setLayoutData(formData);
+							}
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -595,19 +585,17 @@ public class FormLayoutMoveSingleWithSingleSideTest extends RcpModelTest {
 	}
 
 	private void prepareComponent(int width, int height) throws Exception {
-		setFileContentSrc(
-				"test/Button.java",
-				getTestSource(
-						"public class Button extends org.eclipse.swt.widgets.Button {",
-						"  public Button(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  protected void checkSubclass () {",
-						"  }",
-						"  public Point computeSize (int wHint, int hHint, boolean changed) {",
-						"    return new Point(" + width + ", " + height + ");",
-						"  }",
-						"}"));
+		setFileContentSrc("test/Button.java", getTestSource("""
+				public class Button extends org.eclipse.swt.widgets.Button {
+					public Button(Composite parent, int style) {
+						super(parent, style);
+					}
+					protected void checkSubclass () {
+					}
+					public Point computeSize (int wHint, int hHint, boolean changed) {
+						return new Point(%d, %d);
+					}
+				}""".formatted(width, height)));
 		waitForAutoBuild();
 	}
 }

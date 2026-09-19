@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -43,18 +43,17 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_getAlignment_single_noConstraints() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      FormData data = new FormData();",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							FormData data = new FormData();
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertEquals(PlacementInfo.LEADING, getImpl(shell).getAlignment(button, true).alignment);
@@ -62,19 +61,18 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 
 	@Test
 	public void test_getAlignment_single_left() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(0, 50);",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							FormData data = new FormData();
+							data.left = new FormAttachment(0, 50);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertEquals(PlacementInfo.LEADING, getImpl(shell).getAlignment(button, true).alignment);
@@ -82,19 +80,18 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 
 	@Test
 	public void test_getAlignment_single_right() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      FormData data = new FormData();",
-						"      data.right = new FormAttachment(100, -50);",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							FormData data = new FormData();
+							data.right = new FormAttachment(100, -50);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertEquals(PlacementInfo.TRAILING, getImpl(shell).getAlignment(button, true).alignment);
@@ -102,19 +99,18 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 
 	@Test
 	public void test_getAlignment_single_left_as_trailing() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(100, -50);",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							FormData data = new FormData();
+							data.left = new FormAttachment(100, -50);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertEquals(PlacementInfo.TRAILING, getImpl(shell).getAlignment(button, true).alignment);
@@ -122,20 +118,19 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 
 	@Test
 	public void test_getAlignment_single_forBothSidesAttached_right() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      FormData data = new FormData();",
-						"      data.right = new FormAttachment(100, -50);",
-						"      data.left = new FormAttachment(100, -150);",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							FormData data = new FormData();
+							data.right = new FormAttachment(100, -50);
+							data.left = new FormAttachment(100, -150);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertEquals(PlacementInfo.TRAILING, getImpl(shell).getAlignment(button, true).alignment);
@@ -143,20 +138,19 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 
 	@Test
 	public void test_getAlignment_single_forBothSidesAttached_left() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(0, 50);",
-						"      data.right = new FormAttachment(0, 150);",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							FormData data = new FormData();
+							data.left = new FormAttachment(0, 50);
+							data.right = new FormAttachment(0, 150);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertEquals(PlacementInfo.LEADING, getImpl(shell).getAlignment(button, true).alignment);
@@ -164,20 +158,19 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 
 	@Test
 	public void test_getAlignment_single_forBothSidesAttached_left_and_right() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(0, 50);",
-						"      data.right = new FormAttachment(100, -150);",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							FormData data = new FormData();
+							data.left = new FormAttachment(0, 50);
+							data.right = new FormAttachment(100, -150);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertTrue(getImpl(shell).getAlignment(button, true).resizable);
@@ -186,20 +179,19 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 	@Test
 	public void test_getAlignment_single_forBothSidesAttached_left_and_right_numerators()
 			throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(50, 0);",
-						"      data.right = new FormAttachment(100, -150);",
-						"      button.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							FormData data = new FormData();
+							data.left = new FormAttachment(50, 0);
+							data.right = new FormAttachment(100, -150);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		assertTrue(getImpl(shell).getAlignment(button, true).resizable);
@@ -207,28 +199,27 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 
 	@Test
 	public void test_getAlignment_complex_forBothSidesAttached_left_and_right() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    Button button1 = new Button(this, SWT.NONE);",
-						"    button1.setText(\"Button 1\");",
-						"    Button button2 = new Button(this, SWT.NONE);",
-						"    button2.setText(\"Button 2\");",
-						"    {",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(0, 40);",
-						"      button1.setLayoutData(data);",
-						"    }",
-						"    {",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(button1, 20);",
-						"      data.right = new FormAttachment(100, -120);",
-						"      button2.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						Button button1 = new Button(this, SWT.NONE);
+						button1.setText("Button 1");
+						Button button2 = new Button(this, SWT.NONE);
+						button2.setText("Button 2");
+						{
+							FormData data = new FormData();
+							data.left = new FormAttachment(0, 40);
+							button1.setLayoutData(data);
+						}
+						{
+							FormData data = new FormData();
+							data.left = new FormAttachment(button1, 20);
+							data.right = new FormAttachment(100, -120);
+							button2.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(1);
 		assertTrue(getImpl(shell).getAlignment(button, true).resizable);
@@ -237,29 +228,28 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 	@Test
 	public void test_getAlignment_complex_forBothSidesAttached_left_and_right_indirect()
 			throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    Button button1 = new Button(this, SWT.NONE);",
-						"    button1.setText(\"Button 1\");",
-						"    Button button2 = new Button(this, SWT.NONE);",
-						"    button2.setText(\"Button 2\");",
-						"    {",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(0, 50);",
-						"      data.right = new FormAttachment(100, -150);",
-						"      button1.setLayoutData(data);",
-						"    }",
-						"    {",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(button1, 10, SWT.LEFT);",
-						"      data.right = new FormAttachment(button1, 0, SWT.RIGHT);",
-						"      button2.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						Button button1 = new Button(this, SWT.NONE);
+						button1.setText("Button 1");
+						Button button2 = new Button(this, SWT.NONE);
+						button2.setText("Button 2");
+						{
+							FormData data = new FormData();
+							data.left = new FormAttachment(0, 50);
+							data.right = new FormAttachment(100, -150);
+							button1.setLayoutData(data);
+						}
+						{
+							FormData data = new FormData();
+							data.left = new FormAttachment(button1, 10, SWT.LEFT);
+							data.right = new FormAttachment(button1, 0, SWT.RIGHT);
+							button2.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button1 = shell.getChildrenControls().get(1);
 		ControlInfo button2 = shell.getChildrenControls().get(1);
@@ -270,29 +260,28 @@ public class FormLayoutAlignmentDetectionTest extends RcpModelTest {
 	@Test
 	public void test_getAlignment_complex_forBothSidesAttached_notResizeable_indirect()
 			throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    Button button1 = new Button(this, SWT.NONE);",
-						"    button1.setText(\"Button 1\");",
-						"    Button button2 = new Button(this, SWT.NONE);",
-						"    button2.setText(\"Button 2\");",
-						"    {",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(0, 50);",
-						"      data.right = new FormAttachment(0, 150);",
-						"      button1.setLayoutData(data);",
-						"    }",
-						"    {",
-						"      FormData data = new FormData();",
-						"      data.left = new FormAttachment(button1, 10, SWT.LEFT);",
-						"      data.right = new FormAttachment(button1, 0, SWT.RIGHT);",
-						"      button2.setLayoutData(data);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						Button button1 = new Button(this, SWT.NONE);
+						button1.setText("Button 1");
+						Button button2 = new Button(this, SWT.NONE);
+						button2.setText("Button 2");
+						{
+							FormData data = new FormData();
+							data.left = new FormAttachment(0, 50);
+							data.right = new FormAttachment(0, 150);
+							button1.setLayoutData(data);
+						}
+						{
+							FormData data = new FormData();
+							data.left = new FormAttachment(button1, 10, SWT.LEFT);
+							data.right = new FormAttachment(button1, 0, SWT.RIGHT);
+							button2.setLayoutData(data);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button1 = shell.getChildrenControls().get(1);
 		ControlInfo button2 = shell.getChildrenControls().get(1);

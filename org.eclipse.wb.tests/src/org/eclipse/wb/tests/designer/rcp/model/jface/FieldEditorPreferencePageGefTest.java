@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -42,16 +42,15 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_canvas() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				(FieldEditorPreferencePageInfo) openJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = (FieldEditorPreferencePageInfo) openJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+					}
+				}""");
 		// create "BooleanFieldEditor"
 		JavaInfo booleanFieldEditor;
 		{
@@ -60,16 +59,16 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 			canvas.target(page).in(300, 100).move();
 			canvas.click();
 			waitEventLoop(0);
-			assertEditor(
-					"import org.eclipse.jface.preference.*;",
-					"public class Test extends FieldEditorPreferencePage {",
-					"  public Test() {",
-					"    super(FLAT);",
-					"  }",
-					"  protected void createFieldEditors() {",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"  }",
-					"}");
+			assertEditor("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+						}
+					}""");
 		}
 		// create "StringFieldEditor" before "BooleanFieldEditor"
 		JavaInfo stringFieldEditor;
@@ -79,17 +78,17 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 			canvas.target(booleanFieldEditor).inX(0).outY(-1).move();
 			canvas.click();
 			waitEventLoop(0);
-			assertEditor(
-					"import org.eclipse.jface.preference.*;",
-					"public class Test extends FieldEditorPreferencePage {",
-					"  public Test() {",
-					"    super(FLAT);",
-					"  }",
-					"  protected void createFieldEditors() {",
-					"    addField(new StringFieldEditor('id', 'New StringFieldEditor', -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"  }",
-					"}");
+			assertEditor("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+							addField(new StringFieldEditor("id", "New StringFieldEditor", -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+						}
+					}""");
 		}
 		// move "BooleanFieldEditor" before "StringFieldEditor"
 		{
@@ -97,17 +96,17 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 			canvas.target(stringFieldEditor).inX(0).outY(-1).drag();
 			canvas.endDrag();
 			waitEventLoop(0);
-			assertEditor(
-					"import org.eclipse.jface.preference.*;",
-					"public class Test extends FieldEditorPreferencePage {",
-					"  public Test() {",
-					"    super(FLAT);",
-					"  }",
-					"  protected void createFieldEditors() {",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"    addField(new StringFieldEditor('id', 'New StringFieldEditor', -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));",
-					"  }",
-					"}");
+			assertEditor("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+							addField(new StringFieldEditor("id", "New StringFieldEditor", -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));
+						}
+					}""");
 		}
 		// copy/paste "BooleanFieldEditor"
 		{
@@ -116,49 +115,48 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 			canvas.target(stringFieldEditor).inX(10).outY(1).move();
 			canvas.click();
 			waitEventLoop(0);
-			assertEditor(
-					"import org.eclipse.jface.preference.*;",
-					"public class Test extends FieldEditorPreferencePage {",
-					"  public Test() {",
-					"    super(FLAT);",
-					"  }",
-					"  protected void createFieldEditors() {",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"    addField(new StringFieldEditor('id', 'New StringFieldEditor', -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"  }",
-					"}");
+			assertEditor("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+							addField(new StringFieldEditor("id", "New StringFieldEditor", -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_tree() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				(FieldEditorPreferencePageInfo) openJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = (FieldEditorPreferencePageInfo) openJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+					}
+				}""");
 		// create "BooleanFieldEditor"
 		JavaInfo booleanFieldEditor;
 		{
 			booleanFieldEditor = loadCreationTool("org.eclipse.jface.preference.BooleanFieldEditor");
 			tree.moveOn(page).click();
 			waitEventLoop(0);
-			assertEditor(
-					"import org.eclipse.jface.preference.*;",
-					"public class Test extends FieldEditorPreferencePage {",
-					"  public Test() {",
-					"    super(FLAT);",
-					"  }",
-					"  protected void createFieldEditors() {",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"  }",
-					"}");
+			assertEditor("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+						}
+					}""");
 		}
 		// create "StringFieldEditor" before "BooleanFieldEditor"
 		JavaInfo stringFieldEditor;
@@ -166,17 +164,17 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 			stringFieldEditor = loadCreationTool("org.eclipse.jface.preference.StringFieldEditor");
 			tree.moveBefore(booleanFieldEditor).click();
 			waitEventLoop(0);
-			assertEditor(
-					"import org.eclipse.jface.preference.*;",
-					"public class Test extends FieldEditorPreferencePage {",
-					"  public Test() {",
-					"    super(FLAT);",
-					"  }",
-					"  protected void createFieldEditors() {",
-					"    addField(new StringFieldEditor('id', 'New StringFieldEditor', -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"  }",
-					"}");
+			assertEditor("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+							addField(new StringFieldEditor("id", "New StringFieldEditor", -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+						}
+					}""");
 		}
 		// move "BooleanFieldEditor" before "StringFieldEditor"
 		{
@@ -184,35 +182,35 @@ public class FieldEditorPreferencePageGefTest extends RcpGefTest {
 			tree.dragBefore(stringFieldEditor);
 			tree.endDrag();
 			waitEventLoop(0);
-			assertEditor(
-					"import org.eclipse.jface.preference.*;",
-					"public class Test extends FieldEditorPreferencePage {",
-					"  public Test() {",
-					"    super(FLAT);",
-					"  }",
-					"  protected void createFieldEditors() {",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"    addField(new StringFieldEditor('id', 'New StringFieldEditor', -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));",
-					"  }",
-					"}");
+			assertEditor("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+							addField(new StringFieldEditor("id", "New StringFieldEditor", -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));
+						}
+					}""");
 		}
 		// copy/paste "BooleanFieldEditor"
 		{
 			doCopyPaste(booleanFieldEditor);
 			tree.moveOn(page).click();
 			waitEventLoop(0);
-			assertEditor(
-					"import org.eclipse.jface.preference.*;",
-					"public class Test extends FieldEditorPreferencePage {",
-					"  public Test() {",
-					"    super(FLAT);",
-					"  }",
-					"  protected void createFieldEditors() {",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"    addField(new StringFieldEditor('id', 'New StringFieldEditor', -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));",
-					"    addField(new BooleanFieldEditor('id', 'New BooleanFieldEditor', BooleanFieldEditor.DEFAULT, getFieldEditorParent()));",
-					"  }",
-					"}");
+			assertEditor("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+							addField(new StringFieldEditor("id", "New StringFieldEditor", -1, StringFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent()));
+							addField(new BooleanFieldEditor("id", "New BooleanFieldEditor", BooleanFieldEditor.DEFAULT, getFieldEditorParent()));
+						}
+					}""");
 		}
 	}
 }

@@ -77,30 +77,29 @@ public class MenuManagerGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		ApplicationWindowInfo window =
-				(ApplicationWindowInfo) openJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action = new Action(\"The Action\") {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    {",
-						"      MenuManager menuManager_1 = new MenuManager(\"Menu 1\");",
-						"      menuManager.add(menuManager_1);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = (ApplicationWindowInfo) openJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action(\"The Action\") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager menuManager_1 = new MenuManager(\"Menu 1\");
+							menuManager.add(menuManager_1);
+						}
+						return menuManager;
+					}
+				}""");
 		MenuManagerInfo menuManagerInfo = window.getChildren(MenuManagerInfo.class).get(0);
 		MenuManagerInfo menuManagerInfo_1 = (MenuManagerInfo) menuManagerInfo.getItems().get(0);
 		// prepare Menu models
@@ -141,63 +140,62 @@ public class MenuManagerGefTest extends RcpGefTest {
 			canvas.click();
 		}
 		// check source
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  private IAction action;",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    createActions();",
-				"    addMenuBar();",
-				"  }",
-				"  private void createActions() {",
-				"    action = new Action('The Action') {",
-				"    };",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    {",
-				"      MenuManager menuManager_1 = new MenuManager('Menu 1');",
-				"      menuManager.add(menuManager_1);",
-				"      menuManager_1.add(action);",
-				"    }",
-				"    return menuManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action("The Action") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager menuManager_1 = new MenuManager("Menu 1");
+							menuManager.add(menuManager_1);
+							menuManager_1.add(action);
+						}
+						return menuManager;
+					}
+				}""");
 	}
 
 	@Test
 	public void test_MOVE() throws Exception {
-		ApplicationWindowInfo window =
-				(ApplicationWindowInfo) openJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction action;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"    createActions();",
-						"    addMenuBar();",
-						"  }",
-						"  private void createActions() {",
-						"    action = new Action(\"The Action\") {",
-						"    };",
-						"  }",
-						"  protected MenuManager createMenuManager() {",
-						"    MenuManager menuManager = super.createMenuManager();",
-						"    {",
-						"      MenuManager menuManager_1 = new MenuManager(\"Menu 1\");",
-						"      menuManager_1.add(action);",
-						"      menuManager.add(menuManager_1);",
-						"    }",
-						"    {",
-						"      MenuManager menuManager_2 = new MenuManager(\"Menu 2\");",
-						"      menuManager.add(menuManager_2);",
-						"    }",
-						"    return menuManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = (ApplicationWindowInfo) openJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action(\"The Action\") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager menuManager_1 = new MenuManager(\"Menu 1\");
+							menuManager_1.add(action);
+							menuManager.add(menuManager_1);
+						}
+						{
+							MenuManager menuManager_2 = new MenuManager(\"Menu 2\");
+							menuManager.add(menuManager_2);
+						}
+						return menuManager;
+					}
+				}""");
 		MenuManagerInfo menuManagerInfo = window.getChildren(MenuManagerInfo.class).get(0);
 		MenuManagerInfo menuManagerInfo_1 = (MenuManagerInfo) menuManagerInfo.getItems().get(0);
 		MenuManagerInfo menuManagerInfo_2 = (MenuManagerInfo) menuManagerInfo.getItems().get(1);
@@ -261,33 +259,33 @@ public class MenuManagerGefTest extends RcpGefTest {
 			canvas.endDrag();
 		}
 		// check source
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  private IAction action;",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    createActions();",
-				"    addMenuBar();",
-				"  }",
-				"  private void createActions() {",
-				"    action = new Action('The Action') {",
-				"    };",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = super.createMenuManager();",
-				"    {",
-				"      MenuManager menuManager_1 = new MenuManager('Menu 1');",
-				"      menuManager.add(menuManager_1);",
-				"    }",
-				"    {",
-				"      MenuManager menuManager_2 = new MenuManager('Menu 2');",
-				"      menuManager.add(menuManager_2);",
-				"      menuManager_2.add(action);",
-				"    }",
-				"    return menuManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						action = new Action("The Action") {
+						};
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = super.createMenuManager();
+						{
+							MenuManager menuManager_1 = new MenuManager("Menu 1");
+							menuManager.add(menuManager_1);
+						}
+						{
+							MenuManager menuManager_2 = new MenuManager("Menu 2");
+							menuManager.add(menuManager_2);
+							menuManager_2.add(action);
+						}
+						return menuManager;
+					}
+				}""");
 	}
 }

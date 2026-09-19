@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -49,25 +49,25 @@ public class TitleAreaDialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_0() throws Exception {
-		parseJavaInfo(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.TitleAreaDialog {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Control createDialogArea(Composite parent) {",
-				"    Composite container = (Composite) super.createDialogArea(parent);",
-				"    Button button = new Button(container, SWT.NONE);",
-				"    return container;",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.TitleAreaDialog} {this} {}",
-				"  {parameter} {parent} {/super.createDialogArea(parent)/}",
-				"    {casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /new Button(container, SWT.NONE)/ /container/}",
-				"      {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"      {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(container, SWT.NONE)/}",
-				"        {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.TitleAreaDialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						Composite container = (Composite) super.createDialogArea(parent);
+						Button button = new Button(container, SWT.NONE);
+						return container;
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.TitleAreaDialog} {this} {}
+					{parameter} {parent} {/super.createDialogArea(parent)/}
+						{casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /new Button(container, SWT.NONE)/ /container/}
+							{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+							{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(container, SWT.NONE)/}
+								{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 	}
 
 	/**
@@ -78,37 +78,36 @@ public class TitleAreaDialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_titleAreaProperties() throws Exception {
-		TitleAreaDialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.TitleAreaDialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createDialogArea(Composite parent) {",
-						"    Composite container = (Composite) super.createDialogArea(parent);",
-						"    return container;",
-						"  }",
-						"}");
+		TitleAreaDialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.TitleAreaDialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						Composite container = (Composite) super.createDialogArea(parent);
+						return container;
+					}
+				}""");
 		// set properties
 		dialog.getPropertyByTitle("title").setValue("The title.");
 		dialog.getPropertyByTitle("message").setValue("The message.");
 		((GenericProperty) dialog.getPropertyByTitle("titleImage")).setExpression(
 				"null",
 				Property.UNKNOWN_VALUE);
-		assertEditor(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.TitleAreaDialog {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Control createDialogArea(Composite parent) {",
-				"    setTitleImage(null);",
-				"    setMessage('The message.');",
-				"    setTitle('The title.');",
-				"    Composite container = (Composite) super.createDialogArea(parent);",
-				"    return container;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.TitleAreaDialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						setTitleImage(null);
+						setMessage("The message.");
+						setTitle("The title.");
+						Composite container = (Composite) super.createDialogArea(parent);
+						return container;
+					}
+				}""");
 	}
 }

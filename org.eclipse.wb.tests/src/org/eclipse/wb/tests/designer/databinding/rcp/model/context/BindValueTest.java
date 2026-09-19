@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,40 +41,37 @@ public class BindValueTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_bindValue() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindValue(observeWidget, observeValue, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget, observeValue, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -121,56 +118,53 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_bindValue_variable_1() throws Exception {
 		bindValue_variable(
-				"  //",
-				"    Binding binding = bindingContext.bindValue(observeWidget, observeValue, null, null);",
+				"	//",
+				"		Binding binding = bindingContext.bindValue(observeWidget, observeValue, null, null);",
 				"binding");
 	}
 
 	@Test
 	public void test_bindValue_variable_2() throws Exception {
 		bindValue_variable(
-				"  Binding m_binding;",
-				"    m_binding = bindingContext.bindValue(observeWidget, observeValue, null, null);",
+				"	Binding m_binding;",
+				"		m_binding = bindingContext.bindValue(observeWidget, observeValue, null, null);",
 				"m_binding");
 	}
 
 	private void bindValue_variable(String line0, String line1, String testString) throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.core.databinding.Binding;",
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								line0,
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								line1,
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.core.databinding.Binding;
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+				%s
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+				%s
+						return bindingContext;
+					}
+				}""".formatted(line0, line1));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -189,7 +183,7 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_constructors_1() throws Exception {
 		strategy_constructors(
-				"    bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_NEVER));",
+				"		bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_NEVER));",
 				UpdateValueStrategyInfo.Value.POLICY_NEVER,
 				"POLICY_NEVER|POLICY_NEVER");
 	}
@@ -197,7 +191,7 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_constructors_2() throws Exception {
 		strategy_constructors(
-				"    bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_ON_REQUEST));",
+				"		bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_ON_REQUEST));",
 				UpdateValueStrategyInfo.Value.POLICY_ON_REQUEST,
 				"POLICY_ON_REQUEST|POLICY_ON_REQUEST");
 	}
@@ -205,7 +199,7 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_constructors_3() throws Exception {
 		strategy_constructors(
-				"    bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_CONVERT));",
+				"		bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_CONVERT));",
 				UpdateValueStrategyInfo.Value.POLICY_CONVERT,
 				"POLICY_CONVERT|POLICY_CONVERT");
 	}
@@ -213,47 +207,44 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_constructors_4() throws Exception {
 		strategy_constructors(
-				"    bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_UPDATE));",
+				"		bindingContext.bindValue(observeWidget, observeValue, new UpdateValueStrategy(), new UpdateValueStrategy(UpdateValueStrategy.POLICY_UPDATE));",
 				UpdateValueStrategyInfo.Value.POLICY_UPDATE,
 				"POLICY_UPDATE|POLICY_UPDATE");
 	}
 
 	private void strategy_constructors(String line, Object value, String presentation)
 			throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								line,
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+				%s
+						return bindingContext;
+					}
+				}""".formatted(line));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -282,42 +273,39 @@ public class BindValueTest extends AbstractBindingTest {
 
 	@Test
 	public void test_strategy_variable() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    UpdateValueStrategy strategy0 = new UpdateValueStrategy();",
-								"    UpdateValueStrategy strategy1 = new UpdateValueStrategy(UpdateValueStrategy.POLICY_NEVER);",
-								"    bindingContext.bindValue(observeWidget, observeValue, strategy0, strategy1);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						UpdateValueStrategy strategy0 = new UpdateValueStrategy();
+						UpdateValueStrategy strategy1 = new UpdateValueStrategy(UpdateValueStrategy.POLICY_NEVER);
+						bindingContext.bindValue(observeWidget, observeValue, strategy0, strategy1);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -346,44 +334,41 @@ public class BindValueTest extends AbstractBindingTest {
 
 	@Test
 	public void test_strategy_policy_variable() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  int m_policy = UpdateValueStrategy.POLICY_NEVER;",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    int policy = UpdateValueStrategy.POLICY_UPDATE;",
-								"    UpdateValueStrategy strategy0 = new UpdateValueStrategy(policy);",
-								"    UpdateValueStrategy strategy1 = new UpdateValueStrategy(m_policy);",
-								"    bindingContext.bindValue(observeWidget, observeValue, strategy0, strategy1);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					int m_policy = UpdateValueStrategy.POLICY_NEVER;
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						int policy = UpdateValueStrategy.POLICY_UPDATE;
+						UpdateValueStrategy strategy0 = new UpdateValueStrategy(policy);
+						UpdateValueStrategy strategy1 = new UpdateValueStrategy(m_policy);
+						bindingContext.bindValue(observeWidget, observeValue, strategy0, strategy1);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -412,46 +397,43 @@ public class BindValueTest extends AbstractBindingTest {
 
 	@Test
 	public void test_strategy_z_extendet() throws Exception {
-		createModelCompilationUnit("test", "TestStrategy.java", DatabindingTestUtils.getTestSource(
-				"public class TestStrategy extends UpdateValueStrategy {",
-				"  public TestStrategy() {",
-				"  }",
-				"}"));
+		createModelCompilationUnit("test", "TestStrategy.java", DatabindingTestUtils.getTestSource("""
+				public class TestStrategy extends UpdateValueStrategy {
+					public TestStrategy() {
+					}
+				}"""));
 		waitForAutoBuild();
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindValue(observeWidget, observeValue, null, new test.TestStrategy());",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget, observeValue, null, new test.TestStrategy());
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -481,67 +463,64 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_converter_1() throws Exception {
 		strategy_converter(
-				"    strategy.setConverter(new TestConverter());",
-				"    //",
+				"		strategy.setConverter(new TestConverter());",
+				"		//",
 				"null|test.TestConverter|TestConverter");
 	}
 
 	@Test
 	public void test_strategy_converter_2() throws Exception {
 		strategy_converter(
-				"    TestConverter converter = new TestConverter();",
-				"    strategy.setConverter(converter);",
+				"		TestConverter converter = new TestConverter();",
+				"		strategy.setConverter(converter);",
 				"converter|test.TestConverter|TestConverter");
 	}
 
 	private void strategy_converter(String line0, String line1, String testString) throws Exception {
-		createModelCompilationUnit("test", "TestConverter.java", DatabindingTestUtils.getTestSource(
-				"public class TestConverter extends Converter {",
-				"  public TestConverter() {",
-				"    super(null, null);",
-				"  }",
-				"  public Object convert(Object fromObject) {",
-				"    return null;",
-				"  }",
-				"}"));
+		createModelCompilationUnit("test", "TestConverter.java", DatabindingTestUtils.getTestSource("""
+				public class TestConverter extends Converter {
+					public TestConverter() {
+						super(null, null);
+					}
+					public Object convert(Object fromObject) {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    UpdateValueStrategy strategy = new UpdateValueStrategy();",
-								line0,
-								line1,
-								"    bindingContext.bindValue(observeWidget, observeValue, null, strategy);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						UpdateValueStrategy strategy = new UpdateValueStrategy();
+				%s
+				%s
+						bindingContext.bindValue(observeWidget, observeValue, null, strategy);
+						return bindingContext;
+					}
+				}""".formatted(line0, line1));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -575,8 +554,8 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_AfterConvertValidator_1() throws Exception {
 		strategy_validator(
-				"    strategy.setAfterConvertValidator(new TestValidator());",
-				"    //",
+				"		strategy.setAfterConvertValidator(new TestValidator());",
+				"		//",
 				"null|test.TestValidator|TestValidator",
 				null,
 				null);
@@ -585,8 +564,8 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_AfterConvertValidator_2() throws Exception {
 		strategy_validator(
-				"    TestValidator validator = new TestValidator();",
-				"    strategy.setAfterConvertValidator(validator);",
+				"		TestValidator validator = new TestValidator();",
+				"		strategy.setAfterConvertValidator(validator);",
 				"validator|test.TestValidator|TestValidator",
 				null,
 				null);
@@ -595,8 +574,8 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_AfterGetValidator_1() throws Exception {
 		strategy_validator(
-				"    strategy.setAfterGetValidator(new TestValidator());",
-				"    //",
+				"		strategy.setAfterGetValidator(new TestValidator());",
+				"		//",
 				null,
 				"null|test.TestValidator|TestValidator",
 				null);
@@ -605,8 +584,8 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_AfterGetValidator_2() throws Exception {
 		strategy_validator(
-				"    TestValidator validator = new TestValidator();",
-				"    strategy.setAfterGetValidator(validator);",
+				"		TestValidator validator = new TestValidator();",
+				"		strategy.setAfterGetValidator(validator);",
 				null,
 				"validator|test.TestValidator|TestValidator",
 				null);
@@ -615,8 +594,8 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_BeforeSetValidator_1() throws Exception {
 		strategy_validator(
-				"    strategy.setBeforeSetValidator(new TestValidator());",
-				"    //",
+				"		strategy.setBeforeSetValidator(new TestValidator());",
+				"		//",
 				null,
 				null,
 				"null|test.TestValidator|TestValidator");
@@ -625,8 +604,8 @@ public class BindValueTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_BeforeSetValidator_2() throws Exception {
 		strategy_validator(
-				"    TestValidator validator = new TestValidator();",
-				"    strategy.setBeforeSetValidator(validator);",
+				"		TestValidator validator = new TestValidator();",
+				"		strategy.setBeforeSetValidator(validator);",
 				null,
 				null,
 				"validator|test.TestValidator|TestValidator");
@@ -637,50 +616,47 @@ public class BindValueTest extends AbstractBindingTest {
 			String testString0,
 			String testString1,
 			String testString2) throws Exception {
-		createModelCompilationUnit("test", "TestValidator.java", DatabindingTestUtils.getTestSource(
-				"public class TestValidator implements IValidator {",
-				"  public org.eclipse.core.runtime.IStatus validate(Object value) {",
-				"    return null;",
-				"  }",
-				"}"));
+		createModelCompilationUnit("test", "TestValidator.java", DatabindingTestUtils.getTestSource("""
+				public class TestValidator implements IValidator {
+					public org.eclipse.core.runtime.IStatus validate(Object value) {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    UpdateValueStrategy strategy = new UpdateValueStrategy();",
-								line0,
-								line1,
-								"    bindingContext.bindValue(observeWidget, observeValue, null, strategy);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						UpdateValueStrategy strategy = new UpdateValueStrategy();
+				%s
+				%s
+						bindingContext.bindValue(observeWidget, observeValue, null, strategy);
+						return bindingContext;
+					}
+				}""".formatted(line0, line1));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();

@@ -15,7 +15,6 @@ package org.eclipse.wb.tests.designer.rcp;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.gef.core.tools.CreationTool;
 import org.eclipse.wb.internal.core.utils.ast.AstEditor;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.state.EditorState;
 import org.eclipse.wb.internal.swt.model.widgets.CompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.ControlInfo;
@@ -53,12 +52,12 @@ public abstract class RcpGefTest extends DesignerEditorTestCase {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	protected final CompositeInfo openComposite(String... lines) throws Exception {
+	protected final CompositeInfo openComposite(String lines) throws Exception {
 		return (CompositeInfo) openJavaInfo(lines);
 	}
 
 	@SuppressWarnings("unchecked")
-	protected final <T extends JavaInfo> T openJavaInfo(String... lines) throws Exception {
+	protected final <T extends JavaInfo> T openJavaInfo(String lines) throws Exception {
 		String source = getTestSource2(lines);
 		ICompilationUnit unit = createModelCompilationUnit("test", "Test.java", source);
 		// wait for build
@@ -72,7 +71,7 @@ public abstract class RcpGefTest extends DesignerEditorTestCase {
 	/**
 	 * Asserts that active {@link AstEditor} has expected Swing source.
 	 */
-	protected final void assertEditor(String... lines) {
+	protected final void assertEditor(String lines) {
 		AstEditor editor = EditorState.getActiveJavaInfo().getEditor();
 		String expectedSource = getTestSource2(lines);
 		assertEditor(expectedSource, editor);
@@ -81,8 +80,7 @@ public abstract class RcpGefTest extends DesignerEditorTestCase {
 	/**
 	 * @return the source for RCP.
 	 */
-	protected final String getTestSource2(String... lines) {
-		lines = getDoubleQuotes(lines);
+	protected final String getTestSource2(String lines) {
 		lines = getTestSource_decorate(lines);
 		return getSource(lines);
 	}
@@ -90,22 +88,20 @@ public abstract class RcpGefTest extends DesignerEditorTestCase {
 	/**
 	 * "Decorates" given lines of source, usually adds required imports.
 	 */
-	protected String[] getTestSource_decorate(String... lines) {
-		lines =
-				CodeUtils.join(new String[]{
-						"package test;",
-						"import org.eclipse.swt.SWT;",
-						"import org.eclipse.swt.events.*;",
-						"import org.eclipse.swt.graphics.*;",
-						"import org.eclipse.swt.widgets.*;",
-						"import org.eclipse.swt.layout.*;",
-						"import org.eclipse.swt.custom.*;",
-						"import org.eclipse.jface.viewers.*;",
-						"import org.eclipse.jface.preference.*;",
-						"import org.eclipse.jface.resource.*;",
-						"import org.eclipse.ui.forms.*;",
-				"import org.eclipse.ui.forms.widgets.*;"}, lines);
-		return lines;
+	protected String getTestSource_decorate(String lines) {
+		return getSource("""
+				package test;
+				import org.eclipse.swt.SWT;
+				import org.eclipse.swt.events.*;
+				import org.eclipse.swt.graphics.*;
+				import org.eclipse.swt.widgets.*;
+				import org.eclipse.swt.layout.*;
+				import org.eclipse.swt.custom.*;
+				import org.eclipse.jface.viewers.*;
+				import org.eclipse.jface.preference.*;
+				import org.eclipse.jface.resource.*;
+				import org.eclipse.ui.forms.*;
+				import org.eclipse.ui.forms.widgets.*;""", lines);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -118,19 +114,17 @@ public abstract class RcpGefTest extends DesignerEditorTestCase {
 	}
 
 	protected void prepareComponent(int width, int height) throws Exception {
-		setFileContentSrc(
-				"test/Button.java",
-				getTestSource2(
-						"public class Button extends org.eclipse.swt.widgets.Button {",
-						"  public Button(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  protected void checkSubclass () {",
-						"  }",
-						"  public Point computeSize (int wHint, int hHint, boolean changed) {",
-						"    return new Point(" + width + ", " + height + ");",
-						"  }",
-						"}"));
+		setFileContentSrc("test/Button.java", getTestSource2("""
+				public class Button extends org.eclipse.swt.widgets.Button {
+					public Button(Composite parent, int style) {
+						super(parent, style);
+					}
+					protected void checkSubclass () {
+					}
+					public Point computeSize (int wHint, int hHint, boolean changed) {
+						return new Point(%d, %d);
+					}
+				}""".formatted(width, height)));
 		waitForAutoBuild();
 	}
 

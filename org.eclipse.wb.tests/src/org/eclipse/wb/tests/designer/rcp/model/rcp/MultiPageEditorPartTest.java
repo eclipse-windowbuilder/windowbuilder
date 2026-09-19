@@ -41,22 +41,22 @@ public class MultiPageEditorPartTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parsingException() throws Exception {
-		DesignerException e = assertThrows(DesignerException.class, () -> parseJavaInfo(
-				"import org.eclipse.core.runtime.IProgressMonitor;",
-				"import org.eclipse.ui.part.MultiPageEditorPart;",
-				"public abstract class Test extends MultiPageEditorPart {",
-				"  public Test() {",
-				"  }",
-				"  protected void createPages() {",
-				"  }",
-				"  public boolean isSaveAsAllowed() {",
-				"    return false;",
-				"  }",
-				"  public void doSave(IProgressMonitor monitor) {",
-				"  }",
-				"  public void doSaveAs() {	",
-				"  }",
-				"}"));
+		DesignerException e = assertThrows(DesignerException.class, () -> parseJavaInfo("""
+				import org.eclipse.core.runtime.IProgressMonitor;
+				import org.eclipse.ui.part.MultiPageEditorPart;
+				public abstract class Test extends MultiPageEditorPart {
+					public Test() {
+					}
+					protected void createPages() {
+					}
+					public boolean isSaveAsAllowed() {
+						return false;
+					}
+					public void doSave(IProgressMonitor monitor) {
+					}
+					public void doSaveAs() {
+					}
+				}"""));
 		assertEquals(IExceptionConstants.NO_DESIGN_MP_EDITOR, e.getCode());
 		assertTrue(DesignerExceptionUtils.isWarning(e));
 	}

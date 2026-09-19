@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -94,29 +94,23 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_FLATimplicit() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-						"    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+						addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()));
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {"
-						+ "/new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent())/ "
-						+ "/addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()))/ "
-						+ "/new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent())/ "
-						+ "/addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()))/"
-						+ "}",
-						"  {new: org.eclipse.jface.preference.BooleanFieldEditor} {empty} {/addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()))/}",
-						"  {new: org.eclipse.jface.preference.IntegerFieldEditor} {empty} {/addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()))/}",
-						"    {method: getLabelControl} {subComponent} {}",
-				"    {method: getTextControl} {subComponent} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent())/ /addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()))/ /new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent())/ /addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()))/}
+					{new: org.eclipse.jface.preference.BooleanFieldEditor} {empty} {/addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()))/}
+					{new: org.eclipse.jface.preference.IntegerFieldEditor} {empty} {/addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()))/}
+						{method: getLabelControl} {subComponent} {}
+						{method: getTextControl} {subComponent} {}""");
 		// prepare FieldEditor's
 		FieldEditorInfo editor_1;
 		FieldEditorInfo editor_2;
@@ -144,30 +138,24 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_FLATexplicit() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-						"    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+						addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()));
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {"
-						+ "/new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent())/ "
-						+ "/addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()))/ "
-						+ "/new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent())/ "
-						+ "/addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()))/"
-						+ "}",
-						"  {new: org.eclipse.jface.preference.BooleanFieldEditor} {empty} {/addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()))/}",
-						"  {new: org.eclipse.jface.preference.IntegerFieldEditor} {empty} {/addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()))/}",
-						"    {method: getLabelControl} {subComponent} {}",
-				"    {method: getTextControl} {subComponent} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent())/ /addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()))/ /new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent())/ /addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()))/}
+					{new: org.eclipse.jface.preference.BooleanFieldEditor} {empty} {/addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()))/}
+					{new: org.eclipse.jface.preference.IntegerFieldEditor} {empty} {/addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()))/}
+						{method: getLabelControl} {subComponent} {}
+						{method: getTextControl} {subComponent} {}""");
 		// refresh()
 		page.refresh();
 		assertNoErrors(page);
@@ -178,30 +166,24 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_GRID() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(GRID);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-						"    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(GRID);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+						addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()));
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {"
-						+ "/new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent())/ "
-						+ "/addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()))/ "
-						+ "/new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent())/ "
-						+ "/addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()))/"
-						+ "}",
-						"  {new: org.eclipse.jface.preference.BooleanFieldEditor} {empty} {/addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()))/}",
-						"  {new: org.eclipse.jface.preference.IntegerFieldEditor} {empty} {/addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()))/}",
-						"    {method: getLabelControl} {subComponent} {}",
-				"    {method: getTextControl} {subComponent} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent())/ /addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()))/ /new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent())/ /addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()))/}
+					{new: org.eclipse.jface.preference.BooleanFieldEditor} {empty} {/addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()))/}
+					{new: org.eclipse.jface.preference.IntegerFieldEditor} {empty} {/addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()))/}
+						{method: getLabelControl} {subComponent} {}
+						{method: getTextControl} {subComponent} {}""");
 		// prepare FieldEditor's
 		FieldEditorInfo editor_1;
 		FieldEditorInfo editor_2;
@@ -230,18 +212,17 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_complexFieldEditor_bounds() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(GRID);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-						"    addField(new RadioGroupFieldEditor('id', 'New RadioGroupFieldEditor', 1, new String[][]{{'name_1', 'value_1'}, {'name_2', 'value_2'}}, getFieldEditorParent(), false));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(GRID);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+						addField(new RadioGroupFieldEditor("id", "New RadioGroupFieldEditor", 1, new String[][]{{"name_1", "value_1"}, {"name_2", "value_2"}}, getFieldEditorParent(), false));
+					}
+				}""");
 		assertNoErrors(page);
 		// prepare FieldEditor's
 		FieldEditorInfo editor_1;
@@ -266,14 +247,13 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IntegerFieldEditor_properties() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  protected void createFieldEditors() {",
-						"    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					protected void createFieldEditors() {
+						addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()));
+					}
+				}""");
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
 		// "validRange" complex property
 		{
@@ -303,13 +283,12 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_paletteTweaks_1() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  protected void createFieldEditors() {",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					protected void createFieldEditors() {
+					}
+				}""");
 		CategoryInfo systemCategory = new CategoryInfo("org.eclipse.wb.rcp.system");
 		CategoryInfo editorsCategory = new CategoryInfo("org.eclipse.wb.rcp.fieldEditors");
 		CategoryInfo otherCategory = new CategoryInfo("some.other.category");
@@ -341,13 +320,12 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_paletteTweaks_2() throws Exception {
-		JavaInfo javaInfo =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		JavaInfo javaInfo = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// create categories
 		CategoryInfo systemCategory = new CategoryInfo("org.eclipse.wb.rcp.system");
 		CategoryInfo editorsCategory = new CategoryInfo("org.eclipse.wb.rcp.fieldEditors");
@@ -385,32 +363,31 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_1() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+					}
+				}""");
 		FieldEditorInfo nextEditor = page.getEditors().get(0);
 		// do create
 		FieldEditorInfo newEditor = createJavaInfo("org.eclipse.jface.preference.IntegerFieldEditor");
 		page.command_CREATE(newEditor, nextEditor);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    addField(new IntegerFieldEditor('id', 'New IntegerFieldEditor', getFieldEditorParent()));",
-				"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new IntegerFieldEditor("id", "New IntegerFieldEditor", getFieldEditorParent()));
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+					}
+				}""");
 	}
 
 	/**
@@ -420,31 +397,30 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_2() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+					}
+				}""");
 		// do create
 		FieldEditorInfo newEditor = createJavaInfo("org.eclipse.jface.preference.IntegerFieldEditor");
 		page.command_CREATE(newEditor, null);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-				"    addField(new IntegerFieldEditor('id', 'New IntegerFieldEditor', getFieldEditorParent()));",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+						addField(new IntegerFieldEditor("id", "New IntegerFieldEditor", getFieldEditorParent()));
+					}
+				}""");
 	}
 
 	/**
@@ -455,33 +431,32 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_withControlCodeStyle() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+					import org.eclipse.jface.preference.*;
+					public class Test extends FieldEditorPreferencePage {
+						public Test() {
+							super(FLAT);
+						}
+						protected void createFieldEditors() {
+						}
+					}""");
 		// do create
 		FieldEditorInfo newEditor = createJavaInfo("org.eclipse.jface.preference.IntegerFieldEditor");
 		preferences.setValue(IPreferenceConstants.PREF_FIELD_USUAL_CODE, true);
 		page.command_CREATE(newEditor, null);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    {",
-				"      IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor('id', 'New IntegerFieldEditor', getFieldEditorParent());",
-				"      addField(integerFieldEditor);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor("id", "New IntegerFieldEditor", getFieldEditorParent());
+							addField(integerFieldEditor);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -491,33 +466,32 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_1() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor 1', getFieldEditorParent()));",
-						"    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor 1", getFieldEditorParent()));
+						addField(new BooleanFieldEditor("id_2", "Boolean editor 2", getFieldEditorParent()));
+					}
+				}""");
 		FieldEditorInfo editor_1 = page.getEditors().get(0);
 		FieldEditorInfo editor_2 = page.getEditors().get(1);
 		// do move
 		page.command_MOVE(editor_2, editor_1);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-				"    addField(new BooleanFieldEditor('id_1', 'Boolean editor 1', getFieldEditorParent()));",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_2", "Boolean editor 2", getFieldEditorParent()));
+						addField(new BooleanFieldEditor("id_1", "Boolean editor 1", getFieldEditorParent()));
+					}
+				}""");
 	}
 
 	/**
@@ -526,38 +500,38 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_2() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    {",
-						"      IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor('id_1', 'Integer editor', getFieldEditorParent());",
-						"      addField(integerFieldEditor);",
-						"    }",
-						"    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo(
+				"""
+						import org.eclipse.jface.preference.*;
+						public class Test extends FieldEditorPreferencePage {
+							public Test() {
+								super(FLAT);
+							}
+							protected void createFieldEditors() {
+								{
+									IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor("id_1", "Integer editor", getFieldEditorParent());
+									addField(integerFieldEditor);
+								}
+								addField(new BooleanFieldEditor("id_2", "Boolean editor 2", getFieldEditorParent()));
+							}
+						}""");
 		FieldEditorInfo editor_1 = page.getEditors().get(0);
 		// do move
 		page.command_MOVE(editor_1, null);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-				"    {",
-				"      IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor('id_1', 'Integer editor', getFieldEditorParent());",
-				"      addField(integerFieldEditor);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_2", "Boolean editor 2", getFieldEditorParent()));
+						{
+							IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor("id_1", "Integer editor", getFieldEditorParent());
+							addField(integerFieldEditor);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -566,34 +540,33 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_3() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"    setTitle('Some related node');",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor 1', getFieldEditorParent()));",
-						"    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+						setTitle("Some related node");
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor 1", getFieldEditorParent()));
+						addField(new BooleanFieldEditor("id_2", "Boolean editor 2", getFieldEditorParent()));
+					}
+				}""");
 		FieldEditorInfo editor_1 = page.getEditors().get(0);
 		// do move
 		page.command_MOVE(editor_1, null);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"    setTitle('Some related node');",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    addField(new BooleanFieldEditor('id_2', 'Boolean editor 2', getFieldEditorParent()));",
-				"    addField(new BooleanFieldEditor('id_1', 'Boolean editor 1', getFieldEditorParent()));",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+						setTitle("Some related node");
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_2", "Boolean editor 2", getFieldEditorParent()));
+						addField(new BooleanFieldEditor("id_1", "Boolean editor 1", getFieldEditorParent()));
+					}
+				}""");
 	}
 
 	/**
@@ -604,34 +577,33 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_convertToBlock() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new IntegerFieldEditor('id', 'New IntegerFieldEditor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new IntegerFieldEditor("id", "New IntegerFieldEditor", getFieldEditorParent()));
+					}
+				}""");
 		FieldEditorInfo editor = page.getEditors().get(0);
 		// set property
 		editor.getPropertyByTitle("textLimit").setValue(5);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    {",
-				"      IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor('id', 'New IntegerFieldEditor', getFieldEditorParent());",
-				"      integerFieldEditor.setTextLimit(5);",
-				"      addField(integerFieldEditor);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							IntegerFieldEditor integerFieldEditor = new IntegerFieldEditor("id", "New IntegerFieldEditor", getFieldEditorParent());
+							integerFieldEditor.setTextLimit(5);
+							addField(integerFieldEditor);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -644,17 +616,16 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_copyPaste() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-						"    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+						addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()));
+					}
+				}""");
 		page.refresh();
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
 		// do copy/paste
@@ -664,17 +635,17 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 			page.command_CREATE(newFieldEditor, null);
 			memento.apply();
 		}
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-				"    addField(new IntegerFieldEditor('id_2', 'Integer editor', getFieldEditorParent()));",
-				"    addField(new BooleanFieldEditor('id_1', 'Boolean editor', getFieldEditorParent()));",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+					}
+					protected void createFieldEditors() {
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+						addField(new IntegerFieldEditor("id_2", "Integer editor", getFieldEditorParent()));
+						addField(new BooleanFieldEditor("id_1", "Boolean editor", getFieldEditorParent()));
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -689,26 +660,25 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_subComponents_0() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    {",
-						"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
-						"      addField(stringFieldEditor);",
-						"    }",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", getFieldEditorParent());
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/new StringFieldEditor('id', 'String editor', getFieldEditorParent())/ /addField(stringFieldEditor)/}",
-				"  {new: org.eclipse.jface.preference.StringFieldEditor} {local-unique: stringFieldEditor} {/new StringFieldEditor('id', 'String editor', getFieldEditorParent())/ /addField(stringFieldEditor)/}",
-				"    {method: getLabelControl} {subComponent} {}",
-				"    {method: getTextControl} {subComponent} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/new StringFieldEditor("id", "String editor", getFieldEditorParent())/ /addField(stringFieldEditor)/}
+					{new: org.eclipse.jface.preference.StringFieldEditor} {local-unique: stringFieldEditor} {/new StringFieldEditor("id", "String editor", getFieldEditorParent())/ /addField(stringFieldEditor)/}
+						{method: getLabelControl} {subComponent} {}
+						{method: getTextControl} {subComponent} {}""");
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
 		ControlInfo labelControl;
 		{
@@ -771,58 +741,57 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_subComponents_1() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    {",
-						"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
-						"      addField(stringFieldEditor);",
-						"    }",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", getFieldEditorParent());
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 		page.refresh();
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
 		ControlInfo labelControl = fieldEditor.getChildControls().get(0);
 		// do materialize
 		labelControl.getPropertyByTitle("enabled").setValue(false);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    {",
-				"      Composite composite = getFieldEditorParent();",
-				"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-				"      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-				"      addField(stringFieldEditor);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							Composite composite = getFieldEditorParent();
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", composite);
+							stringFieldEditor.getLabelControl(composite).setEnabled(false);
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 		// set one more property
 		labelControl.getPropertyByTitle("toolTipText").setValue("Some tooltip");
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    {",
-				"      Composite composite = getFieldEditorParent();",
-				"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-				"      stringFieldEditor.getLabelControl(composite).setToolTipText('Some tooltip');",
-				"      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-				"      addField(stringFieldEditor);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							Composite composite = getFieldEditorParent();
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", composite);
+							stringFieldEditor.getLabelControl(composite).setToolTipText("Some tooltip");
+							stringFieldEditor.getLabelControl(composite).setEnabled(false);
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -832,37 +801,36 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_subComponents_2() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    addField(new StringFieldEditor('id', 'String editor', getFieldEditorParent()));",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new StringFieldEditor("id", "String editor", getFieldEditorParent()));
+					}
+				}""");
 		page.refresh();
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
 		ControlInfo labelControl = fieldEditor.getChildControls().get(0);
 		// do materialize
 		labelControl.getPropertyByTitle("enabled").setValue(false);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    {",
-				"      Composite composite = getFieldEditorParent();",
-				"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-				"      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-				"      addField(stringFieldEditor);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							Composite composite = getFieldEditorParent();
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", composite);
+							stringFieldEditor.getLabelControl(composite).setEnabled(false);
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -871,29 +839,28 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_subComponents_3() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    {",
-						"      Composite composite = getFieldEditorParent();",
-						"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-						"      stringFieldEditor.getLabelControl(composite).setToolTipText('Some tooltip');",
-						"      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-						"      addField(stringFieldEditor);",
-						"    }",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							Composite composite = getFieldEditorParent();
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", composite);
+							stringFieldEditor.getLabelControl(composite).setToolTipText("Some tooltip");
+							stringFieldEditor.getLabelControl(composite).setEnabled(false);
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/getFieldEditorParent()/ /addField(stringFieldEditor)/}",
-				"  {new: org.eclipse.jface.preference.StringFieldEditor} {local-unique: stringFieldEditor} {/new StringFieldEditor('id', 'String editor', composite)/ /stringFieldEditor.getLabelControl(composite)/ /stringFieldEditor.getLabelControl(composite)/ /addField(stringFieldEditor)/}",
-				"    {method: getLabelControl} {subComponent} {/stringFieldEditor.getLabelControl(composite).setToolTipText('Some tooltip')/ /stringFieldEditor.getLabelControl(composite).setEnabled(false)/}",
-				"    {method: getTextControl} {subComponent} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.preference.FieldEditorPreferencePage} {this} {/getFieldEditorParent()/ /addField(stringFieldEditor)/}
+					{new: org.eclipse.jface.preference.StringFieldEditor} {local-unique: stringFieldEditor} {/new StringFieldEditor("id", "String editor", composite)/ /stringFieldEditor.getLabelControl(composite)/ /stringFieldEditor.getLabelControl(composite)/ /addField(stringFieldEditor)/}
+						{method: getLabelControl} {subComponent} {/stringFieldEditor.getLabelControl(composite).setToolTipText("Some tooltip")/ /stringFieldEditor.getLabelControl(composite).setEnabled(false)/}
+						{method: getTextControl} {subComponent} {}""");
 		// perform refresh()
 		page.refresh();
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
@@ -906,20 +873,20 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 		assertTrue(labelControl.canDelete());
 		labelControl.delete();
 		// source changed, we don't have properties for "labelControl"
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    {",
-				"      Composite composite = getFieldEditorParent();",
-				"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-				"      addField(stringFieldEditor);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						{
+							Composite composite = getFieldEditorParent();
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", composite);
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 		// ...but "labelControl" is still in "fieldEditor"
 		Assertions.assertThat(fieldEditor.getChildControls()).contains(labelControl);
 	}
@@ -930,21 +897,20 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_subComponents_4() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    {",
-						"      Composite composite = getFieldEditorParent();",
-						"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-						"      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-						"      addField(stringFieldEditor);",
-						"    }",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+					}
+					protected void createFieldEditors() {
+						{
+							Composite composite = getFieldEditorParent();
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", composite);
+							stringFieldEditor.getLabelControl(composite).setEnabled(false);
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 		page.refresh();
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
 		// do copy/paste
@@ -960,26 +926,26 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 			page.command_CREATE(newFieldEditor, null);
 			memento.apply();
 		}
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    {",
-				"      Composite composite = getFieldEditorParent();",
-				"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-				"      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-				"      addField(stringFieldEditor);",
-				"    }",
-				"    {",
-				"      Composite composite = getFieldEditorParent();",
-				"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', composite);",
-				"      stringFieldEditor.getLabelControl(composite).setEnabled(false);",
-				"      addField(stringFieldEditor);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+					}
+					protected void createFieldEditors() {
+						{
+							Composite composite = getFieldEditorParent();
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", composite);
+							stringFieldEditor.getLabelControl(composite).setEnabled(false);
+							addField(stringFieldEditor);
+						}
+						{
+							Composite composite = getFieldEditorParent();
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", composite);
+							stringFieldEditor.getLabelControl(composite).setEnabled(false);
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -991,20 +957,19 @@ public class FieldEditorPreferencePageTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_subComponents_5() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(GRID);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"    {",
-						"      StringFieldEditor stringFieldEditor = new StringFieldEditor('id', 'String editor', getFieldEditorParent());",
-						"      addField(stringFieldEditor);",
-						"    }",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(GRID);
+					}
+					protected void createFieldEditors() {
+						{
+							StringFieldEditor stringFieldEditor = new StringFieldEditor("id", "String editor", getFieldEditorParent());
+							addField(stringFieldEditor);
+						}
+					}
+				}""");
 		page.refresh();
 		FieldEditorInfo fieldEditor = page.getEditors().get(0);
 		ControlInfo labelControl = fieldEditor.getChildControls().get(0);

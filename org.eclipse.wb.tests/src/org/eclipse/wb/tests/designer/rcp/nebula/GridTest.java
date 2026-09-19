@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -54,28 +54,27 @@ public class GridTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_General() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.grid.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Grid grid = new Grid(this, SWT.NONE);",
-						"    {",
-						"      GridColumnGroup group = new GridColumnGroup(grid, SWT.NONE);",
-						"      {",
-						"        GridColumn column = new GridColumn(group, SWT.NONE);",
-						"        column.setWidth(150);",
-						"      }",
-						"    }",
-						"    {",
-						"      GridItem item1 = new GridItem(grid, SWT.NONE);",
-						"      {",
-						"        GridItem item2 = new GridItem(item1, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.grid.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Grid grid = new Grid(this, SWT.NONE);
+						{
+							GridColumnGroup group = new GridColumnGroup(grid, SWT.NONE);
+							{
+								GridColumn column = new GridColumn(group, SWT.NONE);
+								column.setWidth(150);
+							}
+						}
+						{
+							GridItem item1 = new GridItem(grid, SWT.NONE);
+							{
+								GridItem item2 = new GridItem(item1, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		// refresh() also should be successful
 		shell.refresh();
 		// info
@@ -122,33 +121,32 @@ public class GridTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_Expanded() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.grid.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Grid grid = new Grid(this, SWT.NONE);",
-						"    {",
-						"      GridColumnGroup group = new GridColumnGroup(grid, SWT.NONE);",
-						"      {",
-						"        GridColumn column = new GridColumn(group, SWT.NONE);",
-						"        column.setWidth(150);",
-						"      }",
-						"    }",
-						"    {",
-						"      GridColumn column = new GridColumn(grid, SWT.NONE);",
-						"      column.setWidth(100);",
-						"    }",
-						"    {",
-						"      GridItem item1 = new GridItem(grid, SWT.NONE);",
-						"      item1.setExpanded(true);",
-						"      {",
-						"        GridItem item2 = new GridItem(item1, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.grid.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Grid grid = new Grid(this, SWT.NONE);
+						{
+							GridColumnGroup group = new GridColumnGroup(grid, SWT.NONE);
+							{
+								GridColumn column = new GridColumn(group, SWT.NONE);
+								column.setWidth(150);
+							}
+						}
+						{
+							GridColumn column = new GridColumn(grid, SWT.NONE);
+							column.setWidth(100);
+						}
+						{
+							GridItem item1 = new GridItem(grid, SWT.NONE);
+							item1.setExpanded(true);
+							{
+								GridItem item2 = new GridItem(item1, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		// refresh() also should be successful
 		shell.refresh();
 		// info
@@ -176,28 +174,27 @@ public class GridTest extends AbstractNebulaTest {
 	 */
 	@Test
 	public void test_addColumn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import org.eclipse.nebula.widgets.grid.*;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FillLayout());",
-						"    Grid grid = new Grid(this, SWT.NONE);",
-						"    {",
-						"      GridColumnGroup group = new GridColumnGroup(grid, SWT.NONE);",
-						"      {",
-						"        GridColumn column = new GridColumn(group, SWT.NONE);",
-						"        column.setWidth(150);",
-						"      }",
-						"    }",
-						"    {",
-						"      GridItem item1 = new GridItem(grid, SWT.NONE);",
-						"      {",
-						"        GridItem item2 = new GridItem(item1, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import org.eclipse.nebula.widgets.grid.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Grid grid = new Grid(this, SWT.NONE);
+						{
+							GridColumnGroup group = new GridColumnGroup(grid, SWT.NONE);
+							{
+								GridColumn column = new GridColumn(group, SWT.NONE);
+								column.setWidth(150);
+							}
+						}
+						{
+							GridItem item1 = new GridItem(grid, SWT.NONE);
+							{
+								GridItem item2 = new GridItem(item1, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		// refresh() also should be successful
 		shell.refresh();
 		// info
@@ -209,31 +206,31 @@ public class GridTest extends AbstractNebulaTest {
 						"org.eclipse.nebula.widgets.grid.GridColumn",
 						new ConstructorCreationSupport());
 		JavaInfoUtils.add(column, null, grid, null);
-		assertEditor(
-				"import org.eclipse.nebula.widgets.grid.*;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FillLayout());",
-				"    Grid grid = new Grid(this, SWT.NONE);",
-				"    {",
-				"      GridColumnGroup group = new GridColumnGroup(grid, SWT.NONE);",
-				"      {",
-				"        GridColumn column = new GridColumn(group, SWT.NONE);",
-				"        column.setWidth(150);",
-				"      }",
-				"    }",
-				"    {",
-				"      GridColumn gridColumn = new GridColumn(grid, SWT.NONE);",
-				"      gridColumn.setText('New Column');",
-				"      gridColumn.setWidth(150);",
-				"    }",
-				"    {",
-				"      GridItem item1 = new GridItem(grid, SWT.NONE);",
-				"      {",
-				"        GridItem item2 = new GridItem(item1, SWT.NONE);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.nebula.widgets.grid.*;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						Grid grid = new Grid(this, SWT.NONE);
+						{
+							GridColumnGroup group = new GridColumnGroup(grid, SWT.NONE);
+							{
+								GridColumn column = new GridColumn(group, SWT.NONE);
+								column.setWidth(150);
+							}
+						}
+						{
+							GridColumn gridColumn = new GridColumn(grid, SWT.NONE);
+							gridColumn.setText("New Column");
+							gridColumn.setWidth(150);
+						}
+						{
+							GridItem item1 = new GridItem(grid, SWT.NONE);
+							{
+								GridItem item2 = new GridItem(item1, SWT.NONE);
+							}
+						}
+					}
+				}""");
 	}
 }

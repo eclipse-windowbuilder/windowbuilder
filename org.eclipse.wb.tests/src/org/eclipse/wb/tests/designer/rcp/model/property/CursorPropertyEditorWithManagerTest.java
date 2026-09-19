@@ -92,24 +92,23 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 
 	@Test
 	public void test_combo() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+						// filler filler filler
+						public class Test extends Shell {
+							public Test() {
+							}
+						}""");
 		// set "cursor" property
 		shell.addMethodInvocation(
 				"setCursor(org.eclipse.swt.graphics.Cursor)",
 				"org.eclipse.swt.widgets.Display.getCurrent().getSystemCursor(org.eclipse.swt.SWT.CURSOR_CROSS)");
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_CROSS));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_CROSS));
+					}
+				}""");
 		//
 		shell.refresh();
 		Property property = shell.getPropertyByTitle("cursor");
@@ -132,13 +131,13 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 		// set new item
 		{
 			setComboPropertyValue(property, 4);
-			assertEditor(
-					"// filler filler filler",
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_HELP));",
-					"  }",
-					"}");
+			assertEditor("""
+					// filler filler filler
+					public class Test extends Shell {
+						public Test() {
+							setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_HELP));
+						}
+					}""");
 		}
 	}
 
@@ -147,13 +146,12 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 	 */
 	@Test
 	public void test_setValue_ensureManager() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		shell.refresh();
 		// prepare property
 		Property property = shell.getPropertyByTitle("cursor");
@@ -163,12 +161,12 @@ public class CursorPropertyEditorWithManagerTest extends CursorPropertyEditorTes
 				+ "org.eclipse.wb.internal.core.model.property.Property,"
 				+ "org.eclipse.swt.custom.CCombo,"
 				+ "int)", property, null, 0);
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						setCursor(Display.getCurrent().getSystemCursor(SWT.CURSOR_ARROW));
+					}
+				}""");
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -53,18 +53,17 @@ public class GridLayoutTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setSize(450, 300);",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setSize(450, 300);
+						setLayout(new GridLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+						}
+					}
+				}""");
 		shell.refresh();
 		// "button" has horizontal grab, so big width
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -78,22 +77,21 @@ public class GridLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_twoNested() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new GridLayout());",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      composite.setLayoutData(new GridData(GridData.FILL_BOTH));",
-						"      composite.setLayout(new GridLayout());",
-						"      {",
-						"        Button button = new Button(composite, SWT.NONE);",
-						"        button.setLayoutData(new GridData(GridData.FILL_BOTH));",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new GridLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+							composite.setLayout(new GridLayout());
+							{
+								Button button = new Button(composite, SWT.NONE);
+								button.setLayoutData(new GridData(GridData.FILL_BOTH));
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		// "button" has grab both, so has big size
 		Rectangle buttonBounds;
@@ -124,16 +122,15 @@ public class GridLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_defaultValues() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						{
+							Button button = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		GridDataInfo gridData =
@@ -157,28 +154,25 @@ public class GridLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_getLayoutData_override() throws Exception {
-		setFileContentSrc(
-				"test/MyComposite.java",
-				getTestSource(
-						"public class MyComposite extends Composite {",
-						"  private final GridData m_gridData = new GridData();",
-						"  public MyComposite(Composite parent, int style) {",
-						"    super(parent, style);",
-						"  }",
-						"  public Object getLayoutData() {",
-						"    return m_gridData;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyComposite.java", getTestSource("""
+				public class MyComposite extends Composite {
+					private final GridData m_gridData = new GridData();
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+					public Object getLayoutData() {
+						return m_gridData;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		CompositeInfo shell =
-				parseComposite(
-						"class Test extends Shell {",
-						"  Test() {",
-						"    setLayout(new GridLayout(1, false));",
-						"    new MyComposite(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				class Test extends Shell {
+					Test() {
+						setLayout(new GridLayout(1, false));
+						new MyComposite(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		assertNoErrors(shell);
 	}
@@ -194,75 +188,74 @@ public class GridLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_Switching_fromTableWrapLayout() throws Exception {
-		CompositeInfo composite =
-				parseComposite(
-						"class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    {",
-						"      TableWrapLayout tableWrapLayout = new TableWrapLayout();",
-						"      tableWrapLayout.numColumns = 3;",
-						"      setLayout(tableWrapLayout);",
-						"    }",
-						"    {",
-						"      Label label = new Label(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM, 1, 1);",
-						"        tableWrapData.grabHorizontal = true;",
-						"        label.setLayoutData(tableWrapData);",
-						"      }",
-						"      label.setText('New Label');",
-						"    }",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.NONE);",
-						"    {",
-						"      Text text = new Text(this, SWT.BORDER);",
-						"      text.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 2));",
-						"    }",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.NONE);",
-						"    new Label(this, SWT.NONE);",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      {",
-						"        TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1);",
-						"        tableWrapData.grabVertical = true;",
-						"        button.setLayoutData(tableWrapData);",
-						"      }",
-						"      button.setText('New Button');",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo composite=parseComposite("""
+				class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						{
+							TableWrapLayout tableWrapLayout = new TableWrapLayout();
+							tableWrapLayout.numColumns = 3;
+							setLayout(tableWrapLayout);
+						}
+						{
+							Label label = new Label(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.BOTTOM, 1, 1);
+								tableWrapData.grabHorizontal = true;
+								label.setLayoutData(tableWrapData);
+							}
+							label.setText("New Label");
+						}
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						{
+							Text text = new Text(this, SWT.BORDER);
+							text.setLayoutData(new TableWrapData(TableWrapData.FILL, TableWrapData.TOP, 1, 2));
+						}
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								TableWrapData tableWrapData = new TableWrapData(TableWrapData.LEFT, TableWrapData.TOP, 1, 1);
+								tableWrapData.grabVertical = true;
+								button.setLayoutData(tableWrapData);
+							}
+							button.setText("New Button");
+						}
+					}
+				}""");
 		composite.refresh();
 		// set GridLayout
 		GridLayoutInfo gridLayout =
 				(GridLayoutInfo) BTestUtils.createLayout("org.eclipse.swt.layout.GridLayout");
 		composite.setLayout(gridLayout);
-		assertEditor(
-				"class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new GridLayout(3, false));",
-				"    {",
-				"      Label label = new Label(this, SWT.NONE);",
-				"      label.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, false, 1, 1));",
-				"      label.setText('New Label');",
-				"    }",
-				"    new Label(this, SWT.NONE);",
-				"    new Label(this, SWT.NONE);",
-				"    {",
-				"      Text text = new Text(this, SWT.BORDER);",
-				"      text.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false, 2, 1));",
-				"    }",
-				"    new Label(this, SWT.NONE);",
-				"    new Label(this, SWT.NONE);",
-				"    new Label(this, SWT.NONE);",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true, 1, 1));",
-				"      button.setText('New Button');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new GridLayout(3, false));
+						{
+							Label label = new Label(this, SWT.NONE);
+							label.setLayoutData(new GridData(SWT.LEFT, SWT.BOTTOM, true, false, 1, 1));
+							label.setText("New Label");
+						}
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						{
+							Text text = new Text(this, SWT.BORDER);
+							text.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false, 2, 1));
+						}
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						new Label(this, SWT.NONE);
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true, 1, 1));
+							button.setText("New Button");
+						}
+					}
+				}""");
 	}
 }

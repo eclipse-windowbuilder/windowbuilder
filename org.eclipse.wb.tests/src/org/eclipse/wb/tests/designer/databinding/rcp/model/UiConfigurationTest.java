@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,51 +56,48 @@ public class UiConfigurationTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_ObservableInfo() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.core.databinding.Binding;",
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private Text m_text;",
-								"  private CheckboxTableViewer m_viewer;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_text = new Text(m_shell, SWT.SINGLE);",
-								"    m_viewer = new CheckboxTableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeDetailValue = BeanProperties.value(\"empty\", boolean.class).observeDetail(observeValue);",
-								"    IObservableValue observeWidget = WidgetProperties.font().observe(m_shell);",
-								"    IObservableValue observeText = WidgetProperties.text(SWT.Modify).observe(m_text);",
-								"    IObservableSet observeSet = BeanProperties.set(\"name\").observe(getClass());",
-								"    IObservableSet observeViewerSet = ViewerProperties.checkedElements(String.class).observe((Viewer)m_viewer);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindValue(observeWidget, observeValue, null, null);",
-								"    bindingContext.bindValue(observeText, observeDetailValue, null, null);",
-								"    bindingContext.bindSet(observeViewerSet, observeSet, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.core.databinding.Binding;
+				public class Test {
+					protected Shell m_shell;
+					private Text m_text;
+					private CheckboxTableViewer m_viewer;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_text = new Text(m_shell, SWT.SINGLE);
+						m_viewer = new CheckboxTableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value("name").observe(getClass());
+						IObservableValue observeDetailValue = BeanProperties.value("empty", boolean.class).observeDetail(observeValue);
+						IObservableValue observeWidget = WidgetProperties.font().observe(m_shell);
+						IObservableValue observeText = WidgetProperties.text(SWT.Modify).observe(m_text);
+						IObservableSet observeSet = BeanProperties.set("name").observe(getClass());
+						IObservableSet observeViewerSet = ViewerProperties.checkedElements(String.class).observe((Viewer)m_viewer);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget, observeValue, null, null);
+						bindingContext.bindValue(observeText, observeDetailValue, null, null);
+						bindingContext.bindSet(observeViewerSet, observeSet, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -183,41 +180,38 @@ public class UiConfigurationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_UpdateValueStrategy() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.core.databinding.Binding;",
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindValue(observeWidget, observeValue, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.core.databinding.Binding;
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value("name").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget, observeValue, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -330,41 +324,38 @@ public class UiConfigurationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_BindingInfo() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.core.databinding.Binding;",
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindValue(observeWidget, observeValue, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.core.databinding.Binding;
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value("name").observe(getClass());
+						IObservableValue observeWidget = WidgetProperties.text().observe(m_shell);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget, observeValue, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -602,41 +593,38 @@ public class UiConfigurationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_UpdateListStrategy() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.core.databinding.Binding;",
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableList observeList1 = BeanProperties.list(\"name\").observe(getClass());",
-								"    IObservableList observeList2 = BeanProperties.list(\"modifiers\").observe(getClass());",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindList(observeList1, observeList2, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.core.databinding.Binding;
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableList observeList1 = BeanProperties.list(\"name\").observe(getClass());
+						IObservableList observeList2 = BeanProperties.list(\"modifiers\").observe(getClass());
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindList(observeList1, observeList2, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -697,41 +685,38 @@ public class UiConfigurationTest extends AbstractBindingTest {
 
 	@Test
 	public void test_UpdateSetStrategy() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.core.databinding.Binding;",
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableSet observeSet1 = BeanProperties.set(\"name\").observe(getClass());",
-								"    IObservableSet observeSet2 = BeanProperties.set(\"modifiers\").observe(getClass());",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindSet(observeSet1, observeSet2, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.core.databinding.Binding;
+				public class Test {
+					protected Shell m_shell;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableSet observeSet1 = BeanProperties.set(\"name\").observe(getClass());
+						IObservableSet observeSet2 = BeanProperties.set(\"modifiers\").observe(getClass());
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindSet(observeSet1, observeSet2, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,31 +47,25 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare JDT elements
-		setFileContentSrc(
-				"test/PrefConstants.java",
-				getTestSource(
-						"public interface PrefConstants {",
-						"  String ID_1 = 'id 1';",
-						"  String ID_2 = 'id 2';",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.java",
-				getTestSource(
-						"public class MyPanel extends JPanel {",
-						"  public MyPanel() {",
-						"  }",
-						"  public void setLabelsAndValues(String [][] labelsAndValues) {",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/MyPanel.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='setLabelsAndValues(java.lang.String[][])'>",
-						"    <editor id='FieldEditor_LabelsConstants'/>",
-						"  </property>",
-						"</component>"));
+		setFileContentSrc("test/PrefConstants.java", getTestSource("""
+				public interface PrefConstants {
+					String ID_1 = "id 1";
+					String ID_2 = "id 2";
+				}"""));
+		setFileContentSrc("test/MyPanel.java", getTestSource("""
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+					}
+					public void setLabelsAndValues(String [][] labelsAndValues) {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="setLabelsAndValues(java.lang.String[][])">
+						<editor id="FieldEditor_LabelsConstants"/>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 	}
 
@@ -163,12 +157,12 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	 */
 	@Test
 	public void test_getTextForEditing_0() throws Exception {
-		parseContainer(
-				"// filler filler filler",
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				// filler filler filler
+				public class Test extends MyPanel {
+					public Test() {
+					}
+				}""");
 		assertEquals("", getTextForEditing());
 	}
 
@@ -177,13 +171,12 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	 */
 	@Test
 	public void test_getTextForEditing_1() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setLabelsAndValues(new String[][]{{'1', PrefConstants.ID_1},"
-						+ " new String[]{'2', PrefConstants.ID_2}});",
-						"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setLabelsAndValues(new String[][]{{"1", PrefConstants.ID_1}, new String[]{"2", PrefConstants.ID_2}});
+					}
+				}""");
 		assertEquals(
 				getSourceDQ("1 test.PrefConstants.ID_1", "2 test.PrefConstants.ID_2"),
 				getTextForEditing());
@@ -194,13 +187,12 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	 */
 	@Test
 	public void test_getTextForEditing_2() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public Test() {",
-				"    setLabelsAndValues(new String[][]{{'1', PrefConstants.ID_1},"
-						+ " new String[]{'2', 'Ignored literal'}});",
-						"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public Test() {
+						setLabelsAndValues(new String[][]{{"1", PrefConstants.ID_1}, new String[]{"2", "Ignored literal"}});
+					}
+				}""");
 		assertEquals("1 test.PrefConstants.ID_1\n", getTextForEditing());
 	}
 
@@ -211,12 +203,12 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_prepareLabelsFields() throws Exception {
-		parseContainer(
-				"public class Test extends MyPanel {",
-				"  public static final String LOCAL_ID = 'value';",
-				"  public Test() {",
-				"  }",
-				"}");
+		parseContainer("""
+				public class Test extends MyPanel {
+					public static final String LOCAL_ID = "value";
+					public Test() {
+					}
+				}""");
 		// all valid, but empty
 		{
 			String errorMessage = prepareLabelsFields("");
@@ -260,13 +252,12 @@ public class FieldEditorLabelsConstantsPropertyEditorTest extends SwingModelTest
 		}
 		// set labels/fields
 		setLabelsFields();
-		assertEditor(
-				"public class Test extends MyPanel {",
-				"  public static final String LOCAL_ID = 'value';",
-				"  public Test() {",
-				"    setLabelsAndValues(new String[][]{{'first label', PrefConstants.ID_1},"
-						+ " {'second label', PrefConstants.ID_2}});",
-						"  }",
-				"}");
+		assertEditor("""
+				public class Test extends MyPanel {
+					public static final String LOCAL_ID = "value";
+					public Test() {
+						setLabelsAndValues(new String[][]{{"first label", PrefConstants.ID_1}, {"second label", PrefConstants.ID_2}});
+					}
+				}""");
 	}
 }

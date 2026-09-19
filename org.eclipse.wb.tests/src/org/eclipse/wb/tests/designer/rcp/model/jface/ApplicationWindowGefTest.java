@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -55,13 +55,12 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_barCreate_Shell() throws Exception {
-		CompositeInfo shell =
-				openComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = openComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// begin creating "bar" Menu
 		MenuInfo newMenu = (MenuInfo) loadCreationTool("org.eclipse.swt.widgets.Menu", "bar");
 		// initially no feedbacks
@@ -72,16 +71,16 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 		// click, so drop "newMenu"
 		canvas.click();
 		canvas.assertNoFeedbacks();
-		assertEditor(
-				"// filler filler filler",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Menu menu = new Menu(this, SWT.BAR);",
-				"      setMenuBar(menu);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+						{
+							Menu menu = new Menu(this, SWT.BAR);
+							setMenuBar(menu);
+						}
+					}
+				}""");
 		canvas.assertPrimarySelected(newMenu);
 	}
 
@@ -90,17 +89,16 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_barCreate_ApplicationWindow() throws Exception {
-		ApplicationWindowInfo window =
-				(ApplicationWindowInfo) openJavaInfo(
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected void configureShell(Shell newShell) {",
-						"    super.configureShell(newShell);",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = (ApplicationWindowInfo) openJavaInfo("""
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected void configureShell(Shell newShell) {
+						super.configureShell(newShell);
+					}
+				}""");
 		String source = m_lastEditor.getSource();
 		ShellInfo shell = window.getChildren(ShellInfo.class).get(0);
 		// canvas
@@ -135,24 +133,23 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_clickOn_createContents_parent() throws Exception {
-		ApplicationWindowInfo window =
-				(ApplicationWindowInfo) openJavaInfo(
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createContents(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NONE);",
-						"    return container;",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NONE)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NONE)/ /container/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
-		// click on "window", ensure that it is really selected
+		ApplicationWindowInfo window = (ApplicationWindowInfo) openJavaInfo("""
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createContents(Composite parent) {
+						Composite container = new Composite(parent, SWT.NONE);
+						return container;
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {}
+					{parameter} {parent} {/new Composite(parent, SWT.NONE)/}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NONE)/ /container/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
+		// click on "window ensure that it is really selected
 		canvas.target(window).in(100, 1).move().click();
 		canvas.assertPrimarySelected(window);
 	}
@@ -164,20 +161,19 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 	 */
 	@Test
 	public void test_clickOn_configureShell_newShell() throws Exception {
-		ApplicationWindowInfo window =
-				(ApplicationWindowInfo) openJavaInfo(
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected void configureShell(Shell newShell) {",
-						"    super.configureShell(newShell);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {}",
-				"  {parameter} {newShell} {/super.configureShell(newShell)/}");
+		ApplicationWindowInfo window = (ApplicationWindowInfo) openJavaInfo("""
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected void configureShell(Shell newShell) {
+						super.configureShell(newShell);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {}
+					{parameter} {newShell} {/super.configureShell(newShell)/}""");
 		// click on "window", ensure that it is really selected
 		canvas.target(window).in(100, 10).move().click();
 		canvas.assertPrimarySelected(window);
@@ -193,26 +189,25 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 		ManagerUtils.ensure_ResourceManager(m_javaProject, RcpToolkitDescription.INSTANCE);
 		TestUtils.createImagePNG(m_testProject, "src/test/images/test.png", 16, 16);
 		//
-		openJavaInfo(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  private IAction m_action;",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    createActions();",
-				"  }",
-				"  private void createActions() {",
-				"    {",
-				"      m_action = new Action('The text') {",
-				"        public void run() {",
-				"        }",
-				"      };",
-				"      m_action.setImageDescriptor(org.eclipse.wb.swt.ResourceManager.getImageDescriptor(Test.class,"
-						+ " 'images/test.png'));",
-						"    }",
-						"  }",
-				"}");
+		openJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction m_action;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+					}
+					private void createActions() {
+						{
+							m_action = new Action("The text") {
+								public void run() {
+								}
+							};
+							m_action.setImageDescriptor(org.eclipse.wb.swt.ResourceManager.getImageDescriptor(Test.class, "images/test.png"));
+						}
+					}
+				}""");
 		ActionInfo action = getJavaInfoByName("m_action");
 		action.getPropertyByTitle("enabled").setValue(false);
 		waitEventLoop(0);
@@ -228,44 +223,44 @@ public class ApplicationWindowGefTest extends RcpGefTest {
 		ManagerUtils.ensure_ResourceManager(m_javaProject, RcpToolkitDescription.INSTANCE);
 		TestUtils.createImagePNG(m_testProject, "src/test/images/test.png", 16, 16);
 		//
-		openJavaInfo(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"import org.eclipse.wb.swt.ResourceManager;",
-				"public class Test extends ApplicationWindow {",
-				"  private IAction m_action;",
-				"  private IAction m_action2;",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"    createActions();",
-				"    addMenuBar();",
-				"  }",
-				"  private void createActions() {",
-				"    {",
-				"      m_action = new Action('Action 1') {",
-				"        public void run() {",
-				"        }",
-				"      };",
-				"      m_action.setImageDescriptor(ResourceManager.getImageDescriptor(Test.class,'images/test.png'));",
-				"    }",
-				"    {",
-				"      m_action2 = new Action('Action 2') {",
-				"        public void run() {",
-				"        }",
-				"      };",
-				"    }",
-				"  }",
-				"  protected MenuManager createMenuManager() {",
-				"    MenuManager menuManager = new MenuManager('menu');",
-				"    {",
-				"      MenuManager menuManager_1 = new MenuManager('New MenuManager');",
-				"      menuManager.add(menuManager_1);",
-				"      menuManager_1.add(m_action);",
-				"      menuManager_1.add(m_action2);",
-				"    }",
-				"    return menuManager;",
-				"  }",
-				"}");
+		openJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				import org.eclipse.wb.swt.ResourceManager;
+				public class Test extends ApplicationWindow {
+					private IAction m_action;
+					private IAction m_action2;
+					public Test(Shell parentShell) {
+						super(parentShell);
+						createActions();
+						addMenuBar();
+					}
+					private void createActions() {
+						{
+							m_action = new Action("Action 1") {
+								public void run() {
+								}
+							};
+							m_action.setImageDescriptor(ResourceManager.getImageDescriptor(Test.class,"images/test.png"));
+						}
+						{
+							m_action2 = new Action("Action 2") {
+								public void run() {
+								}
+							};
+						}
+					}
+					protected MenuManager createMenuManager() {
+						MenuManager menuManager = new MenuManager("menu");
+						{
+							MenuManager menuManager_1 = new MenuManager("New MenuManager");
+							menuManager.add(menuManager_1);
+							menuManager_1.add(m_action);
+							menuManager_1.add(m_action2);
+						}
+						return menuManager;
+					}
+				}""");
 		ActionInfo action2 = getJavaInfoByName("m_action2");
 		// we need this, because only in this case under Win32 we will able to reproduce problem
 		m_viewerTree.getControl().setFocus();

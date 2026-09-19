@@ -587,7 +587,7 @@ public class LayoutTest extends RcpModelTest {
 	// Code generation: name, based on template
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private void check_nameTemplate(String template, String... lines) throws Exception {
+	private void check_nameTemplate(String template, String lines) throws Exception {
 		CompositeInfo shell = parseComposite("""
 				class Test extends Shell {
 					public Test() {

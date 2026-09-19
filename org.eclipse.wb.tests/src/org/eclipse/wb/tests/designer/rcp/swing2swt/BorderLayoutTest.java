@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -47,18 +47,17 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_parse() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BorderLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout(0, 0));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+					}
+				}""");
 		shell.refresh();
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new BorderLayout(0, 0))/}",
-				"  {new: swing2swt.layout.BorderLayout} {empty} {/setLayout(new BorderLayout(0, 0))/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/setLayout(new BorderLayout(0, 0))/}
+					{new: swing2swt.layout.BorderLayout} {empty} {/setLayout(new BorderLayout(0, 0))/}""");
 		BorderLayoutInfo layout = (BorderLayoutInfo) shell.getLayout();
 		// BorderLayout is "flow container" only for tree
 		Assertions.assertThat(new FlowContainerFactory(layout, true).get()).isEmpty();
@@ -70,22 +69,21 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	 */
 	@Test
 	public void test_getControl() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BorderLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout(0, 0));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setLayoutData(BorderLayout.NORTH);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setLayoutData(BorderLayout.WEST);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setLayoutData(BorderLayout.NORTH);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setLayoutData(BorderLayout.WEST);
+						}
+					}
+				}""");
 		shell.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) shell.getLayout();
 		ControlInfo button_1 = shell.getChildrenControls().get(0);
@@ -105,38 +103,37 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	 */
 	@Test
 	public void test_whenLayoutDelete_setLayoutData() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BorderLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout(0, 0));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setLayoutData(BorderLayout.NORTH);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"      button_2.setLayoutData(BorderLayout.WEST);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setLayoutData(BorderLayout.NORTH);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setLayoutData(BorderLayout.WEST);
+						}
+					}
+				}""");
 		shell.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) shell.getLayout();
 		//
 		layout.delete();
-		assertEditor(
-				"import swing2swt.layout.BorderLayout;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -149,30 +146,29 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BorderLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout(0, 0));",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+					}
+				}""");
 		shell.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) shell.getLayout();
 		//
 		ControlInfo newButton = BTestUtils.createButton();
 		layout.command_CREATE(newButton, "NORTH");
-		assertEditor(
-				"import swing2swt.layout.BorderLayout;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout(0, 0));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(BorderLayout.NORTH);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(BorderLayout.NORTH);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -185,34 +181,33 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	 */
 	@Test
 	public void test_MOVE_setRegion() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BorderLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout(0, 0));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(BorderLayout.NORTH);
+						}
+					}
+				}""");
 		shell.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
 		//
 		layout.command_MOVE(button, "WEST");
-		assertEditor(
-				"import swing2swt.layout.BorderLayout;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout(0, 0));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(BorderLayout.WEST);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(BorderLayout.WEST);
+						}
+					}
+				}""");
 	}
 
 	/**
@@ -220,48 +215,47 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	 */
 	@Test
 	public void test_MOVE_withReparent() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BorderLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout(0, 0));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"      button_1.setLayoutData(BorderLayout.NORTH);",
-						"    }",
-						"    {",
-						"      Composite composite = new Composite(this, SWT.NONE);",
-						"      {",
-						"        Button button_2 = new Button(composite, SWT.NONE);",
-						"      }",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setLayoutData(BorderLayout.NORTH);
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							{
+								Button button_2 = new Button(composite, SWT.NONE);
+							}
+						}
+					}
+				}""");
 		shell.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) shell.getLayout();
 		CompositeInfo composite = (CompositeInfo) shell.getChildrenControls().get(1);
 		ControlInfo button_2 = composite.getChildrenControls().get(0);
 		//
 		layout.command_MOVE(button_2, "WEST");
-		assertEditor(
-				"import swing2swt.layout.BorderLayout;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout(0, 0));",
-				"    {",
-				"      Button button_1 = new Button(this, SWT.NONE);",
-				"      button_1.setLayoutData(BorderLayout.NORTH);",
-				"    }",
-				"    {",
-				"      Composite composite = new Composite(this, SWT.NONE);",
-				"    }",
-				"    {",
-				"      Button button_2 = new Button(this, SWT.NONE);",
-				"      button_2.setLayoutData(BorderLayout.WEST);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+							button_1.setLayoutData(BorderLayout.NORTH);
+						}
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+							button_2.setLayoutData(BorderLayout.WEST);
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -271,18 +265,17 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_RegionProperty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BorderLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout(0, 0));",
-						"    {",
-						"      Button button = new Button(this, SWT.NONE);",
-						"      button.setLayoutData(BorderLayout.NORTH);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(BorderLayout.NORTH);
+						}
+					}
+				}""");
 		shell.refresh();
 		BorderLayoutInfo layout = (BorderLayoutInfo) shell.getLayout();
 		ControlInfo button = shell.getChildrenControls().get(0);
@@ -295,35 +288,34 @@ public class BorderLayoutTest extends AbstractSwing2SwtTest {
 		// set "West"
 		property.setValue("West");
 		layout.command_MOVE(button, "WEST");
-		assertEditor(
-				"import swing2swt.layout.BorderLayout;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new BorderLayout(0, 0));",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setLayoutData(BorderLayout.WEST);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setLayoutData(BorderLayout.WEST);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_RegionProperty_noValue() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import swing2swt.layout.BorderLayout;",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new BorderLayout(0, 0));",
-						"    {",
-						"      Button button_1 = new Button(this, SWT.NONE);",
-						"    }",
-						"    {",
-						"      Button button_2 = new Button(this, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import swing2swt.layout.BorderLayout;
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new BorderLayout(0, 0));
+						{
+							Button button_1 = new Button(this, SWT.NONE);
+						}
+						{
+							Button button_2 = new Button(this, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		ControlInfo button_1 = shell.getChildrenControls().get(0);
 		ControlInfo button_2 = shell.getChildrenControls().get(1);

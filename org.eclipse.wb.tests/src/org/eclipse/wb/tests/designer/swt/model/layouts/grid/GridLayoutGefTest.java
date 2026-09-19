@@ -1567,7 +1567,7 @@ public class GridLayoutGefTest extends RcpGefTest {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private void openPanel(String... lines) throws Exception {
+	private void openPanel(String lines) throws Exception {
 		composite = openComposite(lines);
 		if (composite.getLayout() instanceof GridLayoutInfo) {
 			layout = (GridLayoutInfo) composite.getLayout();

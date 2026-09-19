@@ -218,7 +218,7 @@ public class MenuProblemsTest extends RcpGefTest {
 				}""");
 	}
 
-	private void check_TableColumn_PopupMenu(String... lines) throws Exception {
+	private void check_TableColumn_PopupMenu(String lines) throws Exception {
 		CompositeInfo shell = openComposite(lines);
 		ControlInfo table = shell.getChildrenControls().get(0);
 		MenuInfo popup = table.getChildren(MenuInfo.class).get(0);
