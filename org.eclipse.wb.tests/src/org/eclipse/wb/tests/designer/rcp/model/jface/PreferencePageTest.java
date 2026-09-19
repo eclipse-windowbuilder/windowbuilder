@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,23 +41,22 @@ public class PreferencePageTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		PreferencePageInfo preferencePage =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends PreferencePage {",
-						"  public Test() {",
-						"  }",
-						"  public Control createContents(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"    return container;",
-						"  }",
-						"}");
+		PreferencePageInfo preferencePage = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends PreferencePage {
+					public Test() {
+					}
+					public Control createContents(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						return container;
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.preference.PreferencePage} {this} {}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /container/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.preference.PreferencePage} {this} {}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /container/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		CompositeInfo parentComposite = preferencePage.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo container = (CompositeInfo) parentComposite.getChildrenControls().get(0);
 		// refresh()

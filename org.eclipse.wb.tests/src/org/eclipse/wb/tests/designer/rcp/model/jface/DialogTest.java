@@ -80,29 +80,28 @@ public class DialogTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_0() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createDialogArea(Composite parent) {",
-						"    Composite container = (Composite) super.createDialogArea(parent);",
-						"    {",
-						"      Button button = new Button(container, SWT.NONE);",
-						"    }",
-						"    return container;",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						Composite container = (Composite) super.createDialogArea(parent);
+						{
+							Button button = new Button(container, SWT.NONE);
+						}
+						return container;
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.Dialog} {this} {}",
-				"  {parameter} {parent} {/super.createDialogArea(parent)/}",
-				"    {casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /new Button(container, SWT.NONE)/ /container/}",
-				"      {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"      {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(container, SWT.NONE)/}",
-				"        {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.Dialog} {this} {}
+					{parameter} {parent} {/super.createDialogArea(parent)/}
+						{casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /new Button(container, SWT.NONE)/ /container/}
+							{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+							{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(container, SWT.NONE)/}
+								{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 		CompositeInfo dialogAreaParent = dialog.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo dialogAreaSuper = dialogAreaParent.getChildren(CompositeInfo.class).get(0);
 		// refresh() also should be successful
@@ -141,26 +140,26 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_1() throws Exception {
-		parseJavaInfo(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Control createDialogArea(Composite parent) {",
-				"    Composite container = (Composite) super.createDialogArea(parent);",
-				"    return container;",
-				"  }",
-				"  protected void configureShell(Shell newShell) {",
-				"    super.configureShell(newShell);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.Dialog} {this} {}",
-				"  {parameter} {newShell} {/super.configureShell(newShell)/}",
-				"    {parameter} {parent} {/super.createDialogArea(parent)/}",
-				"      {casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /container/}",
-				"        {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}");
+		parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						Composite container = (Composite) super.createDialogArea(parent);
+						return container;
+					}
+					protected void configureShell(Shell newShell) {
+						super.configureShell(newShell);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.Dialog} {this} {}
+					{parameter} {newShell} {/super.configureShell(newShell)/}
+						{parameter} {parent} {/super.createDialogArea(parent)/}
+							{casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /container/}
+								{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -169,25 +168,25 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_createDialogArea_createButtonBar() throws Exception {
-		parseJavaInfo(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Control createDialogArea(Composite parent) {",
-				"    Composite container = (Composite) super.createDialogArea(parent);",
-				"    return container;",
-				"  }",
-				"  protected Control createButtonBar(Composite parent) {",
-				"    return super.createButtonBar(parent);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.Dialog} {this} {}",
-				"  {parameter} {parent} {/super.createDialogArea(parent)/}",
-				"    {casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /container/}",
-				"      {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}");
+		parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						Composite container = (Composite) super.createDialogArea(parent);
+						return container;
+					}
+					protected Control createButtonBar(Composite parent) {
+						return super.createButtonBar(parent);
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.Dialog} {this} {}
+					{parameter} {parent} {/super.createDialogArea(parent)/}
+						{casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /container/}
+							{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}""");
 	}
 
 	/**
@@ -197,17 +196,16 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_bad_getInitialSize() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Point getInitialSize() {",
-						"    return null;",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Point getInitialSize() {
+						return null;
+					}
+				}""");
 		dialog.refresh();
 		assertNoErrors(dialog);
 	}
@@ -219,13 +217,12 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_passNullParentShell() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test() {",
-						"    super((Shell) null);",
-						"  }",
-						"}");
+		DialogInfo dialog=parseJavaInfo("""
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test() {
+						super((Shell) null);
+					}
+				}""");
 		dialog.refresh();
 		assertNoErrors(dialog);
 		//
@@ -239,26 +236,25 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setAbsoluteLayout() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createDialogArea(Composite parent) {",
-						"    Composite container = (Composite) super.createDialogArea(parent);",
-						"    container.setLayout(null);",
-						"    new Button(container, SWT.NONE);",
-						"    return container;",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.Dialog} {this} {}",
-				"  {parameter} {parent} {/super.createDialogArea(parent)/}",
-				"    {casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /container.setLayout(null)/ /new Button(container, SWT.NONE)/ /container/}",
-				"      {new: org.eclipse.swt.widgets.Button} {empty} {/new Button(container, SWT.NONE)/}",
-				"      {null} {absolute} {}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						Composite container = (Composite) super.createDialogArea(parent);
+						container.setLayout(null);
+						new Button(container, SWT.NONE);
+						return container;
+					}
+				}""");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.Dialog} {this} {}
+					{parameter} {parent} {/super.createDialogArea(parent)/}
+						{casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /container.setLayout(null)/ /new Button(container, SWT.NONE)/ /container/}
+							{new: org.eclipse.swt.widgets.Button} {empty} {/new Button(container, SWT.NONE)/}
+							{null} {absolute} {}""");
 		// refresh
 		dialog.refresh();
 		assertNoErrors(dialog);
@@ -274,42 +270,41 @@ public class DialogTest extends RcpModelTest {
 	@Test
 	public void test_withLocalStaticFactory() throws Exception {
 		m_waitForAutoBuild = true;
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createDialogArea(Composite parent) {",
-						"    Composite container = (Composite) super.createDialogArea(parent);",
-						"    {",
-						"      Button button = createButton(container);",
-						"      button.setText('A');",
-						"    }",
-						"    {",
-						"      Button button = createButton(container);",
-						"      button.setText('B');",
-						"    }",
-						"    return container;",
-						"  }",
-						"  /**",
-						"  * @wbp.factory",
-						"  */",
-						"  public static Button createButton(Composite parent) {",
-						"    return new Button(parent, SWT.NONE);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						Composite container = (Composite) super.createDialogArea(parent);
+						{
+							Button button = createButton(container);
+							button.setText("A");
+						}
+						{
+							Button button = createButton(container);
+							button.setText("B");
+						}
+						return container;
+					}
+					/**
+					* @wbp.factory
+					*/
+					public static Button createButton(Composite parent) {
+						return new Button(parent, SWT.NONE);
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.Dialog} {this} {}",
-				"  {parameter} {parent} {/super.createDialogArea(parent)/}",
-				"    {casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /createButton(container)/ /createButton(container)/ /container/}",
-				"      {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"      {static factory: test.Test createButton(org.eclipse.swt.widgets.Composite)} {local-unique: button} {/createButton(container)/ /button.setText('A')/}",
-				"        {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}",
-				"      {static factory: test.Test createButton(org.eclipse.swt.widgets.Composite)} {local-unique: button} {/createButton(container)/ /button.setText('B')/}",
-				"        {virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.Dialog} {this} {}
+					{parameter} {parent} {/super.createDialogArea(parent)/}
+						{casted-superInvocation: (Composite)super.createDialogArea(parent)} {local-unique: container} {/(Composite) super.createDialogArea(parent)/ /createButton(container)/ /createButton(container)/ /container/}
+							{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+							{static factory: test.Test createButton(org.eclipse.swt.widgets.Composite)} {local-unique: button} {/createButton(container)/ /button.setText("A")/}
+								{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}
+							{static factory: test.Test createButton(org.eclipse.swt.widgets.Composite)} {local-unique: button} {/createButton(container)/ /button.setText("B")/}
+								{virtual-layout_data: org.eclipse.swt.layout.GridData} {virtual-layout-data} {}""");
 		// do refresh()
 		dialog.refresh();
 		assertNoErrors(dialog);
@@ -331,14 +326,13 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_buttonBar_buttonOnPalette() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"}");
+		DialogInfo dialog=parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+				}""");
 		// prepare category/entries
 		CategoryInfo category = new CategoryInfo();
 		category.setId("org.eclipse.wb.rcp.jface");
@@ -357,14 +351,13 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_buttonBar_getButtonBar_0() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+				}""");
 		// check hierarchy
 		assertNull(dialog.getButtonBar());
 	}
@@ -375,18 +368,17 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_buttonBar_getButtonBar_1() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected void createButtonsForButtonBar(Composite parent) {",
-						"    createButton(parent, 0, '0', false);",
-						"    createButton(parent, 1, '1', false);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected void createButtonsForButtonBar(Composite parent) {
+						createButton(parent, 0, "0", false);
+						createButton(parent, 1, "1", false);
+					}
+				}""");
 		// check hierarchy
 		CompositeInfo buttonBar = dialog.getButtonBar();
 		assertEquals(2, buttonBar.getChildrenControls().size());
@@ -398,24 +390,23 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_buttonBar_MOVE() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected void createButtonsForButtonBar(Composite parent) {",
-						"    createButton(parent, 0, '0', false);",
-						"    createButton(parent, 1, '1', false);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected void createButtonsForButtonBar(Composite parent) {
+						createButton(parent, 0, "0", false);
+						createButton(parent, 1, "1", false);
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.Dialog} {this} {/createButton(parent, 0, '0', false)/ /createButton(parent, 1, '1', false)/}",
-				"  {parameter} {parent} {/createButton(parent, 0, '0', false)/ /createButton(parent, 1, '1', false)/}",
-				"    {implicit-factory} {empty} {/createButton(parent, 0, '0', false)/}",
-				"    {implicit-factory} {empty} {/createButton(parent, 1, '1', false)/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.Dialog} {this} {/createButton(parent, 0, "0", false)/ /createButton(parent, 1, "1", false)/}
+					{parameter} {parent} {/createButton(parent, 0, "0", false)/ /createButton(parent, 1, "1", false)/}
+						{implicit-factory} {empty} {/createButton(parent, 0, "0", false)/}
+						{implicit-factory} {empty} {/createButton(parent, 1, "1", false)/}""");
 		// check "buttonBar"
 		CompositeInfo buttonBar;
 		{
@@ -434,17 +425,17 @@ public class DialogTest extends RcpModelTest {
 		}
 		// move "button_2" before "button_1"
 		DialogInfo.moveButtonOnButtonBar(button_2, button_1);
-		assertEditor(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected void createButtonsForButtonBar(Composite parent) {",
-				"    createButton(parent, 1, '1', false);",
-				"    createButton(parent, 0, '0', false);",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected void createButtonsForButtonBar(Composite parent) {
+						createButton(parent, 1, "1", false);
+						createButton(parent, 0, "0", false);
+					}
+				}""");
 	}
 
 	/**
@@ -452,28 +443,27 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_buttonBar_CREATE() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createDialogArea(Composite parent) {",
-						"    return (Composite) super.createDialogArea(parent);",
-						"  }",
-						"  protected void createButtonsForButtonBar(Composite parent) {",
-						"    createButton(parent, 0, '0', false);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						return (Composite) super.createDialogArea(parent);
+					}
+					protected void createButtonsForButtonBar(Composite parent) {
+						createButton(parent, 0, "0", false);
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.dialogs.Dialog} {this} {/createButton(parent, 0, '0', false)/}",
-				"  {parameter} {parent} {/super.createDialogArea(parent)/}",
-				"    {casted-superInvocation: (Composite)super.createDialogArea(parent)} {empty} {/(Composite) super.createDialogArea(parent)/}",
-				"      {implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}",
-				"    {parameter} {parent} {/createButton(parent, 0, '0', false)/}",
-				"      {implicit-factory} {empty} {/createButton(parent, 0, '0', false)/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.dialogs.Dialog} {this} {/createButton(parent, 0, "0", false)/}
+					{parameter} {parent} {/super.createDialogArea(parent)/}
+						{casted-superInvocation: (Composite)super.createDialogArea(parent)} {empty} {/(Composite) super.createDialogArea(parent)/}
+							{implicit-layout: org.eclipse.swt.layout.GridLayout} {implicit-layout} {}
+						{parameter} {parent} {/createButton(parent, 0, "0", false)/}
+							{implicit-factory} {empty} {/createButton(parent, 0, "0", false)/}""");
 		CompositeInfo dialogAreaParent = dialog.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo dialogAreaSuper = dialogAreaParent.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo buttonBar = dialogAreaParent.getChildren(CompositeInfo.class).get(1);
@@ -483,20 +473,20 @@ public class DialogTest extends RcpModelTest {
 		assertTrue(DialogInfo.isButtonBar(buttonBar));
 		// add new dialog button
 		ControlInfo newButton = DialogInfo.createButtonOnButtonBar(buttonBar, null);
-		assertEditor(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Control createDialogArea(Composite parent) {",
-				"    return (Composite) super.createDialogArea(parent);",
-				"  }",
-				"  protected void createButtonsForButtonBar(Composite parent) {",
-				"    createButton(parent, 0, '0', false);",
-				"    createButton(parent, 0, 'New button', false);",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						return (Composite) super.createDialogArea(parent);
+					}
+					protected void createButtonsForButtonBar(Composite parent) {
+						createButton(parent, 0, "0", false);
+						createButton(parent, 0, "New button", false);
+					}
+				}""");
 		check_case40661(newButton);
 	}
 
@@ -529,21 +519,20 @@ public class DialogTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * Test for "button" on "button bar".<br>
-	 * Test for "ID", "Text" and "Default" top level {@link Property}'s.
+	 * Test for "ID", "Text" and "Default" top level {@link Property}"s.
 	 */
 	@Test
 	public void test_buttonBarButton_0() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected void createButtonsForButtonBar(Composite parent) {",
-						"    createButton(parent, 0, '0', false);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected void createButtonsForButtonBar(Composite parent) {
+						createButton(parent, 0, "0", false);
+					}
+				}""");
 		ControlInfo button = dialog.getButtonBar().getChildrenControls().get(0);
 		// check for properties "ID", "Text" and "Default"
 		assertNotNull(button.getPropertyByTitle("ID"));
@@ -562,20 +551,19 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_buttonBarButton_1() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  private static final int CUSTOM_1 = IDialogConstants.CLIENT_ID + 1;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected void createButtonsForButtonBar(Composite parent) {",
-						"    createButton(parent, 0, '0', false);",
-						"    createButton(parent, IDialogConstants.YES_ID, '1', false);",
-						"    createButton(parent, CUSTOM_1, '1', false);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					private static final int CUSTOM_1 = IDialogConstants.CLIENT_ID + 1;
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected void createButtonsForButtonBar(Composite parent) {
+						createButton(parent, 0, "0", false);
+						createButton(parent, IDialogConstants.YES_ID, "1", false);
+						createButton(parent, CUSTOM_1, "1", false);
+					}
+				}""");
 		List<ControlInfo> buttons = dialog.getButtonBar().getChildrenControls();
 		// button_0
 		{
@@ -600,23 +588,22 @@ public class DialogTest extends RcpModelTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void test_getCustomIDs() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  private int NOT_FINAL_STATIC;",
-						"  private static int NOT_FINAL;",
-						"  private final int NOT_STATIC = 0;",
-						"  private static final int TWO = 0, FRAGMENTS = 1;",
-						"  private static final int NOT_INFIX = 0;",
-						"  private static final int NOT_DIALOG_CONSTANTS = 1 + 2;",
-						"  private static final int NOT_CLIENT = IDialogConstants.YES_ID + 2;",
-						"  private static final int NOT_RIGHT_NUMBER = IDialogConstants.CLIENT_ID + (2);",
-						"  private static final int GOOD = IDialogConstants.CLIENT_ID + 2;",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					private int NOT_FINAL_STATIC;
+					private static int NOT_FINAL;
+					private final int NOT_STATIC = 0;
+					private static final int TWO = 0, FRAGMENTS = 1;
+					private static final int NOT_INFIX = 0;
+					private static final int NOT_DIALOG_CONSTANTS = 1 + 2;
+					private static final int NOT_CLIENT = IDialogConstants.YES_ID + 2;
+					private static final int NOT_RIGHT_NUMBER = IDialogConstants.CLIENT_ID + (2);
+					private static final int GOOD = IDialogConstants.CLIENT_ID + 2;
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+				}""");
 		List<FieldDeclaration> idList =
 				(List<FieldDeclaration>) ReflectionUtils.invokeMethod2(
 						DialogButtonIdPropertyEditor.class,
@@ -647,17 +634,16 @@ public class DialogTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_buttonBarButton_noExtraButtonObjects() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected void createButtonsForButtonBar(Composite parent) {",
-						"    createButton(parent, 0, 'btn', false);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected void createButtonsForButtonBar(Composite parent) {
+						createButton(parent, 0, "btn", false);
+					}
+				}""");
 		dialog.refresh();
 		CompositeInfo buttonBar = dialog.getButtonBar();
 		Composite buttonBarObject = buttonBar.getWidget();
@@ -671,20 +657,19 @@ public class DialogTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_contextMenu_remove_getInitialSize() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createDialogArea(Composite parent) {",
-						"    return (Composite) super.createDialogArea(parent);",
-						"  }",
-						"  protected Point getInitialSize() {",
-						"    return new Point(500, 300);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						return (Composite) super.createDialogArea(parent);
+					}
+					protected Point getInitialSize() {
+						return new Point(500, 300);
+					}
+				}""");
 		dialog.refresh();
 		//
 		{
@@ -693,31 +678,30 @@ public class DialogTest extends RcpModelTest {
 			assertNotNull(action);
 			action.run();
 		}
-		assertEditor(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Control createDialogArea(Composite parent) {",
-				"    return (Composite) super.createDialogArea(parent);",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						return (Composite) super.createDialogArea(parent);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_contextMenu_usePreferredSize() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import org.eclipse.jface.dialogs.*;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createDialogArea(Composite parent) {",
-						"    return (Composite) super.createDialogArea(parent);",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						return (Composite) super.createDialogArea(parent);
+					}
+				}""");
 		dialog.refresh();
 		Dimension preferredSize = dialog.getPreferredSize().getCopy();
 		//
@@ -727,18 +711,18 @@ public class DialogTest extends RcpModelTest {
 			assertNotNull(action);
 			action.run();
 		}
-		assertEditor(
-				"import org.eclipse.jface.dialogs.*;",
-				"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-				"  public Test(Shell parentShell) {",
-				"    super(parentShell);",
-				"  }",
-				"  protected Control createDialogArea(Composite parent) {",
-				"    return (Composite) super.createDialogArea(parent);",
-				"  }",
-				"  protected Point getInitialSize() {",
-				"    return new Point(" + preferredSize.width + ", " + preferredSize.height + ");",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.dialogs.*;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						return (Composite) super.createDialogArea(parent);
+					}
+					protected Point getInitialSize() {
+						return new Point(%d, %d);
+					}
+				}""".formatted(preferredSize.width, preferredSize.height));
 	}
 }

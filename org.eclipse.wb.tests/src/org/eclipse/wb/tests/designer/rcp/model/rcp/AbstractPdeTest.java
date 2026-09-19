@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -46,18 +46,16 @@ public abstract class AbstractPdeTest extends RcpModelTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		setFileContentSrc(
-				"testplugin/Activator.java",
-				getSourceDQ(
-						"package testplugin;",
-						"import org.eclipse.ui.plugin.AbstractUIPlugin;",
-						"public class Activator extends AbstractUIPlugin {",
-						"  public Activator() {",
-						"  }",
-						"  public static Activator getDefault() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("testplugin/Activator.java", """
+				package testplugin;
+				import org.eclipse.ui.plugin.AbstractUIPlugin;
+				public class Activator extends AbstractUIPlugin {
+					public Activator() {
+					}
+					public static Activator getDefault() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		// prepare PDEUtils
 		m_utils = PdeUtils.get(m_project);
@@ -103,17 +101,17 @@ public abstract class AbstractPdeTest extends RcpModelTest {
 	/**
 	 * Creates <code>plugin.xml</code> file in current {@link IProject}.
 	 */
-	public static void createPluginXML(String... lines) throws Exception {
+	public static void createPluginXML(String lines) throws Exception {
 		PdeUtils.get(m_project).ensureSingleton();
-		AbstractJavaProjectTest.setFileContent("plugin.xml", getPluginSource(lines));
+		AbstractJavaProjectTest.setFileContent("plugin.xml", lines);
 		TestProject.waitForAutoBuild();
 	}
 
 	/**
 	 * Asserts that <code>plugin.xml</code> is same as expected lines.
 	 */
-	public static void assertPluginXML(String[] expectedLines) throws Exception {
-		assertEquals(getPluginSource(expectedLines), getPluginXML());
+	public static void assertPluginXML(String expectedLines) throws Exception {
+		assertEquals(expectedLines, getPluginXML());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -121,14 +119,6 @@ public abstract class AbstractPdeTest extends RcpModelTest {
 	// Protected utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * @return the {@link String} that is good for using as text for <code>plugin.xml</code>.
-	 */
-	private static String getPluginSource(String[] lines) {
-		String source = getSource(lines);
-		source = source.replace('\'', '"');
-		return source;
-	}
 
 	/**
 	 * Asserts that given {@link IPluginElement} has expected ID attribute value.

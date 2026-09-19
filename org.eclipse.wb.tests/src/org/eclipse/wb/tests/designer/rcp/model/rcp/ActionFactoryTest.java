@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -13,7 +13,6 @@
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
 import org.eclipse.wb.core.model.association.EmptyAssociation;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.core.utils.ui.UiUtils;
 import org.eclipse.wb.internal.rcp.Activator;
 import org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo;
@@ -55,31 +54,30 @@ public class ActionFactoryTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ActionFactory_1() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  private IAction m_saveAction;",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  protected void fillMenuBar(IMenuManager menuBar) {",
-						"    menuBar.add(m_saveAction);",
-						"  }",
-						"  protected void makeActions(IWorkbenchWindow window) {",
-						"    {",
-						"      m_saveAction = ActionFactory.SAVE.create(window);",
-						"      register(m_saveAction);",
-						"    }",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					private IAction m_saveAction;
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void fillMenuBar(IMenuManager menuBar) {
+						menuBar.add(m_saveAction);
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+						{
+							m_saveAction = ActionFactory.SAVE.create(window);
+							register(m_saveAction);
+						}
+					}
+				}""");
 		advisor.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.ui.application.ActionBarAdvisor} {this} {/register(m_saveAction)/}",
-				"  {parameter} {menuBar} {/menuBar.add(m_saveAction)/}",
-				"    {void} {void} {/menuBar.add(m_saveAction)/}",
-				"  {org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo}",
-				"    {ActionFactory.SAVE} {field-unique: m_saveAction} {/ActionFactory.SAVE.create(window)/ /register(m_saveAction)/ /menuBar.add(m_saveAction)/}");
+		assertHierarchy("""
+				{this: org.eclipse.ui.application.ActionBarAdvisor} {this} {/register(m_saveAction)/}
+					{parameter} {menuBar} {/menuBar.add(m_saveAction)/}
+						{void} {void} {/menuBar.add(m_saveAction)/}
+					{org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo}
+						{ActionFactory.SAVE} {field-unique: m_saveAction} {/ActionFactory.SAVE.create(window)/ /register(m_saveAction)/ /menuBar.add(m_saveAction)/}""");
 		// check Action properties
 		ActionInfo action = ActionContainerInfo.getActions(advisor).get(0);
 		assertEquals("&Save", action.getAction().getText());
@@ -93,20 +91,19 @@ public class ActionFactoryTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ActionFactory_2() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  private IAction m_saveAction;",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  protected void makeActions(IWorkbenchWindow window) {",
-						"    {",
-						"      m_saveAction = ActionFactory.SAVE.create(window);",
-						"      register(m_saveAction);",
-						"    }",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					private IAction m_saveAction;
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+						{
+							m_saveAction = ActionFactory.SAVE.create(window);
+							register(m_saveAction);
+						}
+					}
+				}""");
 		advisor.refresh();
 		// check Action
 		ActionInfo action = ActionContainerInfo.getActions(advisor).get(0);
@@ -126,14 +123,14 @@ public class ActionFactoryTest extends RcpModelTest {
 		// delete
 		{
 			action.delete();
-			assertEditor(
-					"public class Test extends ActionBarAdvisor {",
-					"  public Test(IActionBarConfigurer configurer) {",
-					"    super(configurer);",
-					"  }",
-					"  protected void makeActions(IWorkbenchWindow window) {",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends ActionBarAdvisor {
+						public Test(IActionBarConfigurer configurer) {
+							super(configurer);
+						}
+						protected void makeActions(IWorkbenchWindow window) {
+						}
+					}""");
 		}
 	}
 
@@ -142,20 +139,19 @@ public class ActionFactoryTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ActionFactory_defaultIcon() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  private IAction m_quitAction;",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  protected void makeActions(IWorkbenchWindow window) {",
-						"    {",
-						"      m_quitAction = ActionFactory.QUIT.create(window);",
-						"      register(m_quitAction);",
-						"    }",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					private IAction m_quitAction;
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+						{
+							m_quitAction = ActionFactory.QUIT.create(window);
+							register(m_quitAction);
+						}
+					}
+				}""");
 		advisor.refresh();
 		// check Action properties
 		ActionInfo action = ActionContainerInfo.getActions(advisor).get(0);
@@ -176,38 +172,37 @@ public class ActionFactoryTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_ActionFactory_CREATE() throws Exception {
-		ActionBarAdvisorInfo advisor =
-				parseJavaInfo(
-						"public class Test extends ActionBarAdvisor {",
-						"  public Test(IActionBarConfigurer configurer) {",
-						"    super(configurer);",
-						"  }",
-						"  protected void fillMenuBar(IMenuManager menuBar) {",
-						"  }",
-						"  protected void makeActions(IWorkbenchWindow window) {",
-						"  }",
-						"}");
+		ActionBarAdvisorInfo advisor = parseJavaInfo("""
+				public class Test extends ActionBarAdvisor {
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void fillMenuBar(IMenuManager menuBar) {
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+					}
+				}""");
 		advisor.refresh();
 		MenuManagerInfo menuManager = advisor.getChildren(MenuManagerInfo.class).get(0);
 		// create Action
 		ActionInfo action = ActionFactoryCreationSupport.createNew(advisor, "SAVE_ALL");
 		menuManager.command_CREATE(action, null);
-		assertEditor(
-				"public class Test extends ActionBarAdvisor {",
-				"  private IAction saveAllAction;",
-				"  public Test(IActionBarConfigurer configurer) {",
-				"    super(configurer);",
-				"  }",
-				"  protected void fillMenuBar(IMenuManager menuBar) {",
-				"    menuBar.add(saveAllAction);",
-				"  }",
-				"  protected void makeActions(IWorkbenchWindow window) {",
-				"    {",
-				"      saveAllAction = ActionFactory.SAVE_ALL.create(window);",
-				"      register(saveAllAction);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends ActionBarAdvisor {
+					private IAction saveAllAction;
+					public Test(IActionBarConfigurer configurer) {
+						super(configurer);
+					}
+					protected void fillMenuBar(IMenuManager menuBar) {
+						menuBar.add(saveAllAction);
+					}
+					protected void makeActions(IWorkbenchWindow window) {
+						{
+							saveAllAction = ActionFactory.SAVE_ALL.create(window);
+							register(saveAllAction);
+						}
+					}
+				}""");
 		// refresh
 		advisor.refresh();
 		assertNoErrors(advisor);
@@ -219,14 +214,12 @@ public class ActionFactoryTest extends RcpModelTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected String[] getTestSource_decorate(String... lines) {
-		lines =
-				CodeUtils.join(new String[]{
-						"package test;",
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.actions.*;",
-				"import org.eclipse.ui.application.*;"}, lines);
-		return lines;
+	protected String getTestSource_decorate(String lines) {
+		return getSource("""
+				package test;
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.actions.*;
+				import org.eclipse.ui.application.*;""", lines);
 	}
 }

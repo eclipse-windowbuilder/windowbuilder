@@ -42,7 +42,7 @@ public class LocalResourceManagerTest extends RcpModelTest {
 				}""");
 	}
 
-	private void test_parseJavaInfo(String... lines) throws Exception {
+	private void test_parseJavaInfo(String lines) throws Exception {
 		CompositeInfo shell = parseComposite(lines);
 		shell.refresh();
 		//

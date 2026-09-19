@@ -44,16 +44,15 @@ public class DoubleFieldEditorEntryInfoTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		FieldEditorPreferencePageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.jface.preference.*;",
-						"public class Test extends FieldEditorPreferencePage {",
-						"  public Test() {",
-						"    super(FLAT);",
-						"  }",
-						"  protected void createFieldEditors() {",
-						"  }",
-						"}");
+		FieldEditorPreferencePageInfo page = parseJavaInfo("""
+				import org.eclipse.jface.preference.*;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+					}
+				}""");
 		page.refresh();
 		// prepare palette entry
 		ToolEntryInfo entry = new DoubleFieldEditorEntryInfo();
@@ -71,16 +70,16 @@ public class DoubleFieldEditorEntryInfoTest extends RcpModelTest {
 		}
 		// add it
 		page.command_CREATE(newField, null);
-		assertEditor(
-				"import org.eclipse.jface.preference.*;",
-				"import org.eclipse.wb.swt.DoubleFieldEditor;",
-				"public class Test extends FieldEditorPreferencePage {",
-				"  public Test() {",
-				"    super(FLAT);",
-				"  }",
-				"  protected void createFieldEditors() {",
-				"    addField(new DoubleFieldEditor('id', 'New DoubleFieldEditor', getFieldEditorParent()));",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.preference.*;
+				import org.eclipse.wb.swt.DoubleFieldEditor;
+				public class Test extends FieldEditorPreferencePage {
+					public Test() {
+						super(FLAT);
+					}
+					protected void createFieldEditors() {
+						addField(new DoubleFieldEditor("id", "New DoubleFieldEditor", getFieldEditorParent()));
+					}
+				}""");
 	}
 }

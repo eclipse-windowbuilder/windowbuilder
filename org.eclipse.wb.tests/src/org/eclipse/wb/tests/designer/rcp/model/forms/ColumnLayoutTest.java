@@ -14,7 +14,6 @@ package org.eclipse.wb.tests.designer.rcp.model.forms;
 
 import org.eclipse.wb.internal.core.model.clipboard.JavaInfoMemento;
 import org.eclipse.wb.internal.core.model.creation.ConstructorCreationSupport;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.rcp.model.forms.layout.column.ColumnLayoutDataInfo;
 import org.eclipse.wb.internal.rcp.model.forms.layout.column.ColumnLayoutInfo;
 import org.eclipse.wb.internal.swt.model.layout.FillLayoutInfo;
@@ -327,14 +326,12 @@ public class ColumnLayoutTest extends AbstractFormsTest {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	protected String[] getTestSource_decorate(String... lines) {
-		lines =
-				CodeUtils.join(new String[]{
-						"package test;",
-						"import org.eclipse.swt.SWT;",
-						"import org.eclipse.swt.widgets.*;",
-						"import org.eclipse.swt.layout.*;",
-				"import org.eclipse.ui.forms.widgets.*;"}, lines);
-		return lines;
+	protected String getTestSource_decorate(String lines) {
+		return getSource("""
+				package test;
+				import org.eclipse.swt.SWT;
+				import org.eclipse.swt.widgets.*;
+				import org.eclipse.swt.layout.*;
+				import org.eclipse.ui.forms.widgets.*;""", lines);
 	}
 }

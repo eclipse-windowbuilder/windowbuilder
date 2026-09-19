@@ -50,96 +50,94 @@ public class FormLayoutMoveTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_move_with_both_sides_attached() throws Exception {
-		CompositeInfo shell =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new FormLayout());",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('New Button');",
-						"    FormData data = new FormData();",
-						"    data.bottom = new FormAttachment(100, -100);",
-						"    data.left = new FormAttachment(0, 133);",
-						"    data.right = new FormAttachment(100, -200);",
-						"    button.setLayoutData(data);",
-						"  }",
-						"}");
+		CompositeInfo shell = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new FormLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setText("New Button");
+						FormData data = new FormData();
+						data.bottom = new FormAttachment(100, -100);
+						data.left = new FormAttachment(0, 133);
+						data.right = new FormAttachment(100, -200);
+						button.setLayoutData(data);
+					}
+				}""");
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
 		moveByRight(shell, button, 400, 100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    super(SWT.NONE);",
-				"    setLayout(new FormLayout());",
-				"    Button button = new Button(this, SWT.NONE);",
-				"    button.setText('New Button');",
-				"    FormData data = new FormData();",
-				"    data.top = new FormAttachment(0, 100);",
-				"    data.right = new FormAttachment(100, -50);",
-				"    data.left = new FormAttachment(0, 283);",
-				"    button.setLayoutData(data);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new FormLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setText("New Button");
+						FormData data = new FormData();
+						data.top = new FormAttachment(0, 100);
+						data.right = new FormAttachment(100, -50);
+						data.left = new FormAttachment(0, 283);
+						button.setLayoutData(data);
+					}
+				}""");
 	}
 
 	@Test
 	@Disabled
 	public void test_move_with_both_sides_attached_left_control_attached() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				openComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FormLayout());",
-						"    //",
-						"    Button button1 = new Button(this, SWT.NONE);",
-						"    button1.setText('Button 1');",
-						"    //",
-						"    Button button2 = new Button(this, SWT.NONE);",
-						"    button2.setText('Button 2');",
-						"    //",
-						"    FormData data1 = new FormData();",
-						"    data1.bottom = new FormAttachment(100, -50);",
-						"    data1.right = new FormAttachment(100, -275);",
-						"    data1.left = new FormAttachment(button2, 0, SWT.LEFT);",
-						"    button1.setLayoutData(data1);",
-						"    //",
-						"    FormData data2 = new FormData();",
-						"    data2.top = new FormAttachment(0, 100);",
-						"    data2.left = new FormAttachment(0, 50);",
-						"    button2.setLayoutData(data2);",
-						"  }",
-						"}");
+		CompositeInfo shell = openComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FormLayout());
+						//
+						Button button1 = new Button(this, SWT.NONE);
+						button1.setText("Button 1");
+						//
+						Button button2 = new Button(this, SWT.NONE);
+						button2.setText("Button 2");
+						//
+						FormData data1 = new FormData();
+						data1.bottom = new FormAttachment(100, -50);
+						data1.right = new FormAttachment(100, -275);
+						data1.left = new FormAttachment(button2, 0, SWT.LEFT);
+						button1.setLayoutData(data1);
+						//
+						FormData data2 = new FormData();
+						data2.top = new FormAttachment(0, 100);
+						data2.left = new FormAttachment(0, 50);
+						button2.setLayoutData(data2);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		canvas.beginMove(button);
 		canvas.target(shell).rightSide().inX(-50).inY(100).drag();
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends Composite {",
-				"  public Test(Composite parent, int style) {",
-				"    super(parent, style);",
-				"    setLayout(new FormLayout());",
-				"    //",
-				"    Button button1 = new Button(this, SWT.NONE);",
-				"    button1.setText('Button 1');",
-				"    //",
-				"    Button button2 = new Button(this, SWT.NONE);",
-				"    button2.setText('Button 2');",
-				"    //",
-				"    FormData data1 = new FormData();",
-				"    data1.bottom = new FormAttachment(100, -41);",
-				"    data1.right = new FormAttachment(100, -274);",
-				"    data1.left = new FormAttachment(button2, 0, SWT.LEFT);",
-				"    button1.setLayoutData(data1);",
-				"    //",
-				"    FormData data2 = new FormData();",
-				"    data2.top = new FormAttachment(0, 90);",
-				"    data2.left = new FormAttachment(0, 43);",
-				"    button2.setLayoutData(data2);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FormLayout());
+						//
+						Button button1 = new Button(this, SWT.NONE);
+						button1.setText("Button 1");
+						//
+						Button button2 = new Button(this, SWT.NONE);
+						button2.setText("Button 2");
+						//
+						FormData data1 = new FormData();
+						data1.bottom = new FormAttachment(100, -41);
+						data1.right = new FormAttachment(100, -274);
+						data1.left = new FormAttachment(button2, 0, SWT.LEFT);
+						button1.setLayoutData(data1);
+						//
+						FormData data2 = new FormData();
+						data2.top = new FormAttachment(0, 90);
+						data2.left = new FormAttachment(0, 43);
+						button2.setLayoutData(data2);
+					}
+				}""");
 	}
 
 	@Test
@@ -147,20 +145,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		ControlInfo shell = openEditor1(100);
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
 		moveByLeft(shell, button, 0, 100, 1, 1);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 99);",
-				"      data.left = new FormAttachment(0);",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 99);
+							data.left = new FormAttachment(0);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -187,47 +185,46 @@ public class FormLayoutMoveTest extends RcpGefTest {
 	@Test
 	public void test_delete_with_another_attached() throws Exception {
 		prepareComponent();
-		CompositeInfo shell =
-				openComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setLayout(new FormLayout());",
-						"    //",
-						"    Button button = new Button(this, SWT.NONE);",
-						"    button.setText('New Button');",
-						"    //",
-						"    FormData data = new FormData();",
-						"    data.top = new FormAttachment(0, 100);",
-						"    data.left = new FormAttachment(0, 50);",
-						"    button.setLayoutData(data);",
-						"    //",
-						"    Button button2 = new Button(this, SWT.NONE);",
-						"    button2.setText('New Button2');",
-						"    //",
-						"    FormData data2 = new FormData();",
-						"    data2.top = new FormAttachment(0, 0);",
-						"    data2.left = new FormAttachment(button, 10);",
-						"    button2.setLayoutData(data2);",
-						"  }",
-						"}");
+		CompositeInfo shell = openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						//
+						Button button = new Button(this, SWT.NONE);
+						button.setText("New Button");
+						//
+						FormData data = new FormData();
+						data.top = new FormAttachment(0, 100);
+						data.left = new FormAttachment(0, 50);
+						button.setLayoutData(data);
+						//
+						Button button2 = new Button(this, SWT.NONE);
+						button2.setText("New Button2");
+						//
+						FormData data2 = new FormData();
+						data2.top = new FormAttachment(0, 0);
+						data2.left = new FormAttachment(button, 10);
+						button2.setLayoutData(data2);
+					}
+				}""");
 		ControlInfo button = shell.getChildrenControls().get(0);
 		// delete
 		button.delete();
 		// test
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    //",
-				"    Button button2 = new Button(this, SWT.NONE);",
-				"    button2.setText(\"New Button2\");",
-				"    //",
-				"    FormData data2 = new FormData();",
-				"    data2.left = new FormAttachment(0, 160);",
-				"    data2.top = new FormAttachment(0, 0);",
-				"    button2.setLayoutData(data2);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						//
+						Button button2 = new Button(this, SWT.NONE);
+						button2.setText("New Button2");
+						//
+						FormData data2 = new FormData();
+						data2.left = new FormAttachment(0, 160);
+						data2.top = new FormAttachment(0, 0);
+						button2.setLayoutData(data2);
+					}
+				}""");
 	}
 
 	@Test
@@ -235,20 +232,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		ControlInfo shell = openEditor1(100);
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
 		moveByRight(shell, button, 340, 100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 100);",
-				"      data.right = new FormAttachment(100, -110);",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 100);
+							data.right = new FormAttachment(100, -110);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -258,20 +255,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		moveByLeft(shell, button, 50, 100);
 		canvas.select();
 		moveByLeft(shell, button, 10, 100, 1, 1);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 99);",
-				"      data.left = new FormAttachment(0, 10);",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 99);
+							data.left = new FormAttachment(0, 10);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -279,20 +276,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		ControlInfo shell = openEditor1(50);
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
 		moveByLeft(shell, button, 100, 100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 100);",
-				"      data.left = new FormAttachment(0, 100);",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 100);
+							data.left = new FormAttachment(0, 100);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -300,20 +297,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		ControlInfo shell = openEditor1(100);
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
 		moveByRight(shell, button, 450, 100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 100);",
-				"      data.right = new FormAttachment(100);",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 100);
+							data.right = new FormAttachment(100);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -322,20 +319,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		// prepare objects
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
 		moveByLeft(shell, button, 50, 100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 100);",
-				"      data.left = new FormAttachment(0, 50);",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 100);
+							data.left = new FormAttachment(0, 50);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -343,20 +340,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		ControlInfo shell = openEditor1(100);
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
 		moveByLeft(shell, button, 40, 100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 100);",
-				"      data.left = new FormAttachment(0, 40);",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 100);
+							data.left = new FormAttachment(0, 40);
+							button.setLayoutData(data);
+						}
+					}
+				}""");
 	}
 
 	@Test
@@ -366,20 +363,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		ControlInfo button = (ControlInfo) shell.getChildrenJava().get(1);
 		int containerGap = getEditPolicy(shell).getContainerGapValue(shell, PositionConstants.LEFT);
 		moveByLeft(shell, button, containerGap, 100);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 100);",
-				"      data.left = new FormAttachment(0, " + containerGap + ");",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 100);
+							data.left = new FormAttachment(0, %d);
+							button.setLayoutData(data);
+						}
+					}
+				}""".formatted(containerGap));
 	}
 
 	@Test
@@ -390,20 +387,20 @@ public class FormLayoutMoveTest extends RcpGefTest {
 		moveByRight(shell, button, 450 - containerGap - 1, 100);
 		// done drag
 		canvas.endDrag();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText(\"New Button\");",
-				"      FormData data = new FormData();",
-				"      data.top = new FormAttachment(0, 100);",
-				"      data.right = new FormAttachment(100, -" + containerGap + ");",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.top = new FormAttachment(0, 100);
+							data.right = new FormAttachment(100, -%d);
+							button.setLayoutData(data);
+						}
+					}
+				}""".formatted(containerGap));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -415,62 +412,62 @@ public class FormLayoutMoveTest extends RcpGefTest {
 	 * Creates the editor with one button attached by left at offset <code>modelX</code>.
 	 */
 	private CompositeInfo openEditor1(int modelX) throws Exception {
-		return openComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"      FormData data = new FormData();",
-				"      data.left = new FormAttachment(0, " + modelX + ");",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		return openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.left = new FormAttachment(0, %d);
+							button.setLayoutData(data);
+						}
+					}
+				}""".formatted(modelX));
 	}
 
 	/**
 	 * Creates the editor with one button attached by right at offset <code>modelX</code>.
 	 */
 	private CompositeInfo openEditor2(int modelX) throws Exception {
-		return openComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      button.setText('New Button');",
-				"      FormData data = new FormData();",
-				"      data.right = new FormAttachment(100, -" + modelX + ");",
-				"      button.setLayoutData(data);",
-				"    }",
-				"  }",
-				"}");
+		return openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							Button button = new Button(this, SWT.NONE);
+							button.setText("New Button");
+							FormData data = new FormData();
+							data.right = new FormAttachment(100, -%d);
+							button.setLayoutData(data);
+						}
+					}
+				}""".formatted(modelX));
 	}
 
 	/**
 	 * Creates the editor with two buttons
 	 */
 	private CompositeInfo openEditor3() throws Exception {
-		return openComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    Button button = new Button(this, SWT.NONE);",
-				"    button.setText('New Button');",
-				"    FormData data = new FormData();",
-				"    data.top = new FormAttachment(0, 100);",
-				"    data.left = new FormAttachment(0, 50);",
-				"    button.setLayoutData(data);",
-				"    Button button2 = new Button(this, SWT.NONE);",
-				"    button2.setText('New Button2');",
-				"    FormData data2 = new FormData();",
-				"    data2.top = new FormAttachment(0, 0);",
-				"    data2.left = new FormAttachment(0, 200);",
-				"    button2.setLayoutData(data2);",
-				"  }",
-				"}");
+		return openComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FormLayout());
+						Button button = new Button(this, SWT.NONE);
+						button.setText("New Button");
+						FormData data = new FormData();
+						data.top = new FormAttachment(0, 100);
+						data.left = new FormAttachment(0, 50);
+						button.setLayoutData(data);
+						Button button2 = new Button(this, SWT.NONE);
+						button2.setText("New Button2");
+						FormData data2 = new FormData();
+						data2.top = new FormAttachment(0, 0);
+						data2.left = new FormAttachment(0, 200);
+						button2.setLayoutData(data2);
+					}
+				}""");
 	}
 
 	private void moveByLeft(ControlInfo parent, ControlInfo widget, int modelX, int modelY)

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -32,23 +32,22 @@ public class PropertyPageTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_0() throws Exception {
-		PropertyPageInfo page =
-				parseJavaInfo(
-						"import org.eclipse.ui.dialogs.*;",
-						"public class Test extends PropertyPage {",
-						"  public Test() {",
-						"  }",
-						"  public Control createContents(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"    return container;",
-						"  }",
-						"}");
+		PropertyPageInfo page = parseJavaInfo("""
+				import org.eclipse.ui.dialogs.*;
+				public class Test extends PropertyPage {
+					public Test() {
+					}
+					public Control createContents(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						return container;
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.ui.dialogs.PropertyPage} {this} {}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /container/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: org.eclipse.ui.dialogs.PropertyPage} {this} {}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/ /container/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		CompositeInfo parentComposite = page.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo container = (CompositeInfo) parentComposite.getChildrenControls().get(0);
 		// refresh()

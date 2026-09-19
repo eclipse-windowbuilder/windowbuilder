@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,18 +40,17 @@ public class ViewerColumnGefTest extends RcpGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_dropOnTable() throws Exception {
-		CompositeInfo composite =
-				openComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      Table table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);",
-						"      table.setHeaderVisible(true);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo composite = openComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							Table table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
+							table.setHeaderVisible(true);
+						}
+					}
+				}""");
 		String source = m_lastEditor.getSource();
 		TableInfo table = composite.getChildren(TableInfo.class).get(0);
 		{
@@ -72,40 +71,39 @@ public class ViewerColumnGefTest extends RcpGefTest {
 			canvas.assertCommandNotNull();
 			canvas.click();
 			// column dropped
-			assertEditor(
-					"public class Test extends Composite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    setLayout(new FillLayout());",
-					"    {",
-					"      Table table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);",
-					"      table.setHeaderVisible(true);",
-					"      {",
-					"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-					"        tableColumn.setWidth(100);",
-					"        tableColumn.setText(\"New Column\");",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Composite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							setLayout(new FillLayout());
+							{
+								Table table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
+								table.setHeaderVisible(true);
+								{
+									TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+									tableColumn.setWidth(100);
+									tableColumn.setText("New Column");
+								}
+							}
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_dropOnTableViewer() throws Exception {
-		CompositeInfo composite =
-				openComposite(
-						"public class Test extends Composite {",
-						"  public Test(Composite parent, int style) {",
-						"    super(parent, style);",
-						"    setLayout(new FillLayout());",
-						"    {",
-						"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-						"      Table table = tableViewer.getTable();",
-						"      table.setHeaderVisible(true);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo composite = openComposite("""
+				public class Test extends Composite {
+					public Test(Composite parent, int style) {
+						super(parent, style);
+						setLayout(new FillLayout());
+						{
+							TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+							Table table = tableViewer.getTable();
+							table.setHeaderVisible(true);
+						}
+					}
+				}""");
 		TableInfo table = composite.getChildren(TableInfo.class).get(0);
 		{
 			// drop Column
@@ -115,23 +113,23 @@ public class ViewerColumnGefTest extends RcpGefTest {
 			canvas.assertCommandNotNull();
 			canvas.click();
 			// column dropped
-			assertEditor(
-					"public class Test extends Composite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    setLayout(new FillLayout());",
-					"    {",
-					"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-					"      Table table = tableViewer.getTable();",
-					"      table.setHeaderVisible(true);",
-					"      {",
-					"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-					"        tableColumn.setWidth(100);",
-					"        tableColumn.setText(\"New Column\");",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Composite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							setLayout(new FillLayout());
+							{
+								TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+								Table table = tableViewer.getTable();
+								table.setHeaderVisible(true);
+								{
+									TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+									tableColumn.setWidth(100);
+									tableColumn.setText("New Column");
+								}
+							}
+						}
+					}""");
 		}
 		{
 			// drop ViewerColumn
@@ -141,29 +139,29 @@ public class ViewerColumnGefTest extends RcpGefTest {
 			canvas.assertCommandNotNull();
 			canvas.click();
 			// column-viewer  dropped
-			assertEditor(
-					"public class Test extends Composite {",
-					"  public Test(Composite parent, int style) {",
-					"    super(parent, style);",
-					"    setLayout(new FillLayout());",
-					"    {",
-					"      TableViewer tableViewer = new TableViewer(this, SWT.BORDER);",
-					"      Table table = tableViewer.getTable();",
-					"      table.setHeaderVisible(true);",
-					"      {",
-					"        TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);",
-					"        TableColumn tableColumn = tableViewerColumn.getColumn();",
-					"        tableColumn.setWidth(100);",
-					"        tableColumn.setText(\"New Column\");",
-					"      }",
-					"      {",
-					"        TableColumn tableColumn = new TableColumn(table, SWT.NONE);",
-					"        tableColumn.setWidth(100);",
-					"        tableColumn.setText(\"New Column\");",
-					"      }",
-					"    }",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Composite {
+						public Test(Composite parent, int style) {
+							super(parent, style);
+							setLayout(new FillLayout());
+							{
+								TableViewer tableViewer = new TableViewer(this, SWT.BORDER);
+								Table table = tableViewer.getTable();
+								table.setHeaderVisible(true);
+								{
+									TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+									TableColumn tableColumn = tableViewerColumn.getColumn();
+									tableColumn.setWidth(100);
+									tableColumn.setText("New Column");
+								}
+								{
+									TableColumn tableColumn = new TableColumn(table, SWT.NONE);
+									tableColumn.setWidth(100);
+									tableColumn.setText("New Column");
+								}
+							}
+						}
+					}""");
 		}
 	}
 }

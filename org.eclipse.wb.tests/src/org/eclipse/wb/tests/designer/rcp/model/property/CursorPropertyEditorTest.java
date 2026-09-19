@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -72,13 +72,12 @@ public abstract class CursorPropertyEditorTest extends RcpModelTest {
 	protected final void assert_getText_getClipboardSource_forSource(String cursorSource,
 			String expectedText,
 			String expectedClipboardSource) throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"// filler filler filler",
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				// filler filler filler
+				public class Test extends Shell {
+					public Test() {
+					}
+				}""");
 		// set "cursor" property
 		shell.addMethodInvocation("setCursor(org.eclipse.swt.graphics.Cursor)", cursorSource);
 		shell.refresh();

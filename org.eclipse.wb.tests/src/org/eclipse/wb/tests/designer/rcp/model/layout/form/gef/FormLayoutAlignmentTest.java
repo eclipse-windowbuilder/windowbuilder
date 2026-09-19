@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -214,87 +215,85 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 
 	@Test
 	public void test_replicateWidth_leftAttachedToRight_rightNotAttached() throws Exception {
-		parse_twoButtons(
-				"public class Test extends Shell {",
-				"  private org.eclipse.swt.widgets.Button button_1;",
-				"  private Control button_2;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);",
-				"      button_1.setText('Some long text');",
-				"      {",
-				"        FormData data_1 = new FormData();",
-				"        data_1.left = new FormAttachment(0, 50);",
-				"        data_1.top = new FormAttachment(0, 100);",
-				"        button_1.setLayoutData(data_1);",
-				"      }",
-				"    }",
-				"    {",
-				"      button_2 = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData data_2 = new FormData();",
-				"        data_2.left = new FormAttachment(button_1, 5);",
-				"        data_2.top = new FormAttachment(0, 200);",
-				"        button_2.setLayoutData(data_2);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		parse_twoButtons("""
+				public class Test extends Shell {
+					private org.eclipse.swt.widgets.Button button_1;
+					private Control button_2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);
+							button_1.setText("Some long text");
+							{
+								FormData data_1 = new FormData();
+								data_1.left = new FormAttachment(0, 50);
+								data_1.top = new FormAttachment(0, 100);
+								button_1.setLayoutData(data_1);
+							}
+						}
+						{
+							button_2 = new Button(this, SWT.NONE);
+							{
+								FormData data_2 = new FormData();
+								data_2.left = new FormAttachment(button_1, 5);
+								data_2.top = new FormAttachment(0, 200);
+								button_2.setLayoutData(data_2);
+							}
+						}
+					}
+				}""");
 		// do alignment
 		runAlignmentAction_twoButtons("Replicate width");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private org.eclipse.swt.widgets.Button button_1;",
-				"  private Control button_2;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);",
-				"      button_1.setText('Some long text');",
-				"      {",
-				"        FormData data_1 = new FormData();",
-				"        data_1.left = new FormAttachment(0, 50);",
-				"        data_1.top = new FormAttachment(0, 100);",
-				"        button_1.setLayoutData(data_1);",
-				"      }",
-				"    }",
-				"    {",
-				"      button_2 = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData data_2 = new FormData();",
-				"        data_2.right = new FormAttachment(button_1, "
-						+ (5 + button_1.getModelBounds().width)
-						+ ", SWT.RIGHT);",
-						"        data_2.left = new FormAttachment(button_1, 5);",
-						"        data_2.top = new FormAttachment(0, 200);",
-						"        button_2.setLayoutData(data_2);",
-						"      }",
-						"    }",
-						"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private org.eclipse.swt.widgets.Button button_1;
+					private Control button_2;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);
+							button_1.setText("Some long text");
+							{
+								FormData data_1 = new FormData();
+								data_1.left = new FormAttachment(0, 50);
+								data_1.top = new FormAttachment(0, 100);
+								button_1.setLayoutData(data_1);
+							}
+						}
+						{
+							button_2 = new Button(this, SWT.NONE);
+							{
+								FormData data_2 = new FormData();
+								data_2.right = new FormAttachment(button_1, %d, SWT.RIGHT);
+								data_2.left = new FormAttachment(button_1, 5);
+								data_2.top = new FormAttachment(0, 200);
+								button_2.setLayoutData(data_2);
+							}
+						}
+					}
+				}""".formatted(5 + button_1.getModelBounds().width));
 	}
 
 	@Test
 	public void test_replicateWidth_leftAttachedToRight_rightNotAttached_createButton2()
 			throws Exception {
-		parse(
-				"public class Test extends Shell {",
-				"  private org.eclipse.swt.widgets.Button button_1;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);",
-				"      button_1.setText('Some long text');",
-				"      {",
-				"        FormData data_1 = new FormData();",
-				"        data_1.left = new FormAttachment(0, 50);",
-				"        data_1.top = new FormAttachment(0, 100);",
-				"        button_1.setLayoutData(data_1);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		parse("""
+				public class Test extends Shell {
+					private org.eclipse.swt.widgets.Button button_1;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);
+							button_1.setText("Some long text");
+							{
+								FormData data_1 = new FormData();
+								data_1.left = new FormAttachment(0, 50);
+								data_1.top = new FormAttachment(0, 100);
+								button_1.setLayoutData(data_1);
+							}
+						}
+					}
+				}""");
 		button_1 = shell.getChildrenControls().get(0);
 		// create "button_2"
 		button_2 = loadCreationTool("test.Button");
@@ -302,63 +301,61 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 		canvas.moveTo(shell, -100, -100);
 		canvas.target(button_1).outX(5).inY(0).move();
 		canvas.click();
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private org.eclipse.swt.widgets.Button button_1;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);",
-				"      button_1.setText('Some long text');",
-				"      {",
-				"        FormData data_1 = new FormData();",
-				"        data_1.left = new FormAttachment(0, 50);",
-				"        data_1.top = new FormAttachment(0, 100);",
-				"        button_1.setLayoutData(data_1);",
-				"      }",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData fd_button = new FormData();",
-				"        fd_button.top = new FormAttachment(button_1, 0, SWT.TOP);",
-				"        fd_button.left = new FormAttachment(button_1, 6);",
-				"        button.setLayoutData(fd_button);",
-				"      }",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private org.eclipse.swt.widgets.Button button_1;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);
+							button_1.setText("Some long text");
+							{
+								FormData data_1 = new FormData();
+								data_1.left = new FormAttachment(0, 50);
+								data_1.top = new FormAttachment(0, 100);
+								button_1.setLayoutData(data_1);
+							}
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData fd_button = new FormData();
+								fd_button.top = new FormAttachment(button_1, 0, SWT.TOP);
+								fd_button.left = new FormAttachment(button_1, 6);
+								button.setLayoutData(fd_button);
+							}
+						}
+					}
+				}""");
 		// do alignment
 		runAlignmentAction_twoButtons("Replicate width");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  private org.eclipse.swt.widgets.Button button_1;",
-				"  public Test() {",
-				"    setLayout(new FormLayout());",
-				"    {",
-				"      button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);",
-				"      button_1.setText('Some long text');",
-				"      {",
-				"        FormData data_1 = new FormData();",
-				"        data_1.left = new FormAttachment(0, 50);",
-				"        data_1.top = new FormAttachment(0, 100);",
-				"        button_1.setLayoutData(data_1);",
-				"      }",
-				"    }",
-				"    {",
-				"      Button button = new Button(this, SWT.NONE);",
-				"      {",
-				"        FormData fd_button = new FormData();",
-				"        fd_button.right = new FormAttachment(button_1, "
-						+ (6 + button_1.getModelBounds().width)
-						+ ", SWT.RIGHT);",
-						"        fd_button.top = new FormAttachment(button_1, 0, SWT.TOP);",
-						"        fd_button.left = new FormAttachment(button_1, 6);",
-						"        button.setLayoutData(fd_button);",
-						"      }",
-						"    }",
-						"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					private org.eclipse.swt.widgets.Button button_1;
+					public Test() {
+						setLayout(new FormLayout());
+						{
+							button_1 = new org.eclipse.swt.widgets.Button(this, SWT.NONE);
+							button_1.setText("Some long text");
+							{
+								FormData data_1 = new FormData();
+								data_1.left = new FormAttachment(0, 50);
+								data_1.top = new FormAttachment(0, 100);
+								button_1.setLayoutData(data_1);
+							}
+						}
+						{
+							Button button = new Button(this, SWT.NONE);
+							{
+								FormData fd_button = new FormData();
+								fd_button.right = new FormAttachment(button_1, %d, SWT.RIGHT);
+								fd_button.top = new FormAttachment(button_1, 0, SWT.TOP);
+								fd_button.left = new FormAttachment(button_1, 6);
+								button.setLayoutData(fd_button);
+							}
+						}
+					}
+				}""".formatted(6 + button_1.getModelBounds().width));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -369,7 +366,7 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 	/**
 	 * Parses typical RCP code with {@link Shell}.
 	 */
-	private void parse(String... lines) throws Exception {
+	private void parse(String lines) throws Exception {
 		prepareComponent(75, 25);
 		// Shell is root
 		shell = openComposite(lines);
@@ -380,62 +377,52 @@ public class FormLayoutAlignmentTest extends RcpGefTest {
 	 */
 	private void parse_twoButtons_typical(String[] constraints_1, String[] constraints_2)
 			throws Exception {
-		String[] lines = getLines_twoButtons_typical(constraints_1, constraints_2);
+		String lines = getLines_twoButtons_typical(constraints_1, constraints_2);
 		parse_twoButtons(lines);
 	}
 
 	private void assertEditor_twoButtons_typical(String[] constraints_1, String[] constraints_2)
 			throws Exception {
-		String[] lines = getLines_twoButtons_typical(constraints_1, constraints_2);
+		String lines = getLines_twoButtons_typical(constraints_1, constraints_2);
 		assertEditor(lines);
 	}
 
-	private static String[] getLines_twoButtons_typical(String[] constraints_1, String[] constraints_2) {
+	private static String getLines_twoButtons_typical(String[] constraints_1, String[] constraints_2) {
 		constraints_1 = ArrayUtils.clone(constraints_1);
 		constraints_2 = ArrayUtils.clone(constraints_2);
 		for (int i = 0; i < constraints_1.length; i++) {
-			constraints_1[i] = "        data_1." + constraints_1[i];
+			constraints_1[i] = "			data_1." + constraints_1[i];
 		}
 		for (int i = 0; i < constraints_2.length; i++) {
-			constraints_2[i] = "        data_2." + constraints_2[i];
+			constraints_2[i] = "			data_2." + constraints_2[i];
 		}
-		String[] lines =
-				new String[]{
-						"public class Test extends Shell {",
-						"  private Button button_1;",
-						"  private Button button_2;",
-						"  public Test() {",
-						"    super(SWT.NONE);",
-						"    setLayout(new FormLayout());",
-						"    {",
-						"      button_1 = new Button(this, SWT.NONE);",
-						"      {",
-		"        FormData data_1 = new FormData();"};
-		lines = ArrayUtils.addAll(lines, constraints_1);
-		lines =
-				ArrayUtils.addAll(lines, new String[]{
-						"        button_1.setLayoutData(data_1);",
-						"      }",
-						"    }",
-						"    {",
-						"      button_2 = new Button(this, SWT.NONE);",
-						"      {",
-				"        FormData data_2 = new FormData();"});
-		lines = ArrayUtils.addAll(lines, constraints_2);
-		lines =
-				ArrayUtils.addAll(lines, new String[]{
-						"        button_2.setLayoutData(data_2);",
-						"      }",
-						"    }",
-						"  }",
-				"}"});
-		return lines;
+		return """
+				public class Test extends Shell {
+					private Button button_1;
+					private Button button_2;
+					public Test() {
+						super(SWT.NONE);
+						setLayout(new FormLayout());
+						{
+							FormData data_1 = new FormData();
+				%s
+							button_1 = new Button(this, SWT.NONE);
+							button_1.setLayoutData(data_1);
+						}
+						{
+							FormData data_2 = new FormData();
+				%s
+							button_2 = new Button(this, SWT.NONE);
+							button_2.setLayoutData(data_2);
+						}
+					}
+				}""".formatted(StringUtils.join(constraints_1, "\n"), StringUtils.join(constraints_2, "\n"));
 	}
 
 	/**
 	 * Parses typical RCP code with {@link Shell} and two {@link Button}-s.
 	 */
-	private void parse_twoButtons(String... lines) throws Exception {
+	private void parse_twoButtons(String lines) throws Exception {
 		parse(lines);
 		// prepare Button-s
 		button_1 = shell.getChildrenControls().get(0);

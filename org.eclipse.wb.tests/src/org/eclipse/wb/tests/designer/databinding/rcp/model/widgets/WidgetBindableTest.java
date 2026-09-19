@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -52,37 +52,36 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_widgets() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import java.io.File;",
-						"public class Test {",
-						"  protected Shell m_shell;",
-						"  private Label m_label;",
-						"  private Button m_button;",
-						"  private Text m_text;",
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new GridLayout());",
-						"    m_label = new Label(m_shell, SWT.NONE);",
-						"    m_button = new Button(m_shell, SWT.NONE);",
-						"    m_text = new Text(m_shell, SWT.BORDER);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import java.io.File;
+				public class Test {
+					protected Shell m_shell;
+					private Label m_label;
+					private Button m_button;
+					private Text m_text;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_label = new Label(m_shell, SWT.NONE);
+						m_button = new Button(m_shell, SWT.NONE);
+						m_text = new Text(m_shell, SWT.BORDER);
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -138,7 +137,7 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_widget_Shell_properties() throws Exception {
-		WidgetBindableInfo root = parseBindings("  //", "    //");
+		WidgetBindableInfo root = parseBindings("	//", "		//");
 		List<IObserveInfo> properties = root.getChildren(ChildrenContext.ChildrenForPropertiesTable);
 		//
 		widget_Link_Shell_properties(properties);
@@ -147,21 +146,22 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	@Test
 	public void test_widget_Label_properties() throws Exception {
 		widget_Label_CLabel_properties(
-				"  private Label m_label;",
-				"    m_label = new Label(m_shell, SWT.NONE);");
+				"	private Label m_label;",
+				"		m_label = new Label(m_shell, SWT.NONE);");
 	}
 
 	@Test
 	public void test_widget_CLabel_properties() throws Exception {
 		widget_Label_CLabel_properties(
-				"  private CLabel m_clabel;",
-				"    m_clabel = new CLabel(m_shell, SWT.NONE);");
+				"	private CLabel m_clabel;",
+				"		m_clabel = new CLabel(m_shell, SWT.NONE);");
 	}
 
 	@Test
 	public void test_widget_Link_properties() throws Exception {
-		WidgetBindableInfo root =
-				parseBindings("  private Link m_link;", "    m_link = new Link(m_shell, SWT.NONE);");
+		WidgetBindableInfo root = parseBindings(
+				"	private Link m_link;",
+				"		m_link = new Link(m_shell, SWT.NONE);");
 		List<IObserveInfo> children = root.getChildren(ChildrenContext.ChildrenForMasterTable);
 		List<IObserveInfo> properties =
 				children.get(0).getChildren(ChildrenContext.ChildrenForPropertiesTable);
@@ -299,10 +299,9 @@ public class WidgetBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_widget_Composite_properties() throws Exception {
-		WidgetBindableInfo root =
-				parseBindings(
-						"  private Composite m_composite;",
-						"    m_composite = new Composite(m_shell, SWT.NONE);");
+		WidgetBindableInfo root = parseBindings(
+				"	private Composite m_composite;",
+				"		m_composite = new Composite(m_shell, SWT.NONE);");
 		List<IObserveInfo> children = root.getChildren(ChildrenContext.ChildrenForMasterTable);
 		List<IObserveInfo> properties =
 				children.get(0).getChildren(ChildrenContext.ChildrenForPropertiesTable);
@@ -361,8 +360,9 @@ public class WidgetBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_widget_Form_properties() throws Exception {
-		WidgetBindableInfo root =
-				parseBindings("  private Form m_form;", "    m_form = new Form(m_shell, SWT.NONE);");
+		WidgetBindableInfo root = parseBindings(
+				"	private Form m_form;",
+				"		m_form = new Form(m_shell, SWT.NONE);");
 		List<IObserveInfo> children = root.getChildren(ChildrenContext.ChildrenForMasterTable);
 		List<IObserveInfo> properties =
 				children.get(0).getChildren(ChildrenContext.ChildrenForPropertiesTable);
@@ -426,8 +426,9 @@ public class WidgetBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_widget_Button_properties() throws Exception {
-		WidgetBindableInfo root =
-				parseBindings("  private Button m_button;", "    m_button = new Button(m_shell, SWT.NONE);");
+		WidgetBindableInfo root = parseBindings(
+				"	private Button m_button;",
+				"		m_button = new Button(m_shell, SWT.NONE);");
 		List<IObserveInfo> children = root.getChildren(ChildrenContext.ChildrenForMasterTable);
 		List<IObserveInfo> properties =
 				children.get(0).getChildren(ChildrenContext.ChildrenForPropertiesTable);
@@ -501,8 +502,9 @@ public class WidgetBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_widget_Text_properties() throws Exception {
-		WidgetBindableInfo root =
-				parseBindings("  private Text m_text;", "    m_text = new Text(m_shell, SWT.NONE);");
+		WidgetBindableInfo root = parseBindings(
+				"	private Text m_text;",
+				"		m_text = new Text(m_shell, SWT.NONE);");
 		List<IObserveInfo> children = root.getChildren(ChildrenContext.ChildrenForMasterTable);
 		List<IObserveInfo> properties =
 				children.get(0).getChildren(ChildrenContext.ChildrenForPropertiesTable);
@@ -577,15 +579,15 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	@Test
 	public void test_widget_Spinner_properties() throws Exception {
 		widget_Spinner_Scale_properties(
-				"  private Spinner m_spinner;",
-				"    m_spinner = new Spinner(m_shell, SWT.NONE);");
+				"	private Spinner m_spinner;",
+				"		m_spinner = new Spinner(m_shell, SWT.NONE);");
 	}
 
 	@Test
 	public void test_widget_Scale_properties() throws Exception {
 		widget_Spinner_Scale_properties(
-				"  private Scale m_scale;",
-				"    m_scale = new Scale(m_shell, SWT.NONE);");
+				"	private Scale m_scale;",
+				"		m_scale = new Scale(m_shell, SWT.NONE);");
 	}
 
 	private void widget_Spinner_Scale_properties(String fieldLine, String createLine)
@@ -665,15 +667,15 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	@Test
 	public void test_widget_Combo_properties() throws Exception {
 		widget_Combo_CCombo_properties(
-				"  private Combo m_combo;",
-				"    m_combo = new Combo(m_shell, SWT.NONE);");
+				"	private Combo m_combo;",
+				"		m_combo = new Combo(m_shell, SWT.NONE);");
 	}
 
 	@Test
 	public void test_widget_CCombo_properties() throws Exception {
 		widget_Combo_CCombo_properties(
-				"  private CCombo m_ccombo;",
-				"    m_ccombo = new CCombo(m_shell, SWT.NONE);");
+				"	private CCombo m_ccombo;",
+				"		m_ccombo = new CCombo(m_shell, SWT.NONE);");
 	}
 
 	private void widget_Combo_CCombo_properties(String fieldLine, String createLine) throws Exception {
@@ -761,8 +763,9 @@ public class WidgetBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_widget_List_properties() throws Exception {
-		WidgetBindableInfo root =
-				parseBindings("  private List m_list;", "    m_list = new List(m_shell, SWT.NONE);");
+		WidgetBindableInfo root = parseBindings(
+				"	private List m_list;",
+				"		m_list = new List(m_shell, SWT.NONE);");
 		List<IObserveInfo> children = root.getChildren(ChildrenContext.ChildrenForMasterTable);
 		List<IObserveInfo> properties =
 				children.get(0).getChildren(ChildrenContext.ChildrenForPropertiesTable);
@@ -836,8 +839,9 @@ public class WidgetBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_widget_Table_properties() throws Exception {
-		WidgetBindableInfo root =
-				parseBindings("  private Table m_table;", "    m_table = new Table(m_shell, SWT.NONE);");
+		WidgetBindableInfo root = parseBindings(
+				"	private Table m_table;",
+				"		m_table = new Table(m_shell, SWT.NONE);");
 		List<IObserveInfo> children = root.getChildren(ChildrenContext.ChildrenForMasterTable);
 		List<IObserveInfo> properties =
 				children.get(0).getChildren(ChildrenContext.ChildrenForPropertiesTable);
@@ -900,10 +904,9 @@ public class WidgetBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_widget_Viewer_properties() throws Exception {
-		WidgetBindableInfo root =
-				parseBindings(
-						"  private TableViewer m_viewer;",
-						"    m_viewer = new TableViewer(m_shell, SWT.NONE);");
+		WidgetBindableInfo root = parseBindings(
+				"	private TableViewer m_viewer;",
+				"		m_viewer = new TableViewer(m_shell, SWT.NONE);");
 		List<IObserveInfo> controls = root.getChildren(ChildrenContext.ChildrenForMasterTable);
 		List<IObserveInfo> children =
 				controls.get(0).getChildren(ChildrenContext.ChildrenForMasterTable);
@@ -946,15 +949,15 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	@Test
 	public void test_widget_CheckboxTableViewer_properties() throws Exception {
 		widget_Checkable_properties(
-				"  private CheckboxTableViewer m_viewer;",
-				"    m_viewer = new CheckboxTableViewer(m_shell, SWT.NONE);");
+				"	private CheckboxTableViewer m_viewer;",
+				"		m_viewer = new CheckboxTableViewer(m_shell, SWT.NONE);");
 	}
 
 	@Test
 	public void test_widget_CheckboxTreeViewer_properties() throws Exception {
 		widget_Checkable_properties(
-				"  private CheckboxTreeViewer m_viewer;",
-				"    m_viewer = new CheckboxTreeViewer(m_shell, SWT.NONE);");
+				"	private CheckboxTreeViewer m_viewer;",
+				"		m_viewer = new CheckboxTreeViewer(m_shell, SWT.NONE);");
 	}
 
 	private void widget_Checkable_properties(String fieldLine, String createLine) throws Exception {
@@ -998,33 +1001,32 @@ public class WidgetBindableTest extends AbstractBindingTest {
 	}
 
 	private WidgetBindableInfo parseBindings(String fieldLine, String createLine) throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"import java.io.File;",
-						"public class Test {",
-						"  protected Shell m_shell;",
-						fieldLine,
-						"  public static void main(String[] args) {",
-						"    Test test = new Test();",
-						"    test.open();",
-						"  }",
-						"  public void open() {",
-						"    Display display = new Display();",
-						"    createContents();",
-						"    m_shell.open();",
-						"    m_shell.layout();",
-						"    while (!m_shell.isDisposed()) {",
-						"      if (!display.readAndDispatch()) {",
-						"        display.sleep();",
-						"      }",
-						"    }",
-						"  }",
-						"  protected void createContents() {",
-						"    m_shell = new Shell();",
-						"    m_shell.setLayout(new GridLayout());",
-						createLine,
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				import java.io.File;
+				public class Test {
+					protected Shell m_shell;
+				%s
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+				%s
+					}
+				}""".formatted(fieldLine, createLine));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1039,18 +1041,17 @@ public class WidgetBindableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_widget_noProperties() throws Exception {
-		DialogInfo dialog =
-				parseJavaInfo(
-						"import java.io.File;",
-						"public class Test extends org.eclipse.jface.dialogs.Dialog {",
-						"  public Test(Shell parentShell) {",
-						"    super(parentShell);",
-						"  }",
-						"  protected Control createDialogArea(Composite parent) {",
-						"    Composite container = (Composite) super.createDialogArea(parent);",
-						"    return container;",
-						"  }",
-						"}");
+		DialogInfo dialog = parseJavaInfo("""
+				import java.io.File;
+				public class Test extends org.eclipse.jface.dialogs.Dialog {
+					public Test(Shell parentShell) {
+						super(parentShell);
+					}
+					protected Control createDialogArea(Composite parent) {
+						Composite container = (Composite) super.createDialogArea(parent);
+						return container;
+					}
+				}""");
 		assertNotNull(dialog);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();

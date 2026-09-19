@@ -58,25 +58,24 @@ public class EditorPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_0() throws Exception {
-		EditorPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends EditorPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		EditorPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends EditorPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.ui.part.EditorPart} {this} {}",
-				"  {parameter} {parent} {/new Composite(parent, SWT.NULL)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"    {new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}",
-				"      {implicit-layout: absolute} {implicit-layout} {}");
+		assertHierarchy("""
+				{this: org.eclipse.ui.part.EditorPart} {this} {}
+					{parameter} {parent} {/new Composite(parent, SWT.NULL)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+						{new: org.eclipse.swt.widgets.Composite} {local-unique: container} {/new Composite(parent, SWT.NULL)/}
+							{implicit-layout: absolute} {implicit-layout} {}""");
 		CompositeInfo parentComposite = part.getChildren(CompositeInfo.class).get(0);
 		CompositeInfo container = (CompositeInfo) parentComposite.getChildrenControls().get(0);
 		// refresh()
@@ -96,22 +95,21 @@ public class EditorPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IEditorInput() throws Exception {
-		EditorPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends EditorPart {",
-						"  public Test() {",
-						"  }",
-						"  public void init(IEditorSite site, IEditorInput input) throws PartInitException {",
-						"    setSite(site);",
-						"    setInput(input);",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		EditorPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends EditorPart {
+					public Test() {
+					}
+					public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+						setSite(site);
+						setInput(input);
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		part.refresh();
 		assertNoErrors(part);
 		// IEditorInput
@@ -128,22 +126,21 @@ public class EditorPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IEditorSite() throws Exception {
-		EditorPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends EditorPart {",
-						"  public static final String ID = 'some.editor.Identifier';",
-						"  public Test() {",
-						"  }",
-						"  public void init(IEditorSite site, IEditorInput input) throws PartInitException {",
-						"    setSite(site);",
-						"    setInput(input);",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		EditorPartInfo part = parseJavaInfo("""
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends EditorPart {
+					public static final String ID = "some.editor.Identifier";
+					public Test() {
+					}
+					public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+						setSite(site);
+						setInput(input);
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		part.refresh();
 		//
 		IEditorSite editorSite = (IEditorSite) ReflectionUtils.invokeMethod(part.getObject(), "getEditorSite()");
@@ -168,42 +165,39 @@ public class EditorPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_exposeControl_usingField() throws Exception {
-		setFileContentSrc(
-				"test/MyEditor.java",
-				getTestSource(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class MyEditor extends EditorPart {",
-						"  protected Composite m_composite;",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"    m_composite = new Composite(container, SWT.NONE);",
-						"    m_composite.setLayout(new FillLayout());",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEditor.java", getTestSource("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class MyEditor extends EditorPart {
+					protected Composite m_composite;
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						m_composite = new Composite(container, SWT.NONE);
+						m_composite.setLayout(new FillLayout());
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		EditorPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends MyEditor {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    super.createPartControl(parent);",
-						"    Button button = new Button(m_composite, SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.MyEditor} {this} {}",
-				"  {parameter} {parent} {/super.createPartControl(parent)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"  {field: org.eclipse.swt.widgets.Composite} {m_composite} {/new Button(m_composite, SWT.NONE)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"    {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(m_composite, SWT.NONE)/}");
+		EditorPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends MyEditor {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						super.createPartControl(parent);
+						Button button = new Button(m_composite, SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyEditor} {this} {}
+					{parameter} {parent} {/super.createPartControl(parent)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+					{field: org.eclipse.swt.widgets.Composite} {m_composite} {/new Button(m_composite, SWT.NONE)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+						{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(m_composite, SWT.NONE)/}""");
 		// refresh()
 		part.refresh();
 		assertNoErrors(part);
@@ -214,45 +208,42 @@ public class EditorPartTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_exposeControl_usingMethod() throws Exception {
-		setFileContentSrc(
-				"test/MyEditor.java",
-				getTestSource(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class MyEditor extends EditorPart {",
-						"  private Composite m_inner;",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"    m_inner = new Composite(container, SWT.NONE);",
-						"    m_inner.setLayout(new FillLayout());",
-						"  }",
-						"  public Composite getInner() {",
-						"    return m_inner;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyEditor.java", getTestSource("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class MyEditor extends EditorPart {
+					private Composite m_inner;
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+						m_inner = new Composite(container, SWT.NONE);
+						m_inner.setLayout(new FillLayout());
+					}
+					public Composite getInner() {
+						return m_inner;
+					}
+				}"""));
 		waitForAutoBuild();
 		// parse
-		EditorPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends MyEditor {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    super.createPartControl(parent);",
-						"    Button button = new Button(getInner(), SWT.NONE);",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{this: test.MyEditor} {this} {}",
-				"  {parameter} {parent} {/super.createPartControl(parent)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"  {method: public org.eclipse.swt.widgets.Composite test.MyEditor.getInner()} {property} {/new Button(getInner(), SWT.NONE)/}",
-				"    {implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}",
-				"    {new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(getInner(), SWT.NONE)/}");
+		EditorPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends MyEditor {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						super.createPartControl(parent);
+						Button button = new Button(getInner(), SWT.NONE);
+					}
+				}""");
+		assertHierarchy("""
+				{this: test.MyEditor} {this} {}
+					{parameter} {parent} {/super.createPartControl(parent)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+					{method: public org.eclipse.swt.widgets.Composite test.MyEditor.getInner()} {property} {/new Button(getInner(), SWT.NONE)/}
+						{implicit-layout: org.eclipse.swt.layout.FillLayout} {implicit-layout} {}
+						{new: org.eclipse.swt.widgets.Button} {local-unique: button} {/new Button(getInner(), SWT.NONE)/}""");
 		// refresh()
 		part.refresh();
 		assertNoErrors(part);
@@ -272,26 +263,24 @@ public class EditorPartTest extends RcpModelTest {
 		do_projectDispose();
 		do_projectCreate();
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		AbstractPdeTest.createPluginXML(new String[]{
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.editors'>",
-				"    <editor id='id_1' name='name 1' icon='icons/false.gif' class='test.Test' "
-						+ "extensions='htm, html' default='true'/>",
-						"  </extension>",
-		"</plugin>"});
+		AbstractPdeTest.createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.editors">
+						<editor id="id_1" name="name 1" icon="icons/false.gif" class="test.Test" extensions="htm, html" default="true"/>
+					</extension>
+				</plugin>""");
 		// parse
-		EditorPartInfo part =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.ui.*;",
-						"import org.eclipse.ui.part.*;",
-						"public abstract class Test extends EditorPart {",
-						"  public Test() {",
-						"  }",
-						"  public void createPartControl(Composite parent) {",
-						"    Composite container = new Composite(parent, SWT.NULL);",
-						"  }",
-						"}");
+		EditorPartInfo part = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public abstract class Test extends EditorPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+				}""");
 		// "Extension" property
 		Property extensionProperty = part.getPropertyByTitle("Extension");
 		assertNotNull(extensionProperty);

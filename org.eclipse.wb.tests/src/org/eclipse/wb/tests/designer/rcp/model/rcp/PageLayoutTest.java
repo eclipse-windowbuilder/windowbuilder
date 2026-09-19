@@ -24,7 +24,6 @@ import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.model.variable.EmptyPureVariableSupport;
 import org.eclipse.wb.internal.core.utils.ast.NodeTarget;
 import org.eclipse.wb.internal.core.utils.check.AssertionFailedException;
-import org.eclipse.wb.internal.core.utils.jdt.core.CodeUtils;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.AbstractPartInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.EditorAreaInfo;
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.FolderViewInfo;
@@ -88,14 +87,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_canNotEditPalette() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		//
 		boolean[] canEdit = {true};
 		page.getBroadcast(PaletteEventListener.class).canEdit(canEdit);
@@ -107,34 +105,33 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_0() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    addFastViews(layout);",
-						"    addViewShortcuts(layout);",
-						"    addPerspectiveShortcuts(layout);",
-						"    layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.LEFT, 0.3f, editorArea);",
-						"    layout.addView('org.eclipse.jdt.ui.TypeHierarchy', IPageLayout.BOTTOM, 0.7f, editorArea);",
-						"  }",
-						"  private void addFastViews(IPageLayout layout) {",
-						"  }",
-						"  private void addViewShortcuts(IPageLayout layout) {",
-						"  }",
-						"  private void addPerspectiveShortcuts(IPageLayout layout) {",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.getEditorArea()/ /addFastViews(layout)/ /addViewShortcuts(layout)/ /addPerspectiveShortcuts(layout)/ /layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.LEFT, 0.3f, editorArea)/ /layout.addView('org.eclipse.jdt.ui.TypeHierarchy', IPageLayout.BOTTOM, 0.7f, editorArea)/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.LEFT, 0.3f, editorArea)/}",
-				"  {void} {void} {/layout.addView('org.eclipse.jdt.ui.TypeHierarchy', IPageLayout.BOTTOM, 0.7f, editorArea)/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						addFastViews(layout);
+						addViewShortcuts(layout);
+						addPerspectiveShortcuts(layout);
+						layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea);
+						layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea);
+					}
+					private void addFastViews(IPageLayout layout) {
+					}
+					private void addViewShortcuts(IPageLayout layout) {
+					}
+					private void addPerspectiveShortcuts(IPageLayout layout) {
+					}
+				}""");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.getEditorArea()/ /addFastViews(layout)/ /addViewShortcuts(layout)/ /addPerspectiveShortcuts(layout)/ /layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea)/ /layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea)/}
+					(editor area)
+					{void} {void} {/layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea)/}
+					{void} {void} {/layout.addView("org.eclipse.jdt.ui.TypeHierarchy", IPageLayout.BOTTOM, 0.7f, editorArea)/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		// check containers
 		assertEquals("(editor area)", page.getEditorArea().toString());
 		assertEquals("(fast views)", page.getFastViewContainer().toString());
@@ -152,14 +149,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_PageLayout_CreationSupport() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		PageLayoutCreationSupport creationSupport =
 				(PageLayoutCreationSupport) page.getCreationSupport();
 		// node
@@ -181,14 +177,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_PageLayout_TopBoundsSupport() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		PageLayoutTopBoundsSupport topBoundsSupport =
 				(PageLayoutTopBoundsSupport) page.getTopBoundsSupport();
 		// refresh
@@ -207,14 +202,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_EditorArea() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		refresh();
 		// check EditorArea_Info
 		EditorAreaInfo editorArea = page.getEditorArea();
@@ -243,17 +237,16 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_editorAreaVisible_false() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.setEditorAreaVisible(false);",
-						"    String editorArea = layout.getEditorArea();",
-						"    layout.addView('org.eclipse.ui.console.ConsoleView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.setEditorAreaVisible(false);
+						String editorArea = layout.getEditorArea();
+						layout.addView("org.eclipse.ui.console.ConsoleView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		EditorAreaInfo editorArea = page.getEditorArea();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// refresh()
@@ -281,14 +274,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_properties() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		// check properties
 		{
 			Property property = page.getPropertyByTitle("editorAreaVisible");
@@ -308,16 +300,15 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_PageLayout_add_CreationSupport() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.LEFT, 0.3f, editorArea);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea);
+					}
+				}""");
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// access
 		assertSame(page, view.getPage());
@@ -360,18 +351,17 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_sashLines() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view_0', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    layout.addView('view_1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    layout.addView('view_2', IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    layout.addView('view_3', IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_0", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.addView("view_1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.addView("view_2", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.addView("view_3", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view_0 = (PageLayoutAddViewInfo) page.getParts().get(0);
 		PageLayoutAddViewInfo view_1 = (PageLayoutAddViewInfo) page.getParts().get(1);
@@ -472,18 +462,18 @@ public class PageLayoutTest extends RcpModelTest {
 					org.eclipse.wb.internal.rcp.ToolkitProvider.DESCRIPTION.getGenerationSettings();
 			generationSettings.setDeduceSettings(true);
 		}
-		parsePerspective(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    String editorArea = layout.getEditorArea();",
-				"    layout.addView('0', IPageLayout.LEFT, 0.3f, editorArea);",
-				"    layout.addView('1', IPageLayout.LEFT, 0.3f, editorArea);",
-				"    layout.addView('2', IPageLayout.LEFT, 0.3f, editorArea);",
-				"    layout.addView('3', IPageLayout.LEFT, 0.3f, editorArea);",
-				"  }",
-				"}");
+		parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						layout.addView("0", IPageLayout.LEFT, 0.3f, editorArea);
+						layout.addView("1", IPageLayout.LEFT, 0.3f, editorArea);
+						layout.addView("2", IPageLayout.LEFT, 0.3f, editorArea);
+						layout.addView("3", IPageLayout.LEFT, 0.3f, editorArea);
+					}
+				}""");
 	}
 
 	/**
@@ -492,16 +482,15 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addView_LEFT() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.LEFT, 0.3f, editorArea);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.LEFT, 0.3f, editorArea);
+					}
+				}""");
 		EditorAreaInfo editorArea = page.getEditorArea();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// refresh()
@@ -531,16 +520,15 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addView_RIGHT() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.RIGHT, 0.7f, editorArea);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.RIGHT, 0.7f, editorArea);
+					}
+				}""");
 		EditorAreaInfo editorArea = page.getEditorArea();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// refresh()
@@ -570,16 +558,15 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addView_TOP() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.TOP, 0.3f, editorArea);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.TOP, 0.3f, editorArea);
+					}
+				}""");
 		EditorAreaInfo editorArea = page.getEditorArea();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// refresh()
@@ -609,16 +596,15 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addView_BOTTOM() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    layout.addView('org.eclipse.jdt.ui.PackageExplorer', IPageLayout.BOTTOM, 0.7f, editorArea);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						layout.addView("org.eclipse.jdt.ui.PackageExplorer", IPageLayout.BOTTOM, 0.7f, editorArea);
+					}
+				}""");
 		EditorAreaInfo editorArea = page.getEditorArea();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// refresh()
@@ -647,27 +633,26 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addView_viewInFolderAsReference() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-						"    folder.addView('view.1');",
-						"    layout.addView('view.2', IPageLayout.LEFT, 0.3f, 'view.1');",
-						"  }",
-						"}");
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea)/ /layout.addView('view.2', IPageLayout.LEFT, 0.3f, 'view.1')/}",
-				"  (editor area)",
-				"  {void} {local-unique: folder} {/layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView('view.1')/}",
-				"    {void} {void} {/folder.addView('view.1')/}",
-				"  {void} {void} {/layout.addView('view.2', IPageLayout.LEFT, 0.3f, 'view.1')/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.1");
+						layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1");
+					}
+				}""");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1")/}
+					(editor area)
+					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView("view.1")/}
+						{void} {void} {/folder.addView("view.1")/}
+					{void} {void} {/layout.addView("view.2", IPageLayout.LEFT, 0.3f, "view.1")/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		page.refresh();
 		// "folder"
 		{
@@ -694,16 +679,15 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addView_invalidRelatioship() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    layout.addView('org.eclipse.jdt.ui.PackageExplorer', -555, 0.7f, editorArea);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						layout.addView("org.eclipse.jdt.ui.PackageExplorer", -555, 0.7f, editorArea);
+					}
+				}""");
 		// refresh()
 		try {
 			page.refresh();
@@ -728,26 +712,25 @@ public class PageLayoutTest extends RcpModelTest {
 	@SuppressWarnings("removal")
 	public void test_shortcuts_0() throws Exception {
 		assumeTrue(SWT.getVersion() < 4972);
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    addFastViews(layout);",
-						"  }",
-						"  private void addFastViews(IPageLayout layout) {",
-						"    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addFastViews(layout);
+					}
+					private void addFastViews(IPageLayout layout) {
+						layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/ /addFastViews(layout)/}",
-				"  (editor area)",
-				"  (fast views)",
-				"    {void} {empty} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/}",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/ /addFastViews(layout)/}
+					(editor area)
+					(fast views)
+						{void} {empty} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/}
+					(view shortcuts)
+					(perspective shortcuts)""");
 		FastViewContainerInfo container = page.getFastViewContainer();
 		// OK, refresh() to check later all, including rendering
 		page.refresh();
@@ -810,18 +793,17 @@ public class PageLayoutTest extends RcpModelTest {
 	@SuppressWarnings({ "removal", "deprecation" })
 	public void test_fastView_CREATE_1() throws Exception {
 		assumeTrue(SWT.getVersion() < 4972);
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    addFastViews(layout);",
-						"  }",
-						"  private void addFastViews(IPageLayout layout) {",
-						"    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addFastViews(layout);
+					}
+					private void addFastViews(IPageLayout layout) {
+						layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
 		page.refresh();
 		FastViewContainerInfo container = page.getFastViewContainer();
 		FastViewInfo nextItem = (FastViewInfo) container.getShortcuts().get(0);
@@ -830,18 +812,18 @@ public class PageLayoutTest extends RcpModelTest {
 		FastViewInfo item = container.command_CREATE("org.eclipse.jdt.ui.PackageExplorer", nextItem);
 		assertNotNull(ObjectInfoUtils.getId(item));
 		// check source
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    addFastViews(layout);",
-				"  }",
-				"  private void addFastViews(IPageLayout layout) {",
-				"    layout.addFastView('org.eclipse.jdt.ui.PackageExplorer');",
-				"    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addFastViews(layout);
+					}
+					private void addFastViews(IPageLayout layout) {
+						layout.addFastView("org.eclipse.jdt.ui.PackageExplorer");
+						layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
 		// check shortcut
 		{
 			assertSame(container, item.getParent());
@@ -850,14 +832,14 @@ public class PageLayoutTest extends RcpModelTest {
 			assertInstanceOf(EmptyPureVariableSupport.class, item.getVariableSupport());
 		}
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/ /addFastViews(layout)/ /layout.addFastView('org.eclipse.jdt.ui.PackageExplorer')/}",
-				"  (editor area)",
-				"  (fast views)",
-				"    {void} {empty} {/layout.addFastView('org.eclipse.jdt.ui.PackageExplorer')/}",
-				"    {void} {empty} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/}",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/ /addFastViews(layout)/ /layout.addFastView("org.eclipse.jdt.ui.PackageExplorer")/}
+					(editor area)
+					(fast views)
+						{void} {empty} {/layout.addFastView("org.eclipse.jdt.ui.PackageExplorer")/}
+						{void} {empty} {/layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER)/}
+					(view shortcuts)
+					(perspective shortcuts)""");
 	}
 
 	/**
@@ -868,30 +850,29 @@ public class PageLayoutTest extends RcpModelTest {
 	@SuppressWarnings({ "removal", "deprecation" })
 	public void test_fastView_CREATE_2() throws Exception {
 		assumeTrue(SWT.getVersion() < 4972);
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		page.refresh();
 		FastViewContainerInfo container = page.getFastViewContainer();
 		// do CREATE
 		FastViewInfo item = container.command_CREATE("org.eclipse.jdt.ui.PackageExplorer", null);
 		// check source
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    addFastViews(layout);",
-				"  }",
-				"  private void addFastViews(IPageLayout layout) {",
-				"    layout.addFastView('org.eclipse.jdt.ui.PackageExplorer');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addFastViews(layout);
+					}
+					private void addFastViews(IPageLayout layout) {
+						layout.addFastView("org.eclipse.jdt.ui.PackageExplorer");
+					}
+				}""");
 		// check shortcut
 		{
 			assertSame(container, item.getParent());
@@ -900,13 +881,13 @@ public class PageLayoutTest extends RcpModelTest {
 			assertInstanceOf(EmptyPureVariableSupport.class, item.getVariableSupport());
 		}
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.addFastView('org.eclipse.jdt.ui.PackageExplorer')/}",
-				"  (editor area)",
-				"  (fast views)",
-				"    {void} {empty} {/layout.addFastView('org.eclipse.jdt.ui.PackageExplorer')/}",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.addFastView("org.eclipse.jdt.ui.PackageExplorer")/}
+					(editor area)
+					(fast views)
+						{void} {empty} {/layout.addFastView("org.eclipse.jdt.ui.PackageExplorer")/}
+					(view shortcuts)
+					(perspective shortcuts)""");
 	}
 
 	/**
@@ -917,19 +898,18 @@ public class PageLayoutTest extends RcpModelTest {
 	@SuppressWarnings({ "removal", "deprecation" })
 	public void test_fastView_MOVE_1() throws Exception {
 		assumeTrue(SWT.getVersion() < 4972);
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    addFastViews(layout);",
-						"  }",
-						"  private void addFastViews(IPageLayout layout) {",
-						"    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
-						"    layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addFastViews(layout);
+					}
+					private void addFastViews(IPageLayout layout) {
+						layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);
+						layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);
+					}
+				}""");
 		page.refresh();
 		FastViewContainerInfo container = page.getFastViewContainer();
 		// prepare items
@@ -938,18 +918,18 @@ public class PageLayoutTest extends RcpModelTest {
 		// do MOVE
 		container.command_MOVE(item_2, item_1);
 		// check source
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    addFastViews(layout);",
-				"  }",
-				"  private void addFastViews(IPageLayout layout) {",
-				"    layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);",
-				"    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addFastViews(layout);
+					}
+					private void addFastViews(IPageLayout layout) {
+						layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);
+						layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
 		// check shortcut
 		{
 			List<AbstractShortcutInfo> shortcuts = container.getShortcuts();
@@ -966,19 +946,18 @@ public class PageLayoutTest extends RcpModelTest {
 	@SuppressWarnings({ "removal", "deprecation" })
 	public void test_fastView_MOVE_2() throws Exception {
 		assumeTrue(SWT.getVersion() < 4972);
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    addFastViews(layout);",
-						"  }",
-						"  private void addFastViews(IPageLayout layout) {",
-						"    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
-						"    layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addFastViews(layout);
+					}
+					private void addFastViews(IPageLayout layout) {
+						layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);
+						layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);
+					}
+				}""");
 		page.refresh();
 		FastViewContainerInfo container = page.getFastViewContainer();
 		// prepare items
@@ -987,18 +966,18 @@ public class PageLayoutTest extends RcpModelTest {
 		// do MOVE
 		container.command_MOVE(item_1, null);
 		// check source
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    addFastViews(layout);",
-				"  }",
-				"  private void addFastViews(IPageLayout layout) {",
-				"    layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);",
-				"    layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addFastViews(layout);
+					}
+					private void addFastViews(IPageLayout layout) {
+						layout.addFastView(IPageLayout.ID_PROBLEM_VIEW);
+						layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
 		// check shortcut
 		{
 			List<AbstractShortcutInfo> shortcuts = container.getShortcuts();
@@ -1017,18 +996,17 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_viewShortcuts_CREATE() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    addViewShortcuts(layout);",
-						"  }",
-						"  private void addViewShortcuts(IPageLayout layout) {",
-						"    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addViewShortcuts(layout);
+					}
+					private void addViewShortcuts(IPageLayout layout) {
+						layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
 		page.refresh();
 		ViewShortcutContainerInfo container = page.getViewShortcutContainer();
 		ViewShortcutInfo nextItem = (ViewShortcutInfo) container.getShortcuts().get(0);
@@ -1037,18 +1015,18 @@ public class PageLayoutTest extends RcpModelTest {
 		ViewShortcutInfo item =
 				container.command_CREATE("org.eclipse.jdt.ui.PackageExplorer", nextItem);
 		assertNotNull(ObjectInfoUtils.getId(item));
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    addViewShortcuts(layout);",
-				"  }",
-				"  private void addViewShortcuts(IPageLayout layout) {",
-				"    layout.addShowViewShortcut('org.eclipse.jdt.ui.PackageExplorer');",
-				"    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addViewShortcuts(layout);
+					}
+					private void addViewShortcuts(IPageLayout layout) {
+						layout.addShowViewShortcut("org.eclipse.jdt.ui.PackageExplorer");
+						layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
 	}
 
 	/**
@@ -1057,19 +1035,18 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_viewShortcuts_MOVE() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    addViewShortcuts(layout);",
-						"  }",
-						"  private void addViewShortcuts(IPageLayout layout) {",
-						"    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);",
-						"    layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addViewShortcuts(layout);
+					}
+					private void addViewShortcuts(IPageLayout layout) {
+						layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
+						layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
+					}
+				}""");
 		page.refresh();
 		ViewShortcutContainerInfo container = page.getViewShortcutContainer();
 		// prepare items
@@ -1077,18 +1054,18 @@ public class PageLayoutTest extends RcpModelTest {
 		ViewShortcutInfo item_2 = (ViewShortcutInfo) container.getShortcuts().get(1);
 		// do MOVE
 		container.command_MOVE(item_2, item_1);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    addViewShortcuts(layout);",
-				"  }",
-				"  private void addViewShortcuts(IPageLayout layout) {",
-				"    layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);",
-				"    layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addViewShortcuts(layout);
+					}
+					private void addViewShortcuts(IPageLayout layout) {
+						layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
+						layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1102,18 +1079,17 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_perspectiveShortcuts_CREATE() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    addPerspectiveShortcuts(layout);",
-						"  }",
-						"  private void addPerspectiveShortcuts(IPageLayout layout) {",
-						"    layout.addPerspectiveShortcut('org.eclipse.jdt.ui.JavaPerspective');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addPerspectiveShortcuts(layout);
+					}
+					private void addPerspectiveShortcuts(IPageLayout layout) {
+						layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective");
+					}
+				}""");
 		page.refresh();
 		PerspectiveShortcutContainerInfo container = page.getPerspectiveShortcutContainer();
 		PerspectiveShortcutInfo nextItem = (PerspectiveShortcutInfo) container.getShortcuts().get(0);
@@ -1122,18 +1098,18 @@ public class PageLayoutTest extends RcpModelTest {
 		PerspectiveShortcutInfo item =
 				container.command_CREATE("org.eclipse.ui.resourcePerspective", nextItem);
 		assertNotNull(ObjectInfoUtils.getId(item));
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    addPerspectiveShortcuts(layout);",
-				"  }",
-				"  private void addPerspectiveShortcuts(IPageLayout layout) {",
-				"    layout.addPerspectiveShortcut('org.eclipse.ui.resourcePerspective');",
-				"    layout.addPerspectiveShortcut('org.eclipse.jdt.ui.JavaPerspective');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addPerspectiveShortcuts(layout);
+					}
+					private void addPerspectiveShortcuts(IPageLayout layout) {
+						layout.addPerspectiveShortcut("org.eclipse.ui.resourcePerspective");
+						layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective");
+					}
+				}""");
 	}
 
 	/**
@@ -1144,19 +1120,18 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_perspectiveShortcuts_MOVE() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    addPerspectiveShortcuts(layout);",
-						"  }",
-						"  private void addPerspectiveShortcuts(IPageLayout layout) {",
-						"    layout.addPerspectiveShortcut('org.eclipse.ui.resourcePerspective');",
-						"    layout.addPerspectiveShortcut('org.eclipse.jdt.ui.JavaPerspective');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addPerspectiveShortcuts(layout);
+					}
+					private void addPerspectiveShortcuts(IPageLayout layout) {
+						layout.addPerspectiveShortcut("org.eclipse.ui.resourcePerspective");
+						layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective");
+					}
+				}""");
 		page.refresh();
 		PerspectiveShortcutContainerInfo container = page.getPerspectiveShortcutContainer();
 		// prepare items
@@ -1164,18 +1139,18 @@ public class PageLayoutTest extends RcpModelTest {
 		PerspectiveShortcutInfo item_2 = (PerspectiveShortcutInfo) container.getShortcuts().get(1);
 		// do MOVE
 		container.command_MOVE(item_2, item_1);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    addPerspectiveShortcuts(layout);",
-				"  }",
-				"  private void addPerspectiveShortcuts(IPageLayout layout) {",
-				"    layout.addPerspectiveShortcut('org.eclipse.jdt.ui.JavaPerspective');",
-				"    layout.addPerspectiveShortcut('org.eclipse.ui.resourcePerspective');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						addPerspectiveShortcuts(layout);
+					}
+					private void addPerspectiveShortcuts(IPageLayout layout) {
+						layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective");
+						layout.addPerspectiveShortcut("org.eclipse.ui.resourcePerspective");
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1189,28 +1164,27 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_abstractPart_resizeActive() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// do resize
 		assertEquals(new Dimension(600, 500), page.getBounds().getSize());
 		view.resize(+100);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view', IPageLayout.LEFT, 0.47f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.LEFT, 0.47f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	/**
@@ -1219,29 +1193,28 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_abstractPart_resizeActiveVertical() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// do resize
 		assertEquals(new Dimension(600, 500), page.getBounds().getSize());
 		view.resize(+100);
 		Object ratio = ((MethodInvocation) view.getRelatedNodes().get(0)).arguments().get(2);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view', IPageLayout.TOP, " + ratio + ", IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.TOP, %s, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""".formatted(ratio));
 	}
 
 	/**
@@ -1250,28 +1223,27 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_abstractPart_resizeActive_plusOver() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view', IPageLayout.LEFT, 0.4f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.LEFT, 0.4f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// do resize
 		assertEquals(new Dimension(600, 500), page.getBounds().getSize());
 		view.resize(+10000);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view', IPageLayout.LEFT, 0.95f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.LEFT, 0.95f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	/**
@@ -1280,28 +1252,27 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_abstractPart_resizePassive() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view', IPageLayout.RIGHT, 0.7f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.RIGHT, 0.7f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// do resize
 		assertEquals(new Dimension(600, 500), page.getBounds().getSize());
 		view.resize(+100);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view', IPageLayout.RIGHT, 0.52f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.RIGHT, 0.52f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	/**
@@ -1310,29 +1281,28 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_abstractPart_resizePassive_minus() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view', IPageLayout.RIGHT, 0.4f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.RIGHT, 0.4f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// do resize
 		assertEquals(new Dimension(600, 500), page.getBounds().getSize());
 		view.resize(-150);
 		Object ratio = ((MethodInvocation) view.getRelatedNodes().get(0)).arguments().get(2);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view', IPageLayout.RIGHT, " + ratio + ", IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.RIGHT, %s, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""".formatted(ratio));
 	}
 
 	/**
@@ -1341,28 +1311,27 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_abstractPart_resizePassive_minusOver() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view', IPageLayout.RIGHT, 0.4f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.RIGHT, 0.4f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// do resize
 		assertEquals(new Dimension(600, 500), page.getBounds().getSize());
 		view.resize(-10000);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view', IPageLayout.RIGHT, 0.95f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view", IPageLayout.RIGHT, 0.95f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -1375,16 +1344,15 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addView_morphing() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);
+					}
+				}""");
 		PageLayoutAddViewInfo view = (PageLayoutAddViewInfo) page.getParts().get(0);
 		Property standaloneProperty = view.getPropertyByTitle("standalone");
 		Property placeholderProperty = view.getPropertyByTitle("placeholder");
@@ -1393,128 +1361,128 @@ public class PageLayoutTest extends RcpModelTest {
 		// normal -> standalone
 		{
 			setStandalone(view, true);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addStandaloneView(IPageLayout.ID_PROJECT_EXPLORER, true, IPageLayout.LEFT, 0.3f, editorArea);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addStandaloneView(IPageLayout.ID_PROJECT_EXPLORER, true, IPageLayout.LEFT, 0.3f, editorArea);
+						}
+					}""");
 			assertMorphView(view, true, false);
 		}
 		// standalone -> standalone + placeholder
 		{
 			setPlaceholder(view, true);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);
+						}
+					}""");
 			assertMorphView(view, true, true);
 		}
 		// standalone + placeholder -> standalone
 		{
 			setPlaceholder(view, false);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addStandaloneView(IPageLayout.ID_PROJECT_EXPLORER, true, IPageLayout.LEFT, 0.3f, editorArea);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addStandaloneView(IPageLayout.ID_PROJECT_EXPLORER, true, IPageLayout.LEFT, 0.3f, editorArea);
+						}
+					}""");
 			assertMorphView(view, true, false);
 		}
 		// standalone -> normal
 		{
 			setStandalone(view, false);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);
+						}
+					}""");
 			assertMorphView(view, false, false);
 		}
 		// normal -> placeholder
 		{
 			setPlaceholder(view, true);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);
+						}
+					}""");
 			assertMorphView(view, false, true);
 		}
 		// placeholder -> placeholder + standalone
 		{
 			setStandalone(view, true);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);
+						}
+					}""");
 			assertMorphView(view, true, true);
 		}
 		// placeholder + standalone -> placeholder
 		{
 			setStandalone(view, false);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);
+						}
+					}""");
 			assertMorphView(view, false, true);
 		}
 		// placeholder -> normal
 		{
 			setPlaceholder(view, false);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea);
+						}
+					}""");
 			assertMorphView(view, false, false);
 		}
 		// use properties
 		{
 			standaloneProperty.setValue(Boolean.TRUE);
 			placeholderProperty.setValue(Boolean.TRUE);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							layout.addStandaloneViewPlaceholder(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.LEFT, 0.3f, editorArea, true);
+						}
+					}""");
 			assertMorphView(view, true, true);
 		}
 	}
@@ -1573,15 +1541,14 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_0() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea());
+					}
+				}""");
 		page.refresh();
 		// create view
 		PageLayoutAddViewInfo newView =
@@ -1590,23 +1557,23 @@ public class PageLayoutTest extends RcpModelTest {
 						IPageLayout.LEFT,
 						0.5f,
 						page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-				"    layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/}",
-				"  {void} {void} {/layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea());
+						layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+					(editor area)
+					{void} {void} {/layout.addView(IPageLayout.ID_PROJECT_EXPLORER, IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+					{void} {void} {/layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		assertSame(newView, page.getParts().get(1));
 	}
 
@@ -1616,14 +1583,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_1() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		page.refresh();
 		// create view
 		PageLayoutAddViewInfo newView =
@@ -1632,14 +1598,14 @@ public class PageLayoutTest extends RcpModelTest {
 						IPageLayout.LEFT,
 						0.5f,
 						page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.5f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		assertSame(newView, page.getParts().get(0));
 	}
 
@@ -1649,39 +1615,38 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_2() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea());",
-						"    layout.addView('view_2', IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+						layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea());
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view_1 = (PageLayoutAddViewInfo) page.getParts().get(0);
 		// create view
 		PageLayoutAddViewInfo newView = page.command_CREATE("view_3", IPageLayout.BOTTOM, 0.4f, view_1);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea());",
-				"    layout.addView('view_3', IPageLayout.BOTTOM, 0.4f, 'view_1');",
-				"    layout.addView('view_2', IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.getEditorArea()/ /layout.addView('view_2', IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView('view_3', IPageLayout.BOTTOM, 0.4f, 'view_1')/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}",
-				"  {void} {void} {/layout.addView('view_3', IPageLayout.BOTTOM, 0.4f, 'view_1')/}",
-				"  {void} {void} {/layout.addView('view_2', IPageLayout.TOP, 0.3f, layout.getEditorArea())/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+						layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1");
+						layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea());
+					}
+				}""");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.getEditorArea()/ /layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea())/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1")/}
+					(editor area)
+					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+					{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.4f, "view_1")/}
+					{void} {void} {/layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		assertSame(newView, page.getParts().get(1));
 	}
 
@@ -1691,35 +1656,34 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_3() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    {",
-						"      IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"      folder.addView('view.1');",
-						"      folder.addView('view.2');",
-						"    }",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						{
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+							folder.addView("view.1");
+							folder.addView("view.2");
+						}
+					}
+				}""");
 		page.refresh();
 		// create view
 		page.command_CREATE("view_3", IPageLayout.RIGHT, 0.5f, page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    {",
-				"      IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"      folder.addView('view.1');",
-				"      folder.addView('view.2');",
-				"    }",
-				"    layout.addView('view_3', IPageLayout.RIGHT, 0.5f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						{
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+							folder.addView("view.1");
+							folder.addView("view.2");
+						}
+						layout.addView("view_3", IPageLayout.RIGHT, 0.5f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	/**
@@ -1728,39 +1692,38 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_4() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    {",
-						"      IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"      folder.addView('view.2');",
-						"      folder.addView('view.3');",
-						"    }",
-						"    layout.addView('view_4', IPageLayout.BOTTOM, 0.5f, 'view_1');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						{
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+							folder.addView("view.2");
+							folder.addView("view.3");
+						}
+						layout.addView("view_4", IPageLayout.BOTTOM, 0.5f, "view_1");
+					}
+				}""");
 		page.refresh();
 		// create view
 		page.command_CREATE("view_5", IPageLayout.RIGHT, 0.5f, page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"    {",
-				"      IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"      folder.addView('view.2');",
-				"      folder.addView('view.3');",
-				"    }",
-				"    layout.addView('view_5', IPageLayout.RIGHT, 0.5f, IPageLayout.ID_EDITOR_AREA);",
-				"    layout.addView('view_4', IPageLayout.BOTTOM, 0.5f, 'view_1');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						{
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+							folder.addView("view.2");
+							folder.addView("view.3");
+						}
+						layout.addView("view_5", IPageLayout.RIGHT, 0.5f, IPageLayout.ID_EDITOR_AREA);
+						layout.addView("view_4", IPageLayout.BOTTOM, 0.5f, "view_1");
+					}
+				}""");
 	}
 
 	/**
@@ -1768,14 +1731,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_TOP() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		page.refresh();
 		// create view
 		page.command_CREATE(
@@ -1783,14 +1745,14 @@ public class PageLayoutTest extends RcpModelTest {
 				IPageLayout.TOP,
 				0.3f,
 				page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	/**
@@ -1798,14 +1760,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_BOTTOM() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		page.refresh();
 		// create view
 		page.command_CREATE(
@@ -1813,14 +1774,14 @@ public class PageLayoutTest extends RcpModelTest {
 				IPageLayout.BOTTOM,
 				0.3f,
 				page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	/**
@@ -1828,14 +1789,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_LEFT() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		page.refresh();
 		// create view
 		page.command_CREATE(
@@ -1843,14 +1803,14 @@ public class PageLayoutTest extends RcpModelTest {
 				IPageLayout.LEFT,
 				0.3f,
 				page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	/**
@@ -1858,14 +1818,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_RIGHT() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		page.refresh();
 		// create view
 		page.command_CREATE(
@@ -1873,14 +1832,14 @@ public class PageLayoutTest extends RcpModelTest {
 				IPageLayout.RIGHT,
 				0.3f,
 				page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('org.eclipse.jdt.ui.PackagesView', IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("org.eclipse.jdt.ui.PackagesView", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 	}
 
 	/**
@@ -1888,14 +1847,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_view_invalidRelationship() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		page.refresh();
 		// create view
 		try {
@@ -1916,41 +1874,40 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_view_1() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea());",
-						"    layout.addView('view_2', IPageLayout.BOTTOM, 0.4f, 'view_1');",
-						"    layout.addView('view_3', IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+						layout.addView("view_2", IPageLayout.BOTTOM, 0.4f, "view_1");
+						layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea());
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view_2 = (PageLayoutAddViewInfo) page.getParts().get(1);
 		PageLayoutAddViewInfo view_3 = (PageLayoutAddViewInfo) page.getParts().get(2);
 		// move view
 		page.command_MOVE(view_2, IPageLayout.RIGHT, 0.2f, view_3);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea());",
-				"    layout.addView('view_3', IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-				"    layout.addView('view_2', IPageLayout.RIGHT, 0.2f, 'view_3');",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView('view_2', IPageLayout.RIGHT, 0.2f, 'view_3')/ /layout.getEditorArea()/ /layout.addView('view_3', IPageLayout.TOP, 0.3f, layout.getEditorArea())/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}",
-				"  {void} {void} {/layout.addView('view_3', IPageLayout.TOP, 0.3f, layout.getEditorArea())/}",
-				"  {void} {void} {/layout.addView('view_2', IPageLayout.RIGHT, 0.2f, 'view_3')/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+						layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea());
+						layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3");
+					}
+				}""");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3")/ /layout.getEditorArea()/ /layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+					(editor area)
+					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+					{void} {void} {/layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+					{void} {void} {/layout.addView("view_2", IPageLayout.RIGHT, 0.2f, "view_3")/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		assertSame(view_3, page.getParts().get(1));
 		assertSame(view_2, page.getParts().get(2));
 	}
@@ -1962,41 +1919,40 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_view_2() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea());",
-						"    layout.addView('view_2', IPageLayout.BOTTOM, 0.4f, 'view_1');",
-						"    layout.addView('view_3', IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+						layout.addView("view_2", IPageLayout.BOTTOM, 0.4f, "view_1");
+						layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea());
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view_1 = (PageLayoutAddViewInfo) page.getParts().get(0);
 		PageLayoutAddViewInfo view_2 = (PageLayoutAddViewInfo) page.getParts().get(1);
 		// move view
 		page.command_MOVE(view_2, IPageLayout.TOP, 0.2f, view_1);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea());",
-				"    layout.addView('view_2', IPageLayout.TOP, 0.2f, 'view_1');",
-				"    layout.addView('view_3', IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView('view_2', IPageLayout.TOP, 0.2f, 'view_1')/ /layout.getEditorArea()/ /layout.addView('view_3', IPageLayout.TOP, 0.3f, layout.getEditorArea())/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}",
-				"  {void} {void} {/layout.addView('view_2', IPageLayout.TOP, 0.2f, 'view_1')/}",
-				"  {void} {void} {/layout.addView('view_3', IPageLayout.TOP, 0.3f, layout.getEditorArea())/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+						layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1");
+						layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea());
+					}
+				}""");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/ /layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1")/ /layout.getEditorArea()/ /layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+					(editor area)
+					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea())/}
+					{void} {void} {/layout.addView("view_2", IPageLayout.TOP, 0.2f, "view_1")/}
+					{void} {void} {/layout.addView("view_3", IPageLayout.TOP, 0.3f, layout.getEditorArea())/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		assertSame(view_1, page.getParts().get(0));
 		assertSame(view_2, page.getParts().get(1));
 	}
@@ -2008,30 +1964,29 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_view_3() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea());",
-						"    layout.addView('view_2', IPageLayout.TOP, 0.3f, layout.getEditorArea());",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+						layout.addView("view_2", IPageLayout.TOP, 0.3f, layout.getEditorArea());
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view_1 = (PageLayoutAddViewInfo) page.getParts().get(0);
 		PageLayoutAddViewInfo view_2 = (PageLayoutAddViewInfo) page.getParts().get(1);
 		// move view
 		page.command_MOVE(view_2, IPageLayout.BOTTOM, 0.2f, view_1);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, layout.getEditorArea());",
-				"    layout.addView('view_2', IPageLayout.BOTTOM, 0.2f, 'view_1');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, layout.getEditorArea());
+						layout.addView("view_2", IPageLayout.BOTTOM, 0.2f, "view_1");
+					}
+				}""");
 		assertSame(view_1, page.getParts().get(0));
 		assertSame(view_2, page.getParts().get(1));
 	}
@@ -2042,65 +1997,64 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_folder_1() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view.1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    {",
-						"      IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"      folder.addView('view.2');",
-						"      folder.addView('view.3');",
-						"    }",
-						"    layout.addView('view.4', IPageLayout.BOTTOM, 0.5f, 'view.1');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						{
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+							folder.addView("view.2");
+							folder.addView("view.3");
+						}
+						layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1");
+					}
+				}""");
 		page.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.addView('view.1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView('view.4', IPageLayout.BOTTOM, 0.5f, 'view.1')/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView('view.1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  {void} {local-unique: folder} {/layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView('view.2')/ /folder.addView('view.3')/}",
-				"    {void} {void} {/folder.addView('view.2')/}",
-				"    {void} {void} {/folder.addView('view.3')/}",
-				"  {void} {void} {/layout.addView('view.4', IPageLayout.BOTTOM, 0.5f, 'view.1')/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+					(editor area)
+					{void} {void} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView("view.2")/ /folder.addView("view.3")/}
+						{void} {void} {/folder.addView("view.2")/}
+						{void} {void} {/folder.addView("view.3")/}
+					{void} {void} {/layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		// prepare "view_4"
 		PageLayoutAddViewInfo view_4 = (PageLayoutAddViewInfo) page.getParts().get(2);
 		assertEquals("view.4", view_4.getId());
 		// move "folder"
 		PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) page.getParts().get(1);
 		page.command_MOVE(folder, IPageLayout.TOP, 0.2f, view_4);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view.1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"    layout.addView('view.4', IPageLayout.BOTTOM, 0.5f, 'view.1');",
-				"    {",
-				"      IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.2f, 'view.4');",
-				"      folder.addView('view.2');",
-				"      folder.addView('view.3');",
-				"    }",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.addView('view.1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder('folder.1', IPageLayout.TOP, 0.2f, 'view.4')/ /layout.addView('view.4', IPageLayout.BOTTOM, 0.5f, 'view.1')/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView('view.1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  {void} {void} {/layout.addView('view.4', IPageLayout.BOTTOM, 0.5f, 'view.1')/}",
-				"  {void} {local-unique: folder} {/layout.createFolder('folder.1', IPageLayout.TOP, 0.2f, 'view.4')/ /folder.addView('view.2')/ /folder.addView('view.3')/}",
-				"    {void} {void} {/folder.addView('view.2')/}",
-				"    {void} {void} {/folder.addView('view.3')/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1");
+						{
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4");
+							folder.addView("view.2");
+							folder.addView("view.3");
+						}
+					}
+				}""");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4")/ /layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+					(editor area)
+					{void} {void} {/layout.addView("view.1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					{void} {void} {/layout.addView("view.4", IPageLayout.BOTTOM, 0.5f, "view.1")/}
+					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.2f, "view.4")/ /folder.addView("view.2")/ /folder.addView("view.3")/}
+						{void} {void} {/folder.addView("view.2")/}
+						{void} {void} {/folder.addView("view.3")/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 	}
 
 	/**
@@ -2109,53 +2063,52 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_MOVE_FolderView_into_topView() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    {",
-						"      IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"      folder.addView('view');",
-						"    }",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						{
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+							folder.addView("view");
+						}
+					}
+				}""");
 		page.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  (editor area)",
-				"  {void} {local-unique: folder} {/layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView('view')/}",
-				"    {void} {void} {/folder.addView('view')/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					(editor area)
+					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folder.addView("view")/}
+						{void} {void} {/folder.addView("view")/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		// prepare models
 		PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) page.getParts().get(0);
 		FolderViewInfo folderView = folder.getViews().get(0);
 		assertEquals("view", folderView.getId());
 		// move "folderView" relative "folder", so make in top level
 		PageLayoutAddViewInfo topView = page.command_MOVE(folderView, IPageLayout.TOP, 0.2f, folder);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    {",
-				"      IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"    }",
-				"    layout.addView('view', IPageLayout.TOP, 0.2f, 'folder.1');",
-				"  }",
-				"}");
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView('view', IPageLayout.TOP, 0.2f, 'folder.1')/}",
-				"  (editor area)",
-				"  {void} {local-unique: folder} {/layout.createFolder('folder.1', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  {void} {void} {/layout.addView('view', IPageLayout.TOP, 0.2f, 'folder.1')/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						{
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						}
+						layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1");
+					}
+				}""");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1")/}
+					(editor area)
+					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					{void} {void} {/layout.addView("view", IPageLayout.TOP, 0.2f, "folder.1")/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		assertSame(topView, page.getParts().get(1));
 	}
 
@@ -2169,41 +2122,40 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE_folder() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.createFolder('folder', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    layout.createFolder('folder_1', IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		// create folder
 		page.command_CREATE_folder(IPageLayout.BOTTOM, 0.5f, page.getEditorArea());
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.createFolder('folder', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"    layout.createFolder('folder_1', IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"    {",
-				"      IFolderLayout folderLayout = layout.createFolder('folder_2', IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						{
+							IFolderLayout folderLayout = layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA);
+						}
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.createFolder('folder', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder('folder_1', IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder('folder_2', IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  (editor area)",
-				"  {void} {empty} {/layout.createFolder('folder', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  {void} {empty} {/layout.createFolder('folder_1', IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  {void} {local-unique: folderLayout} {/layout.createFolder('folder_2', IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+					(editor area)
+					{void} {empty} {/layout.createFolder("folder", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					{void} {empty} {/layout.createFolder("folder_1", IPageLayout.RIGHT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					{void} {local-unique: folderLayout} {/layout.createFolder("folder_2", IPageLayout.BOTTOM, 0.5f, IPageLayout.ID_EDITOR_AREA)/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 	}
 
 	/**
@@ -2212,47 +2164,46 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_convertViewIntoFolder_1() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    layout.addView('view_2', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    layout.addView('view_3', IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.addView("view_2", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view_1 = (PageLayoutAddViewInfo) page.getParts().get(0);
 		PageLayoutAddViewInfo view_2 = (PageLayoutAddViewInfo) page.getParts().get(1);
 		PageLayoutAddViewInfo view_3 = (PageLayoutAddViewInfo) page.getParts().get(2);
 		// move view
 		PageLayoutCreateFolderInfo newFolder = page.convertIntoFolder(view_2);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"    {",
-				"      IFolderLayout folderLayout = layout.createFolder('folder', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"      folderLayout.addView('view_2');",
-				"    }",
-				"    layout.addView('view_3', IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						{
+							IFolderLayout folderLayout = layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA);
+							folderLayout.addView("view_2");
+						}
+						layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView('view_3', IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder('folder', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  {void} {local-unique: folderLayout} {/layout.createFolder('folder', IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folderLayout.addView('view_2')/}",
-				"    {void} {void} {/folderLayout.addView('view_2')/}",
-				"  {void} {void} {/layout.addView('view_3', IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					(editor area)
+					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					{void} {local-unique: folderLayout} {/layout.createFolder("folder", IPageLayout.TOP, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /folderLayout.addView("view_2")/}
+						{void} {void} {/folderLayout.addView("view_2")/}
+					{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		assertSame(view_1, page.getParts().get(0));
 		assertSame(newFolder, page.getParts().get(1));
 		assertSame(view_3, page.getParts().get(2));
@@ -2264,46 +2215,45 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_convertViewIntoFolder_2() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"    layout.addView('view_2', IPageLayout.TOP, 0.3f, 'view_1');",
-						"    layout.addView('view_3', IPageLayout.BOTTOM, 0.3f, 'view_1');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						layout.addView("view_2", IPageLayout.TOP, 0.3f, "view_1");
+						layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1");
+					}
+				}""");
 		page.refresh();
 		PageLayoutAddViewInfo view_1 = (PageLayoutAddViewInfo) page.getParts().get(0);
 		PageLayoutAddViewInfo view_2 = (PageLayoutAddViewInfo) page.getParts().get(1);
 		// move view
 		PageLayoutCreateFolderInfo newFolder = page.convertIntoFolder(view_2);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-				"    {",
-				"      IFolderLayout folderLayout = layout.createFolder('folder', IPageLayout.TOP, 0.3f, 'view_1');",
-				"      folderLayout.addView('view_2');",
-				"    }",
-				"    layout.addView('view_3', IPageLayout.BOTTOM, 0.3f, 'view_1');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+						{
+							IFolderLayout folderLayout = layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1");
+							folderLayout.addView("view_2");
+						}
+						layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1");
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView('view_3', IPageLayout.BOTTOM, 0.3f, 'view_1')/ /layout.createFolder('folder', IPageLayout.TOP, 0.3f, 'view_1')/}",
-				"  (editor area)",
-				"  {void} {void} {/layout.addView('view_1', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}",
-				"  {void} {local-unique: folderLayout} {/layout.createFolder('folder', IPageLayout.TOP, 0.3f, 'view_1')/ /folderLayout.addView('view_2')/}",
-				"    {void} {void} {/folderLayout.addView('view_2')/}",
-				"  {void} {void} {/layout.addView('view_3', IPageLayout.BOTTOM, 0.3f, 'view_1')/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/ /layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1")/ /layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1")/}
+					(editor area)
+					{void} {void} {/layout.addView("view_1", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA)/}
+					{void} {local-unique: folderLayout} {/layout.createFolder("folder", IPageLayout.TOP, 0.3f, "view_1")/ /folderLayout.addView("view_2")/}
+						{void} {void} {/folderLayout.addView("view_2")/}
+					{void} {void} {/layout.addView("view_3", IPageLayout.BOTTOM, 0.3f, "view_1")/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		assertSame(view_1, page.getParts().get(0));
 		assertSame(newFolder, page.getParts().get(1));
 	}
@@ -2318,28 +2268,27 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IFolderLayout_parse() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-						"    folder.addView('view.1');",
-						"    folder.addView('view.2');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.1");
+						folder.addView("view.2");
+					}
+				}""");
 		// check hierarchy
-		assertHierarchy(
-				"{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea)/}",
-				"  (editor area)",
-				"  {void} {local-unique: folder} {/layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView('view.1')/ /folder.addView('view.2')/}",
-				"    {void} {void} {/folder.addView('view.1')/}",
-				"    {void} {void} {/folder.addView('view.2')/}",
-				"  (fast views)",
-				"  (view shortcuts)",
-				"  (perspective shortcuts)");
+		assertHierarchy("""
+				{parameter: layout} {layout} {/layout.getEditorArea()/ /layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/}
+					(editor area)
+					{void} {local-unique: folder} {/layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea)/ /folder.addView("view.1")/ /folder.addView("view.2")/}
+						{void} {void} {/folder.addView("view.1")/}
+						{void} {void} {/folder.addView("view.2")/}
+					(fast views)
+					(view shortcuts)
+					(perspective shortcuts)""");
 		// prepare IFolderLayout
 		PageLayoutCreateFolderInfo folder;
 		{
@@ -2400,30 +2349,29 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IFolderLayout_delete() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-						"    folder.addView('view.1');",
-						"    folder.addView('view.2');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.1");
+						folder.addView("view.2");
+					}
+				}""");
 		page.refresh();
 		PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) page.getParts().get(0);
 		// delete folder
 		folder.delete();
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    String editorArea = layout.getEditorArea();",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+					}
+				}""");
 	}
 
 	/**
@@ -2431,18 +2379,17 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IFolderLayout_morphing() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-						"    folder.addView('view.1');",
-						"    folder.addView('view.2');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.1");
+						folder.addView("view.2");
+					}
+				}""");
 		PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) page.getParts().get(0);
 		// prepare "placeholder" property
 		Property placeholderProperty;
@@ -2460,34 +2407,34 @@ public class PageLayoutTest extends RcpModelTest {
 		// make "placeholder"
 		{
 			folder.setPlaceholder(true);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    IPlaceholderFolderLayout folder = layout.createPlaceholderFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-					"    folder.addPlaceholder('view.1');",
-					"    folder.addPlaceholder('view.2');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							IPlaceholderFolderLayout folder = layout.createPlaceholderFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+							folder.addPlaceholder("view.1");
+							folder.addPlaceholder("view.2");
+						}
+					}""");
 			assertTrue(folder.isPlaceholder2());
 			assertEquals(true, ((Boolean) placeholderProperty.getValue()).booleanValue());
 		}
 		// make "normal" using property
 		{
 			placeholderProperty.setValue(false);
-			assertEditor(
-					"public class Test implements IPerspectiveFactory {",
-					"  public Test() {",
-					"  }",
-					"  public void createInitialLayout(IPageLayout layout) {",
-					"    String editorArea = layout.getEditorArea();",
-					"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-					"    folder.addView('view.1');",
-					"    folder.addView('view.2');",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test implements IPerspectiveFactory {
+						public Test() {
+						}
+						public void createInitialLayout(IPageLayout layout) {
+							String editorArea = layout.getEditorArea();
+							IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+							folder.addView("view.1");
+							folder.addView("view.2");
+						}
+					}""");
 			assertFalse(folder.isPlaceholder2());
 			assertEquals(false, ((Boolean) placeholderProperty.getValue()).booleanValue());
 		}
@@ -2498,32 +2445,31 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IFolderLayout_CREATE_1() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-						"    folder.addView('view.1');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.1");
+					}
+				}""");
 		PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) page.getParts().get(0);
 		FolderViewInfo nextView = folder.getViews().get(0);
 		// create new view
 		FolderViewInfo newView = folder.command_CREATE("view.2", nextView);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    String editorArea = layout.getEditorArea();",
-				"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-				"    folder.addView('view.2');",
-				"    folder.addView('view.1');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.2");
+						folder.addView("view.1");
+					}
+				}""");
 		assertSame(newView, folder.getViews().get(0));
 		assertSame(nextView, folder.getViews().get(1));
 	}
@@ -2533,37 +2479,36 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IFolderLayout_MOVE_1() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-						"    folder.addView('view.1');",
-						"    folder.addView('view.2');",
-						"    folder.addView('view.3');",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.1");
+						folder.addView("view.2");
+						folder.addView("view.3");
+					}
+				}""");
 		PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) page.getParts().get(0);
 		FolderViewInfo view_1 = folder.getViews().get(0);
 		FolderViewInfo view_2 = folder.getViews().get(1);
 		FolderViewInfo view_3 = folder.getViews().get(2);
 		// create new view
 		folder.command_MOVE(view_3, view_1);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    String editorArea = layout.getEditorArea();",
-				"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-				"    folder.addView('view.3');",
-				"    folder.addView('view.1');",
-				"    folder.addView('view.2');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.3");
+						folder.addView("view.1");
+						folder.addView("view.2");
+					}
+				}""");
 		assertSame(view_3, folder.getViews().get(0));
 		assertSame(view_1, folder.getViews().get(1));
 		assertSame(view_2, folder.getViews().get(2));
@@ -2575,34 +2520,33 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IFolderLayout_MOVE_2() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-						"    folder.addView('view.1');",
-						"    layout.addView('view.2', IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.1");
+						layout.addView("view.2", IPageLayout.LEFT, 0.3f, IPageLayout.ID_EDITOR_AREA);
+					}
+				}""");
 		PageLayoutCreateFolderInfo folder = (PageLayoutCreateFolderInfo) page.getParts().get(0);
 		FolderViewInfo view_1 = folder.getViews().get(0);
 		PageLayoutAddViewInfo view_2 = (PageLayoutAddViewInfo) page.getParts().get(1);
 		// create new view
 		FolderViewInfo newView_2 = folder.command_MOVE(view_2, null);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    String editorArea = layout.getEditorArea();",
-				"    IFolderLayout folder = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-				"    folder.addView('view.1');",
-				"    folder.addView('view.2');",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						IFolderLayout folder = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						folder.addView("view.1");
+						folder.addView("view.2");
+					}
+				}""");
 		assertSame(view_1, folder.getViews().get(0));
 		assertFalse(page.getParts().contains(view_2));
 		assertSame(newView_2, folder.getViews().get(1));
@@ -2614,42 +2558,41 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_IFolderLayout_MOVE_fromOtherFolder() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"    String editorArea = layout.getEditorArea();",
-						"    {",
-						"      IFolderLayout folder_1 = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-						"      folder_1.addView('view');",
-						"    }",
-						"    {",
-						"      IFolderLayout folder_2 = layout.createFolder('folder.2', IPageLayout.RIGHT, 0.3f, editorArea);",
-						"    }",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						{
+							IFolderLayout folder_1 = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+							folder_1.addView("view");
+						}
+						{
+							IFolderLayout folder_2 = layout.createFolder("folder.2", IPageLayout.RIGHT, 0.3f, editorArea);
+						}
+					}
+				}""");
 		PageLayoutCreateFolderInfo folder_1 = (PageLayoutCreateFolderInfo) page.getParts().get(0);
 		PageLayoutCreateFolderInfo folder_2 = (PageLayoutCreateFolderInfo) page.getParts().get(1);
 		FolderViewInfo view = folder_1.getViews().get(0);
 		// move "view" from "folder_1" to "folder_2"
 		FolderViewInfo newView = folder_2.command_MOVE(view, null);
-		assertEditor(
-				"public class Test implements IPerspectiveFactory {",
-				"  public Test() {",
-				"  }",
-				"  public void createInitialLayout(IPageLayout layout) {",
-				"    String editorArea = layout.getEditorArea();",
-				"    {",
-				"      IFolderLayout folder_1 = layout.createFolder('folder.1', IPageLayout.TOP, 0.4f, editorArea);",
-				"    }",
-				"    {",
-				"      IFolderLayout folder_2 = layout.createFolder('folder.2', IPageLayout.RIGHT, 0.3f, editorArea);",
-				"      folder_2.addView('view');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+						String editorArea = layout.getEditorArea();
+						{
+							IFolderLayout folder_1 = layout.createFolder("folder.1", IPageLayout.TOP, 0.4f, editorArea);
+						}
+						{
+							IFolderLayout folder_2 = layout.createFolder("folder.2", IPageLayout.RIGHT, 0.3f, editorArea);
+							folder_2.addView("view");
+						}
+					}
+				}""");
 		Assertions.assertThat(folder_1.getViews()).isEmpty();
 		Assertions.assertThat(folder_2.getViews()).containsOnly(newView);
 	}
@@ -2664,14 +2607,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_palette() throws Exception {
-		PageLayoutInfo page =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo page = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		page.refresh();
 		// ask for palette categories
 		List<CategoryInfo> categories;
@@ -2736,14 +2678,13 @@ public class PageLayoutTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_extensionProperties_notPlugin() throws Exception {
-		PageLayoutInfo part =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo part = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		assertNull(part.getPropertyByTitle("Extension"));
 	}
 
@@ -2753,20 +2694,19 @@ public class PageLayoutTest extends RcpModelTest {
 	@Test
 	public void test_extensionProperties_noExtension() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		AbstractPdeTest.createPluginXML(
-				"<plugin>",
-				"  <!-- ===== filler filler filler filler filler ===== -->",
-				"  <!-- ===== filler filler filler filler filler ===== -->",
-				"</plugin>");
+		AbstractPdeTest.createPluginXML("""
+				<plugin>
+					<!-- ===== filler filler filler filler filler ===== -->
+					<!-- ===== filler filler filler filler filler ===== -->
+				</plugin>""");
 		// parse
-		PageLayoutInfo part =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo part = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		assertNull(part.getPropertyByTitle("Extension"));
 	}
 
@@ -2779,21 +2719,20 @@ public class PageLayoutTest extends RcpModelTest {
 		do_projectDispose();
 		do_projectCreate();
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
-		AbstractPdeTest.createPluginXML(
-				"<plugin>",
-				"  <extension point='org.eclipse.ui.perspectives'>",
-				"    <perspective id='id_1' name='name 1' icon='icons/false.gif' class='test.Test' fixed='true'/>",
-				"  </extension>",
-				"</plugin>");
+		AbstractPdeTest.createPluginXML("""
+				<plugin>
+					<extension point="org.eclipse.ui.perspectives">
+						<perspective id="id_1" name="name 1" icon="icons/false.gif" class="test.Test" fixed="true"/>
+					</extension>
+				</plugin>""");
 		// parse
-		PageLayoutInfo part =
-				parsePerspective(
-						"public class Test implements IPerspectiveFactory {",
-						"  public Test() {",
-						"  }",
-						"  public void createInitialLayout(IPageLayout layout) {",
-						"  }",
-						"}");
+		PageLayoutInfo part = parsePerspective("""
+				public class Test implements IPerspectiveFactory {
+					public Test() {
+					}
+					public void createInitialLayout(IPageLayout layout) {
+					}
+				}""");
 		// "Extension" property
 		Property extensionProperty = part.getPropertyByTitle("Extension");
 		assertNotNull(extensionProperty);
@@ -2839,13 +2778,14 @@ public class PageLayoutTest extends RcpModelTest {
 	// Utils
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private PageLayoutInfo parsePerspective(String... lines) throws Exception {
+	private PageLayoutInfo parsePerspective(String lines) throws Exception {
 		return parseJavaInfo(lines);
 	}
 
 	@Override
-	protected String[] getTestSource_decorate(String... lines) {
-		lines = CodeUtils.join(new String[]{"package test;", "import org.eclipse.ui.*;"}, lines);
-		return lines;
+	protected String getTestSource_decorate(String lines) {
+		return getSource("""
+				package test;
+				import org.eclipse.ui.*;""", lines);
 	}
 }

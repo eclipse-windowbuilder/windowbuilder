@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -40,54 +40,49 @@ public class BindListTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_bindList() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.List getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.List getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private Combo m_combo;",
-								"  private TestBean m_bean;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_combo = new Combo(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableList observeList = BeanProperties.list(\"names\").observe(m_bean);",
-								"    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindList(observeWidget, observeList, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Combo m_combo;
+					private TestBean m_bean;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_combo = new Combo(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableList observeList = BeanProperties.list(\"names\").observe(m_bean);
+						IObservableList observeWidget = WidgetProperties.items().observe(m_combo);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindList(observeWidget, observeList, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -133,7 +128,7 @@ public class BindListTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_constructors_1() throws Exception {
 		strategy_constructors(
-				"    bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_NEVER));",
+				"		bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_NEVER));",
 				UpdateListStrategyInfo.Value.POLICY_NEVER,
 				"POLICY_NEVER|POLICY_NEVER");
 	}
@@ -141,7 +136,7 @@ public class BindListTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_constructors_2() throws Exception {
 		strategy_constructors(
-				"    bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_ON_REQUEST));",
+				"		bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_ON_REQUEST));",
 				UpdateListStrategyInfo.Value.POLICY_ON_REQUEST,
 				"POLICY_ON_REQUEST|POLICY_ON_REQUEST");
 	}
@@ -149,61 +144,56 @@ public class BindListTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_constructors_3() throws Exception {
 		strategy_constructors(
-				"    bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_UPDATE));",
+				"		bindingContext.bindList(observeWidget, observeList, new UpdateListStrategy(), new UpdateListStrategy(UpdateListStrategy.POLICY_UPDATE));",
 				UpdateListStrategyInfo.Value.POLICY_UPDATE,
 				"POLICY_UPDATE|POLICY_UPDATE");
 	}
 
 	private void strategy_constructors(String line, Object value, String presentation)
 			throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.List getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.List getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private Combo m_combo;",
-								"  private TestBean m_bean;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_combo = new Combo(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
-								"    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								line,
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Combo m_combo;
+					private TestBean m_bean;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_combo = new Combo(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);
+						IObservableList observeWidget = WidgetProperties.items().observe(m_combo);
+						DataBindingContext bindingContext = new DataBindingContext();
+				%s
+						return bindingContext;
+					}
+				}""".formatted(line));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -232,56 +222,51 @@ public class BindListTest extends AbstractBindingTest {
 
 	@Test
 	public void test_strategy_variable() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.List getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.List getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private Combo m_combo;",
-								"  private TestBean m_bean;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_combo = new Combo(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
-								"    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    UpdateListStrategy strategy0 = new UpdateListStrategy();",
-								"    UpdateListStrategy strategy1 = new UpdateListStrategy(UpdateListStrategy.POLICY_NEVER);",
-								"    bindingContext.bindList(observeWidget, observeList, strategy0, strategy1);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Combo m_combo;
+					private TestBean m_bean;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_combo = new Combo(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);
+						IObservableList observeWidget = WidgetProperties.items().observe(m_combo);
+						DataBindingContext bindingContext = new DataBindingContext();
+						UpdateListStrategy strategy0 = new UpdateListStrategy();
+						UpdateListStrategy strategy1 = new UpdateListStrategy(UpdateListStrategy.POLICY_NEVER);
+						bindingContext.bindList(observeWidget, observeList, strategy0, strategy1);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -310,60 +295,55 @@ public class BindListTest extends AbstractBindingTest {
 
 	@Test
 	public void test_strategy_extendet() throws Exception {
-		createModelCompilationUnit("test", "TestStrategy.java", DatabindingTestUtils.getTestSource(
-				"public class TestStrategy extends UpdateListStrategy {",
-				"  public TestStrategy() {",
-				"  }",
-				"}"));
+		createModelCompilationUnit("test", "TestStrategy.java", DatabindingTestUtils.getTestSource("""
+				public class TestStrategy extends UpdateListStrategy {
+					public TestStrategy() {
+					}
+				}"""));
 		waitForAutoBuild();
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.List getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.List getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private Combo m_combo;",
-								"  private TestBean m_bean;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_combo = new Combo(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
-								"    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindList(observeWidget, observeList, null, new test.TestStrategy());",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Combo m_combo;
+					private TestBean m_bean;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_combo = new Combo(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);
+						IObservableList observeWidget = WidgetProperties.items().observe(m_combo);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindList(observeWidget, observeList, null, new test.TestStrategy());
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -393,81 +373,76 @@ public class BindListTest extends AbstractBindingTest {
 	@Test
 	public void test_strategy_converter_1() throws Exception {
 		strategy_converter(
-				"    strategy.setConverter(new TestConverter());",
-				"    //",
+				"		strategy.setConverter(new TestConverter());",
+				"	//",
 				"null|test.TestConverter|TestConverter");
 	}
 
 	@Test
 	public void test_strategy_converter_2() throws Exception {
 		strategy_converter(
-				"    TestConverter converter = new TestConverter();",
-				"    strategy.setConverter(converter);",
+				"		TestConverter converter = new TestConverter();",
+				"		strategy.setConverter(converter);",
 				"converter|test.TestConverter|TestConverter");
 	}
 
 	private void strategy_converter(String line0, String line1, String testString) throws Exception {
-		createModelCompilationUnit("test", "TestConverter.java", DatabindingTestUtils.getTestSource(
-				"public class TestConverter extends Converter {",
-				"  public TestConverter() {",
-				"    super(null, null);",
-				"  }",
-				"  public Object convert(Object fromObject) {",
-				"    return null;",
-				"  }",
-				"}"));
+		createModelCompilationUnit("test", "TestConverter.java", DatabindingTestUtils.getTestSource("""
+				public class TestConverter extends Converter {
+					public TestConverter() {
+						super(null, null);
+					}
+					public Object convert(Object fromObject) {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.List getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.List getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private Combo m_combo;",
-								"  private TestBean m_bean;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_combo = new Combo(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);",
-								"    IObservableList observeWidget = WidgetProperties.items().observe(m_combo);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    UpdateListStrategy strategy = new UpdateListStrategy();",
-								line0,
-								line1,
-								"    bindingContext.bindList(observeWidget, observeList, null, strategy);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private Combo m_combo;
+					private TestBean m_bean;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_combo = new Combo(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableList observeList = BeanProperties.list(\"names\").observe(Realm.getDefault(), m_bean);
+						IObservableList observeWidget = WidgetProperties.items().observe(m_combo);
+						DataBindingContext bindingContext = new DataBindingContext();
+						UpdateListStrategy strategy = new UpdateListStrategy();
+				%s
+				%s
+						bindingContext.bindList(observeWidget, observeList, null, strategy);
+						return bindingContext;
+					}
+				}""".formatted(line0, line1));
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -34,23 +34,19 @@ public class ControlSelectionPropertyEditorTest extends RcpModelTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		// prepare testing object
-		setFileContentSrc(
-				"test/MyTestObject.java",
-				getTestSource(
-						"// filler filler filler filler filler",
-						"// filler filler filler filler filler",
-						"public class MyTestObject {",
-						"  public Control control;",
-						"}"));
-		setFileContentSrc(
-				"test/MyTestObject.wbp-component.xml",
-				getSourceDQ(
-						"<?xml version='1.0' encoding='UTF-8'?>",
-						"<component xmlns='http://www.eclipse.org/wb/WBPComponent'>",
-						"  <property id='control'>",
-						"    <editor id='controlSelection'/>",
-						"  </property>",
-						"</component>"));
+		setFileContentSrc("test/MyTestObject.java", getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class MyTestObject {
+					public Control control;
+				}"""));
+		setFileContentSrc("test/MyTestObject.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<property id="control">
+						<editor id="controlSelection"/>
+					</property>
+				</component>""");
 		waitForAutoBuild();
 	}
 
@@ -76,10 +72,10 @@ public class ControlSelectionPropertyEditorTest extends RcpModelTest {
 		// TODO
 		/*CompositeInfo shell =
     		parseComposite(
-    				"public class Test extends Shell {",
-    				"  public Test() {",
-    				"  }",
-    				"}");
+    				public class Test extends Shell {
+    					public Test() {
+    					}
+    				}");
     JavaInfo newInfo = createJavaInfo(m_lastEditor, "test.MyTestObject");*/
 	}
 }

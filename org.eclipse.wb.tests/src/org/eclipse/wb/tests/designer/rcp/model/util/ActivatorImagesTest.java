@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -39,26 +39,24 @@ public class ActivatorImagesTest extends RcpModelTest {
 	protected void configureNewProject() throws Exception {
 		PdeProjectConversionUtils.convertToPDE(m_testProject.getProject(), null, "testplugin.Activator");
 		// create activator
-		setFileContentSrc(
-				"testplugin/Activator.java",
-				getSourceDQ(
-						"package testplugin;",
-						"import org.eclipse.jface.resource.ImageDescriptor;",
-						"import org.eclipse.swt.graphics.Image;",
-						"import org.eclipse.ui.plugin.AbstractUIPlugin;",
-						"public class Activator extends AbstractUIPlugin {",
-						"  public Activator() {",
-						"  }",
-						"  public static Activator getDefault() {",
-						"    return null;",
-						"  }",
-						"  public static ImageDescriptor getImageDescriptor(String path) {",
-						"    return null;",
-						"  }",
-						"  public static Image getImage(String path) {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("testplugin/Activator.java", """
+				package testplugin;
+				import org.eclipse.jface.resource.ImageDescriptor;
+				import org.eclipse.swt.graphics.Image;
+				import org.eclipse.ui.plugin.AbstractUIPlugin;
+				public class Activator extends AbstractUIPlugin {
+					public Activator() {
+					}
+					public static Activator getDefault() {
+						return null;
+					}
+					public static ImageDescriptor getImageDescriptor(String path) {
+						return null;
+					}
+					public static Image getImage(String path) {
+						return null;
+					}
+				}""");
 		//
 		IOUtils2.ensureFolderExists(m_testProject.getProject(), "icons");
 		IOUtils2.ensureFolderExists(m_testProject.getProject(), "images");
@@ -131,12 +129,12 @@ public class ActivatorImagesTest extends RcpModelTest {
 	}
 
 	private void test_getImage(String path) throws Exception {
-		ShellInfo shell = (ShellInfo) parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setImage(testplugin.Activator.getImage('" + path + "'));",
-						"  }",
-						"}");
+		ShellInfo shell = (ShellInfo) parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setImage(testplugin.Activator.getImage("%s"));
+					}
+				}""".formatted(path));
 		shell.refresh();
 		Image image = shell.getImage();
 		assertNotNull(image);
@@ -145,12 +143,12 @@ public class ActivatorImagesTest extends RcpModelTest {
 
 	@Test
 	public void test_getImage_wrongPath() throws Exception {
-		ShellInfo shell = (ShellInfo) parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    setImage(testplugin.Activator.getImage('icons/3.png'));",
-						"  }",
-						"}");
+		ShellInfo shell = (ShellInfo) parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						setImage(testplugin.Activator.getImage("icons/3.png"));
+					}
+				}""");
 		shell.refresh();
 		assertNull(shell.getWidget().getImage());
 	}
@@ -206,23 +204,21 @@ public class ActivatorImagesTest extends RcpModelTest {
 	}
 
 	private void test_getImageDescriptor(String path, boolean checkNotNull) throws Exception {
-		setFileContentSrc(
-				"test/MyShell.java",
-				getTestSource(
-						"public class MyShell extends Shell {",
-						"  private ImageDescriptor m_imageDescriptor;",
-						"  public void setID(ImageDescriptor id) {",
-						"    m_imageDescriptor = id;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/MyShell.java", getTestSource("""
+				public class MyShell extends Shell {
+					private ImageDescriptor m_imageDescriptor;
+					public void setID(ImageDescriptor id) {
+						m_imageDescriptor = id;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		ShellInfo shell = (ShellInfo) parseComposite(
-						"public class Test extends MyShell {",
-						"  public Test() {",
-						"    setID(testplugin.Activator.getImageDescriptor('" + path + "'));",
-						"  }",
-						"}");
+		ShellInfo shell = (ShellInfo) parseComposite("""
+				public class Test extends MyShell {
+					public Test() {
+						setID(testplugin.Activator.getImageDescriptor("%s"));
+					}
+				}""".formatted(path));
 		shell.refresh();
 		//
 		Shell shellObject = shell.getWidget();

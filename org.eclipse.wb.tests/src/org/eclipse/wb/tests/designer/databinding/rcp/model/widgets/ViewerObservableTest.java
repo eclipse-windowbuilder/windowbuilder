@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -70,43 +70,40 @@ public class ViewerObservableTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_observeSingleSelection() throws Exception {
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());",
-								"    IObservableValue observeWidget = ViewerProperties.singleSelection().observe(m_viewer);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindValue(observeWidget, observeValue, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableValue observeValue = BeanProperties.value(\"name\").observe(getClass());
+						IObservableValue observeWidget = ViewerProperties.singleSelection().observe(m_viewer);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindValue(observeWidget, observeValue, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -164,55 +161,50 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_observeMultiSelection() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.List getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.List getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private TestBean m_bean;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableList observeList = BeanProperties.list(\"name\").observe(Realm.getDefault(), getClass());",
-								"    IObservableList observeWidget = ViewerProperties.multipleSelection().observe((Viewer)m_viewer);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindList(observeWidget, observeList, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private TestBean m_bean;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableList observeList = BeanProperties.list(\"name\").observe(Realm.getDefault(), getClass());
+						IObservableList observeWidget = ViewerProperties.multipleSelection().observe((Viewer)m_viewer);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindList(observeWidget, observeList, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -246,55 +238,50 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_observeCheckedElements() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public java.util.Set getNames() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public java.util.Set getNames() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  protected Shell m_shell;",
-								"  private CheckboxTreeViewer m_viewer;",
-								"  private TestBean m_bean;",
-								"  private DataBindingContext m_bindingContext;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new CheckboxTreeViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    IObservableSet observeSet = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean);",
-								"    IObservableSet observeWidget = ViewerProperties.checkedElements(Integer.class).observe((Viewer)m_viewer);",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    bindingContext.bindSet(observeWidget, observeSet, null, null);",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					protected Shell m_shell;
+					private CheckboxTreeViewer m_viewer;
+					private TestBean m_bean;
+					private DataBindingContext m_bindingContext;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new CheckboxTreeViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						IObservableSet observeSet = BeanProperties.set(\"names\").observe(Realm.getDefault(), m_bean);
+						IObservableSet observeWidget = ViewerProperties.checkedElements(Integer.class).observe((Viewer)m_viewer);
+						DataBindingContext bindingContext = new DataBindingContext();
+						bindingContext.bindSet(observeWidget, observeSet, null, null);
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -340,66 +327,61 @@ public class ViewerObservableTest extends AbstractBindingTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_Viewer_Input_OnlyList() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.List getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.List getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private TestBean m_bean;",
-								"  private TableViewer m_sourceViewer;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_sourceViewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();",
-								"    m_viewer.setContentProvider(viewerContentProvider);",
-								"    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
-								"    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
-								"    //",
-								"    IObservableList selectionObserveList = ViewerProperties.multipleSelection().observe(m_sourceViewer);",
-								"    m_viewer.setInput(selectionObserveList);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private TestBean m_bean;
+					private TableViewer m_sourceViewer;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_sourceViewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();
+						m_viewer.setContentProvider(viewerContentProvider);
+						IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());
+						m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));
+						//
+						IObservableList selectionObserveList = ViewerProperties.multipleSelection().observe(m_sourceViewer);
+						m_viewer.setInput(selectionObserveList);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -492,64 +474,59 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_Viewer_Input_List() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.List getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.List getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private TestBean m_bean;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();",
-								"    m_viewer.setContentProvider(viewerContentProvider);",
-								"    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
-								"    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
-								"    //",
-								"    IObservableList beanObserveList = BeanProperties.list(\"beans\").observe(Realm.getDefault(), m_bean);",
-								"    m_viewer.setInput(beanObserveList);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private TestBean m_bean;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();
+						m_viewer.setContentProvider(viewerContentProvider);
+						IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());
+						m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));
+						//
+						IObservableList beanObserveList = BeanProperties.list(\"beans\").observe(Realm.getDefault(), m_bean);
+						m_viewer.setInput(beanObserveList);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -640,63 +617,58 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_Viewer_Input_List_InputCollection() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.List getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.List getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private java.util.List m_beans;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();",
-								"    m_viewer.setContentProvider(viewerContentProvider);",
-								"    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
-								"    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
-								"    //",
-								"    m_viewer.setInput(new WritableList(m_beans, TestBean.class));",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private java.util.List m_beans;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();
+						m_viewer.setContentProvider(viewerContentProvider);
+						IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());
+						m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));
+						//
+						m_viewer.setInput(new WritableList(m_beans, TestBean.class));
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -787,73 +759,66 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_Viewer_Input_ListDetail() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/BeanContainer.java",
-				getSourceDQ(
-						"package test;",
-						"public class BeanContainer {",
-						"  public java.util.List getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+				}""");
+		setFileContentSrc("test/BeanContainer.java", """
+				package test;
+				public class BeanContainer {
+					public java.util.List getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private BeanContainer m_container;",
-								"  private TableViewer m_sourceViewer;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_sourceViewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();",
-								"    m_viewer.setContentProvider(viewerContentProvider);",
-								"    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
-								"    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
-								"    //",
-								"    IObservableValue selectionObserve = ViewerProperties.singleSelection().observe(m_sourceViewer);",
-								"    IObservableList containerObserveDetailList = BeanProperties.list(\"beans\", TestBean.class).observeDetail(selectionObserve);",
-								"    m_viewer.setInput(containerObserveDetailList);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private BeanContainer m_container;
+					private TableViewer m_sourceViewer;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_sourceViewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						ObservableListContentProvider viewerContentProvider = new ObservableListContentProvider();
+						m_viewer.setContentProvider(viewerContentProvider);
+						IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());
+						m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));
+						//
+						IObservableValue selectionObserve = ViewerProperties.singleSelection().observe(m_sourceViewer);
+						IObservableList containerObserveDetailList = BeanProperties.list(\"beans\", TestBean.class).observeDetail(selectionObserve);
+						m_viewer.setInput(containerObserveDetailList);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -948,66 +913,61 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_Viewer_Input_OnlySet() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.Set getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.Set getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private TestBean m_bean;",
-								"  private CheckboxTableViewer m_sourceViewer;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_sourceViewer = new CheckboxTableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();",
-								"    m_viewer.setContentProvider(viewerContentProvider);",
-								"    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
-								"    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
-								"    //",
-								"    IObservableSet checkedObserveSet = ViewerProperties.checkedElements(TestBean.class).observe((Viewer)m_sourceViewer);",
-								"    m_viewer.setInput(checkedObserveSet);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private TestBean m_bean;
+					private CheckboxTableViewer m_sourceViewer;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_sourceViewer = new CheckboxTableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();
+						m_viewer.setContentProvider(viewerContentProvider);
+						IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());
+						m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));
+						//
+						IObservableSet checkedObserveSet = ViewerProperties.checkedElements(TestBean.class).observe((Viewer)m_sourceViewer);
+						m_viewer.setInput(checkedObserveSet);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1103,64 +1063,59 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_Viewer_Input_Set() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.Set getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.Set getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private TestBean m_bean;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();",
-								"    m_viewer.setContentProvider(viewerContentProvider);",
-								"    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
-								"    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
-								"    //",
-								"    IObservableSet beanObserveSet = BeanProperties.set(\"beans\").observe(Realm.getDefault(), m_bean);",
-								"    m_viewer.setInput(beanObserveSet);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private TestBean m_bean;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();
+						m_viewer.setContentProvider(viewerContentProvider);
+						IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());
+						m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));
+						//
+						IObservableSet beanObserveSet = BeanProperties.set(\"beans\").observe(Realm.getDefault(), m_bean);
+						m_viewer.setInput(beanObserveSet);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1251,63 +1206,58 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_Viewer_Input_Set_InputCollection() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.Set getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.Set getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private java.util.Set m_beans;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();",
-								"    m_viewer.setContentProvider(viewerContentProvider);",
-								"    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
-								"    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
-								"    //",
-								"    m_viewer.setInput(new WritableSet(m_beans, TestBean.class));",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private java.util.Set m_beans;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();
+						m_viewer.setContentProvider(viewerContentProvider);
+						IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());
+						m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));
+						//
+						m_viewer.setInput(new WritableSet(m_beans, TestBean.class));
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1398,73 +1348,66 @@ public class ViewerObservableTest extends AbstractBindingTest {
 
 	@Test
 	public void test_Viewer_Input_SetDetail() throws Exception {
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"}"));
-		setFileContentSrc(
-				"test/BeanContainer.java",
-				getSourceDQ(
-						"package test;",
-						"public class BeanContainer {",
-						"  public java.util.Set getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+				}""");
+		setFileContentSrc("test/BeanContainer.java", """
+				package test;
+				public class BeanContainer {
+					public java.util.Set getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TableViewer m_viewer;",
-								"  private BeanContainer m_container;",
-								"  private TableViewer m_sourceViewer;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_sourceViewer = new TableViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();",
-								"    m_viewer.setContentProvider(viewerContentProvider);",
-								"    IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());",
-								"    m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));",
-								"    //",
-								"    IObservableValue selectionObserve = ViewerProperties.singleSelection().observe(m_sourceViewer);",
-								"    IObservableSet containerObserveDetailSet = BeanProperties.set(\"beans\", TestBean.class).observeDetail(selectionObserve);",
-								"    m_viewer.setInput(containerObserveDetailSet);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TableViewer m_viewer;
+					private BeanContainer m_container;
+					private TableViewer m_sourceViewer;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TableViewer(m_shell, SWT.BORDER);
+						m_sourceViewer = new TableViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						ObservableSetContentProvider viewerContentProvider = new ObservableSetContentProvider();
+						m_viewer.setContentProvider(viewerContentProvider);
+						IObservableMap viewerLabelProviderMap = BeanProperties.value(TestBean.class, \"name\").observeDetail(viewerContentProvider.getKnownElements());
+						m_viewer.setLabelProvider(new ObservableMapLabelProvider(viewerLabelProviderMap));
+						//
+						IObservableValue selectionObserve = ViewerProperties.singleSelection().observe(m_sourceViewer);
+						IObservableSet containerObserveDetailSet = BeanProperties.set(\"beans\", TestBean.class).observeDetail(selectionObserve);
+						m_viewer.setInput(containerObserveDetailSet);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1566,78 +1509,73 @@ public class ViewerObservableTest extends AbstractBindingTest {
 	public void test_Viewer_TreeInput_List_InputCollection() throws Exception {
 		DataBindingsCodeUtils.ensureDesignerResources(m_testProject.getJavaProject());
 		//
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.List getBeans() {",
-						"    return null;",
-						"  }",
-						"  public TestBean getParent() {",
-						"    return null;",
-						"  }",
-						"  public boolean getHasChildren() {",
-						"    return false;",
-						"  }",
-						"  public org.eclipse.swt.graphics.Image getImage() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.List getBeans() {
+						return null;
+					}
+					public TestBean getParent() {
+						return null;
+					}
+					public boolean getHasChildren() {
+						return false;
+					}
+					public org.eclipse.swt.graphics.Image getImage() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.wb.rcp.databinding.BeansListObservableFactory;",
-								"import org.eclipse.wb.rcp.databinding.TreeBeanAdvisor;",
-								"import org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider;",
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TreeViewer m_viewer;",
-								"  private java.util.List m_beans;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TreeViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    BeansListObservableFactory treeViewerFactoryList = new BeansListObservableFactory(TestBean.class, \"beans\");",
-								"    TreeBeanAdvisor treeViewerAdvisor = new TreeBeanAdvisor(TestBean.class, \"parent\", \"beans\", \"hasChildren\");",
-								"    ObservableListTreeContentProvider treeViewerContentProviderList = new ObservableListTreeContentProvider(treeViewerFactoryList, treeViewerAdvisor);",
-								"    m_viewer.setContentProvider(treeViewerContentProviderList);",
-								"    //",
-								"    m_viewer.setLabelProvider(new TreeObservableLabelProvider(treeViewerContentProviderList.getKnownElements(), TestBean.class, \"name\", \"image\"));",
-								"    //",
-								"    WritableList beansWritableList = new WritableList(m_beans, TestBean.class);",
-								"    m_viewer.setInput(beansWritableList);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.wb.rcp.databinding.BeansListObservableFactory;
+				import org.eclipse.wb.rcp.databinding.TreeBeanAdvisor;
+				import org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider;
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TreeViewer m_viewer;
+					private java.util.List m_beans;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TreeViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						BeansListObservableFactory treeViewerFactoryList = new BeansListObservableFactory(TestBean.class, \"beans\");
+						TreeBeanAdvisor treeViewerAdvisor = new TreeBeanAdvisor(TestBean.class, \"parent\", \"beans\", \"hasChildren\");
+						ObservableListTreeContentProvider treeViewerContentProviderList = new ObservableListTreeContentProvider(treeViewerFactoryList, treeViewerAdvisor);
+						m_viewer.setContentProvider(treeViewerContentProviderList);
+						//
+						m_viewer.setLabelProvider(new TreeObservableLabelProvider(treeViewerContentProviderList.getKnownElements(), TestBean.class, \"name\", \"image\"));
+						//
+						WritableList beansWritableList = new WritableList(m_beans, TestBean.class);
+						m_viewer.setInput(beansWritableList);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1744,78 +1682,73 @@ public class ViewerObservableTest extends AbstractBindingTest {
 	public void test_Viewer_TreeInput_Set_InputCollection() throws Exception {
 		DataBindingsCodeUtils.ensureDesignerResources(m_testProject.getJavaProject());
 		//
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.List getBeans() {",
-						"    return null;",
-						"  }",
-						"  public TestBean getParent() {",
-						"    return null;",
-						"  }",
-						"  public boolean getHasChildren() {",
-						"    return false;",
-						"  }",
-						"  public org.eclipse.swt.graphics.Image getImage() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.List getBeans() {
+						return null;
+					}
+					public TestBean getParent() {
+						return null;
+					}
+					public boolean getHasChildren() {
+						return false;
+					}
+					public org.eclipse.swt.graphics.Image getImage() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.wb.rcp.databinding.BeansSetObservableFactory;",
-								"import org.eclipse.wb.rcp.databinding.TreeBeanAdvisor;",
-								"import org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider;",
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TreeViewer m_viewer;",
-								"  private java.util.Set m_beans;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TreeViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    BeansSetObservableFactory treeViewerFactorySet = new BeansSetObservableFactory(TestBean.class, \"beans\");",
-								"    TreeBeanAdvisor treeViewerAdvisor = new TreeBeanAdvisor(TestBean.class, \"parent\", \"beans\", \"hasChildren\");",
-								"    ObservableSetTreeContentProvider treeViewerContentProviderSet = new ObservableSetTreeContentProvider(treeViewerFactorySet, treeViewerAdvisor);",
-								"    m_viewer.setContentProvider(treeViewerContentProviderSet);",
-								"    //",
-								"    m_viewer.setLabelProvider(new TreeObservableLabelProvider(treeViewerContentProviderSet.getKnownElements(), TestBean.class, \"name\", \"image\"));",
-								"    //",
-								"    WritableSet beansWritableSet = new WritableSet(m_beans, TestBean.class);",
-								"    m_viewer.setInput(beansWritableSet);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.wb.rcp.databinding.BeansSetObservableFactory;
+				import org.eclipse.wb.rcp.databinding.TreeBeanAdvisor;
+				import org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider;
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TreeViewer m_viewer;
+					private java.util.Set m_beans;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TreeViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						BeansSetObservableFactory treeViewerFactorySet = new BeansSetObservableFactory(TestBean.class, \"beans\");
+						TreeBeanAdvisor treeViewerAdvisor = new TreeBeanAdvisor(TestBean.class, \"parent\", \"beans\", \"hasChildren\");
+						ObservableSetTreeContentProvider treeViewerContentProviderSet = new ObservableSetTreeContentProvider(treeViewerFactorySet, treeViewerAdvisor);
+						m_viewer.setContentProvider(treeViewerContentProviderSet);
+						//
+						m_viewer.setLabelProvider(new TreeObservableLabelProvider(treeViewerContentProviderSet.getKnownElements(), TestBean.class, \"name\", \"image\"));
+						//
+						WritableSet beansWritableSet = new WritableSet(m_beans, TestBean.class);
+						m_viewer.setInput(beansWritableSet);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();
@@ -1923,84 +1856,79 @@ public class ViewerObservableTest extends AbstractBindingTest {
 	public void test_Viewer_TreeInput_List_JFace() throws Exception {
 		DataBindingsCodeUtils.ensureDesignerResources(m_testProject.getJavaProject());
 		//
-		setFileContentSrc(
-				"test/TestBean.java",
-				getSourceDQ(
-						"package test;",
-						"public class TestBean {",
-						"  public String getName() {",
-						"    return null;",
-						"  }",
-						"  public java.util.List getBeans() {",
-						"    return null;",
-						"  }",
-						"}"));
+		setFileContentSrc("test/TestBean.java", """
+				package test;
+				public class TestBean {
+					public String getName() {
+						return null;
+					}
+					public java.util.List getBeans() {
+						return null;
+					}
+				}""");
 		waitForAutoBuild();
 		//
-		createModelCompilationUnit("test", "TestFactory.java", DatabindingTestUtils.getTestSource(
-				"public class TestFactory implements IObservableFactory {",
-				"  public IObservable createObservable(Object target) {",
-				"    return null;",
-				"  }",
-				"}"));
+		createModelCompilationUnit("test", "TestFactory.java", DatabindingTestUtils.getTestSource("""
+				public class TestFactory implements IObservableFactory {
+					public IObservable createObservable(Object target) {
+						return null;
+					}
+				}"""));
 		waitForAutoBuild();
 		//
-		createModelCompilationUnit("test", "TestAdvisor.java", DatabindingTestUtils.getTestSource(
-				"// filler filler filler filler filler",
-				"// filler filler filler filler filler",
-				"public class TestAdvisor extends TreeStructureAdvisor {",
-				"}"));
+		createModelCompilationUnit("test", "TestAdvisor.java", DatabindingTestUtils.getTestSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				public class TestAdvisor extends TreeStructureAdvisor {
+				}"""));
 		waitForAutoBuild();
 		//
-		CompositeInfo shell =
-				DatabindingTestUtils.parseTestSource(
-						this,
-						new String[]{
-								"import org.eclipse.wb.rcp.databinding.BeansListObservableFactory;",
-								"import org.eclipse.wb.rcp.databinding.TreeBeanAdvisor;",
-								"import org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider;",
-								"public class Test {",
-								"  private DataBindingContext m_bindingContext;",
-								"  protected Shell m_shell;",
-								"  private TreeViewer m_viewer;",
-								"  private java.util.List m_beans;",
-								"  public static void main(String[] args) {",
-								"    Test test = new Test();",
-								"    test.open();",
-								"  }",
-								"  public void open() {",
-								"    Display display = new Display();",
-								"    createContents();",
-								"    m_shell.open();",
-								"    m_shell.layout();",
-								"    while (!m_shell.isDisposed()) {",
-								"      if (!display.readAndDispatch()) {",
-								"        display.sleep();",
-								"      }",
-								"    }",
-								"  }",
-								"  protected void createContents() {",
-								"    m_shell = new Shell();",
-								"    m_shell.setLayout(new GridLayout());",
-								"    m_viewer = new TreeViewer(m_shell, SWT.BORDER);",
-								"    m_bindingContext = initDataBindings();",
-								"  }",
-								"  private DataBindingContext initDataBindings() {",
-								"    DataBindingContext bindingContext = new DataBindingContext();",
-								"    //",
-								"    TestFactory treeFactory = new TestFactory();",
-								"    TestAdvisor treeAdvisor = new TestAdvisor();",
-								"    ObservableListTreeContentProvider treeViewerContentProviderList = new ObservableListTreeContentProvider(treeFactory, treeAdvisor);",
-								"    m_viewer.setContentProvider(treeViewerContentProviderList);",
-								"    //",
-								"    m_viewer.setLabelProvider(new LabelProvider());",
-								"    //",
-								"    WritableList beansWritableList = new WritableList(m_beans, TestBean.class);",
-								"    m_viewer.setInput(beansWritableList);",
-								"    //",
-								"    return bindingContext;",
-								"  }",
-						"}"});
+		CompositeInfo shell = DatabindingTestUtils.parseTestSource(this, """
+				import org.eclipse.wb.rcp.databinding.BeansListObservableFactory;
+				import org.eclipse.wb.rcp.databinding.TreeBeanAdvisor;
+				import org.eclipse.wb.rcp.databinding.TreeObservableLabelProvider;
+				public class Test {
+					private DataBindingContext m_bindingContext;
+					protected Shell m_shell;
+					private TreeViewer m_viewer;
+					private java.util.List m_beans;
+					public static void main(String[] args) {
+						Test test = new Test();
+						test.open();
+					}
+					public void open() {
+						Display display = new Display();
+						createContents();
+						m_shell.open();
+						m_shell.layout();
+						while (!m_shell.isDisposed()) {
+							if (!display.readAndDispatch()) {
+								display.sleep();
+							}
+						}
+					}
+					protected void createContents() {
+						m_shell = new Shell();
+						m_shell.setLayout(new GridLayout());
+						m_viewer = new TreeViewer(m_shell, SWT.BORDER);
+						m_bindingContext = initDataBindings();
+					}
+					private DataBindingContext initDataBindings() {
+						DataBindingContext bindingContext = new DataBindingContext();
+						//
+						TestFactory treeFactory = new TestFactory();
+						TestAdvisor treeAdvisor = new TestAdvisor();
+						ObservableListTreeContentProvider treeViewerContentProviderList = new ObservableListTreeContentProvider(treeFactory, treeAdvisor);
+						m_viewer.setContentProvider(treeViewerContentProviderList);
+						//
+						m_viewer.setLabelProvider(new LabelProvider());
+						//
+						WritableList beansWritableList = new WritableList(m_beans, TestBean.class);
+						m_viewer.setInput(beansWritableList);
+						//
+						return bindingContext;
+					}
+				}""");
 		assertNotNull(shell);
 		//
 		DatabindingsProvider provider = getDatabindingsProvider();

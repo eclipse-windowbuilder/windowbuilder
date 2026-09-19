@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,28 +41,28 @@ public class ViewPartGefTest extends RcpGefTest {
 	@Disabled
 	@Test
 	public void test_withMenuManager() throws Exception {
-		openJavaInfo(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.ui.*;",
-				"import org.eclipse.ui.part.*;",
-				"public class Test extends ViewPart {",
-				"  public Test() {",
-				"  }",
-				"  public void createPartControl(Composite parent) {",
-				"    Composite container = new Composite(parent, SWT.NULL);",
-				"  }",
-				"  public void setFocus() {",
-				"  }",
-				"  public void init(IViewSite site) throws PartInitException {",
-				"    super.init(site);",
-				"    createActions();",
-				"    initializeMenu();",
-				"  }",
-				"  private void createActions() {",
-				"  }",
-				"  private void initializeMenu() {",
-				"    IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();",
-				"  }",
-				"}");
+		openJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.ui.*;
+				import org.eclipse.ui.part.*;
+				public class Test extends ViewPart {
+					public Test() {
+					}
+					public void createPartControl(Composite parent) {
+						Composite container = new Composite(parent, SWT.NULL);
+					}
+					public void setFocus() {
+					}
+					public void init(IViewSite site) throws PartInitException {
+						super.init(site);
+						createActions();
+						initializeMenu();
+					}
+					private void createActions() {
+					}
+					private void initializeMenu() {
+						IMenuManager menuManager = getViewSite().getActionBars().getMenuManager();
+					}
+				}""");
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -77,26 +77,26 @@ public class TableViewerColumnTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setContentProvider_afterTable() throws Exception {
-		parseComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    Table table = tableViewer.getTable();",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						Table table = tableViewer.getTable();
+					}
+				}""");
 		//
 		ViewerInfo tableViewer = getJavaInfoByName("tableViewer");
 		tableViewer.addMethodInvocation(
 				"setContentProvider(org.eclipse.jface.viewers.IContentProvider)",
 				"null");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    Table table = tableViewer.getTable();",
-				"    tableViewer.setContentProvider(null);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						Table table = tableViewer.getTable();
+						tableViewer.setContentProvider(null);
+					}
+				}""");
 	}
 
 	/**
@@ -105,50 +105,49 @@ public class TableViewerColumnTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setLabelProvider_afterTable() throws Exception {
-		parseComposite(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    Table table = tableViewer.getTable();",
-				"  }",
-				"}");
+		parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						Table table = tableViewer.getTable();
+					}
+				}""");
 		//
 		ViewerInfo tableViewer = getJavaInfoByName("tableViewer");
 		tableViewer.addMethodInvocation(
 				"setLabelProvider(org.eclipse.jface.viewers.IBaseLabelProvider)",
 				"null");
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    Table table = tableViewer.getTable();",
-				"    tableViewer.setLabelProvider(null);",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						Table table = tableViewer.getTable();
+						tableViewer.setLabelProvider(null);
+					}
+				}""");
 	}
 
 	@Test
 	public void test_parseNormalNoColumn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new TableViewer(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}",
-				"    {new: org.eclipse.jface.viewers.TableViewer} {local-unique: tableViewer} {/new TableViewer(this, SWT.NONE)/ /new TableViewerColumn(tableViewer, SWT.NONE)/}",
-				"    {viewer: public org.eclipse.swt.widgets.TableColumn org.eclipse.jface.viewers.TableViewerColumn.getColumn()} {viewer} {}",
-				"      {new: org.eclipse.jface.viewers.TableViewerColumn} {local-unique: tableViewerColumn} {/new TableViewerColumn(tableViewer, SWT.NONE)/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new TableViewer(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {}
+						{new: org.eclipse.jface.viewers.TableViewer} {local-unique: tableViewer} {/new TableViewer(this, SWT.NONE)/ /new TableViewerColumn(tableViewer, SWT.NONE)/}
+						{viewer: public org.eclipse.swt.widgets.TableColumn org.eclipse.jface.viewers.TableViewerColumn.getColumn()} {viewer} {}
+							{new: org.eclipse.jface.viewers.TableViewerColumn} {local-unique: tableViewerColumn} {/new TableViewerColumn(tableViewer, SWT.NONE)/}""");
 		// Table should have TableColumn
 		TableColumnInfo column;
 		{
@@ -206,67 +205,65 @@ public class TableViewerColumnTest extends RcpModelTest {
 		{
 			assertTrue(column.canDelete());
 			column.delete();
-			assertEditor(
-					"public class Test extends Shell {",
-					"  public Test() {",
-					"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-					"  }",
-					"}");
+			assertEditor("""
+					public class Test extends Shell {
+						public Test() {
+							TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						}
+					}""");
 		}
 	}
 
 	@Test
 	public void test_parseAroundColumn() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableColumn tableColumn = new TableColumn(tableViewer.getTable(), SWT.NONE);",
-						"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, tableColumn);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableColumn tableColumn = new TableColumn(tableViewer.getTable(), SWT.NONE);
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, tableColumn);
+						}
+					}
+				}""");
 		shell.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.swt.widgets.Shell} {this} {/new TableViewer(this, SWT.NONE)/}",
-				"  {implicit-layout: absolute} {implicit-layout} {}",
-				"  {viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {/new TableColumn(tableViewer.getTable(), SWT.NONE)/}",
-				"    {new: org.eclipse.jface.viewers.TableViewer} {local-unique: tableViewer} {/new TableViewer(this, SWT.NONE)/ /tableViewer.getTable()/ /new TableViewerColumn(tableViewer, tableColumn)/}",
-				"    {new: org.eclipse.swt.widgets.TableColumn} {local-unique: tableColumn} {/new TableColumn(tableViewer.getTable(), SWT.NONE)/ /new TableViewerColumn(tableViewer, tableColumn)/}",
-				"      {new: org.eclipse.jface.viewers.TableViewerColumn} {local-unique: tableViewerColumn} {/new TableViewerColumn(tableViewer, tableColumn)/}");
+		assertHierarchy("""
+				{this: org.eclipse.swt.widgets.Shell} {this} {/new TableViewer(this, SWT.NONE)/}
+					{implicit-layout: absolute} {implicit-layout} {}
+					{viewer: public org.eclipse.swt.widgets.Table org.eclipse.jface.viewers.TableViewer.getTable()} {viewer} {/new TableColumn(tableViewer.getTable(), SWT.NONE)/}
+						{new: org.eclipse.jface.viewers.TableViewer} {local-unique: tableViewer} {/new TableViewer(this, SWT.NONE)/ /tableViewer.getTable()/ /new TableViewerColumn(tableViewer, tableColumn)/}
+						{new: org.eclipse.swt.widgets.TableColumn} {local-unique: tableColumn} {/new TableColumn(tableViewer.getTable(), SWT.NONE)/ /new TableViewerColumn(tableViewer, tableColumn)/}
+							{new: org.eclipse.jface.viewers.TableViewerColumn} {local-unique: tableViewerColumn} {/new TableViewerColumn(tableViewer, tableColumn)/}""");
 	}
 
 	@Test
 	public void test_normalNoColumn_materialize() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		TableColumnInfo column = table.getColumns().get(0);
 		// materialize TableColumn
 		column.getPropertyByTitle("resizable").setValue(false);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    {",
-				"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);",
-				"      TableColumn tableColumn = tableViewerColumn.getColumn();",
-				"      tableColumn.setResizable(false);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+							TableColumn tableColumn = tableViewerColumn.getColumn();
+							tableColumn.setResizable(false);
+						}
+					}
+				}""");
 		// check supports
 		assertInstanceOf(ViewerColumnWidgetCreationSupport.class, column.getCreationSupport());
 		assertInstanceOf(LocalUniqueVariableSupport.class, column.getVariableSupport());
@@ -279,144 +276,140 @@ public class TableViewerColumnTest extends RcpModelTest {
 
 	@Test
 	public void test_normalNoColumn_move() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);",
-						"    }",
-						"    {",
-						"      TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);
+						}
+						{
+							TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		TableColumnInfo column_1 = table.getColumns().get(0);
 		TableColumnInfo column_2 = table.getColumns().get(1);
 		// move TableColumn
 		flowContainer_MOVE(table, column_2, column_1);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    {",
-				"      TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);",
-				"    }",
-				"    {",
-				"      TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);
+						}
+						{
+							TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_normalNoColumn_reparent() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer_1 = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer_1, SWT.NONE);",
-						"    }",
-						"    //",
-						"    TableViewer tableViewer_2 = new TableViewer(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer_1 = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer_1, SWT.NONE);
+						}
+						//
+						TableViewer tableViewer_2 = new TableViewer(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		TableInfo table_1 = (TableInfo) shell.getChildrenControls().get(0);
 		TableInfo table_2 = (TableInfo) shell.getChildrenControls().get(1);
 		TableColumnInfo column = table_1.getColumns().get(0);
 		// move TableColumn
 		flowContainer_MOVE(table_2, column, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer_1 = new TableViewer(this, SWT.NONE);",
-				"    //",
-				"    TableViewer tableViewer_2 = new TableViewer(this, SWT.NONE);",
-				"    {",
-				"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer_2, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer_1 = new TableViewer(this, SWT.NONE);
+						//
+						TableViewer tableViewer_2 = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer_2, SWT.NONE);
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_normalWithColumn_move() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);",
-						"      TableColumn tableColumn_1 = tableViewerColumn_1.getColumn();",
-						"    }",
-						"    {",
-						"      TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);",
-						"      TableColumn tableColumn_2 = tableViewerColumn_2.getColumn();",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);
+							TableColumn tableColumn_1 = tableViewerColumn_1.getColumn();
+						}
+						{
+							TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);
+							TableColumn tableColumn_2 = tableViewerColumn_2.getColumn();
+						}
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		TableColumnInfo column_1 = table.getColumns().get(0);
 		TableColumnInfo column_2 = table.getColumns().get(1);
 		// move TableColumn
 		flowContainer_MOVE(table, column_2, column_1);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    {",
-				"      TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);",
-				"      TableColumn tableColumn_2 = tableViewerColumn_2.getColumn();",
-				"    }",
-				"    {",
-				"      TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);",
-				"      TableColumn tableColumn_1 = tableViewerColumn_1.getColumn();",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn_2 = new TableViewerColumn(tableViewer, SWT.NONE);
+							TableColumn tableColumn_2 = tableViewerColumn_2.getColumn();
+						}
+						{
+							TableViewerColumn tableViewerColumn_1 = new TableViewerColumn(tableViewer, SWT.NONE);
+							TableColumn tableColumn_1 = tableViewerColumn_1.getColumn();
+						}
+					}
+				}""");
 	}
 
 	@Test
 	public void test_normalWithColumn_reparent() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer_1 = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer_1, SWT.NONE);",
-						"      TableColumn tableColumn = tableViewerColumn.getColumn();",
-						"    }",
-						"    //",
-						"    TableViewer tableViewer_2 = new TableViewer(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer_1 = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer_1, SWT.NONE);
+							TableColumn tableColumn = tableViewerColumn.getColumn();
+						}
+						//
+						TableViewer tableViewer_2 = new TableViewer(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		TableInfo table_1 = (TableInfo) shell.getChildrenControls().get(0);
 		TableInfo table_2 = (TableInfo) shell.getChildrenControls().get(1);
 		TableColumnInfo column = table_1.getColumns().get(0);
 		// move TableColumn
 		flowContainer_MOVE(table_2, column, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer_1 = new TableViewer(this, SWT.NONE);",
-				"    //",
-				"    TableViewer tableViewer_2 = new TableViewer(this, SWT.NONE);",
-				"    {",
-				"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer_2, SWT.NONE);",
-				"      TableColumn tableColumn = tableViewerColumn.getColumn();",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer_1 = new TableViewer(this, SWT.NONE);
+						//
+						TableViewer tableViewer_2 = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer_2, SWT.NONE);
+							TableColumn tableColumn = tableViewerColumn.getColumn();
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -426,16 +419,15 @@ public class TableViewerColumnTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_copyPaste() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.RIGHT);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.RIGHT);
+						}
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// prepare memento
@@ -450,19 +442,19 @@ public class TableViewerColumnTest extends RcpModelTest {
 			flowContainer_CREATE(table, newColumn, null);
 			memento.apply();
 		}
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    {",
-				"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.RIGHT);",
-				"    }",
-				"    {",
-				"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.RIGHT);",
-				"      TableColumn tableColumn = tableViewerColumn.getColumn();",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.RIGHT);
+						}
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.RIGHT);
+							TableColumn tableColumn = tableViewerColumn.getColumn();
+						}
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -472,13 +464,12 @@ public class TableViewerColumnTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_CREATE() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+					}
+				}""");
 		shell.refresh();
 		TableInfo table = (TableInfo) shell.getChildrenControls().get(0);
 		// prepare TableViewerColumn, TableColumn
@@ -501,18 +492,18 @@ public class TableViewerColumnTest extends RcpModelTest {
 		}
 		// CREATE
 		flowContainer_CREATE(table, column, null);
-		assertEditor(
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    {",
-				"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);",
-				"      TableColumn tableColumn = tableViewerColumn.getColumn();",
-				"      tableColumn.setWidth(100);",
-				"      tableColumn.setText('New Column');",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+							TableColumn tableColumn = tableViewerColumn.getColumn();
+							tableColumn.setWidth(100);
+							tableColumn.setText("New Column");
+						}
+					}
+				}""");
 		// check TableColumn
 		{
 			assertSame(table, column.getParent());
@@ -571,16 +562,15 @@ public class TableViewerColumnTest extends RcpModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_sorterProperty() throws Exception {
-		CompositeInfo shell =
-				parseComposite(
-						"public class Test extends Shell {",
-						"  public Test() {",
-						"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-						"    {",
-						"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);",
-						"    }",
-						"  }",
-						"}");
+		CompositeInfo shell = parseComposite("""
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+						}
+					}
+				}""");
 		shell.refresh();
 		TableViewerColumnInfo column = getJavaInfoByName("tableViewerColumn");
 		//
@@ -617,16 +607,16 @@ public class TableViewerColumnTest extends RcpModelTest {
 		assertEquals("<exists>", getPropertyText(sorterProperty));
 		// delete sorter
 		sorterProperty.setValue(Property.UNKNOWN_VALUE);
-		assertEditor(
-				"import org.eclipse.wb.swt.TableViewerColumnSorter;",
-				"public class Test extends Shell {",
-				"  public Test() {",
-				"    TableViewer tableViewer = new TableViewer(this, SWT.NONE);",
-				"    {",
-				"      TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);",
-				"    }",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.wb.swt.TableViewerColumnSorter;
+				public class Test extends Shell {
+					public Test() {
+						TableViewer tableViewer = new TableViewer(this, SWT.NONE);
+						{
+							TableViewerColumn tableViewerColumn = new TableViewerColumn(tableViewer, SWT.NONE);
+						}
+					}
+				}""");
 		assertEquals("<double click>", getPropertyText(sorterProperty));
 	}
 }

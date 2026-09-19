@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -56,26 +56,25 @@ public class CoolBarManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_0_emptyCoolBarManager() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test() {",
-						"    super(null);",
-						"    addCoolBar(SWT.FLAT);",
-						"  }",
-						"  protected CoolBarManager createCoolBarManager(int style) {",
-						"    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-						"    return coolBarManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addCoolBar(SWT.FLAT);
+					}
+					protected CoolBarManager createCoolBarManager(int style) {
+						CoolBarManager coolBarManager = super.createCoolBarManager(style);
+						return coolBarManager;
+					}
+				}""");
 		assertNoErrors(window);
 		window.refresh();
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}",
-				"  {superInvocation: super.createCoolBarManager(style)} {local-unique: coolBarManager} {/super.createCoolBarManager(style)/ /coolBarManager/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}
+					{superInvocation: super.createCoolBarManager(style)} {local-unique: coolBarManager} {/super.createCoolBarManager(style)/ /coolBarManager/}""");
 		// check CoolBarManager
 		CoolBarManagerInfo coolBarManager = window.getChildren(CoolBarManagerInfo.class).get(0);
 		assertEquals(
@@ -95,30 +94,29 @@ public class CoolBarManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addToolBarManager_empty() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test() {",
-						"    super(null);",
-						"    addCoolBar(SWT.FLAT);",
-						"  }",
-						"  protected CoolBarManager createCoolBarManager(int style) {",
-						"    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-						"    {",
-						"      ToolBarManager toolBarManager = new ToolBarManager();",
-						"      coolBarManager.add(toolBarManager);",
-						"    }",
-						"    return coolBarManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addCoolBar(SWT.FLAT);
+					}
+					protected CoolBarManager createCoolBarManager(int style) {
+						CoolBarManager coolBarManager = super.createCoolBarManager(style);
+						{
+							ToolBarManager toolBarManager = new ToolBarManager();
+							coolBarManager.add(toolBarManager);
+						}
+						return coolBarManager;
+					}
+				}""");
 		assertNoErrors(window);
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}",
-				"  {superInvocation: super.createCoolBarManager(style)} {local-unique: coolBarManager} {/super.createCoolBarManager(style)/ /coolBarManager.add(toolBarManager)/ /coolBarManager/}",
-				"    {new: org.eclipse.jface.action.ToolBarManager} {local-unique: toolBarManager} {/new ToolBarManager()/ /coolBarManager.add(toolBarManager)/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}
+					{superInvocation: super.createCoolBarManager(style)} {local-unique: coolBarManager} {/super.createCoolBarManager(style)/ /coolBarManager.add(toolBarManager)/ /coolBarManager/}
+						{new: org.eclipse.jface.action.ToolBarManager} {local-unique: toolBarManager} {/new ToolBarManager()/ /coolBarManager.add(toolBarManager)/}""");
 		CoolBarManagerInfo coolBarManager = window.getChildren(CoolBarManagerInfo.class).get(0);
 		ToolBarManagerInfo toolBarManager =
 				(ToolBarManagerInfo) coolBarManager.getChildrenJava().get(0);
@@ -129,19 +127,19 @@ public class CoolBarManagerTest extends RcpModelTest {
 		// delete "toolBarManager"
 		assertTrue(toolBarManager.canDelete());
 		toolBarManager.delete();
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  public Test() {",
-				"    super(null);",
-				"    addCoolBar(SWT.FLAT);",
-				"  }",
-				"  protected CoolBarManager createCoolBarManager(int style) {",
-				"    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-				"    return coolBarManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addCoolBar(SWT.FLAT);
+					}
+					protected CoolBarManager createCoolBarManager(int style) {
+						CoolBarManager coolBarManager = super.createCoolBarManager(style);
+						return coolBarManager;
+					}
+				}""");
 	}
 
 	/**
@@ -149,40 +147,39 @@ public class CoolBarManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_addToolBarManager_notEmpty() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  private IAction m_action;",
-						"  public Test() {",
-						"    super(null);",
-						"    createActions();",
-						"    addCoolBar(SWT.FLAT);",
-						"  }",
-						"  private void createActions() {",
-						"    m_action = new Action('Some text') {",
-						"    };",
-						"  }",
-						"  protected CoolBarManager createCoolBarManager(int style) {",
-						"    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-						"    {",
-						"      ToolBarManager toolBarManager = new ToolBarManager();",
-						"      coolBarManager.add(toolBarManager);",
-						"      toolBarManager.add(m_action);",
-						"    }",
-						"    return coolBarManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					private IAction m_action;
+					public Test() {
+						super(null);
+						createActions();
+						addCoolBar(SWT.FLAT);
+					}
+					private void createActions() {
+						m_action = new Action("Some text") {
+						};
+					}
+					protected CoolBarManager createCoolBarManager(int style) {
+						CoolBarManager coolBarManager = super.createCoolBarManager(style);
+						{
+							ToolBarManager toolBarManager = new ToolBarManager();
+							coolBarManager.add(toolBarManager);
+							toolBarManager.add(m_action);
+						}
+						return coolBarManager;
+					}
+				}""");
 		assertNoErrors(window);
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}",
-				"  {superInvocation: super.createCoolBarManager(style)} {local-unique: coolBarManager} {/super.createCoolBarManager(style)/ /coolBarManager.add(toolBarManager)/ /coolBarManager/}",
-				"    {new: org.eclipse.jface.action.ToolBarManager} {local-unique: toolBarManager} {/new ToolBarManager()/ /coolBarManager.add(toolBarManager)/ /toolBarManager.add(m_action)/}",
-				"      {void} {void} {/toolBarManager.add(m_action)/}",
-				"  {org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo}",
-				"    {new: org.eclipse.jface.action.Action} {field-unique: m_action} {/new Action('Some text')/ /toolBarManager.add(m_action)/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}
+					{superInvocation: super.createCoolBarManager(style)} {local-unique: coolBarManager} {/super.createCoolBarManager(style)/ /coolBarManager.add(toolBarManager)/ /coolBarManager/}
+						{new: org.eclipse.jface.action.ToolBarManager} {local-unique: toolBarManager} {/new ToolBarManager()/ /coolBarManager.add(toolBarManager)/ /toolBarManager.add(m_action)/}
+							{void} {void} {/toolBarManager.add(m_action)/}
+					{org.eclipse.wb.internal.rcp.model.jface.action.ActionContainerInfo}
+						{new: org.eclipse.jface.action.Action} {field-unique: m_action} {/new Action("Some text")/ /toolBarManager.add(m_action)/}""");
 		CoolBarManagerInfo coolBarManager = window.getChildren(CoolBarManagerInfo.class).get(0);
 		ToolBarManagerInfo toolBarManager =
 				(ToolBarManagerInfo) coolBarManager.getChildrenJava().get(0);
@@ -212,31 +209,30 @@ public class CoolBarManagerTest extends RcpModelTest {
 	@Disabled
 	@Test
 	public void test_addToolBarManager_usingToolBarContributionItem() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test() {",
-						"    super(null);",
-						"    addCoolBar(SWT.FLAT);",
-						"  }",
-						"  protected CoolBarManager createCoolBarManager(int style) {",
-						"    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-						"    {",
-						"      ToolBarManager toolBarManager = new ToolBarManager();",
-						"      coolBarManager.add(new ToolBarContributionItem(toolBarManager, 'main'));",
-						"    }",
-						"    return coolBarManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addCoolBar(SWT.FLAT);
+					}
+					protected CoolBarManager createCoolBarManager(int style) {
+						CoolBarManager coolBarManager = super.createCoolBarManager(style);
+						{
+							ToolBarManager toolBarManager = new ToolBarManager();
+							coolBarManager.add(new ToolBarContributionItem(toolBarManager, "main"));
+						}
+						return coolBarManager;
+					}
+				}""");
 		assertNoErrors(window);
 		// check hierarchy
-		assertHierarchy(
-				"{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}",
-				"  {superInvocation: super.createCoolBarManager(style)} {local-unique: coolBarManager} {/super.createCoolBarManager(style)/ /coolBarManager.add(new ToolBarContributionItem(toolBarManager, 'main'))/ /coolBarManager/}",
-				"    {new: org.eclipse.jface.action.ToolBarContributionItem} {empty} {/coolBarManager.add(new ToolBarContributionItem(toolBarManager, 'main'))/}",
-				"      {new: org.eclipse.jface.action.ToolBarManager} {local-unique: toolBarManager} {/new ToolBarManager()/ /new ToolBarContributionItem(toolBarManager, 'main')/}");
+		assertHierarchy("""
+				{this: org.eclipse.jface.window.ApplicationWindow} {this} {/addCoolBar(SWT.FLAT)/}
+					{superInvocation: super.createCoolBarManager(style)} {local-unique: coolBarManager} {/super.createCoolBarManager(style)/ /coolBarManager.add(new ToolBarContributionItem(toolBarManager, "main"))/ /coolBarManager/}
+						{new: org.eclipse.jface.action.ToolBarContributionItem} {empty} {/coolBarManager.add(new ToolBarContributionItem(toolBarManager, "main"))/}
+							{new: org.eclipse.jface.action.ToolBarManager} {local-unique: toolBarManager} {/new ToolBarManager()/ /new ToolBarContributionItem(toolBarManager, "main")/}""");
 		CoolBarManagerInfo coolBarManager = window.getChildren(CoolBarManagerInfo.class).get(0);
 		ContributionItemInfo contributionItem = (ContributionItemInfo) coolBarManager.getItems().get(0);
 		ToolBarManagerInfo toolBarManager =
@@ -268,19 +264,19 @@ public class CoolBarManagerTest extends RcpModelTest {
 			assertTrue(contributionItem.canDelete());
 			contributionItem.delete();
 		}
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  public Test() {",
-				"    super(null);",
-				"    addCoolBar(SWT.FLAT);",
-				"  }",
-				"  protected CoolBarManager createCoolBarManager(int style) {",
-				"    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-				"    return coolBarManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addCoolBar(SWT.FLAT);
+					}
+					protected CoolBarManager createCoolBarManager(int style) {
+						CoolBarManager coolBarManager = super.createCoolBarManager(style);
+						return coolBarManager;
+					}
+				}""");
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -293,41 +289,40 @@ public class CoolBarManagerTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_CREATE() throws Exception {
-		ApplicationWindowInfo window =
-				parseJavaInfo(
-						"import org.eclipse.jface.action.*;",
-						"import org.eclipse.jface.window.*;",
-						"public class Test extends ApplicationWindow {",
-						"  public Test() {",
-						"    super(null);",
-						"    addCoolBar(SWT.FLAT);",
-						"  }",
-						"  protected CoolBarManager createCoolBarManager(int style) {",
-						"    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-						"    return coolBarManager;",
-						"  }",
-						"}");
+		ApplicationWindowInfo window = parseJavaInfo("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addCoolBar(SWT.FLAT);
+					}
+					protected CoolBarManager createCoolBarManager(int style) {
+						CoolBarManager coolBarManager = super.createCoolBarManager(style);
+						return coolBarManager;
+					}
+				}""");
 		window.refresh();
 		CoolBarManagerInfo coolBarManager = window.getChildren(CoolBarManagerInfo.class).get(0);
 		// add new ToolBarManager_Info
 		ToolBarManagerInfo newManager = createJavaInfo("org.eclipse.jface.action.ToolBarManager");
 		coolBarManager.command_CREATE(newManager, null);
-		assertEditor(
-				"import org.eclipse.jface.action.*;",
-				"import org.eclipse.jface.window.*;",
-				"public class Test extends ApplicationWindow {",
-				"  public Test() {",
-				"    super(null);",
-				"    addCoolBar(SWT.FLAT);",
-				"  }",
-				"  protected CoolBarManager createCoolBarManager(int style) {",
-				"    CoolBarManager coolBarManager = super.createCoolBarManager(style);",
-				"    {",
-				"      ToolBarManager toolBarManager = new ToolBarManager();",
-				"      coolBarManager.add(toolBarManager);",
-				"    }",
-				"    return coolBarManager;",
-				"  }",
-				"}");
+		assertEditor("""
+				import org.eclipse.jface.action.*;
+				import org.eclipse.jface.window.*;
+				public class Test extends ApplicationWindow {
+					public Test() {
+						super(null);
+						addCoolBar(SWT.FLAT);
+					}
+					protected CoolBarManager createCoolBarManager(int style) {
+						CoolBarManager coolBarManager = super.createCoolBarManager(style);
+						{
+							ToolBarManager toolBarManager = new ToolBarManager();
+							coolBarManager.add(toolBarManager);
+						}
+						return coolBarManager;
+					}
+				}""");
 	}
 }
