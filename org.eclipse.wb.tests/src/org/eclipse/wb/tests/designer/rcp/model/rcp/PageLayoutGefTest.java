@@ -13,7 +13,17 @@
 package org.eclipse.wb.tests.designer.rcp.model.rcp;
 
 import org.eclipse.wb.internal.rcp.model.rcp.perspective.PageLayoutInfo;
+import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewContainerInfo;
+import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.FastViewInfo;
+import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveShortcutContainerInfo;
+import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.PerspectiveShortcutInfo;
+import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutContainerInfo;
+import org.eclipse.wb.internal.rcp.model.rcp.perspective.shortcuts.ViewShortcutInfo;
 import org.eclipse.wb.tests.designer.rcp.RcpGefTest;
+
+import org.eclipse.swt.SWT;
+
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -64,6 +74,50 @@ public class PageLayoutGefTest extends RcpGefTest {
 						layout.addView("my.View", IPageLayout.LEFT, 0.3f, "unknownID");
 					}
 				}""");
+	}
+
+	@Test
+	public void test_viewShortcutsBounds() throws Exception {
+		PageLayoutInfo page = openJavaInfo("""
+				public class Test implements IPerspectiveFactory {
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addShowViewShortcut(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
+		page.refresh();
+		ViewShortcutContainerInfo container = page.getViewShortcutContainer();
+		ViewShortcutInfo item = (ViewShortcutInfo) container.getShortcuts().get(0);
+		assertTrue(container.getBounds().contains(item.getBounds()), "View short-cut outside of container");
+	}
+
+	@Test
+	public void test_perspectiveShortcutsBounds() throws Exception {
+		PageLayoutInfo page = openJavaInfo("""
+				public class Test implements IPerspectiveFactory {
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addPerspectiveShortcut("org.eclipse.jdt.ui.JavaPerspective");
+					}
+				}""");
+		page.refresh();
+		PerspectiveShortcutContainerInfo container = page.getPerspectiveShortcutContainer();
+		PerspectiveShortcutInfo item = (PerspectiveShortcutInfo) container.getShortcuts().get(0);
+		assertTrue(container.getBounds().contains(item.getBounds()), "Perspective short-cut outside of container");
+	}
+
+	@Test
+	@SuppressWarnings("removal")
+	public void test_fastviewShortcutsBounds() throws Exception {
+		assumeTrue(SWT.getVersion() < 4972);
+		PageLayoutInfo page = openJavaInfo("""
+				public class Test implements IPerspectiveFactory {
+					public void createInitialLayout(IPageLayout layout) {
+						layout.addFastView(IPageLayout.ID_PROJECT_EXPLORER);
+					}
+				}""");
+		page.refresh();
+		FastViewContainerInfo container = page.getFastViewContainer();
+		FastViewInfo item = (FastViewInfo) container.getShortcuts().get(0);
+		assertTrue(container.getBounds().contains(item.getBounds()), "Fast-view short-cut outside of container");
 	}
 
 	////////////////////////////////////////////////////////////////////////////

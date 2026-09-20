@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -157,9 +157,10 @@ public abstract class AbstractShortcutInfo extends AbstractComponentInfo impleme
 	protected void refresh_fetch() throws Exception {
 		{
 			Composite composite = m_container.getComposite();
+			Rectangle containerBounds = m_container.getBounds();
 			Rectangle toolBarBounds = CoordinateUtils.getBounds(composite, m_container.getToolBar());
 			Rectangle itemBounds = new Rectangle(m_item.getBounds());
-			itemBounds.performTranslate(toolBarBounds.x, toolBarBounds.y);
+			itemBounds.performTranslate(containerBounds.x + toolBarBounds.x, containerBounds.y + toolBarBounds.y);
 			setModelBounds(itemBounds);
 		}
 		super.refresh_fetch();
