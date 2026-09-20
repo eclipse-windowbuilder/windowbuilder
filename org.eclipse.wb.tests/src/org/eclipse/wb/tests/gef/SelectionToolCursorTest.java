@@ -106,7 +106,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// move to "ButtonEditPart_MoveHandle"
 		{
-			m_sender.moveTo(120, 130);
+			m_sender.moveTo(100, 110);
 			//
 			m_expectedLogger.setCursor(Cursors.SIZEALL);
 			m_actualLogger.assertEquals(m_expectedLogger);
@@ -145,7 +145,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// drag over MoveHandle
 		{
-			m_sender.dragTo(130, 120);
+			m_sender.dragTo(110, 100);
 			//
 			m_actualLogger.assertEmpty();
 		}
@@ -396,20 +396,20 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// move to "EditPart_MoveHandle"
 		{
-			m_sender.moveTo(40, 50);
+			m_sender.moveTo(20, 30);
 			//
 			expectedLogger.setCursor(Cursors.SIZEALL);
 			m_actualLogger.assertEquals(expectedLogger);
 		}
 		// start drag
 		{
-			m_sender.startDrag(40, 50, 1);
+			m_sender.startDrag(20, 30, 1);
 			//
 			m_actualLogger.assertEmpty();
 		}
 		// drag
 		{
-			m_sender.dragTo(30, 50);
+			m_sender.dragTo(10, 30);
 			//
 			m_actualLogger.assertEmpty();
 		}

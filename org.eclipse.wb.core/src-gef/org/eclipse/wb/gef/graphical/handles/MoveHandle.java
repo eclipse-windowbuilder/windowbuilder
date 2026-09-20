@@ -18,6 +18,7 @@ import org.eclipse.draw2d.Locator;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.handles.MoveHandleLocator;
 
 /**
  * A Handle used for moving {@link EditPart}s.
