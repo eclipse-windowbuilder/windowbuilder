@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -22,11 +22,15 @@ import org.eclipse.wb.internal.core.model.generic.FlowContainer;
  *
  * @author scheglov_ke
  * @coverage core.gef.policy
+ * @deprecated No longer used. This class will be removed after the 2028-12
+ *             release.
  */
+@Deprecated(since = "2026-12", forRemoval = true)
 public final class GenericEditPolicyFactory {
 	/**
 	 * @return the {@link LayoutEditPolicy} for {@link FlowContainer}.
 	 */
+	@Deprecated(since = "2026-12", forRemoval = true)
 	public static LayoutEditPolicy createFlow(ObjectInfo model, FlowContainer container) {
 		return new FlowContainerLayoutEditPolicy(model, container);
 	}
