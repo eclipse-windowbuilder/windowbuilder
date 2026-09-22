@@ -183,7 +183,6 @@ public final class PaletteComposite extends Composite {
 	/**
 	 * Adds {@link Action}'s to the popup menu.
 	 */
-	@SuppressWarnings("removal")
 	private void addPopupActions(IMenuManager menuManager) {
 		// prepare target figure
 		IFigure targetFigure;

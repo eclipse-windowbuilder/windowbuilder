@@ -848,6 +848,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			//
 			////////////////////////////////////////////////////////////////////////////
 			@Override
+			@Deprecated
 			public boolean hasVirtualColumns() {
 				return true;
 			}
@@ -868,6 +869,7 @@ public abstract class AbstractGridBagLayoutInfo extends LayoutInfo implements IP
 			//
 			////////////////////////////////////////////////////////////////////////////
 			@Override
+			@Deprecated
 			public boolean hasVirtualRows() {
 				return true;
 			}
