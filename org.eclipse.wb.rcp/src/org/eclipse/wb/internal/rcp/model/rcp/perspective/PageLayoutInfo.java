@@ -517,7 +517,6 @@ public final class PageLayoutInfo extends AbstractComponentInfo {
 		folder.setUnselectedCloseVisible(true);
 		folder.setMaximizeVisible(true);
 		folder.setMinimizeVisible(true);
-		folder.setSimple(false);
 		// configure colors
 		TabFolderDecorator.setActiveTabColors(true, folder);
 		return folder;

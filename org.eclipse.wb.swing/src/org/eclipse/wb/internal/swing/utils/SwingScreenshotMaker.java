@@ -45,7 +45,6 @@ import javax.swing.JPanel;
  *
  * @author mitin_aa
  */
-@SuppressWarnings("removal")
 public final class SwingScreenshotMaker {
 	private final AbstractComponentInfo m_root;
 	private final Map<Component, java.awt.Image> m_componentImages = new HashMap<>();

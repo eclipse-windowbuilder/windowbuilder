@@ -183,6 +183,7 @@ public final class OSSupportLinux extends OSSupport {
 	////////////////////////////////////////////////////////////////////////////
 
 	@Override
+	@Deprecated
 	public boolean isPlusMinusTreeClick(Tree tree, int x, int y) {
 		return false;
 	}

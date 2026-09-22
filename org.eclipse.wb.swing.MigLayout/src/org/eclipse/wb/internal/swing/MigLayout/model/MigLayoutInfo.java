@@ -1421,6 +1421,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			//
 			////////////////////////////////////////////////////////////////////////////
 			@Override
+			@Deprecated
 			public boolean hasVirtualColumns() {
 				return true;
 			}
@@ -1441,6 +1442,7 @@ public final class MigLayoutInfo extends LayoutInfo implements IPreferenceConsta
 			//
 			////////////////////////////////////////////////////////////////////////////
 			@Override
+			@Deprecated
 			public boolean hasVirtualRows() {
 				return true;
 			}
