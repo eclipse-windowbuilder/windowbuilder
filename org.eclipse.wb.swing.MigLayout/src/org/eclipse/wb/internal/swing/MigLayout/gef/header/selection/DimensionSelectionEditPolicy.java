@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
-import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
@@ -26,12 +25,8 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.gef.policy.layout.header.selection.AbstractDimensionSelectionEditPolicy;
 
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.LayerConstants;
@@ -68,18 +63,6 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo> extends 
 	// Handles
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = new ArrayList<>();
-		// move handle
-		{
-			MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
-			moveHandle.setForegroundColor(ColorConstants.red);
-			handles.add(moveHandle);
-		}
-		//
-		return handles;
-	}
 
 	@Override
 	protected List<Handle> createStaticHandles() {
@@ -307,24 +290,6 @@ abstract class DimensionSelectionEditPolicy<T extends MigDimensionInfo> extends 
 	 * @return the size of host {@link EditPart} in pixels, taking into account given resize delta.
 	 */
 	protected abstract int getPixelSize(Dimension resizeDelta);
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Move location
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Implementation of {@link Locator} to place handle directly on header.
-	 */
-	private class HeaderMoveHandleLocator implements Locator {
-		@Override
-		public void relocate(IFigure target) {
-			IFigure reference = getHostFigure();
-			Rectangle bounds = reference.getBounds().getCopy();
-			FigureUtils.translateFigureToFigure(reference, target, bounds);
-			target.setBounds(bounds);
-		}
-	}
 
 	////////////////////////////////////////////////////////////////////////////
 	//

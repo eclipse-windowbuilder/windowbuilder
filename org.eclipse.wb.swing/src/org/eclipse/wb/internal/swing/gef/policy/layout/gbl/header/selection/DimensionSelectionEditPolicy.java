@@ -14,9 +14,7 @@ package org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.selection;
 
 import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.policy.layout.grid.IGridInfo;
-import org.eclipse.wb.draw2d.FigureUtils;
 import org.eclipse.wb.draw2d.Layer;
-import org.eclipse.wb.gef.graphical.handles.MoveHandle;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.swing.gef.policy.layout.gbl.header.edit.DimensionHeaderEditPart;
@@ -24,12 +22,8 @@ import org.eclipse.wb.internal.swing.gef.policy.layout.header.selection.Abstract
 import org.eclipse.wb.internal.swing.model.layout.gbl.AbstractGridBagLayoutInfo;
 import org.eclipse.wb.internal.swing.model.layout.gbl.DimensionInfo;
 
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.LayerConstants;
 import org.eclipse.gef.Request;
@@ -61,18 +55,6 @@ abstract class DimensionSelectionEditPolicy<T extends DimensionInfo> extends Abs
 	// Handles
 	//
 	////////////////////////////////////////////////////////////////////////////
-	@Override
-	protected List<Handle> createSelectionHandles() {
-		List<Handle> handles = new ArrayList<>();
-		// move handle
-		{
-			MoveHandle moveHandle = new MoveHandle(getHost(), new HeaderMoveHandleLocator());
-			moveHandle.setForegroundColor(ColorConstants.red);
-			handles.add(moveHandle);
-		}
-		//
-		return handles;
-	}
 
 	@Override
 	protected List<Handle> createStaticHandles() {
@@ -175,22 +157,4 @@ abstract class DimensionSelectionEditPolicy<T extends DimensionInfo> extends Abs
 	 * @return the text for feedback.
 	 */
 	protected abstract String getFeedbackText(ChangeBoundsRequest request);
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Move location
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Implementation of {@link Locator} to place handle directly on header.
-	 */
-	private class HeaderMoveHandleLocator implements Locator {
-		@Override
-		public void relocate(IFigure target) {
-			IFigure reference = getHostFigure();
-			Rectangle bounds = reference.getBounds().getCopy();
-			FigureUtils.translateFigureToFigure(reference, target, bounds);
-			target.setBounds(bounds);
-		}
-	}
 }
