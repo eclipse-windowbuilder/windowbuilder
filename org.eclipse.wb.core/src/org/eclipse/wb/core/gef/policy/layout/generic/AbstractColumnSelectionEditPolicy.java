@@ -41,7 +41,10 @@ import java.util.List;
  *
  * @author scheglov_ke
  * @coverage core.gef.policy
+ * @deprecated No longer used. This class will be removed after the 2028-12
+ *             release.
  */
+@Deprecated(since = "2026-12", forRemoval = true)
 public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 	private final IObjectInfo m_column;
 
@@ -50,6 +53,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(since="2026-12", forRemoval = true)
 	public AbstractColumnSelectionEditPolicy(IObjectInfo column) {
 		m_column = column;
 	}
@@ -59,6 +63,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 	// Handles
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(since="2026-12", forRemoval = true)
 	@Override
 	protected List<Handle> createSelectionHandles() {
 		List<Handle> handles = new ArrayList<>();
@@ -70,6 +75,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 		return handles;
 	}
 
+	@Deprecated(since="2026-12", forRemoval = true)
 	@Override
 	protected List<Handle> createStaticHandles() {
 		List<Handle> handles = new ArrayList<>();
@@ -89,11 +95,13 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 	// Routing
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(since="2026-12", forRemoval = true)
 	@Override
 	public boolean understandsRequest(Request request) {
 		return super.understandsRequest(request) || request.getType() == REQ_RESIZE;
 	}
 
+	@Deprecated(since="2026-12", forRemoval = true)
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public Command getCommand(Request request) {
@@ -103,6 +111,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 		return null;
 	}
 
+	@Deprecated(since="2026-12", forRemoval = true)
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public void showSourceFeedback(Request request) {
@@ -111,6 +120,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 		}
 	}
 
+	@Deprecated(since="2026-12", forRemoval = true)
 	@Override
 	//@edu.umd.cs.findbugs.annotations.SuppressWarnings(value = "BC_UNCONFIRMED_CAST")
 	public void eraseSourceFeedback(Request request) {
@@ -130,6 +140,7 @@ public class AbstractColumnSelectionEditPolicy extends SelectionEditPolicy {
 	/**
 	 * Sets new width, executed in {@link EditCommand}.
 	 */
+	@Deprecated(since="2026-12", forRemoval = true)
 	protected void setWidth(final int width) throws Exception {
 		m_column.getPropertyByTitle("width").setValue(width);
 	}
