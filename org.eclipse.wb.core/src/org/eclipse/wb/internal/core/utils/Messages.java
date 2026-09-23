@@ -15,8 +15,6 @@ public class Messages extends NLS {
 	public static String ClasspathImagePage_title;
 	public static String ColorPreviewCanvas_sampleText;
 	public static String DefaultImagePage_title;
-	public static String DeleteFileChange_errNoFile;
-	public static String DeleteFileChange_name;
 	public static String DesignerExceptionUtils_fullStackTraceLabel;
 	public static String DesignerExceptionUtils_noDescriptionMessage;
 	public static String DesignerExceptionUtils_noDescriptionTitle;
@@ -47,7 +45,6 @@ public class Messages extends NLS {
 	public static String PackageSelectionDialogField_dialogTitle;
 	public static String ProjectSelectionDialogField_dialogMessage;
 	public static String ProjectSelectionDialogField_dialogTitle;
-	public static String UndoCompilationUnitChange_noFile;
 	public static String WebSafeColorsComposite_sortHue;
 	public static String WebSafeColorsComposite_sortLightness;
 	public static String WebSafeColorsComposite_sortSaturation;
