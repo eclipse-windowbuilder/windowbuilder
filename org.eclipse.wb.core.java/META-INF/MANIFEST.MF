@@ -319,7 +319,6 @@ Export-Package: org.eclipse.wb.core.editor,
    org.eclipse.wb.rcp,
    org.eclipse.wb.core.ui",
  org.eclipse.wb.internal.core.utils.pde;x-friends:="org.eclipse.wb.rcp.databinding",
- org.eclipse.wb.internal.core.utils.refactoring;x-friends:="org.eclipse.wb.tests",
  org.eclipse.wb.internal.core.utils.reflect;
   x-friends:="org.eclipse.wb.core.databinding,
    org.eclipse.wb.rcp,

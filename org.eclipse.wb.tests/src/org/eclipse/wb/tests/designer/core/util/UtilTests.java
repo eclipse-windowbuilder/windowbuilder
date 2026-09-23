@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -18,7 +18,6 @@ import org.eclipse.wb.tests.designer.core.util.check.AssertTest;
 import org.eclipse.wb.tests.designer.core.util.execution.ExecutionUtilsTest;
 import org.eclipse.wb.tests.designer.core.util.execution.NoOpProgressMonitorTest;
 import org.eclipse.wb.tests.designer.core.util.jdt.core.JdtCoreTests;
-import org.eclipse.wb.tests.designer.core.util.refactoring.RefactoringTests;
 import org.eclipse.wb.tests.designer.core.util.reflect.IntrospectionHelperTest;
 import org.eclipse.wb.tests.designer.core.util.reflect.ReflectionUtilsTest;
 import org.eclipse.wb.tests.designer.core.util.ui.ImageUtilsTest;
@@ -52,8 +51,7 @@ import org.junit.platform.suite.api.Suite;
 		MenuIntersectorTest.class,
 		ImageUtilsTest.class,
 		AstTests.class,
-		JdtCoreTests.class,
-		RefactoringTests.class
+		JdtCoreTests.class
 })
 public class UtilTests {
 }
