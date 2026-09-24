@@ -12,14 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.gef.part.menu;
 
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.internal.core.model.menu.IMenuInfo;
 import org.eclipse.wb.internal.core.model.menu.IMenuItemInfo;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -53,23 +52,22 @@ public final class MenuItemEditPart extends SubmenuAwareEditPart {
 	protected IFigure createFigure() {
 		return new Figure() {
 			@Override
-			protected void paintClientArea(Graphics graphics) {
+			protected void paintFigure(Graphics graphics) {
 				// draw image
 				{
 					ImageDescriptor imageDescriptor = m_item.getImageDescriptor();
 					if (imageDescriptor != null) {
 						Image image = imageDescriptor.createImage();
-						graphics.drawImage(image, 0, 0);
+						graphics.drawImage(image, bounds.x, bounds.y);
 						image.dispose();
 					}
 				}
 				// highlight "item" with displayed "menu"
 				if (!getModelChildren().isEmpty()) {
-					Rectangle area = getFigure().getClientArea();
 					graphics.setForegroundColor(ColorConstants.menuBackgroundSelected);
 					graphics.setBackgroundColor(ColorConstants.white);
 					graphics.setLineWidth(2);
-					graphics.drawRectangle(1, 1, area.width - 2, area.height - 2);
+					graphics.drawRectangle(bounds.x + 1, bounds.y + 1, bounds.width - 2, bounds.height - 2);
 				}
 			}
 		};
