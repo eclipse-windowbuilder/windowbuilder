@@ -270,6 +270,11 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 		ICompilationUnit compilationUnit = m_testProject.createUnit(pkg, unitName, code);
 		IFile resource = (IFile) compilationUnit.getUnderlyingResource();
 		m_createdResources.add(resource);
+		// discard a stale JDT buffer left by an aborted open of a deleted unit at this path
+		if (compilationUnit.exists() && !compilationUnit.isWorkingCopy()) {
+			compilationUnit.open(null);
+			compilationUnit.close();
+		}
 		// OK, return unit
 		return compilationUnit;
 	}
