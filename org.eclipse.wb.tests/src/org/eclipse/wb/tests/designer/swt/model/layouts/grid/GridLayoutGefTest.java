@@ -35,6 +35,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Control;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.util.List;
 
@@ -43,6 +45,7 @@ import java.util.List;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests crashes on the GitHub runner")
 public class GridLayoutGefTest extends RcpGefTest {
 	private static final int M = 5;
 	private static final int S = 5;
