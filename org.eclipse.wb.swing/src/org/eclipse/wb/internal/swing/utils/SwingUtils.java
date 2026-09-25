@@ -32,6 +32,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.IllegalComponentStateException;
 import java.awt.Point;
+import java.awt.Window;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -288,10 +289,30 @@ public final class SwingUtils {
 	 *         {@code parent} {@link Component}.
 	 */
 	public static Point getRelativeLocation(final Component parentComponent, final Component childComponent) {
+		Point p = runObject(() -> getLocationInAncestor(parentComponent, childComponent));
+		if (p != null) {
+			return p;
+		}
 		if (EnvironmentUtils.IS_LINUX) {
 			return internalGetRelativeLocationLinux(parentComponent, childComponent);
 		}
 		return internalGetRelativeLocation(parentComponent, childComponent);
+	}
+
+	/**
+	 * @return location of {@code child} relative to {@code ancestor} without using
+	 *         screen coordinates, or {@code null} if {@code ancestor} is not an
+	 *         ancestor within the same window.
+	 */
+	private static Point getLocationInAncestor(Component ancestor, Component child) {
+		Point p = new Point();
+		for (Component c = child; c != ancestor; c = c.getParent()) {
+			if (c == null || c instanceof Window) {
+				return null;
+			}
+			p.translate(c.getX(), c.getY());
+		}
+		return p;
 	}
 
 	private static Point internalGetRelativeLocationLinux(final Component parentComponent, final Component childComponent) {
