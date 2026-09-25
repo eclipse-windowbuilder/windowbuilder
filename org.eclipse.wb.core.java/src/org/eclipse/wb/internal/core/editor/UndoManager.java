@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.core.editor;
 
+import org.eclipse.wb.core.editor.DesignerState;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -322,7 +323,8 @@ public final class UndoManager {
 		Runnable runnable = new Runnable() {
 			@Override
 			public void run() {
-				if (isStillInSave()) {
+				// the progress dialog of a running parse spins the event loop, so wait for it to finish
+				if (isStillInSave() || m_designPage.getDesignerState() == DesignerState.Parsing) {
 					Display.getDefault().timerExec(1, this);
 					return;
 				}
