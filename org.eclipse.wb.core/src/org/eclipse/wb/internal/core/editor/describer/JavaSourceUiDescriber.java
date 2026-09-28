@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -17,15 +17,18 @@ import org.eclipse.wb.internal.core.preferences.IPreferenceConstants;
 import org.eclipse.wb.internal.core.utils.external.ExternalFactoriesHelper;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.content.IContentDescription;
 import org.eclipse.core.runtime.content.ITextContentDescriber;
 
-import org.apache.commons.io.IOUtils;
-
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of {@link ITextContentDescriber} that understands GUI source.
@@ -40,17 +43,17 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	@Override
-	public int describe(Reader contents,
-			org.eclipse.core.runtime.content.IContentDescription description) throws IOException {
-		String source = IOUtils.toString(contents);
-		return isGUISource(source) ? VALID : INVALID;
+	public int describe(Reader contents, IContentDescription description) throws IOException {
+		try (BufferedReader reader = new BufferedReader(contents)) {
+			return isGUISource(reader);
+		}
 	}
 
 	@Override
-	public int describe(InputStream contents,
-			org.eclipse.core.runtime.content.IContentDescription description) throws IOException {
-		String source = IOUtils.toString(contents);
-		return isGUISource(source) ? VALID : INVALID;
+	public int describe(InputStream contents, IContentDescription description) throws IOException {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(contents))) {
+			return isGUISource(reader);
+		}
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -59,44 +62,48 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return <code>true</code> if given source code contains GUI for one of the supported GUI
-	 *         toolkits.
+	 * @return {@link #VALID} if given source code contains GUI for one of the
+	 *         supported GUI toolkits.
 	 */
-	private static boolean isGUISource(String source) {
+	private static int isGUISource(BufferedReader reader) throws IOException {
 		if (DesignerPlugin.getDefault() == null) {
-			return false;
+			return INVALID;
 		}
 		if (!DesignerPlugin.getPreferences().getBoolean(IPreferenceConstants.P_EDITOR_RECOGNIZE_GUI)) {
-			return false;
+			return INVALID;
 		}
-		// should have "include" pattern
-		if (!hasIncludePattern(source)) {
-			return false;
-		}
-		// should not have "exclude" pattern
-		if (hasExcludePattern(source)) {
-			return false;
+
+		Pattern includePatterns = getIncludePatterns();
+		Pattern excludePatterns = getExcludePatterns();
+
+		int description = INDETERMINATE;
+
+		String currentLine = reader.readLine();
+		while (currentLine != null) {
+			// should have "include" pattern
+			if (hasPattern(includePatterns, currentLine)) {
+				description = VALID;
+				if (excludePatterns == null) {
+					break;
+				}
+			}
+			// should not have "exclude" pattern
+			if (hasPattern(excludePatterns, currentLine)) {
+				description = INVALID;
+				break;
+			}
+			// stop once we reach type definition
+			if (currentLine.contains("{")) {
+				break;
+			}
+			currentLine = reader.readLine();
 		}
 		// OK, this is GUI
-		return true;
+		return description;
 	}
 
-	private static boolean hasIncludePattern(String source) {
-		for (String pattern : getIncludePatterns()) {
-			if (source.indexOf(pattern) != -1) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private static boolean hasExcludePattern(String source) {
-		for (String pattern : getExcludePatterns()) {
-			if (source.indexOf(pattern) != -1) {
-				return true;
-			}
-		}
-		return false;
+	private static boolean hasPattern(Pattern pattern, String line) {
+		return pattern != null && pattern.matcher(line).find();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -107,7 +114,7 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
 	/**
 	 * @return the contributed "include" patterns. If has one of it - consider source as GUI.
 	 */
-	private static List<String> getIncludePatterns() {
+	private static Pattern getIncludePatterns() {
 		return getPatterns("includePattern");
 	}
 
@@ -115,11 +122,11 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
 	 * @return the contributed "exclude" patterns. If has one of it - consider source as <em>not</em>
 	 *         GUI.
 	 */
-	private static List<String> getExcludePatterns() {
+	private static Pattern getExcludePatterns() {
 		return getPatterns("excludePattern");
 	}
 
-	private static List<String> getPatterns(String elementName) {
+	private static Pattern getPatterns(String elementName) {
 		List<String> patterns = new ArrayList<>();
 		List<IConfigurationElement> elements =
 				ExternalFactoriesHelper.getElements(
@@ -129,6 +136,10 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
 			String pattern = element.getValue();
 			patterns.add(pattern);
 		}
-		return patterns;
+		if (patterns.isEmpty()) {
+			return null;
+		}
+		String regex = patterns.stream().map(Pattern::quote).collect(Collectors.joining("|"));
+		return Pattern.compile(regex);
 	}
 }
