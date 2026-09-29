@@ -29,7 +29,6 @@ import org.eclipse.swt.widgets.Composite;
  * @coverage gef.draw2d
  */
 public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
-	private RootFigure m_rootFigure;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -38,8 +37,8 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	////////////////////////////////////////////////////////////////////////////
 	public FigureCanvas(Composite parent, int style) {
 		super(parent, style | SWT.DOUBLE_BUFFERED, createLightweightSystem());
-		// create root figure
-		createRootFigure();
+		setDefaultEventManager();
+		setDefaultUpdateManager();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -47,16 +46,6 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	// FigureCanvas
 	//
 	////////////////////////////////////////////////////////////////////////////
-
-	private void createRootFigure() {
-		m_rootFigure = new RootFigure(this);
-		m_rootFigure.setBackgroundColor(getBackground());
-		m_rootFigure.setForegroundColor(getForeground());
-		m_rootFigure.setFont(getFont());
-		setDefaultEventManager();
-		setDefaultUpdateManager();
-		setContents(m_rootFigure);
-	}
 
 	// TODO ptziegler - It should be possible to change the update manager after the
 	// figure canvas has been created.
@@ -97,7 +86,7 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public Point computeSize(int wHint, int hHint, boolean changed) {
-		Dimension size = m_rootFigure.getPreferredSize().getUnioned(wHint, hHint);
+		Dimension size = getContents().getPreferredSize().getUnioned(wHint, hHint);
 		return new Point(size.width, size.height);
 	}
 

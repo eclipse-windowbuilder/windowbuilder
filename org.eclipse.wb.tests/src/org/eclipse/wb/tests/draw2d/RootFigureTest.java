@@ -45,7 +45,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		//
 		TestLogger expectedLogger = new TestLogger();
 		//
-		RootFigure testRoot = new RootFigure(null) {
+		RootFigure testRoot = new RootFigure() {
 			@Override
 			public UpdateManager getUpdateManager() {
 				return updateManager;
@@ -157,7 +157,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		figure22.add(figure23, new Rectangle(15, 25, 19, 12));
 		//
 		final UpdateManager updateManager = new DeferredUpdateManager();
-		RootFigure testRoot = new RootFigure(null) {
+		RootFigure testRoot = new RootFigure() {
 			@Override
 			public UpdateManager getUpdateManager() {
 				return updateManager;

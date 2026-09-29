@@ -65,11 +65,12 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 
 	protected GraphicalViewer(FigureCanvas canvas) {
 		m_canvas = canvas;
-		m_rootEditPart = new RootEditPart(getRootFigure());
+		m_rootEditPart = new RootEditPart();
 		m_rootEditPart.setViewer(this);
 		m_rootEditPart.activate();
 		setRootEditPart(m_rootEditPart);
 		setKeyHandler(new DesignKeyHandler(this));
+		m_canvas.setContents(m_rootEditPart.getFigure());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -104,7 +105,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	 * Internal access to original, internal root figure.
 	 */
 	protected final RootFigure getRootFigureInternal() {
-		return (RootFigure) m_canvas.getContents();
+		return m_rootEditPart.getFigure();
 	}
 
 	/**
