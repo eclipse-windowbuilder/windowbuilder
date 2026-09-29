@@ -162,12 +162,12 @@ public abstract class DesignComposite extends Composite {
 		// bind viewers
 		m_viewersComposite.bindViewers();
 		// add product layer
-		m_viewer.getRootFigure().addLayer(new Layer("product") {
+		m_viewer.getRootFigure().add(new Layer() {
 			@Override
 			protected void paintClientArea(Graphics graphics) {
 				BrandingUtils.getBranding().paintBrandingOnCanvas(getClientArea(), graphics);
 			}
-		});
+		}, "product");
 	}
 
 	protected abstract void createDesignActions();

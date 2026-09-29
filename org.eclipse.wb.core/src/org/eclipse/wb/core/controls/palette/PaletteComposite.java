@@ -166,7 +166,7 @@ public final class PaletteComposite extends Composite {
 		}
 		// add palette figure (layer)
 		m_paletteFigure = new PaletteRootFigure();
-		m_figureCanvas.getContents().add(m_paletteFigure);
+		m_figureCanvas.getContents().add(m_paletteFigure, "palette");
 		// set menu
 		{
 			m_menuManager = new MenuManager();
@@ -176,8 +176,8 @@ public final class PaletteComposite extends Composite {
 		}
 		// add feedback layer
 		{
-			m_feedbackLayer = new Layer("feedback");
-			m_figureCanvas.getContents().add(m_feedbackLayer);
+			m_feedbackLayer = new Layer();
+			m_figureCanvas.getContents().add(m_feedbackLayer, "feedback");
 		}
 		m_layoutType = m_preferences.getLayoutType();
 	}
@@ -374,14 +374,6 @@ public final class PaletteComposite extends Composite {
 	 */
 	@SuppressWarnings("removal")
 	private final class PaletteRootFigure extends Layer {
-		////////////////////////////////////////////////////////////////////////////
-		//
-		// Constructor
-		//
-		////////////////////////////////////////////////////////////////////////////
-		public PaletteRootFigure() {
-			super("palette");
-		}
 
 		////////////////////////////////////////////////////////////////////////////
 		//

@@ -31,15 +31,6 @@ public interface IRootFigure extends IFigure {
 	// Layer's
 	//
 	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Adds the given layer as a child of this {@link IRootFigure}.
-	 */
-	void addLayer(Layer layer);
-
-	/**
-	 * Adds the given layer as a child of this {@link IRootFigure} with given index.
-	 */
-	void addLayer(Layer layer, int index);
 
 	/**
 	 * Returns the layer identified by the <code>name</code> given in the input.
@@ -50,19 +41,4 @@ public interface IRootFigure extends IFigure {
 	 * Return all layer's from this {@link IRootFigure}.
 	 */
 	List<Layer> getLayers();
-
-	/**
-	 * Removes the layer identified by the given key from this {@link IRootFigure}.
-	 */
-	void removeLayer(String name);
-
-	/**
-	 * Removes the given layer from this {@link IRootFigure}.
-	 */
-	void removeLayer(Layer layer);
-
-	/**
-	 * Remove all layer's from this {@link IRootFigure}.
-	 */
-	void removeAll();
 }

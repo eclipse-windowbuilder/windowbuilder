@@ -156,7 +156,8 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	public EditPart findObjectAtExcluding(Point location,
 			final Collection<IFigure> exclude,
 			final Conditional conditional,
-			String layer) {
+			String layerName) {
+		IFigure layerFigure = getRootEditPart().getLayer(layerName);
 		class ConditionalTreeSearch extends ExclusionSearch {
 			ConditionalTreeSearch(Collection<IFigure> coll) {
 				super(coll);
@@ -174,8 +175,8 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 
 			@Override
 			public boolean prune(IFigure figure) {
-				if (figure instanceof Layer layerFigure) {
-					return !layer.equals(layerFigure.getName());
+				if (figure instanceof Layer) {
+					return !figure.equals(layerFigure);
 				}
 				return super.prune(figure);
 			}
@@ -217,7 +218,8 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 	 * location in given <code>layer</code>. Returns <code>null</code> if no handle exists at the
 	 * given location <code>(x, y)</code>.
 	 */
-	private Handle findTargetHandle(String layer, Point p) {
+	private Handle findTargetHandle(String layerName, Point p) {
+		IFigure layerFigure = getRootEditPart().getLayer(layerName);
 		return (Handle) m_canvas.getLightweightSystem().getRootFigure().findFigureAt(p.x, p.y,
 				new TreeSearch() {
 			@Override
@@ -227,7 +229,7 @@ public class GraphicalViewer extends AbstractEditPartViewer implements org.eclip
 
 			@Override
 			public boolean prune(IFigure figure) {
-				return figure instanceof Layer layerFigure && !layer.equals(layerFigure.getName());
+				return figure instanceof Layer && !figure.equals(layerFigure);
 			}
 		});
 	}

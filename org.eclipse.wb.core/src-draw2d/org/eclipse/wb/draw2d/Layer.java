@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -14,75 +14,12 @@ package org.eclipse.wb.draw2d;
 
 import org.eclipse.wb.internal.draw2d.IRootFigure;
 
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Rectangle;
-
 /**
  * A transparent figure simple figure's container using into {@link IRootFigure}.
  *
  * @author lobas_av
  * @coverage gef.draw2d
  */
-public class Layer extends Figure {
-	private final String m_name;
+public class Layer extends org.eclipse.draw2d.Layer {
 
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Constructor
-	//
-	////////////////////////////////////////////////////////////////////////////
-	public Layer(String name) {
-		m_name = name;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Bounds
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Direct set bounds from {@link IRootFigure} without notification.
-	 */
-	@Override
-	public void setBounds(Rectangle bounds) {
-		getBounds().setBounds(bounds);
-	}
-
-	/**
-	 * If children not contains given point <code>(x, y)</code> then {@link Layer} just as not
-	 * contains it.
-	 */
-	@Override
-	public boolean containsPoint(int x, int y) {
-		for (IFigure childFigure : getChildren()) {
-			if (childFigure.containsPoint(x, y)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Properties
-	//
-	////////////////////////////////////////////////////////////////////////////
-	/**
-	 * Return identification name.
-	 */
-	public String getName() {
-		return m_name;
-	}
-
-	/**
-	 * For this figure opaque is missing.
-	 */
-	@Override
-	public void setOpaque(boolean opaque) {
-	}
-
-	@Override
-	public String toString() {
-		return "[%s] %s".formatted(getClass().getSimpleName(), getName());
-	}
 }

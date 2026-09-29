@@ -70,7 +70,7 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 	////////////////////////////////////////////////////////////////////////////
 	@Test
 	public void test_handleMouseEvents() throws Exception {
-		Layer layer1 = new Layer("1");
+		Layer layer1 = new Layer();
 		Figure figure11 = new Figure() {
 			@Override
 			public String toString() {
@@ -88,7 +88,7 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		figure12.setBounds(new Rectangle(400, 300, 50, 70));
 		layer1.add(figure12);
 		//
-		Layer layer2 = new Layer("2");
+		Layer layer2 = new Layer();
 		Figure figure21 = new Figure() {
 			@Override
 			public String toString() {
@@ -114,8 +114,8 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		listener.addFigure(figure21);
 		listener.addFigure(figure22);
 		//
-		((RootFigure) m_canvas.getContents()).addLayer(layer1);
-		((RootFigure) m_canvas.getContents()).addLayer(layer2);
+		((RootFigure) m_canvas.getContents()).add(layer1, "1");
+		((RootFigure) m_canvas.getContents()).add(layer2, "2");
 		m_shell.setSize(500, 400);
 		//
 		TestLogger expectedLogger = new TestLogger();

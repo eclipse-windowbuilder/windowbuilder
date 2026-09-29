@@ -30,7 +30,7 @@ import java.util.Map;
  */
 public class RootFigure extends Figure implements IRootFigure {
 	private Dimension m_preferredSize;
-	private Map<String, Layer> m_nameToLayer = new HashMap<>();
+	private Map<Object, Layer> m_nameToLayer = new HashMap<>();
 	private IPreferredSizeProvider m_preferredSizeProvider;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -132,18 +132,11 @@ public class RootFigure extends Figure implements IRootFigure {
 	 * Adds the given layer as a child of this {@link IRootFigure}.
 	 */
 	@Override
-	public void addLayer(Layer layer) {
-		m_nameToLayer.put(layer.getName(), layer);
-		add(layer, null, -1);
-	}
-
-	/**
-	 * Adds the given layer as a child of this {@link IRootFigure} with given index.
-	 */
-	@Override
-	public void addLayer(Layer layer, int index) {
-		m_nameToLayer.put(layer.getName(), layer);
-		add(layer, null, index);
+	public void add(IFigure figure, Object constraints, int index) {
+		if (figure instanceof Layer layerFigure) {
+			m_nameToLayer.put(constraints, layerFigure);
+		}
+		super.add(figure, constraints, index);
 	}
 
 	/**
@@ -167,20 +160,12 @@ public class RootFigure extends Figure implements IRootFigure {
 	}
 
 	/**
-	 * Removes the layer identified by the given key from this {@link IRootFigure}.
-	 */
-	@Override
-	public void removeLayer(String name) {
-		removeLayer(getLayer(name));
-	}
-
-	/**
 	 * Removes the given layer from this {@link IRootFigure}.
 	 */
 	@Override
-	public void removeLayer(Layer layer) {
-		m_nameToLayer.remove(layer.getName());
-		remove(layer);
+	public void remove(IFigure figure) {
+		m_nameToLayer.values().remove(figure);
+		super.remove(figure);
 	}
 
 	/**
