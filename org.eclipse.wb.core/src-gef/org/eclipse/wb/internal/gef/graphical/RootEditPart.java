@@ -54,22 +54,22 @@ public class RootEditPart extends DesignEditPart implements org.eclipse.gef.Root
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void createLayers() {
-		getFigure().addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER_SUB_1));
-		getFigure().addLayer(new Layer(LayerConstants.PRIMARY_LAYER));
-		getFigure().addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_1));
-		getFigure().addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_2));
-		getFigure().addLayer(new Layer(LayerConstants.HANDLE_LAYER));
-		getFigure().addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_STATIC));
-		getFigure().addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_1));
-		getFigure().addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_2));
-		getFigure().addLayer(new Layer(LayerConstants.FEEDBACK_LAYER));
-		getFigure().addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_ABV_1));
-		getFigure().addLayer(new Layer(IEditPartViewer.CLICKABLE_LAYER));
-		getFigure().addLayer(new Layer(IEditPartViewer.MENU_PRIMARY_LAYER));
-		getFigure().addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER));
-		getFigure().addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER_STATIC));
-		getFigure().addLayer(new Layer(IEditPartViewer.MENU_FEEDBACK_LAYER));
-		getFigure().addLayer(new Layer(IEditPartViewer.TOP_LAYER));
+		getFigure().add(new Layer(), IEditPartViewer.PRIMARY_LAYER_SUB_1);
+		getFigure().add(new Layer(), LayerConstants.PRIMARY_LAYER);
+		getFigure().add(new Layer(), IEditPartViewer.HANDLE_LAYER_SUB_1);
+		getFigure().add(new Layer(), IEditPartViewer.HANDLE_LAYER_SUB_2);
+		getFigure().add(new Layer(), LayerConstants.HANDLE_LAYER);
+		getFigure().add(new Layer(), IEditPartViewer.HANDLE_LAYER_STATIC);
+		getFigure().add(new Layer(), IEditPartViewer.FEEDBACK_LAYER_SUB_1);
+		getFigure().add(new Layer(), IEditPartViewer.FEEDBACK_LAYER_SUB_2);
+		getFigure().add(new Layer(), LayerConstants.FEEDBACK_LAYER);
+		getFigure().add(new Layer(), IEditPartViewer.FEEDBACK_LAYER_ABV_1);
+		getFigure().add(new Layer(), IEditPartViewer.CLICKABLE_LAYER);
+		getFigure().add(new Layer(), IEditPartViewer.MENU_PRIMARY_LAYER);
+		getFigure().add(new Layer(), IEditPartViewer.MENU_HANDLE_LAYER);
+		getFigure().add(new Layer(), IEditPartViewer.MENU_HANDLE_LAYER_STATIC);
+		getFigure().add(new Layer(), IEditPartViewer.MENU_FEEDBACK_LAYER);
+		getFigure().add(new Layer(), IEditPartViewer.TOP_LAYER);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

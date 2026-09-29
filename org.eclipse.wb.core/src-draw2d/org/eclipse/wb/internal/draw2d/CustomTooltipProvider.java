@@ -45,9 +45,9 @@ public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
 		rootFigure.setForegroundColor(parent.getForeground());
 		rootFigure.setBackgroundColor(parent.getBackground());
 		//
-		Layer layer = new Layer("Tooltip");
+		Layer layer = new Layer();
 		layer.add(createTooltipFigure(figure));
-		rootFigure.addLayer(layer);
+		rootFigure.add(layer, "Tooltip");
 		//
 		return m_canvas;
 	}

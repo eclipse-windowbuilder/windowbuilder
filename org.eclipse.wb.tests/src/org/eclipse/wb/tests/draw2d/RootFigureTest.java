@@ -64,17 +64,17 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 			}
 		});
 		//
-		Layer layer0 = new Layer("Main");
+		Layer layer0 = new Layer();
 		Figure figure0 = new Figure();
 		figure0.setBounds(new Rectangle(10, 10, 100, 200));
 		layer0.add(figure0);
-		testRoot.addLayer(layer0);
+		testRoot.add(layer0, "Main");
 		//
-		Layer layer1 = new Layer("Feedback");
+		Layer layer1 = new Layer();
 		Figure figure1 = new Figure();
 		figure1.setBounds(new Rectangle(50, 70, 120, 90));
 		layer1.add(figure1);
-		testRoot.addLayer(layer1);
+		testRoot.add(layer1, "Feedback");
 		//
 		actualLogger.clear();
 		//
@@ -98,7 +98,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		figure1.repaint();
 		waitEventLoop(10);
 		//
-		expectedLogger.log("refreshRequest(50, 70, 120, 90)");
+		expectedLogger.log("refreshRequest(0, 0, 180, 210)");
 		actualLogger.assertEquals(expectedLogger);
 		//
 		assertSame(preferredSize, testRoot.getPreferredSize());
@@ -117,7 +117,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 
 	@Test
 	public void test_findTargetFigure() throws Exception {
-		Layer layer1 = new Layer("1");
+		Layer layer1 = new Layer();
 		Figure figure11 = new Figure() {
 			@Override
 			public String toString() {
@@ -133,7 +133,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		};
 		layer1.add(figure12, new Rectangle(400, 300, 50, 70));
 		//
-		Layer layer2 = new Layer("2");
+		Layer layer2 = new Layer();
 		Figure figure21 = new Figure() {
 			@Override
 			public String toString() {
@@ -167,8 +167,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 			public void repaint(int x, int y, int width, int height) {
 			}
 		};
-		testRoot.addLayer(layer1);
-		testRoot.addLayer(layer2);
+		testRoot.add(layer1, "1");
+		testRoot.add(layer2, "2");
 		testRoot.setBounds(new Rectangle(0, 0, 500, 400));
 		//
 		// check work findTargetFigure()
@@ -198,13 +198,13 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		TestLogger expectedLogger = new TestLogger();
 		//
 		// check add null Layer
-		assertThrows(NullPointerException.class, () -> testRoot.addLayer(null));
+		assertThrows(NullPointerException.class, () -> testRoot.add(null));
 		//
 		assertEquals(0, testRoot.getLayers().size());
 		//
 		// check add Layer
-		Layer layer0 = new Layer("Main");
-		testRoot.addLayer(layer0);
+		Layer layer0 = new Layer();
+		testRoot.add(layer0, "Main");
 		//
 		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(0, 0, 0, 0)");
@@ -214,8 +214,8 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		assertEquals(1, testRoot.getLayers().size());
 		//
 		// check add Layer
-		Layer layer1 = new Layer("Feedback");
-		testRoot.addLayer(layer1);
+		Layer layer1 = new Layer();
+		testRoot.add(layer1, "Feedback");
 		//
 		expectedLogger.log("invalidate");
 		expectedLogger.log("repaint(0, 0, 0, 0)");
@@ -243,22 +243,20 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		//
 		TestLogger expectedLogger = new TestLogger();
 		//
-		Layer layer0 = new Layer("Feedback");
-		testRoot.addLayer(layer0);
+		Layer layer0 = new Layer();
+		testRoot.add(layer0, "Feedback");
 		actualLogger.clear();
 		//
 		// check remove null Layer
-		assertThrows(NullPointerException.class, () -> testRoot.removeLayer((Layer) null));
+		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> testRoot.remove((Layer) null));
+		assertEquals("Figure is not a child", e.getMessage());
 		//
-		// check remove Layer with not exist name
-		assertThrows(NullPointerException.class, () -> testRoot.removeLayer("feedback"));
-		//
-		Layer layer1 = new Layer("feedback");
-		testRoot.addLayer(layer1);
+		Layer layer1 = new Layer();
+		testRoot.add(layer1, "feedback");
 		actualLogger.clear();
 		//
 		// check work removeLayer(Layer)
-		testRoot.removeLayer(layer0);
+		testRoot.remove(layer0);
 		//
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		expectedLogger.log("invalidate");
@@ -269,7 +267,7 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		assertNull(testRoot.getLayer("Feedback"));
 		//
 		// check work removeLayer(String)
-		testRoot.removeLayer("feedback");
+		testRoot.remove(layer1);
 		//
 		expectedLogger.log("repaint(0, 0, 0, 0)");
 		expectedLogger.log("invalidate");
@@ -292,10 +290,10 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		testRoot.removeAll();
 		actualLogger.assertEmpty();
 		//
-		Layer layer0 = new Layer("Main");
-		testRoot.addLayer(layer0);
-		Layer layer1 = new Layer("Feedback");
-		testRoot.addLayer(layer1);
+		Layer layer0 = new Layer();
+		testRoot.add(layer0, "Main");
+		Layer layer1 = new Layer();
+		testRoot.add(layer1, "Feedback");
 		actualLogger.clear();
 		//
 		// check reset state during removeAll()
