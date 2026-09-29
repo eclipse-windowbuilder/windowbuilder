@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -80,13 +80,6 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 	////////////////////////////////////////////////////////////////////////////
 
 	/**
-	 * Returns figures container.
-	 */
-	public RootFigure getRootFigure() {
-		return m_rootFigure;
-	}
-
-	/**
 	 * Sets draw cached mode.
 	 */
 	public void setDrawCached(boolean value) {
@@ -139,7 +132,7 @@ public class FigureCanvas extends org.eclipse.draw2d.FigureCanvas {
 		@Override
 		protected void paint(GC gc) {
 			if (m_drawCached) {
-				addDirtyRegion(m_canvas.getRootFigure(), new Rectangle(gc.getClipping()));
+				addDirtyRegion(m_canvas.getContents(), new Rectangle(gc.getClipping()));
 				return;
 			}
 			super.paint(gc);

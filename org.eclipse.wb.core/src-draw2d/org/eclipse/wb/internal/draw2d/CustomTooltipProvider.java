@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -41,7 +41,7 @@ public abstract class CustomTooltipProvider implements ICustomTooltipProvider {
 		m_canvas.addListener(SWT.MouseDown, site.getHideListener());
 		m_canvas.addListener(SWT.MouseExit, site.getHideListener());
 		//
-		RootFigure rootFigure = m_canvas.getRootFigure();
+		RootFigure rootFigure = (RootFigure) m_canvas.getContents();
 		rootFigure.setForegroundColor(parent.getForeground());
 		rootFigure.setBackgroundColor(parent.getBackground());
 		//

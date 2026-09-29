@@ -158,13 +158,13 @@ public final class PaletteComposite extends Composite {
 		// prepare draw2d FigureCanvas
 		{
 			m_figureCanvas = new FigureCanvas(this, SWT.V_SCROLL);
-			m_figureCanvas.getRootFigure().setBackgroundColor(COLOR_PALETTE_BACKGROUND);
-			m_figureCanvas.getRootFigure().setForegroundColor(COLOR_TEXT_ENABLED);
-			m_eventManager = (EventManager) m_figureCanvas.getRootFigure().internalGetEventDispatcher();
+			m_figureCanvas.getContents().setBackgroundColor(COLOR_PALETTE_BACKGROUND);
+			m_figureCanvas.getContents().setForegroundColor(COLOR_TEXT_ENABLED);
+			m_eventManager = (EventManager) m_figureCanvas.getContents().internalGetEventDispatcher();
 		}
 		// add palette figure (layer)
 		m_paletteFigure = new PaletteRootFigure();
-		m_figureCanvas.getRootFigure().add(m_paletteFigure);
+		m_figureCanvas.getContents().add(m_paletteFigure);
 		// set menu
 		{
 			m_menuManager = new MenuManager();
@@ -175,7 +175,7 @@ public final class PaletteComposite extends Composite {
 		// add feedback layer
 		{
 			m_feedbackLayer = new Layer("feedback");
-			m_figureCanvas.getRootFigure().add(m_feedbackLayer);
+			m_figureCanvas.getContents().add(m_feedbackLayer);
 		}
 		m_layoutType = m_preferences.getLayoutType();
 	}

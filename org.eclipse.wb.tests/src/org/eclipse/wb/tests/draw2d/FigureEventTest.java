@@ -14,6 +14,7 @@ package org.eclipse.wb.tests.draw2d;
 
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
+import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.tests.gef.EventSender;
 import org.eclipse.wb.tests.gef.TestLogger;
 
@@ -112,8 +113,8 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		listener.addFigure(figure21);
 		listener.addFigure(figure22);
 		//
-		m_canvas.getRootFigure().addLayer(layer1);
-		m_canvas.getRootFigure().addLayer(layer2);
+		((RootFigure) m_canvas.getContents()).addLayer(layer1);
+		((RootFigure) m_canvas.getContents()).addLayer(layer2);
 		m_shell.setSize(500, 400);
 		//
 		TestLogger expectedLogger = new TestLogger();
