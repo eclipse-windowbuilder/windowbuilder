@@ -62,6 +62,7 @@ import java.util.List;
 @ExtendWith(AnnotationExtension.class)
 public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	private static final List<IFile> m_createdResources = new ArrayList<>();
+	private static final long DELETE_TIMEOUT_MILLIS = 30_000;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -71,28 +72,16 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	@Override
 	@AfterEach
 	public void tearDown() throws Exception {
-		// remove resources (with retries)
+		// remove resources
 		{
 			for (IFile resource : m_createdResources) {
-				int maxCount = 5000;
-				for (int i = 0; i < maxCount; i++) {
-					try {
-						// remove read-only attr, if has
-						if (resource.isReadOnly()) {
-							ResourceAttributes attributes = new ResourceAttributes();
-							attributes.setReadOnly(false);
-							resource.setResourceAttributes(attributes);
-						}
-						// do deleting
-						forceDeleteResource(resource);
-						break;
-					} catch (Exception e) {
-						if (i == maxCount - 1) {
-							throw e;
-						}
-					}
-					waitEventLoop(10);
+				// remove read-only attr, if has
+				if (resource.isReadOnly()) {
+					ResourceAttributes attributes = new ResourceAttributes();
+					attributes.setReadOnly(false);
+					resource.setResourceAttributes(attributes);
 				}
+				forceDeleteResource(resource);
 			}
 			m_createdResources.clear();
 		}
@@ -226,8 +215,7 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	 * problems.
 	 */
 	public static void waitForAutoBuild() throws Exception {
-		// Wait for workspace jobs such as file creation
-		waitEventLoop(25);
+		waitEventLoop(0);
 		// Wait for auto-builder to handle all newly created files
 		TestProject.waitForAutoBuild();
 		// check for compilation problems
@@ -584,6 +572,7 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 			forceDeleteCompilationUnit(cu);
 			return;
 		}
+		long deadline = System.currentTimeMillis() + DELETE_TIMEOUT_MILLIS;
 		while (resource.exists()) {
 			try {
 				resource.refreshLocal(IResource.DEPTH_INFINITE, null);
@@ -592,6 +581,7 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 			try {
 				resource.delete(true, null);
 			} catch (Throwable e) {
+				failIfPastDeadline(deadline, resource, e);
 				waitEventLoop(100);
 			}
 		}
@@ -601,6 +591,7 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 	 * Force deletes {@link ICompilationUnit}.
 	 */
 	public static void forceDeleteCompilationUnit(ICompilationUnit cu) {
+		long deadline = System.currentTimeMillis() + DELETE_TIMEOUT_MILLIS;
 		while (cu.exists()) {
 			try {
 				cu.discardWorkingCopy();
@@ -613,8 +604,15 @@ public abstract class AbstractJavaProjectTest extends DesignerTestCase {
 			try {
 				cu.delete(true, null);
 			} catch (Throwable e) {
+				failIfPastDeadline(deadline, cu.getResource(), e);
 				waitEventLoop(100);
 			}
+		}
+	}
+
+	private static void failIfPastDeadline(long deadline, IResource resource, Throwable cause) {
+		if (System.currentTimeMillis() > deadline) {
+			throw new IllegalStateException("Could not delete " + resource.getFullPath(), cause);
 		}
 	}
 
