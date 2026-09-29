@@ -83,18 +83,18 @@ public abstract class AbstractComponentInfo extends JavaInfo implements IAbstrac
 	 */
 	public final Rectangle getAbsoluteBounds() {
 		Rectangle bounds = getBounds().getCopy();
-		// make relative to screen
-		{
-			AbstractComponentInfo parent = (AbstractComponentInfo) getParent();
-			while (parent != null) {
-				bounds.performTranslate(parent.getBounds().getLocation());
-				parent = (AbstractComponentInfo) parent.getParent();
-			}
+		// normalize screen location if root component
+		if (isRoot()) {
+			bounds.setLocation(0, 0);
+			return bounds;
 		}
 		// make relative to root component
 		{
-			AbstractComponentInfo rootComponent = (AbstractComponentInfo) getRoot();
-			bounds.performTranslate(rootComponent.getBounds().getLocation().getNegated());
+			AbstractComponentInfo parent = (AbstractComponentInfo) getParent();
+			while (parent != null && !parent.isRoot()) {
+				bounds.performTranslate(parent.getBounds().getLocation());
+				parent = (AbstractComponentInfo) parent.getParent();
+			}
 		}
 		// OK, final result
 		return bounds;
