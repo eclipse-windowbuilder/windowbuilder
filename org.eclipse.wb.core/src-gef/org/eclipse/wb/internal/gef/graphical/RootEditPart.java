@@ -15,7 +15,7 @@ package org.eclipse.wb.internal.gef.graphical;
 import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
-import org.eclipse.wb.internal.draw2d.IRootFigure;
+import org.eclipse.wb.internal.draw2d.RootFigure;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.DragTracker;
@@ -37,7 +37,6 @@ import org.eclipse.gef.tools.MarqueeDragTracker;
  */
 public class RootEditPart extends DesignEditPart implements org.eclipse.gef.RootEditPart, LayerManager {
 	private IEditPartViewer m_viewer;
-	private final IRootFigure m_rootFigure;
 	private EditPart m_contentEditPart;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -45,8 +44,7 @@ public class RootEditPart extends DesignEditPart implements org.eclipse.gef.Root
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public RootEditPart(IRootFigure rootFigure) {
-		m_rootFigure = rootFigure;
+	public RootEditPart() {
 		createLayers();
 	}
 
@@ -56,22 +54,22 @@ public class RootEditPart extends DesignEditPart implements org.eclipse.gef.Root
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void createLayers() {
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER_SUB_1));
-		m_rootFigure.addLayer(new Layer(LayerConstants.PRIMARY_LAYER));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_1));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_2));
-		m_rootFigure.addLayer(new Layer(LayerConstants.HANDLE_LAYER));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_STATIC));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_1));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_2));
-		m_rootFigure.addLayer(new Layer(LayerConstants.FEEDBACK_LAYER));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_ABV_1));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.CLICKABLE_LAYER));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_PRIMARY_LAYER));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER_STATIC));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.MENU_FEEDBACK_LAYER));
-		m_rootFigure.addLayer(new Layer(IEditPartViewer.TOP_LAYER));
+		getFigure().addLayer(new Layer(IEditPartViewer.PRIMARY_LAYER_SUB_1));
+		getFigure().addLayer(new Layer(LayerConstants.PRIMARY_LAYER));
+		getFigure().addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_1));
+		getFigure().addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_SUB_2));
+		getFigure().addLayer(new Layer(LayerConstants.HANDLE_LAYER));
+		getFigure().addLayer(new Layer(IEditPartViewer.HANDLE_LAYER_STATIC));
+		getFigure().addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_1));
+		getFigure().addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_SUB_2));
+		getFigure().addLayer(new Layer(LayerConstants.FEEDBACK_LAYER));
+		getFigure().addLayer(new Layer(IEditPartViewer.FEEDBACK_LAYER_ABV_1));
+		getFigure().addLayer(new Layer(IEditPartViewer.CLICKABLE_LAYER));
+		getFigure().addLayer(new Layer(IEditPartViewer.MENU_PRIMARY_LAYER));
+		getFigure().addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER));
+		getFigure().addLayer(new Layer(IEditPartViewer.MENU_HANDLE_LAYER_STATIC));
+		getFigure().addLayer(new Layer(IEditPartViewer.MENU_FEEDBACK_LAYER));
+		getFigure().addLayer(new Layer(IEditPartViewer.TOP_LAYER));
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -106,15 +104,17 @@ public class RootEditPart extends DesignEditPart implements org.eclipse.gef.Root
 	 */
 	@Override
 	public IFigure getContentPane() {
-		return m_rootFigure.getLayer(LayerConstants.PRIMARY_LAYER);
+		return getFigure().getLayer(LayerConstants.PRIMARY_LAYER);
 	}
 
-	/**
-	 * This {@link EditPart} not contains itself {@link IFigure}.
-	 */
 	@Override
 	protected IFigure createFigure() {
-		return null;
+		return new RootFigure();
+	}
+
+	@Override
+	public RootFigure getFigure() {
+		return (RootFigure) super.getFigure();
 	}
 
 	@Override
@@ -146,7 +146,7 @@ public class RootEditPart extends DesignEditPart implements org.eclipse.gef.Root
 			// remove content
 			removeChild(m_contentEditPart);
 			// clear all layers
-			for (Layer layer : m_rootFigure.getLayers()) {
+			for (Layer layer : getFigure().getLayers()) {
 				layer.removeAll();
 			}
 		}
@@ -171,7 +171,7 @@ public class RootEditPart extends DesignEditPart implements org.eclipse.gef.Root
 	@Override
 	public IFigure getLayer(Object key) {
 		if (key instanceof String name) {
-			return m_rootFigure.getLayer(name);
+			return getFigure().getLayer(name);
 		}
 		return null;
 	}

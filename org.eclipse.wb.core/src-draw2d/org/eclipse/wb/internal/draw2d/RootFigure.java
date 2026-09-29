@@ -14,10 +14,8 @@ package org.eclipse.wb.internal.draw2d;
 
 import org.eclipse.wb.draw2d.Layer;
 
-import org.eclipse.draw2d.EventDispatcher;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -31,7 +29,6 @@ import java.util.Map;
  * @coverage gef.draw2d
  */
 public class RootFigure extends Figure implements IRootFigure {
-	private final FigureCanvas m_figureCanvas;
 	private Dimension m_preferredSize;
 	private Map<String, Layer> m_nameToLayer = new HashMap<>();
 	private IPreferredSizeProvider m_preferredSizeProvider;
@@ -41,8 +38,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
-	public RootFigure(FigureCanvas figureCanvas) {
-		m_figureCanvas = figureCanvas;
+	public RootFigure() {
 		setOpaque(true);
 	}
 
@@ -59,21 +55,11 @@ public class RootFigure extends Figure implements IRootFigure {
 		m_preferredSizeProvider = provider;
 	}
 
-	@Override
-	public EventDispatcher internalGetEventDispatcher() {
-		return m_figureCanvas.getLightweightSystem().getRootFigure().internalGetEventDispatcher();
-	}
-
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// RootFigure
 	//
 	////////////////////////////////////////////////////////////////////////////
-
-	@Override
-	public UpdateManager getUpdateManager() {
-		return m_figureCanvas.getLightweightSystem().getUpdateManager();
-	}
 
 	/**
 	 * Returns the desirable size for this container figure.

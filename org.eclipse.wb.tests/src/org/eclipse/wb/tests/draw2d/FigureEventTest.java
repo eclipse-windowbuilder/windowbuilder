@@ -53,6 +53,7 @@ public class FigureEventTest extends Draw2dFigureTestCase {
 		m_shell = new Shell();
 		m_shell.setLayout(new FillLayout());
 		m_canvas = new FigureCanvas(m_shell, SWT.NONE);
+		m_canvas.setContents(new RootFigure());
 		m_sender = new EventSender(m_canvas);
 	}
 

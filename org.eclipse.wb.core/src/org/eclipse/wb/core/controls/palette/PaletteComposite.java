@@ -21,6 +21,7 @@ import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.ui.DrawUtils;
 import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
+import org.eclipse.wb.internal.draw2d.RootFigure;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
@@ -158,6 +159,7 @@ public final class PaletteComposite extends Composite {
 		// prepare draw2d FigureCanvas
 		{
 			m_figureCanvas = new FigureCanvas(this, SWT.V_SCROLL);
+			m_figureCanvas.setContents(new RootFigure());
 			m_figureCanvas.getContents().setBackgroundColor(COLOR_PALETTE_BACKGROUND);
 			m_figureCanvas.getContents().setForegroundColor(COLOR_TEXT_ENABLED);
 			m_eventManager = (EventManager) m_figureCanvas.getContents().internalGetEventDispatcher();
