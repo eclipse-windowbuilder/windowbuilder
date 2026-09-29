@@ -213,7 +213,7 @@ public final class GraphicalRobot {
 		// find MoveHandle
 		mouseX = bounds.x;
 		mouseY = bounds.y;
-		Rectangle rootBounds = m_canvas.getRootFigure().getBounds();
+		Rectangle rootBounds = m_canvas.getContents().getBounds();
 		while (rootBounds.contains(mouseX, mouseY)) {
 			try (AutoScroller scroller = new AutoScroller(m_viewer, mouseX, mouseY)) {
 				if (m_viewer.findHandleAt(scroller.getLocation()) instanceof MoveHandle) {
@@ -335,7 +335,7 @@ public final class GraphicalRobot {
 			int deltaY) {
 		x += bounds.x;
 		y += bounds.y;
-		Rectangle rootBounds = m_canvas.getRootFigure().getBounds();
+		Rectangle rootBounds = m_canvas.getContents().getBounds();
 		while (x < bounds.right() && y < bounds.bottom() && rootBounds.contains(x, y)) {
 			try (AutoScroller scroller = new AutoScroller(m_viewer, x, y)) {
 				Handle handle = m_viewer.findHandleAt(scroller.getLocation());
