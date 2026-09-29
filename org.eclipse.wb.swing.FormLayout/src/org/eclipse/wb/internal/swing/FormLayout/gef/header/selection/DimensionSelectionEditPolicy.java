@@ -13,7 +13,6 @@
 package org.eclipse.wb.internal.swing.FormLayout.gef.header.selection;
 
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -22,6 +21,7 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormDimensionInfo;
 import org.eclipse.wb.internal.swing.FormLayout.model.FormLayoutInfo;
 import org.eclipse.wb.internal.swing.gef.policy.layout.header.selection.AbstractDimensionSelectionEditPolicy;
 
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.Handle;
 import org.eclipse.gef.LayerConstants;

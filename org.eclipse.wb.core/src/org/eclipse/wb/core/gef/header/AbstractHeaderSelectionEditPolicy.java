@@ -13,12 +13,12 @@
 package org.eclipse.wb.core.gef.header;
 
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.Locator;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPartViewer;
@@ -55,6 +55,7 @@ public abstract class AbstractHeaderSelectionEditPolicy extends SelectionEditPol
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return the {@link Layer} from main {@link EditPartViewer} with given id.
+	 * @since 1.26
 	 */
 	protected final Layer getMainLayer(String layerId) {
 		return (Layer) LayerManager.Helper.find(getMainViewer()).getLayer(layerId);

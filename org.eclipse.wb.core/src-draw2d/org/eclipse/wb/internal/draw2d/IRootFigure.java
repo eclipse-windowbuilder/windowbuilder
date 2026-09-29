@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.draw2d;
 
-import org.eclipse.wb.draw2d.Layer;
-
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 
 import java.util.List;
 

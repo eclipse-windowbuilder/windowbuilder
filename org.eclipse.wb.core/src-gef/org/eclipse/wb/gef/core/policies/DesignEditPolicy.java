@@ -14,12 +14,12 @@ package org.eclipse.wb.gef.core.policies;
 
 import org.eclipse.wb.core.gef.policy.IDesignEditPolicy;
 import org.eclipse.wb.core.gef.policy.IEditPolicyListener;
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.GraphicalEditPolicy;
 
 import org.eclipse.draw2d.EventListenerList;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.LayerConstants;

@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.graphical;
 
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.internal.core.gef.DesignKeyHandler;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.IRootFigure;
@@ -21,6 +20,7 @@ import org.eclipse.wb.internal.gef.core.AbstractEditPartViewer;
 
 import org.eclipse.draw2d.ExclusionSearch;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.TreeSearch;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditDomain;

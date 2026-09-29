@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.tests.gef.EventSender;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;

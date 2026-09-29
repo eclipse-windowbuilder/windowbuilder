@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.internal.gef.graphical;
 
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;

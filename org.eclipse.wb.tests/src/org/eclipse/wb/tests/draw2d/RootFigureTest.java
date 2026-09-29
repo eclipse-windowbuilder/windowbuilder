@@ -12,12 +12,12 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.internal.draw2d.RootFigure;
 import org.eclipse.wb.tests.gef.TestLogger;
 
 import org.eclipse.draw2d.DeferredUpdateManager;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.UpdateListener;
 import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;

@@ -1,5 +1,64 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <component id="org.eclipse.wb.core" version="2">
+    <resource path="src/org/eclipse/wb/core/gef/figure/AbstractPositionFeedback.java" type="org.eclipse.wb.core.gef.figure.AbstractPositionFeedback">
+        <filter id="643850349">
+            <message_arguments>
+                <message_argument value="Layer"/>
+                <message_argument value="AbstractPositionFeedback"/>
+                <message_argument value="AbstractPositionFeedback(Layer, Rectangle, String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/figure/GhostPositionFeedback.java" type="org.eclipse.wb.core.gef.figure.GhostPositionFeedback">
+        <filter id="643850349">
+            <message_arguments>
+                <message_argument value="Layer"/>
+                <message_argument value="GhostPositionFeedback"/>
+                <message_argument value="GhostPositionFeedback(Layer, Rectangle, String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/figure/SolidPositionFeedback.java" type="org.eclipse.wb.core.gef.figure.SolidPositionFeedback">
+        <filter id="643850349">
+            <message_arguments>
+                <message_argument value="Layer"/>
+                <message_argument value="SolidPositionFeedback"/>
+                <message_argument value="SolidPositionFeedback(Layer, Rectangle, String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/figure/TextFeedback.java" type="org.eclipse.wb.core.gef.figure.TextFeedback">
+        <filter id="643850349">
+            <message_arguments>
+                <message_argument value="Layer"/>
+                <message_argument value="TextFeedback"/>
+                <message_argument value="TextFeedback(Layer)"/>
+            </message_arguments>
+        </filter>
+        <filter id="643850349">
+            <message_arguments>
+                <message_argument value="Layer"/>
+                <message_argument value="TextFeedback"/>
+                <message_argument value="TextFeedback(Layer, boolean)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/header/AbstractHeaderLayoutEditPolicy.java" type="org.eclipse.wb.core.gef.header.AbstractHeaderLayoutEditPolicy">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.header.AbstractHeaderLayoutEditPolicy"/>
+                <message_argument value="getMainLayer(String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
+    <resource path="src/org/eclipse/wb/core/gef/header/AbstractHeaderSelectionEditPolicy.java" type="org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy">
+        <filter id="338792546">
+            <message_arguments>
+                <message_argument value="org.eclipse.wb.core.gef.header.AbstractHeaderSelectionEditPolicy"/>
+                <message_argument value="getMainLayer(String)"/>
+            </message_arguments>
+        </filter>
+    </resource>
     <resource path="src/org/eclipse/wb/core/gef/policy/helpers/BroadcastListenerHelper.java" type="org.eclipse.wb.core.gef.policy.helpers.BroadcastListenerHelper">
         <filter comment="Method marked for removal" id="643846161">
             <message_arguments>
