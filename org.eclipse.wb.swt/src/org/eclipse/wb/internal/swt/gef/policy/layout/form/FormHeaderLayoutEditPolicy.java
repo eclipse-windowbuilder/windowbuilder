@@ -16,7 +16,6 @@ import org.eclipse.wb.core.gef.figure.TextFeedback;
 import org.eclipse.wb.core.gef.header.AbstractHeaderLayoutEditPolicy;
 import org.eclipse.wb.core.gef.policy.PolicyUtils;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.IEditPartViewer;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -29,6 +28,7 @@ import org.eclipse.wb.internal.swt.model.widgets.ICompositeInfo;
 import org.eclipse.wb.internal.swt.model.widgets.IControlInfo;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Translatable;
 import org.eclipse.draw2d.geometry.Transposer;

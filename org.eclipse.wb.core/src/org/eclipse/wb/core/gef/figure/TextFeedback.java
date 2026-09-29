@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -12,13 +12,13 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.figure;
 
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.internal.draw2d.VerticalLabel;
 
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.CompoundBorder;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -42,6 +42,19 @@ public final class TextFeedback {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * @deprecated Use {@link #TextFeedback(Layer, boolean)} instead. This
+	 *             constructor will be removed after the 2028-12 release.
+	 */
+	@Deprecated(forRemoval = true, since = "2026-12")
+	public TextFeedback(org.eclipse.wb.draw2d.Layer layer, boolean isHorizontal) {
+		this((Layer) layer, isHorizontal);
+	}
+
+	/**
+	 * @since 1.26
+	 */
 	public TextFeedback(Layer layer, boolean isHorizontal) {
 		m_layer = layer;
 		// create label
@@ -56,6 +69,18 @@ public final class TextFeedback {
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link #TextFeedback(Layer)} instead. This constructor will
+	 *             be removed after the 2028-12 release.
+	 */
+	@Deprecated(forRemoval = true, since = "2026-12")
+	public TextFeedback(org.eclipse.wb.draw2d.Layer layer) {
+		this((Layer) layer);
+	}
+
+	/**
+	 * @since 1.26
+	 */
 	public TextFeedback(Layer layer) {
 		this(layer, true);
 	}

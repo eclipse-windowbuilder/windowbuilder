@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.figure;
 
-import org.eclipse.wb.draw2d.Layer;
-
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -39,6 +38,13 @@ public abstract class AbstractPositionFeedback {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	public AbstractPositionFeedback(org.eclipse.wb.draw2d.Layer layer, Rectangle bounds, String hint) {
+		this((Layer) layer, bounds, hint);
+	}
+
+	/**
+	 * @since 1.26
+	 */
 	public AbstractPositionFeedback(Layer layer, Rectangle bounds, String hint) {
 		m_layer = layer;
 		m_hint = hint;

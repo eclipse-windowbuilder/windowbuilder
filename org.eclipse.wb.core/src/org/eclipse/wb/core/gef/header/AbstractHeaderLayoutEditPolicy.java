@@ -12,9 +12,9 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.header;
 
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 
+import org.eclipse.draw2d.Layer;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -56,6 +56,7 @@ public abstract class AbstractHeaderLayoutEditPolicy extends LayoutEditPolicy {
 	////////////////////////////////////////////////////////////////////////////
 	/**
 	 * @return the {@link Layer} from main {@link EditPartViewer} with given id.
+	 * @since 1.26
 	 */
 	protected final Layer getMainLayer(String layerId) {
 		return (Layer) LayerManager.Helper.find(getMainViewer()).getLayer(layerId);

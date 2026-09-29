@@ -14,7 +14,6 @@ package org.eclipse.wb.core.gef.policy;
 
 import org.eclipse.wb.core.model.IAbstractComponentInfo;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
 import org.eclipse.wb.internal.core.DesignerPlugin;
@@ -26,6 +25,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.CompoundBorder;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;

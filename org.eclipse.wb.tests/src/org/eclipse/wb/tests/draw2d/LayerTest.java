@@ -12,9 +12,8 @@
  *******************************************************************************/
 package org.eclipse.wb.tests.draw2d;
 
-import org.eclipse.wb.draw2d.Layer;
-
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.junit.jupiter.api.Test;

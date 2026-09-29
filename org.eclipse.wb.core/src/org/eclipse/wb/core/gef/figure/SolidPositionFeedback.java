@@ -12,11 +12,10 @@
  *******************************************************************************/
 package org.eclipse.wb.core.gef.figure;
 
-import org.eclipse.wb.draw2d.Layer;
-
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.graphics.Color;
@@ -37,6 +36,14 @@ public final class SolidPositionFeedback extends AbstractPositionFeedback {
 	// Constructor
 	//
 	////////////////////////////////////////////////////////////////////////////
+	@Deprecated(forRemoval = true, since = "2026-06")
+	public SolidPositionFeedback(org.eclipse.wb.draw2d.Layer layer, Rectangle bounds, String hint) {
+		this((Layer) layer, bounds, hint);
+	}
+
+	/**
+	 * @since 1.26
+	 */
 	@Deprecated(forRemoval = true, since = "2026-06")
 	public SolidPositionFeedback(Layer layer, Rectangle bounds, String hint) {
 		super(layer, bounds, hint);

@@ -14,7 +14,6 @@ package org.eclipse.wb.internal.swing.MigLayout.gef.header.selection;
 
 import org.eclipse.wb.core.gef.command.EditCommand;
 import org.eclipse.wb.draw2d.FigureUtils;
-import org.eclipse.wb.draw2d.Layer;
 import org.eclipse.wb.gef.core.requests.KeyRequest;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
 import org.eclipse.wb.gef.graphical.policies.SelectionEditPolicy;
@@ -25,6 +24,7 @@ import org.eclipse.wb.internal.swing.MigLayout.model.MigDimensionInfo;
 import org.eclipse.wb.internal.swing.MigLayout.model.MigLayoutInfo;
 import org.eclipse.wb.internal.swing.gef.policy.layout.header.selection.AbstractDimensionSelectionEditPolicy;
 
+import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPart;
