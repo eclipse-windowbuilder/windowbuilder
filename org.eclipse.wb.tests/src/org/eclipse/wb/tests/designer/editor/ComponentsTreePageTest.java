@@ -122,7 +122,6 @@ public class ComponentsTreePageTest extends SwingGefTest {
 	 */
 	@Test
 	public void test_TreeDropListener_dragAfterException() throws Exception {
-		removeExceptionsListener();
 		openContainer("""
 				// filler filler filler filler filler
 				// filler filler filler filler filler
