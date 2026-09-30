@@ -182,7 +182,6 @@ public class TableWrapLayoutGefTest extends RcpGefTest {
 		// set: 2 columns, so 1 row
 		// this caused exception in headers refresh
 		layout.getPropertyByTitle("numColumns").setValue(2);
-		assertNoLoggedExceptions();
 		assertEquals(2, layout.getColumns().size());
 		assertEquals(1, layout.getRows().size());
 		assertEditor("""

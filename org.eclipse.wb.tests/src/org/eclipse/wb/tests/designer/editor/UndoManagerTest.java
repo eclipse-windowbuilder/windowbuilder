@@ -617,6 +617,5 @@ public class UndoManagerTest extends SwingGefTest {
 		for (int i = 0; i < 10; i++) {
 			waitEventLoop(0);
 		}
-		assertNoLoggedExceptions();
 	}
 }

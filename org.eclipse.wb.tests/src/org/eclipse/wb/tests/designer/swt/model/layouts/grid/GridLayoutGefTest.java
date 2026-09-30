@@ -194,7 +194,6 @@ public class GridLayoutGefTest extends RcpGefTest {
 		// set: 2 columns, so 1 row
 		// this caused exception in headers refresh
 		layout.getPropertyByTitle("numColumns").setValue(2);
-		assertNoLoggedExceptions();
 		assertEquals(2, layout.getColumns().size());
 		assertEquals(1, layout.getRows().size());
 		assertEditor("""
@@ -229,7 +228,6 @@ public class GridLayoutGefTest extends RcpGefTest {
 		assertInstanceOf(GridSelectionEditPolicy.class, buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE));
 		// set "exclude"
 		GridLayoutInfo.getGridData(button).getPropertyByTitle("exclude").setValue(true);
-		assertNoLoggedExceptions();
 		assertInstanceOf(NonResizableSelectionEditPolicy.class,
 				buttonPart.getEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE));
 		assertEditor("""

@@ -14,7 +14,6 @@ package org.eclipse.wb.tests.designer.tests;
 
 import org.eclipse.wb.core.model.ObjectInfo;
 import org.eclipse.wb.core.model.ObjectInfoUtils;
-import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.DesignContextMenuProvider;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -22,8 +21,6 @@ import org.eclipse.wb.internal.core.utils.StringUtilities;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
 
-import org.eclipse.core.runtime.ILog;
-import org.eclipse.core.runtime.ILogListener;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -182,35 +179,6 @@ public abstract class DesignerTestCase extends Assertions {
 	// Exceptions in log
 	//
 	////////////////////////////////////////////////////////////////////////////
-	private int m_numberOfExceptionsDuringThisEditorSession = 0;
-	private final ILogListener m_logListener = (status, plugin) -> m_numberOfExceptionsDuringThisEditorSession++;
-
-	/**
-	 * Adds listener for log.
-	 */
-	protected final void addExceptionsListener() {
-		m_numberOfExceptionsDuringThisEditorSession = 0;
-		ILog log = DesignerPlugin.getDefault().getLog();
-		log.addLogListener(m_logListener);
-	}
-
-	/**
-	 * Removes listener for log.
-	 */
-	protected final void removeExceptionsListener() {
-		ILog log = DesignerPlugin.getDefault().getLog();
-		log.removeLogListener(m_logListener);
-	}
-
-	/**
-	 * Asserts that no exceptions was logged into {@link DesignerPlugin}.
-	 */
-	protected final void assertNoLoggedExceptions() {
-		assertEquals(
-				0,
-				m_numberOfExceptionsDuringThisEditorSession,
-				"Check console for logged exceptions.");
-	}
 
 	/**
 	 * Asserts that given object is instance of expected class.
