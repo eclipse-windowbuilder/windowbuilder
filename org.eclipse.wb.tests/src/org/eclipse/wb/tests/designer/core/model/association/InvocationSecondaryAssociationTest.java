@@ -20,6 +20,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
@@ -30,6 +32,7 @@ import java.awt.Container;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class InvocationSecondaryAssociationTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
