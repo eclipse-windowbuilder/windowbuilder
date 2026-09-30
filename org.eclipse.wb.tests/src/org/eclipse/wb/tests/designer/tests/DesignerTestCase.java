@@ -19,14 +19,11 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.editor.DesignContextMenuProvider;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
 import org.eclipse.wb.internal.core.utils.StringUtilities;
-import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.core.utils.reflect.ReflectionUtils;
 import org.eclipse.wb.tests.designer.TestUtils;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.ILogListener;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jdt.internal.corext.util.OpenTypeHistory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IAction;
@@ -42,10 +39,10 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swtbot.swt.finder.SWTBot;
-import org.eclipse.swtbot.swt.finder.waits.DefaultCondition;
+import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
-import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
+import org.eclipse.ui.dialogs.FilteredItemsSelectionDialog;
 import org.eclipse.ui.internal.UIPlugin;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.internal.ide.IDEInternalPreferences;
@@ -462,21 +459,7 @@ public abstract class DesignerTestCase extends Assertions {
 	/**
 	 * Animates "Open type" dialog, set filter and waits for first result in types list.
 	 */
-	@SuppressWarnings("restriction")
 	public static void animateOpenTypeSelection(SWTBot bot, String typeName, String buttonName) {
-		// Force refresh of the "Open Type" cache to make sure the requested type exists.
-		OpenTypeHistory.getInstance().markAsInconsistent();
-		ExecutionUtils.runRethrow(() -> {
-			Class<?> updateJobClass = ReflectionUtils.getClassByName(DesignerTestCase.class.getClassLoader(), "org.eclipse.jdt.internal.corext.util.OpenTypeHistory$UpdateJob");
-			Field updateJobFamilyField = ReflectionUtils.getFieldByName(updateJobClass, "FAMILY");
-			updateJobFamilyField.trySetAccessible();
-			Object updateJobFamily = updateJobFamilyField.get(null);
-			for (Job job : Job.getJobManager().find(updateJobFamily)) {
-				job.join();
-			}
-		});
-
-
 		SWTBotShell shellBot = bot.shell("Open type");
 		SWTBot shell = shellBot.bot();
 		// set filter
@@ -484,21 +467,12 @@ public abstract class DesignerTestCase extends Assertions {
 			SWTBotText filterText = shell.text();
 			filterText.setText(typeName);
 		}
-		// wait for types
-		{
-			final SWTBotTable typesTable = shell.table();
-			bot.waitUntil(new DefaultCondition() {
-				@Override
-				public boolean test() throws Exception {
-					return typesTable.rowCount() != 0;
-				}
-
-				@Override
-				public String getFailureMessage() {
-					return "\"Open type\" dialog took too long to find types.";
-				}
-			});
-		}
+		// update table
+		UIThreadRunnable.syncExec(() -> {
+			FilteredItemsSelectionDialog dialog = (FilteredItemsSelectionDialog) shellBot.widget.getData();
+			dialog.reloadCache(false, null);
+			dialog.refresh();
+		});
 		shell.button(buttonName).click();
 	}
 
