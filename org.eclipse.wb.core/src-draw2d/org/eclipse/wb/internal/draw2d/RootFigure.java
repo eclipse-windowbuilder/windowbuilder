@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.draw2d;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Layer;
+import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -39,6 +40,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	////////////////////////////////////////////////////////////////////////////
 	public RootFigure() {
 		setOpaque(true);
+		setLayoutManager(new StackLayout());
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -99,10 +101,7 @@ public class RootFigure extends Figure implements IRootFigure {
 	 */
 	@Override
 	public void setBounds(Rectangle bounds) {
-		Rectangle value = getBounds().setBounds(bounds).setSize(Dimension.max(bounds.getSize(), getPreferredSize()));
-		for (Layer layer : getLayers()) {
-			layer.setBounds(value);
-		}
+		getBounds().setBounds(bounds).setSize(Dimension.max(bounds.getSize(), getPreferredSize()));
 	}
 
 	/**

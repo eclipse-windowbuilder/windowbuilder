@@ -86,10 +86,11 @@ public class RootFigureTest extends Draw2dFigureTestCase {
 		testRoot.setBounds(new Rectangle(0, 0, 180, 150));
 		actualLogger.assertEmpty();
 		assertEquals(new Rectangle(0, 0, 180, 210), testRoot.getBounds());
-		assertEquals(new Rectangle(0, 0, 180, 210), layer0.getBounds());
 		assertEquals(new Rectangle(10, 10, 100, 200), figure0.getBounds());
-		assertEquals(new Rectangle(0, 0, 180, 210), layer1.getBounds());
 		assertEquals(new Rectangle(50, 70, 120, 90), figure1.getBounds());
+		testRoot.validate();
+		assertEquals(new Rectangle(0, 0, 180, 210), layer0.getBounds());
+		assertEquals(new Rectangle(0, 0, 180, 210), layer1.getBounds());
 		//
 		// check independent betweeb preffered size and bounds
 		assertSame(preferredSize, testRoot.getPreferredSize());
