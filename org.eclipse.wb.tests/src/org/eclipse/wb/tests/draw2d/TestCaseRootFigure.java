@@ -27,8 +27,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
  *
  */
 public class TestCaseRootFigure extends RootFigure {
-	private final UpdateManager m_testManager;
-	private final EventDispatcher m_eventDispatcher;
+	private UpdateManager m_testManager;
+	private EventDispatcher m_eventDispatcher;
 	private final TestLogger m_logger;
 
 	////////////////////////////////////////////////////////////////////////////
@@ -38,47 +38,6 @@ public class TestCaseRootFigure extends RootFigure {
 	////////////////////////////////////////////////////////////////////////////
 	public TestCaseRootFigure(TestLogger logger) {
 		m_logger = logger;
-		m_testManager = new UpdateManager() {
-			@Override
-			public void addDirtyRegion(IFigure figure, int x, int y, int w, int h) {
-				if (m_logger != null) {
-					m_logger.log("repaint(" + x + ", " + y + ", " + w + ", " + h + ")");
-				}
-			}
-
-			@Override
-			public void addInvalidFigure(IFigure figure) {
-				// Not relevant for testing...
-			}
-
-			@Override
-			public void performUpdate() {
-				// Not relevant for testing...
-			}
-
-			@Override
-			public void performUpdate(Rectangle exposed) {
-				// Not relevant for testing...
-			}
-
-			@Override
-			public void setGraphicsSource(GraphicsSource gs) {
-				// Not relevant for testing...
-			}
-
-			@Override
-			public void setRoot(IFigure figure) {
-				// Not relevant for testing...
-			}
-		};
-		m_eventDispatcher = new SWTEventDispatcher() {
-			@Override
-			public void updateCursor() {
-				if (m_logger != null) {
-					m_logger.log("updateCursor");
-				}
-			}
-		};
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -102,11 +61,56 @@ public class TestCaseRootFigure extends RootFigure {
 
 	@Override
 	public UpdateManager getUpdateManager() {
+		if (m_testManager == null) {
+			m_testManager = new UpdateManager() {
+				@Override
+				public void addDirtyRegion(IFigure figure, int x, int y, int w, int h) {
+					if (m_logger != null) {
+						m_logger.log("repaint(" + x + ", " + y + ", " + w + ", " + h + ")");
+					}
+				}
+
+				@Override
+				public void addInvalidFigure(IFigure figure) {
+					// Not relevant for testing...
+				}
+
+				@Override
+				public void performUpdate() {
+					// Not relevant for testing...
+				}
+
+				@Override
+				public void performUpdate(Rectangle exposed) {
+					// Not relevant for testing...
+				}
+
+				@Override
+				public void setGraphicsSource(GraphicsSource gs) {
+					// Not relevant for testing...
+				}
+
+				@Override
+				public void setRoot(IFigure figure) {
+					// Not relevant for testing...
+				}
+			};
+		}
 		return m_testManager;
 	}
 
 	@Override
 	public EventDispatcher internalGetEventDispatcher() {
+		if (m_eventDispatcher == null) {
+			m_eventDispatcher = new SWTEventDispatcher() {
+				@Override
+				public void updateCursor() {
+					if (m_logger != null) {
+						m_logger.log("updateCursor");
+					}
+				}
+			};
+		}
 		return m_eventDispatcher;
 	}
 }
