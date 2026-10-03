@@ -37,6 +37,14 @@ import java.util.stream.Collectors;
  * @coverage core.editor
  */
 public final class JavaSourceUiDescriber extends TextContentDescriber {
+	private static final String POINT_ID = DesignerPlugin.PLUGIN_ID + ".designerContentPatterns";
+
+	private record Patterns(Pattern include, Pattern exclude, List<IConfigurationElement> includeElements,
+			int includeCount, List<IConfigurationElement> excludeElements, int excludeCount) {
+	}
+
+	private static volatile Patterns cachedPatterns;
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// ITextContentDescriber
@@ -73,8 +81,9 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
 			return INVALID;
 		}
 
-		Pattern includePatterns = getIncludePatterns();
-		Pattern excludePatterns = getExcludePatterns();
+		Patterns patterns = getPatterns();
+		Pattern includePatterns = patterns.include();
+		Pattern excludePatterns = patterns.exclude();
 
 		int description = INDETERMINATE;
 
@@ -112,26 +121,26 @@ public final class JavaSourceUiDescriber extends TextContentDescriber {
 	//
 	////////////////////////////////////////////////////////////////////////////
 	/**
-	 * @return the contributed "include" patterns. If has one of it - consider source as GUI.
+	 * @return the contributed "include" and "exclude" patterns, compiled once
+	 *         until the contributions change.
 	 */
-	private static Pattern getIncludePatterns() {
-		return getPatterns("includePattern");
+	private static Patterns getPatterns() {
+		// ExternalFactoriesHelper returns a new list once the contributions change
+		List<IConfigurationElement> includeElements = ExternalFactoriesHelper.getElements(POINT_ID, "includePattern");
+		List<IConfigurationElement> excludeElements = ExternalFactoriesHelper.getElements(POINT_ID, "excludePattern");
+		Patterns result = cachedPatterns;
+		if (result == null || result.includeElements() != includeElements
+				|| result.includeCount() != includeElements.size() || result.excludeElements() != excludeElements
+				|| result.excludeCount() != excludeElements.size()) {
+			result = new Patterns(compile(includeElements), compile(excludeElements), includeElements,
+					includeElements.size(), excludeElements, excludeElements.size());
+			cachedPatterns = result;
+		}
+		return result;
 	}
 
-	/**
-	 * @return the contributed "exclude" patterns. If has one of it - consider source as <em>not</em>
-	 *         GUI.
-	 */
-	private static Pattern getExcludePatterns() {
-		return getPatterns("excludePattern");
-	}
-
-	private static Pattern getPatterns(String elementName) {
+	private static Pattern compile(List<IConfigurationElement> elements) {
 		List<String> patterns = new ArrayList<>();
-		List<IConfigurationElement> elements =
-				ExternalFactoriesHelper.getElements(
-						"org.eclipse.wb.core.designerContentPatterns",
-						elementName);
 		for (IConfigurationElement element : elements) {
 			String pattern = element.getValue();
 			patterns.add(pattern);
