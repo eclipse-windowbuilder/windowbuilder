@@ -424,7 +424,8 @@ public class ActionGefTest extends SwingGefTest {
 	 * Creates class with <code>ExternalAction</code>.
 	 */
 	private void createExternalAction() throws Exception {
-		createASTCompilationUnit("test", "ExternalAction.java", getTestSource("""
+		// Will discard stale entry from JDT buffer if exists
+		createModelCompilationUnit("test", "ExternalAction.java", getTestSource("""
 				public class ExternalAction extends AbstractAction {
 					public ExternalAction() {
 						putValue(NAME, "My name");
