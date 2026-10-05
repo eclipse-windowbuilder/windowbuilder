@@ -679,7 +679,7 @@ public final class PaletteComposite extends Composite {
 				// layout children
 				{
 					int column = 0;
-					int entryY = height;
+					int entryY = y + height;
 					for (IFigure child : getChildren()) {
 						EntryFigure entryFigure = (EntryFigure) child;
 						// relocate entry
@@ -714,7 +714,7 @@ public final class PaletteComposite extends Composite {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		protected void paintClientArea(Graphics graphics) {
+		protected void paintFigure(Graphics graphics) {
 			// draw title
 			{
 				Rectangle r = getClientArea();
@@ -1076,7 +1076,7 @@ public final class PaletteComposite extends Composite {
 		//
 		////////////////////////////////////////////////////////////////////////////
 		@Override
-		protected void paintClientArea(Graphics graphics) {
+		protected void paintFigure(Graphics graphics) {
 			Rectangle r = getClientArea().getCopy().shrink(1, 1);
 			// draw background
 			graphics.pushState();

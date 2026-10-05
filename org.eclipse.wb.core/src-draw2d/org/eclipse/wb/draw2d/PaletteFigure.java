@@ -14,6 +14,8 @@ package org.eclipse.wb.draw2d;
 
 import org.eclipse.wb.internal.draw2d.ICustomTooltipProvider;
 
+import org.eclipse.draw2d.Figure;
+
 /**
  * Subclass of the Draw2D figure used for palette entries and categories.
  */
