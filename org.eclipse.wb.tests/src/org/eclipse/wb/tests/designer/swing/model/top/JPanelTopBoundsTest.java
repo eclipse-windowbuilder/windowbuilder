@@ -142,6 +142,7 @@ public class JPanelTopBoundsTest extends SwingGefTest {
 		canvas.dragTo(panel, newSize.width, 0).endDrag();
 		canvas.beginResize(panel, PositionConstants.SOUTH);
 		canvas.dragTo(panel, 0, newSize.height).endDrag();
+		waitEventLoop(50);
 		// check new size
 		assertEquals(newSize, canvas.getSize(panel));
 		assertEditor("""

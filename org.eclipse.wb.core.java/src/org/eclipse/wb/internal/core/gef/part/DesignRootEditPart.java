@@ -21,13 +21,12 @@ import org.eclipse.wb.internal.core.gef.policy.nonvisual.NonVisualLayoutEditPoli
 import org.eclipse.wb.internal.core.model.DesignRootObject;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
-import org.eclipse.wb.internal.draw2d.IPreferredSizeProvider;
 
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MarginBorder;
-import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -153,6 +152,7 @@ public final class DesignRootEditPart extends DesignEditPart {
 	@Override
 	protected IFigure createFigure() {
 		IFigure figure = new TopFigure();
+		figure.setLayoutManager(new XYLayout());
 		figure.setBorder(DESIGN_MARGIN);
 		return figure;
 	}
@@ -160,7 +160,7 @@ public final class DesignRootEditPart extends DesignEditPart {
 	/**
 	 * Special {@link IFigure} that cover full area of parent.
 	 */
-	private static final class TopFigure extends Figure implements IPreferredSizeProvider {
+	private static final class TopFigure extends Figure {
 		////////////////////////////////////////////////////////////////////////////
 		//
 		// Figure
@@ -181,23 +181,6 @@ public final class DesignRootEditPart extends DesignEditPart {
 			// border. This avoids having to translate each component when calculating their
 			// location as they are all relative to the root component.
 			return true;
-		}
-
-		////////////////////////////////////////////////////////////////////////////
-		//
-		// IPreferredSizeProvider
-		//
-		////////////////////////////////////////////////////////////////////////////
-		@Override
-		public Dimension getPreferredSize(Dimension originalPreferredSize) {
-			Rectangle preferred = new Rectangle();
-			for (IFigure figure : getChildren()) {
-				if (figure.isVisible()) {
-					preferred.union(figure.getBounds());
-				}
-			}
-			preferred.expand(getInsets());
-			return preferred.getSize();
 		}
 	}
 }

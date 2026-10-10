@@ -133,6 +133,7 @@ public class CompositeTopBoundsTest extends RcpGefTest {
 		canvas.dragTo(composite, resizeSize.width, 0).endDrag();
 		canvas.beginResize(composite, PositionConstants.SOUTH);
 		canvas.dragTo(composite, 0, resizeSize.height).endDrag();
+		waitEventLoop(50);
 		// check new size
 		assertEquals(newSize, canvas.getSize(composite));
 		assertEditor("""

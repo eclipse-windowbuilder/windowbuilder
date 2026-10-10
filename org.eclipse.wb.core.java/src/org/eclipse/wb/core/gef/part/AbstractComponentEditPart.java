@@ -32,6 +32,7 @@ import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -125,7 +126,14 @@ public abstract class AbstractComponentEditPart extends DesignEditPart implement
 			bounds = new Rectangle(0, 0, 0, 0);
 		}
 		// set bounds
-		getFigure().setBounds(bounds);
+		GraphicalEditPart parent = (GraphicalEditPart) getParent();
+		LayoutManager layoutManager = parent == null ? null : parent.getFigure().getLayoutManager();
+		if (layoutManager == null) {
+			// TODO ptziegler - for backwards compatibility; All designer figures should use the XYLayout
+			getFigure().setBounds(bounds);
+		} else {
+			parent.setLayoutConstraint(this, getFigure(), bounds);
+		}
 	}
 
 	/**
