@@ -84,6 +84,10 @@ public final class AbstractContainerRequestValidator implements ILayoutRequestVa
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private boolean validateComponents(ChangeBoundsRequest request) {
+		// Might not be set when called from within "createOperationSet()"
+		if (request.getEditParts() == null) {
+			return true;
+		}
 		for (EditPart editPart : request.getEditParts()) {
 			Object object = editPart.getModel();
 			if (!m_container.validateComponent(object)) {

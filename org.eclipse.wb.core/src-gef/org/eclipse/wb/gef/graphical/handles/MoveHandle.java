@@ -12,10 +12,7 @@
  *******************************************************************************/
 package org.eclipse.wb.gef.graphical.handles;
 
-import org.eclipse.wb.gef.core.tools.DragEditPartTracker;
-
 import org.eclipse.draw2d.Locator;
-import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.handles.MoveHandleLocator;
@@ -46,12 +43,5 @@ public class MoveHandle extends org.eclipse.gef.handles.MoveHandle {
 	 */
 	public MoveHandle(GraphicalEditPart owner, Locator locator) {
 		super(owner, locator);
-	}
-
-	@Override
-	protected DragTracker createDragTracker() {
-		DragEditPartTracker tracker = new DragEditPartTracker(getOwner());
-		tracker.setDefaultCursor(getCursor());
-		return tracker;
 	}
 }
