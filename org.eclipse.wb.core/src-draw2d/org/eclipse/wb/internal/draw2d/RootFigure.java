@@ -17,6 +17,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Layer;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import java.util.ArrayList;
@@ -31,7 +32,6 @@ import java.util.Map;
 public class RootFigure extends Figure implements IRootFigure {
 	private Dimension m_preferredSize;
 	private Map<Object, Layer> m_nameToLayer = new HashMap<>();
-	private IPreferredSizeProvider m_preferredSizeProvider;
 
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -41,19 +41,6 @@ public class RootFigure extends Figure implements IRootFigure {
 	public RootFigure() {
 		setOpaque(true);
 		setLayoutManager(new StackLayout());
-	}
-
-	////////////////////////////////////////////////////////////////////////////
-	//
-	// Access
-	//
-	////////////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Sets figure preferred size provider.
-	 */
-	public void setPreferredSizeProvider(IPreferredSizeProvider provider) {
-		m_preferredSizeProvider = provider;
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -76,21 +63,14 @@ public class RootFigure extends Figure implements IRootFigure {
 				// figure's loop
 				for (IFigure figure : layer.getChildren()) {
 					if (figure.isVisible()) {
-						if (figure instanceof IPreferredSizeProvider provider) {
-							Dimension figurePreferredSize = provider.getPreferredSize(null);
-							preferred.union(0, 0, figurePreferredSize.width, figurePreferredSize.height);
-						} else {
-							preferred.union(figure.getBounds());
-						}
+						Point figureLocation = figure.getLocation();
+						Dimension figurePreferredSize = figure.getPreferredSize(wHint, hHint);
+						preferred.union(figureLocation.x, figureLocation.y, figurePreferredSize.width, figurePreferredSize.height);
 					}
 				}
 			}
 			// set preferred size
-			if (m_preferredSizeProvider == null) {
-				m_preferredSize = preferred.getSize();
-			} else {
-				m_preferredSize = m_preferredSizeProvider.getPreferredSize(preferred.getSize());
-			}
+			m_preferredSize = preferred.getSize();
 		}
 		return m_preferredSize;
 	}
