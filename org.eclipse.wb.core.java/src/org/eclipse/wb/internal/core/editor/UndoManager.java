@@ -84,10 +84,25 @@ public final class UndoManager {
 	public void activate() {
 		if (!m_active) {
 			m_active = true;
-			if (!Objects.equals(m_currentSource, m_buffer.getContents())) {
-				refreshDesignerEditor();
-			}
+			refreshIfSourceChanged();
 			addBufferListener();
+		}
+	}
+
+	/**
+	 * Reparses if the buffer no longer matches the parsed source, waiting for a running parse first.
+	 */
+	private void refreshIfSourceChanged() {
+		if (!m_active) {
+			return;
+		}
+		// the progress dialog of a running parse spins the event loop, so wait for it to finish
+		if (m_designPage.getDesignerState() == DesignerState.Parsing) {
+			Display.getDefault().timerExec(1, this::refreshIfSourceChanged);
+			return;
+		}
+		if (!Objects.equals(m_currentSource, m_buffer.getContents())) {
+			refreshDesignerEditor();
 		}
 	}
 
