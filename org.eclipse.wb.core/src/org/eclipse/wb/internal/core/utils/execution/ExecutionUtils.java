@@ -184,15 +184,22 @@ public class ExecutionUtils {
 	}
 
 	/**
-	 * Runs given {@link RunnableEx} inside of UI thread, using {@link Display#syncExec(Runnable)}.
+	 * Runs given {@link RunnableEx} inside of UI thread, using {@link Display#syncExec(Runnable)},
+	 * and re-throws its exceptions in the calling thread.
 	 */
 	public static void runRethrowUI(final RunnableEx runnable) {
-		Display.getDefault().syncExec(new Runnable() {
-			@Override
-			public void run() {
-				ExecutionUtils.runRethrow(runnable);
+		// the workbench's display exception handler swallows what a syncExec runnable throws
+		Throwable[] failure = new Throwable[1];
+		Display.getDefault().syncExec(() -> {
+			try {
+				runnable.run();
+			} catch (Throwable e) {
+				failure[0] = e;
 			}
 		});
+		if (failure[0] != null) {
+			throw ReflectionUtils.propagate(failure[0]);
+		}
 	}
 
 	/**

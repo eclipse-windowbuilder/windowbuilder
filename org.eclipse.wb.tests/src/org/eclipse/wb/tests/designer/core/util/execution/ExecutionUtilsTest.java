@@ -31,6 +31,8 @@ import org.junit.jupiter.api.Test;
 import java.beans.Beans;
 import java.util.concurrent.Callable;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Consumer;
 
 /**
  * Tests for {@link ExecutionUtils} and {@link RunnableEx}.
@@ -455,6 +457,38 @@ public class ExecutionUtilsTest extends SwingModelTest {
 		thread.start();
 		while (thread.isAlive()) {
 			waitEventLoop(0);
+		}
+	}
+
+	/**
+	 * Test for {@link ExecutionUtils#runRethrowUI(RunnableEx)} when the display's exception handler
+	 * swallows exceptions, as the workbench's does.
+	 */
+	@Test
+	public void test_runRethrowUI_exception() throws Exception {
+		Display display = Display.getCurrent();
+		Consumer<RuntimeException> oldHandler = display.getRuntimeExceptionHandler();
+		display.setRuntimeExceptionHandler(e -> {
+		});
+		try {
+			IllegalStateException exception = new IllegalStateException();
+			AtomicReference<Throwable> caught = new AtomicReference<>();
+			Thread thread = new Thread(() -> {
+				try {
+					ExecutionUtils.runRethrowUI(() -> {
+						throw exception;
+					});
+				} catch (Throwable e) {
+					caught.set(e);
+				}
+			});
+			thread.start();
+			while (thread.isAlive()) {
+				waitEventLoop(0);
+			}
+			assertSame(exception, caught.get());
+		} finally {
+			display.setRuntimeExceptionHandler(oldHandler);
 		}
 	}
 
