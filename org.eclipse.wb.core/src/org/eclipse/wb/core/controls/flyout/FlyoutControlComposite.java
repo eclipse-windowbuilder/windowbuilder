@@ -800,7 +800,7 @@ public final class FlyoutControlComposite extends Composite {
 				}
 				// draw text
 				{
-					gc.setForeground(ColorConstants.black);
+					gc.setForeground(getForeground());
 					gc.setFont(TITLE_FONT);
 					gc.drawText(m_text, x, 0);
 					x += textSize.x;
