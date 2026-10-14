@@ -42,6 +42,7 @@ import org.eclipse.wb.tests.designer.core.model.parser.AbstractJavaInfoTest;
 import org.eclipse.wb.tests.gef.GraphicalRobot;
 import org.eclipse.wb.tests.gef.TreeRobot;
 import org.eclipse.wb.tests.gef.UiContext;
+import org.eclipse.wb.tests.utils.PlatformLogExtension;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Dimension;
@@ -64,6 +65,7 @@ import org.eclipse.ui.ide.IDE;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.util.List;
 
@@ -72,6 +74,7 @@ import java.util.List;
  *
  * @author scheglov_ke
  */
+@ExtendWith(PlatformLogExtension.class)
 public abstract class DesignerEditorTestCase extends AbstractJavaInfoTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
@@ -84,7 +87,6 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoTest {
 		super.setUp();
 		waitEventLoop(1);
 		System.setProperty(DesignerPalette.FLAG_NO_PALETTE, "true");
-		addExceptionsListener();
 	}
 
 	@Override
@@ -95,11 +97,6 @@ public abstract class DesignerEditorTestCase extends AbstractJavaInfoTest {
 			waitEventLoop(0);
 			TestUtils.closeAllEditors();
 			waitEventLoop(0);
-			// check for exceptions
-			{
-				removeExceptionsListener();
-				assertNoLoggedExceptions();
-			}
 		} finally {
 			// continue
 			waitEventLoop(0);
