@@ -166,14 +166,6 @@ public final class DesignRootEditPart extends DesignEditPart {
 		// Figure
 		//
 		////////////////////////////////////////////////////////////////////////////
-		@Override
-		public Rectangle getBounds() {
-			IFigure parentFigure = getParent();
-			if (parentFigure != null) {
-				return parentFigure.getBounds().getCopy();
-			}
-			return super.getBounds();
-		}
 
 		@Override
 		public boolean useLocalCoordinates() {
