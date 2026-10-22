@@ -359,6 +359,42 @@ public class ContainerTest extends SwingModelTest {
 	 */
 	@Test
 	public void test_setDefaultLayout() throws Exception {
+		test_setDefaultLayout("javax.swing.JPanel", """
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							JPanel panel = new JPanel();
+							add(panel);
+							panel.setLayout(new BorderLayout(0, 0));
+						}
+					}
+				}""");
+	}
+
+	/**
+	 * Avoid duplicate layouts if one is already set during creation.
+	 *
+	 * @see <a href="https://github.com/eclipse-windowbuilder/windowbuilder/issues/1671">here</a>
+	 */
+	@Test
+	public void test_setDefaultLayout_skip() throws Exception {
+		prepareMyPanel_withFixedLayout();
+		test_setDefaultLayout("test.MyPanel", """
+				// filler filler filler
+				public class Test extends JPanel {
+					public Test() {
+						{
+							MyPanel myPanel = new MyPanel();
+							add(myPanel);
+							myPanel.setLayout(new GridBagLayout());
+						}
+					}
+				}""");
+
+	}
+
+	private void test_setDefaultLayout(String name, String source) throws Exception {
 		ContainerInfo panel = parseContainer("""
 				// filler filler filler
 				public class Test extends JPanel {
@@ -379,7 +415,7 @@ public class ContainerTest extends SwingModelTest {
 		// add new JPanel
 		ContainerInfo newPanel;
 		try {
-			newPanel = createJavaInfo("javax.swing.JPanel");
+			newPanel = createJavaInfo(name);
 			// do add
 			try {
 				panel.startEdit();
@@ -393,17 +429,7 @@ public class ContainerTest extends SwingModelTest {
 			preferencesRepairer.restore();
 		}
 		// check result
-		assertEditor("""
-				// filler filler filler
-				public class Test extends JPanel {
-					public Test() {
-						{
-							JPanel panel = new JPanel();
-							add(panel);
-							panel.setLayout(new BorderLayout(0, 0));
-						}
-					}
-				}""");
+		assertEditor(source);
 		assertNotSame(flowLayout, newPanel.getLayout());
 	}
 
@@ -694,6 +720,31 @@ public class ContainerTest extends SwingModelTest {
 					<methods>
 						<methods-exclude signature="setLayout(java.awt.LayoutManager)"/>
 					</methods>
+				</component>""");
+		waitForAutoBuild();
+	}
+
+	/**
+	 * Prepares <code>test.MyPanel</code> class which does not accept new
+	 * {@link LayoutManager}.
+	 */
+	public static void prepareMyPanel_withFixedLayout() throws Exception {
+		setFileContentSrc("test/MyPanel.java", getSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				package test;
+				import javax.swing.JPanel;
+				public class MyPanel extends JPanel {
+					public MyPanel() {
+					}
+				}"""));
+		setFileContentSrc("test/MyPanel.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<creation>
+						<source><![CDATA[new test.MyPanel()]]></source>
+						<invocation signature="setLayout(java.awt.LayoutManager)"><![CDATA[new java.awt.GridBagLayout()]]></invocation>
+					</creation>
 				</component>""");
 		waitForAutoBuild();
 	}

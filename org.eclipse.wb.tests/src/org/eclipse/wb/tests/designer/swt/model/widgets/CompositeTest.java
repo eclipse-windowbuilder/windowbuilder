@@ -729,6 +729,40 @@ public class CompositeTest extends RcpModelTest {
 	 */
 	@Test
 	public void test_setDefaultLayout() throws Exception {
+		test_setDefaultLayout("org.eclipse.swt.widgets.Composite", """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							Composite composite = new Composite(this, SWT.NONE);
+							composite.setLayout(new GridLayout(1, false));
+						}
+					}
+				}""");
+	}
+
+	/**
+	 * Avoid duplicate layouts if one is already set during creation.
+	 *
+	 * @see <a href="https://github.com/eclipse-windowbuilder/windowbuilder/issues/1671">here</a>
+	 */
+	@Test
+	public void test_setDefaultLayout_skip() throws Exception {
+		prepareMyComposite_withFixedLayout();
+		test_setDefaultLayout("test.MyComposite", """
+				public class Test extends Shell {
+					public Test() {
+						setLayout(new FillLayout());
+						{
+							MyComposite myComposite = new MyComposite(this, SWT.NONE);
+							myComposite.setLayout(new BorderLayout());
+						}
+					}
+				}""");
+
+	}
+
+	private void test_setDefaultLayout(String name, String source) throws Exception {
 		CompositeInfo shell = parseComposite("""
 				public class Test extends Shell {
 					public Test() {
@@ -749,7 +783,7 @@ public class CompositeTest extends RcpModelTest {
 		// add new Composite
 		CompositeInfo composite;
 		try {
-			composite = (CompositeInfo) BTestUtils.createControl("org.eclipse.swt.widgets.Composite");
+			composite = (CompositeInfo) BTestUtils.createControl(name);
 			composite.putArbitraryValue(JavaInfo.FLAG_MANUAL_COMPONENT, Boolean.TRUE);
 			fillLayout.command_CREATE(composite, null);
 			// execute pending async's
@@ -758,16 +792,7 @@ public class CompositeTest extends RcpModelTest {
 			preferencesRepairer.restore();
 		}
 		// check result
-		assertEditor("""
-				public class Test extends Shell {
-					public Test() {
-						setLayout(new FillLayout());
-						{
-							Composite composite = new Composite(this, SWT.NONE);
-							composite.setLayout(new GridLayout(1, false));
-						}
-					}
-				}""");
+		assertEditor(source);
 		assertNotSame(fillLayout, composite.getLayout());
 	}
 
@@ -1258,5 +1283,31 @@ public class CompositeTest extends RcpModelTest {
 		// and previous Shell should be disposed
 		assertTrue(m_shouldNotBeSharedShell.isDisposed());
 		m_shouldNotBeSharedShell = null;
+	}
+
+	/**
+	 * Prepares <code>test.MyComposite</code> class which does not accept new
+	 * {@link Layout}.
+	 */
+	public static void prepareMyComposite_withFixedLayout() throws Exception {
+		setFileContentSrc("test/MyComposite.java", getSource("""
+				// filler filler filler filler filler
+				// filler filler filler filler filler
+				package test;
+				import org.eclipse.swt.widgets.Composite;
+				public class MyComposite extends Composite {
+					public MyComposite(Composite parent, int style) {
+						super(parent, style);
+					}
+				}"""));
+		setFileContentSrc("test/MyComposite.wbp-component.xml", """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<component xmlns="http://www.eclipse.org/wb/WBPComponent">
+					<creation>
+						<source><![CDATA[new test.MyComposite(%parent%, org.eclipse.swt.SWT.NONE)]]></source>
+						<invocation signature="setLayout(org.eclipse.swt.widgets.Layout)"><![CDATA[new org.eclipse.swt.layout.BorderLayout()]]></invocation>
+					</creation>
+				</component>""");
+		waitForAutoBuild();
 	}
 }

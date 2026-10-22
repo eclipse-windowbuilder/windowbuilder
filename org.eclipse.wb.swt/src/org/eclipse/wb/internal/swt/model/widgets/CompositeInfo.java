@@ -536,6 +536,12 @@ IThisMethodParameterEvaluator {
 			// this is first, and last time when we should do processing
 			putArbitraryValue(KEY_LAYOUT_ALREADY_PROCESSED, Boolean.TRUE);
 		}
+		// check if a layout is already set in the AST (which might not be known
+		// to the model). This can happen when the layout is set during e.g.
+		// creation in the *.wbp-components.xml file.
+		if (getMethodInvocation("setLayout(org.eclipse.swt.widgets.Layout)") != null) {
+			return;
+		}
 		// check for inheritance from parent
 		if (preferences.getBoolean(IPreferenceConstants.P_LAYOUT_OF_PARENT)
 				&& getParent() instanceof CompositeInfo) {
