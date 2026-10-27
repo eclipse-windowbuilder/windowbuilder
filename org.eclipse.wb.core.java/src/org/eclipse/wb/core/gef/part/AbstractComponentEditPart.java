@@ -17,7 +17,6 @@ import org.eclipse.wb.core.gef.policy.selection.NonResizableSelectionEditPolicy;
 import org.eclipse.wb.core.gef.policy.selection.TopSelectionEditPolicy;
 import org.eclipse.wb.core.model.AbstractComponentInfo;
 import org.eclipse.wb.core.model.broadcast.DisplayEventListener;
-import org.eclipse.wb.draw2d.Figure;
 import org.eclipse.wb.gef.core.requests.DragPermissionRequest;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
 import org.eclipse.wb.gef.graphical.policies.LayoutEditPolicy;
@@ -30,6 +29,7 @@ import org.eclipse.wb.internal.core.utils.execution.ExecutionUtils;
 import org.eclipse.wb.internal.draw2d.EventManager;
 import org.eclipse.wb.internal.gef.core.IObjectInfoEditPart;
 
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LayoutManager;
@@ -101,9 +101,14 @@ public abstract class AbstractComponentEditPart extends DesignEditPart implement
 			protected void paintClientArea(Graphics graphics) {
 				if (m_component.isRoot()) {
 					Image image = m_component.getImage();
-					graphics.drawImage(image, 0, 0);
+					graphics.drawImage(image, bounds.x, bounds.y);
 				}
 				drawCustomBorder(this, graphics);
+			}
+
+			@Override
+			protected boolean useLocalCoordinates() {
+				return true;
 			}
 		};
 	}
