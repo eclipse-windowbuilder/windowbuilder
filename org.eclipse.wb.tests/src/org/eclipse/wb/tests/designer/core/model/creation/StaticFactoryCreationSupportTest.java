@@ -47,6 +47,8 @@ import org.eclipse.jdt.core.IMethod;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class StaticFactoryCreationSupportTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

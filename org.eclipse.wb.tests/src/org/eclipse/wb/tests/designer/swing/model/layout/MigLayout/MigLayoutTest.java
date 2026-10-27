@@ -27,6 +27,7 @@ import org.eclipse.wb.internal.swing.model.component.ComponentInfo;
 import org.eclipse.wb.internal.swing.model.component.ContainerInfo;
 import org.eclipse.wb.tests.designer.core.annotations.DisposeProjectAfter;
 
+import org.eclipse.core.runtime.Platform.OS;
 import org.eclipse.draw2d.geometry.Interval;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.jdt.core.dom.ClassInstanceCreation;
@@ -56,6 +57,8 @@ import javax.swing.JButton;
  * @author scheglov_ke
  */
 public class MigLayoutTest extends AbstractMigLayoutTest {
+	private static final int DPI = OS.isMac() ? 72 : 96;
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Exit zone :-) XXX
@@ -68,10 +71,10 @@ public class MigLayoutTest extends AbstractMigLayoutTest {
 	@BeforeAll
 	public static void setUpPlatformDefaults() {
 		// The actual DPI might be platform-specific
-		int dpi = Toolkit.getDefaultToolkit().getScreenResolution();
-		PlatformDefaults.setDefaultDPI(96);
-		PlatformDefaults.setHorizontalScaleFactor(dpi / 96.0f);
-		PlatformDefaults.setVerticalScaleFactor(dpi / 96.0f);
+		float dpi = Toolkit.getDefaultToolkit().getScreenResolution();
+		PlatformDefaults.setDefaultDPI(DPI);
+		PlatformDefaults.setHorizontalScaleFactor(dpi / DPI);
+		PlatformDefaults.setVerticalScaleFactor(dpi / DPI);
 	}
 
 	@AfterAll

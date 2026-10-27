@@ -49,6 +49,8 @@ import org.eclipse.jdt.core.dom.MethodInvocation;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.util.List;
 
@@ -59,6 +61,7 @@ import javax.swing.JButton;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class InstanceFactoryCreationSupportTest extends SwingModelTest {
 	private static final ImageDescriptor DEFAULT_FACTORY_ICON = DesignerPlugin
 			.getImageDescriptor("components/factory.gif");

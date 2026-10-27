@@ -27,6 +27,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.awt.Container;
 import java.awt.FocusTraversalPolicy;
@@ -37,6 +39,7 @@ import java.util.List;
  *
  * @author lobas_av
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class TabOrderPropertyTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

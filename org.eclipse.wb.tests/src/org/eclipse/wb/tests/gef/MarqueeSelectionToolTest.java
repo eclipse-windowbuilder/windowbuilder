@@ -119,7 +119,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		// start drag process of append selection "ChildEditPart2"
 		{
 			m_domain.setActiveTool(m_tool);
-			m_sender.setStateMask(SWT.SHIFT);
+			m_sender.setStateMask(SWT.MOD2);
 			m_sender.startDrag(295, 60, 1);
 			//
 			actualLogger.assertEmpty();
@@ -195,7 +195,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		// start drag process of deselection "ChildEditPart1" and "ChildEditPart2"
 		{
 			m_domain.setActiveTool(m_tool);
-			m_sender.setStateMask(SWT.CONTROL);
+			m_sender.setStateMask(SWT.MOD1);
 			m_sender.startDrag(95, 60, 1);
 			//
 			actualLogger.assertEmpty();
@@ -236,7 +236,7 @@ public class MarqueeSelectionToolTest extends RequestTestCase {
 		//
 		{
 			m_domain.setActiveTool(m_tool);
-			m_sender.setStateMask(SWT.CONTROL);
+			m_sender.setStateMask(SWT.MOD1);
 			m_sender.startDrag(95, 60, 1);
 			//
 			actualLogger.assertEmpty();

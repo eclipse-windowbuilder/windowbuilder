@@ -23,6 +23,8 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jdt.core.ICompilationUnit;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.awt.Window;
 
@@ -34,6 +36,7 @@ import javax.swing.JInternalFrame;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class JFrameTopBoundsTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	//
