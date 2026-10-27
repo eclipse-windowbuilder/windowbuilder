@@ -63,8 +63,8 @@ public class CompositeEditPart extends ControlEditPart {
 			if (m_composite.shouldDrawDotsBorder()) {
 				graphics.setForegroundColor(ColorConstants.gray);
 				graphics.setLineStyle(SWT.LINE_DOT);
-				Rectangle area = figure.getClientArea();
-				graphics.drawRectangle(0, 0, area.width - 1, area.height - 1);
+				Rectangle bounds = figure.getBounds();
+				graphics.drawRectangle(bounds.x, bounds.y, bounds.width - 1, bounds.height - 1);
 			}
 		} catch (Throwable e) {
 		}

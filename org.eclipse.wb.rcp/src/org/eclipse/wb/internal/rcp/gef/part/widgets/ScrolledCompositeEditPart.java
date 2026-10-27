@@ -23,6 +23,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.TextUtilities;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 
 /**
@@ -56,10 +57,10 @@ public final class ScrolledCompositeEditPart extends CompositeEditPart {
 			String message = GefMessages.ScrolledCompositeEditPart_setContentWarning;
 			Dimension extent = TextUtilities.INSTANCE.getTextExtents(message, graphics.getFont());
 			graphics.setForegroundColor(ColorConstants.red);
-			graphics.drawText(
-					message,
-					(figure.getSize().width - extent.width) / 2,
-					(figure.getSize().height - extent.height) / 2);
+			Rectangle bounds = figure.getBounds();
+			int x = bounds.x + (bounds.width - extent.width) / 2;
+			int y = bounds.y + (bounds.height - extent.height) / 2;
+			graphics.drawText(message, x, y);
 		}
 	}
 
