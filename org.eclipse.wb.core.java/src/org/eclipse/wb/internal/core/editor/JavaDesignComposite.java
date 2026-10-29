@@ -134,7 +134,6 @@ public final class JavaDesignComposite extends DesignComposite {
 			monitor.subTask("Updating GEF viewer...");
 			monitor.worked(1);
 			m_viewer.setInput(new DesignRootObject(m_rootObject));
-			m_viewer.getControl().setDrawCached(false);
 		}
 		{
 			monitor.subTask("Updating Property Composite...");
