@@ -66,11 +66,11 @@ public final class DesignRootEditPart extends DesignEditPart {
 		m_eventHandler = event -> {
 			if (BroadcastConstants.PROP_OBJECT_INFO_REDRAW_DISABLE.equals(event.getTopic())) {
 				if (isActive()) {
-					getFigureCanvas().setDrawCached(true);
+					getFigure().setVisible(false);
 				}
 			}
 			if (BroadcastConstants.PROP_OBJECT_INFO_REDRAW_ENABLE.equals(event.getTopic())) {
-				getFigureCanvas().setDrawCached(false);
+				getFigure().setVisible(true);
 			}
 		};
 		mObjectEventListener = new ObjectEventListener() {
