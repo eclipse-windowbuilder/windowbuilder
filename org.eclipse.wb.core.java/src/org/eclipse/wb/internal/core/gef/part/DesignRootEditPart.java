@@ -15,6 +15,7 @@ package org.eclipse.wb.internal.core.gef.part;
 import org.eclipse.wb.core.model.JavaInfo;
 import org.eclipse.wb.core.model.broadcast.ObjectEventListener;
 import org.eclipse.wb.gef.graphical.DesignEditPart;
+import org.eclipse.wb.internal.core.DesignerPlugin;
 import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.NonVisualBeanEditPart;
 import org.eclipse.wb.internal.core.gef.policy.nonvisual.NonVisualLayoutEditPolicy;
@@ -76,14 +77,13 @@ public final class DesignRootEditPart extends DesignEditPart {
 			@Override
 			public void refreshDispose() throws Exception {
 				if (isActive()) {
-					getFigureCanvas().setDrawCached(true);
+					DesignerPlugin.getStandardDisplay().syncExec(() -> getFigureCanvas().getContents().setVisible(false));
 				}
 			}
 
 			@Override
 			public void refreshed() throws Exception {
-				getFigureCanvas().setDrawCached(false);
-				getFigureCanvas().redraw();
+				DesignerPlugin.getStandardDisplay().syncExec(() -> getFigureCanvas().getContents().setVisible(true));
 				refresh();
 			}
 
