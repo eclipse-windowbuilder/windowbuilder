@@ -19,6 +19,7 @@ import org.eclipse.wb.internal.core.EnvironmentUtils;
 import org.eclipse.wb.internal.core.gef.part.nonvisual.NonVisualBeanEditPart;
 import org.eclipse.wb.internal.core.gef.policy.nonvisual.NonVisualLayoutEditPolicy;
 import org.eclipse.wb.internal.core.model.DesignRootObject;
+import org.eclipse.wb.internal.core.model.broadcast.BroadcastConstants;
 import org.eclipse.wb.internal.core.model.nonvisual.NonVisualBeanInfo;
 import org.eclipse.wb.internal.draw2d.FigureCanvas;
 
@@ -31,6 +32,8 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
+
+import org.osgi.service.event.EventHandler;
 
 import java.util.List;
 
@@ -50,6 +53,9 @@ public final class DesignRootEditPart extends DesignEditPart {
 	private static final Border DESIGN_MARGIN = new MarginBorder(DESIGN_INSETS);
 	private final DesignRootObject m_designRootObject;
 
+	private final ObjectEventListener mObjectEventListener;
+	private final EventHandler m_eventHandler;
+
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Constructor
@@ -57,7 +63,28 @@ public final class DesignRootEditPart extends DesignEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	public DesignRootEditPart(DesignRootObject designRootObject) {
 		m_designRootObject = designRootObject;
+		m_eventHandler = event -> {
+			if (BroadcastConstants.PROP_OBJECT_INFO_REDRAW_DISABLE.equals(event.getTopic())) {
+				if (isActive()) {
+					getFigureCanvas().setDrawCached(true);
+				}
+			}
+			if (BroadcastConstants.PROP_OBJECT_INFO_REDRAW_ENABLE.equals(event.getTopic())) {
+				getFigureCanvas().setDrawCached(false);
+			}
+		};
+		mObjectEventListener = new ObjectEventListener() {
+			@Override
+			public void refreshed() throws Exception {
+				getFigureCanvas().redraw();
+				refresh();
+			}
+		};
 		setModel(m_designRootObject);
+	}
+
+	private FigureCanvas getFigureCanvas() {
+		return (FigureCanvas) getViewer().getControl();
 	}
 
 	////////////////////////////////////////////////////////////////////////////
@@ -67,30 +94,17 @@ public final class DesignRootEditPart extends DesignEditPart {
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void activate() {
-		refreshVisualsOnModelRefresh();
+		m_designRootObject.getRootObject().addBroadcastListener(m_eventHandler);
+		m_designRootObject.getRootObject().addBroadcastListener(mObjectEventListener);
 		super.activate();
 	}
 
-	private void refreshVisualsOnModelRefresh() {
-		m_designRootObject.getRootObject().addBroadcastListener(new ObjectEventListener() {
-			@Override
-			public void refreshDispose() throws Exception {
-				if (isActive()) {
-					getFigureCanvas().setDrawCached(true);
-				}
-			}
 
-			@Override
-			public void refreshed() throws Exception {
-				getFigureCanvas().setDrawCached(false);
-				getFigureCanvas().redraw();
-				refresh();
-			}
-
-			private FigureCanvas getFigureCanvas() {
-				return (FigureCanvas) getViewer().getControl();
-			}
-		});
+	@Override
+	public void deactivate() {
+		super.deactivate();
+		m_designRootObject.getRootObject().removeBroadcastListener(mObjectEventListener);
+		m_designRootObject.getRootObject().removeBroadcastListener(m_eventHandler);
 	}
 
 	////////////////////////////////////////////////////////////////////////////

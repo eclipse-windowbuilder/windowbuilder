@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2023 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -20,6 +20,7 @@ import org.eclipse.wb.core.model.broadcast.ObjectInfoChildAddBefore;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateIcon;
 import org.eclipse.wb.core.model.broadcast.ObjectInfoPresentationDecorateText;
 import org.eclipse.wb.internal.core.model.ObjectInfoVisitor;
+import org.eclipse.wb.internal.core.model.broadcast.BroadcastConstants;
 import org.eclipse.wb.internal.core.model.presentation.IObjectPresentation;
 import org.eclipse.wb.internal.core.model.property.Property;
 import org.eclipse.wb.internal.core.utils.GenericsUtils;
@@ -476,6 +477,8 @@ public abstract class ObjectInfo implements IObjectInfo {
 		Assert.isLegal(isRoot());
 		// clean up broadcast
 		getBroadcastSupport().cleanUpTargets(ObjectInfo.this);
+		// disable all repaint events before disposing old model
+		getBroadcastSupport().broadcast(BroadcastConstants.PROP_OBJECT_INFO_REDRAW_DISABLE, this);
 		// do refresh
 		execRefreshOperation(() -> ExecutionUtils.runDesignTime(() -> refreshCreate0()));
 		// split fetch operations into separate parts
@@ -483,6 +486,8 @@ public abstract class ObjectInfo implements IObjectInfo {
 			refresh_fetch();
 			refresh_finish();
 		}));
+		// enable all repaint events after new model has been created
+		getBroadcastSupport().broadcast(BroadcastConstants.PROP_OBJECT_INFO_REDRAW_ENABLE, this);
 		// send notifications
 		if (getArbitraryValue(KEY_NO_REFRESHED_BROADCAST) != Boolean.FALSE) {
 			getBroadcastObject().refreshed();
