@@ -25,7 +25,8 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.206.0,4.0.0)",
  org.eclipse.nebula.widgets.cdatetime;bundle-version="[1.5.0,2.0.0)",
  net.bytebuddy.byte-buddy;bundle-version="[1.14.16,2.0.0)",
  org.mvel2;bundle-version="[2.5.2,3.0.0)",
- org.objectweb.asm;bundle-version="[9.7.0,10.0.0)"
+ org.objectweb.asm;bundle-version="[9.7.0,10.0.0)",
+ org.osgi.service.event;bundle-version="[1.4.0,2.0.0)"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Export-Package: org.eclipse.wb.core.editor,

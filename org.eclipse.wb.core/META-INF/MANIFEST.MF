@@ -218,6 +218,7 @@ Export-Package: org.eclipse.wb.core.branding,
    org.eclipse.wb.swt,
    org.eclipse.wb.rcp.databinding,
    org.eclipse.wb.swing",
+ org.eclipse.wb.internal.core.model.broadcast;x-friends:="org.eclipse.wb.core.java",
  org.eclipse.wb.internal.core.model.description;
   x-friends:="org.eclipse.wb.swing,
    org.eclipse.wb.swt,
@@ -522,6 +523,7 @@ Require-Bundle: org.eclipse.ui;bundle-version="[3.206.0,4.0.0)";visibility:=reex
  org.eclipse.draw2d;bundle-version="[3.20.0,4.0.0)",
  org.eclipse.gef;bundle-version="[3.21.100,4.0.0)",
  net.bytebuddy.byte-buddy;bundle-version="[1.14.16,2.0.0)",
+ org.osgi.service.event;bundle-version="[1.4.1,2.0.0)",
  org.objectweb.asm;bundle-version="[9.7.0,10.0.0)",
  org.mvel2;bundle-version="[2.5.2,3.0.0)"
 Bundle-ActivationPolicy: lazy

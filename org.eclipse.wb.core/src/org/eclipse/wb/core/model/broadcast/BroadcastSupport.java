@@ -23,6 +23,9 @@ import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.implementation.InvocationHandlerAdapter;
 import net.bytebuddy.matcher.ElementMatchers;
 
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventHandler;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -41,6 +44,13 @@ import java.util.Map;
  */
 public final class BroadcastSupport {
 	private static final boolean DEBUG = Platform.getDebugBoolean("org.eclipse.wb.core/debug/broadcastSupport");
+	/**
+	 * The name of the default event attribute to pass data.
+	 *
+	 * @see #broadcast(String, Object)
+	 * @since 1.26
+	 */
+	public static final String PROP_DATA = "org.eclipse.wb.core.data";
 	/**
 	 * {@link Map} for "listener class" -> "listener implementations".
 	 */
@@ -235,5 +245,22 @@ public final class BroadcastSupport {
 		@SuppressWarnings("unchecked")
 		T casted_listenerMulticast = (T) listenerMulticast;
 		return casted_listenerMulticast;
+	}
+
+	/**
+	 * Publish events synchronously (the method does not return until the event is
+	 * processed) via the OSGi {@link EventHandler}. The payload is stored in a
+	 * {@link Map} using the {@link #PROP_DATA} key.
+	 *
+	 * @param topic topic of the event to be published
+	 * @param data  data to be published with the event
+	 * @since 1.26
+	 */
+	public void broadcast(String topic, Object data) {
+		Event event = new Event(topic, Map.of(PROP_DATA, data));
+		for (Object listenerObject : getClassListeners(EventHandler.class)) {
+			EventHandler listener = (EventHandler) listenerObject;
+			listener.handleEvent(event);
+		}
 	}
 }
