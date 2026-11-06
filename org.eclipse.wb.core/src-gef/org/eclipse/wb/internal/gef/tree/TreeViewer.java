@@ -18,6 +18,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.TreeEditPart;
 import org.eclipse.gef.editparts.RootTreeEditPart;
 import org.eclipse.gef.ui.parts.AbstractEditPartViewer;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
@@ -81,6 +82,17 @@ public class TreeViewer extends AbstractEditPartViewer {
 	@Override
 	public Tree getControl() {
 		return (Tree) super.getControl();
+	}
+
+	/**
+	 * Sets the context menu, unless it is already set: GEF disposes the previous menu, and this one is
+	 * shared with the graphical viewer.
+	 */
+	@Override
+	public void setContextMenu(MenuManager manager) {
+		if (manager != getContextMenu()) {
+			super.setContextMenu(manager);
+		}
 	}
 
 	/**

@@ -35,6 +35,7 @@ import org.junit.platform.suite.api.Suite;
 		GraphicalViewerTest.class,
 		TreeCreateToolTest.class,
 		TreeDragToolTest.class,
+		TreeViewerTest.class,
 		CursorTests.class
 })
 public class GefTests {
