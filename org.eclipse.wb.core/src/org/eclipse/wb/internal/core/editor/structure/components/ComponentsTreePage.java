@@ -257,7 +257,9 @@ public final class ComponentsTreePage implements IPage {
 			m_viewer.setEditPartFactory(EditPartFactory.INSTANCE);
 		}
 		// set context menu
-		m_viewer.setContextMenu(m_graphicalViewer.getContextMenu());
+		if (m_viewer.getContextMenu() != m_graphicalViewer.getContextMenu()) {
+			m_viewer.setContextMenu(m_graphicalViewer.getContextMenu());
+		}
 		// set components tree
 		if (m_rootObject != null) {
 			DesignPageSite site = DesignPageSite.Helper.getSite(m_rootObject);

@@ -27,6 +27,7 @@ import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.swt.widgets.Menu;
 
 import org.junit.jupiter.api.Test;
 
@@ -182,6 +183,24 @@ public class ComponentsTreePageTest extends SwingGefTest {
 						}
 					}
 				}""");
+	}
+
+	@Test
+	public void test_ContextMenu() throws Exception {
+		openContainer("""
+				public class Test extends JPanel {
+					public Test() {
+					}
+				}""");
+		Menu canvasMenu = m_viewerCanvas.getControl().getMenu();
+		assertNotNull(canvasMenu);
+		assertFalse(canvasMenu.isDisposed());
+
+		Menu treeMenu = m_viewerTree.getControl().getMenu();
+		assertNotNull(treeMenu);
+		assertFalse(treeMenu.isDisposed());
+
+		assertSame(canvasMenu, treeMenu);
 	}
 
 	////////////////////////////////////////////////////////////////////////////
