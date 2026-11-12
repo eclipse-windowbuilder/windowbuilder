@@ -22,6 +22,8 @@ import org.eclipse.swt.graphics.RGB;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import javax.swing.JFrame;
 
@@ -31,6 +33,7 @@ import javax.swing.JFrame;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class AppletTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

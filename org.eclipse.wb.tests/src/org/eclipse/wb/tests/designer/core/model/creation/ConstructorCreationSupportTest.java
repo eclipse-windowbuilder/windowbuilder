@@ -46,6 +46,8 @@ import org.eclipse.jdt.core.dom.ITypeBinding;
 import org.eclipse.jface.preference.FieldEditor;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -55,6 +57,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ConstructorCreationSupportTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

@@ -17,6 +17,8 @@ import org.eclipse.wb.internal.swing.FormLayout.model.FormSizeConstantInfo;
 import org.eclipse.wb.internal.swing.laf.LafSupport;
 import org.eclipse.wb.tests.designer.swing.model.layout.AbstractLayoutTest;
 
+import org.eclipse.core.runtime.Platform.OS;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.Sizes;
 import com.jgoodies.forms.util.AbstractUnitConverter;
@@ -102,7 +104,7 @@ public abstract class AbstractFormLayoutTest extends AbstractLayoutTest {
 
 		@Override
 		protected int getScreenResolution(Component c) {
-			return 96;
+			return OS.isMac() ? 72 : 96;
 		}
 	}
 }

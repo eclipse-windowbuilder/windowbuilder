@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -63,21 +63,21 @@ public class SelectSupportTest extends SwingGefTest {
 			// all
 			canvas.deselectAll();
 			{
-				sendSelectKey(SWT.CTRL);
+				sendSelectKey(SWT.MOD1);
 				canvas.assertSelection(panel, button_1, button_2, text_1);
 			}
 			// same type
 			canvas.deselectAll();
 			{
 				canvas.select(button_1);
-				sendSelectKey(SWT.CTRL | SWT.SHIFT);
+				sendSelectKey(SWT.MOD1 | SWT.MOD2);
 				canvas.assertSelection(button_1, button_2);
 			}
 			// same parent
 			canvas.deselectAll();
 			{
 				canvas.select(text_1);
-				sendSelectKey(SWT.CTRL | SWT.ALT);
+				sendSelectKey(SWT.MOD1 | SWT.MOD3);
 				canvas.assertSelection(button_1, button_2, text_1);
 			}
 		}
@@ -125,7 +125,7 @@ public class SelectSupportTest extends SwingGefTest {
 		// selection hot keys still work
 		canvas.deselectAll();
 		{
-			sendSelectKey(SWT.CTRL);
+			sendSelectKey(SWT.MOD1);
 			canvas.assertSelection(m_contentJavaInfo);
 		}
 	}

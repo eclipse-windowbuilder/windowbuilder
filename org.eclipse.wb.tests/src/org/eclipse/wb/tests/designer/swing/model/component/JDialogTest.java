@@ -20,6 +20,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -30,6 +32,7 @@ import javax.swing.JPanel;
  * @author mitin_aa
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class JDialogTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

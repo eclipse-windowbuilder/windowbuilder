@@ -41,6 +41,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.awt.Component;
 import java.awt.Container;
@@ -57,6 +59,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class GridBagLayoutTest extends AbstractGridBagLayoutTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

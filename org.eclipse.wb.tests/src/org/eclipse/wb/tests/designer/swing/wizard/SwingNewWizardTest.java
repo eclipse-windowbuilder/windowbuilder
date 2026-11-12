@@ -15,7 +15,10 @@ package org.eclipse.wb.tests.designer.swing.wizard;
 import org.eclipse.wb.tests.designer.rcp.AbstractWizardTest;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class SwingNewWizardTest extends AbstractWizardTest {
 
 	@Test

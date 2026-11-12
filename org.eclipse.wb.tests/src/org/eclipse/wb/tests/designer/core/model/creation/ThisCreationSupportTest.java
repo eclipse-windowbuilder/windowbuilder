@@ -37,6 +37,8 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.util.List;
 
@@ -47,6 +49,7 @@ import javax.swing.JButton;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ThisCreationSupportTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

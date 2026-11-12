@@ -22,6 +22,9 @@ import org.eclipse.wb.tests.designer.core.AbstractJavaProjectTest;
 import org.eclipse.wb.tests.designer.core.AbstractJavaTest;
 import org.eclipse.wb.tests.designer.tests.DesignerTestCase;
 
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
+
 import java.util.HashMap;
 
 /**
@@ -29,6 +32,7 @@ import java.util.HashMap;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class NlsTestUtils {
 	/**
 	 * Create new empty {@link IEditableSource} with given name.
