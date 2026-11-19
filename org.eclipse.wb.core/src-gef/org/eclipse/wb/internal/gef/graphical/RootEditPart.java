@@ -18,6 +18,7 @@ import org.eclipse.wb.internal.draw2d.RootFigure;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Layer;
+import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.DragTracker;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartViewer;
@@ -54,8 +55,10 @@ public class RootEditPart extends DesignEditPart implements org.eclipse.gef.Root
 	//
 	////////////////////////////////////////////////////////////////////////////
 	private void createLayers() {
+		Layer primaryLayer = new Layer();
+		primaryLayer.setLayoutManager(new StackLayout());
 		getFigure().add(new Layer(), IEditPartViewer.PRIMARY_LAYER_SUB_1);
-		getFigure().add(new Layer(), LayerConstants.PRIMARY_LAYER);
+		getFigure().add(primaryLayer, LayerConstants.PRIMARY_LAYER);
 		getFigure().add(new Layer(), IEditPartViewer.HANDLE_LAYER_SUB_1);
 		getFigure().add(new Layer(), IEditPartViewer.HANDLE_LAYER_SUB_2);
 		getFigure().add(new Layer(), LayerConstants.HANDLE_LAYER);
