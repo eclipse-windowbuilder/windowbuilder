@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011 Google, Inc.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -204,7 +204,8 @@ public final class GridLayout2 extends Layout {
 			boolean first) {
 		Control control = grid[row][column];
 		if (control != null) {
-			GridData2 data = getLayoutData2(control);
+			GridData2 cache = getLayoutData2(control);
+			GridData data = cache.data;
 			int hSpan = Math.max(1, Math.min(data.horizontalSpan, columnCount));
 			int vSpan = Math.max(1, data.verticalSpan);
 			int i = first ? row + vSpan - 1 : row - vSpan + 1;
@@ -212,7 +213,7 @@ public final class GridLayout2 extends Layout {
 			if (0 <= i && i < rowCount) {
 				if (0 <= j && j < columnCount) {
 					if (control == grid[i][j]) {
-						return data;
+						return cache;
 					}
 				}
 			}
@@ -247,8 +248,8 @@ public final class GridLayout2 extends Layout {
 		int count = 0;
 		for (int i = 0; i < children.length; i++) {
 			Control control = children[i];
-			GridData2 data = getLayoutData2(control);
-			if (data == null || !data.exclude) {
+			GridData2 cache = getLayoutData2(control);
+			if (cache == null || !cache.data.exclude) {
 				children[count++] = children[i];
 			}
 		}
@@ -266,13 +267,14 @@ public final class GridLayout2 extends Layout {
 		}
 		for (int i = 0; i < count; i++) {
 			Control child = children[i];
-			GridData2 data = getLayoutData2(child);
+			GridData2 cache = getLayoutData2(child);
+			GridData data = cache.data;
 			if (flushCache) {
-				data.flushCache();
+				cache.flushCache();
 			}
-			data.computeSize(child, data.widthHint, data.heightHint, flushCache);
+			cache.computeSize(child, data.widthHint, data.heightHint, flushCache);
 			if (data.grabExcessHorizontalSpace && data.minimumWidth > 0) {
-				if (data.cacheWidth < data.minimumWidth) {
+				if (cache.cacheWidth < data.minimumWidth) {
 					int trim = 0;
 					//TEMPORARY CODE
 					if (child instanceof Scrollable) {
@@ -281,12 +283,12 @@ public final class GridLayout2 extends Layout {
 					} else {
 						trim = child.getBorderWidth() * 2;
 					}
-					data.cacheWidth = data.cacheHeight = SWT.DEFAULT;
-					data.computeSize(child, Math.max(0, data.minimumWidth - trim), data.heightHint, false);
+					cache.cacheWidth = cache.cacheHeight = SWT.DEFAULT;
+					cache.computeSize(child, Math.max(0, data.minimumWidth - trim), data.heightHint, false);
 				}
 			}
 			if (data.grabExcessVerticalSpace && data.minimumHeight > 0) {
-				data.cacheHeight = Math.max(data.cacheHeight, data.minimumHeight);
+				cache.cacheHeight = Math.max(cache.cacheHeight, data.minimumHeight);
 			}
 		}
 		/* Build the grid */
@@ -294,7 +296,8 @@ public final class GridLayout2 extends Layout {
 		Control[][] grid = new Control[4][columnCount];
 		for (int i = 0; i < count; i++) {
 			Control child = children[i];
-			GridData2 data = getLayoutData2(child);
+			GridData2 cache = getLayoutData2(child);
+			GridData data = cache.data;
 			int hSpan = Math.max(1, Math.min(data.horizontalSpan, columnCount));
 			int vSpan = Math.max(1, data.verticalSpan);
 			while (true) {
@@ -352,11 +355,12 @@ public final class GridLayout2 extends Layout {
 		boolean[] expandColumn = new boolean[columnCount];
 		for (int j = 0; j < columnCount; j++) {
 			for (int i = 0; i < rowCount; i++) {
-				GridData2 data = getData(grid, i, j, rowCount, columnCount, true);
-				if (data != null) {
+				GridData2 cache = getData(grid, i, j, rowCount, columnCount, true);
+				if (cache != null) {
+					GridData data = cache.data;
 					int hSpan = Math.max(1, Math.min(data.horizontalSpan, columnCount));
 					if (hSpan == 1) {
-						int w = data.cacheWidth + data.horizontalIndent;
+						int w = cache.cacheWidth + data.horizontalIndent;
 						widths[j] = Math.max(widths[j], w);
 						if (data.grabExcessHorizontalSpace) {
 							if (!expandColumn[j]) {
@@ -367,7 +371,7 @@ public final class GridLayout2 extends Layout {
 						if (!data.grabExcessHorizontalSpace || data.minimumWidth != 0) {
 							w =
 									!data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
-									? data.cacheWidth
+									? cache.cacheWidth
 											: data.minimumWidth;
 							w += data.horizontalIndent;
 							minWidths[j] = Math.max(minWidths[j], w);
@@ -376,8 +380,9 @@ public final class GridLayout2 extends Layout {
 				}
 			}
 			for (int i = 0; i < rowCount; i++) {
-				GridData2 data = getData(grid, i, j, rowCount, columnCount, false);
-				if (data != null) {
+				GridData2 cache = getData(grid, i, j, rowCount, columnCount, false);
+				if (cache != null) {
+					GridData data = cache.data;
 					int hSpan = Math.max(1, Math.min(data.horizontalSpan, columnCount));
 					if (hSpan > 1) {
 						int spanWidth = 0, spanMinWidth = 0, spanExpandCount = 0;
@@ -393,7 +398,7 @@ public final class GridLayout2 extends Layout {
 							expandColumn[j] = true;
 						}
 						int w =
-								data.cacheWidth
+								cache.cacheWidth
 								+ data.horizontalIndent
 								- spanWidth
 								- (hSpan - 1)
@@ -428,7 +433,7 @@ public final class GridLayout2 extends Layout {
 						if (!data.grabExcessHorizontalSpace || data.minimumWidth != 0) {
 							w =
 									!data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
-									? data.cacheWidth
+									? cache.cacheWidth
 											: data.minimumWidth;
 							w += data.horizontalIndent - spanMinWidth - (hSpan - 1) * horizontalSpacing;
 							if (w > 0) {
@@ -494,8 +499,9 @@ public final class GridLayout2 extends Layout {
 					}
 					for (int j = 0; j < columnCount; j++) {
 						for (int i = 0; i < rowCount; i++) {
-							GridData2 data = getData(grid, i, j, rowCount, columnCount, false);
-							if (data != null) {
+							GridData2 cache = getData(grid, i, j, rowCount, columnCount, false);
+							if (cache != null) {
+								GridData data = cache.data;
 								int hSpan = Math.max(1, Math.min(data.horizontalSpan, columnCount));
 								if (hSpan > 1) {
 									if (!data.grabExcessHorizontalSpace || data.minimumWidth != 0) {
@@ -508,7 +514,7 @@ public final class GridLayout2 extends Layout {
 										}
 										int w =
 												!data.grabExcessHorizontalSpace || data.minimumWidth == SWT.DEFAULT
-												? data.cacheWidth
+												? cache.cacheWidth
 														: data.minimumWidth;
 										w += data.horizontalIndent - spanWidth - (hSpan - 1) * horizontalSpacing;
 										if (w > 0) {
@@ -551,8 +557,9 @@ public final class GridLayout2 extends Layout {
 		if (width != SWT.DEFAULT) {
 			for (int j = 0; j < columnCount; j++) {
 				for (int i = 0; i < rowCount; i++) {
-					GridData2 data = getData(grid, i, j, rowCount, columnCount, false);
-					if (data != null) {
+					GridData2 cache = getData(grid, i, j, rowCount, columnCount, false);
+					if (cache != null) {
+						GridData data = cache.data;
 						if (data.heightHint == SWT.DEFAULT) {
 							Control child = grid[i][j];
 							//TEMPORARY CODE
@@ -562,9 +569,9 @@ public final class GridLayout2 extends Layout {
 								currentWidth += widths[j - k];
 							}
 							currentWidth += (hSpan - 1) * horizontalSpacing - data.horizontalIndent;
-							if (currentWidth != data.cacheWidth
+							if (currentWidth != cache.cacheWidth
 									&& data.horizontalAlignment == SWT.FILL
-									|| data.cacheWidth > currentWidth) {
+									|| cache.cacheWidth > currentWidth) {
 								int trim = 0;
 								if (child instanceof Scrollable) {
 									Rectangle rect = ((Scrollable) child).computeTrim(0, 0, 0, 0);
@@ -572,15 +579,15 @@ public final class GridLayout2 extends Layout {
 								} else {
 									trim = child.getBorderWidth() * 2;
 								}
-								data.cacheWidth = data.cacheHeight = SWT.DEFAULT;
-								data.computeSize(child, Math.max(0, currentWidth - trim), data.heightHint, false);
+								cache.cacheWidth = cache.cacheHeight = SWT.DEFAULT;
+								cache.computeSize(child, Math.max(0, currentWidth - trim), data.heightHint, false);
 								if (data.grabExcessVerticalSpace && data.minimumHeight > 0) {
-									data.cacheHeight = Math.max(data.cacheHeight, data.minimumHeight);
+									cache.cacheHeight = Math.max(cache.cacheHeight, data.minimumHeight);
 								}
 								if (flush == null) {
 									flush = new GridData2[count];
 								}
-								flush[flushLength++] = data;
+								flush[flushLength++] = cache;
 							}
 						}
 					}
@@ -599,11 +606,12 @@ public final class GridLayout2 extends Layout {
 		boolean[] expandRow = new boolean[rowCount];
 		for (int i = 0; i < rowCount; i++) {
 			for (int j = 0; j < columnCount; j++) {
-				GridData2 data = getData(grid, i, j, rowCount, columnCount, true);
-				if (data != null) {
+				GridData2 cache = getData(grid, i, j, rowCount, columnCount, true);
+				if (cache != null) {
+					GridData data = cache.data;
 					int vSpan = Math.max(1, Math.min(data.verticalSpan, rowCount));
 					if (vSpan == 1) {
-						int h = data.cacheHeight + data.verticalIndent;
+						int h = cache.cacheHeight + data.verticalIndent;
 						heights[i] = Math.max(heights[i], h);
 						if (data.grabExcessVerticalSpace) {
 							if (!expandRow[i]) {
@@ -614,7 +622,7 @@ public final class GridLayout2 extends Layout {
 						if (!data.grabExcessVerticalSpace || data.minimumHeight != 0) {
 							h =
 									!data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
-									? data.cacheHeight
+									? cache.cacheHeight
 											: data.minimumHeight;
 							h += data.verticalIndent;
 							minHeights[i] = Math.max(minHeights[i], h);
@@ -623,8 +631,9 @@ public final class GridLayout2 extends Layout {
 				}
 			}
 			for (int j = 0; j < columnCount; j++) {
-				GridData2 data = getData(grid, i, j, rowCount, columnCount, false);
-				if (data != null) {
+				GridData2 cache = getData(grid, i, j, rowCount, columnCount, false);
+				if (cache != null) {
+					GridData data = cache.data;
 					int vSpan = Math.max(1, Math.min(data.verticalSpan, rowCount));
 					if (vSpan > 1) {
 						int spanHeight = 0, spanMinHeight = 0, spanExpandCount = 0;
@@ -640,7 +649,7 @@ public final class GridLayout2 extends Layout {
 							expandRow[i] = true;
 						}
 						int h =
-								data.cacheHeight + data.verticalIndent - spanHeight - (vSpan - 1) * verticalSpacing;
+								cache.cacheHeight + data.verticalIndent - spanHeight - (vSpan - 1) * verticalSpacing;
 						if (h > 0) {
 							if (spanExpandCount == 0) {
 								heights[i] += h;
@@ -660,7 +669,7 @@ public final class GridLayout2 extends Layout {
 						if (!data.grabExcessVerticalSpace || data.minimumHeight != 0) {
 							h =
 									!data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
-									? data.cacheHeight
+									? cache.cacheHeight
 											: data.minimumHeight;
 							h += data.verticalIndent - spanMinHeight - (vSpan - 1) * verticalSpacing;
 							if (h > 0) {
@@ -710,8 +719,9 @@ public final class GridLayout2 extends Layout {
 				}
 				for (int i = 0; i < rowCount; i++) {
 					for (int j = 0; j < columnCount; j++) {
-						GridData2 data = getData(grid, i, j, rowCount, columnCount, false);
-						if (data != null) {
+						GridData2 cache = getData(grid, i, j, rowCount, columnCount, false);
+						if (cache != null) {
+							GridData data = cache.data;
 							int vSpan = Math.max(1, Math.min(data.verticalSpan, rowCount));
 							if (vSpan > 1) {
 								if (!data.grabExcessVerticalSpace || data.minimumHeight != 0) {
@@ -724,7 +734,7 @@ public final class GridLayout2 extends Layout {
 									}
 									int h =
 											!data.grabExcessVerticalSpace || data.minimumHeight == SWT.DEFAULT
-											? data.cacheHeight
+											? cache.cacheHeight
 													: data.minimumHeight;
 									h += data.verticalIndent - spanHeight - (vSpan - 1) * verticalSpacing;
 									if (h > 0) {
@@ -770,8 +780,9 @@ public final class GridLayout2 extends Layout {
 				for (int j = 0; j < columnCount; j++) {
 					m_columnOrigins[j] = gridX;
 					m_rowOrigins[i] = gridY;
-					GridData2 data = getData(grid, i, j, rowCount, columnCount, true);
-					if (data != null) {
+					GridData2 cache = getData(grid, i, j, rowCount, columnCount, true);
+					if (cache != null) {
+						GridData data = cache.data;
 						int hSpan = Math.max(1, Math.min(data.horizontalSpan, columnCount));
 						int vSpan = Math.max(1, data.verticalSpan);
 						int cellWidth = 0, cellHeight = 0;
@@ -783,15 +794,15 @@ public final class GridLayout2 extends Layout {
 						}
 						cellWidth += horizontalSpacing * (hSpan - 1);
 						int childX = gridX + data.horizontalIndent;
-						int childWidth = Math.min(data.cacheWidth, cellWidth);
+						int childWidth = Math.min(cache.cacheWidth, cellWidth);
 						switch (data.horizontalAlignment) {
 						case SWT.CENTER :
-						case GridData2.CENTER :
+						case GridData.CENTER:
 							childX += Math.max(0, (cellWidth - data.horizontalIndent - childWidth) / 2);
 							break;
 						case SWT.RIGHT :
 						case SWT.END :
-						case GridData2.END :
+						case GridData.END:
 							childX += Math.max(0, cellWidth - data.horizontalIndent - childWidth);
 							break;
 						case SWT.FILL :
@@ -800,15 +811,15 @@ public final class GridLayout2 extends Layout {
 						}
 						cellHeight += verticalSpacing * (vSpan - 1);
 						int childY = gridY + data.verticalIndent;
-						int childHeight = Math.min(data.cacheHeight, cellHeight);
+						int childHeight = Math.min(cache.cacheHeight, cellHeight);
 						switch (data.verticalAlignment) {
 						case SWT.CENTER :
-						case GridData2.CENTER :
+						case GridData.CENTER:
 							childY += Math.max(0, (cellHeight - data.verticalIndent - childHeight) / 2);
 							break;
 						case SWT.BOTTOM :
 						case SWT.END :
-						case GridData2.END :
+						case GridData.END:
 							childY += Math.max(0, cellHeight - data.verticalIndent - childHeight);
 							break;
 						case SWT.FILL :
@@ -924,8 +935,7 @@ public final class GridLayout2 extends Layout {
 			if (layoutData == null) {
 				layoutData = new GridData();
 			}
-			newGridData = new GridData2();
-			copyFields(layoutData, newGridData);
+			newGridData = new GridData2(layoutData);
 			control.setData(key, newGridData);
 		}
 		return newGridData;
