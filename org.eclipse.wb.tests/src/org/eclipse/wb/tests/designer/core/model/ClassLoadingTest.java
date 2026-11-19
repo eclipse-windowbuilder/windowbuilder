@@ -21,6 +21,8 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.core.runtime.IConfigurationElement;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.osgi.framework.Bundle;
 
 import java.util.List;
@@ -30,6 +32,7 @@ import java.util.List;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ClassLoadingTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

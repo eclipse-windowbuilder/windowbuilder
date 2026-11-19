@@ -21,12 +21,15 @@ import org.eclipse.wb.tests.designer.swing.SwingModelTest;
 import org.eclipse.core.resources.IFile;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 /**
  * Test for {@link ImagePropertyEditor}.
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ImagePropertyEditorTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

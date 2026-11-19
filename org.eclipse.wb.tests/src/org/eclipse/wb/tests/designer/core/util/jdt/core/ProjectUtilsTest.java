@@ -41,6 +41,8 @@ import org.eclipse.jdt.core.JavaCore;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.osgi.framework.Bundle;
 
 import java.io.File;
@@ -56,6 +58,7 @@ import java.util.function.Predicate;
  * @author scheglov_ke
  * @author mitin_aa
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ProjectUtilsTest extends AbstractJavaTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

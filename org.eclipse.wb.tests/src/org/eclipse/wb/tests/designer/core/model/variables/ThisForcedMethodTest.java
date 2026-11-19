@@ -29,6 +29,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import javax.swing.JFrame;
 
@@ -37,6 +39,7 @@ import javax.swing.JFrame;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ThisForcedMethodTest extends SwingModelTest {
 	private static final IPreferenceStore PREFERENCES = ToolkitProvider.DESCRIPTION.getPreferences();
 

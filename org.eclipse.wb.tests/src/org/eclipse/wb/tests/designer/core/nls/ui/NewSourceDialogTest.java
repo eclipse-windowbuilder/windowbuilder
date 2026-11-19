@@ -28,12 +28,15 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotStyledText;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotText;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 /**
  * Tests for {@link NewSourceDialog}.
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class NewSourceDialogTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

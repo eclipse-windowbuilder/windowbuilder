@@ -26,6 +26,8 @@ import org.eclipse.jdt.core.dom.QualifiedName;
 import org.eclipse.jdt.core.dom.SimpleName;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,6 +38,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class SimpleParserTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

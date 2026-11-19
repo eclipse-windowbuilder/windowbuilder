@@ -95,7 +95,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			tracker = new SelectEditPartTracker(editPart3);
 			m_domain.setActiveTool(tracker);
-			m_sender.setStateMask(SWT.SHIFT);
+			m_sender.setStateMask(SWT.MOD2);
 			m_sender.click(0, 0, 1);
 			m_sender.setStateMask(0);
 			//
@@ -110,7 +110,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			tracker = new SelectEditPartTracker(editPart4);
 			m_domain.setActiveTool(tracker);
-			m_sender.setStateMask(SWT.CONTROL);
+			m_sender.setStateMask(SWT.MOD1);
 			m_sender.click(0, 0, 1);
 			m_sender.setStateMask(0);
 			//
@@ -127,7 +127,7 @@ public class SelectAndDragEditPartTrackerTest extends RequestTestCase {
 		{
 			tracker = new SelectEditPartTracker(editPart2);
 			m_domain.setActiveTool(tracker);
-			m_sender.setStateMask(SWT.CONTROL);
+			m_sender.setStateMask(SWT.MOD1);
 			m_sender.click(0, 0, 1);
 			m_sender.setStateMask(0);
 			//

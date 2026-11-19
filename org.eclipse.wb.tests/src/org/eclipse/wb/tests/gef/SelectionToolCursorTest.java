@@ -442,7 +442,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// use tracker
 		{
-			m_sender.setStateMask(SWT.ALT);
+			m_sender.setStateMask(SWT.MOD3);
 			m_sender.startDrag(30, 30, 1);
 			//
 			expectedLogger.setCursor(SharedCursors.CURSOR_MOVE);
@@ -480,7 +480,7 @@ public class SelectionToolCursorTest extends GefCursorTestCase {
 		}
 		// use tracker
 		{
-			m_sender.setStateMask(SWT.ALT);
+			m_sender.setStateMask(SWT.MOD3);
 			m_sender.startDrag(200, 100, 1);
 			//
 			m_actualLogger.assertEmpty();

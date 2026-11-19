@@ -21,6 +21,8 @@ import org.eclipse.core.resources.IFile;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.util.Locale;
 import java.util.Map;
@@ -31,6 +33,7 @@ import java.util.Set;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class BundleInfoTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

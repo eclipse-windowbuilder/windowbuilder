@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2024 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -49,6 +49,8 @@ import static org.assertj.core.data.MapEntry.entry;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.osgi.framework.Bundle;
 import org.xml.sax.SAXParseException;
 
@@ -65,6 +67,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ComponentDescriptionHelperTest extends SwingModelTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

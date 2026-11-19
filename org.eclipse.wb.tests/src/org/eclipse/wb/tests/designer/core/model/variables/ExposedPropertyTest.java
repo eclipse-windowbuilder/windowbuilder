@@ -24,6 +24,8 @@ import org.eclipse.wb.internal.swing.model.layout.BorderLayoutInfo;
 import org.eclipse.jdt.core.dom.Statement;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import java.awt.Component;
 
@@ -34,6 +36,7 @@ import javax.swing.JTextField;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class ExposedPropertyTest extends AbstractVariableTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

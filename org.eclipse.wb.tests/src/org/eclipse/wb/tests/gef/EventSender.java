@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2011, 2025 Google, Inc. and others.
+ * Copyright (c) 2011, 2026 Google, Inc. and others.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License 2.0 which is available at
@@ -59,7 +59,7 @@ public class EventSender {
 	 * Emulates CTRL key down.
 	 */
 	public void ctrlDown() {
-		setStateMask(SWT.CTRL);
+		setStateMask(SWT.MOD1);
 	}
 
 	/**
@@ -310,12 +310,12 @@ public class EventSender {
 
 	public static void sendCharacter(boolean shift, char character) {
 		if (shift) {
-			postKeyEvent(SWT.KeyDown, SWT.SHIFT, (char) 0);
+			postKeyEvent(SWT.KeyDown, SWT.MOD2, (char) 0);
 		}
 		postKeyEvent(SWT.KeyDown, 0, character);
 		postKeyEvent(SWT.KeyUp, 0, character);
 		if (shift) {
-			postKeyEvent(SWT.KeyUp, SWT.SHIFT, (char) 0);
+			postKeyEvent(SWT.KeyUp, SWT.MOD2, (char) 0);
 		}
 	}
 
@@ -476,14 +476,14 @@ public class EventSender {
 	 * Posts modifiers up/down event.
 	 */
 	private static void postModifiers(int event, int modifiers) {
-		if ((modifiers & SWT.SHIFT) != 0) {
-			postKeyEvent(event, SWT.SHIFT, (char) 0);
+		if ((modifiers & SWT.MOD2) != 0) {
+			postKeyEvent(event, SWT.MOD2, (char) 0);
 		}
-		if ((modifiers & SWT.CTRL) != 0) {
-			postKeyEvent(event, SWT.CTRL, (char) 0);
+		if ((modifiers & SWT.MOD1) != 0) {
+			postKeyEvent(event, SWT.MOD1, (char) 0);
 		}
-		if ((modifiers & SWT.ALT) != 0) {
-			postKeyEvent(event, SWT.CTRL, (char) 0);
+		if ((modifiers & SWT.MOD3) != 0) {
+			postKeyEvent(event, SWT.MOD3, (char) 0);
 		}
 	}
 }

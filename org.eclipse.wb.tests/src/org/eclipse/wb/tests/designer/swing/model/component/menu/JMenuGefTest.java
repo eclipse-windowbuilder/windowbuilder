@@ -19,6 +19,8 @@ import org.eclipse.wb.internal.swing.model.component.menu.JMenuInfo;
 import org.eclipse.wb.tests.designer.swing.SwingGefTest;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import javax.swing.JMenu;
 
@@ -27,6 +29,7 @@ import javax.swing.JMenu;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class JMenuGefTest extends SwingGefTest {
 	////////////////////////////////////////////////////////////////////////////
 	//

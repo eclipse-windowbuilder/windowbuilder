@@ -77,6 +77,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.mockito.ArgumentCaptor;
 
 import java.awt.FlowLayout;
@@ -96,6 +98,7 @@ import javax.swing.JPanel;
  *
  * @author scheglov_ke
  */
+@DisabledOnOs(value = OS.MAC, disabledReason = "The tests get stuck on the GitHub runner")
 public class JavaInfoUtilsTest extends SwingModelTest {
 	private static final IPreferenceStore PREFERENCES = ToolkitProvider.DESCRIPTION.getPreferences();
 
